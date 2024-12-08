@@ -28,6 +28,8 @@ import Banner from '../svg/missionBanner.svg';
 import MissionLogo from '../svg/missionLogo.svg';
 import SquareTick from '../svg/tickSquare.svg';
 import Salesforce from '../svg/salesforce.svg';
+import Splunk from '../svg/splunk.svg'
+
 
 
 export default function Hero() {
@@ -124,48 +126,83 @@ export default function Hero() {
           my={8}
         /> */}
       {/* Leadership Section */}
-      <Box mb={12}>
-        <Heading as="h2" size="xl" mb={8} textAlign="center">
-          Our Leadership Team
-        </Heading>
-        <SimpleGrid columns={{ base: 1, md: 1,sm:1 }} spacing={10}>
-          {leaders.map((leader, index) => (
-            <Box key={index}>
-              <VStack spacing={6} align="start">
-                <Image
-                  src={leader.image}
-                  alt={leader.name}
-                  borderRadius="lg"
-                  w="full"
-                  mb={4}
-                />
-                <Box bg="black" color="white" p={4} borderRadius="md" border="1px" borderColor="gray.200">
-                  <Text fontWeight="bold" textAlign="center">
-                    Where Trust Meets Innovation
-                  </Text>
-                </Box>
-                <Heading as="h3" fontSize={{ base: "2xl", md: "3xl" }} fontStyle="italic" mb={2}>
-                  {leader.name}
-                </Heading>
-                <Text fontSize="sm" color="gray.600" mb={4}>
-                  {leader.title}
-                </Text>
-                <Text fontSize="sm" mb={4}>
-                  {leader.description}
-                </Text>
-                <Box bg="gray.100" p={4} borderRadius="md">
-                  <Text fontSize="xs" mb={2}>Ex-Leadership at</Text>
-                  <Flex gap={4}>
-                    {leader.technologies.map((tech, i) => (
-                      <Icon key={i} as={tech} boxSize={5} />
-                    ))}
-                  </Flex>
-                </Box>
-              </VStack>
+      <Box mb={20} mx={{md:'6vh',base:'0.5vh',sm:'2vh'}}>
+  <Heading 
+    fontSize={{ base: "3xl", md: "5xl" }} 
+    mb={12}
+    textAlign="left"
+  >
+    Our Leadership Team
+  </Heading>
+
+  <VStack spacing={16} align="stretch">
+    {leaders.map((leader, index) => (
+      <Box key={index} w="100%">
+        <Box display="flex" flexDirection="column" gap={8}>
+          {/* Name and Title */}
+          <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
+          <Heading 
+              fontSize={'14.2vh'} 
+              fontStyle="italic"
+              fontWeight="700"
+              lineHeight="1"
+            >
+              {leader.name.split(' ')[0]} <br />
+              {leader.name.split(' ')[1]}
+            </Heading>
+            <Box gap={'3.56vh'} display={'flex'} p={'12'} flexDirection={'column'} bg={'#1C1C1C'} borderRadius={'2rem'}>
+               <Text color={'#FFFFFF'} fontWeight={'700'} lineHeight={'3.33vh'} fontSize={'2.22vh'}>{leader.title}</Text>
+               <HStack gap={'3.5vh'}>
+               {leader.companies.map((company, i) => (
+                  <Image 
+                    key={i} 
+                    src={company} 
+                    alt="Company Logo" 
+                    h={{ base: "20px", md: "62px" }}
+                    w={{base:'',md:'62px'}}
+                  />
+                ))}
+               </HStack>
             </Box>
-          ))}
-        </SimpleGrid>
+            {/* <Text 
+              fontSize={{ base: "sm", md: "md" }} 
+              color="gray.600"
+              mt={2}
+            >
+              {leader.title}
+            </Text> */}
+          </Box>
+
+          <HStack>
+            <VStack flex={1}>
+               <Text fontWeight={'700'} lineHeight={'28px'} fontSize={'2.22vh'}>{leader.title}</Text>
+            </VStack>
+            <VStack flex={1} justifyContent={'center'} alignItems={'center'}>
+            <Image 
+                src={leader.image} 
+                alt={leader.name}
+                borderRadius="xl"
+                w="50%"
+                aspectRatio={'290/328'}
+                objectFit="cover"
+              />
+            </VStack>
+            <VStack flex={1} justifyContent={'center'} alignItems={'center'} textAlign={'left'}>
+              <Text color={'#323232'} fontWeight={'400'} lineHeight={'3.3vh'} fontSize={'2.22vh'}>
+              With over a decade of leadership at Google, Microsoft, and Splunk, Manish brings unmatched expertise in AI, machine learning, and data-driven innovation. His vision drives Hu$$h’s mission to empower investors with sustainable, technology-powered wealth strategies.
+              </Text>
+            </VStack>
+          </HStack>
+        
+      
+
+          
+        </Box>
       </Box>
+    ))}
+  </VStack>
+</Box>
+
 
       {/* CTA Section */}
       <VStack spacing={6} mb={8}>
@@ -233,13 +270,13 @@ const leaders = [
     title: "Founder & CEO",
     image: Manish,
     description: "With over a decade of leadership at Google, Microsoft, and Splunk...",
-    technologies: [GoogleIcon, Microsoft, SiSplunk],
+    companies: [GoogleIcon, Microsoft, Splunk],
   },
   {
     name: "Justin Donaldson",
     title: "Chief Scientist & Investment Strategist",
     image: Justin,
     description: "Leading the development of our strategic investment approaches...",
-    technologies: [FaGoogle, FaMicrosoft, SiSplunk],
+    companies: [Capa, Salesforce, BigMl],
   },
 ];
