@@ -97,7 +97,7 @@ export default function Hero() {
       </HStack>
 
       <HStack minH={'100vh'} spacing={8} display={'flex'} flexDirection={'row'} gap={{md:'2rem',sm:'1rem',base:'0.5rem'}} align="start"  mb={12} fontWeight={'400'}>
-        <Image src={ChasingMoney} flex={1} w={{ base: "180px", md: "400px",sm:'200px' }} height={{ base: "280px", md: "400px",sm:'200px' }} alt="Money Investment in Hushh"/>
+        <Image src={ChasingMoney} flex={1} w={{ base: "180px", md: "400px",sm:'200px' }} height={{ base: "280px", md: "400px",sm:'400px' }} alt="Money Investment in Hushh"/>
         <VStack flex={1} spacing={6} w="full" align="start">
           {features2.map((feature, index) => (
             <Box 
@@ -110,7 +110,7 @@ export default function Hero() {
             >
               {/* <Icon as={SquareTick} boxSize={5} color="black" mr={2} /> */}
                 <Image src={SquareTick} alt="List items" style={{marginTop:'4px'}}/>
-                <Text fontSize={{md:'20px',sm:'11px',base:'5.5px'}} lineHeight={{md:'30px',sm:'16.5px',base:'7.17px'}} fontWeight="400" mb={1}>
+                <Text fontSize={{md:'20px',sm:'10px',base:'5px'}} lineHeight={{md:'30px',sm:'16.5px',base:'7.17px'}} fontWeight="400" mb={{md:'1',base:'0',sm:'0'}}>
                   <span style={{fontWeight:'700'}}>{feature.title}:</span>  {feature.description}
                 </Text>
                 
@@ -126,7 +126,7 @@ export default function Hero() {
           my={8}
         /> */}
       {/* Leadership Section */}
-      <Box mb={20} mx={{md:'6vh',base:'0.5vh',sm:'2vh'}}>
+      <Box mb={20} mx={{md:'12vh',base:'0.5vh',sm:'2vh'}}>
   <Heading 
     fontSize={{ base: "3xl", md: "5xl" }} 
     mb={12}
@@ -142,7 +142,7 @@ export default function Hero() {
           {/* Name and Title */}
           <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
           <Heading 
-              fontSize={'14.2vh'} 
+              fontSize={{md:'14.2vh',base:'4vh',sm:'8vh'}} 
               fontStyle="italic"
               fontWeight="700"
               lineHeight="1"
@@ -150,8 +150,8 @@ export default function Hero() {
               {leader.name.split(' ')[0]} <br />
               {leader.name.split(' ')[1]}
             </Heading>
-            <Box gap={'3.56vh'} display={'flex'} p={'12'} flexDirection={'column'} bg={'#1C1C1C'} borderRadius={'2rem'}>
-               <Text color={'#FFFFFF'} fontWeight={'700'} lineHeight={'3.33vh'} fontSize={'2.22vh'}>{leader.title}</Text>
+            <Box gap={'3.56vh'} display={'flex'} p={{md:'12',base:'3',sm:'6'}} flexDirection={'column'} bg={'#1C1C1C'} borderRadius={'2rem'}>
+               <Text color={'#FFFFFF'} fontWeight={'700'} lineHeight={'3.33vh'} fontSize={{md:'2.22vh',sm:'1.8vh',base:'1vh'}}>{leader.title}</Text>
                <HStack gap={'3.5vh'}>
                {leader.companies.map((company, i) => (
                   <Image 
@@ -164,17 +164,10 @@ export default function Hero() {
                 ))}
                </HStack>
             </Box>
-            {/* <Text 
-              fontSize={{ base: "sm", md: "md" }} 
-              color="gray.600"
-              mt={2}
-            >
-              {leader.title}
-            </Text> */}
           </Box>
 
-          <HStack>
-            <VStack flex={1}>
+          <HStack gap={'0'}>
+            <VStack flex={1} textAlign={'left'} alignItems={'flex-start'}>
                <Text fontWeight={'700'} lineHeight={'28px'} fontSize={'2.22vh'}>{leader.title}</Text>
             </VStack>
             <VStack flex={1} justifyContent={'center'} alignItems={'center'}>
@@ -188,7 +181,7 @@ export default function Hero() {
               />
             </VStack>
             <VStack flex={1} justifyContent={'center'} alignItems={'center'} textAlign={'left'}>
-              <Text color={'#323232'} fontWeight={'400'} lineHeight={'3.3vh'} fontSize={'2.22vh'}>
+              <Text color={'#323232'} fontWeight={'400'} lineHeight={'3.3vh'} fontSize={{md:'2.22vh',sm:'1.6vh',base:'1vh'}}>
               With over a decade of leadership at Google, Microsoft, and Splunk, Manish brings unmatched expertise in AI, machine learning, and data-driven innovation. His vision drives Hu$$h’s mission to empower investors with sustainable, technology-powered wealth strategies.
               </Text>
             </VStack>
