@@ -1,5 +1,5 @@
 .career-container {
-    max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 2rem;
     min-height: 100vh;
@@ -11,6 +11,14 @@
     flex: 1;
   }
   
+  @media (min-width: 1024px) { /* Adjust the min-width as needed for your desktop breakpoint */
+    .career-content {
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+}
+
+
   .career-title {
     font-size: 2.5rem;
     font-weight: bold;

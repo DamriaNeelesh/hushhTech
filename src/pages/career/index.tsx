@@ -6,9 +6,9 @@ import './Career.css';
 
 const CareerList = () => {
   return (
-    <div className="career-container">
+    <div className="career-container" >
       <div className="career-content">
-        <h1 className="career-title">Jobs</h1>
+        <h1 className="career-title">Hushh Jobs</h1>
         
         {Object.entries(careers).map(([department, jobs]) => (
           <div key={department} className="department-section">
