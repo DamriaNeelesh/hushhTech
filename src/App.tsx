@@ -11,6 +11,7 @@ import Consumers from './pages/services/consumers';
 import Business from './pages/services/business';
 import Signup from './pages/Signup';
 import Faq from './pages/faq';
+import Career from './pages/career';
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
           <Route path='/services/business' element={<Business/>}/>
           <Route path='/Signup' element={<Signup/>}/>
           <Route path='/faq' element={<Faq/>}/>
+          <Route path="/career" element={<Career/>} />
+          <Route path="/career/*" element={<Career />} />
+
         </Routes>
         <Footer />
       </div>

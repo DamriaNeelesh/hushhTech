@@ -82,12 +82,12 @@ export default function Navbar() {
             </Menu> */}
 
             {/* Careers Link */}
-            <button
-              onClick={openInNewTab}
+            <Link
+              to="/career"
               className="px-3 py-2 text-gray-700 hover:text-gray-900"
             >
               Careers
-            </button>
+            </Link>
 
             {/* Contact Link */}
             <Link
@@ -184,15 +184,12 @@ export default function Navbar() {
               </Menu> */}
 
               {/* Careers & Contact */}
-              <button
-                onClick={() => {
-                  openInNewTab();
-                  toggleDrawer();
-                }}
+              <Link
+                to="/career"
                 className="block text-lg font-semibold text-gray-700"
               >
                 Careers
-              </button>
+              </Link>
               <Link
                 to="/contact"
                 onClick={toggleDrawer}

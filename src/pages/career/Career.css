@@ -1,0 +1,280 @@
+.career-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .career-content {
+    flex: 1;
+  }
+  
+  .career-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+  
+  .department-section {
+    margin-bottom: 2.5rem;
+  }
+  
+  .department-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #871f23;
+    margin-bottom: 1rem;
+  }
+  
+  .job-listing {
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .job-title {
+    font-size: 1.2rem;
+    color: #0066cc;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .job-title:hover {
+    text-decoration: underline;
+  }
+  
+  .job-location {
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .career-footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .disclaimer {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: #888;
+  }
+
+  /* Add these to your existing CSS */
+.file-info {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.5rem;
+  }
+  
+  .form-group input[type="file"] {
+    padding: 0.5rem 0;
+  }
+  
+  /* Style for required fields */
+  .form-group label::after {
+    content: " *";
+    color: #ff0000;
+  }
+  
+  .form-group label:not([for^="coverLetter"])::after {
+    content: " *";
+    color: #ff0000;
+  }
+/* Add to your existing CSS */
+
+.job-details-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.job-details-title {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.job-details-location {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.salary-range {
+  background: #f5f5f5;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+
+.responsibilities-section,
+.qualifications-section {
+  margin: 2rem 0;
+}
+
+.responsibilities-section h3,
+.qualifications-section h3 {
+  color: #444;
+  margin-bottom: 1rem;
+}
+
+.responsibilities-section ul,
+.qualifications-section ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.responsibilities-section li,
+.qualifications-section li {
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.apply-button {
+  background: #0066cc;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.apply-button:hover {
+  background: #0052a3;
+}
+
+.application-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.application-form-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 1rem;
+  background: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-button:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+
+
+/* Add to your existing CSS */
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    margin-bottom: 2rem;
+    background: none;
+    border: none;
+    color: #0066cc;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .back-button:hover {
+    text-decoration: underline;
+  }
+  
+  .job-details-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .job-details-title {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  .job-details-location {
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+
+  /* Add to your existing CSS */
+.input-help {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.25rem;
+    font-style: italic;
+  }
+  
+  .form-group input[type="url"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .form-group input[type="url"]:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+  }
+  
+  .form-group input[type="url"]::placeholder {
+    color: #aaa;
+  }
