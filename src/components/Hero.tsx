@@ -167,8 +167,11 @@ export default function Hero() {
           </Box>
 
           <HStack gap={'0'}>
-            <VStack flex={1} textAlign={'left'} alignItems={'flex-start'}>
+            <VStack  flex={1} textAlign={'left'} flexDirection={'column'} justifyContent={'space-between'} alignItems={'flex-start'}>
                <Text fontWeight={'700'} lineHeight={'28px'} fontSize={'2.22vh'}>{leader.title}</Text>
+               <Box bg={'#1C1C1C'} borderRadius={'1rem'}>
+                   <Text py={{md:'2',base:'0.5',sm:'1'}} px={{md:'4',base:'1',sm:'2'}} color={'#FFFFFF'} fontWeight={'600'} fontSize={{md:'2rem',base:'0.65rem',sm:'1.25rem'}} lineHeight={{md:'54px',base:'24px',sm:'38px'}}>Where Trust Meets Innovation</Text>
+               </Box>
             </VStack>
             <VStack flex={1} justifyContent={'center'} alignItems={'center'}>
             <Image 
