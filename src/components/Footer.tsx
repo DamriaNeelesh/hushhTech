@@ -50,7 +50,7 @@ export default function Footer() {
               {/* Updated Links with download functionality */}
               <a
                 onClick={() =>
-                  handleDownload("../../public/History_and_Milestone.pdf")
+                  handleDownload("https://drive.google.com/file/d/1OKCfvFrZG9vqDgf4SNEHJ0sb5rc0oNWE/view?usp=sharing")
                 }
                 className="hover:text-gray-600 cursor-pointer"
               >
@@ -59,7 +59,7 @@ export default function Footer() {
               <a
                 onClick={() =>
                   handleDownload(
-                    "../../public/Strategy_and_Profit_Projection.pdf"
+                    "https://drive.google.com/file/d/1p9ZzyADuJzR9wWpGyI6BEcf-2ool_W3b/view?usp=sharing"
                   )
                 }
                 className="hover:text-gray-600 cursor-pointer"
@@ -73,7 +73,7 @@ export default function Footer() {
               <a
                 className="hover:text-gray-600"
                 onClick={() =>
-                  handleDownload("../../public/letter_to_shareholder.pdf")
+                  handleDownload("https://drive.google.com/file/d/1S1On2qBqgeu2k9Qru9B0qmYBqMAIwOTs/view?usp=sharing")
                 }
               >
                 Letter to Shareholders
