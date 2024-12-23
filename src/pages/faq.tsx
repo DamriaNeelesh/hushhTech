@@ -3,7 +3,7 @@ import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 const faqs = [
   {
-    question: "How does hushh 🤫 Technologies ensure its investment strategies align with long-term value creation?",
+    question: "How does hushh Technologies ensure its investment strategies align with long-term value creation?",
     answer: `At hushh, we’re playing the long game. Every strategy we deploy is designed with sustainability in mind. We don’t just focus on short-term gains or trendy assets. Instead, we ground ourselves in businesses with robust cash flows, a strong competitive advantage, and a clear path for compounding growth. Our approach is built on options income, volatility capture, and disciplined dividend reinvestment in market leaders. It’s about making smart, calculated moves that allow us to grow steadily over time, and all our models are built to withstand a variety of market conditions. In short, we’re not interested in chasing the next big thing—we’re here to build something that lasts.`
   },
   {

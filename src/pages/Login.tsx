@@ -33,7 +33,7 @@ export default function Login() {
         {/* Logo */}
         <Link to="/" className="flex items-center justify-center mb-16">
           <BarChart className="h-8 w-8 text-white mr-2" />
-          <span className="text-2xl text-white">Hushh 🤫 Technologies LLC</span>
+          <span className="text-2xl text-white">Hushh Technologies LLC</span>
         </Link>
 
         {/* Login Form */}
@@ -126,7 +126,7 @@ export default function Login() {
 
           <div className="mt-8 space-y-4">
             <div className="text-sm text-gray-700">
-              This Hushh 🤫 Technologies LLC Technologies website
+              This Hushh Technologies LLC Technologies website
               (www.hushhtech.com) is by invitation only.
             </div>
             <ul className="text-sm text-gray-700 space-y-2 list-disc pl-5">
@@ -136,7 +136,7 @@ export default function Login() {
               </li>
               <li>
                 If you have not received an invitation, and think you should
-                have, please contact your Hushh 🤫 Technologies LLC
+                have, please contact your Hushh Technologies LLC
                 representative.
               </li>
             </ul>

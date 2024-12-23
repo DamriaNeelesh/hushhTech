@@ -117,7 +117,7 @@ export default function Philosophy() {
       <section className="text-center">
         <h2 className="text-2xl md:text-3xl font-bold mb-6">Join <span className="text-red-600">Us</span></h2>
         <p className="mb-8">
-          Whether you're an individual or an institution, Hushh 🤫 Technologies LLC invites you to join us on our journey.
+          Whether you're an individual or an institution, Hushh Technologies LLC invites you to join us on our journey.
         </p>
         <div className="flex justify-center">
           <a  href="https://www.linkedin.com/in/manishsainani/"  target="_blank"

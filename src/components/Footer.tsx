@@ -40,7 +40,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-2 gap-8">
           <div>
             <h3 className="text-xl font-bold mb-4">USA</h3>
-            <p>Hushh 🤫 Technologies LLC</p>
+            <p>Hushh Technologies LLC</p>
             <p>1021 5th St W, Kirkland, WA 98033</p>
             <p>+1 (765) 532-4284</p>
             <p>Office Hours : 10:00 AM- 7:00 PM</p>
@@ -85,7 +85,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-8 text-sm text-gray-400">
-          <p>© 2024 Hushh 🤫 Technologies LLC. All Rights Reserved.</p>
+          <p>© 2024 Hushh Technologies LLC. All Rights Reserved.</p>
           <p className="mt-2">
             The materials on this website are for illustration and discussion
             purposes only and do not constitute an offering. An offering may be

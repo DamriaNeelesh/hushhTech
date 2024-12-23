@@ -31,7 +31,7 @@ export default function Leadership() {
       <section className="text-center mb-12">
         <h2 className="text-xl md:text-3xl font-bold mb-4">Unique Approach to Investment Management</h2>
         <p className="text-base md:text-lg mb-4">
-          At <span className="font-semibold">Hushh 🤫 Technologies</span>, we combine the art of investment with the science of technology:
+          At <span className="font-semibold">Hushh Technologies</span>, we combine the art of investment with the science of technology:
         </p>
         <ul className="list-disc list-inside text-left mx-auto max-w-3xl space-y-2">
           <li>
@@ -56,7 +56,7 @@ export default function Leadership() {
       <div className="text-center mb-12">
         <h2 className="text-xl md:text-3xl font-bold mb-6">Our Leadership Team</h2>
         <p className="text-md md:text-xl font-semibold mb-6">
-          At Hussh 🤫 Technologies LLC, our leadership team combines expertise in technology, finance, and strategy to redefine wealth creation. Together, they bring innovation, precision, and integrity to every investment decision.
+          At Hushh Technologies LLC, our leadership team combines expertise in technology, finance, and strategy to redefine wealth creation. Together, they bring innovation, precision, and integrity to every investment decision.
         </p>
 
         {/* Manish Sainani */}
@@ -88,7 +88,7 @@ export default function Leadership() {
       <section className="text-center mb-12">
         <h2 className="text-xl md:text-3xl font-bold mb-4">Join <span className="text-red-600">Us</span></h2>
         <p className="text-base md:text-lg mb-4">
-          Whether you're an individual or an institution, Hushh 🤫 Technologies LLC invites you to join us on our journey.
+          Whether you're an individual or an institution, Hushh Technologies LLC invites you to join us on our journey.
         </p>
       </section>
     </div>
