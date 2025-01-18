@@ -20,10 +20,10 @@ const JobDetails = () => {
         <p className="job-details-location">{job.location}</p>
         
         {job.salary && (
-          <div className="salary-range">
-            <h3>Salary Range</h3>
-            <p>{job.salary}</p>
-          </div>
+          <div className="salary-range flex flex-row">
+          <h3>Salary Range :</h3>
+          <p>{job.salary ? job.salary : "Not Disclosed"}</p>
+        </div>
         )}
 
         <div className="responsibilities-section">
@@ -43,6 +43,18 @@ const JobDetails = () => {
             ))}
           </ul>
         </div>
+
+              {/* Render Leadership Principles if available */}
+        {job.leadershipPrinciples && job.leadershipPrinciples.length > 0 && (
+          <div className="leadership-principles-section mb-4">
+            <h3 className="section-title">Leadership Principles</h3>
+            <ul className="list-disc pl-5">
+              {job.leadershipPrinciples.map((principle, index) => (
+                <li key={index}>{principle}</li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <button 
           className="apply-button"

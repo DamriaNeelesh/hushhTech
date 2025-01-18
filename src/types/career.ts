@@ -1,4 +1,5 @@
 export interface JobPosition {
+    leadershipPrinciples: string;
     id: string;
     title: string;
     location: string;
