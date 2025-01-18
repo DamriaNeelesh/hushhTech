@@ -126,7 +126,7 @@ export const careers : DepartmentJobs = {
     {
       id: "lead-ai-ml-engineer",
       title: "Lead AI/ML Engineer (Voice & Predictive Models)",
-      location: "Kirkland, WA (Hybrid/Remote options available)",
+      location: "Pune, India",
       salary: "Competitive",
       responsibilities: [
         "Develop natural language processing (NLP) models for voice recognition and interaction.",
@@ -147,7 +147,7 @@ export const careers : DepartmentJobs = {
     {
       id: "full-stack-engineer",
       title: "Full-Stack Engineer (Web, Mobile & API)",
-      location: "Kirkland, WA (Hybrid/Remote options available)",
+      location: "Pune, India",
       salary: "Competitive",
       responsibilities: [
         "Build user-facing web and mobile applications with a focus on voice-first experiences.",
@@ -168,7 +168,7 @@ export const careers : DepartmentJobs = {
     {
       id: "quantitative-developer",
       title: "Quantitative Developer (Optimization & Risk Models)",
-      location: "Kirkland, WA (Hybrid/Remote options available)",
+      location: "Pune, India",
       salary: "Competitive",
       responsibilities: [
         "Design and implement algorithms for portfolio optimization and hedging strategies.",
@@ -189,7 +189,7 @@ export const careers : DepartmentJobs = {
     {
       id: "data-engineer",
       title: "Data Engineer (Scalable Data Pipelines)",
-      location: "Kirkland, WA (Hybrid/Remote options available)",
+      location: "Pune, India",
       salary: "Competitive",
       responsibilities: [
         "Design and maintain ETL pipelines for real-time financial data ingestion.",
@@ -210,7 +210,7 @@ export const careers : DepartmentJobs = {
     {
       id: "devops-engineer",
       title: "DevOps Engineer (Infrastructure & Reliability)",
-      location: "Kirkland, WA (Hybrid/Remote options available)",
+      location: "Pune, India",
       salary: "Competitive",
       responsibilities: [
         "Automate deployment pipelines and ensure high system reliability.",
@@ -231,7 +231,7 @@ export const careers : DepartmentJobs = {
     {
       id: "voice-ui-ux-designer",
       title: "Voice UI/UX Designer (Conversational Experiences)",
-      location: "Kirkland, WA (Hybrid/Remote options available)",
+      location: "Pune, India",
       salary: "Competitive",
       responsibilities: [
         "Design voice-first user flows and conversational interfaces.",
@@ -252,7 +252,7 @@ export const careers : DepartmentJobs = {
     {
       id: "team-lead",
       title: "Team Lead (Engineering Manager)",
-      location: "Kirkland, WA (Hybrid/Remote options available)",
+      location: "Pune, India",
       salary: "Competitive",
       responsibilities: [
         "Lead and mentor the team to deliver Hushh PDA on time and with quality.",
