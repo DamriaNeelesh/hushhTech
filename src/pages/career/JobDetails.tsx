@@ -66,6 +66,7 @@ const JobDetails = () => {
         {showForm && (
           <ApplicationForm 
             jobTitle={job.title}
+            jobLocation = {job.location}
             onClose={() => setShowForm(false)}
           />
         )}

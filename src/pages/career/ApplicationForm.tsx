@@ -5,10 +5,11 @@ import 'react-phone-input-2/lib/style.css';
 
 interface ApplicationFormProps {
   jobTitle: string;
+  jobLocation: string,
   onClose: () => void;
 }
 
-const ApplicationForm = ({ jobTitle, onClose }: ApplicationFormProps) => {
+const ApplicationForm = ({ jobTitle,jobLocation, onClose }: ApplicationFormProps) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -42,6 +43,7 @@ const ApplicationForm = ({ jobTitle, onClose }: ApplicationFormProps) => {
           from_email: formData.email,
           phone: formData.phone,
           position: jobTitle,
+          location: jobLocation, // Add job location here
           resume_link: formData.resumeLink,
           cover_letter_link: formData.coverLetterLink || 'Not provided'
         },

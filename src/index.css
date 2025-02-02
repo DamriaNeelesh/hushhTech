@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.hushh-gradient {
+    background: linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%);
+    -webkit-background-clip: text;
+    color: transparent;
+    border-color: linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%);
+  }
