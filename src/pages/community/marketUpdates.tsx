@@ -3,7 +3,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Heading, Text, UnorderedL
 
 const MarketUpdates = () => {
   return (
-    <Box p={{ base: 4, md: 8 }}>
+    <Box p={{ base: 2, md: 8 }}>
       <Tabs variant="enclosed" colorScheme="blue">
         <TabList>
           <Tab>Market Updates</Tab>
