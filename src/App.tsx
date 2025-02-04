@@ -12,7 +12,7 @@ import Business from './pages/services/business';
 import Signup from './pages/Signup';
 import Faq from './pages/faq';
 import Career from './pages/career';
-import MarketUpdates from './pages/community/marketUpdates';
+import CommunitySection from './pages/community/communityUpdates';
 
 function App() {
   return (
@@ -32,7 +32,7 @@ function App() {
           <Route path='/faq' element={<Faq/>}/>
           <Route path="/career" element={<Career/>} />
           <Route path="/career/*" element={<Career />} />
-          <Route path="/community" element={<MarketUpdates />} />
+          <Route path="/community" element={<CommunitySection />} />
         </Routes>
         <Footer />
       </div>
