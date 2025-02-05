@@ -1,16 +1,36 @@
-import resources from "../../resources/resources";
-export default async function googleSignIn() {
-  const supabase = resources.config.supabaseClient;
-  await supabase.auth
-    .signInWithOAuth({
-      provider: "google",
+import config from '../../components/config/config';
+
+export default async function googleSignIn(setUserEmail) {
+  try {
+    console.log('Starting Google Sign-In process...');
+    const { data, error } = await config.supabaseClient.auth.signInWithOAuth({
+      provider: 'google',
       options: {
-        redirectTo: resources.config.redirect_url,
-        queryParams: {
-          access_type: "offline",
-          prompt: "select_account",
-        },
+        redirectTo: process.env.NODE_ENV === "development"
+          ? "http://localhost:5173/"
+          : "https://hushhTech.com",
       },
-    })
-    .then(() => {});
+    });
+
+    if (error) {
+      console.error('Error during Google Sign-In:', error.message);
+    } else {
+      const user = data?.user || (await config.supabaseClient.auth.getUser()).data.user;
+      if (user) {
+        setUserEmail(user.email); // Capture and set the user's email
+      }
+    }
+  } catch (error) {
+    console.error('Unexpected error during Google Sign-In:', error);
+  }
 }
+
+
+
+
+
+
+
+
+
+

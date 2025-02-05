@@ -107,7 +107,7 @@ export default function Login() {
             </button>
 
             <button
-              type="submit"
+              type="button"
               className="w-full flex justify-center gap-4 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
               onClick={() => {
                 services.authentication.googleSignIn();
