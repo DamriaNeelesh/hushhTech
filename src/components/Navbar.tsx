@@ -1,35 +1,30 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
-import services from "../services/services";
+import config from "../resources/config/config";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [session, setSession] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
   const drawerRef = useRef(null);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   useEffect(() => {
-    const checkIfClickedOutside = (e) => {
-      if (isOpen && drawerRef.current && !drawerRef.current.contains(e.target)) {
-        setIsOpen(false);
-      }
-    };
+    // Fetch the current session
+    config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
 
-    document.addEventListener("mousedown", checkIfClickedOutside);
-    return () => document.removeEventListener("mousedown", checkIfClickedOutside);
-  }, [isOpen]);
+    // Listen for auth state changes
+    const {
+      data: { subscription },
+    } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!isLoggedIn) {
-        services.authentication.isLoggedIn(setIsLoggedIn);
-      }
-    }, 10);
-    return () => clearInterval(interval);
-  }, [isLoggedIn]);
+    return () => subscription.unsubscribe();
+  }, []);
 
   const toggleDrawer = () => setIsOpen((prev) => !prev);
   const handleLinkClick = (path) => {
@@ -69,12 +64,12 @@ export default function Navbar() {
               </Link>
             ))}
 
-            {!isLoggedIn ? (
+            {!session ? (
               <button onClick={() => navigate("/Login")} className="bg-black text-white px-4 py-2 rounded">
                 Log In
               </button>
             ) : (
-              <button onClick={() => services.authentication.signOut()} className="bg-black text-white px-4 py-2 rounded">
+              <button onClick={() => config.supabaseClient.auth.signOut()} className="bg-black text-white px-4 py-2 rounded">
                 Log Out
               </button>
             )}
@@ -110,12 +105,21 @@ export default function Navbar() {
                 </Link>
               ))}
 
-              <button
-                onClick={() => handleLinkClick("/Login")}
-                className="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800"
-              >
-                Log In
-              </button>
+              {!session ? (
+                <button
+                  onClick={() => handleLinkClick("/Login")}
+                  className="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800"
+                >
+                  Log In
+                </button>
+              ) : (
+                <button
+                  onClick={() => config.supabaseClient.auth.signOut()}
+                  className="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800"
+                >
+                  Log Out
+                </button>
+              )}
             </div>
           </div>
         </div>

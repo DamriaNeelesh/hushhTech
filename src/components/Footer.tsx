@@ -1,35 +1,35 @@
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import services from "../services/services";
+import config from "../resources/config/config";
 
 export default function Footer() {
-  // Check if the user is logged in
-  let [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  useEffect(() => {
-    const intervalId = setInterval(async () => {
-      if (!isLoggedIn) {
-        setIsLoggedIn(await services.authentication.isLoggedIn(null));
-      }
-      setIsLoggedIn(true)
-    }, 10000); // Adjust the interval time as needed
-  
-    return () => clearInterval(intervalId); // Cleanup on unmount
-  }, []);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    console.log(isLoggedIn);
-  }, [isLoggedIn]);
+    // Fetch the current session
+    config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
+      setIsLoggedIn(!!session);
+    });
+
+    // Listen for auth state changes
+    const {
+      data: { subscription },
+    } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   // Function to handle PDF download
-  const handleDownload = (pdfPath: any) => {
+  const handleDownload = (pdfPath: string) => {
     if (isLoggedIn) {
-    
       const link = document.createElement("a");
       link.href = pdfPath;
-      link.download = pdfPath.split("/").pop();
+      link.download = pdfPath.split("/").pop() || "download";
       link.click();
     } else {
-    
       toast.error("Please log in first to access this content.");
     }
   };
@@ -43,7 +43,7 @@ export default function Footer() {
             <p>Hushh 🤫 Technologies LLC</p>
             <p>1021 5th St W, Kirkland, WA 98033</p>
             <p>+1 (765) 532-4284</p>
-            <p>Office Hours : 10:00 AM- 7:00 PM</p>
+            <p>Office Hours : 10:00 AM- 7:00 PM</p>
           </div>
           <div className="text-left flex items-end justify-end">
             <div className="flex text-sm space-x-6 space-y-2 text-gray-400 flex-col text-right">
@@ -66,12 +66,8 @@ export default function Footer() {
               >
                 Strategy and Profit Projection
               </a>
-              {/* <a href="/privacy-policy" className="hover:text-gray-600">Privacy Policy</a> */}
-              {/* <a href="#" className="hover:text-gray-600">Portfolio and Performance</a> */}
-              {/* <a href="/brokercheck" className="hover:text-gray-600">Investor Relations</a> */}
-              {/* <a href="/support" className="hover:text-gray-600">Compliance & Legal</a> */}
               <a
-                className="hover:text-gray-600"
+                className="hover:text-gray-600 cursor-pointer"
                 onClick={() =>
                   handleDownload("https://drive.google.com/file/d/1S1On2qBqgeu2k9Qru9B0qmYBqMAIwOTs/view?usp=sharing")
                 }

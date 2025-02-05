@@ -10,9 +10,10 @@ const config = {
 };
 
 function createSupabaseClient() {
-  return createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY);
+  const supabase = createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY);
+  return supabase;
 }
 
-const supabaseClient = createSupabaseClient();
+config.supabaseClient = createSupabaseClient();
 
-export default { ...config, supabaseClient };
+export default config;
