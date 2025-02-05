@@ -12,7 +12,12 @@ import Business from './pages/services/business';
 import Signup from './pages/Signup';
 import Faq from './pages/faq';
 import Career from './pages/career';
-import CommunitySection from './pages/community/communityUpdates';
+import Community from './pages/community';
+import CommunityList from './pages/community/communityList';
+import CommunityPost from './pages/community/communityPost';
+import { getPosts } from './lib/posts';
+
+const posts = getPosts();
 
 function App() {
   return (
@@ -32,7 +37,12 @@ function App() {
           <Route path='/faq' element={<Faq/>}/>
           <Route path="/career" element={<Career/>} />
           <Route path="/career/*" element={<Career />} />
-          <Route path="/community" element={<CommunitySection />} />
+          <Route path="/community" element={<CommunityList posts={posts} />} />
+            {/* Catch-all route for dynamic posts (e.g. /community/market/2025-01-28-daily-market-update) */}
+            <Route
+              path="/community/*"
+              element={<CommunityPost posts={posts} />}
+            />
         </Routes>
         <Footer />
       </div>
