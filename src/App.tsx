@@ -14,7 +14,7 @@ import Faq from './pages/faq';
 import Career from './pages/career';
 import Community from './pages/community';
 import CommunityList from './pages/community/communityList';
-import CommunityPost from './pages/community/communityPost';
+import CommunityPost from './pages/community/[[slug]]';
 import { getPosts } from './lib/posts';
 
 const posts = getPosts();
@@ -39,10 +39,7 @@ function App() {
           <Route path="/career/*" element={<Career />} />
           <Route path="/community" element={<CommunityList posts={posts} />} />
             {/* Catch-all route for dynamic posts (e.g. /community/market/2025-01-28-daily-market-update) */}
-            <Route
-              path="/community/*"
-              element={<CommunityPost posts={posts} />}
-            />
+          <Route path="/community/*" element={<CommunityPost />} />
         </Routes>
         <Footer />
       </div>

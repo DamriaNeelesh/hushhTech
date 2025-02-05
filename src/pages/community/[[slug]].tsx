@@ -1,71 +1,48 @@
-// pages/community/[[...slug]].tsx
-import { GetStaticPaths, GetStaticProps } from 'next';
 import React from 'react';
-// import Head from 'next/head';
-import { Container, Heading, Box, Text, Divider } from '@chakra-ui/react';
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
-import { serialize } from 'next-mdx-remote/serialize';
-import { getPosts, getPostBySlug, PostData } from '../../lib/posts';
+import { useParams } from 'react-router-dom';
+import { Container, Heading, Text, Box } from '@chakra-ui/react';
+import MDXRenderer from './MDXRenderer';
 
-interface PostPageProps {
-  source: MDXRemoteSerializeResult;
-  post: PostData;
-}
+const mdxFiles = import.meta.glob('../../content/posts/**/*.mdx', { eager: true });
 
-export default function PostPage({ source, post }: PostPageProps) {
-  return (
-    <>
-      {/* <Head>
-        <title>{post.title} | Community Updates | Hushh Technologies</title>
-        <meta name="description" content={post.description} />
-        <link
-          rel="canonical"
-          href={`https://yourdomain.com/community/${post.slug}`}
-        />
-      </Head> */}
-      <Container maxW="container.lg" py={8}>
-        <Heading as="h1" mb={4}>
-          {post.title}
-        </Heading>
-        <Text fontSize="sm" color="gray.500">
-          {new Date(post.date).toLocaleDateString()}
-        </Text>
-        <Divider my={4} />
-        <Box>
-          <MDXRemote {...source} />
-        </Box>
-      </Container>
-    </>
-  );
-}
+const CommunityPost = () => {
+  const { '*': slug } = useParams();
+  const postKey = Object.keys(mdxFiles).find((key) => key.includes(`${slug}.mdx`));
+  const post = mdxFiles[postKey];
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = getPosts();
-  // For each post, split the slug by '/' to form an array.
-  const paths = posts.map((post) => ({
-    params: { slug: post.slug.split('/') },
-  }));
-  return {
-    paths,
-    fallback: false,
-  };
-};
+  console.log('Post:', post); // Confirm frontmatter exists
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  // `params.slug` is an array (e.g. ["market", "2025-01-28-daily-market-update"])
-  const slugArray = params?.slug as string[];
-  // Join the array to recreate the full slug.
-  const fullSlug = slugArray.join('/');
-  const post = getPostBySlug(fullSlug);
   if (!post) {
-    return { notFound: true };
+    return (
+      <Container>
+        <Text color="red.400">Post not found for: {slug}</Text>
+      </Container>
+    );
   }
-  // Serialize the MDX content.
-  const mdxSource = await serialize(post.content, { scope: post });
-  return {
-    props: {
-      source: mdxSource,
-      post,
-    },
-  };
+
+  const frontmatter = post.frontmatter || {};
+
+  if (!frontmatter.title) {
+    return (
+      <Container>
+        <Text color="red.400">Frontmatter missing in: {slug}</Text>
+      </Container>
+    );
+  }
+
+  return (
+    <Container maxW="container.md" py={8}>
+      <Heading as="h1" mb={4} color="teal.300">
+        {frontmatter.title}
+      </Heading>
+      <Text fontSize="sm" color="gray.400">
+        {new Date(frontmatter.date).toLocaleDateString()}
+      </Text>
+      <Box mt={4} color="gray.300">
+        <MDXRenderer>{React.createElement(post.default)}</MDXRenderer>
+      </Box>
+    </Container>
+  );
 };
+
+export default CommunityPost;

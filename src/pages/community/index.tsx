@@ -1,70 +1,37 @@
-// pages/community/index.tsx
-import { GetStaticProps } from 'next';
-import React from 'react';
-import { Link } from '@chakra-ui/react';
-// import Head from 'next/head';
-import { Container, Heading, Box, Text, Flex } from '@chakra-ui/react';
-import { getPosts, PostData } from '../../lib/posts';
+import { Container, Heading, Box, Text, Link, Flex } from '@chakra-ui/react';
 
-interface CommunityProps {
-  posts: PostData[];
-}
+// Import all MDX files from all subfolders
+const mdxFiles = import.meta.glob('../../content/posts/**/*.mdx', { eager: true });
 
-export default function Community({ posts }: CommunityProps) {
+const posts = Object.entries(mdxFiles).map(([path, module]) => ({
+  slug: path.split('/posts/')[1].replace('.mdx', ''),
+  ...module.frontmatter,
+}));
+
+export default function CommunityList() {
   return (
-    <>
-      {/* <Head>
-        <title>Community Updates | Hushh Technologies</title>
-        <meta
-          name="description"
-          content="Explore the latest updates from Hushh Technologies including market updates, fund performance, product updates, and our manifesto."
-        />
-        <meta
-          name="keywords"
-          content="community updates, market updates, fund performance, product updates, manifesto, Hushh Technologies, investing, AI"
-        />
-        <link rel="canonical" href="https://yourdomain.com/community" />
-      </Head> */}
-      <Container maxW="container.lg" py={8}>
-        <Heading as="h1" mb={6} textAlign="center">
-          Community Updates
-        </Heading>
-        {posts.map((post) => (
-          <Box
-            key={post.slug}
-            p={4}
-            borderWidth="1px"
-            borderRadius="lg"
-            shadow="md"
-            mb={4}
-          >
-            <Flex justify="space-between" align="center">
-              <Heading as="h2" size="md">
-                {post.title}
-              </Heading>
-              <Text fontSize="sm" color="gray.500">
-                {new Date(post.date).toLocaleDateString()}
-              </Text>
-            </Flex>
-            <Text mt={2}>{post.description}</Text>
-            {/* Build URL using the full slug (e.g. "market/2025-01-28-daily-market-update") */}
-            <Link href={`/community/${post.slug}`}>
-              <Text mt={2} color="blue.500" cursor="pointer">
-                Read More &rarr;
-              </Text>
-            </Link>
-          </Box>
-        ))}
-      </Container>
-    </>
+    <Container maxW="container.lg" py={8}>
+      <Heading as="h1" mb={6} textAlign="center" color="teal.300">
+        Community Updates
+      </Heading>
+      {posts.map((post) => (
+        <Box key={post.slug} p={6} bg="gray.800" borderRadius="lg" mb={4}>
+          <Flex justify="space-between">
+            <Heading as="h2" size="md" color="teal.400">
+              {post.title}
+            </Heading>
+            <Text fontSize="sm" color="gray.400">
+              {new Date(post.date).toLocaleDateString()}
+            </Text>
+          </Flex>
+          <Text mt={2} color="gray.300">
+            {post.description}
+          </Text>
+          <Link href={`/community/${post.slug}`} color="teal.400" mt={2} display="block">
+            Read More →
+          </Link>
+        </Box>
+      ))}
+    </Container>
   );
 }
-
-export const getStaticProps: GetStaticProps = async () => {
-  const posts = getPosts(); // Loads posts from the /posts folder
-  return {
-    props: {
-      posts,
-    },
-  };
-};

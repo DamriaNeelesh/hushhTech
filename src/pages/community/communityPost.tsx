@@ -1,47 +1,71 @@
-// src/pages/community/CommunityPost.jsx
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Container, Heading, Box, Text, Divider } from '@chakra-ui/react';
-import PropTypes from 'prop-types';
-import { getPostBySlug } from '../../lib/posts';
+import { Container, Heading, Text, Box } from '@chakra-ui/react';
+import matter from 'gray-matter';
+import MDXRenderer from './MDXRenderer';
 
-function CommunityPost({ posts }) {
-  // The route should be defined so that the full slug is captured in one parameter.
-  // For example, we can set up the route as "/community/*" in App.jsx,
-  // and then use useParams() to get the wildcard parameter.
+// Import compiled MDX modules (as React components)
+const mdxModules = import.meta.glob('../../content/posts/**/*.mdx', { eager: true });
+// Import raw MDX content as strings for frontmatter parsing
+const rawModules = import.meta.glob('../../content/posts/**/*.mdx', { eager: true, as: 'raw' });
+
+const CommunityPost = () => {
+  // Using a catch-all parameter so that URL like /community/market/daily-market-update works
   const { '*': slug } = useParams();
-  // Look up the post by its slug (which is "category/filename")
-  const post = getPostBySlug(slug);
-  
-  if (!post) {
+
+  // Find the matching file key that includes the slug followed by ".mdx"
+  const postKey = Object.keys(mdxModules).find((key) =>
+    key.includes(`${slug}.mdx`)
+  );
+
+  // Retrieve the compiled module and raw content for that key
+  const postModule = mdxModules[postKey];
+  const rawContent = rawModules[postKey];
+
+  console.log('Post Module:', postModule); // Check that the module exists
+
+  if (!postModule || !rawContent) {
     return (
-      <Container maxW="container.lg" py={8}>
-        <Text>Post not found.</Text>
+      <Container>
+        <Text color="red.400">Post not found for: {slug}</Text>
       </Container>
     );
   }
 
-  const PostContent = post.Content; // The MDX component
+  // Parse the raw MDX content to get frontmatter
+  let frontmatter = {};
+  try {
+    const parsed = matter(rawContent);
+    frontmatter = parsed.data;
+  } catch (error) {
+    console.error('Error parsing frontmatter:', error);
+  }
+
+  if (!frontmatter.title) {
+    return (
+      <Container>
+        <Text color="red.400">Frontmatter missing in: {slug}</Text>
+      </Container>
+    );
+  }
+
+  // Retrieve the MDX component from the module
+  const PostContent = postModule.default;
 
   return (
-    <Container maxW="container.lg" py={8}>
-      <Heading as="h1" mb={4}>
-        {post.title}
+    <Container maxW="container.md" py={8}>
+      <Heading as="h1" mb={4} color="teal.300">
+        {frontmatter.title}
       </Heading>
-      <Text fontSize="sm" color="gray.500">
-        {new Date(post.date).toLocaleDateString()}
+      <Text fontSize="sm" color="gray.400">
+        {new Date(frontmatter.date).toLocaleDateString()}
       </Text>
-      <Divider my={4} />
-      <Box>
-        {/* Render the MDX content component */}
-        <PostContent />
+      <Box mt={4} color="gray.300">
+        {/* Render the MDX component via MDXRenderer */}
+        <MDXRenderer>{<PostContent />}</MDXRenderer>
       </Box>
     </Container>
   );
-}
-
-CommunityPost.propTypes = {
-  posts: PropTypes.array.isRequired,
 };
 
 export default CommunityPost;

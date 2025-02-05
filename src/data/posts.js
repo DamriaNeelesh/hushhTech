@@ -1,7 +1,7 @@
 // src/data/posts.js
 const posts = [
     {
-      slug: "market/2025-01-28-daily-market-update",
+      slug: "market/daily-market-update",
       title: "Daily Market Update – January 28, 2025",
       date: "2025-01-28",
       description: "Daily market update with indices performance, sector highlights, and volatility trends.",
@@ -26,7 +26,7 @@ const posts = [
   The VIX remained subdued at 15.02, reflecting investor confidence.`,
     },
     {
-      slug: "funds/2025-01-28-fund-performance",
+      slug: "funds/fund-performance",
       title: "🤫 Fund Performance – January 28, 2025",
       date: "2025-01-28",
       description: "Fund performance update covering net liquidation value, transaction statistics, and strategic commentary.",
@@ -54,9 +54,9 @@ const posts = [
   The 🤫 Fund had stellar performance today, with a disciplined “Sell the Wall” strategy generating sustainable income.`,
     },
     {
-      slug: "product/2025-02-product-update",
+      slug: "product/hushh-product-update",
       title: "Product Update: Exciting New Features Coming Soon!",
-      date: "2025-02-XX",
+      date: "2025-02-02",
       description: "Announcement of upcoming product features that will revolutionize investment management and community interactions.",
       category: "product",
       content: `We are excited to announce that new product features are on the horizon!
@@ -66,7 +66,7 @@ const posts = [
     {
       slug: "manifesto/manifesto",
       title: "Hushh Technologies Manifesto",
-      date: "2025-XX-XX",
+      date: "2025-01-27",
       description: "The future of systematic AI-Driven income investing from Hushh Technologies.",
       category: "manifesto",
       content: `**The Future of Systematic AI-Driven Income Investing**
