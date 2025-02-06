@@ -17,6 +17,10 @@ import CommunityList from './pages/community/communityList';
 import CommunityPost from './pages/community/communityPost';
 import { getPosts } from './lib/posts';
 import BenefitsPage from './pages/benefits';
+import PrivacyPolicy from './pages/privacy-policy';
+import CareersPrivacyPolicy from './pages/career-privacy-policy';
+import CaliforniaPrivacyPolicy from './pages/california-privacy-policy';
+import EUUKPrivacyPolicy from './pages/eu-uk-privacy-policy';
 
 const posts = getPosts();
 
@@ -40,13 +44,18 @@ function App() {
           <Route path='/faq' element={<Faq/>}/>
           <Route path="/career" element={<Career/>} />
           <Route path="/career/*" element={<Career />} />
+          <Route path='/privacy-policy' element={<PrivacyPolicy/>}/>
+          <Route path='/carrer-privacy-policy' element={<CareersPrivacyPolicy/>}/>
           <Route path="/community" element={<CommunityList/>} />
+          <Route path='/california-privacy-policy' element={<CaliforniaPrivacyPolicy/>}/>
+          <Route path='/eu-uk-jobs-privacy-policy' element={<EUUKPrivacyPolicy/>}/>
+
             {/* Catch-all route for dynamic posts (e.g. /community/market/2025-01-28-daily-market-update) */}
             <Route path="/community/*" element={<CommunityPost />} />
             </Routes>
         <Footer />
       </div>
-    </Router>
+  </Router>
     </ChakraProvider>
   );
 }

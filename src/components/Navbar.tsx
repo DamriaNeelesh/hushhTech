@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import config from "../resources/config/config";
-import { Image, useToast, Avatar } from "@chakra-ui/react";
+import { Image, useToast, Avatar, useBreakpointValue } from "@chakra-ui/react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +12,7 @@ export default function Navbar() {
   const location = useLocation();
   const drawerRef = useRef(null);
   const toast = useToast();
+  const isMobile = useBreakpointValue({ base: true, lg: false });
 
   useEffect(() => {
     // Fetch the current session
@@ -102,12 +103,13 @@ export default function Navbar() {
                 >
                   Log Out
                 </button>
-                {/* Show user avatar after Log Out button */}
                 <Avatar
-                  src={session?.user?.user_metadata?.avatar_url || "/default-avatar.png"}
-                  name={session?.user?.email}
-                  className="w-8 h-8 rounded-full ml-4"
-                />
+  src={session?.user?.user_metadata?.avatar_url}
+  name={session?.user?.email}
+  className="w-8 h-8 rounded-full ml-4"
+  display={{ base: "none", lg: "block" }} 
+/>
+
               </>
             )}
           </div>
@@ -166,12 +168,12 @@ export default function Navbar() {
                   >
                     Log Out
                   </button>
-                  {/* Show avatar in mobile menu */}
-                  <Avatar
+                  {/* Hide avatar in mobile menu */}
+                  {/* <Avatar
                     src={session?.user?.user_metadata?.avatar_url || "/default-avatar.png"}
                     name={session?.user?.email}
                     className="w-8 h-8 rounded-full mt-4"
-                  />
+                  /> */}
                 </>
               )}
             </div>

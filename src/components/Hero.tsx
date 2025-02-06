@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import isLoggedIn from "../services/authentication/isLoggedIn";
 import { useEffect, useState } from "react";
 import services from "../services/services";
-
+import { Flex, Image } from "@chakra-ui/react";
+import HushhLogo from "./images/HushhTechlogo.png"
 export default function Hero() {
   const navigate = useNavigate();
   let [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -14,9 +15,10 @@ export default function Hero() {
   return (
     <div className="bg-black text-white min-h-[100vh] flex items-center justify-center px-4 py-12">
       <div className="max-w-7xl mx-auto text-center">
-        <div className="mb-8">
+        <Flex direction="column" align="center" mb={8}>
+         <Image src={HushhLogo} alt="Hushh logo" boxSize={'xs'}/>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-            Hushh 🤫 Technologies LLC
+            Hushh Technologies LLC
           </h1>
           <p className="text-lg md:text-xl lg:text-2xl mb-6">
             Precision in Data. Power in Investing. Purpose in Results.
@@ -44,7 +46,7 @@ export default function Hero() {
           ) : (
             <></>
           )}
-        </div>
+        </Flex>
       </div>
     </div>
   );
