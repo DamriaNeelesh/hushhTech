@@ -240,8 +240,7 @@ export const posts: PostData[] = [
   },
   {
     slug: 'general/compensation-report',
-    title:
-      'Comprehensive Report on Compensation Patterns in Pune, Maharashtra',
+    title: 'Comprehensive Report on Compensation Patterns in Pune, Maharashtra',
     publishedAt: '2025-02-06',
     description:
       'Detailed insights into compensation patterns for young professionals in Pune.',

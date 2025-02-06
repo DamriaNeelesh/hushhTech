@@ -7,9 +7,9 @@ const CompensationReport = () => {
     <Box p={5} maxW="1200px" mx="auto">
         <Image src={MarketUpdate} alt="Funds Update" mb={4} borderRadius="md" />
 
-      <Heading as="h1" size="2xl" mb={6} textAlign="center">
+      {/* <Heading as="h1" size="2xl" mb={6} textAlign="center">
         Comprehensive Report on Compensation Patterns in Pune, Maharashtra
-      </Heading>
+      </Heading> */}
 
       <VStack spacing={6} align="stretch">
         <Box>
