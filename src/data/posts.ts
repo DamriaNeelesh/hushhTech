@@ -65,129 +65,133 @@ export const posts: PostData[] = [
     slug: 'funds/fund-performance',
     title: 'Fund Performance',
     publishedAt: '2025-01-28',
-    description: 'Fund performance update covering net liquidation value, transaction statistics, and strategic commentary.',
-    category: 'funds',
+    description:
+      'Fund performance update covering net liquidation value, transaction statistics, and strategic commentary.',
+    category: 'fund updates', // updated from 'funds'
     Component: FundPerformance,
-    image: FundsUpdateImg2
+    image: FundsUpdateImg2,
   },
   {
     slug: 'market/updates',
     title: 'Market Updates',
     publishedAt: '2025-02-04',
-    description: 'Tuesday Evening Report – February 4, 2025, covering fund performance, market highlights, and insights from core holdings.',
-    category: 'funds',
+    description:
+      'Tuesday Evening Report – February 4, 2025, covering fund performance, market highlights, and insights from core holdings.',
+    category: 'market', // updated from 'funds'
     Component: MarketUpdate,
-    image: DailyMarketUpdateImg2
+    image: DailyMarketUpdateImg2,
   },
   {
     slug: 'general/manifesto',
     title: 'Hushh Technologies Manifesto',
     publishedAt: '2025-01-28',
-    description: 'Hushh Technologies Manifesto: The Future of Systematic AI-Driven Income Investing.',
+    description:
+      'Hushh Technologies Manifesto: The Future of Systematic AI-Driven Income Investing.',
     category: 'general',
     Component: Manifesto,
-    image: ManifestoImg
-
+    image: ManifestoImg,
   },
   {
     slug: 'funds/renaissance-tech',
-    title: "The 🤫 Fund – First 12 Investment Programs & Systems Inspired by Renaissance Technologies",
-    publishedAt: "2025-02-03",
-    description: 'An overview of the first 12 investment programs of The 🤫 Fund, detailing AI-driven strategies inspired by Renaissance Technologies.',
-    category: 'funds',
-    Component: RenaissanceTech,
-    image: ProductUpdate2
-
+    title:
+      "The 🤫 Fund – First 12 Investment Programs & Systems Inspired by Renaissance Technologies",
+    publishedAt: '2025-02-03',
+    description:
+      'An overview of the first 12 investment programs of The 🤫 Fund, detailing AI-driven strategies inspired by Renaissance Technologies.',
+      category: 'product updates',
+      Component: RenaissanceTech,
+    image: ProductUpdate2,
   },
   {
     slug: 'general/ai-skills-testing',
     title: 'AI Skills and Testing',
     publishedAt: '2025-03-01',
-    description: 'Exploring the importance of AI skills in the modern workplace and how to test for them.',
+    description:
+      'Exploring the importance of AI skills in the modern workplace and how to test for them.',
     category: 'general',
     Component: AISkillsTesting,
-    image:SkillTesting
-
+    image: SkillTesting,
   },
   {
     slug: 'product/product-updates',
     title: 'Product Update: Exciting New Features Coming Soon!',
     publishedAt: '2025-02-03',
-    description: 'Announcement of upcoming product features that will revolutionize investment management and community interactions.',
+    description:
+      'Announcement of upcoming product features that will revolutionize investment management and community interactions.',
     category: 'product updates',
     Component: ProductUpdates,
-    image: ProductUpdate1
-
+    image: ProductUpdate1,
   },
   {
     slug: 'investor-relations/investor-faq',
     title: '🤫 Fund Investor FAQ (Charlie Munger Caliber Edition)',
     publishedAt: '2025-02-05',
-    description: 'Comprehensive FAQ for 🤫 Fund investors, focusing on risk-adjusted returns and systematic investing.',
+    description:
+      'Comprehensive FAQ for 🤫 Fund investors, focusing on risk-adjusted returns and systematic investing.',
     category: 'investor relations',
     Component: InvestorFAQ,
-    image:InvestorsFaQImg
-
+    image: InvestorsFaQImg,
   },
   {
     slug: 'investment-strategies/sell-the-wall',
     title: 'Sell The Wall: The Hushh Way',
     publishedAt: '2025-02-10',
-    description: "An in-depth breakdown of the 'Sell The Wall' strategy inspired by Jim Simons, adapted by Hushh for modern AI-driven markets.",
+    description:
+      "An in-depth breakdown of the 'Sell The Wall' strategy inspired by Jim Simons, adapted by Hushh for modern AI-driven markets.",
     category: 'investment strategies',
     Component: SellTheWall,
-    image: HushhAiLogoImg
-
+    image: HushhAiLogoImg,
   },
   {
     slug: 'funds/hushh-technology-fund',
     title: 'Hushh Technology Fund L.P.',
     publishedAt: '2025-01-01',
-    description: 'Executive summary and key details about the Hushh Technology Fund L.P., including structure, strategy, and projections.',
+    description:
+      'Executive summary and key details about the Hushh Technology Fund L.P., including structure, strategy, and projections.',
     category: 'fund updates',
     Component: FundAtHushh,
-    image: FundsUpdateImg3
-
+    image: FundsUpdateImg3,
   },
   {
     slug: 'financial-strategies/sell-the-wall-masterclass',
     title: 'Selling the Wall – A Masterclass in Monetizing Fear and Time Decay',
     publishedAt: '2025-03-01',
-    description: 'A strategic guide to transforming market volatility into sustainable income through the Sell the Wall approach.',
+    description:
+      'A strategic guide to transforming market volatility into sustainable income through the Sell the Wall approach.',
     category: 'financial strategies',
     Component: SellTheWallMasterclass,
-    image: HushhAiLogoImg
-
+    image: HushhAiLogoImg,
   },
   {
     slug: 'investor-relations/fund-a-hushh',
     title: 'Fund A Hushh',
     publishedAt: '2025-02-05',
-    description: 'An in-depth overview of Fund A Hushh, focusing on AI-driven, risk-managed investment strategies.',
-    category: 'investor relations',
+    description:
+      'An in-depth overview of Fund A Hushh, focusing on AI-driven, risk-managed investment strategies.',
+    category: 'fund updates', // updated from 'investor relations'
     Component: FundAHushh,
-    image: FundsUpdateImg1
-
+    image: FundsUpdateImg1,
   },
   {
     slug: 'general/compensation-report',
-    title: 'Comprehensive Report on Compensation Patterns in Pune, Maharashtra',
+    title:
+      'Comprehensive Report on Compensation Patterns in Pune, Maharashtra',
     publishedAt: '2025-02-06',
-    description: 'Detailed insights into compensation patterns for young professionals in Pune.',
+    description:
+      'Detailed insights into compensation patterns for young professionals in Pune.',
     category: 'general',
     Component: CompensationReport,
-    image: DailyMarketUpdateImg3
-
+    image: DailyMarketUpdateImg3,
   },
   {
     slug: 'ecommerce/ai-ecommerce-budget',
     title: 'AI-First E-Commerce Solution for UAE Small Merchants',
     publishedAt: '2025-02-06',
-    description: 'A cost-efficient, AI-powered, scalable e-commerce solution for small merchants in the UAE.',
+    description:
+      'A cost-efficient, AI-powered, scalable e-commerce solution for small merchants in the UAE.',
     category: 'ecommerce',
     Component: AIEcommerceBudget,
-    image: ProductUpdate3
-
+    image: ProductUpdate3,
   },
   {
     slug: 'investors-faq/shared-class-explanation',
@@ -196,38 +200,37 @@ export const posts: PostData[] = [
     description: 'Understanding the Different Classes of Shares & Investor FAQ',
     category: 'investor relations',
     Component: HushhAlphaFund,
-    image: HushhAiLogoImg
-
+    image: HushhAiLogoImg,
   },
   {
     slug: 'investors-faq/subscription-agreement-a',
     title: 'Class A Subscription Agreement',
     publishedAt: '2025-02-08',
-    description: 'Confidential private offering of Class A limited partnership interests.',
+    description:
+      'Confidential private offering of Class A limited partnership interests.',
     category: 'investor relations',
     Component: SubscriptionAgreementA,
-    image:SubscriptionAgreementAImg
-
+    image: SubscriptionAgreementAImg,
   },
   {
     slug: 'investors-faq/subscription-agreement-b',
     title: 'Class B Subscription Agreement',
     publishedAt: '2025-02-09',
-    description: 'Confidential private offering of Class B limited partnership interests.',
+    description:
+      'Confidential private offering of Class B limited partnership interests.',
     category: 'investor relations',
     Component: SubscriptionAgreementB,
-    image:SubscriptionAgreementBImg
-
+    image: SubscriptionAgreementBImg,
   },
   {
     slug: 'investors-faq/subscription-agreement-c',
     title: 'Class C Subscription Agreement',
     publishedAt: '2025-02-10',
-    description: 'Confidential private offering of Class C limited partnership interests.',
+    description:
+      'Confidential private offering of Class C limited partnership interests.',
     category: 'investor relations',
     Component: SubscriptionAgreementC,
-    image:SubscriptionAgreementCImg
-
+    image: SubscriptionAgreementCImg,
   },
   {
     slug: 'market/daily-market-update',
@@ -236,28 +239,27 @@ export const posts: PostData[] = [
     description: 'Update description...',
     category: 'market',
     Component: DailyMarketUpdate,
-    image: DailyMarketUpdateImg1
-
+    image: DailyMarketUpdateImg1,
   },
   {
     slug: 'market/alpha-aloha-fund-update',
     title: '🤫 Alpha Aloha Fund Update',
     publishedAt: '2025-02-04',
-    description: 'Tuesday Evening Report – February 4, 2025, covering fund performance, market highlights, and insights from core holdings.',
+    description:
+      'Tuesday Evening Report – February 4, 2025, covering fund performance, market highlights, and insights from core holdings.',
     category: 'market',
     Component: AlphaAlohaFundUpdate,
-    image: DailyMarketUpdateImg3
-
+    image: DailyMarketUpdateImg3,
   },
   {
     slug: 'market/weekly-report',
     title: 'Closing Day and Weekly Report – February 3, 2025',
     publishedAt: '2025-02-03',
-    description: 'Closing day and weekly report for February 3, 2025, covering performance overview, transaction summary, and portfolio highlights.',
+    description:
+      'Closing day and weekly report for February 3, 2025, covering performance overview, transaction summary, and portfolio highlights.',
     category: 'market',
     Component: WeeklyReport,
-    image: DailyMarketUpdateImg4
-
+    image: DailyMarketUpdateImg4,
   },
 ];
 
