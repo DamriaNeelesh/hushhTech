@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import isLoggedIn from "../services/authentication/isLoggedIn";
 import { useEffect, useState } from "react";
 import services from "../services/services";
-import { Flex, Image } from "@chakra-ui/react";
+import { Button, Flex, Image } from "@chakra-ui/react";
 import HushhLogo from "./images/HushhTechlogo.png"
 export default function Hero() {
   const navigate = useNavigate();
@@ -13,10 +13,12 @@ export default function Hero() {
     }, 10);
   }, []);
   return (
-    <div className="bg-black text-white min-h-[100vh] flex items-center justify-center px-4 py-12">
+    <div
+    style={{ fontFamily: "'Figtree', sans-serif" }} 
+     className="bg-black text-white min-h-[100vh] flex items-center justify-center px-4 py-12">
       <div className="max-w-7xl mx-auto text-center">
         <Flex direction="column" align="center" mb={8}>
-         <Image src={HushhLogo} alt="Hushh logo" boxSize={'xs'}/>
+         <Image src={HushhLogo} alt="Hushh logo" boxSize={{md:'xs',base:'100px'}}/>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
             Hushh Technologies LLC
           </h1>
@@ -30,19 +32,35 @@ export default function Hero() {
           </p>
           {!isLoggedIn ? (
             <div className="flex justify-center space-x-4">
-              <button
-                onClick={() => navigate("/Login")}
-                className="bg-black text-white py-2 px-4 border border-white rounded-md hover:text-black hover:bg-white"
-              >
-                Have an account? Login
-              </button>
-              <button
-                className="bg-black text-white py-2 px-4 border border-white rounded-md hover:text-black hover:bg-white"
-                onClick={() => navigate("/Signup")}
-              >
-                Create a new account
-              </button>
-            </div>
+            <Button
+              onClick={() => navigate("/Login")}
+              bg="black"
+              color="white"
+              border="1px"
+              borderColor="white"
+              rounded="md"
+              _hover={{ bg: "white", color: "black" }}
+              px={{ base: 2, md: 4 }} // Responsive horizontal padding
+              py={{ base: 1, md: 2 }} // Responsive vertical padding
+              fontSize={{ base: "sm", md: "md" }} // Responsive font size
+            >
+              Have an account? Login
+            </Button>
+            <Button
+              onClick={() => navigate("/Signup")}
+              bg="black"
+              color="white"
+              border="1px"
+              borderColor="white"
+              rounded="md"
+              _hover={{ bg: "white", color: "black" }}
+              px={{ base: 2, md: 4 }} // Responsive horizontal padding
+              py={{ base: 1, md: 2 }} // Responsive vertical padding
+              fontSize={{ base: "sm", md: "md" }} // Responsive font size
+            >
+              Create a new account
+            </Button>
+          </div>
           ) : (
             <></>
           )}
