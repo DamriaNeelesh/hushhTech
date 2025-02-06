@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Text, Heading, List, ListItem,Image, Divider, VStack } from '@chakra-ui/react';
-import InvestorUpdate from '../../../components/images/4_Fund Performance.jpg'
+import InvestorUpdate from '../../../components/images/inve.jpg'
 export const frontmatter = {
   title: "🤫 Fund Investor FAQ (Charlie Munger Caliber Edition)",
   publishedAt: "2025-02-05",

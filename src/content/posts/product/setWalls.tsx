@@ -1,9 +1,12 @@
 import React from 'react';
 import { Box, Heading, Text, VStack, Divider, Image } from '@chakra-ui/react';
+import ProductUpdateImg from '../../../components/images/stocks.png'
 
 const SellTheWallPresentation = () => {
   return (
     <VStack spacing={6} p={5} bg="gray.50">
+                        <Image src={ProductUpdateImg} alt="Funds Update" mb={4} borderRadius="md" />
+
       <Box p={4} bg="white" shadow="md" borderRadius="md">
         <Heading size="xl" color="teal.600">“Sell the Wall” Strategy</Heading>
         <Text fontSize="lg" mt={2}>Turning Your Stocks Into a Cash Machine</Text>

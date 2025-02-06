@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box, Text, Heading, List, ListItem, Divider, VStack } from '@chakra-ui/react';
-
+import { Box, Text, Image, Heading, List, ListItem, Divider, VStack } from '@chakra-ui/react';
+import ProductUpdateImg from '../../../components/images/0_Product Updates.png'
 export const frontmatter = {
   title: "The 🤫 Fund – First 12 Investment Programs & Systems Inspired by Renaissance Technologies",
   publishedAt: "2025-02-03",
@@ -11,6 +11,8 @@ export const frontmatter = {
 const ProductUpdates = () => {
   return (
     <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
+                  <Image src={ProductUpdateImg} alt="Funds Update" mb={4} borderRadius="md" />
+
       <Heading as="h2" size="xl" mb={4} color="teal.300">
         The 🤫 Fund – First 12 Investment Programs & Systems
       </Heading>

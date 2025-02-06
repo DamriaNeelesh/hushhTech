@@ -1,9 +1,12 @@
 import React from 'react';
-import { Box, Heading, Text, VStack, Divider, List, ListItem } from '@chakra-ui/react';
+import { Box, Heading, Image,Text, VStack, Divider, List, ListItem } from '@chakra-ui/react';
+import AgreementImg from  '../../../components/images/subscriptionAgreement1.webp'
 
 const SubscriptionAgreement = () => {
   return (
     <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
+            <Image src={AgreementImg} alt="Funds Update" mb={4} borderRadius="md" />
+
       <Heading as="h2" size="xl" mb={4} color="teal.300">
         Class A Subscription Agreement
       </Heading>
