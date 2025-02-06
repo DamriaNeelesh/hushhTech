@@ -19,6 +19,37 @@ import MarketUpdate from '../content/posts/market/marektUpdate2';
 import AlphaAlohaFundUpdate from '../content/posts/market/marketUpdate';
 import WeeklyReport from '../content/posts/market/weeklyReport';
 
+// Images
+import FundsUpdateImg1 from '../components/images/0_Fund Performance.jpg';
+import FundsUpdateImg2 from '../components/images/1_Fund Performance.jpg';
+import FundsUpdateImg3 from '../components/images/2_Fund Performance.jpg';
+import FundsUpdateImg4 from '../components/images/3_Fund Performance.jpg';
+
+import HushhAiLogoImg from '../components/images/hushh_ai_logo.jpg';
+
+import DailyMarketUpdateImg1 from '../components/images/0_Daily Market Update.jpg';
+import DailyMarketUpdateImg2 from '../components/images/1_Daily Market Update.jpg';
+import DailyMarketUpdateImg3 from '../components/images/2_Daily Market Update.jpg';
+import DailyMarketUpdateImg4 from '../components/images/3_Daily Market Update.jpg';
+
+// import ManifestoImg from '../components/images/0_Manifesto.jpg'
+import ManifestoImg from '../components/images/1_Manifesto.jpg'
+import SkillTesting from '../components/images/2_Manifesto.jpg'
+
+import ProductUpdate1 from '../components/images/0_Product Updates.png'
+import ProductUpdate2 from '../components/images/product-update.webp'
+import ProductUpdate3 from '../components/images/stocks.png'
+
+
+import InvestorsFaQImg from '../components/images/inve.jpg'
+import HushhAlphFundImg from '../components/images/hushh_ai_logo.jpg'
+import SubscriptionAgreementAImg from  '../components/images/subscriptionAgreement1.webp'
+import SubscriptionAgreementBImg from '../components/images/subscriptionAgreement2.jpg'
+import SubscriptionAgreementCImg from '../components/images/subscriptionAgreement3.webp'
+
+
+
+
 export interface PostData {
   slug: string;
   title: string;
@@ -26,6 +57,7 @@ export interface PostData {
   description: string;
   category: string;
   Component: React.ComponentType;
+  image:string;
 }
 
 export const posts: PostData[] = [
@@ -36,6 +68,7 @@ export const posts: PostData[] = [
     description: 'Fund performance update covering net liquidation value, transaction statistics, and strategic commentary.',
     category: 'funds',
     Component: FundPerformance,
+    image: FundsUpdateImg2
   },
   {
     slug: 'market/updates',
@@ -44,6 +77,7 @@ export const posts: PostData[] = [
     description: 'Tuesday Evening Report – February 4, 2025, covering fund performance, market highlights, and insights from core holdings.',
     category: 'funds',
     Component: MarketUpdate,
+    image: DailyMarketUpdateImg2
   },
   {
     slug: 'general/manifesto',
@@ -52,6 +86,8 @@ export const posts: PostData[] = [
     description: 'Hushh Technologies Manifesto: The Future of Systematic AI-Driven Income Investing.',
     category: 'general',
     Component: Manifesto,
+    image: ManifestoImg
+
   },
   {
     slug: 'funds/renaissance-tech',
@@ -60,6 +96,8 @@ export const posts: PostData[] = [
     description: 'An overview of the first 12 investment programs of The 🤫 Fund, detailing AI-driven strategies inspired by Renaissance Technologies.',
     category: 'funds',
     Component: RenaissanceTech,
+    image: ProductUpdate2
+
   },
   {
     slug: 'general/ai-skills-testing',
@@ -68,6 +106,8 @@ export const posts: PostData[] = [
     description: 'Exploring the importance of AI skills in the modern workplace and how to test for them.',
     category: 'general',
     Component: AISkillsTesting,
+    image:SkillTesting
+
   },
   {
     slug: 'product/product-updates',
@@ -76,6 +116,8 @@ export const posts: PostData[] = [
     description: 'Announcement of upcoming product features that will revolutionize investment management and community interactions.',
     category: 'product updates',
     Component: ProductUpdates,
+    image: ProductUpdate1
+
   },
   {
     slug: 'investor-relations/investor-faq',
@@ -84,6 +126,8 @@ export const posts: PostData[] = [
     description: 'Comprehensive FAQ for 🤫 Fund investors, focusing on risk-adjusted returns and systematic investing.',
     category: 'investor relations',
     Component: InvestorFAQ,
+    image:InvestorsFaQImg
+
   },
   {
     slug: 'investment-strategies/sell-the-wall',
@@ -92,6 +136,8 @@ export const posts: PostData[] = [
     description: "An in-depth breakdown of the 'Sell The Wall' strategy inspired by Jim Simons, adapted by Hushh for modern AI-driven markets.",
     category: 'investment strategies',
     Component: SellTheWall,
+    image: HushhAiLogoImg
+
   },
   {
     slug: 'funds/hushh-technology-fund',
@@ -100,6 +146,8 @@ export const posts: PostData[] = [
     description: 'Executive summary and key details about the Hushh Technology Fund L.P., including structure, strategy, and projections.',
     category: 'fund updates',
     Component: FundAtHushh,
+    image: FundsUpdateImg3
+
   },
   {
     slug: 'financial-strategies/sell-the-wall-masterclass',
@@ -108,6 +156,8 @@ export const posts: PostData[] = [
     description: 'A strategic guide to transforming market volatility into sustainable income through the Sell the Wall approach.',
     category: 'financial strategies',
     Component: SellTheWallMasterclass,
+    image: HushhAiLogoImg
+
   },
   {
     slug: 'investor-relations/fund-a-hushh',
@@ -116,6 +166,8 @@ export const posts: PostData[] = [
     description: 'An in-depth overview of Fund A Hushh, focusing on AI-driven, risk-managed investment strategies.',
     category: 'investor relations',
     Component: FundAHushh,
+    image: FundsUpdateImg1
+
   },
   {
     slug: 'general/compensation-report',
@@ -124,6 +176,8 @@ export const posts: PostData[] = [
     description: 'Detailed insights into compensation patterns for young professionals in Pune.',
     category: 'general',
     Component: CompensationReport,
+    image: DailyMarketUpdateImg3
+
   },
   {
     slug: 'ecommerce/ai-ecommerce-budget',
@@ -132,6 +186,8 @@ export const posts: PostData[] = [
     description: 'A cost-efficient, AI-powered, scalable e-commerce solution for small merchants in the UAE.',
     category: 'ecommerce',
     Component: AIEcommerceBudget,
+    image: ProductUpdate3
+
   },
   {
     slug: 'investors-faq/shared-class-explanation',
@@ -140,6 +196,8 @@ export const posts: PostData[] = [
     description: 'Understanding the Different Classes of Shares & Investor FAQ',
     category: 'investor relations',
     Component: HushhAlphaFund,
+    image: HushhAiLogoImg
+
   },
   {
     slug: 'investors-faq/subscription-agreement-a',
@@ -148,6 +206,8 @@ export const posts: PostData[] = [
     description: 'Confidential private offering of Class A limited partnership interests.',
     category: 'investor relations',
     Component: SubscriptionAgreementA,
+    image:SubscriptionAgreementAImg
+
   },
   {
     slug: 'investors-faq/subscription-agreement-b',
@@ -156,6 +216,8 @@ export const posts: PostData[] = [
     description: 'Confidential private offering of Class B limited partnership interests.',
     category: 'investor relations',
     Component: SubscriptionAgreementB,
+    image:SubscriptionAgreementBImg
+
   },
   {
     slug: 'investors-faq/subscription-agreement-c',
@@ -164,6 +226,8 @@ export const posts: PostData[] = [
     description: 'Confidential private offering of Class C limited partnership interests.',
     category: 'investor relations',
     Component: SubscriptionAgreementC,
+    image:SubscriptionAgreementCImg
+
   },
   {
     slug: 'market/daily-market-update',
@@ -172,6 +236,8 @@ export const posts: PostData[] = [
     description: 'Update description...',
     category: 'market',
     Component: DailyMarketUpdate,
+    image: DailyMarketUpdateImg1
+
   },
   {
     slug: 'market/alpha-aloha-fund-update',
@@ -180,6 +246,8 @@ export const posts: PostData[] = [
     description: 'Tuesday Evening Report – February 4, 2025, covering fund performance, market highlights, and insights from core holdings.',
     category: 'market',
     Component: AlphaAlohaFundUpdate,
+    image: DailyMarketUpdateImg3
+
   },
   {
     slug: 'market/weekly-report',
@@ -188,6 +256,8 @@ export const posts: PostData[] = [
     description: 'Closing day and weekly report for February 3, 2025, covering performance overview, transaction summary, and portfolio highlights.',
     category: 'market',
     Component: WeeklyReport,
+    image: DailyMarketUpdateImg4
+
   },
 ];
 

@@ -7,6 +7,7 @@ import {
   SimpleGrid,
   Button,
   Select,
+  Image,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { getPosts, PostData } from '../../data/posts';
@@ -63,6 +64,16 @@ const CommunityList: React.FC = () => {
             shadow="md"
             _hover={{ shadow: 'lg' }}
           >
+            {/* Image placed on top */}
+            <Image
+              src={post.image}
+              alt={post.title}
+              borderRadius="md"
+              mb={4}
+              objectFit="cover"
+              w="100%"
+              h="200px"
+            />
             <Heading as="h2" size="md" mb={2} color="gray.700">
               {post.title}
             </Heading>
