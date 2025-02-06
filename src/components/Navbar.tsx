@@ -107,7 +107,7 @@ export default function Navbar() {
   src={session?.user?.user_metadata?.avatar_url}
   name={session?.user?.email}
   className="w-8 h-8 rounded-full ml-4"
-  display={{ base: "none", lg: "block" }} 
+  // display={{ base: "none", lg: "block" }} 
 />
 
               </>
