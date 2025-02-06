@@ -16,6 +16,7 @@ import Career from './pages/career';
 import CommunityList from './pages/community/communityList';
 import CommunityPost from './pages/community/communityPost';
 import { getPosts } from './lib/posts';
+import BenefitsPage from './pages/benefits';
 
 const posts = getPosts();
 
@@ -31,6 +32,8 @@ function App() {
           <Route path="/about/philosophy" element={<Philosophy />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Contact" element={<Contact />} />
+          <Route path="/benefits" element={<BenefitsPage />} />
+
           <Route path='/services/consumers' element={<Consumers/>} />
           <Route path='/services/business' element={<Business/>}/>
           <Route path='/Signup' element={<Signup/>}/>

@@ -20,9 +20,10 @@ export default function Navbar() {
     });
 
     // Listen for auth state changes
-    const { data: subscription } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
+    
 
     return () => subscription?.unsubscribe();
   }, []);
@@ -66,8 +67,10 @@ export default function Navbar() {
 
           <div className="hidden lg:flex items-center space-x-6">
             {[
+               
               { path: "/about/leadership", label: "About Us" },
               { path: "/community", label: "Community" },
+              { path: "/benefits", label: "Benefits" },
               { path: "/career", label: "Careers" },
               { path: "/contact", label: "Contact" },
             ].map(({ path, label }) => (
@@ -129,6 +132,7 @@ export default function Navbar() {
                 { path: "/", label: "Home" },
                 { path: "/about/leadership", label: "About Us" },
                 { path: "/community", label: "Community" },
+                { path: "/benefits", label: "Benefits" },
                 { path: "/career", label: "Careers" },
                 { path: "/contact", label: "Contact" },
                 { path: "/Faq", label: "FAQ" },
