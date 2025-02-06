@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Heading, Image,Text, VStack, List, ListItem, Divider } from '@chakra-ui/react';
-import SellImg from '../../../components/images/hushh_ai_logo.jpg'
+import SellImg from '../../../components/images/blog2o.png'
 
 export const frontmatter = {
   title: "Sell The Wall: The Hushh Way",
@@ -12,8 +12,9 @@ export const frontmatter = {
 const SellTheWall: React.FC = () => {
   return (
     <Box p={6} bg="gray.900" color="white" borderRadius="md" shadow="xl">
+        <Box display={'flex'} justifyContent={'center'}>
        <Image src={SellImg} alt="Funds Update" mb={4} borderRadius="md" />
-
+       </Box>
       <Heading as="h1" size="xl" mb={4} color="teal.300">
         Sell The Wall: The Hushh Way
       </Heading>
@@ -31,7 +32,7 @@ const SellTheWall: React.FC = () => {
 
       <Divider my={6} borderColor="teal.500" />
 
-      <Heading as="h3" size="md" color="yellow.300">The Alpha & Aloha Machine: Strategy Breakdown</Heading>
+      <Heading as="h3" size="md" color="white">The Alpha & Aloha Machine: Strategy Breakdown</Heading>
       <VStack align="start" spacing={4} mt={4}>
         <Box>
           <Heading size="sm" color="teal.100">1. The AI Quant Orchestra</Heading>
@@ -66,7 +67,7 @@ const SellTheWall: React.FC = () => {
 
       <Divider my={6} borderColor="teal.500" />
 
-      <Heading as="h4" size="md" color="yellow.300">Final Thoughts</Heading>
+      <Heading as="h4" size="md" color="white">Final Thoughts:</Heading>
       <Text>
         "Sell The Wall" is not just a strategy—it's a compounding engine built on systematic execution, AI-driven precision, and a relentless focus on turning volatility into sustainable wealth. Hushh turns market chaos into a symphony of alpha and aloha.
       </Text>

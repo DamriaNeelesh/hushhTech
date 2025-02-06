@@ -1,12 +1,13 @@
 import React from 'react';
 import { Box, Heading, Image, Text, Table, Thead, Tbody, Tr, Th, Td, VStack, Divider } from '@chakra-ui/react';
-import SellImg from '../../../components/images/hushh_ai_logo.jpg'
+import SellImg from '../../../components/images/blog2o.png'
 
 const HushhAlphaFund = () => {
   return (
     <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-             <Image src={SellImg} alt="Funds Update" mb={4} borderRadius="md" />
-
+<Box display={'flex'} justifyContent={'center'}>
+       <Image src={SellImg} alt="Funds Update" mb={4} borderRadius="md" />
+       </Box>
       <Heading as="h1" size="xl" mb={4} color="teal.300">
         Hushh Technologies Alpha Fund, LP
       </Heading>

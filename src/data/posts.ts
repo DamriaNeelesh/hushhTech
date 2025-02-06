@@ -29,7 +29,7 @@ import FundsUpdateImg3 from '../components/images/2_Fund Performance.jpg';
 import FundsUpdateImg4 from '../components/images/3_Fund Performance.jpg';
 import ExhibitLPAImg from '../components/images/exhibitLPA.webp' 
 
-import HushhAiLogoImg from '../components/images/hushh_ai_logo.jpg';
+import HushhAiLogoImg from '../components/images/blog2o.png';
 import HushhWalletUpdates from '../content/posts/product/hushhProductUpdates';
 import DailyMarketUpdateImg1 from '../components/images/0_Daily Market Update.jpg';
 import DailyMarketUpdateImg2 from '../components/images/1_Daily Market Update.jpg';
@@ -47,7 +47,7 @@ import HushhWalletImg from '../components/images/hushhWallet.png';
 import LimitedPartneshipImg from '../components/images/Limited-Partnership-Agreement.jpg'
 
 import InvestorsFaQImg from '../components/images/inve.jpg'
-import HushhAlphFundImg from '../components/images/hushh_ai_logo.jpg'
+import HushhAlphFundImg from '../components/images/blog2o.png'
 import SubscriptionAgreementAImg from  '../components/images/subscriptionAgreement1.webp'
 import SubscriptionAgreementBImg from '../components/images/subscriptionAgreement2.jpg'
 import SubscriptionAgreementCImg from '../components/images/subscriptionAgreement3.webp'
