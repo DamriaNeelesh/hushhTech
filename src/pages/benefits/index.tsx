@@ -15,10 +15,10 @@ const BenefitsPage: React.FC = () => {
   return (
     <Container maxW="container.xl" py={10} px={4}>
       {/* Main Header */}
-      <Heading as="h1" size="xl" textAlign="center" mb={6}>
+      <Heading as="h1" size={{md:"xl",base:'lg'}} textAlign="center" mb={6}>
         Hushh Technologies LLC – World-Class Benefits for World-Class Talent
       </Heading>
-      <Text fontSize="lg" textAlign="center" mb={10}>
+      <Text fontSize={{md:"lg",base:'md'}} textAlign="center" mb={10}>
         At Hushh Technologies, we are building the AI-first modern renaissance of
         investment and technology, blending Charlie Munger’s wisdom with the
         cutting-edge discipline of an AI-powered hedge fund and tech firm. To
@@ -30,10 +30,10 @@ const BenefitsPage: React.FC = () => {
 
       {/* Section: Compensation & Investment Opportunities */}
       <Box mb={8}>
-        <Heading as="h2" size="xl" mb={4}>
+        <Heading as="h2" size={{md:"lg",base:'md'}} mb={4}>
           Compensation &amp; Investment Opportunities
         </Heading>
-        <List spacing={3}>
+        <List spacing={3} size={{md:"md",base:'sm'}}>
           <ListItem>
             <ListIcon as={CheckCircleIcon} color="teal.500" />
             Exceptionally Competitive Pay – We believe in paying for performance.
@@ -62,7 +62,7 @@ const BenefitsPage: React.FC = () => {
 
       {/* Section: Health, Wellness & Family Support */}
       <Box mb={8}>
-        <Heading as="h2" size="xl" mb={4}>
+        <Heading as="h2" size={{md:"lg",base:'md'}} mb={4}>
           Health, Wellness &amp; Family Support
         </Heading>
         <List spacing={3}>
@@ -94,7 +94,7 @@ const BenefitsPage: React.FC = () => {
 
       {/* Section: Work-Life, Growth & Giving Back */}
       <Box mb={8}>
-        <Heading as="h2" size="xl" mb={4}>
+        <Heading as="h2" size={{md:"lg",base:'md'}} mb={4}>
           Work-Life, Growth &amp; Giving Back
         </Heading>
         <List spacing={3}>
@@ -115,7 +115,7 @@ const BenefitsPage: React.FC = () => {
 
       {/* Section: Perks, Culture & Quality of Life */}
       <Box mb={8}>
-        <Heading as="h2" size="xl" mb={4}>
+        <Heading as="h2" size={{md:"lg",base:'md'}} mb={4}>
           Perks, Culture &amp; Quality of Life
         </Heading>
         <List spacing={3}>
@@ -153,7 +153,7 @@ const BenefitsPage: React.FC = () => {
 
       {/* Section: Why Join Hushh Technologies? */}
       <Box mb={8}>
-        <Heading as="h2" size="xl" mb={4}>
+        <Heading as="h2" size={{md:"lg",base:'md'}} mb={4}>
           Why Join Hushh Technologies?
         </Heading>
         <Text fontSize="lg" mb={4}>
