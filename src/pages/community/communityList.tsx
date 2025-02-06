@@ -1,39 +1,44 @@
 import React from 'react';
-import { Container, Heading, Box, Text, Flex } from '@chakra-ui/react';
+import { Container, Heading, Box, Text, SimpleGrid, Button } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import posts from '../../data/posts';
+import { getPosts, PostData } from '../../data/posts';
 
-function CommunityList() {
+const CommunityList: React.FC = () => {
+  const posts: PostData[] = getPosts();
   return (
-    <Container maxW="container.lg" py={8}>
-      <Heading as="h1" mb={6} textAlign="center">
-        Community Updates
+    <Container maxW="container.xl" py={8}>
+      <Heading as="h1" mb={8} textAlign="center" color="gray.800">
+        Latest from Hushh Technologies
       </Heading>
-      {posts.map((post:any) => (
-        <Box key={post.slug} p={4} borderWidth="1px" borderRadius="lg" shadow="md" mb={4}>
-          <Flex justify="space-between" align="center">
-            <Heading as="h2" size="md">
+      <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
+        {posts.map((post) => (
+          <Box
+            key={post.slug}
+            p={6}
+            bg="white"
+            borderRadius="md"
+            shadow="md"
+            _hover={{ shadow: 'lg' }}
+          >
+            <Heading as="h2" size="md" mb={2} color="gray.700">
               {post.title}
             </Heading>
-            <Text fontSize="sm" color="gray.500">
-              {new Date(post.date).toLocaleDateString()}
+            <Text mb={2} color="gray.500">
+              {new Date(post.publishedAt).toLocaleDateString()}
             </Text>
-          </Flex>
-          <Text mt={2}>{post.description}</Text>
-          <Link to={`/community/${post.slug}`}>
-            <Text mt={2} color="blue.500" cursor="pointer">
-              Read More &rarr;
+            <Text mb={4} color="gray.600">
+              {post.description}
             </Text>
-          </Link>
-        </Box>
-      ))}
+            <Link to={`/community/${post.slug}`}>
+              <Button colorScheme="teal" variant="outline">
+                Read More
+              </Button>
+            </Link>
+          </Box>
+        ))}
+      </SimpleGrid>
     </Container>
   );
-}
-
-CommunityList.propTypes = {
-  posts: PropTypes.array.isRequired,
 };
 
 export default CommunityList;
