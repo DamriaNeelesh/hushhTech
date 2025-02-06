@@ -26,7 +26,7 @@ import FundsUpdateImg3 from '../components/images/2_Fund Performance.jpg';
 import FundsUpdateImg4 from '../components/images/3_Fund Performance.jpg';
 
 import HushhAiLogoImg from '../components/images/hushh_ai_logo.jpg';
-
+import HushhWalletUpdates from '../content/posts/product/hushhProductUpdates';
 import DailyMarketUpdateImg1 from '../components/images/0_Daily Market Update.jpg';
 import DailyMarketUpdateImg2 from '../components/images/1_Daily Market Update.jpg';
 import DailyMarketUpdateImg3 from '../components/images/2_Daily Market Update.jpg';
@@ -39,6 +39,7 @@ import SkillTesting from '../components/images/2_Manifesto.jpg'
 import ProductUpdate1 from '../components/images/0_Product Updates.png'
 import ProductUpdate2 from '../components/images/product-update.webp'
 import ProductUpdate3 from '../components/images/stocks.png'
+import HushhWalletImg from '../components/images/hushhWallet.png';
 
 
 import InvestorsFaQImg from '../components/images/inve.jpg'
@@ -70,6 +71,16 @@ export const posts: PostData[] = [
     category: 'fund updates', // updated from 'funds'
     Component: FundPerformance,
     image: FundsUpdateImg2,
+  },
+  {
+    slug: 'product/hushh-wallet',
+    title: 'Product Update - Hushh Wallet',
+    publishedAt: '2025-01-28',
+    description:
+      'Fund performance update covering net liquidation value, transaction statistics, and strategic commentary.',
+    category: 'product updates', // updated from 'funds'
+    Component: HushhWalletUpdates,
+    image: HushhWalletImg,
   },
   {
     slug: 'market/updates',

@@ -21,15 +21,15 @@ const InvestorFAQ: React.FC = () => {
         "If you’re not thinking about risk, you’re not thinking." – Charlie Munger
       </Text>
       <Text mb={4}>
-        Welcome to the 🤫 Fund, where we turn market inefficiencies into systematic alpha while always prioritizing risk-adjusted returns, free cash flow excellence, and absolute long-term compounding.
+        Welcome to the Fund, where we turn market inefficiencies into systematic alpha while always prioritizing risk-adjusted returns, free cash flow excellence, and absolute long-term compounding.
       </Text>
 
       <VStack spacing={4} align="stretch">
         {[
           {
-            question: "What is the 🤫 Fund’s Core Strategy?",
+            question: "What is the Fund’s Core Strategy?",
             answer: [
-              "The 🤫 Fund executes a disciplined 'Sell The Wall' strategy—an AI-powered options premium harvesting model.",
+              "The Fund executes a disciplined 'Sell The Wall' strategy—an AI-powered options premium harvesting model.",
               "We sell calls at peak exuberance and puts at deep value levels to capture premium without excessive risk.",
               "Our portfolio focuses on SPX10-level companies, ensuring deep liquidity and sustainable earnings power."
             ]

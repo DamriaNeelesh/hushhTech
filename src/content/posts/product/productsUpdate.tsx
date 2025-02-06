@@ -50,7 +50,7 @@ const ProductUpdates = () => {
 
       <Divider my={4} borderColor="teal.500" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={2}>Next Steps: The 🤫 Fund Execution Plan</Heading>
+      <Heading as="h3" size="lg" color="teal.200" mb={2}>Next Steps: The Fund Execution Plan</Heading>
       <List spacing={2}>
         <ListItem>Deploy $7.5M across these 12 programs immediately.</ListItem>
         <ListItem>Automate execution using AI & quant-driven strategies.</ListItem>

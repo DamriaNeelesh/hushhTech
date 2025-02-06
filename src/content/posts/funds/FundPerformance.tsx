@@ -94,7 +94,7 @@ const FundPerformance: React.FC = () => {
         Summary
       </Heading>
       <Text>
-        The 🤫 Fund achieved a stellar +5.34% increase in value with a 100% gain rate. The "Sell the Wall" strategy continues to deliver sustainable income, positioning the fund for long-term growth.
+        The Fund achieved a stellar +5.34% increase in value with a 100% gain rate. The "Sell the Wall" strategy continues to deliver sustainable income, positioning the fund for long-term growth.
       </Text>
     </Box>
   );

@@ -95,10 +95,10 @@ const AIEcommerceBudget: React.FC = () => {
       </Table>
 
       <Text mt={4}>
-        ✅ Best for Low Cost & Easy Setup → Shopify Basic + AI Plugins<br />
-        ✅ Best for AI-Driven Store with Growth Potential → NexMind Commerce<br />
-        ✅ Best for Scalable AI Inventory & Logistics → Fabric Commerce<br />
-        ✅ Best for Full Control & Cost Savings → WooCommerce + AI Add-ons
+        1. Best for Low Cost & Easy Setup → Shopify Basic + AI Plugins<br />
+        2. Best for AI-Driven Store with Growth Potential → NexMind Commerce<br />
+        3. Best for Scalable AI Inventory & Logistics → Fabric Commerce<br />
+        4. Best for Full Control & Cost Savings → WooCommerce + AI Add-ons
       </Text>
     </Box>
   );
