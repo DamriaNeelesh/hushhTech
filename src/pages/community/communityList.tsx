@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Heading,
@@ -7,7 +7,7 @@ import {
   SimpleGrid,
   Button,
   Select,
-  Image,
+  Image, // Chakra UI Image component
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { getPosts, PostData } from '../../data/posts';
@@ -33,6 +33,15 @@ const CommunityList: React.FC = () => {
     selectedCategory === 'All'
       ? allPosts
       : allPosts.filter((post) => post.category === selectedCategory);
+
+  // Preload all images on component mount
+  useEffect(() => {
+    allPosts.forEach((post) => {
+      // Use the global Image constructor from the window object
+      const img = new window.Image();
+      img.src = post.image;
+    });
+  }, [allPosts]);
 
   return (
     <Container maxW="container.xl" py={8}>
@@ -64,7 +73,7 @@ const CommunityList: React.FC = () => {
             shadow="md"
             _hover={{ shadow: 'lg' }}
           >
-            {/* Image placed on top */}
+            {/* Image placed on top with eager loading */}
             <Image
               src={post.image}
               alt={post.title}
@@ -73,6 +82,7 @@ const CommunityList: React.FC = () => {
               objectFit="cover"
               w="100%"
               h="200px"
+              loading="eager"
             />
             <Heading as="h2" size="md" mb={2} color="gray.700">
               {post.title}
