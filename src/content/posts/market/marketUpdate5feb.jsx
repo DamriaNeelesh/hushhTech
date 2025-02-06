@@ -15,7 +15,7 @@ const MarketUpdate5Feb = () => {
       <Image src={MarketUpdateImg} alt="Market Update" mb={4} borderRadius="md" />
 
       <Heading as="h2" size="xl" mb={4} color="teal.300">
-        lpha Aloha Fund Market and Fund Update Report
+        Alpha Aloha Fund Market and Fund Update Report
       </Heading>
 
       <Text fontSize="lg" mb={4}>Reporting Period: February 5, 2025</Text>
