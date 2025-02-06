@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import {
   Container,
   Heading,
@@ -9,100 +9,181 @@ import {
   Select,
   Image,
   useToast,
-} from '@chakra-ui/react';
-import { Link, useNavigate } from 'react-router-dom';
-import { getPosts, PostData } from '../../data/posts';
-import config from '../../resources/config/config';
-
-// Helper function to convert string to Title Case
-const toTitleCase = (str: string): string =>
-  str
-    .split(' ')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+} from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import NDARequestModal from "../../components/NdaForm";
+import config from "../../resources/config/config";
+import { getPosts, PostData } from "../../data/posts";
 
 const CommunityList: React.FC = () => {
-  let allPosts: PostData[] = getPosts();
-
-  // Sort posts by date in descending order (latest first)
-  allPosts = allPosts.sort(
-    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-  );
-
-  // Get all categories from posts and add an "All" option.
+  const allPosts: PostData[] = getPosts();
+  
+  // Get unique categories from posts.
   const categories = Array.from(new Set(allPosts.map((post) => post.category)));
-  const allCategories = ['All', ...categories];
-
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  
+  // Define restricted categories (case-insensitive).
+  const restrictedCategories = [
+    "fund updates",
+    "investor relations & strategies",
+  ];
+  
+  // Dropdown displays all categories.
+  const allCategories = ["All", ...categories];
+  
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  
+  // Initially, only non-restricted categories are approved.
+  const [approvedCategories, setApprovedCategories] = useState(
+    categories.filter((c) => !restrictedCategories.includes(c.toLowerCase()))
+  );
+  
   const [session, setSession] = useState<any>(null);
+  const [showNdaModal, setShowNdaModal] = useState(false);
   const toast = useToast();
-  const navigate = useNavigate();
 
-  // Define the restricted categories (in lowercase for comparison)
-  const restrictedCategories = ['fund updates', 'investor relations & strategies'];
-
-  // Fetch the session and listen to auth state changes.
+  // Fetch the session and listen for auth state changes.
   useEffect(() => {
     config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
+
     const {
       data: { subscription },
     } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
+
     return () => {
-      if (subscription && typeof subscription.unsubscribe === 'function') {
+      if (subscription && typeof subscription.unsubscribe === "function") {
         subscription.unsubscribe();
       }
     };
   }, []);
 
-  // When the selected category is restricted and no user is logged in,
-  // show a toast notification.
-  useEffect(() => {
-    if (
-      !session &&
-      selectedCategory !== 'All' &&
-      restrictedCategories.includes(selectedCategory.toLowerCase())
-    ) {
+  // Function to check access status via your API endpoint.
+  const checkAccessStatus = async (): Promise<boolean> => {
+    if (!session) {
       toast({
-        title: 'Access Restricted',
-        description: 'Please sign in to get access to these posts.',
-        status: 'warning',
-        duration: 5000,
+        title: "Access Denied",
+        description: "Please sign in to continue.",
+        status: "error",
+        duration: 4000,
         isClosable: true,
       });
+      return false;
     }
-  }, [selectedCategory, session, toast, restrictedCategories]);
 
-  // Filter posts: if "All" is selected, show all posts that are not restricted (unless signed in)
-  // If a specific category is selected, only show posts in that category if they are unrestricted or if the user is signed in.
+    try {
+      const response = await axios.post(
+        "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/check_access_status",
+        {},
+        {
+          headers: {
+            apikey: config.SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${session.access_token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const status = response.data;
+      console.log("Access Status:", status);
+
+      if (status === "Approved") {
+        // Grant access to restricted categories.
+        setApprovedCategories([...categories]);
+        return true;
+      } else if (status === "Rejected") {
+        toast({
+          title: "Access Denied",
+          description: "Your access request was rejected.",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+        return false;
+      } else if (status === "Pending") {
+        toast({
+          title: "Request Pending",
+          description: "Your access request is still under review.",
+          status: "info",
+          duration: 4000,
+          isClosable: true,
+        });
+        return false;
+      } else if (status === "Pending: Waiting for NDA Process") {
+        toast({
+          title: "NDA Required",
+          description: "Please complete the NDA process to proceed.",
+          status: "warning",
+          duration: 4000,
+          isClosable: true,
+        });
+        return false;
+      } else if (status === "Not Applied") {
+        setShowNdaModal(true);
+        return false;
+      } else {
+        toast({
+          title: "Error",
+          description: "Unexpected response received.",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+        return false;
+      }
+    } catch (error) {
+      console.error("Error checking access status:", error);
+      toast({
+        title: "API Error",
+        description: "Failed to check access status.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+      return false;
+    }
+  };
+
+  // When a category is selected from the dropdown.
+  const handleCategoryChange = async (category: string) => {
+    // Check if the selected category is restricted (case-insensitive).
+    if (restrictedCategories.includes(category.toLowerCase())) {
+      const accessGranted = await checkAccessStatus();
+      if (!accessGranted) {
+        // Do not change category if access is denied.
+        return;
+      }
+    }
+    setSelectedCategory(category);
+  };
+
+  // Filter posts based on selectedCategory and approvedCategories.
   const filteredPosts =
-    selectedCategory === 'All'
-      ? allPosts.filter(
-          (post) =>
-            !restrictedCategories.includes(post.category.toLowerCase()) || session
+    selectedCategory === "All"
+      ? allPosts.filter((post) =>
+          approvedCategories.includes(post.category)
         )
       : allPosts.filter(
           (post) =>
             post.category === selectedCategory &&
-            (session || !restrictedCategories.includes(post.category.toLowerCase()))
+            approvedCategories.includes(post.category)
         );
 
-  // In case someone clicks on a restricted post's "Read More" button,
-  // show a toast instead of navigating.
+  // When a user clicks a restricted post (if somehow rendered while access not granted).
   const handleRestrictedClick = () => {
     toast({
-      title: 'Access Restricted',
-      description: 'Please sign in to get access to these posts.',
-      status: 'warning',
-      duration: 5000,
+      title: "Access Restricted",
+      description: "Please sign in to get access to these posts.",
+      status: "error",
+      duration: 4000,
       isClosable: true,
     });
   };
 
-  // Preload images
+  // Preload images.
   useEffect(() => {
     allPosts.forEach((post) => {
       const img = new window.Image();
@@ -115,28 +196,28 @@ const CommunityList: React.FC = () => {
       <Heading as="h1" mb={8} textAlign="center" color="gray.800">
         Latest Updates from Hushh Technologies
       </Heading>
+
       <Box mb={8} textAlign="center">
         <Select
           maxW="300px"
           mx="auto"
           value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
+          onChange={(e) => handleCategoryChange(e.target.value)}
           placeholder="Select Category"
         >
           {allCategories.map((category) => (
             <option key={category} value={category}>
-              {category === 'All' ? category : toTitleCase(category)}
+              {category}
             </option>
           ))}
         </Select>
       </Box>
+
       <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
         {filteredPosts.map((post) => {
-          // Check if this post is restricted.
           const isRestricted = restrictedCategories.includes(
             post.category.toLowerCase()
           );
-
           return (
             <Box
               key={post.slug}
@@ -144,38 +225,25 @@ const CommunityList: React.FC = () => {
               bg="white"
               borderRadius="md"
               shadow="md"
-              _hover={{ shadow: 'lg' }}
+              _hover={{ shadow: "lg" }}
             >
               <Image
                 src={post.image}
                 alt={post.title}
                 borderRadius="md"
                 mb={4}
-                objectFit="cover"
-                w="100%"
-                h="200px"
-                loading="eager"
               />
-              <Heading as="h2" size="md" mb={2} color="gray.700">
+              <Heading as="h3" size="md" mb={2}>
                 {post.title}
               </Heading>
-              <Text mb={2} color="gray.500">
-                {new Date(post.publishedAt).toLocaleDateString()}
-              </Text>
-              <Text mb={4} color="gray.600">
-                {post.description}
-              </Text>
+              <Text mb={2}>{post.excerpt}</Text>
               {isRestricted && !session ? (
-                <Button
-                  onClick={handleRestrictedClick}
-                  colorScheme="teal"
-                  variant="outline"
-                >
+                <Button onClick={handleRestrictedClick} mt={4} colorScheme="blue">
                   Read More
                 </Button>
               ) : (
-                <Link to={`/community/${post.slug}`}>
-                  <Button colorScheme="teal" variant="outline">
+                <Link to={`/post/${post.slug}`}>
+                  <Button mt={4} colorScheme="blue">
                     Read More
                   </Button>
                 </Link>
@@ -184,6 +252,14 @@ const CommunityList: React.FC = () => {
           );
         })}
       </SimpleGrid>
+
+      {showNdaModal && (
+        <NDARequestModal
+          isOpen={showNdaModal}
+          onClose={() => setShowNdaModal(false)}
+          session={session}
+        />
+      )}
     </Container>
   );
 };

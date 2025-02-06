@@ -21,15 +21,38 @@ import PrivacyPolicy from './pages/privacy-policy';
 import CareersPrivacyPolicy from './pages/career-privacy-policy';
 import CaliforniaPrivacyPolicy from './pages/california-privacy-policy';
 import EUUKPrivacyPolicy from './pages/eu-uk-privacy-policy';
+import { useState, useEffect } from 'react';
+import config from './resources/config/config';
+import NDAPopup from './components/NdaForm';
 
 const posts = getPosts();
 
 function App() {
+
+  const [session, setSession] = useState(null);
+
+  // Fetch user session when app loads
+  useEffect(() => {
+    config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    // Listen for auth state changes
+    const {
+      data: { subscription },
+    } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription?.unsubscribe();
+  }, []);
+  
   return (
         <ChakraProvider>
     <Router>
       <div className="min-h-screen flex flex-col">
         <Navbar />
+        {/* {session && <NDAPopup />} */}
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/about/leadership" element={<Leadership />} />
