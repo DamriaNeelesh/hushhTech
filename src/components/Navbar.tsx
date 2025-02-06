@@ -2,13 +2,16 @@ import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import config from "../resources/config/config";
+import { Image, useToast, Avatar } from "@chakra-ui/react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [session, setSession] = useState(null);
+  const [toastShown, setToastShown] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const drawerRef = useRef(null);
+  const toast = useToast();
 
   useEffect(() => {
     // Fetch the current session
@@ -17,14 +20,26 @@ export default function Navbar() {
     });
 
     // Listen for auth state changes
-    const {
-      data: { subscription },
-    } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
+    const { data: subscription } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
 
-    return () => subscription.unsubscribe();
+    return () => subscription?.unsubscribe();
   }, []);
+
+  // Show welcome toast when a user is signed in (only once)
+  useEffect(() => {
+    if (session && !toastShown) {
+      toast({
+        title: "Welcome to Hushh Technologies",
+        description: "Thank you for signing in.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      setToastShown(true);
+    }
+  }, [session, toastShown, toast]);
 
   const toggleDrawer = () => setIsOpen((prev) => !prev);
   const handleLinkClick = (path) => {
@@ -42,7 +57,10 @@ export default function Navbar() {
             Hushh Technologies LLC
           </Link>
 
-          <button onClick={toggleDrawer} className="lg:hidden text-gray-700 hover:text-gray-900 focus:outline-none">
+          <button
+            onClick={toggleDrawer}
+            className="lg:hidden text-gray-700 hover:text-gray-900 focus:outline-none"
+          >
             <FiMenu size={24} />
           </button>
 
@@ -57,7 +75,9 @@ export default function Navbar() {
                 key={path}
                 to={path}
                 className={`px-3 py-2 rounded ${
-                  isActive(path) ? "hushh-gradient font-[700] text-white" : "text-gray-700 hover:text-gray-900"
+                  isActive(path)
+                    ? "hushh-gradient font-[700] text-white"
+                    : "text-gray-700 hover:text-gray-900"
                 }`}
               >
                 {label}
@@ -65,13 +85,27 @@ export default function Navbar() {
             ))}
 
             {!session ? (
-              <button onClick={() => navigate("/Login")} className="bg-black text-white px-4 py-2 rounded">
+              <button
+                onClick={() => navigate("/Login")}
+                className="bg-black text-white px-4 py-2 rounded"
+              >
                 Log In
               </button>
             ) : (
-              <button onClick={() => config.supabaseClient.auth.signOut()} className="bg-black text-white px-4 py-2 rounded">
-                Log Out
-              </button>
+              <>
+                <button
+                  onClick={() => config.supabaseClient.auth.signOut()}
+                  className="bg-black text-white px-4 py-2 rounded"
+                >
+                  Log Out
+                </button>
+                {/* Show user avatar after Log Out button */}
+                <Avatar
+                  src={session?.user?.user_metadata?.avatar_url || "/default-avatar.png"}
+                  name={session?.user?.email}
+                  className="w-8 h-8 rounded-full ml-4"
+                />
+              </>
             )}
           </div>
         </div>
@@ -79,8 +113,14 @@ export default function Navbar() {
 
       {isOpen && (
         <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-75 lg:hidden">
-          <div ref={drawerRef} className="fixed top-0 left-0 w-3/4 max-w-xs bg-white h-full shadow-lg p-6">
-            <button onClick={toggleDrawer} className="mb-6 text-gray-700 hover:text-gray-900">
+          <div
+            ref={drawerRef}
+            className="fixed top-0 left-0 w-3/4 max-w-xs bg-white h-full shadow-lg p-6"
+          >
+            <button
+              onClick={toggleDrawer}
+              className="mb-6 text-gray-700 hover:text-gray-900"
+            >
               <FiX size={24} />
             </button>
 
@@ -98,7 +138,9 @@ export default function Navbar() {
                   to={path}
                   onClick={() => handleLinkClick(path)}
                   className={`block text-lg font-semibold ${
-                    isActive(path) ? "bg-gradient-to-r from-teal-400 to-blue-500 text-white px-3 py-2 rounded" : "text-gray-700"
+                    isActive(path)
+                      ? "bg-gradient-to-r from-teal-400 to-blue-500 text-white px-3 py-2 rounded"
+                      : "text-gray-700"
                   }`}
                 >
                   {label}
@@ -113,12 +155,20 @@ export default function Navbar() {
                   Log In
                 </button>
               ) : (
-                <button
-                  onClick={() => config.supabaseClient.auth.signOut()}
-                  className="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800"
-                >
-                  Log Out
-                </button>
+                <>
+                  <button
+                    onClick={() => config.supabaseClient.auth.signOut()}
+                    className="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800"
+                  >
+                    Log Out
+                  </button>
+                  {/* Show avatar in mobile menu */}
+                  <Avatar
+                    src={session?.user?.user_metadata?.avatar_url || "/default-avatar.png"}
+                    name={session?.user?.email}
+                    className="w-8 h-8 rounded-full mt-4"
+                  />
+                </>
               )}
             </div>
           </div>
