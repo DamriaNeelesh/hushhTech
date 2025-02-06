@@ -36,7 +36,7 @@ const CommunityList: React.FC = () => {
   return (
     <Container maxW="container.xl" py={8}>
       <Heading as="h1" mb={8} textAlign="center" color="gray.800">
-        Latest from Hushh Technologies
+        Latest Updates from Hushh Technologies
       </Heading>
       <Box mb={8} textAlign="center">
         <Select
