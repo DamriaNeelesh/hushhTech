@@ -65,9 +65,6 @@ export default function Footer() {
               <a href="/carrer-privacy-policy" className="hover:text-gray-600">
               Careers Site Privacy Notice
               </a>
-              <a href="/link5" className="hover:text-gray-600">
-              Bermuda Privacy Policy
-              </a>
             </div>
           </div>
           {/* Column 2: Download Links */}
