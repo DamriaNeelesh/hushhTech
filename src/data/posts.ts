@@ -249,16 +249,16 @@ export const posts: PostData[] = [
     Component: CompensationReport,
     image: DailyMarketUpdateImg3,
   },
-  {
-    slug: 'ecommerce/ai-ecommerce-budget',
-    title: 'AI-First E-Commerce Solution for UAE Small Merchants',
-    publishedAt: '2025-02-06',
-    description:
-      'A cost-efficient, AI-powered, scalable e-commerce solution for small merchants in the UAE.',
-    category: 'ecommerce',
-    Component: AIEcommerceBudget,
-    image: ProductUpdate3,
-  },
+  // {
+  //   slug: 'ecommerce/ai-ecommerce-budget',
+  //   title: 'AI-First E-Commerce Solution for UAE Small Merchants',
+  //   publishedAt: '2025-02-06',
+  //   description:
+  //     'A cost-efficient, AI-powered, scalable e-commerce solution for small merchants in the UAE.',
+  //   category: 'ecommerce',
+  //   Component: AIEcommerceBudget,
+  //   image: ProductUpdate3,
+  // },
   {
     slug: 'investors-faq/shared-class-explanation',
     title: 'Hushh Technologies Alpha Fund, LP',
