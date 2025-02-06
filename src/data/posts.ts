@@ -163,7 +163,7 @@ export const posts: PostData[] = [
     image: InvestorsFaQImg,
   },
   {
-    slug: 'investor-relations/investor-faq',
+    slug: 'investor-relations/withdrawer-schedule-lp',
     title: "LP – Withdrawal Schedule",
     publishedAt: "2025-02-03",
     description: "Terms and conditions for investor withdrawals from Hushh Technologies Alpha Fund, LP, ensuring liquidity and portfolio stability.",
