@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, Heading, List, ListItem,Image, Divider, VStack } from '@chakra-ui/react';
+import { Box, Text, Heading, List, ListItem,Image, Divider, VStack, UnorderedList } from '@chakra-ui/react';
 import InvestorUpdate from '../../../components/images/inve.jpg'
 export const frontmatter = {
   title: "🤫 Fund Investor FAQ (Charlie Munger Caliber Edition)",
@@ -56,7 +56,9 @@ const InvestorFAQ: React.FC = () => {
             <Heading as="h4" size="md" color="teal.100" mb={2}>{faq.question}</Heading>
             <List spacing={1} pl={4}>
               {faq.answer.map((ans, idx) => (
+                <UnorderedList>
                 <ListItem key={idx}>{ans}</ListItem>
+                </UnorderedList>
               ))}
             </List>
           </Box>
