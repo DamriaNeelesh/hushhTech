@@ -5,7 +5,7 @@ import MarketUpdate from '../../../components/images/0_Daily Market Update.jpg'
 export const frontmatter = {
   title: "Daily Market Update – January 28, 2025",
   date: "2025-01-28",
-  description: "Update description...",
+  description: 'Markets rallied, driven by strong earnings from major tech companies and optimism about the Federal Reserve’s upcoming decisions on interest rates.',
   author: "Jane Doe",
   tags: ["market update", "daily update", "indices", "volatility", "investing"],
   category: "market"

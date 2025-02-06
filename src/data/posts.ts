@@ -19,11 +19,15 @@ import MarketUpdate from '../content/posts/market/marektUpdate2';
 import AlphaAlohaFundUpdate from '../content/posts/market/marketUpdate';
 import WeeklyReport from '../content/posts/market/weeklyReport';
 import MarketUpdate5Feb from '../content/posts/market/marketUpdate5feb'
+import LimitedPartnershipAgreement from '../content/posts/investors-faq/limitedPartnershipAgreement';
+import FeeSchedule from '../content/posts/funds/feeSchedule'
+
 // Images
 import FundsUpdateImg1 from '../components/images/0_Fund Performance.jpg';
 import FundsUpdateImg2 from '../components/images/1_Fund Performance.jpg';
 import FundsUpdateImg3 from '../components/images/2_Fund Performance.jpg';
 import FundsUpdateImg4 from '../components/images/3_Fund Performance.jpg';
+import ExhibitLPAImg from '../components/images/exhibitLPA.webp' 
 
 import HushhAiLogoImg from '../components/images/hushh_ai_logo.jpg';
 import HushhWalletUpdates from '../content/posts/product/hushhProductUpdates';
@@ -40,13 +44,19 @@ import ProductUpdate1 from '../components/images/0_Product Updates.png'
 import ProductUpdate2 from '../components/images/product-update.webp'
 import ProductUpdate3 from '../components/images/stocks.png'
 import HushhWalletImg from '../components/images/hushhWallet.png';
-
+import LimitedPartneshipImg from '../components/images/Limited-Partnership-Agreement.jpg'
 
 import InvestorsFaQImg from '../components/images/inve.jpg'
 import HushhAlphFundImg from '../components/images/hushh_ai_logo.jpg'
 import SubscriptionAgreementAImg from  '../components/images/subscriptionAgreement1.webp'
 import SubscriptionAgreementBImg from '../components/images/subscriptionAgreement2.jpg'
 import SubscriptionAgreementCImg from '../components/images/subscriptionAgreement3.webp'
+import ExhibitLPA from '../content/posts/investors-faq/exhibitLPA';
+import ManagementFee from '../components/images/management-fees.webp'
+import InvestorSuitability from '../content/posts/investors-faq/investorsQuestionnaire';
+import InvestorQImg from '../components/images/questionnaire.webp'
+import WithdrawalSchedule from '../content/posts/investors-faq/withdrawalSchedule';
+import WithdrawalImage from '../components/images/withdrawalScheduleImg.webp'
 
 
 
@@ -71,6 +81,15 @@ export const posts: PostData[] = [
     category: 'fund updates', // updated from 'funds'
     Component: FundPerformance,
     image: FundsUpdateImg2,
+  },
+  {
+    slug: 'funds/fee-schedule',
+    title: "Hushh Technologies Alpha Fund, LP – Fee Schedule",
+    publishedAt: '2025-02-03',
+    description: "Detailed breakdown of management and performance-based fees for Limited Partners investing in Hushh Technologies Alpha Fund, LP.",
+    category: 'fund updates', // updated from 'funds'
+    Component: FeeSchedule,
+    image: ManagementFee,
   },
   {
     slug: 'product/hushh-wallet',
@@ -139,9 +158,27 @@ export const posts: PostData[] = [
     publishedAt: '2025-02-05',
     description:
       'Comprehensive FAQ for 🤫 Fund investors, focusing on risk-adjusted returns and systematic investing.',
-    category: 'investor relations',
+    category: 'investor relations & strategies',
     Component: InvestorFAQ,
     image: InvestorsFaQImg,
+  },
+  {
+    slug: 'investor-relations/investor-faq',
+    title: "LP – Withdrawal Schedule",
+    publishedAt: "2025-02-03",
+    description: "Terms and conditions for investor withdrawals from Hushh Technologies Alpha Fund, LP, ensuring liquidity and portfolio stability.",
+    category: 'investor relations & strategies',
+    Component: WithdrawalSchedule,
+    image: WithdrawalImage,
+  },
+  {
+    slug: 'investor-relations/investor-suitability-questionnarie',
+    title: "LP – Investor Suitability Questionnaire",
+    publishedAt: "2025-02-03",
+    description: "Confidential questionnaire to assess investor eligibility for Hushh Technologies Alpha Fund, LP in compliance with SEC regulations.",
+    category: 'investor relations & strategies',
+    Component: InvestorSuitability,
+    image: InvestorQImg,
   },
   {
     slug: 'investment-strategies/sell-the-wall',
@@ -149,9 +186,27 @@ export const posts: PostData[] = [
     publishedAt: '2025-02-10',
     description:
       "An in-depth breakdown of the 'Sell The Wall' strategy inspired by Jim Simons, adapted by Hushh for modern AI-driven markets.",
-    category: 'investment strategies',
+    category: 'investor relations & strategies',
     Component: SellTheWall,
     image: HushhAiLogoImg,
+  },
+  {
+    slug: 'investment-strategies/limited-partnership-agreement',
+    title: "LIMITED PARTNERSHIP AGREEMENT OF HUSHH TECHNOLOGIES ALPHA FUND, L.P.",
+    publishedAt: '2025-02-03',
+    description: "Agreement outlining the formation, management, and operational guidelines of Hushh Technologies Alpha Fund, L.P.",
+    category: 'investor relations & strategies',
+    Component: LimitedPartnershipAgreement,
+    image: LimitedPartneshipImg,
+  },
+  {
+    slug: 'investment-strategies/exhibit-lpa',
+    title: "Exhibit A: Limited Partnership Agreement (LPA) of Hushh Technologies Alpha Fund, LP",
+    publishedAt: "2025-02-03",
+    description: "Institutional-grade, SEC-compliant investment framework for Hushh Technologies Alpha Fund, LP.",
+    category: 'investor relations & strategies',
+    Component: ExhibitLPA,
+    image: ExhibitLPAImg,
   },
   {
     slug: 'funds/hushh-technology-fund',
@@ -209,7 +264,7 @@ export const posts: PostData[] = [
     title: 'Hushh Technologies Alpha Fund, LP',
     publishedAt: '2025-02-07',
     description: 'Understanding the Different Classes of Shares & Investor FAQ',
-    category: 'investor relations',
+    category: 'investor relations & strategies',
     Component: HushhAlphaFund,
     image: HushhAiLogoImg,
   },
@@ -219,7 +274,7 @@ export const posts: PostData[] = [
     publishedAt: '2025-02-08',
     description:
       'Confidential private offering of Class A limited partnership interests.',
-    category: 'investor relations',
+    category: 'investor relations & strategies',
     Component: SubscriptionAgreementA,
     image: SubscriptionAgreementAImg,
   },
@@ -229,7 +284,7 @@ export const posts: PostData[] = [
     publishedAt: '2025-02-09',
     description:
       'Confidential private offering of Class B limited partnership interests.',
-    category: 'investor relations',
+    category: 'investor relations & strategies',
     Component: SubscriptionAgreementB,
     image: SubscriptionAgreementBImg,
   },
@@ -239,7 +294,7 @@ export const posts: PostData[] = [
     publishedAt: '2025-02-10',
     description:
       'Confidential private offering of Class C limited partnership interests.',
-    category: 'investor relations',
+    category: 'investor relations & strategies',
     Component: SubscriptionAgreementC,
     image: SubscriptionAgreementCImg,
   },
@@ -247,7 +302,7 @@ export const posts: PostData[] = [
     slug: 'market/daily-market-update',
     title: 'Daily Market Update – January 28, 2025',
     publishedAt: '2025-01-28',
-    description: 'Update description...',
+    description: 'Markets rallied, driven by strong earnings from major tech companies and optimism about the Federal Reserve’s upcoming decisions on interest rates.',
     category: 'market',
     Component: DailyMarketUpdate,
     image: DailyMarketUpdateImg1,
@@ -261,6 +316,7 @@ export const posts: PostData[] = [
     Component: MarketUpdate5Feb,
     image: DailyMarketUpdateImg1,
   },
+
   {
     slug: 'market/alpha-aloha-fund-update',
     title: '🤫 Alpha Aloha Fund Update',
