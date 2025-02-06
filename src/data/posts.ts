@@ -18,7 +18,7 @@ import DailyMarketUpdate from '../content/posts/market/dailyMarketUpdates';
 import MarketUpdate from '../content/posts/market/marektUpdate2';
 import AlphaAlohaFundUpdate from '../content/posts/market/marketUpdate';
 import WeeklyReport from '../content/posts/market/weeklyReport';
-
+import MarketUpdate5Feb from '../content/posts/market/marketUpdate5feb'
 // Images
 import FundsUpdateImg1 from '../components/images/0_Fund Performance.jpg';
 import FundsUpdateImg2 from '../components/images/1_Fund Performance.jpg';
@@ -250,6 +250,15 @@ export const posts: PostData[] = [
     description: 'Update description...',
     category: 'market',
     Component: DailyMarketUpdate,
+    image: DailyMarketUpdateImg1,
+  },
+  {
+    slug: 'market/feb-5-market-update',
+    title: "🤫 Alpha Aloha Fund Market and Fund Update Report",
+    publishedAt: "2025-02-05",
+    description: "Comprehensive market and fund update for the Alpha Aloha Fund, covering key performance metrics, strategy highlights, and macro insights.",
+    category: 'market',
+    Component: MarketUpdate5Feb,
     image: DailyMarketUpdateImg1,
   },
   {
