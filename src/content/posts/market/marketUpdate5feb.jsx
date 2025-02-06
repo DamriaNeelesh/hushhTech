@@ -4,7 +4,7 @@ import MarketUpdateImg from '../../../components/images/2_Daily Market Update.jp
 
 export const frontmatter = {
   title: "🤫 Alpha Aloha Fund Market and Fund Update Report",
-  publishedAt: "2025-02-05",
+  publishedAt: "2025-03-05",
   description: "Comprehensive market and fund update for the Alpha Aloha Fund, covering key performance metrics, strategy highlights, and macro insights.",
   category: "market updates"
 };

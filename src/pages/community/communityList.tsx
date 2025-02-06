@@ -7,12 +7,11 @@ import {
   SimpleGrid,
   Button,
   Select,
-  Image, // Chakra UI Image component
+  Image,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { getPosts, PostData } from '../../data/posts';
 
-// Helper function to convert string to Title Case
 const toTitleCase = (str: string): string =>
   str
     .split(' ')
@@ -20,11 +19,12 @@ const toTitleCase = (str: string): string =>
     .join(' ');
 
 const CommunityList: React.FC = () => {
-  const allPosts: PostData[] = getPosts();
+  let allPosts: PostData[] = getPosts();
 
-  // Extract unique categories from posts data
+  // Sort posts by date in descending order (latest first)
+  allPosts = allPosts.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+
   const categories = Array.from(new Set(allPosts.map((post) => post.category)));
-  // Include an "All" option
   const allCategories = ['All', ...categories];
 
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -34,10 +34,8 @@ const CommunityList: React.FC = () => {
       ? allPosts
       : allPosts.filter((post) => post.category === selectedCategory);
 
-  // Preload all images on component mount
   useEffect(() => {
     allPosts.forEach((post) => {
-      // Use the global Image constructor from the window object
       const img = new window.Image();
       img.src = post.image;
     });
@@ -73,7 +71,6 @@ const CommunityList: React.FC = () => {
             shadow="md"
             _hover={{ shadow: 'lg' }}
           >
-            {/* Image placed on top with eager loading */}
             <Image
               src={post.image}
               alt={post.title}
