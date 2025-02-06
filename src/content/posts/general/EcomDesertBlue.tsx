@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Heading, Text, Table, Thead, Tbody, Tr, Th, Td, Divider } from '@chakra-ui/react';
+import { Box, Heading,Image, Text, Table, Thead, Tbody, Tr, Th, Td, Divider } from '@chakra-ui/react';
+import MarketUpdate from '../../../components/images/ecommerce.webp'
 
 export const frontmatter = {
   title: "AI-First E-Commerce Solution for UAE Small Merchants",
@@ -11,6 +12,8 @@ export const frontmatter = {
 const AIEcommerceBudget: React.FC = () => {
   return (
     <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
+                          <Image src={MarketUpdate} alt="Funds Update" mb={4} borderRadius="md" />
+
       <Heading as="h2" size="xl" mb={4} color="teal.300">
         Realistic AI-First E-Commerce Solution for UAE Small Merchants
       </Heading>

@@ -1,6 +1,6 @@
 import FundPerformance from '../content/posts/funds/FundPerformance';
 import Manifesto from '../content/posts/general/Manifesto';
-import RenaissanceTech from '../content/posts/funds/renaissanceTech';
+import RenaissanceTech from '../content/posts/product/renaissanceTech';
 import AISkillsTesting from '../content/posts/general/AiSkillTesting';
 import ProductUpdates from '../content/posts/product/productsUpdate';
 import InvestorFAQ from '../content/posts/investors-faq/Investors';

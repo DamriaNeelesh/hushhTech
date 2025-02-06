@@ -1,9 +1,12 @@
 import React from 'react';
-import { Box, Text, Heading, List, ListItem, Divider, Badge, VStack } from '@chakra-ui/react';
+import { Box, Text,Image, Heading, List, ListItem, Divider, Badge, VStack } from '@chakra-ui/react';
+import SkillTesting from '../../../components/images/2_Manifesto.jpg'
 
 const AISkillsTesting: React.FC = () => {
   return (
     <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
+    <Image src={SkillTesting} alt="Funds Update" mb={4} borderRadius="md" />
+
       <Heading as="h2" size="xl" mb={4} color="teal.300">
         🚀 AI Skills and Testing
       </Heading>

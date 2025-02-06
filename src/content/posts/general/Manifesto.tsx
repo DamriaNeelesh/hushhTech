@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Text, Heading, List, ListItem, Divider, Badge, VStack } from '@chakra-ui/react';
+import { Box, Text, Heading,Image, List, ListItem, Divider, Badge, VStack } from '@chakra-ui/react';
+import MarketUpdate from '../../../components/images/1_Manifesto.jpg'
 
 export const frontmatter = {
   title: "Hushh Technologies Manifesto",
@@ -11,6 +12,8 @@ export const frontmatter = {
 const Manifesto: React.FC = () => {
   return (
     <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
+                    <Image src={MarketUpdate} alt="Funds Update" mb={4} borderRadius="md" />
+
       <Heading as="h2" size="xl" mb={4} color="teal.300">
         🚀 Hushh Technologies Manifesto
       </Heading>

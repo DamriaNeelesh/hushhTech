@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Heading, Text, VStack, Divider } from '@chakra-ui/react';
+import { Box, Heading, Image, Text, VStack, Divider } from '@chakra-ui/react';
+import MarketUpdate from '../../../components/images/0_Daily Market Update.jpg'
 
 export const frontmatter = {
   title: "Daily Market Update – January 28, 2025",
@@ -13,6 +14,8 @@ export const frontmatter = {
 const DailyMarketUpdate: React.FC = () => {
   return (
     <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
+      <Image src={MarketUpdate} alt="Funds Update" mb={4} borderRadius="md" />
+
       <Heading as="h2" size="xl" mb={4} color="teal.300">
         Daily Market Update – January 28, 2025
       </Heading>

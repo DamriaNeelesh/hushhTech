@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Heading, Text, VStack, List, ListItem, Divider } from '@chakra-ui/react';
+import { Box, Heading, Image,Text, VStack, List, ListItem, Divider } from '@chakra-ui/react';
+import SellImg from '../../../components/images/hushh_ai_logo.jpg'
 
 export const frontmatter = {
   title: "Sell The Wall: The Hushh Way",
@@ -11,6 +12,8 @@ export const frontmatter = {
 const SellTheWall: React.FC = () => {
   return (
     <Box p={6} bg="gray.900" color="white" borderRadius="md" shadow="xl">
+       <Image src={SellImg} alt="Funds Update" mb={4} borderRadius="md" />
+
       <Heading as="h1" size="xl" mb={4} color="teal.300">
         Sell The Wall: The Hushh Way
       </Heading>

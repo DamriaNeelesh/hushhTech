@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box, Text, Heading, List, ListItem, Divider, VStack } from '@chakra-ui/react';
-
+import { Box, Text, Heading, List, ListItem,Image, Divider, VStack } from '@chakra-ui/react';
+import InvestorUpdate from '../../../components/images/4_Fund Performance.jpg'
 export const frontmatter = {
   title: "🤫 Fund Investor FAQ (Charlie Munger Caliber Edition)",
   publishedAt: "2025-02-05",
@@ -11,6 +11,8 @@ export const frontmatter = {
 const InvestorFAQ: React.FC = () => {
   return (
     <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
+                  <Image src={InvestorUpdate} alt="Funds Update" mb={4} borderRadius="md" />
+
       <Heading as="h2" size="xl" mb={4} color="teal.300">
         🤫 Fund Investor FAQ
       </Heading>

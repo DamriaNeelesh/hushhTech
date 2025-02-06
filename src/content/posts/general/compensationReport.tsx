@@ -1,9 +1,12 @@
 import React from 'react';
-import { Box, Heading, Text, Table, Thead, Tbody, Tr, Th, Td, VStack } from '@chakra-ui/react';
+import { Box, Heading, Text,Image, Table, Thead, Tbody, Tr, Th, Td, VStack } from '@chakra-ui/react';
+import MarketUpdate from '../../../components/images/2_Daily Market Update.jpg'
 
 const CompensationReport = () => {
   return (
     <Box p={5} maxW="1200px" mx="auto">
+        <Image src={MarketUpdate} alt="Funds Update" mb={4} borderRadius="md" />
+
       <Heading as="h1" size="2xl" mb={6} textAlign="center">
         Comprehensive Report on Compensation Patterns in Pune, Maharashtra
       </Heading>

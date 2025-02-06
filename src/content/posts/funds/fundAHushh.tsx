@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box, Text, Heading, VStack, Divider, List, ListItem } from '@chakra-ui/react';
-
+import { Box, Text, Heading, VStack, Divider, List, ListItem , Image} from '@chakra-ui/react';
+import FundsUpdate from '../../../components/images/0_Fund Performance.jpg'
 export const frontmatter = {
   title: "Fund A Hushh",
   publishedAt: "2025-02-05",
@@ -11,6 +11,9 @@ export const frontmatter = {
 const FundAHushh: React.FC = () => {
   return (
     <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
+
+<Image src={FundsUpdate} alt="Funds Update" mb={4} borderRadius="md" />
+
       <Heading as="h2" size="xl" mb={4} color="teal.300">
         Fund A Hushh
       </Heading>
