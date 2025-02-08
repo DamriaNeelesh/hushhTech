@@ -108,9 +108,9 @@ const NDARequestModal: React.FC<NDARequestModalProps> = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
-      <ModalContent maxW={{md:"500px",base:'80%' }}borderRadius="md">
+      <ModalContent maxW={{ md: "500px", base: "90%" }} borderRadius="md">
         <ModalHeader fontSize="lg" fontWeight="bold" textAlign="center">
-          Submit NDA Request
+          Submit NDA Request Access
         </ModalHeader>
         <ModalCloseButton />
 
@@ -118,10 +118,7 @@ const NDARequestModal: React.FC<NDARequestModalProps> = ({
         <ModalBody overflowY="auto" maxH="60vh" px={4}>
           <FormControl mb={4}>
             <FormLabel>Investor Type</FormLabel>
-            <Select
-              value={investorType}
-              onChange={(e) => setInvestorType(e.target.value)}
-            >
+            <Select value={investorType} onChange={(e) => setInvestorType(e.target.value)}>
               <option value="Individual">Individual</option>
               <option value="Organisation">Organisation</option>
             </Select>
@@ -132,85 +129,66 @@ const NDARequestModal: React.FC<NDARequestModalProps> = ({
               <VStack spacing={3} align="stretch">
                 <FormControl isRequired>
                   <FormLabel>Full Name</FormLabel>
-                  <Input
-                    placeholder="Enter your full name"
-                    onChange={(e) => handleInputChange("name", e.target.value)}
-                  />
+                  <Input placeholder="Enter your full name" onChange={(e) => handleInputChange("name", e.target.value)} />
                 </FormControl>
                 <FormControl isRequired>
                   <FormLabel>State</FormLabel>
-                  <Input
-                    placeholder="Enter your state"
-                    onChange={(e) => handleInputChange("state", e.target.value)}
-                  />
+                  <Input placeholder="Enter your state" onChange={(e) => handleInputChange("state", e.target.value)} />
                 </FormControl>
                 <FormControl isRequired>
                   <FormLabel>City</FormLabel>
-                  <Input
-                    placeholder="Enter your city"
-                    onChange={(e) => handleInputChange("city", e.target.value)}
-                  />
+                  <Input placeholder="Enter your city" onChange={(e) => handleInputChange("city", e.target.value)} />
                 </FormControl>
                 <FormControl isRequired>
                   <FormLabel>Country</FormLabel>
-                  <Input
-                    placeholder="Enter your country"
-                    onChange={(e) => handleInputChange("country", e.target.value)}
-                  />
+                  <Input placeholder="Enter your country" onChange={(e) => handleInputChange("country", e.target.value)} />
+                </FormControl>
+                <FormControl isRequired>
+                  <FormLabel>Residential Address</FormLabel>
+                  <Input placeholder="Enter your address" onChange={(e) => handleInputChange("individual_address", e.target.value)} />
                 </FormControl>
                 <FormControl isRequired>
                   <FormLabel>Legal Email</FormLabel>
-                  <Input
-                    type="email"
-                    placeholder="Enter your legal email"
-                    onChange={(e) => handleInputChange("email", e.target.value)}
-                  />
+                  <Input type="email" placeholder="Enter your legal email" onChange={(e) => handleInputChange("legal_email", e.target.value)} />
+                </FormControl>
+                <FormControl isRequired>
+                  <FormLabel>Mobile Telephone</FormLabel>
+                  <Input placeholder="Enter your mobile telephone" onChange={(e) => handleInputChange("mobile_telephone", e.target.value)} />
                 </FormControl>
               </VStack>
             ) : (
               <VStack spacing={3} align="stretch">
                 <FormControl isRequired>
                   <FormLabel>Company Name</FormLabel>
-                  <Input
-                    placeholder="Enter company name"
-                    onChange={(e) => handleInputChange("company_name", e.target.value)}
-                  />
+                  <Input placeholder="Enter company name" onChange={(e) => handleInputChange("company_name", e.target.value)} />
                 </FormControl>
                 <FormControl isRequired>
                   <FormLabel>State of Incorporation</FormLabel>
-                  <Input
-                    placeholder="Enter state of incorporation"
-                    onChange={(e) => handleInputChange("state_of_incorporation", e.target.value)}
-                  />
+                  <Input placeholder="Enter state of incorporation" onChange={(e) => handleInputChange("state_of_incorporation", e.target.value)} />
                 </FormControl>
                 <FormControl>
                   <FormLabel>Company Address</FormLabel>
-                  <Input
-                    placeholder="Enter company address"
-                    onChange={(e) => handleInputChange("company_address", e.target.value)}
-                  />
+                  <Input placeholder="Enter company address" onChange={(e) => handleInputChange("company_address", e.target.value)} />
                 </FormControl>
                 <FormControl isRequired>
                   <FormLabel>Company Email</FormLabel>
-                  <Input
-                    type="email"
-                    placeholder="Enter company email"
-                    onChange={(e) => handleInputChange("company_email", e.target.value)}
-                  />
+                  <Input type="email" placeholder="Enter company email" onChange={(e) => handleInputChange("company_email", e.target.value)} />
                 </FormControl>
                 <FormControl isRequired>
                   <FormLabel>Contact Person Name</FormLabel>
-                  <Input
-                    placeholder="Enter contact person name"
-                    onChange={(e) => handleInputChange("contact_person_name", e.target.value)}
-                  />
+                  <Input placeholder="Enter contact person name" onChange={(e) => handleInputChange("contact_person_name", e.target.value)} />
+                </FormControl>
+                <FormControl isRequired>
+                  <FormLabel>Contact Person Title</FormLabel>
+                  <Input placeholder="Enter contact person title" onChange={(e) => handleInputChange("contact_person_title", e.target.value)} />
+                </FormControl>
+                <FormControl isRequired>
+                  <FormLabel>Contact Person Email</FormLabel>
+                  <Input type="email" placeholder="Enter contact person email" onChange={(e) => handleInputChange("contact_person_email", e.target.value)} />
                 </FormControl>
                 <FormControl isRequired>
                   <FormLabel>Contact Person Telephone</FormLabel>
-                  <Input
-                    placeholder="Enter contact person telephone"
-                    onChange={(e) => handleInputChange("contact_person_telephone", e.target.value)}
-                  />
+                  <Input placeholder="Enter contact person telephone" onChange={(e) => handleInputChange("contact_person_telephone", e.target.value)} />
                 </FormControl>
               </VStack>
             )}
