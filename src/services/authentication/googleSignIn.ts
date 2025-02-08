@@ -3,12 +3,11 @@ import config from '../../components/config/config';
 export default async function googleSignIn(setUserEmail) {
   try {
     console.log('Starting Google Sign-In process...');
+    const redirectTo = window.location.origin;
     const { data, error } = await config.supabaseClient.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: process.env.NODE_ENV === "development"
-          ? "http://localhost:5173/"
-          : "https://hushhTech.com",
+        redirectTo,
       },
     });
 
