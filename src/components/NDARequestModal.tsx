@@ -108,7 +108,7 @@ const NDARequestModal: React.FC<NDARequestModalProps> = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
-      <ModalContent maxW="500px" borderRadius="md">
+      <ModalContent maxW={{md:"500px",base:'80%' }}borderRadius="md">
         <ModalHeader fontSize="lg" fontWeight="bold" textAlign="center">
           Submit NDA Request
         </ModalHeader>
