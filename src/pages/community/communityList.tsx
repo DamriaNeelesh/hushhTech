@@ -12,48 +12,45 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import NDARequestModal from "../../components/NdaForm";
+import NDARequestModal from "../../components/NDARequestModal";
+import NDADocumentModal from "../../components/NDADocumentModal";
 import config from "../../resources/config/config";
 import { getPosts, PostData } from "../../data/posts";
 
 const CommunityList: React.FC = () => {
   const allPosts: PostData[] = getPosts();
-  
-  // Get unique categories from posts.
-  const categories = Array.from(new Set(allPosts.map((post) => post.category)));
-  
-  // Define restricted categories (case-insensitive).
-  const restrictedCategories = [
-    "fund updates",
-    "investor relations & strategies",
-  ];
-  
-  // Dropdown displays all categories.
-  const allCategories = ["All", ...categories];
-  
+
+  // Separate posts by access level.
+  const publicPosts = allPosts.filter((post) => post.accessLevel === "Public");
+  const ndaPosts = allPosts.filter((post) => post.accessLevel === "NDA");
+
+  // Get unique categories from public posts only.
+  const publicCategories = Array.from(new Set(publicPosts.map((post) => post.category)));
+  // Add a special "NDA" option to the dropdown.
+  const dropdownOptions = ["All", ...publicCategories, "NDA"];
+
+  // State for selected dropdown option.
   const [selectedCategory, setSelectedCategory] = useState("All");
-  
-  // Initially, only non-restricted categories are approved.
-  const [approvedCategories, setApprovedCategories] = useState(
-    categories.filter((c) => !restrictedCategories.includes(c.toLowerCase()))
-  );
-  
+  // Flag to indicate if NDA access is approved.
+  const [ndaApproved, setNdaApproved] = useState(false);
+  // Session state.
   const [session, setSession] = useState<any>(null);
+  // Controls showing the NDA request modal.
   const [showNdaModal, setShowNdaModal] = useState(false);
+  // Controls showing the NDA document modal.
+  const [showNdaDocModal, setShowNdaDocModal] = useState(false);
+  // To store NDA metadata returned from the API.
+  const [ndaMetadata, setNdaMetadata] = useState<any>(null);
   const toast = useToast();
 
-  // Fetch the session and listen for auth state changes.
+  // Fetch session and subscribe to auth changes.
   useEffect(() => {
     config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
-
-    const {
-      data: { subscription },
-    } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
-
     return () => {
       if (subscription && typeof subscription.unsubscribe === "function") {
         subscription.unsubscribe();
@@ -61,8 +58,9 @@ const CommunityList: React.FC = () => {
     };
   }, []);
 
-  // Function to check access status via your API endpoint.
-  const checkAccessStatus = async (): Promise<boolean> => {
+  // Function to check NDA access status via API.
+  // This call is made only when "NDA" is selected.
+  const checkNdaAccessStatus = async (): Promise<boolean> => {
     if (!session) {
       toast({
         title: "Access Denied",
@@ -73,7 +71,6 @@ const CommunityList: React.FC = () => {
       });
       return false;
     }
-
     try {
       const response = await axios.post(
         "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/check_access_status",
@@ -86,18 +83,16 @@ const CommunityList: React.FC = () => {
           },
         }
       );
-
       const status = response.data;
-      console.log("Access Status:", status);
+      console.log("NDA Access Status:", status);
 
       if (status === "Approved") {
-        // Grant access to restricted categories.
-        setApprovedCategories([...categories]);
+        setNdaApproved(true);
         return true;
       } else if (status === "Rejected") {
         toast({
           title: "Access Denied",
-          description: "Your access request was rejected.",
+          description: "Your NDA access request was rejected.",
           status: "error",
           duration: 4000,
           isClosable: true,
@@ -106,22 +101,51 @@ const CommunityList: React.FC = () => {
       } else if (status === "Pending") {
         toast({
           title: "Request Pending",
-          description: "Your access request is still under review.",
+          description: "Your NDA access request is still under review.",
           status: "info",
           duration: 4000,
           isClosable: true,
         });
         return false;
       } else if (status === "Pending: Waiting for NDA Process") {
-        toast({
-          title: "NDA Required",
-          description: "Please complete the NDA process to proceed.",
-          status: "warning",
-          duration: 4000,
-          isClosable: true,
-        });
+        // In this case, fetch NDA metadata and show the document modal.
+        try {
+          const ndaResponse = await axios.post(
+            "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/get_nda_metadata",
+            {},
+            {
+              headers: {
+                apikey: config.SUPABASE_ANON_KEY,
+                Authorization: `Bearer ${session.access_token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          if (ndaResponse.data.status === "success") {
+            setNdaMetadata(ndaResponse.data.metadata);
+            setShowNdaDocModal(true);
+          } else {
+            toast({
+              title: "Error",
+              description: ndaResponse.data.message || "Error fetching NDA metadata.",
+              status: "error",
+              duration: 4000,
+              isClosable: true,
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching NDA metadata:", error);
+          toast({
+            title: "Error",
+            description: "Failed to fetch NDA metadata.",
+            status: "error",
+            duration: 4000,
+            isClosable: true,
+          });
+        }
         return false;
       } else if (status === "Not Applied") {
+        // Show the NDA request modal so the user can apply.
         setShowNdaModal(true);
         return false;
       } else {
@@ -135,10 +159,10 @@ const CommunityList: React.FC = () => {
         return false;
       }
     } catch (error) {
-      console.error("Error checking access status:", error);
+      console.error("Error checking NDA access status:", error);
       toast({
         title: "API Error",
-        description: "Failed to check access status.",
+        description: "Failed to check NDA access status.",
         status: "error",
         duration: 4000,
         isClosable: true,
@@ -147,36 +171,33 @@ const CommunityList: React.FC = () => {
     }
   };
 
-  // When a category is selected from the dropdown.
+  // Handler for dropdown category change.
   const handleCategoryChange = async (category: string) => {
-    // Check if the selected category is restricted (case-insensitive).
-    if (restrictedCategories.includes(category.toLowerCase())) {
-      const accessGranted = await checkAccessStatus();
-      if (!accessGranted) {
-        // Do not change category if access is denied.
-        return;
-      }
+    if (category === "NDA") {
+      // If user selects "NDA", perform the NDA access check.
+      const accessGranted = await checkNdaAccessStatus();
+      if (!accessGranted) return;
     }
     setSelectedCategory(category);
   };
 
-  // Filter posts based on selectedCategory and approvedCategories.
-  const filteredPosts =
-    selectedCategory === "All"
-      ? allPosts.filter((post) =>
-          approvedCategories.includes(post.category)
-        )
-      : allPosts.filter(
-          (post) =>
-            post.category === selectedCategory &&
-            approvedCategories.includes(post.category)
-        );
+  // Filter posts based on the selected category.
+  // - If "NDA" is selected, show only NDA posts (only if ndaApproved is true).
+  // - Otherwise, show only public posts filtered by category.
+  let filteredPosts;
+  if (selectedCategory === "NDA") {
+    filteredPosts = ndaApproved ? ndaPosts : [];
+  } else if (selectedCategory === "All") {
+    filteredPosts = publicPosts;
+  } else {
+    filteredPosts = publicPosts.filter((post) => post.category === selectedCategory);
+  }
 
-  // When a user clicks a restricted post (if somehow rendered while access not granted).
+  // When a restricted (NDA) post is clicked and the user isn’t approved.
   const handleRestrictedClick = () => {
     toast({
       title: "Access Restricted",
-      description: "Please sign in to get access to these posts.",
+      description: "Please sign in and complete NDA process to access these posts.",
       status: "error",
       duration: 4000,
       isClosable: true,
@@ -205,7 +226,7 @@ const CommunityList: React.FC = () => {
           onChange={(e) => handleCategoryChange(e.target.value)}
           placeholder="Select Category"
         >
-          {allCategories.map((category) => (
+          {dropdownOptions.map((category) => (
             <option key={category} value={category}>
               {category}
             </option>
@@ -214,50 +235,90 @@ const CommunityList: React.FC = () => {
       </Box>
 
       <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
-        {filteredPosts.map((post) => {
-          const isRestricted = restrictedCategories.includes(
-            post.category.toLowerCase()
-          );
-          return (
-            <Box
-              key={post.slug}
-              p={6}
-              bg="white"
+        {filteredPosts.map((post) => (
+          <Box
+            key={post.slug}
+            p={6}
+            bg="white"
+            borderRadius="md"
+            shadow="md"
+            _hover={{ shadow: "lg" }}
+            // Fixed height for uniformity; adjust as needed.
+            height="350px"
+            display="flex"
+            flexDirection="column"
+            justifyContent="space-between"
+          >
+            <Image
+              src={post.image}
+              alt={post.title}
               borderRadius="md"
-              shadow="md"
-              _hover={{ shadow: "lg" }}
-            >
-              <Image
-                src={post.image}
-                alt={post.title}
-                borderRadius="md"
-                mb={4}
-              />
-              <Heading as="h3" size="md" mb={2}>
+              mb={4}
+              height="150px"
+              objectFit="cover"
+            />
+            <Box flex="1" overflow="hidden">
+              <Heading as="h3" size="md" mb={2} noOfLines={2}>
                 {post.title}
               </Heading>
-              <Text mb={2}>{post.excerpt}</Text>
-              {isRestricted && !session ? (
-                <Button onClick={handleRestrictedClick} mt={4} colorScheme="blue">
+              <Text mb={2} noOfLines={3}>
+                {post.excerpt}
+              </Text>
+            </Box>
+            {selectedCategory === "NDA" && !ndaApproved ? (
+              <Button
+                onClick={handleRestrictedClick} 
+                mt={4} bg={'linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)'} color={'white'}
+                _hover={{
+                  background:'black',
+                  color:'white'
+                }}
+                >
+                Read More
+              </Button>
+            ) : (
+              <Link to={`/post/${post.slug}`}>
+                <Button
+                _hover={{
+                  background:'black',
+                  color:'white'
+                }}
+                mt={4} bg={'linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)'} color={'white'}>
                   Read More
                 </Button>
-              ) : (
-                <Link to={`/post/${post.slug}`}>
-                  <Button mt={4} colorScheme="blue">
-                    Read More
-                  </Button>
-                </Link>
-              )}
-            </Box>
-          );
-        })}
+              </Link>
+            )}
+          </Box>
+        ))}
       </SimpleGrid>
 
-      {showNdaModal && (
+      {/* NDA Request Modal: Shown when user has not applied for NDA access */}
+      {showNdaModal && session && (
         <NDARequestModal
           isOpen={showNdaModal}
           onClose={() => setShowNdaModal(false)}
           session={session}
+        />
+      )}
+
+      {/* NDA Document Modal: Shown when NDA access status is "Pending: Waiting for NDA Process" */}
+      {showNdaDocModal && ndaMetadata && (
+        <NDADocumentModal
+          isOpen={showNdaDocModal}
+          onClose={() => setShowNdaDocModal(false)}
+          ndaMetadata={ndaMetadata}
+          onAccept={() => {
+            // When NDA is accepted, grant NDA access.
+            setNdaApproved(true);
+            setShowNdaDocModal(false);
+            toast({
+              title: "NDA Accepted",
+              description: "Your NDA has been accepted. NDA posts are now accessible.",
+              status: "success",
+              duration: 4000,
+              isClosable: true,
+            });
+          }}
         />
       )}
     </Container>

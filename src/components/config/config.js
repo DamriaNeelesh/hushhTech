@@ -16,7 +16,7 @@ const config = {
   
   guestModeAccessToken:
     "P2H8RNXPvIiPoeM0iJEDjJ2Skk37h5pScMQF5oMRUXm3dKoUC2wxrWImx5ccA9VOrOoeaLcMQqn57vYDPucTkYnkkH6icUQy09vtd5eIrAIXhBtmUfAmPI3thD2OoUeF",
-    redirect_url: redirect_urls[process.env.NODE_ENV || 'development'],
+    redirect_url: 'http://localhost:5173/',
 
 };
 

@@ -1,3 +1,4 @@
+// NDARequestModal.tsx
 import { useState } from "react";
 import {
   Modal,
@@ -21,19 +22,21 @@ import config from "../resources/config/config";
 interface NDARequestModalProps {
   isOpen: boolean;
   onClose: () => void;
-  session: any; // The logged-in user's session; must include access_token.
+  session: any; // Contains the logged-in user's session (including access_token)
+  onSubmit: (result: string) => void;
 }
 
 const NDARequestModal: React.FC<NDARequestModalProps> = ({
   isOpen,
   onClose,
   session,
+  onSubmit,
 }) => {
   const [investorType, setInvestorType] = useState("Individual");
   const [metadata, setMetadata] = useState<any>({});
   const toast = useToast();
 
-  // Handler to update the metadata with form field values.
+  // Update the metadata with form values
   const handleInputChange = (field: string, value: string) => {
     setMetadata((prev: any) => ({ ...prev, [field]: value }));
   };
@@ -48,24 +51,26 @@ const NDARequestModal: React.FC<NDARequestModalProps> = ({
         },
         {
           headers: {
-            apikey: config.SUPABASE_ANON_KEY, // Your public Supabase key.
+            apikey: config.SUPABASE_ANON_KEY,
             Authorization: `Bearer ${session.access_token}`,
             "Content-Type": "application/json",
           },
         }
       );
 
-      console.log("NDA Request Response:", response.data);
-
+      console.log("Request Access Response:", response.data);
       const resData = response.data;
+
+      // Let the parent component decide what to do
+      onSubmit(resData);
+
       if (
         resData === "Approved" ||
-        (typeof resData === "string" &&
-          resData.startsWith("Requested permission"))
+        (typeof resData === "string" && resData.startsWith("Requested permission"))
       ) {
         toast({
           title: "Request Submitted",
-          description: "Your NDA request has been sent and is pending approval.",
+          description: "Your access request has been sent and is pending approval.",
           status: "success",
           duration: 4000,
           isClosable: true,
@@ -74,7 +79,7 @@ const NDARequestModal: React.FC<NDARequestModalProps> = ({
       } else if (resData === "Rejected") {
         toast({
           title: "Request Rejected",
-          description: "Your NDA request was rejected.",
+          description: "Your request was rejected. Please re-apply after 2-3 days.",
           status: "error",
           duration: 4000,
           isClosable: true,
@@ -82,7 +87,7 @@ const NDARequestModal: React.FC<NDARequestModalProps> = ({
       } else if (resData === "Pending") {
         toast({
           title: "Request Pending",
-          description: "Your NDA request is under review.",
+          description: "Your request is still under review.",
           status: "info",
           duration: 4000,
           isClosable: true,
@@ -96,7 +101,6 @@ const NDARequestModal: React.FC<NDARequestModalProps> = ({
           isClosable: true,
         });
       } else {
-        // In case of any unexpected response.
         toast({
           title: "Unexpected Response",
           description: `Received: ${resData}`,
@@ -106,11 +110,10 @@ const NDARequestModal: React.FC<NDARequestModalProps> = ({
         });
       }
     } catch (error: any) {
-      console.error("Error submitting NDA request:", error);
+      console.error("Error submitting request:", error);
       toast({
         title: "Submission Failed",
-        description:
-          error.response?.data || "Could not submit your NDA request.",
+        description: error.response?.data || "Could not submit your request.",
         status: "error",
         duration: 4000,
         isClosable: true,
@@ -122,7 +125,7 @@ const NDARequestModal: React.FC<NDARequestModalProps> = ({
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Submit NDA Request</ModalHeader>
+        <ModalHeader>Submit Access Request</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <FormControl mb={4}>
@@ -166,14 +169,18 @@ const NDARequestModal: React.FC<NDARequestModalProps> = ({
                 <FormLabel>Organisation Name</FormLabel>
                 <Input
                   placeholder="Enter organisation name"
-                  onChange={(e) => handleInputChange("organisationName", e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("organisationName", e.target.value)
+                  }
                 />
               </FormControl>
               <FormControl>
                 <FormLabel>Contact Person</FormLabel>
                 <Input
                   placeholder="Enter contact person's name"
-                  onChange={(e) => handleInputChange("contactPerson", e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("contactPerson", e.target.value)
+                  }
                 />
               </FormControl>
               <FormControl>

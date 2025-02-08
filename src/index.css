@@ -8,10 +8,35 @@ html, body {
   font-family: 'Figtree', sans-serif !important;
 }
 
+.gradient-bg {
+  background: linear-gradient(to right, #7a7a7e, #ffffff);
+}
+
+.gradient {
+  background: linear-gradient(to right, #7a7a7e, #ffffff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.color-gradient-bg {
+  background: linear-gradient(to right, #e54d60, #a342ff);
+
+}
+
+.color-gradient {
+  background: linear-gradient(to right, #e54d60, #a342ff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
 
 .hushh-gradient {
-    background: linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%);
-    -webkit-background-clip: text;
-    color: transparent;
-    border-color: linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%);
-  }
+  background: linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%);
+  -webkit-background-clip: text;
+  color: transparent;
+  border-color: linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%);
+}
+
+.hushh-gradient-bg {
+  background: linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%);
+
+}

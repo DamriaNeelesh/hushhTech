@@ -57,6 +57,13 @@ import InvestorSuitability from '../content/posts/investors-faq/investorsQuestio
 import InvestorQImg from '../components/images/questionnaire.webp'
 import WithdrawalSchedule from '../content/posts/investors-faq/withdrawalSchedule';
 import WithdrawalImage from '../components/images/withdrawalScheduleImg.webp'
+import RudeFAQ from '../content/posts/nda/rudeFaq';
+import MarketUpdate6feb from '../content/posts/market/marketUpdate6feb';
+import RiskAdjustedReturns from '../content/posts/nda/riskAdjust';
+import OptionsStrategyRisks from '../content/posts/nda/optionsStrategy';
+import LiquidityManagement from '../content/posts/nda/liquidityManagement';
+import AMLKYCDocumentation from '../content/posts/funds/kycFundUpdates';
+import WireTransferInstructions from '../content/posts/funds/wireTransformation';
 
 
 
@@ -69,6 +76,7 @@ export interface PostData {
   category: string;
   Component: React.ComponentType;
   image:string;
+  accessLevel: string; 
 }
 
 export const posts: PostData[] = [
@@ -81,6 +89,17 @@ export const posts: PostData[] = [
     category: 'fund updates', // updated from 'funds'
     Component: FundPerformance,
     image: FundsUpdateImg2,
+    accessLevel: 'NDA',
+  },
+  {
+    slug: 'rude-faq/sell-the-wall',
+    title: 'Rude FAQ - Sell the wall',
+    publishedAt: '2025-02-08',
+    description: "A no-nonsense FAQ about the 'Sell the Wall' strategy and smart investing.",
+    category: 'investor relations & strategies',
+    Component: RudeFAQ,
+    image: HushhAiLogoImg,
+    accessLevel: 'NDA',
   },
   {
     slug: 'funds/fee-schedule',
@@ -90,7 +109,28 @@ export const posts: PostData[] = [
     category: 'fund updates', // updated from 'funds'
     Component: FeeSchedule,
     image: ManagementFee,
+    accessLevel: 'NDA',
   },
+  {
+    slug: 'funds/alpha-aloha-fund-update',
+    title: 'Alpha Aloha Fund Market and Fund Update Report',
+    publishedAt: '2025-02-07',
+    description: 'Comprehensive market and fund update for the Alpha Aloha Fund, covering key performance metrics, strategy highlights, and macro insights.',
+    category: 'fund updates',
+    Component: AlphaAlohaFundUpdate,
+    image: DailyMarketUpdateImg1,
+    accessLevel: 'Public',
+  },
+  {
+    slug: 'funds/alpha-aloha-fund-update-feb6',
+    title: 'Alpha Aloha Fund Market and Fund Update Report - Feb 6, 2025',
+    publishedAt: '2025-02-06',
+    description: 'Detailed performance insights for the Alpha Aloha Fund, including NAV, cash position, earnings strategy, and macroeconomic trends.',
+    category: 'fund updates',
+    Component: MarketUpdate6feb,
+    image: DailyMarketUpdateImg2,
+    accessLevel: 'Public',
+  },  
   {
     slug: 'product/hushh-wallet',
     title: 'Product Update - Hushh Wallet',
@@ -100,6 +140,7 @@ export const posts: PostData[] = [
     category: 'product updates', // updated from 'funds'
     Component: HushhWalletUpdates,
     image: HushhWalletImg,
+    accessLevel: 'Public',
   },
   {
     slug: 'market/updates',
@@ -110,6 +151,7 @@ export const posts: PostData[] = [
     category: 'market', // updated from 'funds'
     Component: MarketUpdate,
     image: DailyMarketUpdateImg2,
+    accessLevel: 'Public',
   },
   {
     slug: 'general/manifesto',
@@ -120,6 +162,7 @@ export const posts: PostData[] = [
     category: 'general',
     Component: Manifesto,
     image: ManifestoImg,
+    accessLevel: 'Public',
   },
   {
     slug: 'funds/renaissance-tech',
@@ -131,6 +174,7 @@ export const posts: PostData[] = [
       category: 'product updates',
       Component: RenaissanceTech,
     image: ProductUpdate2,
+    accessLevel: 'Public',
   },
   {
     slug: 'general/ai-skills-testing',
@@ -141,6 +185,7 @@ export const posts: PostData[] = [
     category: 'general',
     Component: AISkillsTesting,
     image: SkillTesting,
+    accessLevel: 'Public',
   },
   {
     slug: 'product/product-updates',
@@ -151,6 +196,7 @@ export const posts: PostData[] = [
     category: 'product updates',
     Component: ProductUpdates,
     image: ProductUpdate1,
+    accessLevel: 'Public',
   },
   {
     slug: 'investor-relations/investor-faq',
@@ -161,6 +207,7 @@ export const posts: PostData[] = [
     category: 'investor relations & strategies',
     Component: InvestorFAQ,
     image: InvestorsFaQImg,
+    accessLevel: 'Public',
   },
   {
     slug: 'investor-relations/withdrawer-schedule-lp',
@@ -170,6 +217,7 @@ export const posts: PostData[] = [
     category: 'investor relations & strategies',
     Component: WithdrawalSchedule,
     image: WithdrawalImage,
+    accessLevel: 'NDA',
   },
   {
     slug: 'investor-relations/investor-suitability-questionnarie',
@@ -179,6 +227,7 @@ export const posts: PostData[] = [
     category: 'investor relations & strategies',
     Component: InvestorSuitability,
     image: InvestorQImg,
+    accessLevel: 'Public',
   },
   {
     slug: 'investment-strategies/sell-the-wall',
@@ -189,6 +238,17 @@ export const posts: PostData[] = [
     category: 'investor relations & strategies',
     Component: SellTheWall,
     image: HushhAiLogoImg,
+    accessLevel: 'Public',
+  },
+  {
+    slug: 'investment-strategies/sell-the-wall',
+    title: "Example Risk-Adjusted Returns Scenarios",
+    publishedAt: "2025-02-07",
+    description: "Quantitative exploration of potential return outcomes based on market conditions and strategy performance.",
+    category: 'investor relations & strategies',
+    Component: RiskAdjustedReturns,
+    image: HushhAiLogoImg,
+    accessLevel: 'NDA',
   },
   {
     slug: 'investment-strategies/limited-partnership-agreement',
@@ -198,6 +258,8 @@ export const posts: PostData[] = [
     category: 'investor relations & strategies',
     Component: LimitedPartnershipAgreement,
     image: LimitedPartneshipImg,
+    accessLevel: 'NDA',
+
   },
   {
     slug: 'investment-strategies/exhibit-lpa',
@@ -207,6 +269,7 @@ export const posts: PostData[] = [
     category: 'investor relations & strategies',
     Component: ExhibitLPA,
     image: ExhibitLPAImg,
+    accessLevel: 'NDA',
   },
   {
     slug: 'funds/hushh-technology-fund',
@@ -217,6 +280,17 @@ export const posts: PostData[] = [
     category: 'fund updates',
     Component: FundAtHushh,
     image: FundsUpdateImg3,
+    accessLevel: 'Public',
+  },
+  {
+    slug: 'funds/wire-transfer-instructions',
+    title: 'Wire Transfer Instructions for Initial Investment',
+    publishedAt: '2025-02-08',
+    description: 'Confidential wire transfer instructions for subscribing to the Hushh Renaissance Aloha & Alpha Fund, LP.',
+    category: 'fund updates',
+    Component: WireTransferInstructions,
+    image: FundsUpdateImg2,
+    accessLevel: 'NDA',
   },
   {
     slug: 'financial-strategies/sell-the-wall-masterclass',
@@ -227,6 +301,7 @@ export const posts: PostData[] = [
     category: 'financial strategies',
     Component: SellTheWallMasterclass,
     image: HushhAiLogoImg,
+    accessLevel: 'Public',
   },
   {
     slug: 'investor-relations/fund-a-hushh',
@@ -237,6 +312,17 @@ export const posts: PostData[] = [
     category: 'fund updates', // updated from 'investor relations'
     Component: FundAHushh,
     image: FundsUpdateImg1,
+    accessLevel: 'Public',
+  },
+  {
+    slug: 'fund-updates/aml-kyc-documentation',
+  title: 'ANTI-MONEY LAUNDERING (AML) & KNOW YOUR CUSTOMER (KYC) DOCUMENTATION',
+  publishedAt: '2025-02-08',
+  description: 'Comprehensive compliance framework ensuring transparency and security in investor onboarding.',
+  category: 'fund updates', // updated from 'investor relations'
+    Component: AMLKYCDocumentation,
+    image: FundsUpdateImg4,
+    accessLevel: 'Public',
   },
   {
     slug: 'general/compensation-report',
@@ -247,6 +333,7 @@ export const posts: PostData[] = [
     category: 'general',
     Component: CompensationReport,
     image: DailyMarketUpdateImg3,
+    accessLevel: 'Public',
   },
   // {
   //   slug: 'ecommerce/ai-ecommerce-budget',
@@ -266,6 +353,7 @@ export const posts: PostData[] = [
     category: 'investor relations & strategies',
     Component: HushhAlphaFund,
     image: HushhAiLogoImg,
+    accessLevel: 'NDA',
   },
   {
     slug: 'investors-faq/subscription-agreement-a',
@@ -276,6 +364,7 @@ export const posts: PostData[] = [
     category: 'investor relations & strategies',
     Component: SubscriptionAgreementA,
     image: SubscriptionAgreementAImg,
+    accessLevel: 'NDA',
   },
   {
     slug: 'investors-faq/subscription-agreement-b',
@@ -286,6 +375,17 @@ export const posts: PostData[] = [
     category: 'investor relations & strategies',
     Component: SubscriptionAgreementB,
     image: SubscriptionAgreementBImg,
+    accessLevel: 'NDA',
+  },
+  {
+    slug: 'strategy/details-strategy-risks',
+    title: "Detailed Options Strategy Risks",
+    publishedAt: "2025-02-08",
+    description: "Comprehensive breakdown of risks in the Fund’s options-based investment strategy.",
+    category: 'investor relations & strategies',
+    Component: OptionsStrategyRisks,
+    image: HushhAiLogoImg,
+    accessLevel: 'NDA',
   },
   {
     slug: 'investors-faq/subscription-agreement-c',
@@ -296,6 +396,17 @@ export const posts: PostData[] = [
     category: 'investor relations & strategies',
     Component: SubscriptionAgreementC,
     image: SubscriptionAgreementCImg,
+    accessLevel: 'NDA',
+  },
+  {
+    slug: 'guidelines/liquidity-management',
+    title: "Liquidity Management Guidelines",
+    publishedAt: '2025-02-08',
+    description: "A comprehensive framework for ensuring capital availability & portfolio stability.",
+    category: 'investor relations & strategies',
+    Component: LiquidityManagement,
+    image: SubscriptionAgreementCImg,
+    accessLevel: 'NDA',
   },
   {
     slug: 'market/daily-market-update',
@@ -305,6 +416,7 @@ export const posts: PostData[] = [
     category: 'market',
     Component: DailyMarketUpdate,
     image: DailyMarketUpdateImg1,
+    accessLevel: 'Public',
   },
   {
     slug: 'market/feb-5-market-update',
@@ -314,6 +426,7 @@ export const posts: PostData[] = [
     category: 'market',
     Component: MarketUpdate5Feb,
     image: DailyMarketUpdateImg1,
+    accessLevel: 'Public',
   },
 
   {
@@ -325,6 +438,7 @@ export const posts: PostData[] = [
     category: 'market',
     Component: AlphaAlohaFundUpdate,
     image: DailyMarketUpdateImg3,
+    accessLevel: 'Public',
   },
   {
     slug: 'market/weekly-report',
@@ -335,6 +449,7 @@ export const posts: PostData[] = [
     category: 'market',
     Component: WeeklyReport,
     image: DailyMarketUpdateImg4,
+    accessLevel: 'Public',
   },
 ];
 
