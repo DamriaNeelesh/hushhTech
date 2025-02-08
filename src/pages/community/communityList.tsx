@@ -3,13 +3,12 @@ import {
   Container,
   Heading,
   Box,
-  Text,
   SimpleGrid,
   Button,
   Select,
   Image,
+  Spinner,
   useToast,
-  Spinner
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -17,6 +16,9 @@ import NDARequestModal from "../../components/NDARequestModal";
 import NDADocumentModal from "../../components/NDADocumentModal";
 import config from "../../resources/config/config";
 import { getPosts, PostData } from "../../data/posts";
+
+// Define the new dropdown option text for NDA posts.
+const NDA_OPTION = "Sensitive Documents (NDA approval Req.)";
 
 const CommunityList: React.FC = () => {
   const allPosts: PostData[] = getPosts();
@@ -26,10 +28,11 @@ const CommunityList: React.FC = () => {
   const ndaPosts = allPosts.filter((post) => post.accessLevel === "NDA");
 
   // Get unique categories from public posts only.
-  const publicCategories = Array.from(new Set(publicPosts.map((post) => post.category)));
-  // Add a special "NDA" option to the dropdown.
-  const dropdownOptions = ["All", ...publicCategories, "NDA"];
-  const [loading, setLoading] = useState(false);
+  const publicCategories = Array.from(
+    new Set(publicPosts.map((post) => post.category))
+  );
+  // Add a special NDA option to the dropdown.
+  const dropdownOptions = ["All", ...publicCategories, NDA_OPTION];
 
   // State for selected dropdown option.
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -43,16 +46,19 @@ const CommunityList: React.FC = () => {
   const [showNdaDocModal, setShowNdaDocModal] = useState(false);
   // To store NDA metadata returned from the API.
   const [ndaMetadata, setNdaMetadata] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
   const toast = useToast();
 
-  // Fetch session and subscribe to auth changes.
+  // Fetch session and subscribe to auth state changes.
   useEffect(() => {
     config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
-    const { data: { subscription } } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
+    const { data: { subscription } } = config.supabaseClient.auth.onAuthStateChange(
+      (_event, session) => {
+        setSession(session);
+      }
+    );
     return () => {
       if (subscription && typeof subscription.unsubscribe === "function") {
         subscription.unsubscribe();
@@ -61,7 +67,7 @@ const CommunityList: React.FC = () => {
   }, []);
 
   // Function to check NDA access status via API.
-  // This call is made only when "NDA" is selected.
+  // This call is made only when the special NDA option is selected.
   const checkNdaAccessStatus = async (): Promise<boolean> => {
     if (!session) {
       toast({
@@ -111,7 +117,7 @@ const CommunityList: React.FC = () => {
         });
         return false;
       } else if (status === "Pending: Waiting for NDA Process") {
-        // In this case, fetch NDA metadata and show the document modal.
+        // Fetch NDA metadata and show the NDA document modal.
         try {
           const ndaResponse = await axios.post(
             "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/get_nda_metadata",
@@ -130,7 +136,8 @@ const CommunityList: React.FC = () => {
           } else {
             toast({
               title: "Error",
-              description: ndaResponse.data.message || "Error fetching NDA metadata.",
+              description:
+                ndaResponse.data.message || "Error fetching NDA metadata.",
               status: "error",
               duration: 4000,
               isClosable: true,
@@ -175,26 +182,20 @@ const CommunityList: React.FC = () => {
       setLoading(false);
     }
   };
-  const renderLoader = () => (
-    <Box textAlign="center" py={8}>
-      <Spinner size="xl" />
-    </Box>
-  );
-  // Handler for dropdown category change.
+
+  // When a category is selected from the dropdown.
   const handleCategoryChange = async (category: string) => {
-    if (category === "NDA") {
-      // If user selects "NDA", perform the NDA access check.
+    if (category === NDA_OPTION) {
+      // If user selects the NDA option, check access.
       const accessGranted = await checkNdaAccessStatus();
       if (!accessGranted) return;
     }
     setSelectedCategory(category);
   };
 
-  // Filter posts based on the selected category.
-  // - If "NDA" is selected, show only NDA posts (only if ndaApproved is true).
-  // - Otherwise, show only public posts filtered by category.
+  // Filter posts based on selected dropdown option.
   let filteredPosts;
-  if (selectedCategory === "NDA") {
+  if (selectedCategory === NDA_OPTION) {
     filteredPosts = ndaApproved ? ndaPosts : [];
   } else if (selectedCategory === "All") {
     filteredPosts = publicPosts;
@@ -202,11 +203,19 @@ const CommunityList: React.FC = () => {
     filteredPosts = publicPosts.filter((post) => post.category === selectedCategory);
   }
 
-  // When a restricted (NDA) post is clicked and the user isn’t approved.
+  // Render a loader if API calls are in progress.
+  const renderLoader = () => (
+    <Box textAlign="center" py={8}>
+      <Spinner size="xl" />
+    </Box>
+  );
+
+  // If a restricted (NDA) post is clicked when access is not approved.
   const handleRestrictedClick = () => {
     toast({
       title: "Access Restricted",
-      description: "Please sign in and complete NDA process to access these posts.",
+      description:
+        "Please sign in and complete NDA process to access these posts.",
       status: "error",
       duration: 4000,
       isClosable: true,
@@ -221,11 +230,12 @@ const CommunityList: React.FC = () => {
     });
   }, [allPosts]);
 
+  // Dummy handler to pass to NDARequestModal.
   const handleNdaRequestSubmit = async (result: string) => {
     if (result === "Pending: Waiting for NDA Process") {
       try {
         const ndaResponse = await axios.post(
-          "https://hushhtech-nda-generation-53407187172.us-central1.run.app/generate-nda",
+          "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/get_nda_metadata",
           {},
           {
             headers: {
@@ -241,7 +251,8 @@ const CommunityList: React.FC = () => {
         } else {
           toast({
             title: "Error",
-            description: ndaResponse.data.message || "Error fetching NDA metadata.",
+            description:
+              ndaResponse.data.message || "Error fetching NDA metadata.",
             status: "error",
             duration: 4000,
             isClosable: true,
@@ -311,29 +322,23 @@ const CommunityList: React.FC = () => {
                 <Heading as="h3" size="md" mb={2} noOfLines={2}>
                   {post.title}
                 </Heading>
-                <Text mb={2} noOfLines={3}>
+                <Box as="p" mb={2} noOfLines={3}>
                   {post.excerpt}
-                </Text>
+                </Box>
               </Box>
-              {selectedCategory === "NDA" && !ndaApproved ? (
-                <Button onClick={handleRestrictedClick} 
-                _hover={{
-                  color:'white',
-                  bg:'black'
-                }}
-                color={'white'}
-                mt={4} bg={'linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)'}>
+              {selectedCategory === NDA_OPTION && !ndaApproved ? (
+                <Link to={`/community/${post.slug}`}>
+                <Button
+                  onClick={handleRestrictedClick}
+                  mt={4}
+                  colorScheme="blue"
+                >
                   Read More
                 </Button>
+                </Link>
               ) : (
-                <Link to={`/post/${post.slug}`}>
-                  <Button
-                  color={'white'}
-                  _hover={{
-                    color:'white',
-                    bg:'black'
-                  }}
-                  mt={4} bg={'linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)'}>
+<Link to={`/community/${post.slug}`}>
+<Button mt={4} colorScheme="blue">
                     Read More
                   </Button>
                 </Link>
@@ -343,34 +348,68 @@ const CommunityList: React.FC = () => {
         </SimpleGrid>
       )}
 
-      {/* NDA Request Modal: Shown when user has not applied for NDA access */}
+      {/* NDA Request Modal: Shown when user hasn't applied */}
       {showNdaModal && session && (
         <NDARequestModal
-          onSubmit={handleNdaRequestSubmit}
           isOpen={showNdaModal}
           onClose={() => setShowNdaModal(false)}
           session={session}
+          onSubmit={handleNdaRequestSubmit}
         />
       )}
 
-      {/* NDA Document Modal: Shown when NDA access status is "Pending: Waiting for NDA Process" */}
-      {showNdaDocModal && ndaMetadata && (
+      {/* NDA Document Modal: Shown when access status is "Pending: Waiting for NDA Process" */}
+      {showNdaDocModal && ndaMetadata && session && (
         <NDADocumentModal
-        session={session}
+          session={session}
           isOpen={showNdaDocModal}
           onClose={() => setShowNdaDocModal(false)}
           ndaMetadata={ndaMetadata}
-          onAccept={() => {
-            // When NDA is accepted, grant NDA access.
-            setNdaApproved(true);
-            setShowNdaDocModal(false);
-            toast({
-              title: "NDA Accepted",
-              description: "Your NDA has been accepted. NDA posts are now accessible.",
-              status: "success",
-              duration: 4000,
-              isClosable: true,
-            });
+          onAccept={async () => {
+            try {
+              const response = await axios.post(
+                "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/accept_nda",
+                {},
+                {
+                  headers: {
+                    apikey: config.SUPABASE_ANON_KEY,
+                    Authorization: `Bearer ${session.access_token}`,
+                    "Content-Type": "application/json",
+                  },
+                }
+              );
+              console.log("Accept NDA Response:", response.data);
+              if (response.data === "Approved") {
+                toast({
+                  title: "NDA Accepted",
+                  description:
+                    "Your NDA has been accepted. Confidential docs are now accessible.",
+                  status: "success",
+                  duration: 4000,
+                  isClosable: true,
+                });
+                setNdaApproved(true);
+                setShowNdaDocModal(false);
+              } else {
+                toast({
+                  title: "Error",
+                  description: response.data || "Error accepting NDA.",
+                  status: "error",
+                  duration: 4000,
+                  isClosable: true,
+                });
+              }
+            } catch (error: any) {
+              console.error("Error accepting NDA:", error);
+              toast({
+                title: "Error",
+                description:
+                  error.response?.data || "Could not accept NDA.",
+                status: "error",
+                duration: 4000,
+                isClosable: true,
+              });
+            }
           }}
         />
       )}

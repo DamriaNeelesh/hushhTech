@@ -72,9 +72,7 @@ function App() {
           <Route path="/community" element={<CommunityList/>} />
           <Route path='/california-privacy-policy' element={<CaliforniaPrivacyPolicy/>}/>
           <Route path='/eu-uk-jobs-privacy-policy' element={<EUUKPrivacyPolicy/>}/>
-
-            {/* Catch-all route for dynamic posts (e.g. /community/market/2025-01-28-daily-market-update) */}
-            <Route path="/community/*" element={<CommunityPost />} />
+          <Route path="/community/*" element={<CommunityPost />} />
             </Routes>
         <Footer />
       </div>
