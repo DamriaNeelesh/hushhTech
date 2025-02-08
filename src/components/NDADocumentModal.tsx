@@ -10,9 +10,9 @@ import {
   Button,
   Box,
   Spinner,
+  useToast,
   Checkbox,
   Text,
-  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import config from "../resources/config/config";
@@ -20,9 +20,9 @@ import config from "../resources/config/config";
 interface NDADocumentModalProps {
   isOpen: boolean;
   onClose: () => void;
-  ndaMetadata: any; // NDA metadata received from your API
-  session: any; // User's session object with access_token
-  onAccept: () => void; // Callback when user accepts NDA successfully
+  ndaMetadata: any;
+  session: any;
+  onAccept: () => void;
 }
 
 const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
@@ -37,8 +37,7 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
   const [confirmed, setConfirmed] = useState<boolean>(false);
   const toast = useToast();
 
-  // Call the NDA generation API and obtain a PDF blob,
-  // then create a blob URL to display in an iframe.
+  // Call the NDA generation API and create a blob URL for the PDF.
   const generateNdaPDF = async () => {
     setLoading(true);
     try {
@@ -48,7 +47,7 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
         {
           headers: {
             "Content-Type": "application/json",
-            "jwt-token": session.access_token, // using the session's token
+            "jwt-token": session.access_token,
           },
           responseType: "blob",
         }
@@ -68,7 +67,6 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
     setLoading(false);
   };
 
-  // When the modal opens, generate the NDA PDF.
   useEffect(() => {
     if (isOpen) {
       generateNdaPDF();
@@ -81,7 +79,6 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
     };
   }, [isOpen]);
 
-  // Function to trigger PDF download.
   const downloadPDF = () => {
     if (pdfUrl) {
       const a = document.createElement("a");
@@ -93,7 +90,6 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
     }
   };
 
-  // Handle the Accept NDA button click.
   const handleAcceptNda = async () => {
     if (!confirmed) {
       toast({
@@ -111,7 +107,7 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
         {},
         {
           headers: {
-            apikey: config.supabaseClient.supabaseKey,
+            apikey: config.SUPABASE_ANON_KEY,
             Authorization: `Bearer ${session.access_token}`,
             "Content-Type": "application/json",
           },
@@ -192,11 +188,8 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
               <Text>No document available.</Text>
             </Box>
           )}
-          {/* Move the checkbox to just above the footer */}
-          
-        </ModalBody>
-        <ModalFooter display={'flex'} flexDirection={'column'}>
-        <Box mt={1}>
+          {/* Move the confirmation checkbox just above the footer */}
+          <Box mt={4}>
             <Checkbox
               isChecked={confirmed}
               onChange={(e) => setConfirmed(e.target.checked)}
@@ -204,15 +197,14 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
               I confirm that I have read and accept the terms of the NDA.
             </Checkbox>
           </Box>
-          <Box display={'flex'} flexDirection={'row'}>
+        </ModalBody>
+        <ModalFooter>
           <Button onClick={downloadPDF} colorScheme="blue" mr={4}>
             Download PDF
           </Button>
           <Button onClick={handleAcceptNda} colorScheme="blue">
             Accept NDA
           </Button>
-          </Box>
-          
         </ModalFooter>
       </ModalContent>
     </Modal>

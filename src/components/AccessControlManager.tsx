@@ -64,7 +64,7 @@ const AccessControlManager: React.FC<AccessControlManagerProps> = ({ session }) 
             "https://hushhtech-nda-generation-53407187172.us-central1.run.app/generate-nda",
             {},
             {
-              headers: {
+            headers: {
                 apikey: config.SUPABASE_ANON_KEY,
                 Authorization: `Bearer ${session.access_token}`,
                 "Content-Type": "application/json",
