@@ -10,17 +10,19 @@ import {
   Button,
   Box,
   Spinner,
-  useToast,
+  Checkbox,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import config from "../resources/config/config";
+
 interface NDADocumentModalProps {
   isOpen: boolean;
   onClose: () => void;
-  ndaMetadata: any;
-  session: any;
-  onAccept: () => void;
+  ndaMetadata: any; // NDA metadata received from your API
+  session: any; // User's session object with access_token
+  onAccept: () => void; // Callback when user accepts NDA successfully
 }
 
 const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
@@ -32,9 +34,11 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
 }) => {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [confirmed, setConfirmed] = useState<boolean>(false);
   const toast = useToast();
 
-  // Function to call NDA generation API and get the PDF blob.
+  // Call the NDA generation API and obtain a PDF blob,
+  // then create a blob URL to display in an iframe.
   const generateNdaPDF = async () => {
     setLoading(true);
     try {
@@ -44,7 +48,7 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
         {
           headers: {
             "Content-Type": "application/json",
-            "jwt-token": session.access_token,
+            "jwt-token": session.access_token, // using the session's token
           },
           responseType: "blob",
         }
@@ -64,6 +68,7 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
     setLoading(false);
   };
 
+  // When the modal opens, generate the NDA PDF.
   useEffect(() => {
     if (isOpen) {
       generateNdaPDF();
@@ -76,6 +81,7 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
     };
   }, [isOpen]);
 
+  // Function to trigger PDF download.
   const downloadPDF = () => {
     if (pdfUrl) {
       const a = document.createElement("a");
@@ -84,6 +90,79 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
+    }
+  };
+
+  // Handle the Accept NDA button click.
+  const handleAcceptNda = async () => {
+    if (!confirmed) {
+      toast({
+        title: "Confirm NDA Acceptance",
+        description: "Please check the box to confirm your NDA acceptance.",
+        status: "warning",
+        duration: 4000,
+        isClosable: true,
+      });
+      return;
+    }
+    try {
+      const response = await axios.post(
+        "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/accept_nda",
+        {},
+        {
+          headers: {
+            apikey: config.supabaseClient.supabaseKey,
+            Authorization: `Bearer ${session.access_token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Accept NDA Response:", response.data);
+      const resData = response.data;
+      if (resData === "Approved") {
+        toast({
+          title: "NDA Accepted",
+          description: "Your NDA has been accepted. Access granted.",
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
+        onAccept();
+        onClose();
+      } else if (resData === "User not in NDA stage") {
+        toast({
+          title: "Error",
+          description: "User not in NDA stage.",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+      } else if (typeof resData === "string" && resData.startsWith("Request Failed:")) {
+        toast({
+          title: "Error",
+          description: resData,
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Unexpected Response",
+          description: `Received: ${resData}`,
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+      }
+    } catch (error: any) {
+      console.error("Error accepting NDA:", error);
+      toast({
+        title: "Error",
+        description: error.response?.data || "Could not accept NDA.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
     }
   };
 
@@ -113,14 +192,27 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
               <Text>No document available.</Text>
             </Box>
           )}
+          {/* Move the checkbox to just above the footer */}
+          
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter display={'flex'} flexDirection={'column'}>
+        <Box mt={1}>
+            <Checkbox
+              isChecked={confirmed}
+              onChange={(e) => setConfirmed(e.target.checked)}
+            >
+              I confirm that I have read and accept the terms of the NDA.
+            </Checkbox>
+          </Box>
+          <Box display={'flex'} flexDirection={'row'}>
           <Button onClick={downloadPDF} colorScheme="blue" mr={4}>
             Download PDF
           </Button>
-          <Button onClick={onAccept} colorScheme="blue">
+          <Button onClick={handleAcceptNda} colorScheme="blue">
             Accept NDA
           </Button>
+          </Box>
+          
         </ModalFooter>
       </ModalContent>
     </Modal>
