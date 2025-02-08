@@ -316,12 +316,24 @@ const CommunityList: React.FC = () => {
                 </Text>
               </Box>
               {selectedCategory === "NDA" && !ndaApproved ? (
-                <Button onClick={handleRestrictedClick} mt={4} colorScheme="blue">
+                <Button onClick={handleRestrictedClick} 
+                _hover={{
+                  color:'white',
+                  bg:'black'
+                }}
+                color={'white'}
+                mt={4} bg={'linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)'}>
                   Read More
                 </Button>
               ) : (
                 <Link to={`/post/${post.slug}`}>
-                  <Button mt={4} colorScheme="blue">
+                  <Button
+                  color={'white'}
+                  _hover={{
+                    color:'white',
+                    bg:'black'
+                  }}
+                  mt={4} bg={'linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)'}>
                     Read More
                   </Button>
                 </Link>
