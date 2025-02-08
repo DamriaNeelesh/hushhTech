@@ -9,17 +9,18 @@ import {
   ModalFooter,
   Button,
   Box,
+  Spinner,
   useToast,
+  Text,
 } from "@chakra-ui/react";
 import axios from "axios";
 import config from "../resources/config/config";
-
 interface NDADocumentModalProps {
   isOpen: boolean;
   onClose: () => void;
-  ndaMetadata: any; // The NDA metadata (JSON) to be sent to the API
-  session: any; // User session; must include access_token
-  onAccept: () => void; // Callback when NDA is accepted
+  ndaMetadata: any;
+  session: any;
+  onAccept: () => void;
 }
 
 const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
@@ -30,11 +31,12 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
   onAccept,
 }) => {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const toast = useToast();
 
-  // Function to call the NDA generation API and obtain a PDF blob,
-  // then create a blob URL to display inside an iframe.
+  // Function to call NDA generation API and get the PDF blob.
   const generateNdaPDF = async () => {
+    setLoading(true);
     try {
       const response = await axios.post(
         "https://hushhtech-nda-generation-53407187172.us-central1.run.app/generate-nda",
@@ -44,10 +46,9 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
             "Content-Type": "application/json",
             "jwt-token": session.access_token,
           },
-          responseType: "blob", // Expect a PDF blob in response
+          responseType: "blob",
         }
       );
-      // Create a blob URL from the PDF blob
       const url = URL.createObjectURL(response.data);
       setPdfUrl(url);
     } catch (error: any) {
@@ -60,14 +61,13 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
         isClosable: true,
       });
     }
+    setLoading(false);
   };
 
-  // When the modal opens, call the API to generate the NDA PDF.
   useEffect(() => {
     if (isOpen) {
       generateNdaPDF();
     }
-    // Cleanup: revoke the blob URL when modal closes.
     return () => {
       if (pdfUrl) {
         URL.revokeObjectURL(pdfUrl);
@@ -76,7 +76,6 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
     };
   }, [isOpen]);
 
-  // Function to trigger PDF download.
   const downloadPDF = () => {
     if (pdfUrl) {
       const a = document.createElement("a");
@@ -95,7 +94,11 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
         <ModalHeader>NDA Document</ModalHeader>
         <ModalCloseButton />
         <ModalBody overflowY="auto" maxH="70vh">
-          {pdfUrl ? (
+          {loading ? (
+            <Box textAlign="center" py={8}>
+              <Spinner size="xl" />
+            </Box>
+          ) : pdfUrl ? (
             <Box width="100%" height="500px" overflow="hidden">
               <iframe
                 src={pdfUrl}
@@ -106,7 +109,9 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
               />
             </Box>
           ) : (
-            <Box textAlign="center">Loading NDA...</Box>
+            <Box textAlign="center" py={8}>
+              <Text>No document available.</Text>
+            </Box>
           )}
         </ModalBody>
         <ModalFooter>

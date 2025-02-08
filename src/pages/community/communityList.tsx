@@ -9,6 +9,7 @@ import {
   Select,
   Image,
   useToast,
+  Spinner
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -28,6 +29,7 @@ const CommunityList: React.FC = () => {
   const publicCategories = Array.from(new Set(publicPosts.map((post) => post.category)));
   // Add a special "NDA" option to the dropdown.
   const dropdownOptions = ["All", ...publicCategories, "NDA"];
+  const [loading, setLoading] = useState(false);
 
   // State for selected dropdown option.
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -71,6 +73,7 @@ const CommunityList: React.FC = () => {
       });
       return false;
     }
+    setLoading(true);
     try {
       const response = await axios.post(
         "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/check_access_status",
@@ -168,9 +171,15 @@ const CommunityList: React.FC = () => {
         isClosable: true,
       });
       return false;
+    } finally {
+      setLoading(false);
     }
   };
-
+  const renderLoader = () => (
+    <Box textAlign="center" py={8}>
+      <Spinner size="xl" />
+    </Box>
+  );
   // Handler for dropdown category change.
   const handleCategoryChange = async (category: string) => {
     if (category === "NDA") {
@@ -273,63 +282,54 @@ const CommunityList: React.FC = () => {
         </Select>
       </Box>
 
-      <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
-        {filteredPosts.map((post) => (
-          <Box
-            key={post.slug}
-            p={6}
-            bg="white"
-            borderRadius="md"
-            shadow="md"
-            _hover={{ shadow: "lg" }}
-            // Fixed height for uniformity; adjust as needed.
-            height="350px"
-            display="flex"
-            flexDirection="column"
-            justifyContent="space-between"
-          >
-            <Image
-              src={post.image}
-              alt={post.title}
+      {loading ? (
+        renderLoader()
+      ) : (
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
+          {filteredPosts.map((post) => (
+            <Box
+              key={post.slug}
+              p={6}
+              bg="white"
               borderRadius="md"
-              mb={4}
-              height="150px"
-              objectFit="cover"
-            />
-            <Box flex="1" overflow="hidden">
-              <Heading as="h3" size="md" mb={2} noOfLines={2}>
-                {post.title}
-              </Heading>
-              <Text mb={2} noOfLines={3}>
-                {post.excerpt}
-              </Text>
-            </Box>
-            {selectedCategory === "NDA" && !ndaApproved ? (
-              <Button
-                onClick={handleRestrictedClick} 
-                mt={4} bg={'linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)'} color={'white'}
-                _hover={{
-                  background:'black',
-                  color:'white'
-                }}
-                >
-                Read More
-              </Button>
-            ) : (
-              <Link to={`/post/${post.slug}`}>
-                <Button
-                _hover={{
-                  background:'black',
-                  color:'white'
-                }}
-                mt={4} bg={'linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)'} color={'white'}>
+              shadow="md"
+              _hover={{ shadow: "lg" }}
+              height="350px"
+              display="flex"
+              flexDirection="column"
+              justifyContent="space-between"
+            >
+              <Image
+                src={post.image}
+                alt={post.title}
+                borderRadius="md"
+                mb={4}
+                height="150px"
+                objectFit="cover"
+              />
+              <Box flex="1" overflow="hidden">
+                <Heading as="h3" size="md" mb={2} noOfLines={2}>
+                  {post.title}
+                </Heading>
+                <Text mb={2} noOfLines={3}>
+                  {post.excerpt}
+                </Text>
+              </Box>
+              {selectedCategory === "NDA" && !ndaApproved ? (
+                <Button onClick={handleRestrictedClick} mt={4} colorScheme="blue">
                   Read More
                 </Button>
-              </Link>
-            )}
-          </Box>
-        ))}
-      </SimpleGrid>
+              ) : (
+                <Link to={`/post/${post.slug}`}>
+                  <Button mt={4} colorScheme="blue">
+                    Read More
+                  </Button>
+                </Link>
+              )}
+            </Box>
+          ))}
+        </SimpleGrid>
+      )}
 
       {/* NDA Request Modal: Shown when user has not applied for NDA access */}
       {showNdaModal && session && (
