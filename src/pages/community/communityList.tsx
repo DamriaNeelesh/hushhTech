@@ -28,7 +28,7 @@ const CommunityList: React.FC = () => {
   // Get unique categories from public posts only.
   const publicCategories = Array.from(new Set(publicPosts.map((post) => post.category)));
   // Add a special "NDA" option to the dropdown.
-  const dropdownOptions = ["All", ...publicCategories, "Confidential Docs (NDA Apporval Req.)"];
+  const dropdownOptions = ["All", ...publicCategories, "NDA"];
   const [loading, setLoading] = useState(false);
 
   // State for selected dropdown option.
