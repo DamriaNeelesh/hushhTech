@@ -212,6 +212,45 @@ const CommunityList: React.FC = () => {
     });
   }, [allPosts]);
 
+  const handleNdaRequestSubmit = async (result: string) => {
+    if (result === "Pending: Waiting for NDA Process") {
+      try {
+        const ndaResponse = await axios.post(
+          "https://hushhtech-nda-generation-53407187172.us-central1.run.app/generate-nda",
+          {},
+          {
+            headers: {
+              apikey: config.SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${session.access_token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (ndaResponse.data.status === "success") {
+          setNdaMetadata(ndaResponse.data.metadata);
+          setShowNdaDocModal(true);
+        } else {
+          toast({
+            title: "Error",
+            description: ndaResponse.data.message || "Error fetching NDA metadata.",
+            status: "error",
+            duration: 4000,
+            isClosable: true,
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching NDA metadata:", error);
+        toast({
+          title: "Error",
+          description: "Failed to fetch NDA metadata.",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+      }
+    }
+  };
+
   return (
     <Container maxW="container.xl" py={8}>
       <Heading as="h1" mb={8} textAlign="center" color="gray.800">
@@ -295,6 +334,7 @@ const CommunityList: React.FC = () => {
       {/* NDA Request Modal: Shown when user has not applied for NDA access */}
       {showNdaModal && session && (
         <NDARequestModal
+          onSubmit={handleNdaRequestSubmit}
           isOpen={showNdaModal}
           onClose={() => setShowNdaModal(false)}
           session={session}
@@ -304,6 +344,7 @@ const CommunityList: React.FC = () => {
       {/* NDA Document Modal: Shown when NDA access status is "Pending: Waiting for NDA Process" */}
       {showNdaDocModal && ndaMetadata && (
         <NDADocumentModal
+        session={session}
           isOpen={showNdaDocModal}
           onClose={() => setShowNdaDocModal(false)}
           ndaMetadata={ndaMetadata}

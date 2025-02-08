@@ -32,7 +32,7 @@ const AccessControlManager: React.FC<AccessControlManagerProps> = ({ session }) 
   const CHECK_ACCESS_URL =
     "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/check_access_status";
   const GET_NDA_METADATA_URL =
-    "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/get_nda_metadata";
+    "https://hushhtech-nda-generation-53407187172.us-central1.run.app/generate-nda";
   const ACCEPT_NDA_URL =
     "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/accept_nda";
 
@@ -61,7 +61,7 @@ const AccessControlManager: React.FC<AccessControlManagerProps> = ({ session }) 
         } else if (res === "Pending: Waiting for NDA Process") {
           // Fetch the NDA metadata
           const ndaResponse = await axios.post(
-            GET_NDA_METADATA_URL,
+            "https://hushhtech-nda-generation-53407187172.us-central1.run.app/generate-nda",
             {},
             {
               headers: {
@@ -123,7 +123,7 @@ const AccessControlManager: React.FC<AccessControlManagerProps> = ({ session }) 
     if (result === "Pending: Waiting for NDA Process") {
       try {
         const ndaResponse = await axios.post(
-          GET_NDA_METADATA_URL,
+          "https://hushhtech-nda-generation-53407187172.us-central1.run.app/generate-nda",
           {},
           {
             headers: {
@@ -225,6 +225,7 @@ const AccessControlManager: React.FC<AccessControlManagerProps> = ({ session }) 
 
       {/* NDA document modal */}
       <NDADocumentModal
+        session={session}
         isOpen={isNdaModalOpen}
         onClose={() => setIsNdaModalOpen(false)}
         ndaMetadata={ndaMetadata}
