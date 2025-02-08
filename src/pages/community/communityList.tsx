@@ -289,7 +289,7 @@ const CommunityList: React.FC = () => {
           {filteredPosts.map((post) => (
             <Box
               key={post.slug}
-              p={6}
+              p={2}
               bg="white"
               borderRadius="md"
               shadow="md"
@@ -304,7 +304,7 @@ const CommunityList: React.FC = () => {
                 alt={post.title}
                 borderRadius="md"
                 mb={4}
-                height="150px"
+                height="180px"
                 objectFit="cover"
               />
               <Box flex="1" overflow="hidden">
