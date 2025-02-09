@@ -64,9 +64,16 @@ import OptionsStrategyRisks from '../content/posts/nda/optionsStrategy';
 import LiquidityManagement from '../content/posts/nda/liquidityManagement';
 import AMLKYCDocumentation from '../content/posts/funds/kycFundUpdates';
 import WireTransferInstructions from '../content/posts/funds/wireTransformation';
-
-
-
+import EvergreenFundHighlight from '../content/posts/nda/fundsHighlights';
+import HushhInvestorMemo from '../content/posts/nda/investorMemo';
+import RiskDisclosures from '../content/posts/nda/riskDisclosure';
+import InvestorMaterials from '../content/posts/nda/roadmapInvestors';
+import SECReport from '../content/posts/nda/secReport';
+import SECReportRegD from '../content/posts/nda/secResport2';
+import FundConcentrationAnalysis from '../content/posts/nda/secTeamAdjustment';
+import TaxDisclosures from '../content/posts/nda/taxDisclosure';
+import TaxSummary from '../content/posts/nda/taxSummary';
+import ValuationFramework from '../content/posts/nda/valuationFramework';
 
 export interface PostData {
   slug: string;
@@ -91,6 +98,110 @@ export const posts: PostData[] = [
     image: FundsUpdateImg2,
     accessLevel: 'NDA',
   },
+
+  // ---------------------------------------
+  {
+    slug: 'funds/fund-highlights',
+    title: "Highlighting the Evergreen Nature of the Fund",
+    publishedAt: '2025-02-09',
+    description: "Exploring the enduring, growth-oriented strategy that defines our evergreen fund.",
+    category: 'fund updates', // updated from 'funds'
+    Component: EvergreenFundHighlight,
+    image: FundsUpdateImg1,
+    accessLevel: 'NDA',
+  },
+  {
+    slug: 'investors/hushh-investors-memo',
+    title: "Hushh Technologies Investor Memo",
+    publishedAt: '2025-02-09',
+    description: "A detailed overview of Hushh Technologies’ vision, market opportunity, revenue model, and growth strategy.",
+    category: 'investor relations & strategies',
+    Component: HushhInvestorMemo,
+    image: FundsUpdateImg2,
+    accessLevel: 'NDA',
+  },
+  {
+    slug: 'nda-apporved/risk-disclosures',
+    title: "Risk Disclosures",
+    publishedAt: '2025-02-09',
+    description: "Comprehensive risk disclosure statement for the Alpha Aloha Fund, ensuring transparency and trust.",
+    category: 'investor relations & strategies',
+    Component: RiskDisclosures,
+    image: FundsUpdateImg3,
+    accessLevel: 'NDA',
+  },
+  {
+    slug: 'investors/roadmap-material',
+    title: "Investors Roadmap Materials",
+    publishedAt: '2025-02-09',
+    description: "A comprehensive set of materials and strategies to enhance transparency, build trust, and showcase the fund’s long-term potential.",
+    category: 'investor relations & strategies',
+    Component: InvestorMaterials,
+    image: FundsUpdateImg4,
+    accessLevel: 'NDA',
+  },
+  {
+    slug: 'fund-compliance/sec-report',
+    title: "SEC Report for Alpha Aloha Fund",
+    publishedAt: '2025-02-09',
+    description: "End of Day Summary: February 7, 2025 - Comprehensive performance and strategy analysis for the Alpha Aloha Fund.",
+    category: 'investor relations & strategies',
+    Component: SECReport,
+    image: FundsUpdateImg1,
+    accessLevel: 'NDA',
+  },
+  {
+    slug: 'fund-compliance/sec-report-regD-filling',
+    title: "SEC Report for Reg D Filing",
+    publishedAt: '2025-02-09',
+    description: "A detailed analysis of Alpha Aloha Fund’s financial health and performance as of February 7, 2025.",
+    category: 'investor relations & strategies',
+    Component: SECReportRegD,
+    image: FundsUpdateImg2,
+    accessLevel: 'NDA',
+  },
+  {
+    slug: 'fund-analysis/discussion',
+    title: "Analysis and Discussion of the Fund’s Concentrated Positions",
+    publishedAt: '2025-02-09',
+    description: "An in-depth examination of the Alpha Aloha Fund’s concentrated approach, highlighting its rationale, risks, rewards, and transparency strategies.",
+    category: 'investor relations & strategies',
+    Component: FundConcentrationAnalysis,
+    image: FundsUpdateImg3,
+    accessLevel: 'NDA',
+  },
+  {
+    slug: 'nda-approval/tax-disclosures',
+    title: "Tax Disclosures for Fund A",
+    publishedAt: '2025-02-09',
+    description: "A transparent and compliant tax disclosure framework for Fund A.",
+    category: 'investor relations & strategies',
+    Component: TaxDisclosures,
+    image: FundsUpdateImg4,
+    accessLevel: 'NDA',
+  },
+  {
+    slug: 'nda-approval/tax-summary',
+    title: "Tax Summary for High-Net-Worth Investors",
+    publishedAt: "2025-02-09",
+    description: "An optimized tax structure for global investors in the Renaissance Aloha & Alpha Fund.",
+    category: 'investor relations & strategies',
+    Component: TaxSummary,
+    image: FundsUpdateImg1,
+    accessLevel: 'NDA',
+  },
+  {
+    slug: 'nda-approval/valuation-framework',
+    title: "Valuation Framework for Fund A",
+    publishedAt: "2025-02-09",
+    description: "A detailed analysis of the unique valuation model employed by Fund A.",
+    category: 'investor relations & strategies',
+    Component: ValuationFramework,
+    image: FundsUpdateImg2,
+    accessLevel: 'NDA',
+  },
+  // -----------------------------------------
+
   {
     slug: 'rude-faq/sell-the-wall',
     title: 'Rude FAQ - Sell the wall',

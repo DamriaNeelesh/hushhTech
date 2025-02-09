@@ -320,10 +320,10 @@ const CommunityList: React.FC = () => {
               />
               <Box flex="1" overflow="hidden">
                 <Heading as="h3" size="md" mb={2} noOfLines={2}>
-                  {post.title}
+                  {post?.title}
                 </Heading>
                 <Box as="p" mb={2} noOfLines={3}>
-                  {post.excerpt}
+                  {post?.excerpt}
                 </Box>
               </Box>
               {selectedCategory === NDA_OPTION && !ndaApproved ? (
