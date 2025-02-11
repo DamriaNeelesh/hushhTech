@@ -74,6 +74,11 @@ import FundConcentrationAnalysis from '../content/posts/nda/secTeamAdjustment';
 import TaxDisclosures from '../content/posts/nda/taxDisclosure';
 import TaxSummary from '../content/posts/nda/taxSummary';
 import ValuationFramework from '../content/posts/nda/valuationFramework';
+import HushhAlphaFundNavUpdate from '../content/posts/funds/fundUpdatesJan';
+import hushhPDA from '../content/posts/general/hushhPDA';
+import PremiumInvestmentStrategy from '../content/posts/nda/premiumInvestmentStrategy';
+import MaximizingAlpha from '../content/posts/nda/maximizingAlpha';
+import MarketFundUpdate10feb from '../content/posts/market/marketUpdate10feb';
 
 export interface PostData {
   slug: string;
@@ -222,14 +227,24 @@ export const posts: PostData[] = [
     image: ManagementFee,
     accessLevel: 'NDA',
   },
+  // {
+  //   slug: 'funds/alpha-aloha-fund-update',
+  //   title: 'Alpha Aloha Fund Market and Fund Update Report',
+  //   publishedAt: '2025-02-07',
+  //   description: 'Comprehensive market and fund update for the Alpha Aloha Fund, covering key performance metrics, strategy highlights, and macro insights.',
+  //   category: 'fund updates',
+  //   Component: AlphaAlohaFundUpdate,
+  //   image: DailyMarketUpdateImg1,
+  //   accessLevel: 'Public',
+  // },
   {
-    slug: 'funds/alpha-aloha-fund-update',
-    title: 'Alpha Aloha Fund Market and Fund Update Report',
-    publishedAt: '2025-02-07',
-    description: 'Comprehensive market and fund update for the Alpha Aloha Fund, covering key performance metrics, strategy highlights, and macro insights.',
-    category: 'fund updates',
-    Component: AlphaAlohaFundUpdate,
-    image: DailyMarketUpdateImg1,
+    slug: 'general/sell-the-wall-context',
+    title: '“Sell the Wall” Explained in the Context of Jim Simons’ Quantitative Precision',
+    publishedAt: '2025-02-15',
+    description: 'An in-depth exploration of the “Sell the Wall” strategy through the lens of Jim Simons’ quantitative precision.',
+    category: 'general',
+    Component: SellTheWall,
+    image: HushhAiLogoImg, // Update with the appropriate image if needed
     accessLevel: 'Public',
   },
   {
@@ -310,7 +325,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
-    slug: 'investor-relations/investor-faq',
+    slug: 'investor-relations/investor-faq/charlie-munger-edition',
     title: '🤫 Fund Investor FAQ (Charlie Munger Caliber Edition)',
     publishedAt: '2025-02-05',
     description:
@@ -352,7 +367,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
-    slug: 'investment-strategies/sell-the-wall',
+    slug: 'investment-strategies/risk-adjusted-returs',
     title: "Example Risk-Adjusted Returns Scenarios",
     publishedAt: "2025-02-07",
     description: "Quantitative exploration of potential return outcomes based on market conditions and strategy performance.",
@@ -427,7 +442,7 @@ export const posts: PostData[] = [
   },
   {
     slug: 'fund-updates/aml-kyc-documentation',
-  title: 'ANTI-MONEY LAUNDERING (AML) & KNOW YOUR CUSTOMER (KYC) DOCUMENTATION',
+  title: 'Anti-Money Laundering (AML) & Know Your Customer (KYC) Documentation',
   publishedAt: '2025-02-08',
   description: 'Comprehensive compliance framework ensuring transparency and security in investor onboarding.',
   category: 'fund updates', // updated from 'investor relations'
@@ -458,13 +473,63 @@ export const posts: PostData[] = [
   // },
   {
     slug: 'investors-faq/shared-class-explanation',
-    title: 'Hushh Technologies Alpha Fund, LP',
+    title: 'Shares and Investors FAQ',
     publishedAt: '2025-02-07',
     description: 'Understanding the Different Classes of Shares & Investor FAQ',
     category: 'investor relations & strategies',
     Component: HushhAlphaFund,
     image: HushhAiLogoImg,
     accessLevel: 'NDA',
+  },
+  {
+    slug: 'general/hushh-pda',
+    title: 'HushhPDA: Empowering Personal Data Management',
+    publishedAt: '2025-01-31',
+    description: 'An introduction to HushhPDA, the world’s first personal data assistant, and its role in revolutionizing personal data management.',
+    category: 'general',
+    Component: hushhPDA,
+    image: HushhAiLogoImg, // Update with the appropriate image if needed
+    accessLevel: 'Public',
+  },
+  {
+    slug: 'nda/maximizing-advanced-strategies',
+    title: 'Maximizing Alpha: Advanced Strategies for Selling the Wall on Apple (AAPL)',
+    publishedAt: '2025-02-10',
+    description: 'A detailed strategy for maximizing alpha through advanced options strategies on AAPL.',
+    category: 'nda',
+    Component: MaximizingAlpha,
+    image: HushhAiLogoImg, 
+    accessLevel: 'NDA',
+  },
+  {
+    slug: 'funds/market-fund-update-10th-feb',
+    title: 'Alpha Aloha Fund Market and Fund Update Report',
+    publishedAt: '2025-02-10',
+    description: 'A comprehensive update on the Alpha Aloha Fund’s market performance and strategic highlights.',
+    category: 'fund updates',
+    Component: MarketFundUpdate10feb,
+    image: HushhAiLogoImg, // Ensure the image path is correct
+    accessLevel: 'Public',
+  },
+  {
+    slug: 'funds/premium-investment-strategy',
+    title: 'A Premium Investment Strategy for Accredited Investors',
+    publishedAt: '2025-02-20',
+    description: 'An overview of the Aloha & Alpha Fund, a premium investment strategy for accredited investors, compliant with ADGM and UAE law.',
+    category: 'fund updates',
+    Component: PremiumInvestmentStrategy,
+    image: HushhAiLogoImg, // Update with the appropriate image if needed
+    accessLevel: 'NDA',
+  },
+  {
+    slug: 'funds/hushh-alpha-fund-nav-update',
+    title: 'Hushh Alpha Fund – NAV Update & Earnings Report (As of January 31, 2025)',
+    publishedAt: '2025-01-31',
+    description: 'Comprehensive NAV update and earnings report for Hushh Alpha Fund, highlighting key performance metrics and strategic insights.',
+    category: 'fund updates',
+    Component: HushhAlphaFundNavUpdate,
+    image: FundsUpdateImg4,
+    accessLevel: 'Public',
   },
   {
     slug: 'investors-faq/subscription-agreement-a',
@@ -542,7 +607,7 @@ export const posts: PostData[] = [
 
   {
     slug: 'market/alpha-aloha-fund-update',
-    title: '🤫 Alpha Aloha Fund Update',
+    title: 'Fund Update 4th Feb',
     publishedAt: '2025-02-04',
     description:
       'Tuesday Evening Report – February 4, 2025, covering fund performance, market highlights, and insights from core holdings.',
