@@ -183,24 +183,16 @@ const AccessControlManager: React.FC<AccessControlManagerProps> = ({ session }) 
         });
         setAccessStatus("Approved");
         setIsNdaModalOpen(false);
-      } else {
-        toast({
-          title: "Error",
-          description: response.data || "Error accepting NDA.",
-          status: "error",
-          duration: 4000,
-          isClosable: true,
-        });
-      }
+      } 
     } catch (error: any) {
       console.error("Error accepting NDA:", error);
-      toast({
-        title: "Error",
-        description: error.response?.data || "Could not accept NDA.",
-        status: "error",
-        duration: 4000,
-        isClosable: true,
-      });
+      // toast({
+      //   title: "Error",
+      //   description: error.response?.data || "Could not accept NDA.",
+      //   status: "error",
+      //   duration: 4000,
+      //   isClosable: true,
+      // });
     }
   };
 
