@@ -412,7 +412,7 @@ const CommunityList: React.FC = () => {
                 setNdaApproved(true);
                 setShowNdaDocModal(false);
               } else {
-                console.log('Hello')
+                console.log('You NDA Got Approved, please check our other NDA doc posts')
               }
             } catch (error: any) {
               console.error("Error accepting NDA:", error);
