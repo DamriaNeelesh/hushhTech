@@ -412,13 +412,7 @@ const CommunityList: React.FC = () => {
                 setNdaApproved(true);
                 setShowNdaDocModal(false);
               } else {
-                toast({
-                  title: "Error",
-                  description: response.data || "Error accepting NDA.",
-                  status: "error",
-                  duration: 4000,
-                  isClosable: true,
-                });
+                console.log('Hello')
               }
             } catch (error: any) {
               console.error("Error accepting NDA:", error);
