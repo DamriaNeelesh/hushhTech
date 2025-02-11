@@ -155,26 +155,26 @@ const NDARequestModal: React.FC<NDARequestModalProps> = ({
                   />
                 </FormControl>
                 <FormControl isRequired>
-                  <FormLabel fontSize="sm">State</FormLabel>
+                  <FormLabel fontSize="sm">State Registered for Taxation</FormLabel>
                   <Input
                     size="sm"
-                    placeholder="Enter your state"
+                    placeholder="Enter your state for taxation"
                     onChange={(e) => handleInputChange("state", e.target.value)}
                   />
                 </FormControl>
                 <FormControl isRequired>
-                  <FormLabel fontSize="sm">City</FormLabel>
+                  <FormLabel fontSize="sm">City Registered for Taxation</FormLabel>
                   <Input
                     size="sm"
-                    placeholder="Enter your city"
+                    placeholder="Enter your city for taxation"
                     onChange={(e) => handleInputChange("city", e.target.value)}
                   />
                 </FormControl>
                 <FormControl isRequired>
-                  <FormLabel fontSize="sm">Country</FormLabel>
+                  <FormLabel fontSize="sm">Country Registered for Taxation</FormLabel>
                   <Input
                     size="sm"
-                    placeholder="Enter your country"
+                    placeholder="Enter your country for taxation"
                     onChange={(e) => handleInputChange("country", e.target.value)}
                   />
                 </FormControl>

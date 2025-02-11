@@ -6,9 +6,10 @@ import {
   SimpleGrid,
   Button,
   Select,
-  Image,
   Spinner,
   useToast,
+  Skeleton,
+  Image,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -17,8 +18,34 @@ import NDADocumentModal from "../../components/NDADocumentModal";
 import config from "../../resources/config/config";
 import { getPosts, PostData } from "../../data/posts";
 
-// Define the new dropdown option text for NDA posts.
+// Update the NDA dropdown option text.
 const NDA_OPTION = "Sensitive Documents (NDA approval Req.)";
+
+// Utility to convert a string to Title Case.
+const toTitleCase = (str: string): string =>
+  str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+
+// Define PostImage component once.
+const PostImage: React.FC<{ src: string; alt: string; height?: string }> = ({
+  src,
+  alt,
+  height = "180px",
+}) => {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <Skeleton isLoaded={loaded} height={height} borderRadius="md" mb={4}>
+      <Image
+        src={src}
+        alt={alt}
+        height={height}
+        width={'100%'}
+        objectFit="cover"
+        borderRadius="md"
+        onLoad={() => setLoaded(true)}
+      />
+    </Skeleton>
+  );
+};
 
 const CommunityList: React.FC = () => {
   const allPosts: PostData[] = getPosts();
@@ -31,7 +58,7 @@ const CommunityList: React.FC = () => {
   const publicCategories = Array.from(
     new Set(publicPosts.map((post) => post.category))
   );
-  // Add a special NDA option to the dropdown.
+  // Dropdown options: "All", then public categories, then the NDA option.
   const dropdownOptions = ["All", ...publicCategories, NDA_OPTION];
 
   // State for selected dropdown option.
@@ -67,7 +94,6 @@ const CommunityList: React.FC = () => {
   }, []);
 
   // Function to check NDA access status via API.
-  // This call is made only when the special NDA option is selected.
   const checkNdaAccessStatus = async (): Promise<boolean> => {
     if (!session) {
       toast({
@@ -155,7 +181,6 @@ const CommunityList: React.FC = () => {
         }
         return false;
       } else if (status === "Not Applied") {
-        // Show the NDA request modal so the user can apply.
         setShowNdaModal(true);
         return false;
       } else {
@@ -186,14 +211,13 @@ const CommunityList: React.FC = () => {
   // When a category is selected from the dropdown.
   const handleCategoryChange = async (category: string) => {
     if (category === NDA_OPTION) {
-      // If user selects the NDA option, check access.
       const accessGranted = await checkNdaAccessStatus();
       if (!accessGranted) return;
     }
     setSelectedCategory(category);
   };
 
-  // Filter posts based on selected dropdown option.
+  // Filter posts based on the selected dropdown option.
   let filteredPosts;
   if (selectedCategory === NDA_OPTION) {
     filteredPosts = ndaApproved ? ndaPosts : [];
@@ -287,7 +311,7 @@ const CommunityList: React.FC = () => {
         >
           {dropdownOptions.map((category) => (
             <option key={category} value={category}>
-              {category}
+              {category === NDA_OPTION ? category : toTitleCase(category)}
             </option>
           ))}
         </Select>
@@ -310,35 +334,32 @@ const CommunityList: React.FC = () => {
               flexDirection="column"
               justifyContent="space-between"
             >
-              <Image
-                src={post.image}
-                alt={post.title}
-                borderRadius="md"
-                mb={4}
-                height="180px"
-                objectFit="cover"
-              />
+              <PostImage src={post.image} alt={post.title} />
               <Box flex="1" overflow="hidden">
                 <Heading as="h3" size="md" mb={2} noOfLines={2}>
-                  {post?.title}
+                  {post.title}
                 </Heading>
                 <Box as="p" mb={2} noOfLines={3}>
-                  {post?.excerpt}
+                  {post.excerpt}
                 </Box>
               </Box>
               {selectedCategory === NDA_OPTION && !ndaApproved ? (
                 <Link to={`/community/${post.slug}`}>
-                <Button
-                  onClick={handleRestrictedClick}
-                  mt={4}
-                  colorScheme="blue"
-                >
-                  Read More
-                </Button>
+                  <Button 
+                  _hover={{
+                    bg:'black'
+                  }}
+                  onClick={handleRestrictedClick} color={'white'} background={'linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)'} mt={4} colorScheme="blue">
+                    Read More
+                  </Button>
                 </Link>
               ) : (
-<Link to={`/community/${post.slug}`}>
-<Button mt={4} colorScheme="blue">
+                <Link to={`/community/${post.slug}`}>
+                  <Button
+                  _hover={{
+                    bg:'black'
+                  }}
+                   mt={4} color={'white'} background={'linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)'}>
                     Read More
                   </Button>
                 </Link>
@@ -348,7 +369,7 @@ const CommunityList: React.FC = () => {
         </SimpleGrid>
       )}
 
-      {/* NDA Request Modal: Shown when user hasn't applied */}
+      {/* NDA Request Modal: Shown when user hasn't applied for NDA access */}
       {showNdaModal && session && (
         <NDARequestModal
           isOpen={showNdaModal}

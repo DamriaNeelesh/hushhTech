@@ -4,13 +4,22 @@ import { useEffect, useState } from "react";
 import services from "../services/services";
 import { Button, Flex, Image } from "@chakra-ui/react";
 import HushhLogo from "./images/HushhTechlogo.png"
+import config from "../resources/config/config";
 export default function Hero() {
   const navigate = useNavigate();
-  let [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [session, setSession] = useState(null);
   useEffect(() => {
-    setInterval(() => {
-      services.authentication.isLoggedIn(setIsLoggedIn);
-    }, 10);
+    // Fetch the current session
+    config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    // Listen for auth state changes
+    const { data: { subscription } } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription?.unsubscribe();
   }, []);
   return (
     <div
@@ -30,7 +39,7 @@ export default function Hero() {
             statistics to generate sustainable alpha in a dynamic market. Invest
             in the future of wealth with us.
           </p>
-          {!isLoggedIn ? (
+          {!session ? (
             <div className="flex justify-center space-x-4">
             <Button
               onClick={() => navigate("/Login")}

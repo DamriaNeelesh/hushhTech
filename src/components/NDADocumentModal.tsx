@@ -36,6 +36,7 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [confirmed, setConfirmed] = useState<boolean>(false);
   const toast = useToast();
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   // Call the NDA generation API and create a blob URL for the PDF.
   const generateNdaPDF = async () => {
@@ -101,6 +102,10 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
       });
       return;
     }
+  
+    if (isSubmitting) return; // Prevent multiple clicks
+    setIsSubmitting(true);
+  
     try {
       const response = await axios.post(
         "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/accept_nda",
@@ -113,7 +118,7 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
           },
         }
       );
-      console.log("Accept NDA Response:", response.data);
+  
       const resData = response.data;
       if (resData === "Approved") {
         toast({
@@ -125,26 +130,19 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
         });
         onAccept();
         onClose();
-      } else if (resData === "User not in NDA stage") {
+      } else if (resData === "Already Approved") {
+        // Only show success toast, avoid duplicate error toast
         toast({
-          title: "Error",
-          description: "User not in NDA stage.",
-          status: "error",
-          duration: 4000,
-          isClosable: true,
-        });
-      } else if (typeof resData === "string" && resData.startsWith("Request Failed:")) {
-        toast({
-          title: "Error",
-          description: resData,
-          status: "error",
+          title: "NDA Already Accepted",
+          description: "You have already accepted the NDA.",
+          status: "info",
           duration: 4000,
           isClosable: true,
         });
       } else {
         toast({
-          title: "Unexpected Response",
-          description: `Received: ${resData}`,
+          title: "Error",
+          description: resData,
           status: "error",
           duration: 4000,
           isClosable: true,
@@ -159,6 +157,8 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
         duration: 4000,
         isClosable: true,
       });
+    } finally {
+      setIsSubmitting(false); // Reset state after request completes
     }
   };
 
@@ -199,10 +199,10 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
           </Box>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={downloadPDF} colorScheme="blue" mr={4}>
+          <Button  onClick={downloadPDF} colorScheme="blue" mr={4}>
             Download PDF
           </Button>
-          <Button onClick={handleAcceptNda} colorScheme="blue">
+          <Button isLoading={isSubmitting} onClick={handleAcceptNda} colorScheme="blue">
             Accept NDA
           </Button>
         </ModalFooter>
