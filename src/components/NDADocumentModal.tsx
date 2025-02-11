@@ -140,14 +140,14 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
         // });
       }
     } catch (error: any) {
-      console.error("Error accepting NDA:", error);
-      toast({
-        title: "Error",
-        description: error.response?.data || "Could not accept NDA.",
-        status: "error",
-        duration: 4000,
-        isClosable: true,
-      });
+      // console.error("Error accepting NDA:", error);
+      // toast({
+      //   title: "Error",
+      //   description: error.response?.data || "Could not accept NDA.",
+      //   status: "error",
+      //   duration: 4000,
+      //   isClosable: true,
+      // });
     } finally {
       setIsSubmitting(false); // Reset state after request completes
     }
