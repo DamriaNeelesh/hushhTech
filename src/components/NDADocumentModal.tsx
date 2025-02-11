@@ -130,7 +130,7 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
         });
         onAccept();
         onClose();
-      } else {
+      } else if (resData === "Already Approved") {
         // toast({
         //   title: "Error",
         //   description: resData,
