@@ -131,13 +131,14 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
         onAccept();
         onClose();
       } else if (resData === "Already Approved") {
-        toast({
-          title: "Success",
-          description: resData,
-          status: "error",
-          duration: 4000,
-          isClosable: true,
-        });
+        // toast({
+        //   title: "Success",
+        //   description: resData,
+        //   status: "error",
+        //   duration: 4000,
+        //   isClosable: true,
+        // });
+        console.log('Already Approved')
       }
     } catch (error: any) {
       // console.error("Error accepting NDA:", error);
