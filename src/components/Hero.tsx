@@ -3,7 +3,7 @@ import isLoggedIn from "../services/authentication/isLoggedIn";
 import { useEffect, useState } from "react";
 import services from "../services/services";
 import { Button, Flex, Image } from "@chakra-ui/react";
-import HushhLogo from "./images/HushhTechlogo.png"
+import HushhLogo from "./images/Hushhogo.png"
 import config from "../resources/config/config";
 export default function Hero() {
   const navigate = useNavigate();
