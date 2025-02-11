@@ -130,15 +130,6 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
         });
         onAccept();
         onClose();
-      } else if (resData === "Already Approved") {
-        // Only show success toast, avoid duplicate error toast
-        toast({
-          title: "NDA Already Accepted",
-          description: "You have already accepted the NDA.",
-          status: "info",
-          duration: 4000,
-          isClosable: true,
-        });
       } else {
         toast({
           title: "Error",
