@@ -34,7 +34,7 @@ const AccessControlManager: React.FC<AccessControlManagerProps> = ({ session }) 
   const GET_NDA_METADATA_URL =
     "https://hushhtech-nda-generation-53407187172.us-central1.run.app/generate-nda";
   const ACCEPT_NDA_URL =
-    "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/accept_nda";
+    "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/accept_nda_v2";
 
   // Check the current access status on component mount
   useEffect(() => {

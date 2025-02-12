@@ -108,7 +108,7 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
   
     try {
       const response = await axios.post(
-        "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/accept_nda",
+        "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/accept_nda_v2",
         {},
         {
           headers: {
