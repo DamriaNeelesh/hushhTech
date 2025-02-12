@@ -28,6 +28,39 @@ const toTitleCase = (str: string): string =>
     txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
   );
 
+// Helper function to format dates as "2nd Feb '25"
+const formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  const day = date.getDate();
+  // Determine the ordinal suffix
+  const dayOrdinal =
+    day +
+    (day % 10 === 1 && day !== 11
+      ? "st"
+      : day % 10 === 2 && day !== 12
+      ? "nd"
+      : day % 10 === 3 && day !== 13
+      ? "rd"
+      : "th");
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const month = monthNames[date.getMonth()];
+  const year = date.getFullYear().toString().slice(-2);
+  return `${dayOrdinal} ${month} '${year}`;
+};
+
 // Define PostImage component once.
 const PostImage: React.FC<{ src: string; alt: string; height?: string }> = ({
   src,
@@ -350,7 +383,8 @@ const CommunityList: React.FC = () => {
                   {post.title}
                 </Heading>
                 <Text fontSize="sm" color="gray.500" mb={2}>
-                  <span style={{fontWeight:'700'}}>Published At:</span> {new Date(post.publishedAt).toLocaleDateString()}
+                  <span style={{ fontWeight: "700" }}>Published At:</span>{" "}
+                  {formatDate(post.publishedAt)}
                 </Text>
                 <Box as="p" mb={2} noOfLines={3}>
                   {post.excerpt}
