@@ -79,6 +79,7 @@ import hushhPDA from '../content/posts/general/hushhPDA';
 import PremiumInvestmentStrategy from '../content/posts/nda/premiumInvestmentStrategy';
 import MaximizingAlpha from '../content/posts/nda/maximizingAlpha';
 import MarketFundUpdate10feb from '../content/posts/market/marketUpdate10feb';
+import InvestorProspectus from '../content/posts/nda/investorProspectus';
 
 export interface PostData {
   slug: string;
@@ -195,6 +196,18 @@ export const posts: PostData[] = [
     image: FundsUpdateImg1,
     accessLevel: 'NDA',
   },
+  // ... existing code ...
+{
+  slug: 'nda/investor-prospectus',
+  title: '🤫 Fund Investor Prospectus',
+  publishedAt: '2025-03-12',
+  description: 'AI-Driven Systematic Options Income Hedge Fund',
+  category: 'investment strategies',
+  Component: InvestorProspectus,
+  image: HushhAiLogoImg,
+  accessLevel: 'NDA',
+},
+// ... existing code ...
   {
     slug: 'nda-approval/valuation-framework',
     title: "Valuation Framework for Fund A",

@@ -10,6 +10,7 @@ import {
   useToast,
   Skeleton,
   Image,
+  Text,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -23,7 +24,9 @@ const NDA_OPTION = "Sensitive Documents (NDA approval Req.)";
 
 // Utility to convert a string to Title Case.
 const toTitleCase = (str: string): string =>
-  str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+  str.replace(/\w\S*/g, (txt) =>
+    txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+  );
 
 // Define PostImage component once.
 const PostImage: React.FC<{ src: string; alt: string; height?: string }> = ({
@@ -38,7 +41,7 @@ const PostImage: React.FC<{ src: string; alt: string; height?: string }> = ({
         src={src}
         alt={alt}
         height={height}
-        width={'100%'}
+        width="100%"
         objectFit="cover"
         borderRadius="md"
         onLoad={() => setLoaded(true)}
@@ -51,7 +54,9 @@ const CommunityList: React.FC = () => {
   const allPosts: PostData[] = getPosts();
 
   // Separate posts by access level.
-  const publicPosts = allPosts.filter((post) => post.accessLevel === "Public");
+  const publicPosts = allPosts.filter(
+    (post) => post.accessLevel === "Public"
+  );
   const ndaPosts = allPosts.filter((post) => post.accessLevel === "NDA");
 
   // Get unique categories from public posts only.
@@ -81,11 +86,10 @@ const CommunityList: React.FC = () => {
     config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
-    const { data: { subscription } } = config.supabaseClient.auth.onAuthStateChange(
-      (_event, session) => {
+    const { data: { subscription } } =
+      config.supabaseClient.auth.onAuthStateChange((_event, session) => {
         setSession(session);
-      }
-    );
+      });
     return () => {
       if (subscription && typeof subscription.unsubscribe === "function") {
         subscription.unsubscribe();
@@ -120,7 +124,6 @@ const CommunityList: React.FC = () => {
       );
       const status = response.data;
       console.log("NDA Access Status:", status);
-
       if (status === "Approved") {
         setNdaApproved(true);
         return true;
@@ -143,7 +146,6 @@ const CommunityList: React.FC = () => {
         });
         return false;
       } else if (status === "Pending: Waiting for NDA Process") {
-        // Fetch NDA metadata and show the NDA document modal.
         try {
           const ndaResponse = await axios.post(
             "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/get_nda_metadata",
@@ -224,8 +226,16 @@ const CommunityList: React.FC = () => {
   } else if (selectedCategory === "All") {
     filteredPosts = publicPosts;
   } else {
-    filteredPosts = publicPosts.filter((post) => post.category === selectedCategory);
+    filteredPosts = publicPosts.filter(
+      (post) => post.category === selectedCategory
+    );
   }
+
+  // Sort posts so that the latest post is on top.
+  filteredPosts.sort(
+    (a, b) =>
+      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
 
   // Render a loader if API calls are in progress.
   const renderLoader = () => (
@@ -339,27 +349,34 @@ const CommunityList: React.FC = () => {
                 <Heading as="h3" size="md" mb={2} noOfLines={2}>
                   {post.title}
                 </Heading>
+                <Text fontSize="sm" color="gray.500" mb={2}>
+                  <span style={{fontWeight:'700'}}>Published At:</span> {new Date(post.publishedAt).toLocaleDateString()}
+                </Text>
                 <Box as="p" mb={2} noOfLines={3}>
                   {post.excerpt}
                 </Box>
               </Box>
               {selectedCategory === NDA_OPTION && !ndaApproved ? (
                 <Link to={`/community/${post.slug}`}>
-                  <Button 
-                  _hover={{
-                    bg:'black'
-                  }}
-                  onClick={handleRestrictedClick} color={'white'} background={'linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)'} mt={4} colorScheme="blue">
+                  <Button
+                    _hover={{ bg: "black" }}
+                    onClick={handleRestrictedClick}
+                    color="white"
+                    background="linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)"
+                    mt={4}
+                    colorScheme="blue"
+                  >
                     Read More
                   </Button>
                 </Link>
               ) : (
                 <Link to={`/community/${post.slug}`}>
                   <Button
-                  _hover={{
-                    bg:'black'
-                  }}
-                   mt={4} color={'white'} background={'linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)'}>
+                    _hover={{ bg: "black" }}
+                    mt={4}
+                    color="white"
+                    background="linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)"
+                  >
                     Read More
                   </Button>
                 </Link>
@@ -412,7 +429,7 @@ const CommunityList: React.FC = () => {
                 setNdaApproved(true);
                 setShowNdaDocModal(false);
               } else {
-                console.log('You NDA Got Approved, please check our other NDA doc posts')
+                console.log("NDA already approved or other status received");
               }
             } catch (error: any) {
               console.error("Error accepting NDA:", error);
