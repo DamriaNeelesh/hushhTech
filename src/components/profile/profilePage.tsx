@@ -258,7 +258,7 @@ const ProfilePage: React.FC = () => {
             mt={4}
             onClick={handleStartNdaProcess}
           >
-            {ndaStatus === "Approved" ? "NDA Completed" : "Start NDA Process"}
+            {ndaStatus === "Approved" ? "Download Your NDA" : "Start NDA Process"}
           </Button>
         </Box>
 
