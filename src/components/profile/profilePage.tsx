@@ -120,15 +120,53 @@ const ProfilePage: React.FC = () => {
     }
   };
 
-  const handleStartNdaProcess = () => {
-    if (ndaStatus === "Approved") {
+  // New function to download the NDA PDF when approved.
+  const handleDownloadNda = async () => {
+    // Use your full API endpoint URL for downloading the NDA.
+    const FETCH_NDA_URL = "https://hushhtech-nda-generation-53407187172.us-central1.run.app/fetch-nda";
+    try {
+      const response = await axios.get(FETCH_NDA_URL, {
+        headers: {
+          "jwt-token": session.access_token,
+        },
+        responseType: "blob",
+      });
+      
+      // Check for a successful response
+      if (response.status === 200) {
+        const blob = new Blob([response.data], { type: "application/pdf" });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "NDA.pdf");
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode?.removeChild(link);
+      } else {
+        toast({
+          title: "Download Error",
+          description: "Unexpected response code: " + response.status,
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+      }
+    } catch (error: any) {
+      console.error("Download error:", error);
       toast({
-        title: "NDA Completed",
-        description: "Your NDA is already approved.",
-        status: "info",
-        duration: 3000,
+        title: "Download Error",
+        description: "Failed to download NDA. Please try again.",
+        status: "error",
+        duration: 4000,
         isClosable: true,
       });
+    }
+  };
+
+  // Updated button handler: if NDA is approved, trigger download.
+  const handleStartNdaProcess = () => {
+    if (ndaStatus === "Approved") {
+      handleDownloadNda();
       return;
     }
     if (ndaStatus === "Not Applied") {
