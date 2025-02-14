@@ -318,7 +318,7 @@ export const posts: PostData[] = [
   {
     slug: 'general/ai-skills-testing',
     title: 'AI Skills and Testing',
-    publishedAt: '2025-03-01',
+    publishedAt: '2025-02-05',
     description:
       'Exploring the importance of AI skills in the modern workplace and how to test for them.',
     category: 'general',
@@ -434,7 +434,7 @@ export const posts: PostData[] = [
   {
     slug: 'financial-strategies/sell-the-wall-masterclass',
     title: 'Selling the Wall – A Masterclass in Monetizing Fear and Time Decay',
-    publishedAt: '2025-03-01',
+    publishedAt: '2025-01-25',
     description:
       'A strategic guide to transforming market volatility into sustainable income through the Sell the Wall approach.',
     category: 'financial strategies',

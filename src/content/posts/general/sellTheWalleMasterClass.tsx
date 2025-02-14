@@ -4,7 +4,7 @@ import SellImg from '../../../components/images/blog2o.png'
 
 export const frontmatter = {
   title: "Selling the Wall – A Masterclass in Monetizing Fear and Time Decay",
-  publishedAt: "2025-03-01",
+  publishedAt: "2025-01-25",
   description: "A strategic guide to transforming market volatility into sustainable income through the Sell the Wall approach.",
   category: "financial strategies"
 };

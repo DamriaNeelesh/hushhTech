@@ -385,6 +385,8 @@ const CommunityList: React.FC = () => {
                 <Text fontSize="sm" color="gray.500" mb={2}>
                   <span style={{ fontWeight: "700" }}>Published At:</span>{" "}
                   {formatDate(post.publishedAt)}
+                
+                  {/* {post.publishedAt} */}
                 </Text>
                 <Box as="p" mb={2} noOfLines={3}>
                   {post.excerpt}
