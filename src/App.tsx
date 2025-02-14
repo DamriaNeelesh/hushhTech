@@ -24,6 +24,7 @@ import EUUKPrivacyPolicy from './pages/eu-uk-privacy-policy';
 import { useState, useEffect } from 'react';
 import config from './resources/config/config';
 import NDAPopup from './components/NdaForm';
+import Profile from './pages/profile';
 
 const posts = getPosts();
 
@@ -65,6 +66,7 @@ function App() {
           <Route path='/services/business' element={<Business/>}/>
           <Route path='/Signup' element={<Signup/>}/>
           <Route path='/faq' element={<Faq/>}/>
+          <Route path='/profile' element={<Profile/>} />
           <Route path="/career" element={<Career/>} />
           <Route path="/career/*" element={<Career />} />
           <Route path='/privacy-policy' element={<PrivacyPolicy/>}/>
