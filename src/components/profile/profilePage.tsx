@@ -143,8 +143,8 @@ const ProfilePage: React.FC = () => {
   };
 
   return (
-    <Box bg="black" minH="100vh" width="100%" color="white">
-      <VStack bg="black" px={5} spacing={6} alignItems="center">
+    <Box bg="black" width="100%" color="white">
+      <VStack bg="black"  px={5} spacing={6} alignItems="center">
         <Image src={HushhLogo} alt="Hushh Tech Logo" boxSize={{ md: '14rem', base: 'xs' }} />
         <Box w="100%" textAlign="left">
           <Heading fontSize="2xl">Hello {session?.user?.user_metadata?.full_name || 'User'},</Heading>
@@ -155,7 +155,7 @@ const ProfilePage: React.FC = () => {
       </VStack>
 
       {/* Grid for Desktop, Stack for Mobile */}
-      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} mt={8} px={5}>
+      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} my={8} px={5}>
         {/* Documents Section */}
         <Box bg="#1D1D1D" p={6} borderRadius="lg" shadow="lg" textAlign="center">
           <Heading size="md" display="flex" flexDirection={'row'} gap={{md:'0.5rem',base:'0.3rem'}} alignItems="center" justifyContent="center">
