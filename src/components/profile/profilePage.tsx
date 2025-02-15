@@ -23,10 +23,12 @@ import ApprovedGif from "../../../public/gif/nda_approved.gif";
 import PendingGif from "../../../public/gif/nda_pending.gif";
 import RejectedGif from "../../../public/gif/nda_rejected.gif";
 import NotappliedGif from "../../../public/gif/nda_notApplied.gif";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage: React.FC = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const toast = useToast();
+  const navigate = useNavigate();
 
   const [session, setSession] = useState<any>(null);
   const [ndaStatus, setNdaStatus] = useState<string>("Not Applied");
@@ -42,7 +44,6 @@ const ProfilePage: React.FC = () => {
       config.supabaseClient.auth.onAuthStateChange((_event, session) => {
         setSession(session);
       });
-    console.log("Session:", session);
     return () => {
       if (subscription && typeof subscription.unsubscribe === "function") {
         subscription.unsubscribe();
@@ -66,8 +67,6 @@ const ProfilePage: React.FC = () => {
           }
         );
         setNdaStatus(response.data);
-        console.log("NDA Access Status:", response.data);
-
         if (response.data === "Pending: Waiting for NDA Process") {
           fetchNdaMetadata();
         }
@@ -121,6 +120,7 @@ const ProfilePage: React.FC = () => {
     }
   };
 
+  // Download NDA if approved.
   const handleDownloadNda = async () => {
     const FETCH_NDA_URL =
       "https://hushhtech-nda-generation-53407187172.us-central1.run.app/fetch-nda";
@@ -150,7 +150,6 @@ const ProfilePage: React.FC = () => {
         });
       }
     } catch (error: any) {
-      console.error("Download error:", error);
       toast({
         title: "Download Error",
         description: "Failed to download NDA. Please try again.",
@@ -166,10 +165,7 @@ const ProfilePage: React.FC = () => {
       return { text: "Download Your NDA", disabled: false };
     } else if (ndaStatus === "Not Applied") {
       return { text: "Start NDA Process", disabled: false };
-    } else if (
-      ndaStatus === "Requested permission for the sensitive file." ||
-      ndaStatus === "Pending"
-    ) {
+    } else if (ndaStatus === "Requested permission for the sensitive file." || ndaStatus === "Pending") {
       return { text: "Waiting for approval", disabled: true };
     } else if (ndaStatus === "Pending: Waiting for NDA Process") {
       return { text: "Verify and Accept the NDA", disabled: false };
@@ -180,6 +176,7 @@ const ProfilePage: React.FC = () => {
   };
 
   const { text: ndaButtonText, disabled: ndaButtonDisabled } = getNdaButtonProps();
+
   const handleNdaAccepted = () => {
     setNdaStatus("Approved");
   };
@@ -195,24 +192,25 @@ const ProfilePage: React.FC = () => {
     }
   };
 
-  const handlePrivateDocsClick = () => {
+  // Navigation handlers using useNavigate.
+  const handleViewPublicDocs = () => {
+    localStorage.setItem("communityFilter", "all");
+    navigate("/community");
+  };
+
+  const handleViewPrivateDocs = () => {
     if (ndaStatus === "Approved") {
-      window.location.href = "/community";
+      localStorage.setItem("communityFilter", "nda");
+      navigate("/community");
     }
   };
 
   return (
     <Box bg="black" width="100%" color="white">
       <VStack bg="black" px={5} spacing={6} alignItems="center">
-        <Image
-          src={HushhLogo}
-          alt="Hushh Tech Logo"
-          boxSize={{ md: "14rem", base: "xs" }}
-        />
+        <Image src={HushhLogo} alt="Hushh Tech Logo" boxSize={{ md: "14rem", base: "xs" }} />
         <Box w="100%" textAlign="left">
-          <Heading fontSize="2xl">
-            Hello {session?.user?.user_metadata?.full_name || "User"},
-          </Heading>
+          <Heading fontSize="2xl">Hello {session?.user?.user_metadata?.full_name || "User"},</Heading>
           <Text fontSize="md" color="gray.400">
             Please complete the required processes below to access investment information.
           </Text>
@@ -222,14 +220,8 @@ const ProfilePage: React.FC = () => {
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} my={8} px={5}>
         {/* Documents Section */}
         <Box bg="#1D1D1D" p={6} borderRadius="lg" shadow="lg" textAlign="left">
-          <Heading
-            size="md"
-            display="flex"
-            flexDirection="row"
-            gap={{ md: "0.5rem", base: "0.3rem" }}
-            alignItems="center"
-            justifyContent="center"
-          >
+          <Heading size="md" display="flex" flexDirection="row" gap={{ md: "0.5rem", base: "0.3rem" }}
+            alignItems="center" justifyContent="center">
             <Icon as={FaFileAlt} w={8} h={8} color="grey" /> Documents
           </Heading>
           <Text fontSize="sm" color="gray.400">
@@ -239,7 +231,7 @@ const ProfilePage: React.FC = () => {
             w="full"
             colorScheme="teal"
             mt={4}
-            onClick={() => (window.location.href = "/community")}
+            onClick={handleViewPublicDocs}
           >
             View Public Documents
           </Button>
@@ -248,7 +240,7 @@ const ProfilePage: React.FC = () => {
             mt={2}
             colorScheme={ndaStatus !== "Approved" ? "gray" : "teal"}
             isDisabled={ndaStatus !== "Approved"}
-            onClick={handlePrivateDocsClick}
+            onClick={handleViewPrivateDocs}
           >
             View Private Documents
           </Button>
@@ -259,59 +251,36 @@ const ProfilePage: React.FC = () => {
         </Box>
 
         {/* NDA Process Section */}
-        <Box
-          bg="#1D1D1D"
-          p={6}
-          display="flex"
-          flexDirection="column"
-          justifyContent="space-between"
-          alignItems="center"
-          borderRadius="lg"
-          shadow="lg"
-          textAlign="center"
-        >
-          <Heading
-            size="md"
-            display="flex"
-            flexDirection="row"
-            gap={{ md: "0.5rem", base: "0.3rem" }}
-            alignItems="center"
-            justifyContent="center"
-          >
+        <Box bg="#1D1D1D" p={6} display="flex" flexDirection="column" justifyContent="space-between"
+          alignItems="center" borderRadius="lg" shadow="lg" textAlign="center">
+          <Heading size="md" display="flex" flexDirection="row" gap={{ md: "0.5rem", base: "0.3rem" }}
+            alignItems="center" justifyContent="center">
             <Icon as={FaUserShield} w={8} h={8} color="grey" />
             NDA Process
-
             <Box mt={1}>
-            {ndaStatus === "Approved" && (
-              <Image src={ApprovedGif} alt="Approved" boxSize="14px" />
-            )}
-            {(ndaStatus === "Pending: Waiting for NDA Process" ||
-              ndaStatus === "Pending" ||
-              ndaStatus === "Requested permission for the sensitive file.") && (
-              <Image src={PendingGif} alt="Pending" boxSize="14px" />
-            )}
-            {ndaStatus === "Rejected" && (
-              <Image src={RejectedGif} alt="Rejected" boxSize="14px" />
-            )}
-            {ndaStatus === "Not Applied" && (
-              <Image src={NotappliedGif} alt="Not Applied" boxSize="14px" />
-            )}
-          </Box>
+              {ndaStatus === "Approved" && (
+                <Image src={ApprovedGif} alt="Approved" boxSize="14px" />
+              )}
+              {(ndaStatus === "Pending: Waiting for NDA Process" ||
+                ndaStatus === "Pending" ||
+                ndaStatus === "Requested permission for the sensitive file.") && (
+                <Image src={PendingGif} alt="Pending" boxSize="14px" />
+              )}
+              {ndaStatus === "Rejected" && (
+                <Image src={RejectedGif} alt="Rejected" boxSize="14px" />
+              )}
+              {ndaStatus === "Not Applied" && (
+                <Image src={NotappliedGif} alt="Not Applied" boxSize="14px" />
+              )}
+            </Box>
           </Heading>
-          <Badge
-            w="xxs"
-            colorScheme={ndaStatus === "Approved" ? "green" : "orange"}
-            mb={2}
-            p={1}
-            borderRadius="full"
-          >
+          <Badge w="xxs" colorScheme={ndaStatus === "Approved" ? "green" : "orange"}
+            mb={2} p={1} borderRadius="full">
             {ndaStatus}
           </Badge>
           <Text fontSize="sm" color="gray.400">
             Complete NDA to access sensitive documents
           </Text>
-          {/* Animated Status Indicator */}
-          
           <Button
             w="full"
             colorScheme={ndaStatus === "Approved" ? "teal" : "blue"}
@@ -324,35 +293,13 @@ const ProfilePage: React.FC = () => {
         </Box>
 
         {/* KYC Verification Section */}
-        <Box
-          bg="#1D1D1D"
-          p={6}
-          display="flex"
-          flexDirection="column"
-          justifyContent="space-between"
-          alignItems="center"
-          borderRadius="lg"
-          shadow="lg"
-          textAlign="center"
-        >
-          <Heading
-            size="md"
-            display="flex"
-            flexDirection="row"
-            gap={{ md: "0.5rem", base: "0.3rem" }}
-            alignItems="center"
-            justifyContent="center"
-          >
+        <Box bg="#1D1D1D" p={6} display="flex" flexDirection="column" justifyContent="space-between"
+          alignItems="center" borderRadius="lg" shadow="lg" textAlign="center">
+          <Heading size="md" display="flex" flexDirection="row" gap={{ md: "0.5rem", base: "0.3rem" }}
+            alignItems="center" justifyContent="center">
             <Icon as={CheckCircleIcon} w={8} h={8} color="grey" /> KYC Verification
           </Heading>
-          <Badge
-            w="xxs"
-            bg="blue.900"
-            color="blue.300"
-            mb={2}
-            p={1}
-            borderRadius="full"
-          >
+          <Badge w="xxs" bg="blue.900" color="blue.300" mb={2} p={1} borderRadius="full">
             Coming Soon
           </Badge>
           <Text fontSize="sm" color="gray.400">
@@ -365,7 +312,7 @@ const ProfilePage: React.FC = () => {
       </SimpleGrid>
 
       {/* NDA Request Modal */}
-      {showNdaModal && (
+      {showNdaModal && session && (
         <NDARequestModal
           isOpen={showNdaModal}
           onClose={() => setShowNdaModal(false)}
@@ -377,7 +324,7 @@ const ProfilePage: React.FC = () => {
         />
       )}
       {/* NDA Document Modal */}
-      {showNdaDocModal && ndaMetadata && (
+      {showNdaDocModal && ndaMetadata && session && (
         <NDADocumentModal
           isOpen={showNdaDocModal}
           onClose={() => setShowNdaDocModal(false)}
@@ -394,6 +341,7 @@ const ProfilePage: React.FC = () => {
             });
             setNdaApproved(true);
             setShowNdaDocModal(false);
+            localStorage.setItem("communityFilter", "nda");
           }}
         />
       )}

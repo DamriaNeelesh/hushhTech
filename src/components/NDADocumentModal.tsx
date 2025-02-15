@@ -37,7 +37,7 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
   const [confirmed, setConfirmed] = useState<boolean>(false);
   const toast = useToast();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
+  const [ndaModal, setNdaModal] = useState<boolean>(false);
   // Call the NDA generation API and create a blob URL for the PDF.
   const generateNdaPDF = async () => {
     setLoading(true);
@@ -91,68 +91,55 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
     }
   };
 
-  const handleAcceptNda = async () => {
-    if (!confirmed) {
+  // ... existing code ...
+const handleAcceptNda = async () => {
+  if (!confirmed) {
+    toast({
+      title: "Confirm NDA Acceptance",
+      description: "Please check the box to confirm your NDA acceptance.",
+      status: "warning",
+      duration: 4000,
+      isClosable: true,
+    });
+    return;
+  }
+
+  if (isSubmitting) return; // Prevent multiple clicks
+  setIsSubmitting(true);
+  try {
+    const response = await axios.post(
+      "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/accept_nda_v2",
+      {},
+      {
+        headers: {
+          apikey: config.SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${session.access_token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const resData = response.data;
+    if (resData === "Approved") {
       toast({
-        title: "Confirm NDA Acceptance",
-        description: "Please check the box to confirm your NDA acceptance.",
-        status: "warning",
+        title: "NDA Accepted",
+        description: "Your NDA has been accepted. Access granted.",
+        status: "success",
         duration: 4000,
         isClosable: true,
       });
-      return;
+      onAccept(); // Ensure this function is called
+      onClose(); // Close the modal
+    } else if (resData === "Already Approved") {
+      console.log('Already Approved');
     }
-  
-    if (isSubmitting) return; // Prevent multiple clicks
-    setIsSubmitting(true);
-  
-    try {
-      const response = await axios.post(
-        "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/accept_nda_v2",
-        {},
-        {
-          headers: {
-            apikey: config.SUPABASE_ANON_KEY,
-            Authorization: `Bearer ${session.access_token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-  
-      const resData = response.data;
-      if (resData === "Approved") {
-        toast({
-          title: "NDA Accepted",
-          description: "Your NDA has been accepted. Access granted.",
-          status: "success",
-          duration: 4000,
-          isClosable: true,
-        });
-        onAccept();
-        onClose();
-      } else if (resData === "Already Approved") {
-        // toast({
-        //   title: "Success",
-        //   description: resData,
-        //   status: "error",
-        //   duration: 4000,
-        //   isClosable: true,
-        // });
-        console.log('Already Approved')
-      }
-    } catch (error: any) {
-      // console.error("Error accepting NDA:", error);
-      // toast({
-      //   title: "Error",
-      //   description: error.response?.data || "Could not accept NDA.",
-      //   status: "error",
-      //   duration: 4000,
-      //   isClosable: true,
-      // });
-    } finally {
-      setIsSubmitting(false); // Reset state after request completes
-    }
-  };
+  } catch (error: any) {
+    console.error("Error accepting NDA:", error);
+  } finally {
+    setIsSubmitting(false); // Reset state after request completes
+  }
+};
+// ... existing code ...
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
