@@ -80,6 +80,7 @@ import PremiumInvestmentStrategy from '../content/posts/nda/premiumInvestmentStr
 import MaximizingAlpha from '../content/posts/nda/maximizingAlpha';
 import MarketFundUpdate10feb from '../content/posts/market/marketUpdate10feb';
 import InvestorProspectus from '../content/posts/nda/investorProspectus';
+import Dmu14feb from '../content/posts/market/dmu14feb';
 
 export interface PostData {
   slug: string;
@@ -377,6 +378,16 @@ export const posts: PostData[] = [
     category: 'investor relations & strategies',
     Component: SellTheWall,
     image: HushhAiLogoImg,
+    accessLevel: 'Public',
+  },
+  {
+    slug: 'market/aloha-alpha-fund-update',
+    title: 'Daily Market Updates - 14th Feb',
+    publishedAt: '2025-02-14',
+    description: 'Internal review and investor communication for the Aloha Alpha Fund, highlighting performance and strategy updates.',
+    category: 'market',
+    Component: Dmu14feb,
+    image: DailyMarketUpdateImg1, // Use the appropriate image
     accessLevel: 'Public',
   },
   {
