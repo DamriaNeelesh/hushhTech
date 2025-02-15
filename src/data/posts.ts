@@ -207,7 +207,7 @@ export const posts: PostData[] = [
 {
   slug: 'nda/investor-prospectus',
   title: '🤫 Fund Investor Prospectus',
-  publishedAt: '2025-03-12',
+  publishedAt: '2025-02-12',
   description: 'AI-Driven Systematic Options Income Hedge Fund',
   category: 'investment strategies',
   Component: InvestorProspectus,
@@ -603,7 +603,7 @@ export const posts: PostData[] = [
   {
     slug: 'funds/premium-investment-strategy',
     title: 'A Premium Investment Strategy for Accredited Investors',
-    publishedAt: '2025-02-20',
+    publishedAt: '2025-02-13',
     description: 'An overview of the Aloha & Alpha Fund, a premium investment strategy for accredited investors, compliant with ADGM and UAE law.',
     category: 'fund updates',
     Component: PremiumInvestmentStrategy,
