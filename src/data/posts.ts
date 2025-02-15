@@ -83,6 +83,7 @@ import InvestorProspectus from '../content/posts/nda/investorProspectus';
 import Dmu14feb from '../content/posts/market/dmu14feb';
 import HushhAlphaFundGrowthPlan from '../content/posts/general/growthPlan';
 import PrivatePlacementMemorandum from '../content/posts/nda/PrivatePlacementMemorandum';
+import OperatingAgreement from '../content/posts/nda/operatingAgreement';
 
 export interface PostData {
   slug: string;
@@ -227,6 +228,16 @@ export const posts: PostData[] = [
   description: 'Confidential offering of limited partnership interests in Hushh Technologies Renaissance AI Fund, LP.',
   category: 'investment strategy',
   Component: PrivatePlacementMemorandum,
+  image: DailyMarketUpdateImg1, // Use the appropriate image
+  accessLevel: 'NDA',
+},
+{
+  slug: 'legal/operating-agreement',
+  title: 'Operating Agreement for Hushh Technologies LLC',
+  publishedAt: '2025-02-12',
+  description: 'Draft Articles of Ownership for Hushh Investments LLC, aligning with U.S. regulations and global market expansion.',
+  category: 'legal',
+  Component: OperatingAgreement,
   image: DailyMarketUpdateImg1, // Use the appropriate image
   accessLevel: 'NDA',
 },
