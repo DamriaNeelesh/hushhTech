@@ -81,6 +81,7 @@ import MaximizingAlpha from '../content/posts/nda/maximizingAlpha';
 import MarketFundUpdate10feb from '../content/posts/market/marketUpdate10feb';
 import InvestorProspectus from '../content/posts/nda/investorProspectus';
 import Dmu14feb from '../content/posts/market/dmu14feb';
+import HushhAlphaFundGrowthPlan from '../content/posts/general/growthPlan';
 
 export interface PostData {
   slug: string;
@@ -208,7 +209,16 @@ export const posts: PostData[] = [
   image: HushhAiLogoImg,
   accessLevel: 'NDA',
 },
-// ... existing code ...
+{
+  slug: 'investment-strategy/hushh-alpha-fund-growth-plan',
+  title: 'A Realistic Growth Plan for Hushh Alpha Fund',
+  publishedAt: '2025-02-12',
+  description: 'A comprehensive growth plan for scaling the Hushh Alpha Fund to $1B AUM with sustainable, cash flow-driven alpha.',
+  category: 'investment strategy',
+  Component: HushhAlphaFundGrowthPlan,
+  image: DailyMarketUpdateImg2, // Use the appropriate image
+  accessLevel: 'Public',
+},
   {
     slug: 'nda-approval/valuation-framework',
     title: "Valuation Framework for Fund A",
