@@ -84,6 +84,7 @@ import Dmu14feb from '../content/posts/market/dmu14feb';
 import HushhAlphaFundGrowthPlan from '../content/posts/general/growthPlan';
 import PrivatePlacementMemorandum from '../content/posts/nda/PrivatePlacementMemorandum';
 import OperatingAgreement from '../content/posts/nda/operatingAgreement';
+import ValuationAnalysis from '../content/posts/nda/valuationAnalysis';
 
 export interface PostData {
   slug: string;
@@ -238,6 +239,16 @@ export const posts: PostData[] = [
   description: 'Draft Articles of Ownership for Hushh Investments LLC, aligning with U.S. regulations and global market expansion.',
   category: 'legal',
   Component: OperatingAgreement,
+  image: DailyMarketUpdateImg1, // Use the appropriate image
+  accessLevel: 'NDA',
+},
+{
+  slug: 'valuation/valuation-analysis',
+  title: 'Valuation Analysis of HushhTech.com',
+  publishedAt: '2025-02-12',
+  description: 'A comprehensive valuation analysis of HushhTech.com, a fintech startup generating a 5% monthly return on a $7.5 million capital base.',
+  category: 'legal',
+  Component: ValuationAnalysis,
   image: DailyMarketUpdateImg1, // Use the appropriate image
   accessLevel: 'NDA',
 },
