@@ -19,6 +19,10 @@ import NDARequestModal from "../NDARequestModal";
 import NDADocumentModal from "../NDADocumentModal";
 import axios from "axios";
 import config from "../../resources/config/config";
+import ApprovedGif from "../../../public/gif/nda_approved.gif";
+import PendingGif from "../../../public/gif/nda_pending.gif";
+import RejectedGif from "../../../public/gif/nda_rejected.gif";
+import NotappliedGif from "../../../public/gif/nda_notApplied.gif";
 
 const ProfilePage: React.FC = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
@@ -30,16 +34,14 @@ const ProfilePage: React.FC = () => {
   const [showNdaModal, setShowNdaModal] = useState(false);
   const [showNdaDocModal, setShowNdaDocModal] = useState(false);
 
-  // --- Session & Subscription ---
   useEffect(() => {
     config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
-    const {
-      data: { subscription },
-    } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
+    const { data: { subscription } } =
+      config.supabaseClient.auth.onAuthStateChange((_event, session) => {
+        setSession(session);
+      });
     console.log("Session:", session);
     return () => {
       if (subscription && typeof subscription.unsubscribe === "function") {
@@ -48,7 +50,6 @@ const ProfilePage: React.FC = () => {
     };
   }, []);
 
-  // --- Check NDA Status ---
   useEffect(() => {
     const checkNdaStatus = async () => {
       if (!session) return;
@@ -120,9 +121,7 @@ const ProfilePage: React.FC = () => {
     }
   };
 
-  // --- Download NDA Functionality ---
   const handleDownloadNda = async () => {
-    // Use the full URL of your download endpoint.
     const FETCH_NDA_URL =
       "https://hushhtech-nda-generation-53407187172.us-central1.run.app/fetch-nda";
     try {
@@ -162,7 +161,6 @@ const ProfilePage: React.FC = () => {
     }
   };
 
-  // --- Determine Button Text and Disabled State Based on NDA Status ---
   const getNdaButtonProps = () => {
     if (ndaStatus === "Approved") {
       return { text: "Download Your NDA", disabled: false };
@@ -183,10 +181,9 @@ const ProfilePage: React.FC = () => {
 
   const { text: ndaButtonText, disabled: ndaButtonDisabled } = getNdaButtonProps();
   const handleNdaAccepted = () => {
-    // Update the NDA status or perform any other actions needed after acceptance
     setNdaStatus("Approved");
   };
-  // --- Button Handler for NDA Process ---
+
   const handleStartNdaProcess = () => {
     if (ndaStatus === "Approved") {
       handleDownloadNda();
@@ -196,7 +193,6 @@ const ProfilePage: React.FC = () => {
     } else if (ndaStatus === "Pending: Waiting for NDA Process") {
       setShowNdaDocModal(true);
     }
-    // For statuses like "Waiting for approval", do nothing.
   };
 
   const handlePrivateDocsClick = () => {
@@ -223,7 +219,6 @@ const ProfilePage: React.FC = () => {
         </Box>
       </VStack>
 
-      {/* Grid for Desktop, Stack for Mobile */}
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} my={8} px={5}>
         {/* Documents Section */}
         <Box bg="#1D1D1D" p={6} borderRadius="lg" shadow="lg" textAlign="left">
@@ -257,15 +252,9 @@ const ProfilePage: React.FC = () => {
           >
             View Private Documents
           </Button>
-          <Text
-            mt={2}
-            fontSize="xs"
-            color={ndaStatus !== "Approved" ? "yellow.400" : "green.400"}
-          >
+          <Text mt={2} fontSize="xs" color={ndaStatus !== "Approved" ? "yellow.400" : "green.400"}>
             <Icon as={ndaStatus !== "Approved" ? InfoIcon : CheckCircleIcon} />{" "}
-            {ndaStatus !== "Approved"
-              ? "NDA required for access"
-              : "NDA approved."}
+            {ndaStatus !== "Approved" ? "NDA required for access" : "NDA approved."}
           </Text>
         </Box>
 
@@ -291,6 +280,23 @@ const ProfilePage: React.FC = () => {
           >
             <Icon as={FaUserShield} w={8} h={8} color="grey" />
             NDA Process
+
+            <Box mt={1}>
+            {ndaStatus === "Approved" && (
+              <Image src={ApprovedGif} alt="Approved" boxSize="14px" />
+            )}
+            {(ndaStatus === "Pending: Waiting for NDA Process" ||
+              ndaStatus === "Pending" ||
+              ndaStatus === "Requested permission for the sensitive file.") && (
+              <Image src={PendingGif} alt="Pending" boxSize="14px" />
+            )}
+            {ndaStatus === "Rejected" && (
+              <Image src={RejectedGif} alt="Rejected" boxSize="14px" />
+            )}
+            {ndaStatus === "Not Applied" && (
+              <Image src={NotappliedGif} alt="Not Applied" boxSize="14px" />
+            )}
+          </Box>
           </Heading>
           <Badge
             w="xxs"
@@ -304,6 +310,8 @@ const ProfilePage: React.FC = () => {
           <Text fontSize="sm" color="gray.400">
             Complete NDA to access sensitive documents
           </Text>
+          {/* Animated Status Indicator */}
+          
           <Button
             w="full"
             colorScheme={ndaStatus === "Approved" ? "teal" : "blue"}
@@ -356,26 +364,37 @@ const ProfilePage: React.FC = () => {
         </Box>
       </SimpleGrid>
 
-      {/* Modals */}
+      {/* NDA Request Modal */}
       {showNdaModal && (
         <NDARequestModal
           isOpen={showNdaModal}
           onClose={() => setShowNdaModal(false)}
           session={session}
           onSubmit={(result: string) => {
-            // After submission, close the form and update status.
             setNdaStatus(result);
             setShowNdaModal(false);
           }}
         />
       )}
+      {/* NDA Document Modal */}
       {showNdaDocModal && ndaMetadata && (
         <NDADocumentModal
           isOpen={showNdaDocModal}
           onClose={() => setShowNdaDocModal(false)}
           session={session}
           ndaMetadata={ndaMetadata}
-          onAccept={handleNdaAccepted}
+          onAccept={() => {
+            toast({
+              title: "NDA Accepted",
+              description:
+                "Your NDA has been accepted. Confidential documents are now accessible.",
+              status: "success",
+              duration: 4000,
+              isClosable: true,
+            });
+            setNdaApproved(true);
+            setShowNdaDocModal(false);
+          }}
         />
       )}
     </Box>
