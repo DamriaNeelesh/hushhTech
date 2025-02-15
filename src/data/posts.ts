@@ -85,6 +85,7 @@ import HushhAlphaFundGrowthPlan from '../content/posts/general/growthPlan';
 import PrivatePlacementMemorandum from '../content/posts/nda/PrivatePlacementMemorandum';
 import OperatingAgreement from '../content/posts/nda/operatingAgreement';
 import ValuationAnalysis from '../content/posts/nda/valuationAnalysis';
+import dmu11feb from '../content/posts/market/dmu11feb';
 
 export interface PostData {
   slug: string;
@@ -251,6 +252,16 @@ export const posts: PostData[] = [
   Component: ValuationAnalysis,
   image: DailyMarketUpdateImg1, // Use the appropriate image
   accessLevel: 'NDA',
+},
+{
+  slug: 'market/alpha-aloha-fund-update',
+  title: '11thFeb Fund and Market Update Report',
+  publishedAt: '2025-02-11',
+  description: 'Comprehensive market and fund update for the Alpha Aloha Fund, covering key performance metrics, strategy highlights, and macro insights.',
+  category: 'market',
+  Component: dmu11feb,
+  image: DailyMarketUpdateImg3, // Use the appropriate image
+  accessLevel: 'Public',
 },
   {
     slug: 'nda-approval/valuation-framework',
