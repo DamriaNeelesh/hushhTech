@@ -316,17 +316,17 @@ export const posts: PostData[] = [
     image: ProductUpdate2,
     accessLevel: 'Public',
   },
-  {
-    slug: 'general/ai-skills-testing',
-    title: 'AI Skills and Testing',
-    publishedAt: '2025-02-05',
-    description:
-      'Exploring the importance of AI skills in the modern workplace and how to test for them.',
-    category: 'general',
-    Component: AISkillsTesting,
-    image: SkillTesting,
-    accessLevel: 'Public',
-  },
+  // {
+  //   slug: 'general/ai-skills-testing',
+  //   title: 'AI Skills and Testing',
+  //   publishedAt: '2025-02-05',
+  //   description:
+  //     'Exploring the importance of AI skills in the modern workplace and how to test for them.',
+  //   category: 'general',
+  //   Component: AISkillsTesting,
+  //   image: SkillTesting,
+  //   accessLevel: 'Public',
+  // },
   {
     slug: 'product/product-updates',
     title: 'Product Update: Exciting New Features Coming Soon!',
