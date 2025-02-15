@@ -86,6 +86,7 @@ import PrivatePlacementMemorandum from '../content/posts/nda/PrivatePlacementMem
 import OperatingAgreement from '../content/posts/nda/operatingAgreement';
 import ValuationAnalysis from '../content/posts/nda/valuationAnalysis';
 import dmu11feb from '../content/posts/market/dmu11feb';
+import RentingMaximum from '../content/posts/nda/rentingMaxIncome';
 
 export interface PostData {
   slug: string;
@@ -261,6 +262,16 @@ export const posts: PostData[] = [
   category: 'market',
   Component: dmu11feb,
   image: DailyMarketUpdateImg3, // Use the appropriate image
+  accessLevel: 'Public',
+},
+{
+  slug: 'investment-strategy/investment-framework-renting-maximum-income',
+  title: 'Investment Framework: Owning the Best and Renting for Maximum Income',
+  publishedAt: '2025-02-12',
+  description: 'A comprehensive strategy for wealth creation through ownership and rental income.',
+  category: 'investment strategy',
+  Component: RentingMaximum,
+  image: DailyMarketUpdateImg1,
   accessLevel: 'Public',
 },
   {
