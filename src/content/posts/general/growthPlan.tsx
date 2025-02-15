@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Heading,Image, Text, VStack, Divider } from '@chakra-ui/react';
-import AlphaAlohaImg from '../../../components/images/blog2o.png';
+import AlphaAlohaImg from '../../../components/images/fundsStanding.png';
 
 export const frontmatter = {
   title: "A Realistic Growth Plan for Hushh Alpha Fund",
