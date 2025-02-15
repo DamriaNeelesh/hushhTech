@@ -254,7 +254,7 @@ export const posts: PostData[] = [
   accessLevel: 'NDA',
 },
 {
-  slug: 'market/alpha-aloha-fund-update',
+  slug: 'market/latest-fund-update-11th-feb',
   title: '11thFeb Fund and Market Update Report',
   publishedAt: '2025-02-11',
   description: 'Comprehensive market and fund update for the Alpha Aloha Fund, covering key performance metrics, strategy highlights, and macro insights.',
