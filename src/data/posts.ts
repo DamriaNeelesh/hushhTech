@@ -82,6 +82,7 @@ import MarketFundUpdate10feb from '../content/posts/market/marketUpdate10feb';
 import InvestorProspectus from '../content/posts/nda/investorProspectus';
 import Dmu14feb from '../content/posts/market/dmu14feb';
 import HushhAlphaFundGrowthPlan from '../content/posts/general/growthPlan';
+import PrivatePlacementMemorandum from '../content/posts/nda/PrivatePlacementMemorandum';
 
 export interface PostData {
   slug: string;
@@ -218,6 +219,16 @@ export const posts: PostData[] = [
   Component: HushhAlphaFundGrowthPlan,
   image: DailyMarketUpdateImg2, // Use the appropriate image
   accessLevel: 'Public',
+},
+{
+  slug: 'investment-strategy/private-placement-memorandum',
+  title: 'Private Placement Memorandum (PPM)',
+  publishedAt: '2025-02-13',
+  description: 'Confidential offering of limited partnership interests in Hushh Technologies Renaissance AI Fund, LP.',
+  category: 'investment strategy',
+  Component: PrivatePlacementMemorandum,
+  image: DailyMarketUpdateImg1, // Use the appropriate image
+  accessLevel: 'NDA',
 },
   {
     slug: 'nda-approval/valuation-framework',
