@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"; 
 import {
   Container,
   Heading,
@@ -19,7 +19,7 @@ import NDADocumentModal from "../../components/NDADocumentModal";
 import config from "../../resources/config/config";
 import { getPosts, PostData } from "../../data/posts";
 
-// Update the NDA dropdown option text.
+// Dropdown option text for NDA documents.
 const NDA_OPTION = "Sensitive Documents (NDA approval Req.)";
 
 // Utility to convert a string to Title Case.
@@ -32,7 +32,6 @@ const toTitleCase = (str: string): string =>
 const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
   const day = date.getDate();
-  // Determine the ordinal suffix
   const dayOrdinal =
     day +
     (day % 10 === 1 && day !== 11
@@ -43,25 +42,15 @@ const formatDate = (dateString: string): string => {
       ? "rd"
       : "th");
   const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
   ];
   const month = monthNames[date.getMonth()];
   const year = date.getFullYear().toString().slice(-2);
   return `${dayOrdinal} ${month} '${year}`;
 };
 
-// Define PostImage component once.
+// Define PostImage component.
 const PostImage: React.FC<{ src: string; alt: string; height?: string }> = ({
   src,
   alt,
@@ -87,15 +76,11 @@ const CommunityList: React.FC = () => {
   const allPosts: PostData[] = getPosts();
 
   // Separate posts by access level.
-  const publicPosts = allPosts.filter(
-    (post) => post.accessLevel === "Public"
-  );
+  const publicPosts = allPosts.filter((post) => post.accessLevel === "Public");
   const ndaPosts = allPosts.filter((post) => post.accessLevel === "NDA");
 
-  // Get unique categories from public posts only.
-  const publicCategories = Array.from(
-    new Set(publicPosts.map((post) => post.category))
-  );
+  // Get unique categories from public posts.
+  const publicCategories = Array.from(new Set(publicPosts.map((post) => post.category)));
   // Dropdown options: "All", then public categories, then the NDA option.
   const dropdownOptions = ["All", ...publicCategories, NDA_OPTION];
 
@@ -114,15 +99,16 @@ const CommunityList: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
 
-  // Fetch session and subscribe to auth state changes.
+  // --- Fetch Session & Subscribe to Auth Changes ---
   useEffect(() => {
     config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
-    const { data: { subscription } } =
-      config.supabaseClient.auth.onAuthStateChange((_event, session) => {
-        setSession(session);
-      });
+    const {
+      data: { subscription },
+    } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
     return () => {
       if (subscription && typeof subscription.unsubscribe === "function") {
         subscription.unsubscribe();
@@ -130,7 +116,37 @@ const CommunityList: React.FC = () => {
     };
   }, []);
 
-  // Function to check NDA access status via API.
+  // --- Automatically check NDA status on mount ---
+  useEffect(() => {
+    const initNdaCheck = async () => {
+      if (!session) return;
+      // Call the NDA access API.
+      try {
+        const response = await axios.post(
+          "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/check_access_status",
+          {},
+          {
+            headers: {
+              apikey: config.SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${session.access_token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const status = response.data;
+        console.log("Initial NDA Access Status:", status);
+        if (status === "Approved") {
+          setNdaApproved(true);
+          setSelectedCategory(NDA_OPTION);
+        }
+      } catch (error) {
+        console.error("Error in initial NDA check:", error);
+      }
+    };
+    initNdaCheck();
+  }, [session]);
+
+  // --- Function to Check NDA Access Status ---
   const checkNdaAccessStatus = async (): Promise<boolean> => {
     if (!session) {
       toast({
@@ -169,7 +185,7 @@ const CommunityList: React.FC = () => {
           isClosable: true,
         });
         return false;
-      } else if (status === "Pending") {
+      } else if (status === "Pending" || status === "Requested permission for the sensitive file.") {
         toast({
           title: "Request Pending",
           description: "Your NDA access request is still under review.",
@@ -197,8 +213,7 @@ const CommunityList: React.FC = () => {
           } else {
             toast({
               title: "Error",
-              description:
-                ndaResponse.data.message || "Error fetching NDA metadata.",
+              description: ndaResponse.data.message || "Error fetching NDA metadata.",
               status: "error",
               duration: 4000,
               isClosable: true,
@@ -243,7 +258,7 @@ const CommunityList: React.FC = () => {
     }
   };
 
-  // When a category is selected from the dropdown.
+  // --- When a Dropdown Category is Selected ---
   const handleCategoryChange = async (category: string) => {
     if (category === NDA_OPTION) {
       const accessGranted = await checkNdaAccessStatus();
@@ -252,7 +267,7 @@ const CommunityList: React.FC = () => {
     setSelectedCategory(category);
   };
 
-  // Filter posts based on the selected dropdown option.
+  // --- Filter Posts Based on Selected Category ---
   let filteredPosts;
   if (selectedCategory === NDA_OPTION) {
     filteredPosts = ndaApproved ? ndaPosts : [];
@@ -264,20 +279,20 @@ const CommunityList: React.FC = () => {
     );
   }
 
-  // Sort posts so that the latest post is on top.
+  // --- Sort Posts (Latest on Top) ---
   filteredPosts.sort(
     (a, b) =>
       new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 
-  // Render a loader if API calls are in progress.
+  // --- Render Loader if API Calls Are In Progress ---
   const renderLoader = () => (
     <Box textAlign="center" py={8}>
       <Spinner size="xl" />
     </Box>
   );
 
-  // If a restricted (NDA) post is clicked when access is not approved.
+  // --- Handle Restricted Post Clicks ---
   const handleRestrictedClick = () => {
     toast({
       title: "Access Restricted",
@@ -289,7 +304,7 @@ const CommunityList: React.FC = () => {
     });
   };
 
-  // Preload images.
+  // --- Preload Images ---
   useEffect(() => {
     allPosts.forEach((post) => {
       const img = new window.Image();
@@ -297,8 +312,10 @@ const CommunityList: React.FC = () => {
     });
   }, [allPosts]);
 
-  // Dummy handler to pass to NDARequestModal.
+  // --- Handler for NDA Request Modal Submission ---
   const handleNdaRequestSubmit = async (result: string) => {
+    // If the response indicates that the NDA process is now pending,
+    // fetch NDA metadata and show the document modal.
     if (result === "Pending: Waiting for NDA Process") {
       try {
         const ndaResponse = await axios.post(
@@ -385,8 +402,6 @@ const CommunityList: React.FC = () => {
                 <Text fontSize="sm" color="gray.500" mb={2}>
                   <span style={{ fontWeight: "700" }}>Published At:</span>{" "}
                   {formatDate(post.publishedAt)}
-                
-                  {/* {post.publishedAt} */}
                 </Text>
                 <Box as="p" mb={2} noOfLines={3}>
                   {post.excerpt}
@@ -428,7 +443,11 @@ const CommunityList: React.FC = () => {
           isOpen={showNdaModal}
           onClose={() => setShowNdaModal(false)}
           session={session}
-          onSubmit={handleNdaRequestSubmit}
+          onSubmit={(result: string) => {
+            // Update NDA status with the response and close the modal.
+            setNdaStatus(result);
+            setShowNdaModal(false);
+          }}
         />
       )}
 
@@ -439,45 +458,19 @@ const CommunityList: React.FC = () => {
           isOpen={showNdaDocModal}
           onClose={() => setShowNdaDocModal(false)}
           ndaMetadata={ndaMetadata}
-          onAccept={async () => {
-            try {
-              const response = await axios.post(
-                "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/accept_nda_v2",
-                {},
-                {
-                  headers: {
-                    apikey: config.SUPABASE_ANON_KEY,
-                    Authorization: `Bearer ${session.access_token}`,
-                    "Content-Type": "application/json",
-                  },
-                }
-              );
-              console.log("Accept NDA Response:", response.data);
-              if (response.data === "Approved") {
-                toast({
-                  title: "NDA Accepted",
-                  description:
-                    "Your NDA has been accepted. Confidential docs are now accessible.",
-                  status: "success",
-                  duration: 4000,
-                  isClosable: true,
-                });
-                setNdaApproved(true);
-                setShowNdaDocModal(false);
-              } else {
-                console.log("NDA already approved or other status received");
-              }
-            } catch (error: any) {
-              console.error("Error accepting NDA:", error);
-              toast({
-                title: "Error",
-                description:
-                  error.response?.data || "Could not accept NDA.",
-                status: "error",
-                duration: 4000,
-                isClosable: true,
-              });
-            }
+          onAccept={() => {
+            toast({
+              title: "NDA Accepted",
+              description:
+                "Your NDA has been accepted. Confidential documents are now accessible.",
+              status: "success",
+              duration: 4000,
+              isClosable: true,
+            });
+            setNdaApproved(true);
+            setShowNdaDocModal(false);
+            // Also update the dropdown selection to NDA_OPTION.
+            setSelectedCategory(NDA_OPTION);
           }}
         />
       )}
