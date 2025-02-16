@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Box,
   VStack,
@@ -52,39 +52,85 @@ const ProfilePage: React.FC = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const checkNdaStatus = async () => {
-      if (!session) return;
-      try {
-        const response = await axios.post(
-          "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/check_access_status",
-          {},
-          {
-            headers: {
-              apikey: config.SUPABASE_ANON_KEY,
-              Authorization: `Bearer ${session.access_token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        setNdaStatus(response.data);
-        if (response.data === "Pending: Waiting for NDA Process") {
-          fetchNdaMetadata();
+  // useEffect(() => {
+  //   const checkNdaStatus = async () => {
+  //     if (!session) return;
+  //     try {
+  //       const response = await axios.post(
+  //         "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/check_access_status",
+  //         {},
+  //         {
+  //           headers: {
+  //             apikey: config.SUPABASE_ANON_KEY,
+  //             Authorization: `Bearer ${session.access_token}`,
+  //             "Content-Type": "application/json",
+  //           },
+  //         }
+  //       );
+  //       setNdaStatus(response.data);
+  //       if (response.data === "Pending: Waiting for NDA Process") {
+  //         fetchNdaMetadata();
+  //       }
+  //     } catch (error) {
+  //       toast({
+  //         title: "API Error",
+  //         description: "Failed to check NDA access status.",
+  //         status: "error",
+  //         duration: 4000,
+  //         isClosable: true,
+  //       });
+  //     }
+  //   };
+  //   if (session) {
+  //     checkNdaStatus();
+  //   }
+  // }, [session, toast]);
+
+   // Call checkNdaStatus on mount and then poll every 15 seconds.
+   
+     // Extracted function to check NDA status.
+  const checkNdaStatus = useCallback(async () => {
+    if (!session) return;
+    try {
+      const response = await axios.post(
+        "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/check_access_status",
+        {},
+        {
+          headers: {
+            apikey: config.SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${session.access_token}`,
+            "Content-Type": "application/json",
+          },
         }
-      } catch (error) {
-        toast({
-          title: "API Error",
-          description: "Failed to check NDA access status.",
-          status: "error",
-          duration: 4000,
-          isClosable: true,
-        });
+      );
+      setNdaStatus(response.data);
+      if (response.data === "Approved") {
+        setNdaApproved(true);
       }
-    };
-    if (session) {
-      checkNdaStatus();
+      if (response.data === "Pending: Waiting for NDA Process") {
+        fetchNdaMetadata();
+      }
+    } catch (error) {
+      toast({
+        title: "API Error",
+        description: "Failed to check NDA access status.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
     }
   }, [session, toast]);
+
+
+   useEffect(() => {
+    if (session) {
+      checkNdaStatus(); // initial check
+      const intervalId = setInterval(() => {
+        checkNdaStatus();
+      }, 15000); // poll every 15 seconds
+      return () => clearInterval(intervalId);
+    }
+  }, [session, checkNdaStatus]);
 
   const fetchNdaMetadata = async () => {
     try {
@@ -332,14 +378,6 @@ const ProfilePage: React.FC = () => {
           session={session}
           ndaMetadata={ndaMetadata}
           onAccept={() => {
-            // toast({
-            //   title: "NDA Accepted",
-            //   description:
-            //     "Your NDA has been accepted. Confidential documents are now accessible.",
-            //   status: "success",
-            //   duration: 4000,
-            //   isClosable: true,
-            // });
             setNdaApproved(true);
             setShowNdaDocModal(false);
             localStorage.setItem("communityFilter", "nda");
