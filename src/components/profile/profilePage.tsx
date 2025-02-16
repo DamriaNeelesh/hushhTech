@@ -127,7 +127,7 @@ const ProfilePage: React.FC = () => {
       checkNdaStatus(); // initial check
       const intervalId = setInterval(() => {
         checkNdaStatus();
-      }, 15000); // poll every 15 seconds
+      }, 2000); 
       return () => clearInterval(intervalId);
     }
   }, [session, checkNdaStatus]);
