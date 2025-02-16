@@ -5,6 +5,8 @@ import services from "../services/services";
 import { Button, Flex, Image } from "@chakra-ui/react";
 import HushhLogo from "./images/Hushhogo.png"
 import config from "../resources/config/config";
+import ProfilePage from "./profile/profilePage";
+
 export default function Hero() {
   const navigate = useNavigate();
   const [session, setSession] = useState(null);
@@ -21,8 +23,11 @@ export default function Hero() {
 
     return () => subscription?.unsubscribe();
   }, []);
+
   return (
-    <div
+    <>
+    {!session ? (
+      <div
     style={{ fontFamily: "'Figtree', sans-serif" }} 
      className="bg-black text-white min-h-[100vh] flex items-center justify-center px-4 py-12">
       <div className="max-w-7xl mx-auto text-center">
@@ -76,5 +81,11 @@ export default function Hero() {
         </Flex>
       </div>
     </div>
+    ):(
+<ProfilePage/>
+    )}
+     
+    </>
+   
   );
 }

@@ -29,6 +29,15 @@ export default function Navbar() {
     return () => subscription?.unsubscribe();
   }, []);
 
+
+  const handleLogout = async () => {
+    try {
+      await config.supabaseClient.auth.signOut();
+      setSession(null); // Ensure session is set to null after logout
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
   // Show welcome toast when a user is signed in (only once)
   useEffect(() => {
     if (session && !toastShown) {
@@ -98,7 +107,7 @@ export default function Navbar() {
             ) : (
               <>
                 <button
-                  onClick={() => config.supabaseClient.auth.signOut()}
+                  onClick={handleLogout}
                   className="bg-black text-white px-4 py-2 rounded"
                 >
                   Log Out
@@ -163,7 +172,7 @@ export default function Navbar() {
               ) : (
                 <>
                   <button
-                    onClick={() => config.supabaseClient.auth.signOut()}
+                   onClick={handleLogout}
                     className="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800"
                   >
                     Log Out
