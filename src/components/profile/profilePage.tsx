@@ -148,13 +148,14 @@ const ProfilePage: React.FC = () => {
       if (ndaResponse.data.status === "success") {
         setNdaMetadata(ndaResponse.data.metadata);
       } else {
-        toast({
-          title: "Error",
-          description: ndaResponse.data.message || "Error fetching NDA metadata.",
-          status: "error",
-          duration: 4000,
-          isClosable: true,
-        });
+        // Removing now for smooth process of NDA completion (User not in NDA Stage)
+        // toast({
+        //   title: "Error",
+        //   description: ndaResponse.data.message || "Error fetching NDA metadata.",
+        //   status: "error",
+        //   duration: 4000,
+        //   isClosable: true,
+        // });
       }
     } catch (error) {
       toast({
