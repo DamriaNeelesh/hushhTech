@@ -35,6 +35,7 @@ const ProfilePage: React.FC = () => {
   const [ndaMetadata, setNdaMetadata] = useState<any>(null);
   const [showNdaModal, setShowNdaModal] = useState(false);
   const [showNdaDocModal, setShowNdaDocModal] = useState(false);
+  const [ndaApproved, setNdaApproved] = useState(false);
 
   useEffect(() => {
     config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
@@ -331,14 +332,14 @@ const ProfilePage: React.FC = () => {
           session={session}
           ndaMetadata={ndaMetadata}
           onAccept={() => {
-            toast({
-              title: "NDA Accepted",
-              description:
-                "Your NDA has been accepted. Confidential documents are now accessible.",
-              status: "success",
-              duration: 4000,
-              isClosable: true,
-            });
+            // toast({
+            //   title: "NDA Accepted",
+            //   description:
+            //     "Your NDA has been accepted. Confidential documents are now accessible.",
+            //   status: "success",
+            //   duration: 4000,
+            //   isClosable: true,
+            // });
             setNdaApproved(true);
             setShowNdaDocModal(false);
             localStorage.setItem("communityFilter", "nda");

@@ -37,8 +37,8 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
   const [confirmed, setConfirmed] = useState<boolean>(false);
   const toast = useToast();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [ndaModal, setNdaModal] = useState<boolean>(false);
-  // Call the NDA generation API and create a blob URL for the PDF.
+
+  // Generate NDA PDF and create a blob URL.
   const generateNdaPDF = async () => {
     setLoading(true);
     try {
@@ -91,55 +91,60 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
     }
   };
 
-  // ... existing code ...
-const handleAcceptNda = async () => {
-  if (!confirmed) {
-    toast({
-      title: "Confirm NDA Acceptance",
-      description: "Please check the box to confirm your NDA acceptance.",
-      status: "warning",
-      duration: 4000,
-      isClosable: true,
-    });
-    return;
-  }
-
-  if (isSubmitting) return; // Prevent multiple clicks
-  setIsSubmitting(true);
-  try {
-    const response = await axios.post(
-      "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/accept_nda_v2",
-      {},
-      {
-        headers: {
-          apikey: config.SUPABASE_ANON_KEY,
-          Authorization: `Bearer ${session.access_token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    const resData = response.data;
-    if (resData === "Approved") {
+  const handleAcceptNda = async () => {
+    if (!confirmed) {
       toast({
-        title: "NDA Accepted",
-        description: "Your NDA has been accepted. Access granted.",
-        status: "success",
+        title: "Confirm NDA Acceptance",
+        description: "Please check the box to confirm your NDA acceptance.",
+        status: "warning",
         duration: 4000,
         isClosable: true,
       });
-      onAccept(); // Ensure this function is called
-      onClose(); // Close the modal
-    } else if (resData === "Already Approved") {
-      console.log('Already Approved');
+      return;
     }
-  } catch (error: any) {
-    console.error("Error accepting NDA:", error);
-  } finally {
-    setIsSubmitting(false); // Reset state after request completes
-  }
-};
-// ... existing code ...
+    if (isSubmitting) return; // Prevent multiple clicks
+    setIsSubmitting(true);
+    try {
+      const response = await axios.post(
+        "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/accept_nda_v2",
+        {},
+        {
+          headers: {
+            apikey: config.SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${session.access_token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const resData = response.data;
+      console.log("Accept NDA Response:", resData);
+      if (resData === "Approved" || resData === "Already Approved") {
+        toast({
+          title: "NDA Accepted",
+          description: "Your NDA has been accepted. Access granted.",
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
+        onAccept(); // Callback from parent (make sure parent's setNdaApproved is defined)
+        // Small delay to ensure parent state updates before closing.
+        setTimeout(() => {
+          onClose();
+        }, 100);
+      }
+    } catch (error: any) {
+      console.error("Error accepting NDA:", error);
+      toast({
+        title: "Error",
+        description: error.response?.data || "Could not accept NDA.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
@@ -167,7 +172,6 @@ const handleAcceptNda = async () => {
               <Text>No document available.</Text>
             </Box>
           )}
-          {/* Move the confirmation checkbox just above the footer */}
           <Box mt={4}>
             <Checkbox
               isChecked={confirmed}
@@ -178,7 +182,7 @@ const handleAcceptNda = async () => {
           </Box>
         </ModalBody>
         <ModalFooter>
-          <Button  onClick={downloadPDF} colorScheme="blue" mr={4}>
+          <Button onClick={downloadPDF} colorScheme="blue" mr={4}>
             Download PDF
           </Button>
           <Button isLoading={isSubmitting} onClick={handleAcceptNda} colorScheme="blue">
