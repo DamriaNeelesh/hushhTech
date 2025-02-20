@@ -87,11 +87,14 @@ import OperatingAgreement from '../content/posts/nda/operatingAgreement';
 import ValuationAnalysis from '../content/posts/nda/valuationAnalysis';
 import dmu11feb from '../content/posts/market/dmu11feb';
 import RentingMaximum from '../content/posts/nda/rentingMaxIncome';
+import SafeNote from '../content/posts/nda/safeNote';
+import MarketUpdate19Feb from '../content/posts/market/marketUpdate19feb';
 
 export interface PostData {
   slug: string;
   title: string;
   publishedAt: string;
+  count: number;
   description: string;
   category: string;
   Component: React.ComponentType;
@@ -101,6 +104,7 @@ export interface PostData {
 
 export const posts: PostData[] = [
   {
+    count:1,
     slug: 'funds/fund-performance',
     title: 'Fund Performance',
     publishedAt: '2025-01-28',
@@ -111,9 +115,8 @@ export const posts: PostData[] = [
     image: FundsUpdateImg2,
     accessLevel: 'NDA',
   },
-
-  // ---------------------------------------
   {
+    count:2,
     slug: 'funds/fund-highlights',
     title: "Highlighting the Evergreen Nature of the Fund",
     publishedAt: '2025-02-09',
@@ -124,6 +127,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:3,
     slug: 'investors/hushh-investors-memo',
     title: "Hushh Technologies Investor Memo",
     publishedAt: '2025-02-09',
@@ -134,6 +138,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:4,
     slug: 'nda-apporved/risk-disclosures',
     title: "Risk Disclosures",
     publishedAt: '2025-02-09',
@@ -144,6 +149,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:5,
     slug: 'investors/roadmap-material',
     title: "Investors Roadmap Materials",
     publishedAt: '2025-02-09',
@@ -154,6 +160,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:6,
     slug: 'fund-compliance/sec-report',
     title: "SEC Report for Alpha Aloha Fund",
     publishedAt: '2025-02-09',
@@ -164,6 +171,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:7,
     slug: 'fund-compliance/sec-report-regD-filling',
     title: "SEC Report for Reg D Filing",
     publishedAt: '2025-02-09',
@@ -174,6 +182,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:8,
     slug: 'fund-analysis/discussion',
     title: "Analysis and Discussion of the Fund’s Concentrated Positions",
     publishedAt: '2025-02-09',
@@ -184,6 +193,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:9,
     slug: 'nda-approval/tax-disclosures',
     title: "Tax Disclosures for Fund A",
     publishedAt: '2025-02-09',
@@ -194,6 +204,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:10,
     slug: 'nda-approval/tax-summary',
     title: "Tax Summary for High-Net-Worth Investors",
     publishedAt: "2025-02-09",
@@ -203,8 +214,9 @@ export const posts: PostData[] = [
     image: FundsUpdateImg1,
     accessLevel: 'NDA',
   },
-  // ... existing code ...
+
 {
+  count:11,
   slug: 'nda/investor-prospectus',
   title: '🤫 Fund Investor Prospectus',
   publishedAt: '2025-02-12',
@@ -215,6 +227,7 @@ export const posts: PostData[] = [
   accessLevel: 'NDA',
 },
 {
+  count:12,
   slug: 'investment-strategy/hushh-alpha-fund-growth-plan',
   title: 'A Realistic Growth Plan for Hushh Alpha Fund',
   publishedAt: '2025-02-12',
@@ -225,6 +238,7 @@ export const posts: PostData[] = [
   accessLevel: 'Public',
 },
 {
+  count:13,
   slug: 'investment-strategy/private-placement-memorandum',
   title: 'Private Placement Memorandum (PPM)',
   publishedAt: '2025-02-13',
@@ -235,6 +249,7 @@ export const posts: PostData[] = [
   accessLevel: 'NDA',
 },
 {
+  count:14,
   slug: 'legal/operating-agreement',
   title: 'Operating Agreement for Hushh Technologies LLC',
   publishedAt: '2025-02-12',
@@ -245,6 +260,7 @@ export const posts: PostData[] = [
   accessLevel: 'NDA',
 },
 {
+  count:15,
   slug: 'valuation/valuation-analysis',
   title: 'Valuation Analysis of HushhTech.com',
   publishedAt: '2025-02-12',
@@ -255,6 +271,7 @@ export const posts: PostData[] = [
   accessLevel: 'NDA',
 },
 {
+  count:16,
   slug: 'market/latest-fund-update-11th-feb',
   title: '11thFeb Fund and Market Update Report',
   publishedAt: '2025-02-11',
@@ -265,6 +282,7 @@ export const posts: PostData[] = [
   accessLevel: 'Public',
 },
 {
+  count:17,
   slug: 'investment-strategy/investment-framework-renting-maximum-income',
   title: 'Investment Framework: Owning the Best and Renting for Maximum Income',
   publishedAt: '2025-02-12',
@@ -275,6 +293,7 @@ export const posts: PostData[] = [
   accessLevel: 'Public',
 },
   {
+    count:18,
     slug: 'nda-approval/valuation-framework',
     title: "Valuation Framework for Fund A",
     publishedAt: "2025-02-09",
@@ -284,9 +303,8 @@ export const posts: PostData[] = [
     image: FundsUpdateImg2,
     accessLevel: 'NDA',
   },
-  // -----------------------------------------
-
   {
+    count:19,
     slug: 'rude-faq/sell-the-wall',
     title: 'Rude FAQ - Sell the wall',
     publishedAt: '2025-02-08',
@@ -297,36 +315,29 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:20,
     slug: 'funds/fee-schedule',
     title: "Hushh Technologies Alpha Fund, LP – Fee Schedule",
     publishedAt: '2025-02-03',
     description: "Detailed breakdown of management and performance-based fees for Limited Partners investing in Hushh Technologies Alpha Fund, LP.",
-    category: 'fund updates', // updated from 'funds'
+    category: 'fund updates',
     Component: FeeSchedule,
     image: ManagementFee,
     accessLevel: 'NDA',
   },
-  // {
-  //   slug: 'funds/alpha-aloha-fund-update',
-  //   title: 'Alpha Aloha Fund Market and Fund Update Report',
-  //   publishedAt: '2025-02-07',
-  //   description: 'Comprehensive market and fund update for the Alpha Aloha Fund, covering key performance metrics, strategy highlights, and macro insights.',
-  //   category: 'fund updates',
-  //   Component: AlphaAlohaFundUpdate,
-  //   image: DailyMarketUpdateImg1,
-  //   accessLevel: 'Public',
-  // },
   {
+    count:21,
     slug: 'general/sell-the-wall-context',
     title: '“Sell the Wall” Explained in the Context of Jim Simons’ Quantitative Precision',
     publishedAt: '2025-02-15',
     description: 'An in-depth exploration of the “Sell the Wall” strategy through the lens of Jim Simons’ quantitative precision.',
     category: 'general',
     Component: SellTheWall,
-    image: HushhAiLogoImg, // Update with the appropriate image if needed
+    image: HushhAiLogoImg, 
     accessLevel: 'Public',
   },
   {
+    count:22,
     slug: 'funds/alpha-aloha-fund-update-feb6',
     title: 'Alpha Aloha Fund Market and Fund Update Report - Feb 6, 2025',
     publishedAt: '2025-02-06',
@@ -337,6 +348,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },  
   {
+    count:23,
     slug: 'product/hushh-wallet',
     title: 'Product Update - Hushh Wallet',
     publishedAt: '2025-01-28',
@@ -348,6 +360,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
+    count:24,
     slug: 'market/updates',
     title: 'Market Updates',
     publishedAt: '2025-02-04',
@@ -359,6 +372,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
+    count:25,
     slug: 'general/manifesto',
     title: 'Hushh Technologies Manifesto',
     publishedAt: '2025-01-28',
@@ -370,6 +384,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
+    count:26,
     slug: 'funds/renaissance-tech',
     title:
       "The 🤫 Fund – First 12 Investment Programs & Systems Inspired by Renaissance Technologies",
@@ -381,18 +396,8 @@ export const posts: PostData[] = [
     image: ProductUpdate2,
     accessLevel: 'Public',
   },
-  // {
-  //   slug: 'general/ai-skills-testing',
-  //   title: 'AI Skills and Testing',
-  //   publishedAt: '2025-02-05',
-  //   description:
-  //     'Exploring the importance of AI skills in the modern workplace and how to test for them.',
-  //   category: 'general',
-  //   Component: AISkillsTesting,
-  //   image: SkillTesting,
-  //   accessLevel: 'Public',
-  // },
   {
+    count:27,
     slug: 'product/product-updates',
     title: 'Product Update: Exciting New Features Coming Soon!',
     publishedAt: '2025-02-03',
@@ -404,6 +409,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
+    count:28,
     slug: 'investor-relations/investor-faq/charlie-munger-edition',
     title: '🤫 Fund Investor FAQ (Charlie Munger Caliber Edition)',
     publishedAt: '2025-02-05',
@@ -415,6 +421,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
+    count:29,
     slug: 'investor-relations/withdrawer-schedule-lp',
     title: "LP – Withdrawal Schedule",
     publishedAt: "2025-02-03",
@@ -425,6 +432,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:30,
     slug: 'investor-relations/investor-suitability-questionnarie',
     title: "LP – Investor Suitability Questionnaire",
     publishedAt: "2025-02-03",
@@ -435,6 +443,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
+    count:31,
     slug: 'investment-strategies/sell-the-wall',
     title: 'Sell The Wall: The Hushh Way',
     publishedAt: '2025-02-10',
@@ -446,6 +455,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
+    count:32,
     slug: 'market/aloha-alpha-fund-update',
     title: 'Daily Market Updates - 14th Feb',
     publishedAt: '2025-02-14',
@@ -456,6 +466,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
+    count:33,
     slug: 'investment-strategies/risk-adjusted-returs',
     title: "Example Risk-Adjusted Returns Scenarios",
     publishedAt: "2025-02-07",
@@ -466,6 +477,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:34,
     slug: 'investment-strategies/limited-partnership-agreement',
     title: "LIMITED PARTNERSHIP AGREEMENT OF HUSHH TECHNOLOGIES ALPHA FUND, L.P.",
     publishedAt: '2025-02-03',
@@ -477,6 +489,7 @@ export const posts: PostData[] = [
 
   },
   {
+    count:35,
     slug: 'investment-strategies/exhibit-lpa',
     title: "Exhibit A: Limited Partnership Agreement (LPA) of Hushh Technologies Alpha Fund, LP",
     publishedAt: "2025-02-03",
@@ -487,6 +500,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:36,
     slug: 'funds/hushh-technology-fund',
     title: 'Hushh Technology Fund L.P.',
     publishedAt: '2025-01-01',
@@ -498,6 +512,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
+    count:37,
     slug: 'funds/wire-transfer-instructions',
     title: 'Wire Transfer Instructions for Initial Investment',
     publishedAt: '2025-02-08',
@@ -508,6 +523,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:38,
     slug: 'financial-strategies/sell-the-wall-masterclass',
     title: 'Selling the Wall – A Masterclass in Monetizing Fear and Time Decay',
     publishedAt: '2025-01-25',
@@ -519,6 +535,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
+    count:39,
     slug: 'investor-relations/fund-a-hushh',
     title: 'Fund A Hushh',
     publishedAt: '2025-02-05',
@@ -530,6 +547,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
+    count:40,
     slug: 'fund-updates/aml-kyc-documentation',
   title: 'Anti-Money Laundering (AML) & Know Your Customer (KYC) Documentation',
   publishedAt: '2025-02-08',
@@ -540,6 +558,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
+    count:41,
     slug: 'general/compensation-report',
     title: 'Comprehensive Report on Compensation Patterns in Pune, Maharashtra',
     publishedAt: '2025-02-06',
@@ -550,17 +569,8 @@ export const posts: PostData[] = [
     image: DailyMarketUpdateImg3,
     accessLevel: 'Public',
   },
-  // {
-  //   slug: 'ecommerce/ai-ecommerce-budget',
-  //   title: 'AI-First E-Commerce Solution for UAE Small Merchants',
-  //   publishedAt: '2025-02-06',
-  //   description:
-  //     'A cost-efficient, AI-powered, scalable e-commerce solution for small merchants in the UAE.',
-  //   category: 'ecommerce',
-  //   Component: AIEcommerceBudget,
-  //   image: ProductUpdate3,
-  // },
   {
+    count:42,
     slug: 'investors-faq/shared-class-explanation',
     title: 'Shares and Investors FAQ',
     publishedAt: '2025-02-07',
@@ -571,6 +581,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:43,
     slug: 'general/hushh-pda',
     title: 'HushhPDA: Empowering Personal Data Management',
     publishedAt: '2025-01-31',
@@ -581,6 +592,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
+    count:44,
     slug: 'nda/maximizing-advanced-strategies',
     title: 'Maximizing Alpha: Advanced Strategies for Selling the Wall on Apple (AAPL)',
     publishedAt: '2025-02-10',
@@ -591,6 +603,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:45,
     slug: 'funds/market-fund-update-10th-feb',
     title: 'Alpha Aloha Fund Market and Fund Update Report',
     publishedAt: '2025-02-10',
@@ -601,6 +614,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
+    count:46,
     slug: 'funds/premium-investment-strategy',
     title: 'A Premium Investment Strategy for Accredited Investors',
     publishedAt: '2025-02-13',
@@ -611,6 +625,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:47,
     slug: 'funds/hushh-alpha-fund-nav-update',
     title: 'Hushh Alpha Fund – NAV Update & Earnings Report (As of January 31, 2025)',
     publishedAt: '2025-01-31',
@@ -621,6 +636,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
+    count:48,
     slug: 'investors-faq/subscription-agreement-a',
     title: 'Class A Subscription Agreement',
     publishedAt: '2025-02-08',
@@ -632,6 +648,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:49,
     slug: 'investors-faq/subscription-agreement-b',
     title: 'Class B Subscription Agreement',
     publishedAt: '2025-02-09',
@@ -643,6 +660,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:50,
     slug: 'strategy/details-strategy-risks',
     title: "Detailed Options Strategy Risks",
     publishedAt: "2025-02-08",
@@ -653,6 +671,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:51,
     slug: 'investors-faq/subscription-agreement-c',
     title: 'Class C Subscription Agreement',
     publishedAt: '2025-02-10',
@@ -664,6 +683,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:52,
     slug: 'guidelines/liquidity-management',
     title: "Liquidity Management Guidelines",
     publishedAt: '2025-02-08',
@@ -674,6 +694,7 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
+    count:53,
     slug: 'market/daily-market-update',
     title: 'Daily Market Update – January 28, 2025',
     publishedAt: '2025-01-28',
@@ -684,6 +705,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
+    count:54,
     slug: 'market/feb-5-market-update',
     title: "🤫 Alpha Aloha Fund Market and Fund Update Report",
     publishedAt: "2025-02-05",
@@ -695,6 +717,7 @@ export const posts: PostData[] = [
   },
 
   {
+    count:54,
     slug: 'market/alpha-aloha-fund-update',
     title: 'Fund Update 4th Feb',
     publishedAt: '2025-02-04',
@@ -706,6 +729,7 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
+    count:55,
     slug: 'market/weekly-report',
     title: 'Closing Day and Weekly Report – February 3, 2025',
     publishedAt: '2025-02-03',
@@ -715,6 +739,28 @@ export const posts: PostData[] = [
     Component: WeeklyReport,
     image: DailyMarketUpdateImg4,
     accessLevel: 'Public',
+  },
+  {
+    count: 56, // Ensure this is the next sequential number
+    slug: 'nda/safe-note',
+    title: 'SAFE (Simple Agreement for Future Equity)',
+    publishedAt: '2025-02-20', // Replace with the actual date
+    description: 'Details of the SAFE Note for Hushh AI Technologies and Computers Trading LLC.',
+    category: 'investment agreements',
+    Component: SafeNote, // Use the SafeNote component
+    image: SubscriptionAgreementCImg, // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'NDA', // Set the appropriate access level
+  },
+  {
+    count: 57, // Ensure this is the next sequential number
+    slug: 'market/market-update-19-feb',
+    title: 'Aloha Alpha Fund Market & Fund Update – February 19, 2025',
+    publishedAt: '2025-02-19',
+    description: 'Legal approved market and fund update for the Aloha Alpha Fund, covering performance, strategy highlights, and market commentary.',
+    category: 'market',
+    Component: MarketUpdate19Feb, 
+    image:DailyMarketUpdateImg2 , // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'Public', // Set the appropriate access level
   },
 ];
 
