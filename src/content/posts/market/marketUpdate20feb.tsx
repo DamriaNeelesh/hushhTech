@@ -8,7 +8,7 @@ const MarketUpdate20feb = () => {
     <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
         <Image src={MarketUpdate} alt='Hushh Market Update 20th Feb'/>
       <Heading as="h2" size="xl" mb={4} color="teal.300">
-        🤫 Aloha Alpha Fund – Market & Fund Update
+        Aloha Alpha Fund – Market & Fund Update
       </Heading>
       <Text fontSize="lg" mb={4}>
         Date: Thursday, Feb 20, 2025
