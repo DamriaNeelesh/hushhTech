@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      
+      <url>
+        <loc>https://hushhTech.com/</loc>
+        <lastmod>2025-02-21T11:44:03.399Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/about</loc>
+        <lastmod>2025-02-21T11:44:03.400Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/contact</loc>
+        <lastmod>2025-02-21T11:44:03.400Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/blog</loc>
+        <lastmod>2025-02-21T11:44:03.400Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/privacy-policy</loc>
+        <lastmod>2025-02-21T11:44:03.400Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/terms-of-service</loc>
+        <lastmod>2025-02-21T11:44:03.400Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+      </url>
+    </urlset>

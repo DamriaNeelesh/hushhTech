@@ -13,6 +13,10 @@ export default defineConfig({
       rehypePlugins: [rehypeSlug],
     }),
   ],
+  build: {
+    outDir: "dist",
+    emptyOutDir: false, 
+  },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.mdx'],
   },
