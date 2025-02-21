@@ -89,6 +89,7 @@ import dmu11feb from '../content/posts/market/dmu11feb';
 import RentingMaximum from '../content/posts/nda/rentingMaxIncome';
 import SafeNote from '../content/posts/nda/safeNote';
 import MarketUpdate19Feb from '../content/posts/market/marketUpdate19feb';
+import MarketUpdate20feb from '../content/posts/market/marketUpdate20feb';
 
 export interface PostData {
   slug: string;
@@ -760,6 +761,17 @@ export const posts: PostData[] = [
     category: 'market',
     Component: MarketUpdate19Feb, 
     image:DailyMarketUpdateImg2 , // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'Public', // Set the appropriate access level
+  },
+  {
+    count: 58, // Ensure this is the next sequential number
+    slug: 'market/market-update-20-feb',
+    title: 'Market & Fund Update – February 20, 2025',
+    publishedAt: '2025-02-20',
+    description: 'Detailed market and fund update for the Aloha Alpha Fund, covering daily performance, strategy highlights, and future outlook.',
+    category: 'market',
+    Component: MarketUpdate20feb, // Use the AlohaAlphaFundUpdate component
+    image: DailyMarketUpdateImg3, // Use an appropriate image or replace with a specific one if needed
     accessLevel: 'Public', // Set the appropriate access level
   },
 ];
