@@ -83,7 +83,7 @@ export default function Footer() {
               <a
                 onClick={() =>
                   handleDownload(
-                    "https://drive.google.com/file/d/1p9ZzyADuJzR9wWpGyI6BEcf-2ool_W3b/view?usp=sharing"
+                    "https://docs.google.com/document/d/1Cl5qJ-OAwdoRkxsH1tOejo0LZRtrehzjLfp9BJKZuwM/edit?usp=sharing"
                   )
                 }
                 className="hover:text-gray-600 cursor-pointer"
@@ -93,7 +93,7 @@ export default function Footer() {
               <a
                 onClick={() =>
                   handleDownload(
-                    "https://drive.google.com/file/d/1S1On2qBqgeu2k9Qru9B0qmYBqMAIwOTs/view?usp=sharing"
+                    "https://docs.google.com/document/d/1wKKOST7Cm36RPSYZt-k0E045Mu3ucgTLC0jUWD0puTQ/edit?usp=sharing"
                   )
                 }
                 className="hover:text-gray-600 cursor-pointer"
