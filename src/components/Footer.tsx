@@ -70,16 +70,14 @@ export default function Footer() {
           {/* Column 2: Download Links */}
           <div className="flex flex-col items-end">
             <div className="flex flex-col text-sm space-y-2 text-gray-400 text-right">
-              <a
-                onClick={() =>
-                  handleDownload(
-                    "https://drive.google.com/file/d/1OKCfvFrZG9vqDgf4SNEHJ0sb5rc0oNWE/view?usp=sharing"
-                  )
-                }
-                className="hover:text-gray-600 cursor-pointer"
-              >
-                History and Milestones
-              </a>
+            <a
+          href="https://docs.google.com/document/d/1dj7YXi_L8MMi76GyqC8myZ31nXWFo2kr1To0gnHn3TQ/edit?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-gray-600"
+        >
+          History and Milestones
+        </a>
               <a
                 onClick={() =>
                   handleDownload(
