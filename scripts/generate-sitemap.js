@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const SITE_URL = "https://hushhTech.com";
-const staticPages = ["/", "/about", "/contact", "/blog", "/privacy-policy", "/terms-of-service"];
+const staticPages = ["/", "/about/leadership", "/contact","/community","benefits","/career","/privacy-policy", "/contact","/about/leadership","/faq"];
 
 const generateSitemap = () => {
   console.log("🔹 Generating sitemap...");
