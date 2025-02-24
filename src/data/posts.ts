@@ -94,6 +94,7 @@ import ConfidentialReport from '../content/posts/investors-faq/deltaAllocationRe
 import dmu13feb from '../content/posts/market/dmu13feb';
 import dmu12feb from '../content/posts/market/dmu12feb';
 import dmu18feb from '../content/posts/market/dmu18feb';
+import InvestorMemoRisk from '../content/posts/nda/investorMemoRisk';
 
 export interface PostData {
   slug: string;
@@ -821,6 +822,17 @@ export const posts: PostData[] = [
     Component: dmu18feb, // Ensure the component is imported correctly
     image: DailyMarketUpdateImg1, // Use an appropriate image or replace with a specific one if needed
     accessLevel: 'Public', // Set the appropriate access level
+  },
+  {
+    count: 62, // Ensure this is the next sequential number
+    slug: 'investor-memos/investor-memo-with-focus-on-risk',
+    title: '🤫Investor Memo - Risk Focus',
+    publishedAt: '2025-02-18', // Replace with the actual date
+    description: 'Investor memo for the Aloha Alpha Fund, detailing investment philosophy, risks, and performance transparency.',
+    category: 'investor memos',
+    Component: InvestorMemoRisk, // Ensure the component is imported correctly
+    image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'NDA', // Set the appropriate access level
   },
 ];
 
