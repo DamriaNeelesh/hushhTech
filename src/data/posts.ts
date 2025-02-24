@@ -925,9 +925,9 @@ export const posts: PostData[] = [
     publishedAt: '2025-02-20', // Replace with the actual date
     description: 'A detailed review of the Aloha Alpha Fund from the perspectives of Jim Simons and Ken Griffin.',
     category: 'legal',
-    Component: JimSimonsFundReview, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use the specified image
-    accessLevel: 'NDA', // Set the appropriate access level
+    Component: JimSimonsFundReview, 
+    image: HushhAiLogoImg, 
+    accessLevel: 'NDA',
   },
 ];
 
