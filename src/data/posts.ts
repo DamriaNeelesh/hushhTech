@@ -100,6 +100,7 @@ import GeneralPartnershipAgreement from '../content/posts/nda/generalPartnership
 import LpaAGDM from '../content/posts/nda/lpaAgdm';
 import InvestorAccreditationCertificate from '../content/posts/nda/investorAccrediation';
 import CommitmentLetter from '../content/posts/nda/commitmentLetter';
+import HushhFundFAQ from '../content/posts/general/hushhFundFaq';
 
 export interface PostData {
   slug: string;
@@ -904,6 +905,17 @@ export const posts: PostData[] = [
     Component: CommitmentLetter, // Ensure the component is imported correctly
     image: HushhAiLogoImg, // Use the specified image
     accessLevel: 'NDA', // Set the appropriate access level
+  },
+  {
+    count: 69, // Ensure this is the next sequential number
+    slug: 'legal/hushh-fund-faq',
+    title: 'Hushh Fund – Frequently Asked Questions',
+    publishedAt: '2025-02-24', // Replace with the actual date
+    description: 'Comprehensive FAQ about the Hushh Fund, covering structure, strategy, and AI integration.',
+    category: 'general',
+    Component: HushhFundFAQ, // Ensure the component is imported correctly
+    image: HushhAiLogoImg, // Use the specified image
+    accessLevel: 'Public', // Set the appropriate access level
   },
 ];
 
