@@ -90,6 +90,7 @@ import RentingMaximum from '../content/posts/nda/rentingMaxIncome';
 import SafeNote from '../content/posts/nda/safeNote';
 import MarketUpdate19Feb from '../content/posts/market/marketUpdate19feb';
 import MarketUpdate20feb from '../content/posts/market/marketUpdate20feb';
+import ConfidentialReport from '../content/posts/investors-faq/deltaAllocationReport';
 
 export interface PostData {
   slug: string;
@@ -772,6 +773,17 @@ export const posts: PostData[] = [
     category: 'market',
     Component: MarketUpdate20feb, // Use the AlohaAlphaFundUpdate component
     image: DailyMarketUpdateImg3, // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'Public', // Set the appropriate access level
+  },
+  {
+    count: 59, // Ensure this is the next sequential number
+    slug: 'investment-strategies/confidential-report',
+    title: 'Confidential: Delta Allocation Report',
+    publishedAt: '2025-02-22', // Replace with the actual date
+    description: 'Detailed report on Delta Allocation for SPX7 and Top FCF Stocks, focusing on selling puts and covered calls.',
+    category: 'investment strategies',
+    Component: ConfidentialReport, // Ensure the component is imported correctly
+    image: ExhibitLPAImg, // Use an appropriate image or replace with a specific one if needed
     accessLevel: 'Public', // Set the appropriate access level
   },
 ];
