@@ -102,6 +102,7 @@ import InvestorAccreditationCertificate from '../content/posts/nda/investorAccre
 import CommitmentLetter from '../content/posts/nda/commitmentLetter';
 import HushhFundFAQ from '../content/posts/general/hushhFundFaq';
 import JimSimonsFundReview from '../content/posts/nda/JimSimonsFundReview';
+import ConfidentialFCFAnalysis from '../content/posts/nda/fcfAnalysis';
 
 export interface PostData {
   slug: string;
@@ -928,6 +929,17 @@ export const posts: PostData[] = [
     Component: JimSimonsFundReview, 
     image: HushhAiLogoImg, 
     accessLevel: 'NDA',
+  },
+  {
+    count: 71, // Ensure this is the next sequential number
+    slug: 'legal/publish-thoughts-fcf-analysis',
+    title: 'Confidential: Deep-Dive FCF Analysis',
+    publishedAt: '2025-02-22', // Replace with the actual date
+    description: 'A quantitative approach for analyzing and ranking the 27 free cash flow aces.',
+    category: 'legal',
+    Component: ConfidentialFCFAnalysis, // Ensure the component is imported correctly
+    image: HushhAiLogoImg, // Use the specified image
+    accessLevel: 'NDA', // Set the appropriate access level
   },
 ];
 
