@@ -101,6 +101,7 @@ import LpaAGDM from '../content/posts/nda/lpaAgdm';
 import InvestorAccreditationCertificate from '../content/posts/nda/investorAccrediation';
 import CommitmentLetter from '../content/posts/nda/commitmentLetter';
 import HushhFundFAQ from '../content/posts/general/hushhFundFaq';
+import JimSimonsFundReview from '../content/posts/nda/JimSimonsFundReview';
 
 export interface PostData {
   slug: string;
@@ -916,6 +917,17 @@ export const posts: PostData[] = [
     Component: HushhFundFAQ, // Ensure the component is imported correctly
     image: HushhAiLogoImg, // Use the specified image
     accessLevel: 'Public', // Set the appropriate access level
+  },
+  {
+    count: 70, // Ensure this is the next sequential number
+    slug: 'funds/review-from-jim-and-ken',
+    title: 'Fund Review from the Perspective of Jim Simons & Ken Griffin',
+    publishedAt: '2025-02-20', // Replace with the actual date
+    description: 'A detailed review of the Aloha Alpha Fund from the perspectives of Jim Simons and Ken Griffin.',
+    category: 'legal',
+    Component: JimSimonsFundReview, // Ensure the component is imported correctly
+    image: HushhAiLogoImg, // Use the specified image
+    accessLevel: 'NDA', // Set the appropriate access level
   },
 ];
 
