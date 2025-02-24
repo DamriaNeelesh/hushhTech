@@ -96,6 +96,7 @@ import dmu12feb from '../content/posts/market/dmu12feb';
 import dmu18feb from '../content/posts/market/dmu18feb';
 import InvestorMemoRisk from '../content/posts/nda/investorMemoRisk';
 import EvergreenFundSubscriptionAgreement from '../content/posts/nda/subscriptionAgrementsLLC';
+import GeneralPartnershipAgreement from '../content/posts/nda/generalPartnership';
 
 export interface PostData {
   slug: string;
@@ -854,7 +855,18 @@ export const posts: PostData[] = [
     description: 'Subscription agreement for the Evergreen 🌲 Fund, detailing investment terms, governance, and compliance.',
     category: 'legal',
     Component: EvergreenFundSubscriptionAgreement, // Ensure the component is imported correctly
-    image: SubscriptionAgreementB, // Use an appropriate image or replace with a specific one if needed
+    image: SubscriptionAgreementBImg, // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'NDA', // Set the appropriate access level
+  },
+  {
+    count: 65, // Ensure this is the next sequential number
+    slug: 'legal/general-partnership-agreement',
+    title: 'GENERAL PARTNERSHIP AGREEMENT (GPA) OF 🤫 Hushh AI Technologies and Computers Trading LLC',
+    publishedAt: '2025-02-19', // Replace with the actual date
+    description: 'General Partnership Agreement for Hushh AI Technologies and Computers Trading LLC, detailing formation, roles, and governance.',
+    category: 'legal',
+    Component: GeneralPartnershipAgreement, // Ensure the component is imported correctly
+    image: SubscriptionAgreementCImg, // Use an appropriate image or replace with a specific one if needed
     accessLevel: 'NDA', // Set the appropriate access level
   },
 ];
