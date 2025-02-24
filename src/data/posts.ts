@@ -91,6 +91,9 @@ import SafeNote from '../content/posts/nda/safeNote';
 import MarketUpdate19Feb from '../content/posts/market/marketUpdate19feb';
 import MarketUpdate20feb from '../content/posts/market/marketUpdate20feb';
 import ConfidentialReport from '../content/posts/investors-faq/deltaAllocationReport';
+import dmu13feb from '../content/posts/market/dmu13feb';
+import dmu12feb from '../content/posts/market/dmu12feb';
+import dmu18feb from '../content/posts/market/dmu18feb';
 
 export interface PostData {
   slug: string;
@@ -458,7 +461,7 @@ export const posts: PostData[] = [
   },
   {
     count:32,
-    slug: 'market/aloha-alpha-fund-update',
+    slug: 'daily-market-update/14-feb-2025',
     title: 'Daily Market Updates - 14th Feb',
     publishedAt: '2025-02-14',
     description: 'Internal review and investor communication for the Aloha Alpha Fund, highlighting performance and strategy updates.',
@@ -784,6 +787,39 @@ export const posts: PostData[] = [
     category: 'investment strategies',
     Component: ConfidentialReport, // Ensure the component is imported correctly
     image: ExhibitLPAImg, // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'Public', // Set the appropriate access level
+  },
+  {
+    count: 60, // Ensure this is the next sequential number
+    slug: 'market-updates/feb-12-2025',
+    title: 'Alpha Aloha Fund Market and Fund Update Report',
+    publishedAt: '2025-02-12', // Replace with the actual date
+    description: 'Fund update report for Internal Review & Investor Communication',
+    category: 'market updates',
+    Component: dmu12feb, // Ensure the component is imported correctly
+    image: DailyMarketUpdateImg1, // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'Public', // Set the appropriate access level
+  },
+  {
+    count: 60, // Ensure this is the next sequential number
+    slug: 'market-updates/feb-13-2025',
+    title: 'Alpha Aloha Fund Market and Fund Update Report',
+    publishedAt: '2025-02-13', // Replace with the actual date
+    description: 'Comprehensive market and fund update for the Alpha Aloha Fund, covering performance, strategy highlights, and market commentary.',
+    category: 'market updates',
+    Component: dmu13feb, // Ensure the component is imported correctly
+    image: DailyMarketUpdateImg3, // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'Public', // Set the appropriate access level
+  },
+  {
+    count: 61, // Ensure this is the next sequential number
+    slug: 'market-updates/18-feb-2025',
+    title: '🤫 Aloha Alpha Fund Market and Fund Update Report',
+    publishedAt: '2025-02-18', // Replace with the actual date
+    description: 'Detailed market and fund update for the Aloha Alpha Fund, covering performance, strategy highlights, and market commentary.',
+    category: 'market updates',
+    Component: dmu18feb, // Ensure the component is imported correctly
+    image: DailyMarketUpdateImg1, // Use an appropriate image or replace with a specific one if needed
     accessLevel: 'Public', // Set the appropriate access level
   },
 ];
