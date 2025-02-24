@@ -12,7 +12,7 @@ const RudeFAQ = () => {
   return (
     <Container maxW="container.md" py={10}>
                     <Image src={HushhAiLogoImg} alt="Funds Update" mb={4} borderRadius="md" />
-      <Heading as="h1" size="2xl" mb={6} textAlign="center">
+      <Heading as="h1" size="xl" mb={6} textAlign="center">
         Rude FAQ: The No-BS Guide to “Sell the Wall” and Making Money the Smart Way
       </Heading>
       <VStack spacing={6} align="stretch">
