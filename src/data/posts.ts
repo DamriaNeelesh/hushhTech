@@ -99,6 +99,7 @@ import EvergreenFundSubscriptionAgreement from '../content/posts/nda/subscriptio
 import GeneralPartnershipAgreement from '../content/posts/nda/generalPartnership';
 import LpaAGDM from '../content/posts/nda/lpaAgdm';
 import InvestorAccreditationCertificate from '../content/posts/nda/investorAccrediation';
+import CommitmentLetter from '../content/posts/nda/commitmentLetter';
 
 export interface PostData {
   slug: string;
@@ -875,7 +876,7 @@ export const posts: PostData[] = [
     count: 66, // Ensure this is the next sequential number
     slug: 'legal/limited-partnership-agreement-LPA',
     title: 'Limited Partnership Agreement (LPA) for 🤫 Hushh Evergreen Fund',
-    publishedAt: '2025-02-18', // Replace with the actual date
+    publishedAt: '2025-02-20', // Replace with the actual date
     description: 'Limited Partnership Agreement for the Hushh Evergreen Fund, detailing structure, contributions, and governance.',
     category: 'legal',
     Component: LpaAGDM, // Ensure the component is imported correctly
@@ -886,10 +887,21 @@ export const posts: PostData[] = [
     count: 67, // Ensure this is the next sequential number
     slug: 'legal/investor-accreditation-certificate',
     title: 'Investor Accreditation Certificate',
-    publishedAt: '2025-02-18', // Replace with the actual date
+    publishedAt: '2025-02-19', // Replace with the actual date
     description: 'Certification of Accredited Investor Status for participation in private securities offerings with HushOne, Inc.',
     category: 'legal',
     Component: InvestorAccreditationCertificate, // Ensure the component is imported correctly
+    image: HushhAiLogoImg, // Use the specified image
+    accessLevel: 'NDA', // Set the appropriate access level
+  },
+  {
+    count: 68, // Ensure this is the next sequential number
+    slug: 'investment/commitment-letter',
+    title: 'Commitment Letter',
+    publishedAt: '2025-02-19', // Replace with the actual date
+    description: 'Commitment Letter for investment in HushOne, Inc., detailing terms and conditions.',
+    category: 'legal',
+    Component: CommitmentLetter, // Ensure the component is imported correctly
     image: HushhAiLogoImg, // Use the specified image
     accessLevel: 'NDA', // Set the appropriate access level
   },
