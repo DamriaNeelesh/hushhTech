@@ -98,6 +98,7 @@ import InvestorMemoRisk from '../content/posts/nda/investorMemoRisk';
 import EvergreenFundSubscriptionAgreement from '../content/posts/nda/subscriptionAgrementsLLC';
 import GeneralPartnershipAgreement from '../content/posts/nda/generalPartnership';
 import LpaAGDM from '../content/posts/nda/lpaAgdm';
+import InvestorAccreditationCertificate from '../content/posts/nda/investorAccrediation';
 
 export interface PostData {
   slug: string;
@@ -879,6 +880,17 @@ export const posts: PostData[] = [
     category: 'legal',
     Component: LpaAGDM, // Ensure the component is imported correctly
     image: ExhibitLPAImg, // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'NDA', // Set the appropriate access level
+  },
+  {
+    count: 67, // Ensure this is the next sequential number
+    slug: 'legal/investor-accreditation-certificate',
+    title: 'Investor Accreditation Certificate',
+    publishedAt: '2025-02-18', // Replace with the actual date
+    description: 'Certification of Accredited Investor Status for participation in private securities offerings with HushOne, Inc.',
+    category: 'legal',
+    Component: InvestorAccreditationCertificate, // Ensure the component is imported correctly
+    image: HushhAiLogoImg, // Use the specified image
     accessLevel: 'NDA', // Set the appropriate access level
   },
 ];
