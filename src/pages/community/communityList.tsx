@@ -352,18 +352,18 @@ const CommunityList: React.FC = () => {
   };
 
   return (
-    <Container maxW="container.xl" py={8}>
-      <Heading as="h1" mb={8} textAlign="center" color="gray.800">
-        Latest Updates from Hushh Technologies
+    <Container maxW="container.lg" py={8}>
+      {/* Page Heading */}
+      <Heading as="h1" mb={6} textAlign="left" fontSize={{md:"2xl",base:'xl'}}>
+      Latest Updates from Hushh Technologies
       </Heading>
 
-      <Box mb={8} textAlign="center">
+      {/* Dropdown Filter */}
+      <Box mb={8} textAlign="left">
         <Select
           maxW="300px"
-          mx="auto"
           value={selectedCategory}
           onChange={(e) => handleCategoryChange(e.target.value)}
-          placeholder="Select Category"
         >
           {dropdownOptions.map((category) => (
             <option key={category} value={category}>
@@ -372,65 +372,47 @@ const CommunityList: React.FC = () => {
           ))}
         </Select>
       </Box>
-
+<Text my={'8'} fontWeight={'400'} fontSize={{md:'3rem',base:'1.7rem'}} lineHeight={{md:'65px',base:'32px'}}>{toTitleCase(selectedCategory)}</Text>
+      {/* Loader or List */}
       {loading ? (
         renderLoader()
       ) : (
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
-          {filteredPosts.map((post) => (
-            <Box
-              key={post.slug}
-              p={2}
-              bg="white"
-              borderRadius="md"
-              shadow="md"
-              _hover={{ shadow: "lg" }}
-              height="350px"
-              display="flex"
-              flexDirection="column"
-              justifyContent="space-between"
-            >
-              <PostImage src={post.image} alt={post.title} />
-              <Box flex="1" overflow="hidden">
-                <Heading as="h3" size="md" mb={2} noOfLines={2}>
-                  {post.title}
-                </Heading>
-                <Text fontSize="sm" color="gray.500" mb={2}>
-                  <span style={{ fontWeight: "700" }}>Published At:</span>{" "}
-                  {formatDate(post.publishedAt)}
+        <Box>
+          {filteredPosts.map((post) => {
+            const dateString = formatDate(post.publishedAt);
+            const handleClick = () => {
+              if (selectedCategory === NDA_OPTION && !ndaApproved) {
+                handleRestrictedClick();
+              }
+            };
+            return (
+              <>
+              
+              <Box key={post.slug} mb={6}>
+                {/* Date in red, bold */}
+                <Text
+                  color="red.600"
+                  fontWeight="bold"
+                  fontSize={{ base: "sm", md: "md" }}
+                  mb={1}
+                >
+                  {dateString}
                 </Text>
-                <Box as="p" mb={2} noOfLines={3}>
-                  {post.excerpt}
-                </Box>
+                {/* Title as a link */}
+                <Link to={`/community/${post.slug}`} onClick={handleClick}>
+                  <Text
+                    color="gray.900"
+                    fontSize={{ base: "md", md: "lg" }}
+                    _hover={{ textDecoration: "underline" }}
+                  >
+                    {post.title}
+                  </Text>
+                </Link>
               </Box>
-              {selectedCategory === NDA_OPTION && !ndaApproved ? (
-                <Link to={`/community/${post.slug}`}>
-                  <Button
-                    _hover={{ bg: "black" }}
-                    onClick={handleRestrictedClick}
-                    color="white"
-                    background="linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)"
-                    mt={4}
-                    colorScheme="blue"
-                  >
-                    Read More
-                  </Button>
-                </Link>
-              ) : (
-                <Link to={`/community/${post.slug}`}>
-                  <Button
-                    _hover={{ bg: "black" }}
-                    mt={4}
-                    color="white"
-                    background="linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)"
-                  >
-                    Read More
-                  </Button>
-                </Link>
-              )}
-            </Box>
-          ))}
-        </SimpleGrid>
+              </>
+            );
+          })}
+        </Box>
       )}
 
       {/* NDA Request Modal */}
@@ -440,7 +422,7 @@ const CommunityList: React.FC = () => {
           onClose={() => setShowNdaModal(false)}
           session={session}
           onSubmit={(result: string) => {
-            setNdaStatus(result);
+            handleNdaRequestSubmit(result);
             setShowNdaModal(false);
           }}
         />

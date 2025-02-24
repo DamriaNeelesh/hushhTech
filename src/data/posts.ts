@@ -106,6 +106,7 @@ import ConfidentialFCFAnalysis from '../content/posts/nda/fcfAnalysis';
 import HushhEmployeeChampionHandbook from '../content/posts/general/hushhEmployeeHandbook';
 import HushhTechProspectus from '../content/posts/general/hushhTechProspectus';
 import SubscriptionAgreementCShares from '../content/posts/investors-faq/subscriptionCshares';
+import InvestorPowerOfAttorney from '../content/posts/nda/investorsPower';
 
 export interface PostData {
   slug: string;
@@ -238,7 +239,7 @@ export const posts: PostData[] = [
   title: '🤫 Fund Investor Prospectus',
   publishedAt: '2025-02-12',
   description: 'AI-Driven Systematic Options Income Hedge Fund',
-  category: 'investment strategies',
+  category: 'investment & financial strategies',
   Component: InvestorProspectus,
   image: HushhAiLogoImg,
   accessLevel: 'NDA',
@@ -249,7 +250,7 @@ export const posts: PostData[] = [
   title: 'A Realistic Growth Plan for Hushh Alpha Fund',
   publishedAt: '2025-02-12',
   description: 'A comprehensive growth plan for scaling the Hushh Alpha Fund to $1B AUM with sustainable, cash flow-driven alpha.',
-  category: 'investment strategy',
+  category: 'investment & financial strategies',
   Component: HushhAlphaFundGrowthPlan,
   image: DailyMarketUpdateImg2, // Use the appropriate image
   accessLevel: 'Public',
@@ -260,7 +261,7 @@ export const posts: PostData[] = [
   title: 'Private Placement Memorandum (PPM)',
   publishedAt: '2025-02-13',
   description: 'Confidential offering of limited partnership interests in Hushh Technologies Renaissance AI Fund, LP.',
-  category: 'investment strategy',
+  category: 'investment & financial strategies',
   Component: PrivatePlacementMemorandum,
   image: DailyMarketUpdateImg1, // Use the appropriate image
   accessLevel: 'NDA',
@@ -293,7 +294,7 @@ export const posts: PostData[] = [
   title: '11thFeb Fund and Market Update Report',
   publishedAt: '2025-02-11',
   description: 'Comprehensive market and fund update for the Alpha Aloha Fund, covering key performance metrics, strategy highlights, and macro insights.',
-  category: 'market',
+  category: 'market updates',
   Component: dmu11feb,
   image: DailyMarketUpdateImg3, // Use the appropriate image
   accessLevel: 'Public',
@@ -304,7 +305,7 @@ export const posts: PostData[] = [
   title: 'Investment Framework: Owning the Best and Renting for Maximum Income',
   publishedAt: '2025-02-12',
   description: 'A comprehensive strategy for wealth creation through ownership and rental income.',
-  category: 'investment strategy',
+  category: 'investment & financial strategies',
   Component: RentingMaximum,
   image: DailyMarketUpdateImg1,
   accessLevel: 'Public',
@@ -383,7 +384,7 @@ export const posts: PostData[] = [
     publishedAt: '2025-02-04',
     description:
       'Tuesday Evening Report – February 4, 2025, covering fund performance, market highlights, and insights from core holdings.',
-    category: 'market', // updated from 'funds'
+    category: 'market updates', // updated from 'funds'
     Component: MarketUpdate,
     image: DailyMarketUpdateImg2,
     accessLevel: 'Public',
@@ -477,7 +478,7 @@ export const posts: PostData[] = [
     title: 'Daily Market Updates - 14th Feb',
     publishedAt: '2025-02-14',
     description: 'Internal review and investor communication for the Aloha Alpha Fund, highlighting performance and strategy updates.',
-    category: 'market',
+    category: 'market updates',
     Component: Dmu14feb,
     image: DailyMarketUpdateImg1, // Use the appropriate image
     accessLevel: 'Public',
@@ -546,10 +547,10 @@ export const posts: PostData[] = [
     publishedAt: '2025-01-25',
     description:
       'A strategic guide to transforming market volatility into sustainable income through the Sell the Wall approach.',
-    category: 'financial strategies',
+    category: 'investment & financial strategies',
     Component: SellTheWallMasterclass,
     image: HushhAiLogoImg,
-    accessLevel: 'Public',
+    accessLevel: 'NDA',
   },
   {
     count:39,
@@ -716,7 +717,7 @@ export const posts: PostData[] = [
     title: 'Daily Market Update – January 28, 2025',
     publishedAt: '2025-01-28',
     description: 'Markets rallied, driven by strong earnings from major tech companies and optimism about the Federal Reserve’s upcoming decisions on interest rates.',
-    category: 'market',
+    category: 'market updates',
     Component: DailyMarketUpdate,
     image: DailyMarketUpdateImg1,
     accessLevel: 'Public',
@@ -727,7 +728,7 @@ export const posts: PostData[] = [
     title: "🤫 Alpha Aloha Fund Market and Fund Update Report",
     publishedAt: "2025-02-05",
     description: "Comprehensive market and fund update for the Alpha Aloha Fund, covering key performance metrics, strategy highlights, and macro insights.",
-    category: 'market',
+    category: 'market updates',
     Component: MarketUpdate5Feb,
     image: DailyMarketUpdateImg1,
     accessLevel: 'Public',
@@ -740,7 +741,7 @@ export const posts: PostData[] = [
     publishedAt: '2025-02-04',
     description:
       'Tuesday Evening Report – February 4, 2025, covering fund performance, market highlights, and insights from core holdings.',
-    category: 'market',
+    category: 'market updates',
     Component: AlphaAlohaFundUpdate,
     image: DailyMarketUpdateImg3,
     accessLevel: 'Public',
@@ -752,7 +753,7 @@ export const posts: PostData[] = [
     publishedAt: '2025-02-03',
     description:
       'Closing day and weekly report for February 3, 2025, covering performance overview, transaction summary, and portfolio highlights.',
-    category: 'market',
+    category: 'market updates',
     Component: WeeklyReport,
     image: DailyMarketUpdateImg4,
     accessLevel: 'Public',
@@ -774,7 +775,7 @@ export const posts: PostData[] = [
     title: 'Aloha Alpha Fund Market & Fund Update – February 19, 2025',
     publishedAt: '2025-02-19',
     description: 'Legal approved market and fund update for the Aloha Alpha Fund, covering performance, strategy highlights, and market commentary.',
-    category: 'market',
+    category: 'market updates',
     Component: MarketUpdate19Feb, 
     image:DailyMarketUpdateImg2 , // Use an appropriate image or replace with a specific one if needed
     accessLevel: 'Public', // Set the appropriate access level
@@ -785,7 +786,7 @@ export const posts: PostData[] = [
     title: 'Market & Fund Update – February 20, 2025',
     publishedAt: '2025-02-20',
     description: 'Detailed market and fund update for the Aloha Alpha Fund, covering daily performance, strategy highlights, and future outlook.',
-    category: 'market',
+    category: 'market updates',
     Component: MarketUpdate20feb, // Use the AlohaAlphaFundUpdate component
     image: DailyMarketUpdateImg3, // Use an appropriate image or replace with a specific one if needed
     accessLevel: 'Public', // Set the appropriate access level
@@ -796,10 +797,10 @@ export const posts: PostData[] = [
     title: 'Confidential: Delta Allocation Report',
     publishedAt: '2025-02-22', // Replace with the actual date
     description: 'Detailed report on Delta Allocation for SPX7 and Top FCF Stocks, focusing on selling puts and covered calls.',
-    category: 'investment strategies',
+    category: 'investment & financial strategies',
     Component: ConfidentialReport, // Ensure the component is imported correctly
     image: ExhibitLPAImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'Public', // Set the appropriate access level
+    accessLevel: 'NDA', // Set the appropriate access level
   },
   {
     count: 60, // Ensure this is the next sequential number
@@ -961,7 +962,7 @@ export const posts: PostData[] = [
     title: 'HushhTech: AI-First Financial Services & Investment Management Prospectus',
     publishedAt: '2025-02-22', // Replace with the actual date
     description: 'An overview of HushhTech’s vision, offerings, and growth plans in AI-driven financial services.',
-    category: 'legal',
+    category: 'investment & financial strategies',
     Component: HushhTechProspectus, // Ensure the component is imported correctly
     image: HushhAiLogoImg, // Use the specified image
     accessLevel: 'Public', // Set the appropriate access level
@@ -974,6 +975,17 @@ export const posts: PostData[] = [
     description: 'Details the terms and conditions for subscribing to Class C Shares in the Aloha & Alpha Fund.',
     category: 'legal',
     Component: SubscriptionAgreementCShares, // Ensure the component is imported correctly
+    image: HushhAiLogoImg, // Use the specified image
+    accessLevel: 'NDA', // Set the appropriate access level
+  },
+  {
+    count: 75, // Ensure this is the next sequential number
+    slug: 'legal/investor-power-of-attorney',
+    title: 'Investor Power of Attorney (POA)',
+    publishedAt: '2025-02-19', // Replace with the actual date
+    description: 'Details the Power of Attorney for executing investment transactions and fund operations on behalf of the investor.',
+    category: 'legal',
+    Component: InvestorPowerOfAttorney, // Ensure the component is imported correctly
     image: HushhAiLogoImg, // Use the specified image
     accessLevel: 'NDA', // Set the appropriate access level
   },
