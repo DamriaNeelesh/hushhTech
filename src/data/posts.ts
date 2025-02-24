@@ -105,6 +105,7 @@ import JimSimonsFundReview from '../content/posts/nda/JimSimonsFundReview';
 import ConfidentialFCFAnalysis from '../content/posts/nda/fcfAnalysis';
 import HushhEmployeeChampionHandbook from '../content/posts/general/hushhEmployeeHandbook';
 import HushhTechProspectus from '../content/posts/general/hushhTechProspectus';
+import SubscriptionAgreementCShares from '../content/posts/investors-faq/subscriptionCshares';
 
 export interface PostData {
   slug: string;
@@ -964,6 +965,17 @@ export const posts: PostData[] = [
     Component: HushhTechProspectus, // Ensure the component is imported correctly
     image: HushhAiLogoImg, // Use the specified image
     accessLevel: 'Public', // Set the appropriate access level
+  },
+  {
+    count: 74, // Ensure this is the next sequential number
+    slug: 'legal/subscription-agreement-class-c-shares',
+    title: 'Subscription Agreement for Class C Shares',
+    publishedAt: '2025-02-24', // Replace with the actual date
+    description: 'Details the terms and conditions for subscribing to Class C Shares in the Aloha & Alpha Fund.',
+    category: 'legal',
+    Component: SubscriptionAgreementCShares, // Ensure the component is imported correctly
+    image: HushhAiLogoImg, // Use the specified image
+    accessLevel: 'NDA', // Set the appropriate access level
   },
 ];
 
