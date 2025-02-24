@@ -1,9 +1,12 @@
 import React from 'react';
-import { Box, Text, Heading, List, ListItem, Divider } from '@chakra-ui/react';
+import { Box, Text, Image,Heading, List, ListItem, Divider } from '@chakra-ui/react';
+import SellImg from '../../../components/images/blog2o.png'
 
 const hushhPDA = () => {
   return (
     <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
+            <Image src={SellImg} alt="Hushh PDA" mb={4} borderRadius="md" />
+
       <Heading as="h2" size="xl" mb={4} color="teal.300">
         To our esteemed stakeholders — shareholders, colleagues, customers, and partners:
       </Heading>

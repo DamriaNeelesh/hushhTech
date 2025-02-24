@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Text, Heading, List, ListItem, Divider, VStack } from '@chakra-ui/react';
+import { Box, Text, Heading,Image, List, ListItem, Divider, VStack } from '@chakra-ui/react';
+import SellImg from '../../../components/images/blog2o.png'
 
 export const frontmatter = {
   title: "LIMITED PARTNERSHIP AGREEMENT OF HUSHH TECHNOLOGIES ALPHA FUND, L.P.",
@@ -11,6 +12,8 @@ export const frontmatter = {
 const LimitedPartnershipAgreement = () => {
   return (
     <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
+             <Image src={SellImg} alt="LPA Update" mb={4} borderRadius="md" />
+
       <Heading as="h2" size="xl" mb={4} color="teal.300">
         LIMITED PARTNERSHIP AGREEMENT OF HUSHH TECHNOLOGIES ALPHA FUND, L.P.
       </Heading>

@@ -97,6 +97,7 @@ import dmu18feb from '../content/posts/market/dmu18feb';
 import InvestorMemoRisk from '../content/posts/nda/investorMemoRisk';
 import EvergreenFundSubscriptionAgreement from '../content/posts/nda/subscriptionAgrementsLLC';
 import GeneralPartnershipAgreement from '../content/posts/nda/generalPartnership';
+import LpaAGDM from '../content/posts/nda/lpaAgdm';
 
 export interface PostData {
   slug: string;
@@ -867,6 +868,17 @@ export const posts: PostData[] = [
     category: 'legal',
     Component: GeneralPartnershipAgreement, // Ensure the component is imported correctly
     image: SubscriptionAgreementCImg, // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'NDA', // Set the appropriate access level
+  },
+  {
+    count: 66, // Ensure this is the next sequential number
+    slug: 'legal/limited-partnership-agreement-LPA',
+    title: 'Limited Partnership Agreement (LPA) for 🤫 Hushh Evergreen Fund',
+    publishedAt: '2025-02-18', // Replace with the actual date
+    description: 'Limited Partnership Agreement for the Hushh Evergreen Fund, detailing structure, contributions, and governance.',
+    category: 'legal',
+    Component: LpaAGDM, // Ensure the component is imported correctly
+    image: ExhibitLPAImg, // Use an appropriate image or replace with a specific one if needed
     accessLevel: 'NDA', // Set the appropriate access level
   },
 ];
