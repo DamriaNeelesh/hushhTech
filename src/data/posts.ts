@@ -103,6 +103,8 @@ import CommitmentLetter from '../content/posts/nda/commitmentLetter';
 import HushhFundFAQ from '../content/posts/general/hushhFundFaq';
 import JimSimonsFundReview from '../content/posts/nda/JimSimonsFundReview';
 import ConfidentialFCFAnalysis from '../content/posts/nda/fcfAnalysis';
+import HushhEmployeeChampionHandbook from '../content/posts/general/hushhEmployeeHandbook';
+import HushhTechProspectus from '../content/posts/general/hushhTechProspectus';
 
 export interface PostData {
   slug: string;
@@ -940,6 +942,28 @@ export const posts: PostData[] = [
     Component: ConfidentialFCFAnalysis, // Ensure the component is imported correctly
     image: HushhAiLogoImg, // Use the specified image
     accessLevel: 'NDA', // Set the appropriate access level
+  },
+  {
+    count: 72, // Ensure this is the next sequential number
+    slug: 'general/hushh-employee-champion-handbook',
+    title: 'Hushh: Employee & Champion Handbook',
+    publishedAt: '2025-02-22', // Replace with the actual date
+    description: 'A comprehensive guide for Hushh employees and champions, detailing culture, roles, and operations.',
+    category: 'general',
+    Component: HushhEmployeeChampionHandbook, // Ensure the component is imported correctly
+    image: HushhAiLogoImg, // Use the specified image
+    accessLevel: 'Public', // Set the appropriate access level
+  },
+  {
+    count: 73, // Ensure this is the next sequential number
+    slug: 'general/hushhtech-prospectus',
+    title: 'HushhTech: AI-First Financial Services & Investment Management Prospectus',
+    publishedAt: '2025-02-22', // Replace with the actual date
+    description: 'An overview of HushhTech’s vision, offerings, and growth plans in AI-driven financial services.',
+    category: 'legal',
+    Component: HushhTechProspectus, // Ensure the component is imported correctly
+    image: HushhAiLogoImg, // Use the specified image
+    accessLevel: 'Public', // Set the appropriate access level
   },
 ];
 
