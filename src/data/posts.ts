@@ -95,6 +95,7 @@ import dmu13feb from '../content/posts/market/dmu13feb';
 import dmu12feb from '../content/posts/market/dmu12feb';
 import dmu18feb from '../content/posts/market/dmu18feb';
 import InvestorMemoRisk from '../content/posts/nda/investorMemoRisk';
+import EvergreenFundSubscriptionAgreement from '../content/posts/nda/subscriptionAgrementsLLC';
 
 export interface PostData {
   slug: string;
@@ -832,6 +833,28 @@ export const posts: PostData[] = [
     category: 'investor memos',
     Component: InvestorMemoRisk, // Ensure the component is imported correctly
     image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'NDA', // Set the appropriate access level
+  },
+  {
+    count: 63, // Ensure this is the next sequential number
+    slug: 'fund-reviews/aloha-alpha-fund-review',
+    title: '🤫 Aloha Alpha Fund Review from the Perspective of Warren Buffett & Charlie Munger',
+    publishedAt: '2025-02-19', // Replace with the actual date
+    description: 'A review of the Aloha Alpha Fund from the perspectives of Warren Buffett, Charlie Munger, and Berkshire’s Advisory Board.',
+    category: 'fund reviews',
+    Component: HushhAiLogoImg, // Ensure the component is imported correctly
+    image: ExhibitLPAImg, // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'NDA', // Set the appropriate access level
+  },
+  {
+    count: 64, // Ensure this is the next sequential number
+    slug: 'legal/evergreen-fund-subscription-agreement',
+    title: 'SUBSCRIPTION AGREEMENT Hushh Technologies LLC – Evergreen 🌲 Fund',
+    publishedAt: '2025-02-20', // Replace with the actual date
+    description: 'Subscription agreement for the Evergreen 🌲 Fund, detailing investment terms, governance, and compliance.',
+    category: 'legal',
+    Component: EvergreenFundSubscriptionAgreement, // Ensure the component is imported correctly
+    image: SubscriptionAgreementB, // Use an appropriate image or replace with a specific one if needed
     accessLevel: 'NDA', // Set the appropriate access level
   },
 ];
