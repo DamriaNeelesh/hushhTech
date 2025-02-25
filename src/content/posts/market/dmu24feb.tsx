@@ -4,9 +4,6 @@ import { Box, Text, Heading, List, ListItem } from '@chakra-ui/react';
 const dmu24Feb = () => {
   return (
     <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
-        🤫 Aloha Alpha Fund – Daily Update
-      </Heading>
       <Text fontSize="sm" color="gray.500" mb={4}>
         Date: Monday, Feb 24, 2024<br />
         Prepared For: Internal Review & Investor Communication<br />
