@@ -75,7 +75,7 @@ export default function Footer() {
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-gray-600"
-        >
+        > 
           History and Milestones
         </a>
               <a
