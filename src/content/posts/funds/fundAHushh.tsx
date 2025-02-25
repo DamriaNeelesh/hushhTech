@@ -10,66 +10,67 @@ export const frontmatter = {
 
 const FundAHushh: React.FC = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
+    <Box p={5} bg="#fff" color="white" borderRadius="md" shadow="lg">
 
-<Image src={FundsUpdate} alt="Funds Update" mb={4} borderRadius="md" />
+{/* <Image src={FundsUpdate} alt="Funds Update" mb={4} borderRadius="md" /> */}
+<Text color={'#e7131a'} fontWeight={'700'} fontSize={{md:'1.2rem',base:'0.67rem'}}>Fund Updates</Text>
 
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
-        Fund A Hushh
-      </Heading>
+{/* <Heading as="h2" size="xl" mb={4} fontWeight={'400'} color="#202124">
+Fund A Hushh
+      </Heading> */}
 
-      <Text fontSize="lg" mb={4}>
+      <Text fontSize="lg" mb={4} color={'black'}>
         Welcome to Fund A Hushh, where AI-driven strategies meet risk-managed investment principles.
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" size="lg" color="#202124" mb={4}>
         Core Principles
       </Heading>
 
       <VStack spacing={4} align="stretch">
         <Box p={4} borderWidth="1px" borderRadius="lg" shadow="md" bg="gray.800">
-          <Heading as="h4" size="md" color="teal.100" mb={2}>Mission</Heading>
+          <Heading as="h4" size="md" color="#202124" mb={2}>Mission</Heading>
           <Text>
             Deploy $7.5M NAV in the world’s smartest, AI-driven, risk-managed hedge fund strategies.
           </Text>
         </Box>
 
         <Box p={4} borderWidth="1px" borderRadius="lg" shadow="md" bg="gray.800">
-          <Heading as="h4" size="md" color="teal.100" mb={2}>Goal</Heading>
+          <Heading as="h4" size="md" color="#202124" mb={2}>Goal</Heading>
           <Text>
             Maximize free cash flow alpha while ensuring absolute capital protection and scalability.
           </Text>
         </Box>
       </VStack>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="#202124" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={2}>
+      <Heading as="h3" size="lg" color="#202124" mb={2}>
         Investment Strategies
       </Heading>
-      <List spacing={2} pl={4}>
+      <List spacing={2} pl={4} color={'#202124'}>
         <ListItem>AI-powered quantitative models for predictive analysis.</ListItem>
         <ListItem>Systematic risk management frameworks ensuring capital preservation.</ListItem>
         <ListItem>Diversified asset allocation across high-liquidity markets.</ListItem>
         <ListItem>Real-time data analytics to optimize investment decisions.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="#202124" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={2}>
+      <Heading as="h3" size="lg" color="#202124" mb={2}>
         Performance Highlights
       </Heading>
-      <Text mb={4}>
+      <Text mb={4} color={'#202124'}>
         Achieved a strong growth trajectory through disciplined execution and strategic diversification, with a focus on maximizing returns while minimizing risk.
       </Text>
 
-      <Heading as="h4" size="md" color="yellow.300" mt={4}>
+      <Heading as="h4" size="md" color="#202124" mt={4}>
         Final Thought
       </Heading>
-      <Text>
+      <Text color={'#202124'}>
         "The best way to grow is to let compounding do its work." — Inspired by Munger & Simons
       </Text>
-      <Text mt={2}>
+      <Text mt={2} color={'#202124'}>
         Join us in building a future where financial precision meets sustainable growth.
       </Text>
     </Box>

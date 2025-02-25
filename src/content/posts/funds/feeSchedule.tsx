@@ -10,10 +10,9 @@ export const frontmatter = {
 
 const FeeSchedule = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-          <Image src={ExhibitLPAImg} alt="Market Update" mb={4} borderRadius="md" />
-
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box p={5} bg="#fff" color="white" borderRadius="md" shadow="lg">
+      <Text color={'#e7131a'} fontWeight={'700'} fontSize={{md:'1.2rem',base:'0.67rem'}}>Fund Updates</Text>
+      <Heading as="h2" size="xl" mb={4} fontWeight={'400'} color="#202124">
         Hushh Technologies Alpha Fund, LP – Fee Schedule
       </Heading>
 
@@ -22,7 +21,7 @@ const FeeSchedule = () => {
       <Heading as="h3" size="lg" color="teal.200" mb={4}>1. Management & Performance Fee Structure</Heading>
       <Text>The Fund charges a management fee for operational expenses and a performance fee based on net new profits. Fees vary by LP Class.</Text>
       
-      <Heading as="h4" size="md" color="teal.100" mb={2}>1.1 Summary of Fees by Class</Heading>
+      <Heading as="h4" size="md" color="#202124" mb={2}>1.1 Summary of Fees by Class</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>Class A (Institutional LPs):</strong> Minimum Investment: $25M | Management Fee: 1.50% | Performance Fee: 20%</ListItem>
         <ListItem><strong>Class B (HNW & Family Offices):</strong> Minimum Investment: $5M | Management Fee: 1.75% | Performance Fee: 22.5%</ListItem>
@@ -31,7 +30,7 @@ const FeeSchedule = () => {
       
       <Divider my={4} borderColor="teal.500" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>2. Fee Breakdown & Calculation Methodology</Heading>
+      <Heading as="h3" size="lg" color="#202124" mb={4}>2. Fee Breakdown & Calculation Methodology</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>Management Fee:</strong> Charged quarterly based on AUM.</ListItem>
         <ListItem><strong>Performance Fee:</strong> Applied annually, only on new profits above the high-water mark.</ListItem>
@@ -39,7 +38,7 @@ const FeeSchedule = () => {
       
       <Divider my={4} borderColor="teal.500" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>3. Additional Fees & Expense Allocations</Heading>
+      <Heading as="h3" size="lg" color="#202124" mb={4}>3. Additional Fees & Expense Allocations</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>Trading & Execution Costs:</strong> Competitive brokerage rates applied.</ListItem>
         <ListItem><strong>Legal & Compliance Costs:</strong> SEC, CFTC, and state-level compliance expenses prorated across LPs.</ListItem>
@@ -48,7 +47,7 @@ const FeeSchedule = () => {
       
       <Divider my={4} borderColor="teal.500" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>4. Redemption & Early Exit Fees</Heading>
+      <Heading as="h3" size="lg" color="#202124" mb={4}>4. Redemption & Early Exit Fees</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>Class A:</strong> No redemption fees (subject to lock-up period).</ListItem>
         <ListItem><strong>Class B & C:</strong> Redemptions above 20% of NAV per quarter may incur a 1.0% liquidity surcharge.</ListItem>
@@ -63,7 +62,7 @@ const FeeSchedule = () => {
       
       <Divider my={4} borderColor="teal.500" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>5. Summary</Heading>
+      <Heading as="h3" size="lg" color="#202124" mb={4}>5. Summary</Heading>
       <Text>The Hushh Technologies Alpha Fund employs a transparent fee structure focused on long-term value creation and investor alignment.</Text>
     </Box>
   );
