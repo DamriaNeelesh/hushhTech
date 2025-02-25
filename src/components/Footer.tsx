@@ -71,7 +71,7 @@ export default function Footer() {
           <div className="flex flex-col items-end">
             <div className="flex flex-col text-sm space-y-2 text-gray-400 text-right">
             <a
-          href="https://docs.google.com/document/d/1dj7YXi_L8MMi76GyqC8myZ31nXWFo2kr1To0gnHn3TQ/edit?usp=sharing"
+          href="https://drive.google.com/file/d/1AOHCpgP9Y1sKYTCmFnQAPEPeMXYw5cHU/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-gray-600"
@@ -81,7 +81,7 @@ export default function Footer() {
               <a
                 onClick={() =>
                   handleDownload(
-                    "https://docs.google.com/document/d/1Cl5qJ-OAwdoRkxsH1tOejo0LZRtrehzjLfp9BJKZuwM/edit?usp=sharing"
+                    "https://drive.google.com/file/d/1aH2VT5CMW0DkNGc2z2Bn8fsNI8CB9IKg/view?usp=sharing"
                   )
                 }
                 className="hover:text-gray-600 cursor-pointer"
@@ -91,7 +91,7 @@ export default function Footer() {
               <a
                 onClick={() =>
                   handleDownload(
-                    "https://docs.google.com/document/d/1wKKOST7Cm36RPSYZt-k0E045Mu3ucgTLC0jUWD0puTQ/edit?usp=sharing"
+                    "https://drive.google.com/file/d/1aMUE3oFb3lI01lU27roO29KOzlGVpqLf/view?usp=sharing"
                   )
                 }
                 className="hover:text-gray-600 cursor-pointer"
