@@ -4,26 +4,24 @@ import ExhibitLPAImg from '../../../components/images/exhibitLPA.webp'
 
 const ConfidentialReport = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-            <Image src={ExhibitLPAImg} alt="Market Update" mb={4} borderRadius="md" />
-
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="xl" mb={4} color="black">
         Confidential Report
       </Heading>
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         Sell the Wall
       </Heading>
       <Text fontSize="lg" mb={4}>
         Delta Allocation Report for SPX7 and Top FCF Stocks – Selling Puts & Covered Calls
       </Text>
 
-      <Heading as="h4" size="md" color="teal.200" mb={4}>
+      <Heading as="h4" fontSize="md" color="black" mb={4}>
         Puts Sold: Strike Selection, Expirations, IV, Delta & Assignment Probability
       </Heading>
-      <Text mb={4}>
+      <Text mb={4} fontSize={'md'}>
         Selling cash-secured puts on core holdings (AAPL, AMZN, GOOGL, META, MSFT, BRK.B, JPM) and other high free-cash-flow stocks (V, MA, AI, ORCL, SHOP, BABA, Saudi Aramco) generates income and sets attractive entry points for future ownership. Key considerations for the short put strategy include:
       </Text>
-      <List spacing={2} pl={4}>
+      <List spacing={2} pl={4} fontSize={'md'}>
         <ListItem>
           <strong>Strike Selection & Delta:</strong> Opt for slightly out-of-the-money (OTM) put strikes, typically around 5–10% below the current stock price, corresponding to a delta of roughly 0.2–0.3. This delta range indicates a high probability (≈70–80%) that the put will expire worthless (not be assigned), while still offering a decent premium . In practice, a 0.25 delta put is often interpreted as about a 25% chance of finishing in-the-money (and thus being assigned) . By choosing strikes in this delta range, we limit the assignment probability to around 20–30%, meaning we’re unlikely to be forced to buy the stock unless it drops significantly – and if it does, it’s at a discounted price we’ve pre-selected.
         </ListItem>
@@ -41,18 +39,18 @@ const ConfidentialReport = () => {
         </ListItem>
       </List>
 
-      <Text my={4}>
+      <Text my={4} fontSize={'md'}>
      <strong>Summary:</strong>By selling cash-secured puts at carefully chosen strikes (low-delta OTM levels) and monthly expirations, we aim to collect regular income while maintaining a controlled risk of being assigned. The strike/delta choice gives us high odds of success on each contract , and the use of shorter expiries lets us frequently reassess and redeploy capital. Implied volatility is factored into strike selection – when volatility is high, we capitalize on richer premiums; when it’s low, we stay disciplined with strike placement and accept that premium income may be modest. Overall, this put-selling program positions us to either earn income if prices stay flat or rise (puts expire worthless) or to buy quality stocks at a bargain if prices dip (puts assigned, effectively executing a buy-limit order with a built-in discount).
       </Text>
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h4" size="md" color="teal.200" mb={4}>
+      <Heading as="h4" fontSize="md" color="black" mb={4}>
         Calls Sold: Covered Calls on Core Long Positions (Strikes, Expirations, Premiums, Delta Impact)
       </Heading>
-      <Text mb={4}>
+      <Text mb={4} fontSize={'md'}>
         For the stocks we already own (the core “SPX7” holdings and other conglomerates in the portfolio), we implement a covered call strategy to generate additional yield on these long positions. By selling call options against the shares, we can earn premium income on top of any dividends and capital gains.
       </Text>
-      <List spacing={2} pl={4}>
+      <List spacing={2} pl={4} fontSize={'md'}>
         <ListItem>
           <strong>Strike Selection & Assignment Risk:</strong> We sell call strikes that are OTM – typically above the current stock price by a comfortable margin (for example, 5–10% above the current price). Just as with the puts, we often target call options with relatively low delta (around 0.2 or less) to keep the probability of the stock being called away (assignment) on the lower side . A call with delta ~0.20 implies roughly a 20% chance the stock will rise above that strike by expiration . This means ~80% probability we simply pocket the premium and retain our shares. When choosing the strike, we also consider our willingness to sell the stock at that price – “select a strike where you’re comfortable selling the stock” is a common guideline . For instance, if we wouldn’t mind trimming our position or taking profits on AAPL at, say, $300, then selling a call at a $300 strike is reasonable. However, if the strike is hit and the calls are exercised, we have to sell those shares at $300 no matter how much higher AAPL might actually be. Thus, we choose strike levels that balance premium income vs. upside relinquished: far enough above current prices to allow some capital appreciation, but not so far that the premium is trivial. Notably, in stable or slowly rising markets, this OTM covered call approach works well to earn income without losing the stock . (If we anticipate a huge rally in a particular stock, we might pause call selling on that name to avoid capping the upside; see Risk Management for how we adjust if outlook changes.)
 
@@ -65,19 +63,19 @@ const ConfidentialReport = () => {
 
         </ListItem>
       </List>
-      <Text my={4}>
+      <Text my={4} fontSize={'md'}> 
      <strong>Summary:</strong>The covered call program on our core long positions allows us to harvest additional yield from stocks we plan to hold regardless. By choosing OTM strikes with low deltas, we keep assignment risk manageable (roughly 20% or less chance of having to sell the shares each cycle) , and we ensure that we only sell at prices we’re comfortable with (locking in gains at those levels if it comes to that). We focus on 1-month calls to rinse-and-repeat the income generation and stay flexible with changing market conditions. The premiums collected enhance our overall portfolio return – effectively turning our holdings into income-generating assets akin to dividend-payers (even for stocks that don’t pay dividends themselves). While the short calls slightly reduce our participation in big rallies, they provide immediate cash flow and partial downside offsets, aligning with our goal of steady income. If a particular stock remains below the strike through expiration (which is the most common outcome with our delta choices), we keep the premium and can then sell another call for the next period, thereby continually lowering the cost basis of our long position and boosting realized yield.
 
       </Text>
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h4" size="md" color="teal.200" mb={4}>
+      <Heading as="h4" fontSize="md" color="black" mb={4}>
         Net “Aloha” Income Projections: Monthly & Annual Premium Income Targets
       </Heading>
-      <Text mb={4}>
+      <Text mb={4} fontSize={'md'}>
         By combining the cash-secured put sales and covered call writing, we expect to generate a consistent stream of options premium income – what we term the net “Aloha” income from the portfolio.
       </Text>
-      <List spacing={2} pl={4}>
+      <List spacing={2} pl={4} fontSize={'md'}>
         <ListItem>
           <strong>Monthly Income Target:</strong>  Aim for approximately 1% (or more) of portfolio value per month in net premium collection. Each short put or call position is targeted to yield on the order of 1–2% of the underlying stock’s market value in premium for a 30-45 day term . For example, selling a 1-month put on a $50 stock might bring in $0.50–$1.00 per share ($50–$100 per contract) , which is a 1–2% return on that position for the month. Similarly, a covered call might generate around 1% of the stock’s value in a month. Across a diversified set of positions, a 1% overall portfolio gain from options premiums each month is a reasonable baseline. In dollar terms, if the total portfolio of these stocks (plus cash for puts) is, say, $1,000,000, a 1% monthly premium would be ~$10,000 in income per month. In favorable conditions (higher volatility or very skillful strike selection), we might push this toward 1.5–2% in some months, whereas in slow, low-vol markets, it might be slightly under 1%. But around 1%/month is the working goal for planning purposes.
 
@@ -96,20 +94,20 @@ const ConfidentialReport = () => {
 
         </ListItem>
       </List>
-      <Text my={4}>
-     <strong>Summary:</strong> the net premium income (“Aloha” income) from selling puts and calls is expected to be a significant percentage of the portfolio’s value each month. We target a consistent monthly cash inflow that annualizes to a double-digit percentage return. This approach effectively creates a custom “yield” on a growth stock portfolio, monetizing the stocks’ stability and our willingness to buy on dips. Based on historical volatility levels and prudent strike selections, a ballpark of $8K–$12K per month per $1MM deployed (roughly $96K–$144K per year, i.e. 10–14%) is a reasonable expectation in normal market conditions. Upside to these numbers is possible in high-volatility regimes (where premiums are richer), while downside to these numbers could occur in ultra-low-volatility periods or if we choose very conservative strikes. We will continuously monitor actual income versus targets and adjust tactics to stay on track for our annual income goal (for example, if mid-year we are behind target, we might slightly increase position size or delta on new trades to catch up, market conditions permitting).
+      <Text my={4} fontSize={'md'}>
+     <strong>Summary:</strong> the net premium income (“Aloha” income) from selling puts and calls is expected to be a significant percentage of the portfolio’s value each month. We target a consistent monthly cash inflow that annualizes to a double-digit percentage return. This approach effectively creates a custom “yield” on a growth stock portfolio, monetizing the stocks’ stability and our willingness to buy on dips. Based on historical volatility levels and prudent strike selections, a ballpark of $8K–$12K per month per $1MM deployed (roughly $96K–$144K per year, i.e. 10–14%) is a reasonable expectation in normal market conditions. Upside to these numbers is possible in high-volatility regimes (where premiums are richer), while downside to these numbers could occur in ultra-low-volatility periods or if we choose very conservative strikes. We will continuously monitor actual income versus targets and adjust tactics to stay on track for our annual income goal (for example, if mid-year we are behind target, we might slightly increase position fontSize or delta on new trades to catch up, market conditions permitting).
 
 
       </Text>
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h4" size="md" color="teal.200" mb={4}>
+      <Heading as="h4" fontSize="md" color="black" mb={4}>
         Risk Management Considerations: Hedging, Delta-Neutrality, and Rollovers
       </Heading>
-      <Text mb={4}>
+      <Text mb={4} fontSize={'md'}>
         Managing risk is crucial in an options income strategy. While selling premium can be relatively conservative when done on blue-chip stocks, it still carries downside and opportunity risks that must be mitigated.
       </Text>
-      <List spacing={2} pl={4}>
+      <List spacing={2} pl={4} fontSize={'md'}>
         <ListItem>
           <strong>Quality Selection & Asset Allocation:</strong> The foundation of our risk management is what we choose to sell options on. We only sell puts on stocks we are willing (and happy) to own long-term – companies with strong fundamentals, solid free cash flow, and business moats. The SPX7 and selected FCF conglomerates fit this profile (they are blue-chip, high-quality names). This means if we do get assigned shares via sold puts, we’re acquiring quality assets at a value price (strike minus premium) that we’re comfortable holding . By focusing on blue-chip stocks and avoiding speculative, highly volatile tickers, we reduce the chance of catastrophic drops. Additionally, we ensure we have sufficient cash reserves to cover assignments for all cash-secured puts . This conservative cash management prevents forced liquidations or margin issues – every put is truly cash-secured, so the worst-case scenario (assignment) is simply converting cash to stock. We never want to be overleveraged; maintaining full collateral for short puts and holding the underlying shares for covered calls means our positions are covered and the risk of ruin is low. In short, our first risk control is being willing and able to fulfill all option obligations (buy stock if put, sell stock if call) without financial strain.
         </ListItem>
@@ -145,20 +143,20 @@ const ConfidentialReport = () => {
 
         </ListItem>
       </List>
-      <Text my={4}>
+      <Text my={4} fontSize={'md'}>
      <strong>Summary:</strong>  our risk management approach is multi-faceted: we start with sound underlying assets and full coverage of obligations (so no leverage blowouts). We use delta balancing between puts and calls to prevent directional bias from skewing the portfolio too far. We employ hedges and defensive tactics (like protective puts or collars) when appropriate, especially to guard against rare but severe drops. And importantly, we actively manage each short option position, rolling or closing early to mitigate risks and avoid unintended outcomes (like unwanted assignment or accumulating large unrealized losses). By following these principles – only trading what we’re happy to own, always being able to meet assignment, and adjusting positions as needed – we aim to generate the desired income with controlled and limited risk. Even in volatile markets, these tools (rolling, hedging, etc.) give us the flexibility to navigate storms while preserving capital, so that the strategy can continue to operate effectively through all market cycles.
       </Text>
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h4" size="md" color="teal.200" mb={4}>
+      <Heading as="h4" fontSize="md" color="black" mb={4}>
         Reinvestment Strategy: Deploying Collected Premiums to Enhance Returns
       </Heading>
-      <Text mb={4}>
+      <Text mb={4} fontSize={'md'}>
       A key advantage of this options income strategy is that it produces cash flow regularly. Rather than letting that cash sit idle, our plan is to reinvest the collected premiums to compound gains and further build our core holdings over time. This reinvestment will accelerate portfolio growth and expand our ability to generate even more income in the future. Here’s how we approach reinvesting the premium income:
       </Text>
-      <List spacing={2} pl={4}>
+      <List spacing={2} pl={4} fontSize={'md'}>
         <ListItem>
-          <strong>“Premiums to Shares” – Accumulating Core Positions:</strong>  Every month, the premiums received from selling puts and calls will be pooled as new investable cash. We intend to use that cash to buy additional shares of the companies in our portfolio (or other high FCF stocks on our watchlist). This is analogous to a dividend reinvestment plan (DRIP), but instead of reinvesting dividends, we’re reinvesting option premiums. One commentator aptly noted that using covered call premium to buy more shares works much like dividend reinvestment – over time you accumulate enough shares to markedly boost your income-generating power . For example, suppose we collect $5,000 in premiums in a month. We might use that $5k to buy, say, 20 more shares of AAPL, 10 shares of MSFT, and a few shares of other names (allocated based on which stocks we want to increase). By doing this each cycle, our share count in these great businesses grows steadily. Eventually, those extra shares enable us to sell more option contracts (since 1 contract = 100 shares, every additional 100 shares of a stock means one more covered call we can write on it). In this way, reinvesting premiums creates a feedback loop: more premiums → more shares → more option capacity → more premiums, and so on . Over the long term, this can lead to exponential growth in both portfolio size and income potential, as each new lot of shares contributes to future income.
+          <strong>“Premiums to Shares” – Accumulating Core Positions:</strong>  Every month, the premiums received from selling puts and calls will be pooled as new investable cash. We intend to use that cash to buy additional shares of the companies in our portfolio (or other high FCF stocks on our watchlist). This is analogous to a dividend reinvestment plan (DRIP), but instead of reinvesting dividends, we’re reinvesting option premiums. One commentator aptly noted that using covered call premium to buy more shares works much like dividend reinvestment – over time you accumulate enough shares to markedly boost your income-generating power . For example, suppose we collect $5,000 in premiums in a month. We might use that $5k to buy, say, 20 more shares of AAPL, 10 shares of MSFT, and a few shares of other names (allocated based on which stocks we want to increase). By doing this each cycle, our share count in these great businesses grows steadily. Eventually, those extra shares enable us to sell more option contracts (since 1 contract = 100 shares, every additional 100 shares of a stock means one more covered call we can write on it). In this way, reinvesting premiums creates a feedback loop: more premiums → more shares → more option capacity → more premiums, and so on . Over the long term, this can lead to exponential growth in both portfolio fontSize and income potential, as each new lot of shares contributes to future income.
 
         </ListItem>
         <ListItem>
@@ -190,15 +188,15 @@ const ConfidentialReport = () => {
           <strong>Reinvesting into New Opportunities:</strong>  While the primary use of premiums is to buy more of the same stocks, we remain open to new opportunities that fit our criteria. For example, if another top-tier free-cash-flow company (not currently in our list) starts offering attractive option premiums and a good entry price, we could use accumulated premiums to initiate a position there. This keeps the portfolio dynamic and responsive to market opportunities. Essentially, the premium income gives us a continuous source of liquidity to deploy into investments without having to sell existing holdings or add new cash. It’s like having a self-funding mechanism for portfolio expansion. We just need to ensure we deploy that cash wisely, in line with our long-term strategy (i.e. into strong businesses or into strategically timed option trades that further the income goals).
         </ListItem>
       </List>
-      <Text my={4}>
+      <Text my={4} fontSize={'md'}>
      <strong>Summary:</strong>  the reinvestment strategy is about turning premium income into additional assets, which in turn generate more income. We plan to routinely channel the cash earned from selling puts and calls back into buying shares of our core holdings (and occasionally other attractive stocks). This approach compounds our returns and accelerates portfolio growth, effectively making our portfolio work harder for us. Over time, the combination of premium income plus reinvestment can markedly outperform a simple buy-and-hold approach, all while sticking with the same high-quality companies. It’s a prudent way to amplify the long-term returns of the strategy: every option sold not only provides immediate income but also lays a brick for future wealth building. By adhering to this reinvestment plan, we expect to accumulate larger positions in world-class businesses, increase our annual cash yield (as those larger positions allow selling more/larger option contracts), and ultimately achieve a higher total return on the portfolio with measured risk. The “Aloha” income, in essence, gets recycled into more “Aloha” generation capacity – creating an ever-growing passive income stream fueled by the success of this strategy itself.
 
       </Text>
-      <Divider my={4} borderColor="teal.500" />
-      <Heading as="h4" size="md" color="teal.200" mb={4}>
+      <Divider my={4} borderColor="black" />
+      <Heading as="h4" fontSize="md" color="black" mb={4}>
         References:
       </Heading>
-      <List spacing={2} pl={4}>
+      <List spacing={2} pl={4} fontSize={'md'}>
         <ListItem><strong>Reddit: </strong>“How I Trade Cash-Secured Puts” (strike selection delta 0.2–0.3, 30-45 DTE puts, 1-2% premium target)
         </ListItem>
         <ListItem><strong>Money StackExchange:  </strong>Delta roughly equals probability of expiring in-the-money (≈ assignment probability)

@@ -10,19 +10,19 @@ export const frontmatter = {
 
 const InvestorSuitability = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-          <Image src={InvestorQImg} alt="Market Update" mb={4} borderRadius="md" />
+    <Box color="black" borderRadius="md">
+          {/* <Image src={InvestorQImg} alt="Market Update" mb={4} borderRadius="md" /> */}
 
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+      <Heading as="h2" fontSize="xl" mb={4} color="black">
         LP - Investor Suitability Questionnaire
       </Heading>
       
       <Text fontSize="lg" mb={4}>Confidential – For Internal Use Only</Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Purpose</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Purpose</Heading>
       <Text>This questionnaire assesses your eligibility to invest in Hushh Technologies Alpha Fund, LP in compliance with SEC regulations and other applicable laws.</Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Section 1: Investor Identification</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Section 1: Investor Identification</Heading>
       <List spacing={2} pl={4}>
         <ListItem>Investor Name (Legal Name):</ListItem>
         <ListItem>Entity Name (if applicable):</ListItem>
@@ -34,52 +34,52 @@ const InvestorSuitability = () => {
         <ListItem>Country of Citizenship / Incorporation:</ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Section 2: Investor Classification</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Section 2: Investor Classification</Heading>
       <List spacing={2} pl={4}>
         <ListItem>Are you investing as an individual, joint investor, corporation, trust, or other entity?</ListItem>
         <ListItem>Accredited Investor Status – Meets SEC Rule 501 of Regulation D conditions.</ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Section 3: Qualified Purchaser Status</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Section 3: Qualified Purchaser Status</Heading>
       <List spacing={2} pl={4}>
         <ListItem>Own at least $5,000,000 in investments?</ListItem>
         <ListItem>Entity owning at least $25,000,000 in investments?</ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Section 4: Investment Experience & Risk Tolerance</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Section 4: Investment Experience & Risk Tolerance</Heading>
       <List spacing={2} pl={4}>
         <ListItem>Years of investment experience?</ListItem>
         <ListItem>Primary investment focus (equities, fixed income, alternatives, etc.).</ListItem>
         <ListItem>Percentage of net worth allocated to this fund.</ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Section 5: Investment Commitment</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Section 5: Investment Commitment</Heading>
       <List spacing={2} pl={4}>
         <ListItem>Class A, B, or C interest?</ListItem>
         <ListItem>Initial Capital Commitment:</ListItem>
         <ListItem>Additional capital contributions anticipated?</ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Section 6: Compliance & Disclosures</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Section 6: Compliance & Disclosures</Heading>
       <List spacing={2} pl={4}>
         <ListItem>Subject to SEC, FINRA, or other regulatory restrictions?</ListItem>
         <ListItem>Convicted of securities fraud or financial misconduct?</ListItem>
         <ListItem>Politically Exposed Person (PEP) or subject to AML laws?</ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Section 7: Certification & Signature</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Section 7: Certification & Signature</Heading>
       <Text>By signing, you certify that all information is accurate and complete.</Text>
       <Text>Investor Signature: _________________________ Date: ______________</Text>
       <Text>Print Name: _______________________________</Text>

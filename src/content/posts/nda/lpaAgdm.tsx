@@ -4,10 +4,8 @@ import SellImg from '../../../components/images/blog2o.png'
 
 const LpaAGDM = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-            <Image src={SellImg} alt="LPA" mb={4} borderRadius="md" />
-
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Limited Partnership Agreement (LPA) for 🤫 Hushh Evergreen Fund
       </Heading>
       <Text fontSize="lg" mb={4}>
@@ -16,7 +14,7 @@ const LpaAGDM = () => {
       <Text mb={4}>
         Date: 20th Feb 2025
       </Text>
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         TABLE OF CONTENTS
       </Heading>
       <List spacing={2} pl={4}>
@@ -37,7 +35,7 @@ const LpaAGDM = () => {
         <ListItem>15. Signature Page</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         1. INTRODUCTION
       </Heading>
       <Text mb={4}>
@@ -51,7 +49,7 @@ const LpaAGDM = () => {
         The Hushh Evergreen Fund (the “Fund”) is structured as an evergreen investment vehicle, designed to deliver sustainable alpha through proprietary AI-driven investment strategies.
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         2. DEFINITIONS
       </Heading>
       <List spacing={2} pl={4}>
@@ -65,7 +63,7 @@ const LpaAGDM = () => {
         <ListItem>• Exit Mechanism: Process for LPs to redeem their stakes under fund guidelines.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         3. FUND STRUCTURE & PURPOSE
       </Heading>
       <List spacing={2} pl={4}>
@@ -74,7 +72,7 @@ const LpaAGDM = () => {
         <ListItem>• Investment Focus: Public and private market investments in technology, AI, high-growth enterprises, and cash-generating giants.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         4. CAPITAL CONTRIBUTIONS & OWNERSHIP
       </Heading>
       <List spacing={2} pl={4}>
@@ -88,7 +86,7 @@ const LpaAGDM = () => {
         <ListItem>• Ownership Units: Each LP’s stake is proportionate to capital invested, with NAV-based valuation updates.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         5. MANAGEMENT & DECISION-MAKING
       </Heading>
       <List spacing={2} pl={4}>
@@ -97,7 +95,7 @@ const LpaAGDM = () => {
         <ListItem>• Voting Rights: Limited Partners have no direct voting rights in day-to-day fund operations but receive transparency reports.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         6. INVESTMENT STRATEGY & OBJECTIVES
       </Heading>
       <List spacing={2} pl={4}>
@@ -112,7 +110,7 @@ const LpaAGDM = () => {
         <ListItem>• Risk Management: Derivatives risk controls, hedging strategies, and disciplined capital deployment.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         7. DISTRIBUTIONS & PAYOUTS
       </Heading>
       <List spacing={2} pl={4}>
@@ -126,7 +124,7 @@ const LpaAGDM = () => {
         <ListItem>• Carried Interest (“Carry”): 15-25% performance fee above the hurdle rate.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         8. FEES & EXPENSES
       </Heading>
       <List spacing={2} pl={4}>
@@ -144,7 +142,7 @@ const LpaAGDM = () => {
         <ListItem>• Fund Expenses: Legal, admin, execution, and operational costs deducted pro-rata from fund performance.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         9. WITHDRAWAL & REDEMPTION
       </Heading>
       <List spacing={2} pl={4}>
@@ -153,7 +151,7 @@ const LpaAGDM = () => {
         <ListItem>• Penalty for Early Withdrawal: 5-10% redemption fee if exiting before lock-up expiration.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         10. RISK DISCLOSURES & LIABILITIES
       </Heading>
       <Text mb={4}>
@@ -166,7 +164,7 @@ const LpaAGDM = () => {
         <ListItem>• Regulatory Risk: Compliance with SEC, ADGM, and other governing bodies.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         11. REGULATORY COMPLIANCE & REPORTING
       </Heading>
       <List spacing={2} pl={4}>
@@ -175,7 +173,7 @@ const LpaAGDM = () => {
         <ListItem>• Audited Financials: Independent audits conducted annually.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         12. DISSOLUTION & EXIT CLAUSES
       </Heading>
       <List spacing={2} pl={4}>
@@ -183,7 +181,7 @@ const LpaAGDM = () => {
         <ListItem>• Distribution of Assets: Liquidation of holdings and final NAV-based payout to LPs.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         13. MISCELLANEOUS PROVISIONS
       </Heading>
       <List spacing={2} pl={4}>
@@ -191,7 +189,7 @@ const LpaAGDM = () => {
         <ListItem>• Non-Compete Clause: LPs engaging in direct competing funds require GP approval.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         14. GOVERNING LAW & DISPUTE RESOLUTION
       </Heading>
       <List spacing={2} pl={4}>
@@ -199,7 +197,7 @@ const LpaAGDM = () => {
         <ListItem>• Arbitration Clause: All disputes resolved via arbitration in Abu Dhabi or New York.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         15. SIGNATURE PAGE
       </Heading>
       <Text mb={4}>

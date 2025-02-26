@@ -11,10 +11,10 @@ export const frontmatter = {
 
 const FundAtHushh: React.FC = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-     <Image src={FundsUpdate} alt="Funds Update" mb={4} borderRadius="md" />
+    <Box p={0} color="black" borderRadius="md">
+      <Image src={FundsUpdate} alt="Funds Update" mb={4} borderRadius="md" />
 
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Hushh Technology Fund L.P.
       </Heading>
 
@@ -24,9 +24,9 @@ const FundAtHushh: React.FC = () => {
       <Text mb={4}><strong>Objective:</strong> Leverage AI and value investing principles for superior risk-adjusted returns through investments in high-quality, low-beta stocks with strong free cash flow, enhanced by options trading.</Text>
       <Text mb={4}><strong>Management:</strong> Manish Sainani (Founder/CEO), Justin Donaldson (Chief Scientist/CPO)</Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={2}>Fund Structure & Governance</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={2}>Fund Structure & Governance</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>Legal Structure:</strong> Delaware LLC, registered hedge fund in Upstate New York, compliant with the Investment Company Act of 1940 and SEC regulations.</ListItem>
         <ListItem><strong>Management:</strong> Led by Manish Sainani and Justin Donaldson, with an experienced team in AI and investment strategy.</ListItem>
@@ -35,9 +35,9 @@ const FundAtHushh: React.FC = () => {
         <ListItem><strong>Investor Rights:</strong> Quarterly performance reports, annual audits, regular strategy updates, voting rights on major changes.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={2}>Investment Strategy</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={2}>Investment Strategy</Heading>
       <Text mb={4}><strong>Core Thesis:</strong> Concentrated portfolio of high-quality, low-beta stocks with strong free cash flow, supported by AI insights and options trading.</Text>
       <List spacing={2} pl={4}>
         <ListItem><strong>AI Insights:</strong> Proprietary models analyze data and uncover trends.</ListItem>
@@ -46,9 +46,9 @@ const FundAtHushh: React.FC = () => {
         <ListItem><strong>Risk Management:</strong> Diversification, protective puts, and liquidity management.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={2}>Performance Projections</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={2}>Performance Projections</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>Optimistic Case:</strong> 25-30% annualized returns.</ListItem>
         <ListItem><strong>Neutral Case:</strong> 15-20% annualized returns.</ListItem>
@@ -61,9 +61,9 @@ const FundAtHushh: React.FC = () => {
       <Text mb={4}><strong>Reinvestment:</strong> All income reinvested</Text>
       <Text mb={4}><strong>Subscription/Redemption:</strong> Monthly subscriptions, 60-day notice for redemptions, quarterly windows.</Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={2}>Meet the Team</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={2}>Meet the Team</Heading>
       <Text mb={4}><strong>Manish Sainani:</strong> Founder & CEO, with leadership experience at Google, Microsoft, and Splunk, specializing in AI and data-driven innovation.</Text>
       <Text mb={4}><strong>Justin Donaldson:</strong> Chief Scientist & CPO, architect of proprietary strategies like "Sell the Wall," leveraging advanced quantitative models for consistent, risk-optimized returns.</Text>
     </Box>

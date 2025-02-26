@@ -13,9 +13,8 @@ export const frontmatter = {
 
 const RentingMaximum: React.FC = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-        <Image src={RentingMax}  alt='Renting Max Icome' mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         The Aloha & Alpha Investment Framework: Owning the Best and Renting for Maximum Income
       </Heading>
 
@@ -26,11 +25,11 @@ const RentingMaximum: React.FC = () => {
         At Aloha & Alpha Fund, we believe in the most elegant and effective strategy for compounding wealth—owning the best of the best businesses 24/7/365, renting them out to the market, and using the rental income to buy even more of the same amazing businesses. This flywheel of ownership, premium collection, and reinvestment creates an unstoppable compounding machine, one that is designed to win in any market environment.
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
       <VStack spacing={4} align="stretch">
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">I. The Core Philosophy: Own, Rent, Reinforce</Heading>
+          <Heading as="h3" fontSize="lg" color="black">I. The Core Philosophy: Own, Rent, Reinforce</Heading>
           <Text mt={2}><strong>1. Own the Best of the Best Businesses (Forever)</strong></Text>
           <List spacing={2} pl={4}>
             <ListItem>Generate massive and predictable free cash flow</ListItem>
@@ -64,7 +63,7 @@ const RentingMaximum: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">II. The Mathematics of Selling The Wall™</Heading>
+          <Heading as="h3" fontSize="lg" color="black">II. The Mathematics of Selling The Wall™</Heading>
           <Text mt={2}><strong>1. Covered Call Strategy Example (Rental Yield)</strong></Text>
           <Text>Assume we own 10,000 shares of AAPL at $240 per share ($2.4M position). We sell weekly covered calls at $250 strike, collecting $3 per contract. This generates $30,000 per week in premium income. If we repeat this process for 52 weeks, that’s $1.56M per year in rental income, or a 65%+ annualized return on capital while still owning the stock.</Text>
 
@@ -76,7 +75,7 @@ const RentingMaximum: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">III. Performance Advantage: Winning in All Market Conditions</Heading>
+          <Heading as="h3" fontSize="lg" color="black">III. Performance Advantage: Winning in All Market Conditions</Heading>
           <Text mt={2}><strong>Bull Market → We Win</strong></Text>
           <Text>Stock prices go up? Our core holdings appreciate, and we continue selling calls at higher strikes, capturing rental income while locking in capital gains.</Text>
 
@@ -91,7 +90,7 @@ const RentingMaximum: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">IV. The Ultimate Investor’s Playbook</Heading>
+          <Heading as="h3" fontSize="lg" color="black">IV. The Ultimate Investor’s Playbook</Heading>
           <Text mt={2}>
             This strategy aligns with the playbook of the greatest investors of all time:
           </Text>
@@ -108,7 +107,7 @@ const RentingMaximum: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">V. Execution Framework: Scaling Alpha</Heading>
+          <Heading as="h3" fontSize="lg" color="black">V. Execution Framework: Scaling Alpha</Heading>
           <Text mt={2}><strong>1. The Portfolio Construction</strong></Text>
           <List spacing={2} pl={4}>
             <ListItem>Massive free cash flow</ListItem>
@@ -128,7 +127,7 @@ const RentingMaximum: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">VI. Regulatory & Investor Alignment</Heading>
+          <Heading as="h3" fontSize="lg" color="black">VI. Regulatory & Investor Alignment</Heading>
           <Text mt={2}><strong>1. Fully ADGM & SEC Compliant</strong></Text>
           <List spacing={2} pl={4}>
             <ListItem>Structured for institutional investors</ListItem>
@@ -152,7 +151,7 @@ const RentingMaximum: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">VII. Conclusion: The Future of Investing Is Here</Heading>
+          <Heading as="h3" fontSize="lg" color="black">VII. Conclusion: The Future of Investing Is Here</Heading>
           <Text mt={2}>
             At Aloha & Alpha Fund, we don’t just own great businesses—we own and rent them systematically to generate perpetual cash flow, compound ownership, and build the most alpha-dominant hedge fund on the planet.
           </Text>

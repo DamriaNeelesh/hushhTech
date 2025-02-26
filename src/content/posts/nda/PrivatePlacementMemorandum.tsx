@@ -13,9 +13,8 @@ export const frontmatter = {
 
 const PrivatePlacementMemorandum: React.FC = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-        <Image src={AlphaAlohaImg} alt="PPM" mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Private Placement Memorandum (PPM)
       </Heading>
 
@@ -27,11 +26,11 @@ const PrivatePlacementMemorandum: React.FC = () => {
         Confidential Offering of Limited Partnership Interests
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
       <VStack spacing={4} align="stretch">
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Important Notices</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Important Notices</Heading>
           <Text mt={2}>
             This Memorandum contains important information regarding the Fund and its investment strategy, risks, and operational structure. Investors should read it carefully before making an investment decision. Investment in this Fund is speculative, involves a high degree of risk, and is suitable only for sophisticated investors capable of sustaining losses.
           </Text>
@@ -41,7 +40,7 @@ const PrivatePlacementMemorandum: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">I. Executive Summary</Heading>
+          <Heading as="h3" fontSize="lg" color="black">I. Executive Summary</Heading>
           <Text mt={2}><strong>1.1 Fund Overview</strong></Text>
           <Text>The Hushh Technologies Renaissance AI Fund is a quantitative hedge fund that combines AI-driven financial modeling, systematic free cash flow investing, and options-based premium harvesting to generate sustainable alpha and income.</Text>
           <Text>The Fund’s Sell the Wall™ Strategy monetizes high-quality, free cash flow-generating equities (FCF Giants), using automated AI-powered execution models to optimize return outcomes in all market conditions.</Text>
@@ -54,7 +53,7 @@ const PrivatePlacementMemorandum: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">II. Fund Structure & Terms</Heading>
+          <Heading as="h3" fontSize="lg" color="black">II. Fund Structure & Terms</Heading>
           <Text mt={2}><strong>2.1 Structure</strong></Text>
           <Text>• Fund Entity: Hushh Technologies Renaissance AI Fund, LP</Text>
           <Text>• General Partner: Hushh Technologies GP, LLC</Text>
@@ -75,7 +74,7 @@ const PrivatePlacementMemorandum: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">III. Investment Strategy</Heading>
+          <Heading as="h3" fontSize="lg" color="black">III. Investment Strategy</Heading>
           <Text mt={2}><strong>3.1 Overview: “Sell the Wall™” Strategy</strong></Text>
           <Text>• Core Investment Thesis: Own the world’s best free cash flow companies (e.g., AAPL, MSFT, NVDA, GOOGL) while selling options to generate weekly/monthly income.</Text>
           <Text>• Income Engine: Monetize volatility by selling covered calls and cash-secured puts in the most liquid, high-volume equities.</Text>
@@ -87,7 +86,7 @@ const PrivatePlacementMemorandum: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">IV. Risk Factors</Heading>
+          <Heading as="h3" fontSize="lg" color="black">IV. Risk Factors</Heading>
           <Text mt={2}><strong>4.1 General Investment Risks</strong></Text>
           <Text>Investors must recognize the following key risks:</Text>
           <Text>1. Market Volatility: The Fund’s strategies are exposed to equity and options market risks.</Text>
@@ -98,7 +97,7 @@ const PrivatePlacementMemorandum: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">V. Fund Governance & Compliance</Heading>
+          <Heading as="h3" fontSize="lg" color="black">V. Fund Governance & Compliance</Heading>
           <Text mt={2}><strong>5.1 Regulatory Oversight</strong></Text>
           <Text>The Fund adheres to:</Text>
           <Text>• SEC & CFTC Regulations – Compliance with Dodd-Frank & Investment Company Act of 1940</Text>
@@ -111,7 +110,7 @@ const PrivatePlacementMemorandum: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">VI. Subscription & Redemption Procedures</Heading>
+          <Heading as="h3" fontSize="lg" color="black">VI. Subscription & Redemption Procedures</Heading>
           <Text mt={2}><strong>6.1 Subscription Process</strong></Text>
           <Text>1. Accredited Investor Verification: Subscription is open only to qualified investors.</Text>
           <Text>2. Subscription Agreement Execution: Investors must sign legally binding agreements.</Text>
@@ -123,7 +122,7 @@ const PrivatePlacementMemorandum: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">VII. Conclusion & Next Steps</Heading>
+          <Heading as="h3" fontSize="lg" color="black">VII. Conclusion & Next Steps</Heading>
           <Text mt={2}>Hushh Technologies Renaissance AI Fund represents a next-generation, AI-first investment vehicle designed to:</Text>
           <Text>• Monetize free cash flow businesses with systematic options income.</Text>
           <Text>• Deliver risk-adjusted alpha through AI execution models.</Text>
@@ -136,7 +135,7 @@ const PrivatePlacementMemorandum: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Disclaimer</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Disclaimer</Heading>
           <Text mt={2}>This PPM is not an offer to sell securities. Investment in the Fund is highly speculative, involves significant risks, and is suitable only for sophisticated investors. The Fund’s past performance is not indicative of future results. Investors should review the full legal documentation and consult financial, tax, and legal professionals before investing.</Text>
         </Box>
       </VStack>

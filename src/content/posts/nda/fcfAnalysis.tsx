@@ -3,8 +3,8 @@ import { Box, Text, Heading, List, ListItem, Table, Thead, Tbody, Tr, Th, Td } f
 
 const ConfidentialFCFAnalysis = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         🤫 Confidential
       </Heading>
       <Text mb={4}>
@@ -20,7 +20,7 @@ const ConfidentialFCFAnalysis = () => {
       <Text mb={4}>
         At the end, we’ll create a “Composite FCF Alpha Score” (a weighted sum) to rank these 27 companies. All data are approximate or based on publicly available sources from the last 1–2 years. Actual figures will vary with new filings. This exercise is for illustrative portfolio thinking rather than absolute valuations.
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         1. Overview of the 27 FCF Aces
       </Heading>
       <Text mb={4}>
@@ -33,7 +33,7 @@ const ConfidentialFCFAnalysis = () => {
         <ListItem>4. Ultimate Consumer Staples: Procter & Gamble, Coca-Cola, PepsiCo, McDonald’s</ListItem>
         <ListItem>5. Data & Infrastructure Giants: Broadcom, Texas Instruments, Oracle, ASML, T-Mobile, Equinix, Crown Castle</ListItem>
       </List>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         2. Key Metrics & Approximate Figures
       </Heading>
       <Text mb={4}>
@@ -278,7 +278,7 @@ const ConfidentialFCFAnalysis = () => {
         <ListItem>• Figures for FCF margin, CapEx, etc. are rough, pulled from typical TTM or annual data.</ListItem>
         <ListItem>• Some energy & industrial names have cyclical FCF that can vary widely with commodity prices and economic conditions.</ListItem>
       </List>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         3. Ranking Method
       </Heading>
       <Text mb={4}>
@@ -306,7 +306,7 @@ const ConfidentialFCFAnalysis = () => {
       <Text mb={4}>
         But keep in mind, these are all outstanding FCF machines in absolute terms. The “Low Tier” in this set is still a top-tier global business compared to 99% of other companies. This relative ranking just helps differentiate which ones might have the highest “FCF Alpha Score.”
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         4. Key Observations & 7- to 10-Year Outlook
       </Heading>
       <List spacing={3} mb={4}>
@@ -317,7 +317,7 @@ const ConfidentialFCFAnalysis = () => {
         <ListItem>5. Financials: Berkshire, JP Morgan, Goldman, Visa, Mastercard. If rates remain favorable, banks can benefit, though they face cyclical or regulatory shifts. Berkshire stands out for its capital allocation approach, often acquiring new FCF businesses to feed the compound engine. Payment networks (V, MA) are less cyclical, have strong moats, and should keep printing high margins as digital payments expand worldwide.</ListItem>
         <ListItem>6. Healthcare: UnitedHealth’s large-scale health network, Johnson & Johnson, or other big players typically have robust moats. They produce consistent cash flows across economic cycles, though growth might be more modest.</ListItem>
       </List>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         5. Conclusion: Constructing an Evergreen 🌲 Portfolio
       </Heading>
       <Text mb={4}>

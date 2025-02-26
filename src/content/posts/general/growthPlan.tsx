@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Heading,Image, Text, VStack, Divider } from '@chakra-ui/react';
+import { Box, Heading, Image, Text, VStack, Divider } from '@chakra-ui/react';
 import AlphaAlohaImg from '../../../components/images/blog2o.png';
 
 export const frontmatter = {
@@ -13,11 +13,10 @@ export const frontmatter = {
 
 const HushhAlphaFundGrowthPlan: React.FC = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-        {/* <Image src={AlphaAlohaImg}  alt=''/> */}
-        <Image src={AlphaAlohaImg} alt="Funds Update" mb={4} borderRadius="md" />
+    <Box p={0} color="black" borderRadius="md">
+      <Image src={AlphaAlohaImg} alt="Funds Update" mb={4} borderRadius="md" />
 
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         A Realistic Growth Plan for Hushh Alpha Fund
       </Heading>
 
@@ -27,15 +26,15 @@ const HushhAlphaFundGrowthPlan: React.FC = () => {
         Primary Goal: Achieve sustainable cash flow-driven alpha while scaling AUM responsibly with institutional credibility.
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
       <VStack spacing={4} align="stretch">
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Phase 1: Proof of Concept & LP Trust (0-12 Months)</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Phase 1: Proof of Concept & LP Trust (0-12 Months)</Heading>
           <Text mt={2}>AUM Target: $7.5M → $50M</Text>
           <Text>Net Cash Flow Target: $150K/month → $5M/year (~1.5% weekly return)</Text>
           <Text>Max Drawdown Threshold: SPX ±15%</Text>
-          <Text>LP Capital Raised: $50M ($5M minimum ticket size)</Text>
+          <Text>LP Capital Raised: $50M ($5M minimum ticket fontSize)</Text>
           <Text mt={2}><strong>Key Focus Areas</strong></Text>
           <Text>• Validate ‘Sell the Wall’ as a Sustainable Income Machine</Text>
           <Text>• Build Institutional Credibility</Text>
@@ -48,11 +47,11 @@ const HushhAlphaFundGrowthPlan: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Phase 2: Expansion to $250M AUM (12-36 Months)</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Phase 2: Expansion to $250M AUM (12-36 Months)</Heading>
           <Text mt={2}>AUM Target: $50M → $250M</Text>
           <Text>Annualized Cash Flow Target: $30M+ (12-15% target net return)</Text>
           <Text>Max Drawdown Threshold: SPX ±12% (tighter risk controls)</Text>
-          <Text>LP Capital Raised: $200M ($10M minimum ticket size)</Text>
+          <Text>LP Capital Raised: $200M ($10M minimum ticket fontSize)</Text>
           <Text mt={2}><strong>Key Focus Areas</strong></Text>
           <Text>• Scale ‘Sell the Wall’ Across Market Cycles</Text>
           <Text>• Launch Institutional Investor Access & Structured Products</Text>
@@ -66,11 +65,11 @@ const HushhAlphaFundGrowthPlan: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Phase 3: $1B Institutional Fund (36-60 Months)</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Phase 3: $1B Institutional Fund (36-60 Months)</Heading>
           <Text mt={2}>AUM Target: $250M → $1B</Text>
           <Text>Annualized Cash Flow Target: $120M+</Text>
           <Text>Max Drawdown Threshold: SPX ±10% (Institutional-Grade Hedging)</Text>
-          <Text>LP Capital Raised: $750M ($25M+ minimum ticket size)</Text>
+          <Text>LP Capital Raised: $750M ($25M+ minimum ticket fontSize)</Text>
           <Text mt={2}><strong>Key Focus Areas</strong></Text>
           <Text>• Expand ‘Sell the Wall’ Into Market-Making & AI Trading</Text>
           <Text>• Structured Investment Vehicles for Pension & SWFs</Text>
@@ -82,7 +81,7 @@ const HushhAlphaFundGrowthPlan: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Long-Term Outlook ($5B-$10B AUM Horizon)</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Long-Term Outlook ($5B-$10B AUM Horizon)</Heading>
           <Text mt={2}>• Expand into hedge fund market-making & systematic yield for public markets.</Text>
           <Text>• Develop structured derivative products for ultra-high-net-worth clients.</Text>
           <Text>• Scale institutional investor base with $50M+ commitments per LP.</Text>

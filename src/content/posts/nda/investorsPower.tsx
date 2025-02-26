@@ -3,8 +3,8 @@ import { Box, Text, Heading, List, ListItem } from '@chakra-ui/react';
 
 const InvestorPowerOfAttorney = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         INVESTOR POWER OF ATTORNEY (POA)
       </Heading>
       <Text fontSize="sm" color="gray.500" mb={4}>
@@ -30,7 +30,7 @@ const InvestorPowerOfAttorney = () => {
         📍 [Insert Official Address]<br />
         (Hereinafter referred to as the “Fund Manager” or “Attorney-in-Fact”)
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         1. PURPOSE OF THIS POWER OF ATTORNEY
       </Heading>
       <Text mb={4}>
@@ -62,7 +62,7 @@ const InvestorPowerOfAttorney = () => {
           </List>
         </ListItem>
       </List>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         2. DURATION & REVOCABILITY
       </Heading>
       <Text mb={4}>
@@ -79,7 +79,7 @@ const InvestorPowerOfAttorney = () => {
         <ListItem>• The Investor may revoke this POA at any time with 30 days’ written notice to the Fund Manager.</ListItem>
         <ListItem>• Upon revocation, all pending transactions will be completed before the revocation takes full effect.</ListItem>
       </List>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         3. LIMITATIONS OF AUTHORITY
       </Heading>
       <List spacing={3} mb={4}>
@@ -89,13 +89,13 @@ const InvestorPowerOfAttorney = () => {
         <ListItem>❌ Make any personal loans or guarantees in the Investor’s name.</ListItem>
         <ListItem>❌ Engage in transactions unrelated to fund operations.</ListItem>
       </List>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         4. INDEMNIFICATION & LIABILITY PROTECTIONS
       </Heading>
       <Text mb={4}>
         The Fund Manager shall act in the best interests of the Investor, maintaining fiduciary duty and compliance with all SEC, ADGM, and global financial regulations. The Investor agrees to indemnify the Fund Manager from liability arising solely from market risks and standard fund operations, excluding any fraud or misconduct.
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         5. ACKNOWLEDGMENT & EXECUTION
       </Heading>
       <Text mb={4}>
@@ -110,13 +110,13 @@ const InvestorPowerOfAttorney = () => {
         ✍️ ___________________________ Date: ________________<br />
         📍 Title: Chief Investment Officer / Fund Manager
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         🔐 FINAL REMARKS
       </Heading>
       <Text mb={4}>
         This POA is designed to simplify investment execution and ensure optimal fund management while maintaining investor protection. All transactions will be recorded, fully transparent, and auditable upon investor request.
       </Text>
-      <Text fontSize="lg" color="teal.300">
+      <Text fontSize="lg" color="black">
         🚀 Welcome to the Future of Aloha & Alpha!
       </Text>
     </Box>

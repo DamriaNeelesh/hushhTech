@@ -1,11 +1,10 @@
 import React from 'react';
-import { Box, Text, Heading, List, ListItem } from '@chakra-ui/react';
+import { Box, Text, Heading, List, ListItem, Link } from '@chakra-ui/react';
 
 const HushhFundFAQ = () => {
   return (
-    <Box p={{md:5,base:2}} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      
-      <Heading as="h2" fontSize={{md:"2xl",base:'xl'}} mb={3} color="teal.200">
+    <Box p={0} color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Fund Structure & Investment Strategy
       </Heading>
       <Text mb={4} fontSize={{md:"lg",base:'sm'}}>
@@ -46,7 +45,7 @@ const HushhFundFAQ = () => {
       <Text mb={4} fontSize={{md:"lg",base:'sm'}}>
         By incorporating both Alpha 27 and Ultra 10, Hushh essentially runs a two-tier strategy under one roof. The Alpha 27 component provides current income and lower-risk growth, while the Ultra 10 component provides high-growth opportunities that can dramatically boost overall fund returns. The two work in tandem: for example, the steady cash flows from Alpha 27 can even help fund new investments in Ultra 10 or support those companies through multiple rounds, creating a synergistic effect. Also, from a risk perspective, diversification between the two portfolios is key – if some Ultra 10 bets take longer to play out or hit snags (as can happen in venture investing), the Alpha 27’s income can compensate in the interim. Conversely, when an Ultra 10 investment hits a home run, it greatly amplifies the fund’s total performance, contributing to investor alpha. This integrated approach is a distinct differentiator for Hushh, as most funds are either geared toward short-term trading (hedge funds) or long-term private holdings (VC/PE funds), whereas Hushh successfully blends both in a structured way. In summary, and Hushh Ultra 10 are the two pillars of the fund’s structure – one optimizing for stable aloha income, and the other for extraordinary alpha gains – together driving the fund’s overall strategy.
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200" fontSize={{md:"xl",base:'lg'}}>
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         Ideal Customer & Business Profile
       </Heading>
       <Text mb={4} fontSize={{md:"lg",base:'sm'}}>
@@ -57,11 +56,11 @@ const HushhFundFAQ = () => {
         Beyond just qualifications on paper, ideal investors are those who align with Hushh’s vision and strategy. This includes investors who:
       </Text>
       <List spacing={3} mb={4} fontSize={{md:"lg",base:'sm'}}>
-        <ListItem>Seek Both Income and Growth: If you want regular income and long-term capital appreciation in one package, Hushh is designed for you. Many traditional investors have to split these goals (for instance, bonds for income and stocks for growth), but Hushh’s ideal client appreciates the convenience of a combined solution.</ListItem>
-        <ListItem>Have an Interest in Technology and AI: Hushh leverages cutting-edge AI/ML in its strategy, so investors who understand or are curious about how technology can enhance investing will value what Hushh offers. The ideal investor is forward-thinking and comfortable with an AI-assisted strategy delivering results. They may even be tech entrepreneurs or executives themselves, who resonate with Hushh’s tech-forward approach.</ListItem>
-        <ListItem>Value Privacy and Personal Data Control: Given Hushh’s background in data privacy (through its sister platform Hushh.ai), an ideal investor might be someone who cares about ethical use of data and wants to support a fund that respects user privacy. For example, early adopters of privacy-focused technologies or individuals disillusioned with “big data” misuse could find Hushh’s ethos appealing. They know that Hushh will treat any of their information with utmost security and also invest in companies that respect consumers.</ListItem>
-        <ListItem>Have a Global Luxury/Aspirational Mindset: Many ideal investors might themselves be consumers or connoisseurs of luxury and aspirational products – or at least bullish on those sectors. They understand the value of a Hermes bag or an innovative tech gadget, and they want exposure to those kinds of businesses in their portfolio. In short, Hushh’s ideal investor believes in the growth story of luxury brands, high-end technology, and lifestyle trends, and wants to profit from it.</ListItem>
-        <ListItem>Accustomed to Hedge Fund/Venture Investing: Since Hushh is somewhat a hybrid, ideal investors may already be familiar with either hedge funds or venture capital investments. For instance, a family office that allocates part of its portfolio to hedge funds (for steady returns) and part to VC funds (for high growth) would perfectly understand Hushh’s combined value proposition. Such an investor would appreciate Hushh’s ability to deliver alpha and aloha in a single fund, simplifying their allocation. They are also comfortable with the typical lock-ups or liquidity terms that come with private funds (Hushh offers more flexibility than a pure VC fund, but it’s not as liquid as a daily-traded mutual fund).</ListItem>
+        <ListItem><strong>Seek Both Income and Growth:</strong> If you want regular income and long-term capital appreciation in one package, Hushh is designed for you. Many traditional investors have to split these goals (for instance, bonds for income and stocks for growth), but Hushh’s ideal client appreciates the convenience of a combined solution.</ListItem>
+        <ListItem><strong>Have an Interest in Technology and AI:</strong> Hushh leverages cutting-edge AI/ML in its strategy, so investors who understand or are curious about how technology can enhance investing will value what Hushh offers. The ideal investor is forward-thinking and comfortable with an AI-assisted strategy delivering results. They may even be tech entrepreneurs or executives themselves, who resonate with Hushh’s tech-forward approach.</ListItem>
+        <ListItem><strong>Value Privacy and Personal Data Control: </strong>Given Hushh’s background in data privacy (through its sister platform Hushh.ai), an ideal investor might be someone who cares about ethical use of data and wants to support a fund that respects user privacy. For example, early adopters of privacy-focused technologies or individuals disillusioned with “big data” misuse could find Hushh’s ethos appealing. They know that Hushh will treat any of their information with utmost security and also invest in companies that respect consumers.</ListItem>
+        <ListItem><strong>Have a Global Luxury/Aspirational Mindset:</strong> Many ideal investors might themselves be consumers or connoisseurs of luxury and aspirational products – or at least bullish on those sectors. They understand the value of a Hermes bag or an innovative tech gadget, and they want exposure to those kinds of businesses in their portfolio. In short, Hushh’s ideal investor believes in the growth story of luxury brands, high-end technology, and lifestyle trends, and wants to profit from it.</ListItem>
+        <ListItem><strong>Accustomed to Hedge Fund/Venture Investing:</strong> Since Hushh is somewhat a hybrid, ideal investors may already be familiar with either hedge funds or venture capital investments. For instance, a family office that allocates part of its portfolio to hedge funds (for steady returns) and part to VC funds (for high growth) would perfectly understand Hushh’s combined value proposition. Such an investor would appreciate Hushh’s ability to deliver alpha and aloha in a single fund, simplifying their allocation. They are also comfortable with the typical lock-ups or liquidity terms that come with private funds (Hushh offers more flexibility than a pure VC fund, but it’s not as liquid as a daily-traded mutual fund).</ListItem>
       </List>
       <Text mb={4} fontSize={{md:"lg",base:'sm'}}>
         In essence, the ideal Hushh investor is savvy, accredited, and looking for an innovative investment approach. They are someone who trusts in data-driven strategies, is excited by the fund’s focus on luxury/tech sectors, and values the fund’s commitment to privacy and ethical data use. This investor is looking to outperform traditional portfolios and is willing to embrace a modern, AI-enhanced strategy to do so. Hushh’s current investor base indeed includes tech entrepreneurs, executives from luxury industries, and progressive family offices who all fit this profile.
@@ -71,10 +70,10 @@ const HushhFundFAQ = () => {
         A: Hushh targets businesses in the luxury, technology, and aspirational consumer products space that align with its strategy of high margin, high growth, and strong branding. Broadly speaking, the types of businesses Hushh seeks out have some of the following characteristics:
       </Text>
       <List spacing={3} mb={4} fontSize={{md:"lg",base:'sm'}}>
-        <ListItem>Luxury Brands: Companies that produce high-end goods or services with strong brand heritage and pricing power. These include haute couture fashion houses, luxury accessories (watches, handbags), premium automobiles, fine jewelry, high-end hospitality or experiences, etc. Such businesses often enjoy exceptional profit margins and loyal customer bases. For instance, many top luxury companies have gross margins well above mainstream brands – some luxury fashion houses run ~70% gross margins and ~40% operating margins, far higher than mass-market peers. They also have an element of exclusivity and heritage that makes their brand equity extremely valuable. Hushh likes these traits because they lead to large free cash flows and resilience in downturns (wealthy consumers tend to be less price-sensitive, and luxury brands can maintain prices even in inflationary times). A luxury business that aligns with Hushh’s strategy would be one that can generate strong cash today (through its premium sales) and continue to grow globally (new markets, new product lines) over the long term.</ListItem>
-        <ListItem>Technology Companies: Especially those at the intersection of tech and lifestyle or those enabling new forms of consumer engagement. This can range from AI and machine learning firms (fitting, since Hushh itself is tech-driven) to fintech, e-commerce platforms, or consumer electronics innovators. Hushh looks for tech companies with IP that can be monetized and scaled quickly – for example, a company that has developed a novel AI algorithm for personalization or a new gadget that becomes an aspirational must-have. The key is that the tech should have an aspirational or luxury element or be something that can plug into the luxury market. An example might be a high-end wellness tech device that affluent consumers buy, or a software platform that helps luxury retailers better engage their VIP clients. These kinds of tech businesses align well because they can achieve rapid growth and also often command premium pricing (if they serve an affluent user base). They also typically have intellectual property (patents, proprietary tech) that create barriers to entry – aligning with Hushh’s principle of focusing on strong IP.</ListItem>
-        <ListItem>Aspirational Product Companies: These are companies that might not be traditionally classified as “luxury” but offer products or services that consumers aspire to have because of the lifestyle or status they confer. This could include boutique fitness brands, premium beverage companies, electric vehicle startups, sustainable fashion labels, or high-end home goods – anything that targets an emerging trend where consumers are willing to pay a premium for a perceived higher quality or status. Such businesses often start niche but can scale dramatically as the aspirational product becomes more widely desired. They align with Hushh’s strategy because they often have cult-like followings and can generate explosive growth if they capture the cultural zeitgeist. Moreover, aspirational brands often have a strong emotional connection with their customers (think of the fanfare around certain sneaker releases or tech gadgets), which is a valuable asset that translates into pricing power and brand longevity.</ListItem>
-        <ListItem>Large Free Cash Flow Businesses: In addition to the flashy high-growth names, Hushh’s strategy also embraces established companies with large free cash flows (“cash cows”). These might be mature businesses in sectors like consumer goods, media, or even industrials that are not typically “aspirational” to consumers but have strong cash generation and perhaps own intangible assets (like patents or brand portfolios) that can be further monetized. They align with the strategy by providing the “rental income” side – Hushh can treat their cash flows as a source of income to fund other ventures or to distribute to investors. For example, a global beverage company with beloved brands and consistent
+        <ListItem><strong>Luxury Brands:</strong> Companies that produce high-end goods or services with strong brand heritage and pricing power. These include haute couture fashion houses, luxury accessories (watches, handbags), premium automobiles, fine jewelry, high-end hospitality or experiences, etc. Such businesses often enjoy exceptional profit margins and loyal customer bases. For instance, many top luxury companies have gross margins well above mainstream brands – some luxury fashion houses run ~70% gross margins and ~40% operating margins, far higher than mass-market peers. They also have an element of exclusivity and heritage that makes their brand equity extremely valuable. Hushh likes these traits because they lead to large free cash flows and resilience in downturns (wealthy consumers tend to be less price-sensitive, and luxury brands can maintain prices even in inflationary times). A luxury business that aligns with Hushh’s strategy would be one that can generate strong cash today (through its premium sales) and continue to grow globally (new markets, new product lines) over the long term.</ListItem>
+        <ListItem><strong>Technology Companies:</strong> Especially those at the intersection of tech and lifestyle or those enabling new forms of consumer engagement. This can range from AI and machine learning firms (fitting, since Hushh itself is tech-driven) to fintech, e-commerce platforms, or consumer electronics innovators. Hushh looks for tech companies with IP that can be monetized and scaled quickly – for example, a company that has developed a novel AI algorithm for personalization or a new gadget that becomes an aspirational must-have. The key is that the tech should have an aspirational or luxury element or be something that can plug into the luxury market. An example might be a high-end wellness tech device that affluent consumers buy, or a software platform that helps luxury retailers better engage their VIP clients. These kinds of tech businesses align well because they can achieve rapid growth and also often command premium pricing (if they serve an affluent user base). They also typically have intellectual property (patents, proprietary tech) that create barriers to entry – aligning with Hushh’s principle of focusing on strong IP.</ListItem>
+        <ListItem><strong>Aspirational Product Companies:</strong> These are companies that might not be traditionally classified as “luxury” but offer products or services that consumers aspire to have because of the lifestyle or status they confer. This could include boutique fitness brands, premium beverage companies, electric vehicle startups, sustainable fashion labels, or high-end home goods – anything that targets an emerging trend where consumers are willing to pay a premium for a perceived higher quality or status. Such businesses often start niche but can scale dramatically as the aspirational product becomes more widely desired. They align with Hushh’s strategy because they often have cult-like followings and can generate explosive growth if they capture the cultural zeitgeist. Moreover, aspirational brands often have a strong emotional connection with their customers (think of the fanfare around certain sneaker releases or tech gadgets), which is a valuable asset that translates into pricing power and brand longevity.</ListItem>
+        <ListItem><strong>Large Free Cash Flow Businesses:</strong> In addition to the flashy high-growth names, Hushh’s strategy also embraces established companies with large free cash flows (“cash cows”). These might be mature businesses in sectors like consumer goods, media, or even industrials that are not typically “aspirational” to consumers but have strong cash generation and perhaps own intangible assets (like patents or brand portfolios) that can be further monetized. They align with the strategy by providing the “rental income” side – Hushh can treat their cash flows as a source of income to fund other ventures or to distribute to investors. For example, a global beverage company with beloved brands and consistent
        </ListItem> 
         </List>
       <Text mb={4} fontSize={{md:"lg",base:'sm'}}>
@@ -83,7 +82,7 @@ const HushhFundFAQ = () => {
       <Text mb={4} fontSize={{md:"lg",base:'sm'}}>
         Overall, Hushh’s AI doesn’t guarantee gains (no investment can), but it significantly enhances the probability and consistency of achieving the fund’s income and growth objectives by smartly managing data and decisions. This gives Hushh a distinct advantage in delivering on its promise of maximum alpha and aloha for its investors.
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200" fontSize={{md:"xl",base:'lg'}}>
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         Key Investor Considerations
       </Heading>
       <Text mb={4} fontSize={{md:"lg",base:'sm'}}>
@@ -105,10 +104,10 @@ const HushhFundFAQ = () => {
         <ListItem>✅ Alpha growth (high-return compounding) – Venture-style asymmetric upside from Ultra 10 investments in high-growth innovation monopolies.</ListItem>
         <ListItem>✅ AI-driven adaptability – The portfolio dynamically allocates capital between short-term and long-term investments based on prevailing market conditions, ensuring risk mitigation and return optimization.</ListItem>
       </List>
-      <Text mb={4}>
+      <Text mb={4} fontWeight={'500'}>
         Investor Benefits:
       </Text>
-      <List spacing={3} mb={4}>
+      <List spacing={3} mb={4} fontSize={{md:"lg",base:'sm'}}>
         <ListItem>Diversified revenue streams: Unlike venture funds that rely on exits or hedge funds that depend on short-term volatility, Hushh provides a mix of cash flow and capital appreciation.</ListItem>
         <ListItem>Lower risk with high upside: The income-generating portion acts as a risk buffer, stabilizing returns even in down markets.</ListItem>
         <ListItem>Efficient compounding: Reinvested dividends, buybacks, and options premiums maximize compounding, leading to enhanced long-term wealth accumulation.</ListItem>
@@ -119,7 +118,7 @@ const HushhFundFAQ = () => {
         <strong>Q: How does Hushh’s AI-driven portfolio differ from other funds?</strong><br />
         A: Unlike traditional discretionary investment strategies, Hushh employs a cutting-edge AI-driven decision-making framework that allows for continuous learning, adaptive risk management, and data-driven precision.
       </Text>
-      <Text mb={4} fontSize={{md:"xl",base:'lg'}} color={'teal.200'}>
+      <Text mb={4} fontWeight={'500'} fontSize={{md:"xl",base:'lg'}} color={'black'}>
         Advantages of Hushh’s AI Approach:
       </Text>
       <List spacing={3} mb={4} fontSize={{md:"lg",base:'md'}}>
@@ -128,7 +127,7 @@ const HushhFundFAQ = () => {
         <ListItem>Optimized reinvestment & allocation: AI systematically reinvests alpha and aloha income to compound gains over time.</ListItem>
         <ListItem>Proactive risk management: Machine learning models continuously adjust hedging, exposure, and leverage to maintain stability even in volatile markets.</ListItem>
       </List>
-      <Text mb={4} fontSize={{md:"xl",base:'lg'}} color={'teal.200'}>
+      <Text mb={4} fontWeight={'500'} fontSize={{md:"xl",base:'lg'}} color={'black'}>
         Investor Benefits:
       </Text>
       <List spacing={3} mb={4}>
@@ -143,7 +142,7 @@ const HushhFundFAQ = () => {
         <strong>Q: How does the fund maximize reinvestment to achieve exponential compounding?</strong><br />
         A: Hushh follows an aggressive compounding strategy by ensuring all available capital (income, options premiums, dividends) is reinvested into the highest-yielding opportunities.
       </Text>
-      <Text mb={4} fontSize={{md:"xl",base:'lg'}} color={'teal.200'}>
+      <Text mb={4} fontWeight={'500'} fontSize={{md:"xl",base:'lg'}} color={'black'}>
         How compounding works at Hushh:
       </Text>
       <List spacing={3} mb={4} fontSize={{md:"lg",base:'md'}}>
@@ -152,7 +151,7 @@ const HushhFundFAQ = () => {
         <ListItem>Compounding within Free Cash Flow Businesses – The fund prioritizes businesses that internally compound cash flows via R&D, acquisitions, and innovation.</ListItem>
         <ListItem>Leverage at the Right Time – Unlike reckless leverage used by some hedge funds, Hushh selectively uses low-cost, high-quality debt to enhance compounding when the opportunity is favorable.</ListItem>
       </List>
-      <Text mb={4} fontSize={{md:"xl",base:'lg'}} color={'teal.200'}>
+      <Text mb={4} fontWeight={'500'} fontSize={{md:"xl",base:'lg'}} color={'black'}>
         The power of exponential compounding:
       </Text>
       <List spacing={3} mb={4} fontSize={{md:"lg",base:'md'}}>
@@ -167,7 +166,7 @@ const HushhFundFAQ = () => {
         <strong>Q: How does Hushh hedge risk while maximizing alpha and aloha income?</strong><br />
         A: Hushh employs multi-layered risk management techniques to mitigate downside volatility while preserving upside potential.
       </Text>
-      <Text mb={4} fontSize={{md:"xl",base:'lg'}} color={'teal.200'}>
+      <Text mb={4} fontWeight={'500'} fontSize={{md:"xl",base:'lg'}} color={'black'}>
         Risk Management Strategies:
       </Text>
       <List spacing={3} mb={4} fontSize={{md:"lg",base:'md'}}>
@@ -177,7 +176,7 @@ const HushhFundFAQ = () => {
         <ListItem>✅ Risk-parity approach: Portfolio allocation is optimized for risk-adjusted return, balancing volatility, drawdowns, and return objectives.</ListItem>
         <ListItem>✅ Continuous stress-testing: AI models conduct daily stress tests on macro scenarios, liquidity events, and black swan risks.</ListItem>
       </List>
-      <Text mb={4} fontSize={{md:"xl",base:'lg'}} color={'teal.200'}>
+      <Text mb={4} fontWeight={'500'} fontSize={{md:"xl",base:'lg'}} color={'black'}>
         Investor Benefits:
       </Text>
       <List spacing={3} mb={4} fontSize={{md:"lg",base:'md'}}>
@@ -185,13 +184,13 @@ const HushhFundFAQ = () => {
         <ListItem>Volatility-adjusted allocation reduces emotional swings in performance.</ListItem>
         <ListItem>Market cycles are navigated more efficiently than in traditional funds.</ListItem>
       </List>
-      <Heading as="h3" fontSize={{md:"lg",base:'md'}} mb={3} color="teal.200">
+      <Heading as="h3" fontSize={{md:"lg",base:'md'}} mb={3} color="black">
         How is Hushh positioned for long-term strategic growth?
       </Heading>
       <Text mb={4} fontSize={{md:"lg",base:'md'}}>
         Hushh is not just an investment fund—it is an AI-driven financial ecosystem designed for scalable, high-growth investing.
       </Text>
-      <Text mb={4} fontSize={{md:"xl",base:'lg'}} color={'teal.200'}>
+      <Text mb={4} fontWeight={'500'} fontSize={{md:"xl",base:'lg'}} color={'black'}>
         Strategic Growth Plan:
       </Text>
       <List spacing={3} mb={4} fontSize={{md:"lg",base:'md'}}>
@@ -204,7 +203,7 @@ const HushhFundFAQ = () => {
       <Text mb={4} fontSize={{md:"lg",base:'md'}}>
         Hushh is building a next-generation investment model that goes beyond traditional hedge funds and VC firms—leveraging AI to transform capital markets into an optimized compounding machine.
       </Text>
-      <Heading as="h3" fontSize={{md:"lg",base:'md'}} mb={3} color="teal.200">
+      <Heading as="h3" fontSize={{md:"lg",base:'md'}} mb={3} color="black">
         Why Should Investors Join Hushh Today?
       </Heading>
       <Text mb={4} fontSize={{md:"lg",base:'md'}}>
@@ -220,7 +219,7 @@ const HushhFundFAQ = () => {
       <Text mb={4} fontSize={{md:"lg",base:'md'}}>
         🚀 Final Thought: The wealth-building game has changed. Hushh is ahead of the curve. Are you?
       </Text>
-      <Text mb={4} fontSize={{md:"xl",base:'lg'}} color={'teal.200'}>
+      <Text mb={4} fontWeight={'500'} fontSize={{md:"xl",base:'lg'}} color={'black'}>
         Next Steps for Investors:
       </Text>
       <List spacing={3} mb={4} fontSize={{md:"lg",base:'md'}}>
@@ -228,12 +227,12 @@ const HushhFundFAQ = () => {
         <ListItem>Access exclusive insights & strategic allocations via the Hushh AI-driven investment platform.</ListItem>
         <ListItem>Be part of the most advanced financial system ever built.</ListItem>
       </List>
-      <Text mb={4} fontSize={{md:"lg",base:'md'}}>
-        For inquiries or onboarding: [Contact the Hushh Fund Team]
+      <Text mb={4} fontSize={{md:"md",base:'sm'}}>
+        For inquiries or onboarding: <Link href="/contact" color="blue.800" textDecoration={'underline'}>Contact the Hushh Fund Team</Link>
       </Text>
       <Text fontSize={{md:"md",base:'sm'}}color="gray.500">
-        🌲 Hushh Evergreen Fund – Fund A (Renaissance AI-First 27 FCF & Growth & Innovation Monopolies) 🌲<br />
-        “Where the future of investing is built today.” 🚀
+        🌲 Hushh Evergreen Fund – Fund A (Renaissance AI-First 27 FCF & Growth & Innovation Monopolies) <br/>
+        🌲“Where the future of investing is built today.” 🚀
       </Text>
     </Box>
   );

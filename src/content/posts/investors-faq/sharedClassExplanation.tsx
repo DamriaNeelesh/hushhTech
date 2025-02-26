@@ -4,16 +4,16 @@ import SellImg from '../../../components/images/blog2o.png'
 
 const HushhAlphaFund = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
+    <Box color="black" borderRadius="md">
 <Box display={'flex'} justifyContent={'center'}>
-       <Image src={SellImg} alt="Funds Update" mb={4} borderRadius="md" />
+       {/* <Image src={SellImg} alt="Funds Update" mb={4} borderRadius="md" /> */}
        </Box>
-      <Heading as="h1" size="xl" mb={4} color="teal.300">
+      <Heading as="h1" fontSize="2xl" mb={4} color="black">
         Hushh Technologies Alpha Fund, LP
       </Heading>
       <Text mb={4}>Understanding the Different Classes of Shares & Investor FAQ</Text>
 
-      <Heading as="h2" size="lg" color="teal.200" mb={2}>
+      <Heading as="h2" fontSize="lg" color="black" mb={2}>
         Understanding the Different Classes of Shares
       </Heading>
 
@@ -42,9 +42,9 @@ const HushhAlphaFund = () => {
         </Tbody>
       </Table>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h2" size="lg" color="teal.200" mb={2}>
+      <Heading as="h2" fontSize="lg" color="black" mb={2}>
         Investor FAQ
       </Heading>
       <VStack align="start" spacing={4}>
@@ -57,9 +57,9 @@ const HushhAlphaFund = () => {
           ))}
       </VStack>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h2" size="lg" color="teal.200" mb={2}>
+      <Heading as="h2" fontSize="lg" color="black" mb={2}>
         Closing Note
       </Heading>
       <Text>

@@ -4,10 +4,8 @@ import SellImg from '../../../components/images/blog2o.png'
 
 const hushhPDA = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-            <Image src={SellImg} alt="Hushh PDA" mb={4} borderRadius="md" />
-
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box  color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black.300">
         To our esteemed stakeholders — shareholders, colleagues, customers, and partners:
       </Heading>
       
@@ -23,7 +21,7 @@ const hushhPDA = () => {
         Hushh.ai's mission is unequivocal: to empower individuals to own, control, and monetize their personal data. In this new age, your data is not a mere entry in the digital ledger but a cornerstone of your identity, a key to unlocking personalized experiences, and a currency in its own right.
       </Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Our Pioneering Products:</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Our Pioneering Products:</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>HushhPDA:</strong> The world's first personal data assistant, giving users the keys to their digital kingdom.</ListItem>
         <ListItem><strong>HushhFeed:</strong> A personal newsfeed (aka magazine) that curates content as unique as each user's fingerprint, all with consent.</ListItem>
@@ -34,22 +32,22 @@ const hushhPDA = () => {
         Each share, each interaction, not only respects the sanctity of personal data but rewards the user, establishing a new paradigm where data sharing is an exchange of value, not a forfeiture of rights.
       </Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Our Core:</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Our Core:</Heading>
       <Text mb={4}>
         At the heart of Hushh.ai is our on-device private cloud, a fortress for personal data that orchestrates every transaction with precision and discretion. This is bolstered by our suite of analytics, search, and chatbot functionalities, all fueled by the Hushh developer ecosystem.
       </Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Our Philosophy:</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Our Philosophy:</Heading>
       <Text mb={4}>
         "Your Data, Your Business" is not just a motto; it's a commitment etched into every line of code, every product we create, every partnership we forge. It's a pledge that while Hushh.ai grows, so too does the autonomy and prosperity of our users.
       </Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Our Journey Forward:</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Our Journey Forward:</Heading>
       <Text mb={4}>
         As we advance, our gaze is firmly set on leading the charge with 1-click QR user experiences, making every payment, every preference share, and every discrete information exchange a seamless symphony of user intent and brand integrity.
       </Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Our Invitation:</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Our Invitation:</Heading>
       <Text mb={4}>
         Join us at Hushh.ai. Together, let's build not just a future, but a legacy where personal data becomes a beacon of personal empowerment. A future where AI is not a distant oracle but a trusted companion, whispering insights drawn from the well of your own data.
       </Text>

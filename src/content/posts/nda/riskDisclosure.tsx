@@ -11,9 +11,8 @@ export const frontmatter = {
 
 const RiskDisclosures = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Image src={AlphaAlohaImg} alt="Risk Disclosures" mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Risk Disclosures
       </Heading>
 
@@ -21,14 +20,14 @@ const RiskDisclosures = () => {
         The following is a comprehensive risk disclosure statement for the Alpha Aloha Fund, designed to provide complete transparency to investors. These disclosures address market, operational, and strategy-specific risks, in alignment with SEC recommendations and the fund’s commitment to investor education and trust.
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         1. Market Risks
       </Heading>
       <VStack align="start" spacing={4}>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             1.1 Equity Market Risk
           </Heading>
           <Text>
@@ -40,7 +39,7 @@ const RiskDisclosures = () => {
         </Box>
 
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             1.2 Volatility Risk
           </Heading>
           <Text>
@@ -52,7 +51,7 @@ const RiskDisclosures = () => {
         </Box>
 
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             1.3 Interest Rate Risk
           </Heading>
           <Text>
@@ -64,7 +63,7 @@ const RiskDisclosures = () => {
         </Box>
 
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             1.4 Currency Risk
           </Heading>
           <Text>
@@ -76,14 +75,14 @@ const RiskDisclosures = () => {
         </Box>
       </VStack>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         2. Concentration Risks
       </Heading>
       <VStack align="start" spacing={4}>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             2.1 Limited Diversification
           </Heading>
           <Text>
@@ -95,7 +94,7 @@ const RiskDisclosures = () => {
         </Box>
 
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             2.2 Sector-Specific Risk
           </Heading>
           <Text>
@@ -107,14 +106,14 @@ const RiskDisclosures = () => {
         </Box>
       </VStack>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         3. Liquidity Risks
       </Heading>
       <VStack align="start" spacing={4}>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             3.1 Margin and Collateral Requirements
           </Heading>
           <Text>
@@ -126,7 +125,7 @@ const RiskDisclosures = () => {
         </Box>
 
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             3.2 Options Market Liquidity
           </Heading>
           <Text>
@@ -138,14 +137,14 @@ const RiskDisclosures = () => {
         </Box>
       </VStack>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         4. Strategy-Specific Risks
       </Heading>
       <VStack align="start" spacing={4}>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             4.1 Options Strategy Risks
           </Heading>
           <Text>
@@ -163,7 +162,7 @@ const RiskDisclosures = () => {
         </Box>
 
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             4.2 Short Options Exposure
           </Heading>
           <Text>

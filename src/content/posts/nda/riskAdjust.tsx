@@ -11,18 +11,17 @@ export const frontmatter = {
 
 const RiskAdjustedReturns = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Image src={AlphaAlohaImg} alt="Risk-Adjusted Returns" mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Example Risk-Adjusted Returns Scenarios
       </Heading>
 
       <Text fontSize="lg" mb={4}>Hushh Renaissance Aloha & Alpha Fund, LP</Text>
       <Text>(A Quantitative Exploration of Potential Return Outcomes Based on Market Conditions and Strategy Performance)</Text>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Scenario 1: Base Case (Expected Outcome)</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Scenario 1: Base Case (Expected Outcome)</Heading>
       <Text fontWeight="bold">Market Conditions:</Text>
       <List spacing={2} pl={4}>
         <ListItem>S&P 500 grows at 6-8% annualized return.</ListItem>
@@ -36,9 +35,9 @@ const RiskAdjustedReturns = () => {
         <ListItem>Max Drawdown: ~12-15%.</ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Scenario 2: Bull Case</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Scenario 2: Bull Case</Heading>
       <Text fontWeight="bold">Market Conditions:</Text>
       <List spacing={2} pl={4}>
         <ListItem>S&P 500 surges 12-18% annually.</ListItem>
@@ -52,9 +51,9 @@ const RiskAdjustedReturns = () => {
         <ListItem>Max Drawdown: ~10%.</ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Scenario 3: Bear Case</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Scenario 3: Bear Case</Heading>
       <Text fontWeight="bold">Market Conditions:</Text>
       <List spacing={2} pl={4}>
         <ListItem>S&P 500 declines 15-25% over 12 months.</ListItem>
@@ -68,9 +67,9 @@ const RiskAdjustedReturns = () => {
         <ListItem>Max Drawdown: ~18-22%.</ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Scenario 4: Worst-Case Black Swan Event</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Scenario 4: Worst-Case Black Swan Event</Heading>
       <Text fontWeight="bold">Market Conditions:</Text>
       <List spacing={2} pl={4}>
         <ListItem>Global liquidity crisis.</ListItem>
@@ -84,9 +83,9 @@ const RiskAdjustedReturns = () => {
         <ListItem>Max Drawdown: 40%+.</ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Final Thought: Building Wealth the Alpha & Aloha Way</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Final Thought: Building Wealth the Alpha & Aloha Way</Heading>
       <Text>
         At Hushh Renaissance Aloha & Alpha Fund, LP, we are committed to risk-adjusted wealth creation with a strategy that aligns
         market efficiency with human psychology and AI-driven execution. Our focus is not just on profits, but on sustainability and long-term compounding.

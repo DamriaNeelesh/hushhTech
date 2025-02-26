@@ -4,9 +4,8 @@ import AlphaAlohaImg from '../../../components/images/blog2o.png';
 
 const InvestorMemoRisk = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-        <Image src={AlphaAlohaImg} alt='Investor Memo Risk Focus'/>
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         🤫 Aloha Alpha Fund – Investor Memo
       </Heading>
       <Text fontSize="lg" mb={4}>
@@ -22,7 +21,7 @@ const InvestorMemoRisk = () => {
         As we continue executing our Aloha & Alpha strategy, I want to ensure full transparency around the risks and rewards of our approach. This memo is designed to build trust through clarity, outlining both the strengths of our fund and the real risks inherent in our strategy.
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         📌 Investment Philosophy: Structured Income Meets Strategic Ownership
       </Heading>
       <Text mb={4}>
@@ -41,7 +40,7 @@ const InvestorMemoRisk = () => {
         However, as with any strategy involving options, derivatives, and margin, there are risks that investors must fully understand.
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         🚨 Risks & Capital Exposure: The Truth You Deserve to Know
       </Heading>
       <List spacing={2} pl={4}>
@@ -76,7 +75,7 @@ const InvestorMemoRisk = () => {
         </ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         📊 The Numbers: Absolute Transparency on Performance & Risk
       </Heading>
       <List spacing={2} pl={4}>
@@ -131,7 +130,7 @@ const InvestorMemoRisk = () => {
         💡 But risk management is always top of mind—we will never be reckless with investor capital.
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         🛡️ How We Manage Risk
       </Heading>
       <List spacing={2} pl={4}>
@@ -141,7 +140,7 @@ const InvestorMemoRisk = () => {
         <ListItem>🔹 Systematic Execution & Engineering – Our proprietary Hushh.ai AI-driven risk models optimize trade structuring in real time.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         🚀 The Future: Maximizing Returns, Protecting Capital
       </Heading>
       <Text mb={4}>

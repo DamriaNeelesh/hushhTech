@@ -1,26 +1,26 @@
 import React from 'react';
-import { Box, Heading, Text,Image, Table, Thead, Tbody, Tr, Th, Td, VStack } from '@chakra-ui/react';
+import { Box, Heading, Text, Image, Table, Thead, Tbody, Tr, Th, Td, VStack } from '@chakra-ui/react';
 import MarketUpdate from '../../../components/images/2_Daily Market Update.jpg'
 
 const CompensationReport = () => {
   return (
-    <Box p={5} maxW="1200px" mx="auto">
-        <Image src={MarketUpdate} alt="Funds Update" mb={4} borderRadius="md" />
+    <Box p={0} color="black" borderRadius="md">
+      <Image src={MarketUpdate} alt="Funds Update" mb={4} borderRadius="md" />
 
-      {/* <Heading as="h1" size="2xl" mb={6} textAlign="center">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Comprehensive Report on Compensation Patterns in Pune, Maharashtra
-      </Heading> */}
+      </Heading>
 
       <VStack spacing={6} align="stretch">
         <Box>
-          <Heading as="h2" size="lg">Overview</Heading>
+          <Heading as="h2" fontSize="lg">Overview</Heading>
           <Text>
             This report provides detailed insights into compensation patterns for young professionals in Pune, focusing on bachelor’s, master’s, and PhD graduates. It also outlines internship and contractor compensation levels, emphasizing candidates skilled in science, creativity, engineering, storytelling, and product development.
           </Text>
         </Box>
 
         <Box>
-          <Heading as="h2" size="lg">Compensation Philosophy</Heading>
+          <Heading as="h2" fontSize="lg">Compensation Philosophy</Heading>
           <Text>
             Hushh’s approach to compensation prioritizes a competitive yet sustainable structure:
           </Text>
@@ -32,7 +32,7 @@ const CompensationReport = () => {
         </Box>
 
         <Box>
-          <Heading as="h2" size="lg">Salary and Stipend Ranges (INR)</Heading>
+          <Heading as="h2" fontSize="lg">Salary and Stipend Ranges (INR)</Heading>
           <Table variant="simple">
             <Thead>
               <Tr>
@@ -78,7 +78,7 @@ const CompensationReport = () => {
         </Box>
 
         <Box>
-          <Heading as="h2" size="lg">Implementation Plan</Heading>
+          <Heading as="h2" fontSize="lg">Implementation Plan</Heading>
           <ul>
             <li>Data Updates: Regular market analysis to ensure competitiveness.</li>
             <li>Performance Reviews: Bi-annual reviews to adjust compensation.</li>

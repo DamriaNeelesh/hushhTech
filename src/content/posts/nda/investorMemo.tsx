@@ -11,18 +11,17 @@ export const frontmatter = {
 
 const HushhInvestorMemo = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Image src={AlphaAlohaImg} alt="Hushh Technologies Investor Memo" mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Hushh Technologies Investor Memo
       </Heading>
       <Text mb={4}>
         Prepared for Strategic Investors & Partners (Under Mutual Standing NDA in place between HushOne, Inc and/or Hushh Technologies LLC)
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         I. Executive Summary
       </Heading>
       <Text mb={4}>
@@ -50,9 +49,9 @@ const HushhInvestorMemo = () => {
         Hushh is not just a startup—it’s a category-defining movement for AI, privacy, and personal wealth creation.
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         II. Market Opportunity
       </Heading>
       <Text mb={4}>
@@ -79,9 +78,9 @@ const HushhInvestorMemo = () => {
         Hushh is the first-mover in a personal data-first AI economy, creating a trillion-dollar category before the rest of the world catches up.
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         III. Business Model & Revenue Streams
       </Heading>
       <Text mb={4}>
@@ -133,9 +132,9 @@ const HushhInvestorMemo = () => {
         Projected Revenue: $25M+ annually.
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         IV. Competitive Advantage & Moat
       </Heading>
       <Text mb={4}>
@@ -148,9 +147,9 @@ const HushhInvestorMemo = () => {
         <ListItem>High Retention & Stickiness → Users stay because they own their data, monetize it, and build wealth.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         V. Growth Strategy & Milestones
       </Heading>
       <Text mb={4}>
@@ -171,9 +170,9 @@ const HushhInvestorMemo = () => {
         <ListItem>Be the Market Leader in Personal Data Economy → The category-defining company.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         VI. Financials & Fundraising Strategy
       </Heading>
       <Text mb={4}>
@@ -206,9 +205,9 @@ const HushhInvestorMemo = () => {
         Our focus is on aligned, long-term capital partners who believe in our vision and are committed to exponential growth.
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         VII. Why Invest in Hushh?
       </Heading>
       <Text mb={4}>
@@ -225,9 +224,9 @@ const HushhInvestorMemo = () => {
         Hushh is not just a company—it’s a new economic paradigm that will shape the future of AI, data, and financial empowerment.
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         VIII. Next Steps & Investor Discussion
       </Heading>
       <Text mb={4}>
@@ -249,7 +248,7 @@ const HushhInvestorMemo = () => {
         📩 manish@hushh.ai
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
       <Text mb={4}>
         {/* End of Investor Memo */}

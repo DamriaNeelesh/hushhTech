@@ -11,9 +11,8 @@ export const frontmatter = {
 
 const TaxDisclosures = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Image src={AlphaAlohaImg} alt="Tax Disclosures" mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Tax Disclosures for Fund A
       </Heading>
 
@@ -21,9 +20,9 @@ const TaxDisclosures = () => {
         Ensuring full compliance and transparency for international investors while maximizing tax efficiency.
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         I. General Tax Disclaimer
       </Heading>
       <List spacing={2} pl={4} mb={4}>
@@ -33,9 +32,9 @@ const TaxDisclosures = () => {
         <ListItem>Investors should be aware of potential reporting requirements in their home country related to offshore investments.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         II. Tax Treatment for Non-U.S. Investors
       </Heading>
       <List spacing={2} pl={4} mb={4}>
@@ -44,9 +43,9 @@ const TaxDisclosures = () => {
         <ListItem>Potential Withholding Tax on Dividends: U.S. dividends paid to the master fund are subject to a 30% withholding tax unless reduced by a tax treaty.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         III. U.S. Tax Treatment for Onshore Investors
       </Heading>
       <List spacing={2} pl={4} mb={4}>
@@ -54,18 +53,18 @@ const TaxDisclosures = () => {
         <ListItem>1256 Contract Treatment for Index Options: Profits from Section 1256 contracts (e.g., SPX options) receive 60/40 tax treatment.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         IV. Offshore Master-Feeder Tax Strategy Summary
       </Heading>
       <Table variant="simple" mb={4}>
         <Thead>
           <Tr>
-            <Th color="teal.200">Fund Entity</Th>
-            <Th color="teal.200">Tax Jurisdiction</Th>
-            <Th color="teal.200">Tax Treatment</Th>
-            <Th color="teal.200">Investor Impact</Th>
+            <Th color="black">Fund Entity</Th>
+            <Th color="black">Tax Jurisdiction</Th>
+            <Th color="black">Tax Treatment</Th>
+            <Th color="black">Investor Impact</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -90,9 +89,9 @@ const TaxDisclosures = () => {
         </Tbody>
       </Table>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         V. FATCA & CRS Compliance
       </Heading>
       <List spacing={2} pl={4} mb={4}>
@@ -100,9 +99,9 @@ const TaxDisclosures = () => {
         <ListItem>CRS (Common Reporting Standard): The offshore feeder fund will report account details to tax authorities in participating CRS countries.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         VI. Risk Factors & Tax Liabilities
       </Heading>
       <List spacing={2} pl={4} mb={4}>
@@ -110,9 +109,9 @@ const TaxDisclosures = () => {
         <ListItem>Mitigation Strategies: Legally recognized offshore structures, minimized dividend exposure, and comprehensive tax documentation (W-8BEN, K-1).</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         VII. Investor Acknowledgment & Acceptance
       </Heading>
       <Text mb={4}>

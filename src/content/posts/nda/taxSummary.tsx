@@ -11,9 +11,8 @@ export const frontmatter = {
 
 const TaxSummary = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Image src={AlphaAlohaImg} alt="Tax Summary" mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Tax Summary for High-Net-Worth Investors
       </Heading>
 
@@ -21,9 +20,9 @@ const TaxSummary = () => {
         Optimized Tax Structure for Global Investors in the Renaissance Aloha & Alpha Fund
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         1. Overview: Tax-Efficient Structure for Global Investors
       </Heading>
       <List spacing={2} pl={4} mb={4}>
@@ -33,17 +32,17 @@ const TaxSummary = () => {
         <ListItem>Favorable 60/40 Tax Treatment for U.S. Investors (Blended 26.8% Rate)</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         2. Tax Treatment Based on Investor Type
       </Heading>
       <Table variant="simple" mb={4}>
         <Thead>
           <Tr>
-            <Th color="teal.200">Investor Type</Th>
-            <Th color="teal.200">Tax Liability in the U.S.</Th>
-            <Th color="teal.200">Tax Optimization Strategy</Th>
+            <Th color="black">Investor Type</Th>
+            <Th color="black">Tax Liability in the U.S.</Th>
+            <Th color="black">Tax Optimization Strategy</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -70,9 +69,9 @@ const TaxSummary = () => {
         </Tbody>
       </Table>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         3. How the Fund Avoids U.S. Tax Drag for Foreign Investors
       </Heading>
       <List spacing={2} pl={4} mb={4}>
@@ -85,9 +84,9 @@ const TaxSummary = () => {
         </List>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         4. Tax Compliance & Reporting Requirements
       </Heading>
       <List spacing={2} pl={4} mb={4}>
@@ -109,18 +108,18 @@ const TaxSummary = () => {
         </ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         5. Tax-Efficient Fund Structure
       </Heading>
       <Table variant="simple" mb={4}>
         <Thead>
           <Tr>
-            <Th color="teal.200">Entity</Th>
-            <Th color="teal.200">Location</Th>
-            <Th color="teal.200">Tax Treatment</Th>
-            <Th color="teal.200">Who Invests?</Th>
+            <Th color="black">Entity</Th>
+            <Th color="black">Location</Th>
+            <Th color="black">Tax Treatment</Th>
+            <Th color="black">Who Invests?</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -145,9 +144,9 @@ const TaxSummary = () => {
         </Tbody>
       </Table>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         6. Key Tax Benefits for Investors
       </Heading>
       <List spacing={2} pl={4} mb={4}>

@@ -11,9 +11,8 @@ export const frontmatter = {
 
 const EvergreenFundHighlight = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Image src={AlphaAlohaImg} alt="Evergreen Nature of the Fund" mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Highlighting the Evergreen Nature of the Fund
       </Heading>
 
@@ -21,9 +20,9 @@ const EvergreenFundHighlight = () => {
         The 🌲 evergreen nature of our fund, inspired by the enduring success of legendary funds like the Renaissance Medallion Fund, serves as a cornerstone of our strategy. Here’s how we emphasize and communicate this characteristic to our NDA-approved investors through the Additional Information Folder:
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         1. Evergreen Philosophy: What It Means
       </Heading>
       <List spacing={2} pl={4}>
@@ -32,9 +31,9 @@ const EvergreenFundHighlight = () => {
         <ListItem><strong>Resilient Core Assets:</strong> Investing in high-quality, free cash flow (FCF)-rich businesses with durable moats, ensuring stability through all economic cycles.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         2. Comparison to the Renaissance Medallion Fund
       </Heading>
       <List spacing={2} pl={4}>
@@ -43,12 +42,12 @@ const EvergreenFundHighlight = () => {
         <ListItem><strong>Limited Investor Access:</strong> Exclusivity to select NDA-approved investors ensures focus on long-term relationships and careful management of assets under management (AUM).</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         3. Features that Define Our Evergreen Nature
       </Heading>
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         3.1 Sustainable Alpha Strategy
       </Heading>
       <List spacing={2} pl={4}>
@@ -56,14 +55,14 @@ const EvergreenFundHighlight = () => {
         <ListItem>By focusing on high-liquidity, FCF-heavy businesses (e.g., AAPL, GOOGL, AMZN), we generate returns from both core appreciation and premium income.</ListItem>
       </List>
 
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         3.2 Reinvestment for Growth
       </Heading>
       <List spacing={2} pl={4}>
         <ListItem>Earnings and premium income are systematically reinvested into existing positions or new opportunities, ensuring compounding returns.</ListItem>
       </List>
 
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         3.3 Resilience Through Market Cycles
       </Heading>
       <List spacing={2} pl={4}>
@@ -75,19 +74,19 @@ const EvergreenFundHighlight = () => {
         </List>
       </List>
 
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         3.4 Intergenerational Wealth Creation
       </Heading>
       <List spacing={2} pl={4}>
         <ListItem>The fund is designed with multi-generational timelines in mind, aligning with investors seeking to preserve and grow wealth across decades.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         4. Transparent Communication of Risks and Rewards
       </Heading>
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         4.1 Risks
       </Heading>
       <List spacing={2} pl={4}>
@@ -96,7 +95,7 @@ const EvergreenFundHighlight = () => {
         <ListItem>Options Complexity: Selling calls and puts requires disciplined execution to prevent overexposure during market swings.</ListItem>
       </List>
 
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         4.2 Rewards
       </Heading>
       <List spacing={2} pl={4}>
@@ -105,9 +104,9 @@ const EvergreenFundHighlight = () => {
         <ListItem>Strong Moats: Core holdings are businesses with proven ability to adapt, innovate, and grow.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         5. Operational Excellence
       </Heading>
       <List spacing={2} pl={4}>
@@ -116,12 +115,12 @@ const EvergreenFundHighlight = () => {
         <ListItem>Investor Access: Limited to sophisticated NDA-approved investors who align with the fund’s long-term vision.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         6. Branding the Fund’s Evergreen Identity
       </Heading>
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         Core Messaging
       </Heading>
       <List spacing={2} pl={4}>
@@ -130,7 +129,7 @@ const EvergreenFundHighlight = () => {
         <ListItem>“Rooted in Resilience, Powered by Precision.”</ListItem>
       </List>
 
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         Investor Communication
       </Heading>
       <List spacing={2} pl={4}>
@@ -138,23 +137,23 @@ const EvergreenFundHighlight = () => {
         <ListItem>Provide performance breakdowns emphasizing reinvestment benefits and compounding alpha.</ListItem>
       </List>
 
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         Ongoing Comparisons to Medallion Fund
       </Heading>
       <List spacing={2} pl={4}>
         <ListItem>Reinforce how we emulate the principles of evergreen funds while tailoring the approach to our unique mission and values.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         7. Evergreen Fund Vision Statement
       </Heading>
       <Text mb={4}>
         “Our fund is built to endure—much like the evergreens of the Pacific Northwest. By investing in the most resilient and innovative businesses in the world, we create a vehicle for sustainable alpha generation. Rooted in principles of transparency, discipline, and growth, the fund serves as a legacy of intergenerational wealth creation, ensuring prosperity for decades and beyond.”
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         Investor Takeaway
       </Heading>
       <Text>

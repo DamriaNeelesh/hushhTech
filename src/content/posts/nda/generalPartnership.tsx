@@ -5,9 +5,8 @@ import AlphaAlohaImg from '../../../components/images/blog2o.png';
 
 const GeneralPartnershipAgreement = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-    <Image src={AlphaAlohaImg} alt="General Parnetship Agreement" mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="xl" mb={4} color="black">
         GENERAL PARTNERSHIP AGREEMENT (GPA)
       </Heading>
       <Text fontSize="lg" mb={4}>
@@ -24,7 +23,7 @@ const GeneralPartnershipAgreement = () => {
         <ListItem>2. Additional General Partners (“GPs”), collectively referred to as “Partners”.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         1. FORMATION AND PURPOSE
       </Heading>
       <Text mb={4}>
@@ -43,7 +42,7 @@ const GeneralPartnershipAgreement = () => {
         <ListItem>• Ensuring regulatory compliance and transparency across ADGM, UAE, SEC, and global jurisdictions.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         2. PARTNER ROLES & CAPITAL STRUCTURE
       </Heading>
       <Text mb={4}>
@@ -72,7 +71,7 @@ const GeneralPartnershipAgreement = () => {
         <ListItem>• MGP retains a management and performance-based allocation (15-25%).</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         3. MANAGEMENT, GOVERNANCE, AND DECISION-MAKING
       </Heading>
       <Text mb={4}>
@@ -90,7 +89,7 @@ const GeneralPartnershipAgreement = () => {
         <ListItem>• Routine investment decisions and trade execution remain under MGP authority.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         4. ECONOMIC TERMS & COMPENSATION STRUCTURE
       </Heading>
       <Text mb={4}>
@@ -114,7 +113,7 @@ const GeneralPartnershipAgreement = () => {
         <ListItem>• MGP charges management fees (1-1.5%) to cover operational expenses.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         5. LEGAL, REGULATORY, AND COMPLIANCE
       </Heading>
       <Text mb={4}>
@@ -139,7 +138,7 @@ const GeneralPartnershipAgreement = () => {
         <ListItem>• Legal proceedings may only be initiated in ADGM courts.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         6. EXIT STRATEGY & DISSOLUTION
       </Heading>
       <Text mb={4}>
@@ -161,7 +160,7 @@ const GeneralPartnershipAgreement = () => {
         </List>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         7. EXECUTION
       </Heading>
       <Text mb={4}>

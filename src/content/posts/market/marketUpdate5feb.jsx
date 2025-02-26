@@ -11,10 +11,10 @@ export const frontmatter = {
 
 const MarketUpdate5Feb = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Image src={MarketUpdateImg} alt="Market Update" mb={4} borderRadius="md" />
-
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      {/* <Image src={MarketUpdateImg} alt="Market Update" mb={4} borderRadius="md" /> */}
+ 
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Alpha Aloha Fund Market and Fund Update Report
       </Heading>
 
@@ -22,8 +22,8 @@ const MarketUpdate5Feb = () => {
       <Text mb={2}><strong>NAV (Maintenance Capital at Risk):</strong> $7,619,000</Text>
       <Text mb={2}><strong>Cash Position:</strong> $5,632,000</Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Performance Overview</Heading>
-      <Heading as="h4" size="md" color="teal.100" mb={2}>Daily Performance (Feb 5, 2025):</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Performance Overview</Heading>
+      <Heading as="h4" fontSize="md" color="black" mb={2}>Daily Performance (Feb 5, 2025):</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>Net Income (Day):</strong> $80,438 (1.06% of NAV)</ListItem>
         <ListItem><strong>Proceeds:</strong> $1,514,209.76</ListItem>
@@ -32,28 +32,28 @@ const MarketUpdate5Feb = () => {
         <ListItem><strong>Transaction Count:</strong> Gains: 146 (15.72% avg gain), Losses: 4 (-0.02% avg loss)</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Strategy Highlights</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Strategy Highlights</Heading>
       <Text mb={2}><strong>1. Selling the Walls</strong> – Strategic trades in GOOGL and SNAP delivered $80K in net income.</Text>
       <Text mb={2}><strong>2. Key Tech Holdings:</strong> GOOGL, SNAP, AAPL, TSLA</Text>
       <Text mb={2}><strong>3. Diversification Moves:</strong> Allocations in AAPL, TSLA, and consumer staples.</Text>
       <Text mb={2}><strong>4. Hedging:</strong> NVIDIA (NVDA) long puts for market risk hedging.</Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Market Commentary</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Market Commentary</Heading>
       <Text mb={2}><strong>Tech Sector Resilience:</strong> Mega-cap tech showed strength despite mixed earnings.</Text>
       <Text mb={2}><strong>Macro Insights:</strong> Dow +0.71%, Nasdaq +1.64%, signaling investor optimism.</Text>
 
-      <Heading as="h4" size="md" color="yellow.300" mt={4}>Humor & Highlights</Heading>
+      <Heading as="h4" fontSize="md" color="black" mt={4}>Humor & Highlights</Heading>
       <List spacing={2}>
         <ListItem>“GOOGL’s AI CapEx is like building a mansion to rent out—great if demand soars, but costly if it doesn’t.”</ListItem>
         <ListItem>“SNAP earnings: From loss-making to profitability. Next stop? Monetizing AI lenses for Mars selfies!”</ListItem>
         <ListItem>“Apple’s iCloud upsell game: ‘Need storage for your storage? We’ve got you covered for $9.99/month.’”</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={2}>Closing Remarks</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={2}>Closing Remarks</Heading>
       <Text mb={4}>
         The Alpha Aloha Fund celebrates a stellar week with over $80K daily income, $117K MTD, and $466K YTD gains. These results affirm our disciplined strategies of premium capture, risk management, and sector rotation.
       </Text>

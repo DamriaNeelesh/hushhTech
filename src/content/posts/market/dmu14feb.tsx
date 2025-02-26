@@ -13,10 +13,10 @@ export const frontmatter = {
 
 const Dmu14feb: React.FC = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Image src={MarketUpdate} alt="Aloha Alpha Fund Update" mb={4} borderRadius="md" />
+    <Box color="black" borderRadius="md">
+      {/* <Image src={MarketUpdate} alt="Aloha Alpha Fund Update" mb={4} borderRadius="md" /> */}
 
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Aloha Alpha Fund Market & Fund Update Report
       </Heading>
 
@@ -26,18 +26,18 @@ const Dmu14feb: React.FC = () => {
         Prepared for: Internal Review & Investor Communication
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
       <VStack spacing={4} align="stretch">
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Net Liquidity & Cash Position</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Net Liquidity & Cash Position</Heading>
           <Text mt={2}>• NAV (Net Liquidity Value): $8.156M (increased from $7.989M)</Text>
           <Text>• Cash & Sweep Vehicle: $5.256M (increased from $5.103M)</Text>
           <Text mt={2}>Another strong trading session as we continued to execute our strategy, maximizing rental income while maintaining strategic exposure to high-quality free cash flow businesses.</Text>
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Performance Overview</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Performance Overview</Heading>
           <Text mt={2}><strong>Daily Performance (Feb 14, 2025)</strong></Text>
           <Text>• Net Income (Day): +$28,405.08</Text>
           <Text>• % of NAV: +0.35%</Text>
@@ -52,7 +52,7 @@ const Dmu14feb: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Month-to-Date Performance (Feb 2025)</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Month-to-Date Performance (Feb 2025)</Heading>
           <Text mt={2}>• Net Income (MTD): +$279,469.61 (increased from $277,463.96)</Text>
           <Text>• % of NAV: +5.49%</Text>
           <Text>• Proceeds: $5,835,101.72</Text>
@@ -66,7 +66,7 @@ const Dmu14feb: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Year-to-Date Performance (YTD - Jan 1 to Feb 14, 2025)</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Year-to-Date Performance (YTD - Jan 1 to Feb 14, 2025)</Heading>
           <Text mt={2}>• Net Income (YTD): +$636,530.75 (increased from $633,440.51)</Text>
           <Text>• % of NAV: +7.94%</Text>
           <Text>• Proceeds: $15,136,070.55</Text>
@@ -80,7 +80,7 @@ const Dmu14feb: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Strategy Highlights</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Strategy Highlights</Heading>
           <Text mt={2}><strong>1. Execution of Strategy</strong></Text>
           <Text>• Rolled over positions in: AAPL, BRK/B, TSLA, NVDA, GOOGL.</Text>
           <Text>• Extracted volatility and turned it into rental income.</Text>
@@ -97,7 +97,7 @@ const Dmu14feb: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Market Commentary</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Market Commentary</Heading>
           <Text mt={2}><strong>SPX5 Core Positions & Performance</strong></Text>
           <Text>• Nvidia (NVDA): $1.20 increase to $135.18 (RSI: 54.26)</Text>
           <Text>• Amazon (AMZN): $3.22 increase to $235.42 (RSI: 54.02)</Text>
@@ -113,7 +113,7 @@ const Dmu14feb: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Closing Remarks</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Closing Remarks</Heading>
           <Text mt={2}>The win rate today was 95.83%, indicating strong cash flow compounding.</Text>
           <Text>Cash reserves are at $5.256M, ready for tactical redeployment.</Text>
           <Text>Tech, AI, and structured rental strategies remain the primary drivers of free cash flow.</Text>

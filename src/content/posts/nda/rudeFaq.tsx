@@ -10,14 +10,13 @@ export const frontmatter = {
   
 const RudeFAQ = () => {
   return (
-    <Container maxW="container.md" py={10}>
-                    <Image src={HushhAiLogoImg} alt="Funds Update" mb={4} borderRadius="md" />
-      <Heading as="h1" size="xl" mb={6} textAlign="center">
+    <Box color="black" borderRadius="md">
+      <Heading as="h1" fontSize="2xl" mb={6} textAlign="center">
         Rude FAQ: The No-BS Guide to “Sell the Wall” and Making Money the Smart Way
       </Heading>
       <VStack spacing={6} align="stretch">
         <Box>
-          <Heading as="h2" size="lg">1. What the hell is “Sell the Wall”?</Heading>
+          <Heading as="h2" fontSize="lg">1. What the hell is “Sell the Wall”?</Heading>
           <Text>
             It’s the cheat code for making money off market stupidity. We sell options on the
             biggest, baddest, most cash-rich companies on the planet—Apple, Google, NVIDIA, Amazon—
@@ -26,7 +25,7 @@ const RudeFAQ = () => {
         </Box>
         <Divider />
         <Box>
-          <Heading as="h2" size="lg">2. Why options? Why not just buy stocks like a “normal” investor?</Heading>
+          <Heading as="h2" fontSize="lg">2. Why options? Why not just buy stocks like a “normal” investor?</Heading>
           <Text>
             Because “normal investors” are waiting years for dividends while we’re getting paid every
             week. We don’t do hope-and-pray investing. We extract value from stocks we already want to own.
@@ -34,7 +33,7 @@ const RudeFAQ = () => {
         </Box>
         <Divider />
         <Box>
-          <Heading as="h2" size="lg">3. Isn’t this risky? I heard options are dangerous.</Heading>
+          <Heading as="h2" fontSize="lg">3. Isn’t this risky? I heard options are dangerous.</Heading>
           <Text>
             Risky? You know what’s risky? Buying garbage stocks that don’t generate cash. You know what’s NOT
             risky? Selling options on businesses with more cash than some governments. We’re collecting rent from
@@ -43,7 +42,7 @@ const RudeFAQ = () => {
         </Box>
         <Divider />
         <Box>
-          <Heading as="h2" size="lg">4. What if the stock crashes?</Heading>
+          <Heading as="h2" fontSize="lg">4. What if the stock crashes?</Heading>
           <Text>
             Then we do what billionaires do: buy more at a discount while still making money on premiums. We play this
             game with patience and math, not emotions.
@@ -51,7 +50,7 @@ const RudeFAQ = () => {
         </Box>
         <Divider />
         <Box>
-          <Heading as="h2" size="lg">5. What happens if the shares get called away?</Heading>
+          <Heading as="h2" fontSize="lg">5. What happens if the shares get called away?</Heading>
           <Text>
             We let the shares go at a profit, then sell puts to buy them back cheaper. We don’t get attached to stocks;
             we get attached to cash flow.
@@ -59,7 +58,7 @@ const RudeFAQ = () => {
         </Box>
         <Divider />
         <Box>
-          <Heading as="h2" size="lg">6. Can’t I just YOLO options and make more money?</Heading>
+          <Heading as="h2" fontSize="lg">6. Can’t I just YOLO options and make more money?</Heading>
           <Text>
             Sure, if you want to blow up your account in a week. Options traders lose because they buy options like
             lottery tickets. We sell options like the house in Vegas—and the house always wins.
@@ -67,7 +66,7 @@ const RudeFAQ = () => {
         </Box>
         <Divider />
         <Box>
-          <Heading as="h2" size="lg">7. How do you pick which options to sell?</Heading>
+          <Heading as="h2" fontSize="lg">7. How do you pick which options to sell?</Heading>
           <Text>
             We target free cash flow monsters that have the deepest, most liquid options markets. If it’s a company that
             runs the world, we probably have it in the rotation.
@@ -75,7 +74,7 @@ const RudeFAQ = () => {
         </Box>
         <Divider />
         <Box>
-          <Heading as="h2" size="lg">8. What’s your edge?</Heading>
+          <Heading as="h2" fontSize="lg">8. What’s your edge?</Heading>
           <Text>
             We don’t panic, we don’t guess, and we sure as hell don’t gamble. We use:
           </Text>
@@ -85,7 +84,7 @@ const RudeFAQ = () => {
         </Box>
         <Divider />
         <Box>
-          <Heading as="h2" size="lg">9. What returns can I expect?</Heading>
+          <Heading as="h2" fontSize="lg">9. What returns can I expect?</Heading>
           <Text>
             We target 12%-20% annualized returns in a strategy that pays us every single week. That’s before even
             accounting for stock appreciation.
@@ -93,14 +92,14 @@ const RudeFAQ = () => {
         </Box>
         <Divider />
         <Box>
-          <Heading as="h2" size="lg">10. What’s the minimum buy-in?</Heading>
+          <Heading as="h2" fontSize="lg">10. What’s the minimum buy-in?</Heading>
           <Text>
             $1,000,000/-. If that sounds high, this fund isn’t for you.
           </Text>
         </Box>
         <Divider />
         <Box>
-          <Heading as="h2" size="lg">11. What’s the catch?</Heading>
+          <Heading as="h2" fontSize="lg">11. What’s the catch?</Heading>
           <Text>
             The only catch is you should have started sooner. We built a strategy designed to print money from market
             inefficiencies. If you want to keep playing the stock market like a casino, go ahead—just know we’re the
@@ -109,13 +108,13 @@ const RudeFAQ = () => {
         </Box>
         <Divider />
         <Box>
-          <Heading as="h2" size="lg">12. How do I invest?</Heading>
+          <Heading as="h2" fontSize="lg">12. How do I invest?</Heading>
           <Text>
             Wire the funds. We’ll take care of the rest. Welcome to the smart money.
           </Text>
         </Box>
       </VStack>
-    </Container>
+    </Box>
   );
 };
 

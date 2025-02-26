@@ -4,10 +4,8 @@ import AlphaAlohaImg from '../../../components/images/blog2o.png';
 
 const MarketFundUpdate10feb = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Image src={AlphaAlohaImg} alt="Market and Fund Update" mb={4} borderRadius="md" />
-
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Alpha Aloha Fund Market and Fund Update Report
       </Heading>
       
@@ -21,7 +19,7 @@ const MarketFundUpdate10feb = () => {
         Cash Position: $5,096,000
       </Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Performance Overview</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Performance Overview</Heading>
       <Text mb={4}>
         <strong>Daily Performance (Feb 10, 2025):</strong>
       </Text>
@@ -73,7 +71,7 @@ const MarketFundUpdate10feb = () => {
         <ListItem>• Win Rate: 93.43%</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Strategy Highlights</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Strategy Highlights</Heading>
       <List spacing={2} pl={4}>
         <ListItem>1️⃣ Sell the Wall Strategy Execution</ListItem>
         <ListItem>✅ Maintained laddered calls and cash-covered puts to manage market swings.</ListItem>
@@ -86,7 +84,7 @@ const MarketFundUpdate10feb = () => {
         <ListItem>✅ Still maintaining a strong cash hoard to deploy strategically.</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Market Commentary</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Market Commentary</Heading>
       <Text mb={4}>
         <strong>Tech Sector Movers</strong>
       </Text>
@@ -108,7 +106,7 @@ const MarketFundUpdate10feb = () => {
         🌍 Markets shrugged off rate hike fears today as AI and tech sectors flexed their muscles.
       </Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Closing Remarks</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Closing Remarks</Heading>
       <Text mb={4}>
         🔴 A down day, but a winning month!
       </Text>

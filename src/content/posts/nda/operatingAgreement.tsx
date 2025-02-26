@@ -13,9 +13,8 @@ export const frontmatter = {
 
 const OperatingAgreement: React.FC = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-        <Image src={OperatingAgreementImg} alt="Operating Agreement" mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Operating Agreement for Hushh Technologies LLC
       </Heading>
 
@@ -23,17 +22,17 @@ const OperatingAgreement: React.FC = () => {
         Below is a draft Articles of Ownership document tailored for Hushh Investments LLC and its associated entities. This document is designed to align with your compliance goals under U.S. regulations, particularly SEC guidelines, while providing flexibility for expansion into global markets. It incorporates key principles to ensure transparency, operational clarity, and legal adherence.
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
       <VStack spacing={4} align="stretch">
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Articles of Ownership</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Articles of Ownership</Heading>
           <Text mt={2}><strong>Effective Date:</strong> [Insert Date]</Text>
           <Text><strong>Jurisdiction of Formation:</strong> Delaware, United States (Primary)</Text>
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">I. Name and Purpose</Heading>
+          <Heading as="h3" fontSize="lg" color="black">I. Name and Purpose</Heading>
           <Text mt={2}><strong>Name:</strong></Text>
           <Text>The name of the entity shall be Hushh Investments LLC.</Text>
           <Text mt={2}><strong>Purpose:</strong></Text>
@@ -41,12 +40,12 @@ const OperatingAgreement: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">II. Principal Office</Heading>
+          <Heading as="h3" fontSize="lg" color="black">II. Principal Office</Heading>
           <Text mt={2}>The principal office of Hushh Investments LLC shall be located in Delaware, United States, with additional branches or affiliates established globally as needed for operational or regulatory purposes.</Text>
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">III. Membership and Ownership Structure</Heading>
+          <Heading as="h3" fontSize="lg" color="black">III. Membership and Ownership Structure</Heading>
           <Text mt={2}><strong>Ownership Classes:</strong></Text>
           <Text>• Class A Members (Founders): Reserved for founding members. Class A shares grant voting rights on all strategic decisions, including capital allocation and major governance changes.</Text>
           <Text>• Class B Members (Investors): Reserved for accredited investors, family offices, and sovereign wealth funds contributing capital. Class B shares grant financial participation without governance voting rights.</Text>
@@ -57,7 +56,7 @@ const OperatingAgreement: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">IV. Entity Structure</Heading>
+          <Heading as="h3" fontSize="lg" color="black">IV. Entity Structure</Heading>
           <Text mt={2}><strong>Parent Entity:</strong></Text>
           <Text>Hushh Investments LLC (Delaware, USA): Serves as the primary holding company for all subsidiaries.</Text>
           <Text mt={2}><strong>Subsidiaries:</strong></Text>
@@ -70,7 +69,7 @@ const OperatingAgreement: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">V. Capital Contributions</Heading>
+          <Heading as="h3" fontSize="lg" color="black">V. Capital Contributions</Heading>
           <Text mt={2}><strong>Initial Contributions:</strong></Text>
           <Text>Founders (Class A Members) shall contribute capital, intellectual property, or services as agreed upon in the Operating Agreement.</Text>
           <Text mt={2}><strong>Subsequent Contributions:</strong></Text>
@@ -80,7 +79,7 @@ const OperatingAgreement: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">VI. Allocation of Profits and Losses</Heading>
+          <Heading as="h3" fontSize="lg" color="black">VI. Allocation of Profits and Losses</Heading>
           <Text mt={2}><strong>Profit Allocation:</strong></Text>
           <Text>Net profits shall be allocated based on membership units, subject to special allocations for Class A Members.</Text>
           <Text mt={2}><strong>Loss Allocation:</strong></Text>
@@ -90,7 +89,7 @@ const OperatingAgreement: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">VII. Governance</Heading>
+          <Heading as="h3" fontSize="lg" color="black">VII. Governance</Heading>
           <Text mt={2}><strong>Meetings of Members:</strong></Text>
           <Text>Annual meetings shall be held for strategic planning and performance review.</Text>
           <Text mt={2}><strong>Decision-Making:</strong></Text>
@@ -100,7 +99,7 @@ const OperatingAgreement: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">VIII. Compliance and Reporting</Heading>
+          <Heading as="h3" fontSize="lg" color="black">VIII. Compliance and Reporting</Heading>
           <Text mt={2}><strong>Regulatory Compliance:</strong></Text>
           <Text>The LLC and its subsidiaries shall comply with all applicable laws, including SEC, FINRA, and CFTC regulations. Anti-money laundering (AML) and Know Your Customer (KYC) procedures shall be strictly enforced.</Text>
           <Text mt={2}><strong>Annual Reporting:</strong></Text>
@@ -108,7 +107,7 @@ const OperatingAgreement: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">IX. Risk Management</Heading>
+          <Heading as="h3" fontSize="lg" color="black">IX. Risk Management</Heading>
           <Text mt={2}><strong>Hedging Strategy:</strong></Text>
           <Text>The LLC shall implement layered hedging to protect against market downturns (5%, 10%, 25% OTM protection).</Text>
           <Text mt={2}><strong>Leverage Limits:</strong></Text>
@@ -118,7 +117,7 @@ const OperatingAgreement: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">X. Dissolution</Heading>
+          <Heading as="h3" fontSize="lg" color="black">X. Dissolution</Heading>
           <Text mt={2}><strong>Voluntary Dissolution:</strong></Text>
           <Text>The LLC may be dissolved upon a unanimous vote of Class A Members.</Text>
           <Text mt={2}><strong>Distribution of Assets:</strong></Text>
@@ -126,17 +125,17 @@ const OperatingAgreement: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">XI. Amendments</Heading>
+          <Heading as="h3" fontSize="lg" color="black">XI. Amendments</Heading>
           <Text mt={2}>These Articles of Ownership may be amended only with the written consent of two-thirds of the Class A Members.</Text>
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">XII. Governing Law</Heading>
+          <Heading as="h3" fontSize="lg" color="black">XII. Governing Law</Heading>
           <Text mt={2}>These Articles shall be governed by and construed in accordance with the laws of the State of Delaware, United States.</Text>
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Signatures</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Signatures</Heading>
           <Text mt={2}>By signing below, the members agree to the terms set forth in these Articles of Ownership.</Text>
           <Text>Managing Member:</Text>
           <Text>Name:</Text>
@@ -150,7 +149,7 @@ const OperatingAgreement: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Free Cash Flow: The King of All Metrics</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Free Cash Flow: The King of All Metrics</Heading>
           <Text mt={2}>If you could pick just one number to judge a company by—just one metric to decide whether a business is truly great—what would it be?</Text>
           <Text>Revenue? Too easy to inflate.</Text>
           <Text>Earnings? Too full of accounting tricks.</Text>

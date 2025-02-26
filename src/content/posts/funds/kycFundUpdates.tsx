@@ -11,29 +11,29 @@ export const frontmatter = {
 
 const AMLKYCDocumentation = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
+    <Box p={0} color="black" borderRadius="md">
       <Image src={FundsUpdateImg4} alt="AML KYC Documentation" mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         ANTI-MONEY LAUNDERING (AML) & KNOW YOUR CUSTOMER (KYC) DOCUMENTATION
       </Heading>
       
       <Text fontSize="lg" mb={4}>Hushh Renaissance Aloha & Alpha Fund, LP</Text>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Purpose of AML/KYC Requirements</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Purpose of AML/KYC Requirements</Heading>
       <List spacing={2} pl={4}>
         <ListItem>Compliance with U.S. and global AML/KYC regulations.</ListItem>
         <ListItem>Prevention of illicit financial activities, including money laundering.</ListItem>
         <ListItem>Ensuring transparency and investor security.</ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Required AML/KYC Documentation</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Required AML/KYC Documentation</Heading>
       <Text>Investors must provide the following documents before capital acceptance:</Text>
       
-      <Heading as="h4" size="md" color="teal.300" mt={4}>Individual Investors</Heading>
+      <Heading as="h4" fontSize="md" color="black" mt={4}>Individual Investors</Heading>
       <List spacing={2} pl={4}>
         <ListItem>Government-Issued ID (Passport, Driver’s License, National ID).</ListItem>
         <ListItem>Proof of Address (Utility Bill, Bank Statement).</ListItem>
@@ -41,7 +41,7 @@ const AMLKYCDocumentation = () => {
         <ListItem>Source of Funds Disclosure (e.g., Business Income, Asset Sales).</ListItem>
       </List>
       
-      <Heading as="h4" size="md" color="teal.300" mt={4}>Institutional & Corporate Investors</Heading>
+      <Heading as="h4" fontSize="md" color="black" mt={4}>Institutional & Corporate Investors</Heading>
       <List spacing={2} pl={4}>
         <ListItem>Certified Articles of Incorporation or Formation.</ListItem>
         <ListItem>List of Beneficial Owners (25% Ownership).</ListItem>
@@ -49,35 +49,35 @@ const AMLKYCDocumentation = () => {
         <ListItem>Source of Funds Disclosure.</ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Enhanced Due Diligence (EDD)</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Enhanced Due Diligence (EDD)</Heading>
       <List spacing={2} pl={4}>
         <ListItem>Required for high-risk investors (PEPs, large investors, or complex fund structures).</ListItem>
         <ListItem>May require additional bank references, financial statements, or virtual verification.</ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Sanctions Screening & Prohibited Investors</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Sanctions Screening & Prohibited Investors</Heading>
       <List spacing={2} pl={4}>
         <ListItem>OFAC, EU, UK, UN, and FATF watchlisted individuals or entities.</ListItem>
         <ListItem>High-risk country investors (non-cooperative jurisdictions).</ListItem>
         <ListItem>Anonymous or undisclosed beneficial owners.</ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Investor Responsibilities & Compliance</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Investor Responsibilities & Compliance</Heading>
       <List spacing={2} pl={4}>
         <ListItem>Full disclosure of identity and source of funds.</ListItem>
         <ListItem>Submission of required AML/KYC documents before fund participation.</ListItem>
         <ListItem>Adherence to Fund withdrawal and redemption policies.</ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Contact for Submission & Compliance</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Contact for Submission & Compliance</Heading>
       <Text>Email: compliance@hushhfund.com</Text>
       <Text>Investor Relations Hotline: +1 (XXX) XXX-XXXX</Text>
     </Box>

@@ -5,9 +5,8 @@ import MarketUpdate from '../../../components/images/3_Daily Market Update.jpg'
 
 const MarketUpdate20feb = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-        <Image src={MarketUpdate} alt='Hushh Market Update 20th Feb'/>
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Aloha Alpha Fund – Market & Fund Update
       </Heading>
       <Text fontSize="lg" mb={4}>
@@ -19,7 +18,7 @@ const MarketUpdate20feb = () => {
       <Text fontSize="lg" mb={4}>
         Author: Manish S. (Founder & Portfolio Strategist)
       </Text>
-      <Heading as="h3" size="lg" mb={4} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={4} color="black">
         Daily Commentary & Highlights
       </Heading>
       <Text fontSize="md" mb={4}>
@@ -30,7 +29,7 @@ const MarketUpdate20feb = () => {
         <ListItem>• By the time I logged in, we unleashed our “Sell the Wall™” machine, aggressively hedging deltas and selling into rising RSI levels.</ListItem>
         <ListItem>• The result? $19,295.79 in net premium income for the day and a near-perfect 82.21% win rate across rollover trades.</ListItem>
       </List>
-      <Heading as="h3" size="lg" mb={4} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={4} color="black">
         Why We Love “Selling the Wall™”
       </Heading>
       <List spacing={2} pl={4}>
@@ -38,7 +37,7 @@ const MarketUpdate20feb = () => {
         <ListItem>• Rising RSI? Perfect time to sell short-dated calls. Dips? We sell puts to buy cheaper. Meanwhile, we keep compounding.</ListItem>
         <ListItem>• The math never stops. The strategy prints short-term income to reinvest in the companies we love long-term.</ListItem>
       </List>
-      <Heading as="h3" size="lg" mb={4} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={4} color="black">
         Key Fund Metrics
       </Heading>
       <List spacing={2} pl={4}>
@@ -51,8 +50,8 @@ const MarketUpdate20feb = () => {
         <ListItem>• This is our “aloha income” piling up from day, month, and year to date.</ListItem>
         <ListItem>• A direct result of systematically selling the wall, rolling positions, and capturing volatility.</ListItem>
       </List>
-      <Divider my={4} borderColor="teal.500" />
-      <Heading as="h3" size="lg" mb={4} color="teal.200">
+      <Divider my={4} borderColor="black" />
+      <Heading as="h3" fontSize="lg" mb={4} color="black">
         Trade Execution Recap
       </Heading>
       <List spacing={2} pl={4}>
@@ -68,7 +67,7 @@ const MarketUpdate20feb = () => {
       <Text fontSize="md" mb={4}>
         Translation: Even on a day we started late, we turned market noise into hard cash. That’s the power of “Sell the Wall™.”
       </Text>
-      <Heading as="h3" size="lg" mb={4} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={4} color="black">
         Market Context & Outlook
       </Heading>
       <List spacing={2} pl={4}>
@@ -82,7 +81,7 @@ const MarketUpdate20feb = () => {
         <ListItem>• With $5.792M in cash, we have a loaded war chest to scoop up bargains if the market corrects.</ListItem>
         <ListItem>• Meanwhile, we’re not sitting idly—we use that capital to sell cash-secured puts for even more yield.</ListItem>
       </List>
-      <Heading as="h3" size="lg" mb={4} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={4} color="black">
         Strategy & Next Steps
       </Heading>
       <List spacing={2} pl={4}>
@@ -95,7 +94,7 @@ const MarketUpdate20feb = () => {
       <Text fontSize="md" mb={4}>
         Bottom Line: We trust the math, the discipline, and the unstoppable synergy of “owning + renting” great businesses.
       </Text>
-      <Heading as="h3" size="lg" mb={4} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={4} color="black">
         Final Word: “We Absolutely Love Selling the Wall”
       </Heading>
       <Text fontSize="md" mb={4}>

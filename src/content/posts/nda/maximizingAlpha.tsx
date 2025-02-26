@@ -4,10 +4,9 @@ import AlphaAlohaImg from '../../../components/images/blog2o.png';
 
 const MaximizingAlpha = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Image src={AlphaAlohaImg} alt="Maximizing Alpha Strategy" mb={4} borderRadius="md" />
+    <Box color="black" borderRadius="md">
 
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Maximizing Alpha: Advanced Strategies for Selling the Wall on Apple (AAPL)
       </Heading>
       
@@ -18,7 +17,7 @@ const MaximizingAlpha = () => {
         Date: February 10, 2025
       </Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Overview of the AAPL Position</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Overview of the AAPL Position</Heading>
       <List spacing={2} pl={4}>
         <ListItem>• Total Delta Long Exposure: 22,000</ListItem>
         <ListItem>• Liquid AAPL Shares Held: 11,072</ListItem>
@@ -26,7 +25,7 @@ const MaximizingAlpha = () => {
         <ListItem>• Objective: Convert delta long exposure into sustained cash flow while maintaining core ownership of AAPL as an asset we always want on our books.</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Strategy 1: Laddering Covered Calls for Maximum Premium Extraction</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Strategy 1: Laddering Covered Calls for Maximum Premium Extraction</Heading>
       <Text mb={4}>
         Objective: Generate consistent weekly/monthly premium while ensuring optimal roll opportunities and preserving long-term upside.
       </Text>
@@ -57,7 +56,7 @@ const MaximizingAlpha = () => {
         <ListItem>• Monthly Premium Target: $4.00 - $6.00 per contract = $44K - $66K/month</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Strategy 2: Enhancing Returns with Cash-Secured Puts</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Strategy 2: Enhancing Returns with Cash-Secured Puts</Heading>
       <Text mb={4}>
         Objective: Utilize cash reserves ($5.1M) to sell OTM puts on AAPL, allowing entry at a discount OR capturing premium if unassigned.
       </Text>
@@ -86,7 +85,7 @@ const MaximizingAlpha = () => {
         <ListItem>• Monthly Put Premium: $60K - $120K/month</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Strategy 3: Delta Hedging with Vertical Spreads</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Strategy 3: Delta Hedging with Vertical Spreads</Heading>
       <Text mb={4}>
         Objective: Hedge potential AAPL declines while keeping an optimal long delta position.
       </Text>
@@ -104,7 +103,7 @@ const MaximizingAlpha = () => {
         <ListItem>• Expected Cost: ~$10K per month from put hedging.</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Total Expected Weekly & Monthly Income</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Total Expected Weekly & Monthly Income</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>Strategy</strong></ListItem>
         <ListItem>Weekly Income Target</ListItem>
@@ -123,7 +122,7 @@ const MaximizingAlpha = () => {
         <ListItem>$136K - $282K</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Risk Considerations</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Risk Considerations</Heading>
       <List spacing={2} pl={4}>
         <ListItem>1. Market Sell-Off (AAPL Drops 10%+):</ListItem>
         <ListItem>• Protective put hedging activates to absorb losses.</ListItem>
@@ -135,7 +134,7 @@ const MaximizingAlpha = () => {
         <ListItem>• Adjust strike selection dynamically to exploit volatility.</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Conclusion</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Conclusion</Heading>
       <Text mb={4}>
         By optimizing covered calls, cash-secured puts, and delta hedging strategies, we can systematically extract $136K - $282K in monthly premium from our AAPL position without giving up long-term ownership. This ensures we maximize alpha while maintaining robust risk management and continue leveraging AAPL as a core rental and long-term hold asset.
       </Text>

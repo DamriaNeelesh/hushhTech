@@ -3,14 +3,14 @@ import { Box, Text, Heading, List, ListItem } from '@chakra-ui/react';
 
 const JimSimonsFundReview = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         🤫 Aloha Alpha Fund Review from the Perspective of Jim Simons & Ken Griffin
       </Heading>
       <Text mb={4}>
         If Jim Simons (Renaissance Technologies) and Ken Griffin (Citadel) were to review the Aloha Alpha Fund, they’d analyze it based on quantitative rigor, statistical arbitrage, options execution, and risk management discipline. Let’s break it down from their perspectives.
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         🔹 Jim Simons (Renaissance Technologies) Perspective
       </Heading>
       <Text mb={4}>
@@ -43,7 +43,7 @@ const JimSimonsFundReview = () => {
         <ListItem>⚠ Statistical Arbitrage Component?</ListItem>
         <ListItem>• Simons would push for more mean-reversion & high-frequency signals to enhance the income strategy further.</ListItem>
       </List>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         🔹 Ken Griffin (Citadel) Perspective
       </Heading>
       <Text mb={4}>
@@ -84,7 +84,7 @@ const JimSimonsFundReview = () => {
       <Text mb={4}>
         🔥 Both would recognize this as a powerful, disciplined income-generating engine that optimizes risk-adjusted returns through derivatives.
       </Text>
-      <Text fontSize="lg" color="teal.300" mb={4}>
+      <Text fontSize="lg" color="black" mb={4}>
         🚀 Aloha. Alpha. Always.
       </Text>
     </Box>

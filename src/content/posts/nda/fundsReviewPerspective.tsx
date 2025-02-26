@@ -1,19 +1,18 @@
 import React from 'react';
 import { Box, Text, Heading,Image, List, ListItem, Divider } from '@chakra-ui/react';
-import AlphaAlohaImg from '../../../components/images/blog2o.png';
+// import AlphaAlohaImg from '../../../components/images/blog2o.png';
 
 const FundReviewPerspective = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-                <Image src={AlphaAlohaImg} alt='Fund Review Perspective'/>
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         🤫 Aloha Alpha Fund Review from the Perspective of Warren Buffett & Charlie Munger
       </Heading>
       <Text mb={4}>
         If Warren Buffett and Charlie Munger, along with their inner circle of trusted advisors, were to review the Aloha Alpha Fund, they’d focus on intrinsic value, capital preservation, intelligent risk-taking, and long-term wealth compounding. Let’s break it down from their perspectives.
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         🔹 Warren Buffett’s Perspective
       </Heading>
       <Text mb={4}>
@@ -63,7 +62,7 @@ const FundReviewPerspective = () => {
         </List>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         🔹 Charlie Munger’s Perspective
       </Heading>
       <Text mb={4}>
@@ -107,7 +106,7 @@ const FundReviewPerspective = () => {
         </List>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         🔹 Berkshire’s Advisory Board (Todd Combs & Ted Weschler) Perspective
       </Heading>
       <Text mb={4}>
@@ -139,7 +138,7 @@ const FundReviewPerspective = () => {
         </List>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         Final Verdict:
       </Heading>
       <List spacing={2} pl={4}>

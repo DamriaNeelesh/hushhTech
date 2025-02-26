@@ -123,14 +123,20 @@ const CommunityPost: React.FC = () => {
   if (!post) return null;
 
   const PostComponent = post.Component;
+  const toTitleCase = (str: string) => {
+    return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+  };
 
   return (
-    <Box bg="gray.900" minH="100vh" py={12} px={4}>
+    <Box bg="white" minH="100vh" py={12} px={4}>
       <Container maxW="container.md">
-        <Heading as="h1" mb={4} color="white">
+        <Text as={'h2'} fontSize={{base:'sm',md:'md'}} fontWeight={'600'} color={'#e7131a'}>
+{toTitleCase(post.category)}
+        </Text>
+        {/* <Heading as="h1" fontWeight={'500'} mb={4} fontSize={{md:'xl',base:'lg'}} color="black">
           {post.title}
-        </Heading>
-        <Text fontSize="sm" color="gray.400" mb={8}>
+        </Heading> */}
+        <Text fontSize="sm" color="gray.900" mb={8}>
           {new Date(post.publishedAt).toLocaleDateString()}
         </Text>
         <Box color="white" lineHeight="tall" fontSize="lg">

@@ -4,9 +4,8 @@ import SellImg from '../../../components/images/blog2o.png'
 
 const InvestorAccreditationCertificate = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Image src={SellImg} alt="Investor Accreditation" mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Investor Accreditation Certificate
       </Heading>
       <Text fontSize="lg" mb={4}>
@@ -31,7 +30,7 @@ const InvestorAccreditationCertificate = () => {
         Investor Type: [Accredited Individual / Institutional Investor / Family Office / Other]
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         1. Certification of Accredited Investor Status
       </Heading>
       <Text mb={4}>
@@ -56,7 +55,7 @@ const InvestorAccreditationCertificate = () => {
         <ListItem>☐ Other Qualified Institutional Buyer (QIB): Meets the SEC Rule 144A definition of a Qualified Institutional Buyer.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         2. Investment Representations
       </Heading>
       <List spacing={2} pl={4}>
@@ -68,7 +67,7 @@ const InvestorAccreditationCertificate = () => {
         <ListItem>6. Compliance with Laws: The Investor meets all regulatory and legal requirements to participate in this offering.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         3. Investor Acknowledgment & Signature
       </Heading>
       <Text mb={4}>
@@ -84,7 +83,7 @@ const InvestorAccreditationCertificate = () => {
         Date Signed: [Insert Date]
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         4. Issuer Verification
       </Heading>
       <Text mb={4}>

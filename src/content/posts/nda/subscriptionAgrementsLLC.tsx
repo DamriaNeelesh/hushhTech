@@ -4,9 +4,8 @@ import AgreementImg from  '../../../components/images/subscriptionAgreement2.jpg
 
 const EvergreenFundSubscriptionAgreement = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-        <Image src={AgreementImg} alt='Subscription Agreement Hushh Tech LLC'/>
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         SUBSCRIPTION AGREEMENT
       </Heading>
       <Text fontSize="lg" mb={4}>
@@ -16,7 +15,7 @@ const EvergreenFundSubscriptionAgreement = () => {
         This Subscription Agreement (the “Agreement”) is entered into as of the date set forth on the signature page hereto, by and between Hushh Technologies LLC (“the Company”), a Delaware Limited Liability Company, and the undersigned investor (“Investor”).
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         1. Subscription & Investment Terms
       </Heading>
       <Text mb={4}>
@@ -50,7 +49,7 @@ const EvergreenFundSubscriptionAgreement = () => {
         <ListItem>✅ Optimize risk-adjusted returns using proprietary “Sell the Wall™” and other investment strategies</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         2. Representations & Warranties
       </Heading>
       <List spacing={2} pl={4}>
@@ -60,7 +59,7 @@ const EvergreenFundSubscriptionAgreement = () => {
         <ListItem>4. No Guarantees – Investor acknowledges that past performance is not indicative of future results.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         3. Fund Governance & Withdrawals
       </Heading>
       <Text mb={4}>
@@ -78,7 +77,7 @@ const EvergreenFundSubscriptionAgreement = () => {
         <ListItem>• Early withdrawals may be subject to 5% liquidity fees for risk management purposes.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         4. Confidentiality & Compliance
       </Heading>
       <Text mb={4}>
@@ -95,7 +94,7 @@ const EvergreenFundSubscriptionAgreement = () => {
         <ListItem>• The Evergreen 🌲 Fund operates under compliance with SEC (USA), ADGM (UAE), and other applicable regulatory bodies.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         5. Governing Law & Signatures
       </Heading>
       <Text mb={4}>
