@@ -4,7 +4,6 @@ import { Box, Text, Heading, List, ListItem, Link } from '@chakra-ui/react';
 const HushhFundFAQ = () => {
   return (
     <Box p={0} color="black" borderRadius="md">
-      
       <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Fund Structure & Investment Strategy
       </Heading>
