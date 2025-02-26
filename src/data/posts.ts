@@ -994,7 +994,7 @@ export const posts: PostData[] = [
   {
     count: 76, // Ensure this is the next sequential number
     slug: 'updates/daily-market-updates',
-    title: 'Aloha Alpha Fund – Daily Update',
+    title: 'Aloha Alpha Fund – Daily Market Update',
     publishedAt: '2025-02-24', // Replace with the actual date
     description: 'Daily market update and fund performance insights for the Aloha Alpha Fund.',
     category: 'market',
@@ -1005,7 +1005,7 @@ export const posts: PostData[] = [
   {
     count: 77, // Ensure this is the next sequential number
     slug: 'market/daily-update-25-feb-2025',
-    title: 'Aloha Alpha Fund – Daily Update',
+    title: 'Aloha Alpha Fund – Daily Market Update',
     publishedAt: '2025-02-25', // Use the actual date of the update
     description: 'Daily market update and fund performance insights for the Aloha Alpha Fund on February 25, 2024.',
     category: 'market updates',
