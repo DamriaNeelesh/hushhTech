@@ -46,7 +46,7 @@ const HushhFundFAQ = () => {
       <Text mb={4} fontSize={{md:"lg",base:'sm'}}>
         By incorporating both Alpha 27 and Ultra 10, Hushh essentially runs a two-tier strategy under one roof. The Alpha 27 component provides current income and lower-risk growth, while the Ultra 10 component provides high-growth opportunities that can dramatically boost overall fund returns. The two work in tandem: for example, the steady cash flows from Alpha 27 can even help fund new investments in Ultra 10 or support those companies through multiple rounds, creating a synergistic effect. Also, from a risk perspective, diversification between the two portfolios is key – if some Ultra 10 bets take longer to play out or hit snags (as can happen in venture investing), the Alpha 27’s income can compensate in the interim. Conversely, when an Ultra 10 investment hits a home run, it greatly amplifies the fund’s total performance, contributing to investor alpha. This integrated approach is a distinct differentiator for Hushh, as most funds are either geared toward short-term trading (hedge funds) or long-term private holdings (VC/PE funds), whereas Hushh successfully blends both in a structured way. In summary, and Hushh Ultra 10 are the two pillars of the fund’s structure – one optimizing for stable aloha income, and the other for extraordinary alpha gains – together driving the fund’s overall strategy.
       </Text>
-      <Heading as="h3" fontSize="lg" mb={3} color="black" fontSize={{md:"xl",base:'lg'}}>
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         Ideal Customer & Business Profile
       </Heading>
       <Text mb={4} fontSize={{md:"lg",base:'sm'}}>
@@ -83,7 +83,7 @@ const HushhFundFAQ = () => {
       <Text mb={4} fontSize={{md:"lg",base:'sm'}}>
         Overall, Hushh’s AI doesn’t guarantee gains (no investment can), but it significantly enhances the probability and consistency of achieving the fund’s income and growth objectives by smartly managing data and decisions. This gives Hushh a distinct advantage in delivering on its promise of maximum alpha and aloha for its investors.
       </Text>
-      <Heading as="h3" fontSize="lg" mb={3} color="black" fontSize={{md:"xl",base:'lg'}}>
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         Key Investor Considerations
       </Heading>
       <Text mb={4} fontSize={{md:"lg",base:'sm'}}>
