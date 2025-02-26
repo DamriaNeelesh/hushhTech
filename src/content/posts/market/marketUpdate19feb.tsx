@@ -4,15 +4,14 @@ import MarketUpdate from '../../../components/images/2_Daily Market Update.jpg'
 
 const MarketUpdate19Feb = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-        <Image src={MarketUpdate} alt='Hushh market update 19th Feb'/>
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Legal Approved
       </Heading>
       <Text fontSize="lg" mb={4}>
         For Investor PR News
       </Text>
-      <Heading as="h3" size="lg" mb={4} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={4} color="black">
         Aloha Alpha Fund Market & Fund Update
       </Heading>
       <Text fontSize="md" mb={4}>
@@ -27,7 +26,7 @@ const MarketUpdate19Feb = () => {
       <Text fontSize="md" mb={4}>
         Despite short-term fluctuations, our structured approach continues delivering consistent cash flow, reinforcing our ability to generate sustainable alpha while protecting long-term ownership in the best businesses on Earth.
       </Text>
-      <Heading as="h3" size="lg" mb={4} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={4} color="black">
         Key Fund Metrics
       </Heading>
       <List spacing={2} pl={4}>
@@ -36,8 +35,8 @@ const MarketUpdate19Feb = () => {
         <ListItem>📊 Daily Performance: +0.60% (Mark-to-market basis)</ListItem>
         <ListItem>💵 Cumulative Net Income (YTD): +$665,441.76</ListItem>
       </List>
-      <Divider my={4} borderColor="teal.500" />
-      <Heading as="h3" size="lg" mb={4} color="teal.200">
+      <Divider my={4} borderColor="black" />
+      <Heading as="h3" fontSize="lg" mb={4} color="black">
         Execution & Strategy Highlights
       </Heading>
       <Text fontSize="md" mb={4}>
@@ -61,8 +60,8 @@ const MarketUpdate19Feb = () => {
       <List spacing={2} pl={4}>
         <ListItem>• Tech & AI remain dominant: AI-heavy SPX & NASDAQ names continue driving strong returns, reinforcing our thesis that high FCF businesses remain superior for structured income strategies.</ListItem>
       </List>
-      <Divider my={4} borderColor="teal.500" />
-      <Heading as="h3" size="lg" mb={4} color="teal.200">
+      <Divider my={4} borderColor="black" />
+      <Heading as="h3" fontSize="lg" mb={4} color="black">
         Market Commentary & Strategic Positioning
       </Heading>
       <Text fontSize="md" mb={4}>
@@ -86,8 +85,8 @@ const MarketUpdate19Feb = () => {
         <ListItem>• AI-powered execution optimization: Expanding automation for structured rollovers & dynamic hedging.</ListItem>
         <ListItem>• Volatility model refinements: Incorporating deeper quantitative risk analytics for more precise premium harvesting.</ListItem>
       </List>
-      <Divider my={4} borderColor="teal.500" />
-      <Heading as="h3" size="lg" mb={4} color="teal.200">
+      <Divider my={4} borderColor="black" />
+      <Heading as="h3" fontSize="lg" mb={4} color="black">
         Closing Thoughts – A Strategy That Works Until It Doesn’t?
       </Heading>
       <Text fontSize="md" mb={4}>

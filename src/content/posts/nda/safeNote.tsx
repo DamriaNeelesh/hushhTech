@@ -4,9 +4,8 @@ import AlphaAlohaImg from '../../../components/images/blog2o.png';
 
 const SafeNote = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-        <Image src={AlphaAlohaImg} alt='SAFE note for investment'/>
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         SAFE (Simple Agreement for Future Equity)
       </Heading>
       <Text fontSize="lg" mb={4}>
@@ -19,7 +18,7 @@ const SafeNote = () => {
         This SAFE Note (“Agreement”) is made as of [DATE], by and between Hushh AI Technologies and Computers Trading LLC, a company incorporated in ADGM/UAE/USA (or applicable jurisdiction) (the “Company”), and the investor listed in the signature section below (the “Investor”).
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         1. Investment Terms
       </Heading>
       <List spacing={2} pl={4}>
@@ -30,9 +29,9 @@ const SafeNote = () => {
         <ListItem>• Conversion Event: Converts to preferred equity at the next Qualified Financing Round of at least $[TBD] million</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         2. Conversion Mechanics
       </Heading>
       <Text fontSize="md" mb={4}>
@@ -50,9 +49,9 @@ const SafeNote = () => {
         <ListItem>• Receive a cash settlement option (subject to board discretion)</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         3. Investor Rights & Protections
       </Heading>
       <List spacing={2} pl={4}>
@@ -61,9 +60,9 @@ const SafeNote = () => {
         <ListItem>✅ No Voting Rights: SAFE holders do not have board or voting rights until conversion to equity.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         4. No Debt, No Dividends
       </Heading>
       <List spacing={2} pl={4}>
@@ -73,9 +72,9 @@ const SafeNote = () => {
         <ListItem>• No dividends before conversion.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         5. Founders’ Control & Governance
       </Heading>
       <List spacing={2} pl={4}>
@@ -84,9 +83,9 @@ const SafeNote = () => {
         <ListItem>✅ Founder Equity Protection: No dilution beyond planned funding rounds.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         6. Transferability & Exit Options
       </Heading>
       <List spacing={2} pl={4}>
@@ -98,18 +97,18 @@ const SafeNote = () => {
         </List>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         7. Representations & Acknowledgments
       </Heading>
       <Text fontSize="md" mb={4}>
         By signing, the Investor confirms they are an accredited investor (as per SEC/ADGM/UAE laws) and understands the risks of investing in an early-stage venture.
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         8. Miscellaneous
       </Heading>
       <List spacing={2} pl={4}>
@@ -118,9 +117,9 @@ const SafeNote = () => {
         <ListItem>⚖️ Amendments: Any changes must be agreed upon in writing by both parties.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         SIGNATURES
       </Heading>
       <Text fontSize="md" mb={4}>

@@ -11,9 +11,8 @@ export const frontmatter = {
 
 const ValuationFramework = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Image src={AlphaAlohaImg} alt="Valuation Framework" mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Valuation Framework for Fund A
       </Heading>
 
@@ -21,9 +20,9 @@ const ValuationFramework = () => {
         Assessing the true worth of a fund that generates perpetual alpha and aloha through options premium income while owning assets.
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         Core Valuation Model: Moving Beyond Traditional Hedge Fund Metrics
       </Heading>
       <Text mb={4}>
@@ -33,9 +32,9 @@ const ValuationFramework = () => {
       <Table variant="simple" mb={4}>
         <Thead>
           <Tr>
-            <Th color="teal.200">Valuation Metric</Th>
-            <Th color="teal.200">Traditional Hedge Funds</Th>
-            <Th color="teal.200">Fund A’s Model</Th>
+            <Th color="black">Valuation Metric</Th>
+            <Th color="black">Traditional Hedge Funds</Th>
+            <Th color="black">Fund A’s Model</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -62,14 +61,14 @@ const ValuationFramework = () => {
         </Tbody>
       </Table>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         Key Valuation Components
       </Heading>
       <VStack align="start" spacing={4}>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             1. Net Asset Value (NAV) Approach (Baseline)
           </Heading>
           <Text>
@@ -82,7 +81,7 @@ const ValuationFramework = () => {
         </Box>
 
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             2. Cash Flow Valuation (DCF for Perpetual Premium Income)
           </Heading>
           <Text>
@@ -105,16 +104,16 @@ const ValuationFramework = () => {
         {/* Add additional valuation methods in a similar format here */}
       </VStack>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         The Final Valuation Estimate
       </Heading>
       <Table variant="simple">
         <Thead>
           <Tr>
-            <Th color="teal.200">Method</Th>
-            <Th color="teal.200">Valuation Estimate</Th>
+            <Th color="black">Method</Th>
+            <Th color="black">Valuation Estimate</Th>
           </Tr>
         </Thead>
         <Tbody>

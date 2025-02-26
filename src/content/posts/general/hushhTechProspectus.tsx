@@ -3,8 +3,8 @@ import { Box, Text, Heading, List, ListItem } from '@chakra-ui/react';
 
 const HushhTechProspectus = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box  color="black" borderRadius="md" >
+      <Heading as="h2" fontSize="2xl" mb={4} color="black.300">
         HushhTech: AI-First Financial Services & Investment Management Prospectus
       </Heading>
       <Text fontSize="sm" color="gray.500" mb={4}>
@@ -12,7 +12,7 @@ const HushhTechProspectus = () => {
         Manish Sainani Approved<br />
         Out for Board Review and Approval
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         Brand Vision & Mission
       </Heading>
       <Text mb={4}>
@@ -24,7 +24,7 @@ const HushhTechProspectus = () => {
       <Text mb={4}>
         Our vision is to evolve into a dynamic financial enterprise that consistently captures alpha (excess returns) through a blend of data-driven analytics and artful strategy. We position ourselves as industry leaders at the intersection of finance and technology, setting new standards for how AI can amplify wealth management. Every aspect of HushhTech – from our investment products to our personal finance tools – aligns with our guiding mission: harness technology to enhance and enrich our users’ financial lives. In short, we are building the future of finance, where artificial intelligence and human insight together drive superior outcomes.
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         Core Offerings & API Infrastructure
       </Heading>
       <Text mb={4}>
@@ -39,13 +39,13 @@ const HushhTechProspectus = () => {
       <Text mb={4}>
         This API-first architecture not only empowers users directly but also encourages collaboration. External applications can leverage HushhTech’s intelligence, and institutional partners can build custom solutions on top of our platform. In essence, HushhTech’s core offerings serve as an AI-powered personal finance and investment hub that optimizes each user’s financial strategy through data integration and intelligent analysis. Whether it’s an individual tracking expenses or a developer enhancing a fintech app, our infrastructure is designed to make optimizing finances simpler, smarter, and scalable.
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         Investment Philosophy & Alpha Strategies
       </Heading>
       <Text mb={4}>
         HushhTech’s investment philosophy centers on combining innovative alpha-generating strategies with rigorous risk management. Through our flagship Hushh Agent and proprietary programs, we leverage multiple complementary approaches to maximize returns for our users and clients. Each strategy is guided by AI analytics and honed by expert insight, creating a powerful blend of quantitative discipline and creative finance – an approach we describe as “art + science” investing. Below we highlight three core alpha strategies that exemplify our methodology:
       </Text>
-      <Heading as="h4" size="md" mb={3} color="teal.200">
+      <Heading as="h4" fontSize="md" mb={3} color="black">
         Rental “Aloha” Income Strategy
       </Heading>
       <Text mb={4}>
@@ -54,7 +54,7 @@ const HushhTechProspectus = () => {
       <Text mb={4}>
         Our Rental Aloha program distinguishes itself by using AI to identify optimal opportunities for such income trades. The Hushh Agent scans the user’s portfolio and market conditions to determine when and where to write options for maximum premium without undue risk. This strategy yields a stream of passive income in both bullish and sideways markets, enhancing overall returns. The “Aloha” spirit reflects our aim for these income strategies to be friendly and low-stress – providing consistent gains in the background while the user’s core holdings continue to appreciate. It’s a way to put idle assets to work, guided by intelligent algorithms that manage the timing, strike prices, and contract renewals to balance return and risk.
       </Text>
-      <Heading as="h4" size="md" mb={3} color="teal.200">
+      <Heading as="h4" fontSize="md" mb={3} color="black">
         Options Trading Excellence
       </Heading>
       <Text mb={4}>
@@ -63,7 +63,7 @@ const HushhTechProspectus = () => {
       <Text mb={4}>
         Our philosophy with options is to use them both as an engine for growth and a mechanism for protection. For instance, when seeking aggressive growth, the AI might allocate a portion of capital to leveraged option positions or tactical short-term trades. Conversely, it might use protective puts or spreads to hedge downside risk on core holdings. By dynamically adjusting strategies, the Hushh Agent aims to generate outsized gains while mitigating risk exposure. This approach has proven effective – in the past year, our AI-driven trading delivered a net gain of +5.56% (approximately $4.57 million profit on an ~$80 million portfolio) for our flagship program. Notably, this was achieved with a disciplined risk profile: the average gain per trade was around +18%, far outweighing the average loss of about 5%. Such results illustrate how adept options strategy and risk control can lead to consistent, positive returns over time.
       </Text>
-      <Heading as="h4" size="md" mb={3} color="teal.200">
+      <Heading as="h4" fontSize="md" mb={3} color="black">
         Market Depth Tactics (“Buy/Sell Walls” Strategy)
       </Heading>
       <Text mb={4}>
@@ -78,7 +78,7 @@ const HushhTechProspectus = () => {
       <Text mb={4}>
         Through this combination of income generation, sophisticated options tactics, and order-book-driven trades, HushhTech’s investment philosophy balances multiple return streams. The end goal is to deliver our users a superior risk-adjusted return – steady income, opportunistic gains, and enhanced performance regardless of market direction. All strategies are continually refined by our AI (learning from new data) and overseen by our experienced investment team to ensure they adapt to evolving market conditions. This multi-strategy approach, underpinned by HushhTech’s AI, is how we seek to consistently achieve alpha in our portfolios.
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         AI-Powered Financial Assistance (Hushh Agent)
       </Heading>
       <Text mb={4}>
@@ -99,7 +99,7 @@ const HushhTechProspectus = () => {
       <Text mb={4}>
         In summary, the Hushh Agent is the embodiment of HushhTech’s AI-first approach – a constantly learning, constantly available financial expert that helps users make smarter decisions and keeps their investments optimized around the clock. It provides the kind of real-time recommendations, risk management, and portfolio tuning that only AI can deliver at scale. Whether you are an individual user trying to grow your savings, or a high-net-worth client with a complex portfolio, the Hushh Agent works alongside you (and your human advisors, if any) to ensure you’re always a step ahead in the quest for maximum returns and financial security.
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         Market Opportunity & Competitive Advantage
       </Heading>
       <Text mb={4}>
@@ -118,7 +118,7 @@ const HushhTechProspectus = () => {
       <Text mb={4}>
         In summary, HushhTech is uniquely positioned in a market that is rapidly embracing AI-driven finance. The opportunity ahead is vast – with the asset and wealth management sector expected to reach $170+ trillion AUM by 2028 and technology (especially AI) driving much of that growth, companies like ours stand to capture significant share. Our blend of an innovative platform, proven AI strategies, and holistic vision for personal finance gives us a sustainable competitive advantage. As the finance world transitions from traditional methods to “AI-first” solutions, HushhTech is not just participating in this future – we are helping to define it.
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         Risk Management & Security
       </Heading>
       <Text mb={4}>
@@ -139,7 +139,7 @@ const HushhTechProspectus = () => {
       <Text mb={4}>
         Importantly, HushhTech is fully insured against operational risks and holds any regulatory capital required for our advisory and investment activities. We have disaster recovery and business continuity plans in place for extreme scenarios. Our commitment to security and risk management not only protects our users but also ensures the long-term sustainability of our business. By avoiding careless risks and prioritizing data security, we create a stable environment in which users’ wealth can grow. In an era of cyber threats and market volatility, HushhTech stands for resilience, trust, and prudence – giving our clients confidence that both their data and their money are in safe, capable hands.
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         Growth Plans & Roadmap
       </Heading>
       <Text mb={4}>
@@ -156,7 +156,7 @@ const HushhTechProspectus = () => {
       <Text mb={4}>
         Each of these growth initiatives is underway, and we will update stakeholders regularly as we hit key milestones. Our roadmap is ambitious, but our early progress and the strong trends in our favor give us confidence. With additional investment and the right partnerships, HushhTech can scale rapidly and capture a leadership position in this burgeoning industry.
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         Call to Action for Investors, Partners & Users
       </Heading>
       <Text mb={4}>
@@ -174,7 +174,7 @@ const HushhTechProspectus = () => {
       <Text mb={4}>
         Now is the time to act. The finance industry is transforming rapidly, and those who embrace change will reap the rewards. HushhTech is at the forefront of this transformation, and we are fervently committed to our vision of smarter, AI-driven financial services. Join us – as an investor, as a user, or as a partner – and become part of a groundbreaking movement. Together, we can leverage the power of AI to help millions of people achieve financial freedom and success. We invite you to connect with our team, schedule a demonstration, or visit our offices to learn more about our work. Let’s shape the future of finance, today.
       </Text>
-      <Text fontSize="lg" color="teal.300">
+      <Text fontSize="lg" color="#E7131A">
         Thank you for your interest in HushhTech. We look forward to the possibility of working with you and forging a prosperous future through innovation and collaboration.
       </Text>
     </Box>

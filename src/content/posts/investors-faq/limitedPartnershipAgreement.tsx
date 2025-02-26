@@ -11,16 +11,16 @@ export const frontmatter = {
 
 const LimitedPartnershipAgreement = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-             <Image src={SellImg} alt="LPA Update" mb={4} borderRadius="md" />
+    <Box color="black" borderRadius="md">
+             {/* <Image src={SellImg} alt="LPA Update" mb={4} borderRadius="md" /> */}
 
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         LIMITED PARTNERSHIP AGREEMENT OF HUSHH TECHNOLOGIES ALPHA FUND, L.P.
       </Heading>
 
       <Text fontSize="lg" mb={4}>A Delaware Limited Partnership - Effective as of [Date]</Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>ARTICLE I - FORMATION OF THE PARTNERSHIP</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>ARTICLE I - FORMATION OF THE PARTNERSHIP</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>1.1 Formation & Name:</strong> The partnership is entered into by Hushh Technologies Alpha Fund GP, LLC, the General Partner (GP), and the Limited Partners (LPs).</ListItem>
         <ListItem><strong>1.2 Principal Office:</strong> Located in Kirkland, Washington, USA, with additional offices at the GP’s discretion.</ListItem>
@@ -28,9 +28,9 @@ const LimitedPartnershipAgreement = () => {
         <ListItem><strong>1.4 Purpose:</strong> Investing in Free Cash Flow (FCF) dominant businesses, utilizing AI & quantitative models, and maximizing risk-adjusted income.</ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>ARTICLE II - CAPITAL COMMITMENTS & INTERESTS</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>ARTICLE II - CAPITAL COMMITMENTS & INTERESTS</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>2.1 Classes of Interests:</strong>
           <List pl={4}>
@@ -43,9 +43,9 @@ const LimitedPartnershipAgreement = () => {
         <ListItem><strong>2.3 Limited Liability:</strong> LPs are not personally liable beyond their committed capital.</ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>ARTICLE III - MANAGEMENT & OPERATIONS</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>ARTICLE III - MANAGEMENT & OPERATIONS</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>3.1 General Partner Authority:</strong> The GP has full authority over investments, capital calls, risk management, and operations.</ListItem>
         <ListItem><strong>3.2 Advisory Board:</strong> The GP may appoint an LP Advisory Committee (LPAC) for governance oversight.</ListItem>
@@ -58,9 +58,9 @@ const LimitedPartnershipAgreement = () => {
         </ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>ARTICLE IV - DISTRIBUTIONS & WITHDRAWALS</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>ARTICLE IV - DISTRIBUTIONS & WITHDRAWALS</Heading>
       <Text>Profits shall be distributed in accordance with the agreement terms.</Text>
     </Box>
   );

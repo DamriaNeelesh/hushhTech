@@ -13,9 +13,8 @@ export const frontmatter = {
 
 const dmu11feb: React.FC = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-        <Image src={MarketUpdate} alt='Market Update' mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Fund and Market Update Report
       </Heading>
 
@@ -23,17 +22,17 @@ const dmu11feb: React.FC = () => {
         Reporting Period: February 11, 2025
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
       <VStack spacing={4} align="stretch">
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">NAV and Cash Position</Heading>
+          <Heading as="h3" fontSize="lg" color="black">NAV and Cash Position</Heading>
           <Text mt={2}><strong>NAV (Net Liquidity Value):</strong> $7,851,000</Text>
           <Text><strong>Cash Position:</strong> $5,214,326.10</Text>
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Performance Overview</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Performance Overview</Heading>
           <Text mt={2}><strong>Daily Performance (Feb 11, 2025):</strong></Text>
           <Text>• Net Income (Day): +$15,539.91</Text>
           <Text>• % of NAV: +0.50%</Text>
@@ -71,7 +70,7 @@ const dmu11feb: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Strategy Highlights</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Strategy Highlights</Heading>
           <Text mt={2}><strong>1. Sell the Wall Strategy Execution</strong></Text>
           <Text>• Sold new walls on AAPL, NVDA, AMZN, TSLA as core positions, locking in strong rental income.</Text>
           <Text>• Managed risk-adjusted premium collection with high-RSI tickers like META (RSI: 80.22) and AVGO (RSI: 56.86).</Text>
@@ -86,7 +85,7 @@ const dmu11feb: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Market Commentary</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Market Commentary</Heading>
           <Text mt={2}><strong>Tech Sector Movers (SPX5 Key Holdings):</strong></Text>
           <Text>• Nvidia (NVDA): ⬆️ $3.73 → $133.26 (RSI: 51.98)</Text>
           <Text>• Amazon (AMZN): ⬆️ $3.99 → $232.20 (RSI: 52.65)</Text>
@@ -97,7 +96,7 @@ const dmu11feb: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Macro Trends</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Macro Trends</Heading>
           <Text mt={2}>• Dow Jones Industrial Average: ⬆️ +123.24 (+0.28%) → 44,593.65</Text>
           <Text>• S&P 500: ⬆️ +12.24 (+0.28%) → 6,071.58</Text>
           <Text>• Nasdaq Composite: ⬇️ -70.52 (-0.36%) → 19,643.86</Text>
@@ -105,7 +104,7 @@ const dmu11feb: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Closing Remarks</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Closing Remarks</Heading>
           <Text mt={2}>• Another profitable day with 100% win rate.</Text>
           <Text>• Strong cash reserves for upcoming NVDA earnings play.</Text>
           <Text>• AI & tech remain the key focus with macro sentiment stabilizing.</Text>

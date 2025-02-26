@@ -4,9 +4,8 @@ import MarketUpdate from '../../../components/images/3_Daily Market Update.jpg'
 
 const dmu13feb = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-        <Image src={MarketUpdate} alt='Market Update' mb={4} borderRadius="md" />
-        <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+        <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Alpha Aloha Fund Market and Fund Update Report
       </Heading>
       <Text fontSize="lg" mb={4}>
@@ -16,7 +15,7 @@ const dmu13feb = () => {
         Prepared for: Internal Review & Investor Communication
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         Net Liquidity & Cash Position
       </Heading>
       <Text mb={4}>
@@ -29,7 +28,7 @@ const dmu13feb = () => {
         🔹 Another profitable day, maximizing short-term rental income while maintaining long-term ownership of the best free cash flow businesses on the planet.
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         Performance Overview
       </Heading>
       <Text mb={4}>
@@ -85,7 +84,7 @@ const dmu13feb = () => {
         🔼 YTD momentum remains strong. Risk-adjusted return strategy is delivering as expected.
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         Strategy Highlights
       </Heading>
       <List spacing={2} pl={4}>
@@ -100,7 +99,7 @@ const dmu13feb = () => {
         </ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         Market Commentary
       </Heading>
       <Text mb={4}>
@@ -117,7 +116,7 @@ const dmu13feb = () => {
         📌 AI stocks continue to lead, while AAPL remains undervalued on a technical basis.
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         Macro Trends
       </Heading>
       <List spacing={2} pl={4}>
@@ -129,7 +128,7 @@ const dmu13feb = () => {
         📊 Market remains stable ahead of key economic data releases.
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         Closing Remarks
       </Heading>
       <List spacing={2} pl={4}>

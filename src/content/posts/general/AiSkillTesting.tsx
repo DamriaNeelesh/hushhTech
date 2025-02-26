@@ -1,13 +1,13 @@
 import React from 'react';
-import { Box, Text,Image, Heading, List, ListItem, Divider, Badge, VStack, OrderedList, UnorderedList } from '@chakra-ui/react';
+import { Box, Text, Image, Heading, List, ListItem, Divider, Badge, VStack, OrderedList, UnorderedList } from '@chakra-ui/react';
 import SkillTesting from '../../../components/images/2_Manifesto.jpg'
 
 const AISkillsTesting: React.FC = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-    <Image src={SkillTesting} alt="Funds Update" mb={4} borderRadius="md" />
+    <Box p={0} color="black" borderRadius="md">
+      <Image src={SkillTesting} alt="Funds Update" mb={4} borderRadius="md" />
 
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         🚀 AI Skills and Testing
       </Heading>
 
@@ -34,9 +34,9 @@ const AISkillsTesting: React.FC = () => {
         <ListItem>Ability to think strategically about incorporating new tools into their workflow.</ListItem>
       </UnorderedList>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={2}>Strong Candidate Responses Might Include:</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={2}>Strong Candidate Responses Might Include:</Heading>
       <UnorderedList spacing={2} mb={4}>
         <ListItem>Specific examples of AI tools they've experimented with and lessons learned.</ListItem>
         <ListItem>Realistic applications for their role, not just generic AI use cases.</ListItem>
@@ -44,7 +44,7 @@ const AISkillsTesting: React.FC = () => {
         <ListItem>Concrete examples of staying updated on AI developments in their field.</ListItem>
       </UnorderedList>
 
-      <Heading as="h3" size="lg" color="red.300" mb={2}>Weak Responses Might Be:</Heading>
+      <Heading as="h3" fontSize="lg" color="red.300" mb={2}>Weak Responses Might Be:</Heading>
       <List spacing={2} mb={4}>
         <ListItem>Vague statements about AI being "the future" without specific applications.</ListItem>
         <ListItem>Only mentioning obvious tools like ChatGPT without deeper understanding.</ListItem>
@@ -53,14 +53,14 @@ const AISkillsTesting: React.FC = () => {
         <ListItem>Unrealistic expectations about AI capabilities.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={2}>For Founders and Leaders:</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={2}>For Founders and Leaders:</Heading>
       <Text mb={4}>
         I’d suggest including this question (or even a session!) as part of every interview loop, to help identify candidates who will help your company succeed in this age of miracles. Candidates who do poorly in this question should not get an offer, even if they excel in other parts of the interview.
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={2}>💼 AI Fitness Reviews for Current Teams:</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={2}>💼 AI Fitness Reviews for Current Teams:</Heading>
       <List spacing={2}>
         <ListItem><strong>Quarterly AI Skill-Review:</strong> "What AI skill did you learn last quarter? How did it impact your work?"</ListItem>
         <ListItem><strong>Peer-Driven AI Spotlight Sessions:</strong> Employees demo tools they’ve integrated into their workflows.</ListItem>

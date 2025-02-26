@@ -11,9 +11,8 @@ export const frontmatter = {
 
 const InvestorMaterials = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Image src={AlphaAlohaImg} alt="Investor Materials" mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Investor Materials
       </Heading>
 
@@ -21,14 +20,14 @@ const InvestorMaterials = () => {
         Here’s a comprehensive list of additional materials and strategies we can produce for investors to provide transparency, build trust, and showcase the fund’s long-term potential and resilience. These materials will address both current performance and the strategic vision, creating a robust foundation for investor confidence.
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         1. Performance & Financial Documentation
       </Heading>
       <VStack align="start" spacing={4}>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             a. Detailed Performance Reports
           </Heading>
           <List spacing={2} pl={4}>
@@ -38,7 +37,7 @@ const InvestorMaterials = () => {
           </List>
         </Box>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             b. Pro Forma Financials
           </Heading>
           <List spacing={2} pl={4}>
@@ -48,14 +47,14 @@ const InvestorMaterials = () => {
         </Box>
       </VStack>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         2. Investor Education Materials
       </Heading>
       <VStack align="start" spacing={4}>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             a. Educational Whitepapers
           </Heading>
           <List spacing={2} pl={4}>
@@ -65,7 +64,7 @@ const InvestorMaterials = () => {
           </List>
         </Box>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             b. Interactive Webinars
           </Heading>
           <List spacing={2} pl={4}>
@@ -75,14 +74,14 @@ const InvestorMaterials = () => {
         </Box>
       </VStack>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         3. Strategic Vision Documents
       </Heading>
       <VStack align="start" spacing={4}>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             a. Evergreen Fund Framework
           </Heading>
           <List spacing={2} pl={4}>
@@ -91,7 +90,7 @@ const InvestorMaterials = () => {
           </List>
         </Box>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             b. Multi-Generational Wealth Plan
           </Heading>
           <List spacing={2} pl={4}>
@@ -100,14 +99,14 @@ const InvestorMaterials = () => {
         </Box>
       </VStack>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         4. Marketing & Branding Collateral
       </Heading>
       <VStack align="start" spacing={4}>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             a. Investor Pitch Decks
           </Heading>
           <List spacing={2} pl={4}>
@@ -116,7 +115,7 @@ const InvestorMaterials = () => {
           </List>
         </Box>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             b. Video Testimonials
           </Heading>
           <List spacing={2} pl={4}>
@@ -126,14 +125,14 @@ const InvestorMaterials = () => {
         </Box>
       </VStack>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         5. Data-Driven Insights
       </Heading>
       <VStack align="start" spacing={4}>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             a. Customizable Dashboards
           </Heading>
           <List spacing={2} pl={4}>
@@ -141,7 +140,7 @@ const InvestorMaterials = () => {
           </List>
         </Box>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             b. Sector & Macro Analysis
           </Heading>
           <List spacing={2} pl={4}>
@@ -151,14 +150,14 @@ const InvestorMaterials = () => {
         </Box>
       </VStack>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         6. Transparency & Compliance Materials
       </Heading>
       <VStack align="start" spacing={4}>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             a. Compliance Documentation
           </Heading>
           <List spacing={2} pl={4}>
@@ -167,7 +166,7 @@ const InvestorMaterials = () => {
           </List>
         </Box>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             b. Expense Transparency Report
           </Heading>
           <List spacing={2} pl={4}>
@@ -176,14 +175,14 @@ const InvestorMaterials = () => {
         </Box>
       </VStack>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         7. Advanced Performance Analytics
       </Heading>
       <VStack align="start" spacing={4}>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             a. Scenario Analysis
           </Heading>
           <List spacing={2} pl={4}>
@@ -191,7 +190,7 @@ const InvestorMaterials = () => {
           </List>
         </Box>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             b. Historical Data Comparisons
           </Heading>
           <List spacing={2} pl={4}>
@@ -200,14 +199,14 @@ const InvestorMaterials = () => {
         </Box>
       </VStack>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         8. Investor-Centric Content
       </Heading>
       <VStack align="start" spacing={4}>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             a. Personal Investment Projections
           </Heading>
           <List spacing={2} pl={4}>
@@ -215,7 +214,7 @@ const InvestorMaterials = () => {
           </List>
         </Box>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             b. FAQs
           </Heading>
           <List spacing={2} pl={4}>
@@ -224,9 +223,9 @@ const InvestorMaterials = () => {
         </Box>
       </VStack>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         9. Environmental, Social, and Governance (ESG) Reporting
       </Heading>
       <List spacing={2} pl={4}>
@@ -235,14 +234,14 @@ const InvestorMaterials = () => {
         <ListItem>Outline governance practices within the fund to ensure ethical management.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         10. Partnership Opportunities
       </Heading>
       <VStack align="start" spacing={4}>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             a. Co-Investment Opportunities
           </Heading>
           <List spacing={2} pl={4}>
@@ -250,7 +249,7 @@ const InvestorMaterials = () => {
           </List>
         </Box>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             b. Business Collaboration
           </Heading>
           <List spacing={2} pl={4}>
@@ -259,14 +258,14 @@ const InvestorMaterials = () => {
         </Box>
       </VStack>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         11. Events & Community Building
       </Heading>
       <VStack align="start" spacing={4}>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             a. Annual Investor Retreat
           </Heading>
           <List spacing={2} pl={4}>
@@ -275,7 +274,7 @@ const InvestorMaterials = () => {
           </List>
         </Box>
         <Box>
-          <Heading as="h4" size="md" mb={2}>
+          <Heading as="h4" fontSize="md" mb={2}>
             b. Regular Town Halls
           </Heading>
           <List spacing={2} pl={4}>
@@ -284,7 +283,7 @@ const InvestorMaterials = () => {
         </Box>
       </VStack>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
     </Box>
   );
 };

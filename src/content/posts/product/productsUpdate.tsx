@@ -10,10 +10,8 @@ export const frontmatter = {
 
 const ProductUpdates = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-                  <Image src={ProductUpdateImg} alt="Funds Update" mb={4} borderRadius="md" />
-
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         The 🤫 Fund – First 12 Investment Programs & Systems
       </Heading>
 
@@ -27,7 +25,7 @@ const ProductUpdates = () => {
         Each program is named after a world-class innovator, builder, or leader who exemplifies excellence in execution.
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>The First 12 Investment Programs of the 🤫 Fund</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>The First 12 Investment Programs of the 🤫 Fund</Heading>
 
       <VStack spacing={4} align="stretch">
         {[
@@ -38,7 +36,7 @@ const ProductUpdates = () => {
           { name: "Jobs", desc: "The AI-Driven Buy & Hold Machine", details: ["Owns the world’s best free cash flow businesses (BRK, AAPL, MSFT, V, MA, UNH).", "Uses AI to reinvest weekly option income into these stocks at the best prices.", "Never sells, only accumulates more.", "Alpha Source: FCF compounding & stock buybacks.", "Target Return: 12-18% annualized (excluding options income).", "Risk: Near-zero (market risk only)."] }
         ].map((program, index) => (
           <Box key={index} p={4} borderWidth="1px" borderRadius="lg" shadow="md" bg="gray.800">
-            <Heading as="h4" size="md" color="teal.100" mb={2}>{program.name} – {program.desc}</Heading>
+            <Heading as="h4" fontSize="md" color="black" mb={2}>{program.name} – {program.desc}</Heading>
             <List spacing={1} pl={4}>
               {program.details.map((detail, idx) => (
                 <ListItem key={idx}>{detail}</ListItem>
@@ -48,9 +46,9 @@ const ProductUpdates = () => {
         ))}
       </VStack>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={2}>Next Steps: The Fund Execution Plan</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={2}>Next Steps: The Fund Execution Plan</Heading>
       <List spacing={2}>
         <ListItem>Deploy $7.5M across these 12 programs immediately.</ListItem>
         <ListItem>Automate execution using AI & quant-driven strategies.</ListItem>
@@ -58,7 +56,7 @@ const ProductUpdates = () => {
         <ListItem>Scale to $100M+ AUM by proving risk-adjusted returns.</ListItem>
       </List>
 
-      <Heading as="h4" size="md" color="yellow.300" mt={4}>Final Thought</Heading>
+      <Heading as="h4" fontSize="md" color="black" mt={4}>Final Thought</Heading>
       <Text mb={4}>
         "The best way to win is to systematically remove losing trades. The best way to grow is to let compounding do its work." — Inspired by Munger & Simons
       </Text>

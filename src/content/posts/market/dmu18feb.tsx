@@ -4,9 +4,9 @@ import MarketUpdate from '../../../components/images/1_Daily Market Update.jpg'
 
 const dmu18feb = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-        <Image src={MarketUpdate} alt='Market Update 18 feb'/>
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+        {/* <Image src={MarketUpdate} alt='Market Update 18 feb'/> */}
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         🤫 Aloha Alpha Fund Market and Fund Update Report
       </Heading>
       <Text fontSize="lg" mb={4}>
@@ -16,7 +16,7 @@ const dmu18feb = () => {
         Prepared for: Internal Review & Investor Communication
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         📊 Net Liquidity & Cash Position
       </Heading>
       <List spacing={2} pl={4}>
@@ -27,7 +27,7 @@ const dmu18feb = () => {
         🔹 We continued executing “Sell the Wall™” strategy flawlessly today, maximizing short-term rental income while maintaining long-term ownership of the best businesses.
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         🔥 Performance Overview
       </Heading>
       <Text mb={4}>
@@ -84,7 +84,7 @@ const dmu18feb = () => {
         🚀 2025 shaping up to be an absolute alpha monster.
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         🔥 Strategy Highlights
       </Heading>
       <List spacing={2} pl={4}>
@@ -99,7 +99,7 @@ const dmu18feb = () => {
         </ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         📊 Macro Trends & Market Commentary
       </Heading>
       <Text mb={4}>
@@ -115,7 +115,7 @@ const dmu18feb = () => {
         📌 Tech sector remains strong—our “Sell the Wall™” strategy continues to be the most effective way to optimize capital deployment.
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         📈 Market Overview
       </Heading>
       <List spacing={2} pl={4}>
@@ -127,7 +127,7 @@ const dmu18feb = () => {
         📊 Markets are heating up ahead of key economic data releases.
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         🚀 Closing Remarks
       </Heading>
       <List spacing={2} pl={4}>

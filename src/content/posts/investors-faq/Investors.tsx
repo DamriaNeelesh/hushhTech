@@ -11,10 +11,10 @@ export const frontmatter = {
 
 const InvestorFAQ: React.FC = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Image src={InvestorUpdate} alt="Funds Update" mb={4} borderRadius="md" />
+    <Box color="black" borderRadius="md">
+      {/* <Image src={InvestorUpdate} alt="Funds Update" mb={4} borderRadius="md" /> */}
 
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+      <Heading as="h2" fontSize="xl" mb={4} color="black">
         Fund Investor FAQ
       </Heading>
 
@@ -28,7 +28,7 @@ const InvestorFAQ: React.FC = () => {
 
       <VStack spacing={6} align="stretch">
         <Box>
-          <Heading as="h3" size="lg" mb={2} color="teal.200">
+          <Heading as="h3" fontSize="lg" mb={2} color="black">
             1. What is the Fund’s Core Strategy?
           </Heading>
           <Text mb={2}>
@@ -52,7 +52,7 @@ const InvestorFAQ: React.FC = () => {
         <Divider/>
 
         <Box>
-          <Heading as="h3" size="lg" mb={2} color="teal.200">
+          <Heading as="h3" fontSize="lg" mb={2} color="black">
             2. What’s the Fund’s Investment Philosophy?
           </Heading>
           <Text mb={2}>
@@ -79,7 +79,7 @@ const InvestorFAQ: React.FC = () => {
         <Divider/>
 
         <Box>
-          <Heading as="h3" size="lg" mb={2} color="teal.200">
+          <Heading as="h3" fontSize="lg" mb={2} color="black">
             3. How Does the Fund Generate Returns?
           </Heading>
           <Text mb={2}>
@@ -103,7 +103,7 @@ const InvestorFAQ: React.FC = () => {
         <Divider/>
 
         <Box>
-          <Heading as="h3" size="lg" mb={2} color="teal.200">
+          <Heading as="h3" fontSize="lg" mb={2} color="black">
             4. What’s the Risk Profile?
           </Heading>
           <Text mb={2}>
@@ -130,7 +130,7 @@ const InvestorFAQ: React.FC = () => {
         <Divider/>
 
         <Box>
-          <Heading as="h3" size="lg" mb={2} color="teal.200">
+          <Heading as="h3" fontSize="lg" mb={2} color="black">
             5. Why Focus on Free Cash Flow Over AI Growth?
           </Heading>
           <Text mb={2}>
@@ -154,7 +154,7 @@ const InvestorFAQ: React.FC = () => {
         <Divider/>
 
         <Box>
-          <Heading as="h3" size="lg" mb={2} color="teal.200">
+          <Heading as="h3" fontSize="lg" mb={2} color="black">
             6. What Are the Fund’s Key KPIs?
           </Heading>
           <Text mb={2}>
@@ -174,7 +174,7 @@ const InvestorFAQ: React.FC = () => {
         <Divider/>
 
         <Box>
-          <Heading as="h3" size="lg" mb={2} color="teal.200">
+          <Heading as="h3" fontSize="lg" mb={2} color="black">
             7. What’s the Expected Return Profile?
           </Heading>
           <UnorderedList pl={4} spacing={2}>
@@ -197,7 +197,7 @@ const InvestorFAQ: React.FC = () => {
         </Box>
 <Divider/>
         <Box>
-          <Heading as="h3" size="lg" mb={2} color="teal.200">
+          <Heading as="h3" fontSize="lg" mb={2} color="black">
             8. What’s Your View on Google’s AI Spending?
           </Heading>
           <UnorderedList pl={4} spacing={2}>
@@ -221,7 +221,7 @@ const InvestorFAQ: React.FC = () => {
         <Divider/>
 
         <Box>
-          <Heading as="h3" size="lg" mb={2} color="teal.200">
+          <Heading as="h3" fontSize="lg" mb={2} color="black">
             9. How Does the Fund Handle Economic Downturns?
           </Heading>
           <UnorderedList pl={4} spacing={2}>
@@ -245,7 +245,7 @@ const InvestorFAQ: React.FC = () => {
         <Divider/>
 
         <Box>
-          <Heading as="h3" size="lg" mb={2} color="teal.200">
+          <Heading as="h3" fontSize="lg" mb={2} color="black">
             10. Why Should an Investor Like Charlie Munger Care About This Fund?
           </Heading>
           <UnorderedList pl={4} spacing={2}>
@@ -266,7 +266,7 @@ const InvestorFAQ: React.FC = () => {
         <Divider/>
 
         <Box>
-          <Heading as="h3" size="lg" mb={2} color="teal.200">
+          <Heading as="h3" fontSize="lg" mb={2} color="black">
             Final Thoughts: The Fund’s Edge
           </Heading>
           <UnorderedList pl={4} spacing={2}>
@@ -283,7 +283,7 @@ const InvestorFAQ: React.FC = () => {
         <Divider/>
 
         <Box>
-          <Heading as="h3" size="lg" mb={2} color="teal.200">
+          <Heading as="h3" fontSize="lg" mb={2} color="black">
             Next Steps for Investors
           </Heading>
           <UnorderedList pl={4} spacing={2}>
@@ -298,7 +298,7 @@ const InvestorFAQ: React.FC = () => {
         
       </VStack>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
     </Box>
   );

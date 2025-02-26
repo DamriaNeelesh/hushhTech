@@ -11,23 +11,23 @@ export const frontmatter = {
 
 const AlphaAlohaFundUpdate = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Image src={AlphaAlohaImg} alt="Alpha Aloha Fund Update" mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      {/* <Image src={AlphaAlohaImg} alt="Alpha Aloha Fund Update" mb={4} borderRadius="md" /> */}
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Alpha Aloha Fund Market and Fund Update Report
       </Heading>
 
       <Text fontSize="lg" mb={4}>Reporting Period: February 7, 2025</Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>NAV & Cash Position</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>NAV & Cash Position</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>NAV (Net Liquidity Value):</strong> $7,715,000</ListItem>
         <ListItem><strong>Cash Position:</strong> $5,096,000</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Performance Overview</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Performance Overview</Heading>
       <Text fontSize="md" fontWeight="bold">Daily Performance (Feb 7, 2025):</Text>
       <List spacing={2} pl={4}>
         <ListItem>Net Income (Day): $56,043.91 (0.73% of NAV)</ListItem>
@@ -42,18 +42,18 @@ const AlphaAlohaFundUpdate = () => {
         <ListItem>Win Rate: 97.74%</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Strategy Highlights</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Strategy Highlights</Heading>
       <List spacing={2} pl={4}>
         <ListItem>Executed "Sell the Wall" Strategy, optimizing premium capture.</ListItem>
         <ListItem>Amazon Earnings Play: leveraged post-earnings volatility.</ListItem>
         <ListItem>Managed sector rotation & high-RSI positioning efficiently.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Market Commentary</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Market Commentary</Heading>
       <Text fontSize="md" fontWeight="bold">Tech Sector Observations:</Text>
       <List spacing={2} pl={4}>
         <ListItem>Amazon (AMZN) reported strong Q4 earnings but mixed market reaction.</ListItem>
@@ -65,9 +65,9 @@ const AlphaAlohaFundUpdate = () => {
         <ListItem>Major indices faced downward pressure: Dow -0.99%, Nasdaq -1.30%, S&P 500 -0.95%</ListItem>
       </List>
       
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Closing Remarks</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Closing Remarks</Heading>
       <Text>
         Despite market turbulence, Alpha Aloha Fund maintained resilience through disciplined execution.
         Our 97% win rate highlights strong risk management and consistent income generation.

@@ -11,9 +11,8 @@ export const frontmatter = {
 
 const FundConcentrationAnalysis = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Image src={FundsStandings} alt="Fund Concentration Analysis" mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Analysis and Discussion of the Fund’s Concentrated Positions
       </Heading>
 
@@ -21,9 +20,9 @@ const FundConcentrationAnalysis = () => {
         The portfolio demonstrates a high-conviction, concentrated approach to investing, with large bets on a small number of well-established, free cash flow (FCF) rich businesses. This strategy aligns with a belief in the enduring strength and competitive moats of these companies, coupled with the utilization of an income-generating options strategy. Let’s break down the rationale, risks, and rewards:
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         1. Rationale for Concentration
       </Heading>
       <List spacing={2} pl={4}>
@@ -33,9 +32,9 @@ const FundConcentrationAnalysis = () => {
         <ListItem>Directional Bias: While the portfolio appears directional, it is built on the premise that these companies will remain foundational pillars of the global economy for generations, making short-term directional risks less impactful over a long timeline.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         2. Risks of the Strategy
       </Heading>
       <List spacing={2} pl={4}>
@@ -53,9 +52,9 @@ const FundConcentrationAnalysis = () => {
         <ListItem>Short-Term Losses: Selling options can result in losses if positions move significantly against the strikes, leading to potential unrealized losses or unfavorable rollovers.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         3. Rewards for the Risk
       </Heading>
       <List spacing={2} pl={4}>
@@ -65,15 +64,15 @@ const FundConcentrationAnalysis = () => {
         <ListItem>Upside Capture: Over the ultra-long term, the directional bias positions the portfolio to benefit from the secular growth trends in technology, e-commerce, AI, and financials.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         4. Transparency with Investors
       </Heading>
       <Text>
         We commit to providing investors with full transparency regarding the risks and rewards of this high-stakes strategy. Here’s how we achieve that:
       </Text>
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         4.1 Highlighting Risks
       </Heading>
       <List spacing={2} pl={4}>
@@ -81,7 +80,7 @@ const FundConcentrationAnalysis = () => {
         <ListItem>Long-Term Commitment: Investors must understand that this strategy requires patience and a multi-decade horizon. Short-term losses are part of the process but are expected to be offset by the compounding effect of income and capital appreciation over time.</ListItem>
         <ListItem>Market Dependencies: The strategy’s success is tied to the continued dominance of these businesses. We will provide periodic updates on these companies’ fundamentals to reassure investors.</ListItem>
       </List>
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         4.2 Highlighting Rewards
       </Heading>
       <List spacing={2} pl={4}>
@@ -90,9 +89,9 @@ const FundConcentrationAnalysis = () => {
         <ListItem>Alignment of Interests: The concentrated, conviction-based approach aligns the fund manager’s incentives with those of the investors, as success is tied to the performance of these core holdings.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         5. Logical Thinking Behind the Strategy
       </Heading>
       <List spacing={2} pl={4}>
@@ -101,9 +100,9 @@ const FundConcentrationAnalysis = () => {
         <ListItem>Behavioral Discipline: High-conviction positions allow us to withstand market volatility and avoid unnecessary churn, reinforcing disciplined decision-making.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         6. Plan for Investor Communication
       </Heading>
       <List spacing={2} pl={4}>
@@ -113,9 +112,9 @@ const FundConcentrationAnalysis = () => {
         <ListItem>Open Dialogue: Dedicated channels for investors to discuss concerns or gain clarity about fund performance and outlook.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         7. Conclusion
       </Heading>
       <Text>

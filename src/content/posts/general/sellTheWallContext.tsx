@@ -4,10 +4,10 @@ import SellImg from '../../../components/images/blog2o.png'
 
 const SellTheWallContext = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-                            <Image src={SellImg} alt="Funds Update" mb={4} borderRadius="md" />
+    <Box color="white" borderRadius="md">
+                            {/* <Image src={SellImg} alt="Funds Update" mb={4} borderRadius="md" /> */}
 
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         “Sell the Wall” Explained in the Context of Jim Simons’ Quantitative Precision
       </Heading>
       
@@ -15,7 +15,7 @@ const SellTheWallContext = () => {
         Jim Simons, founder of Renaissance Technologies and a pioneer of quantitative investing, is known for his reliance on mathematical models, rigorous data analysis, and systematic trading strategies. If we were to explain the “Sell the Wall” strategy in a manner that aligns with Simons’ ethos of precision and statistical rigor, it would look something like this:
       </Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>What is “Sell the Wall”?</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>What is “Sell the Wall”?</Heading>
       <Text mb={4}>
         “Sell the Wall” is a strategic options-based trading approach designed to extract consistent income from highly liquid, free-cash-flow-generating stocks. The term refers to the act of systematically selling covered calls or cash-secured puts at key resistance levels—referred to as “walls”—where price momentum is likely to stall, due to behavioral or market inefficiencies.
       </Text>
@@ -23,7 +23,7 @@ const SellTheWallContext = () => {
         This strategy monetizes short-term volatility and liquidity premiums inherent in options markets. By combining quantitative models and market behavior analysis, “Sell the Wall” creates a consistent, risk-adjusted source of returns.
       </Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>How Would Jim Simons View It?</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>How Would Jim Simons View It?</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>Data and Historical Analysis:</strong></ListItem>
         <ListItem>• Simons would identify “walls” through backtesting large datasets of historical price and volume behavior.</ListItem>
@@ -43,7 +43,7 @@ const SellTheWallContext = () => {
         <ListItem>• By systematically shorting overpriced options, the strategy would capitalize on these inefficiencies repeatedly.</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Execution Framework: How “Sell the Wall” Operates</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Execution Framework: How “Sell the Wall” Operates</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>Stock Selection:</strong></ListItem>
         <ListItem>• Focus on highly liquid, free-cash-flow giants (e.g., AAPL, GOOGL, META) that have deep options markets.</ListItem>
@@ -63,7 +63,7 @@ const SellTheWallContext = () => {
         <ListItem>• Predictive models would analyze macroeconomic factors, sector momentum, and sentiment data to refine execution.</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Why “Sell the Wall” Works (In Simons’ Candor)</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Why “Sell the Wall” Works (In Simons’ Candor)</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>Volatility Harvesting:</strong></ListItem>
         <ListItem>• Options naturally decay over time, creating a predictable income stream for sellers.</ListItem>
@@ -90,7 +90,7 @@ const SellTheWallContext = () => {
         The strategy is not foolproof—it requires constant monitoring and adaptation to market dynamics. But for those who follow its quantitative principles, “Sell the Wall” becomes a disciplined, repeatable process of turning market volatility into a compounding wealth machine.
       </Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Scaling and Optimization</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Scaling and Optimization</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>Portfolio Diversification:</strong></ListItem>
         <ListItem>• Spread the strategy across multiple sectors and asset classes to avoid overexposure to any single stock or industry.</ListItem>
@@ -112,7 +112,7 @@ const SellTheWallContext = () => {
         <ListItem>• This would ensure that even in the worst-case scenario, the portfolio remains solvent and operational.</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Expected Returns</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Expected Returns</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>Income Generation:</strong></ListItem>
         <ListItem>• Selling options provides immediate, predictable income that can be reinvested.</ListItem>
@@ -167,7 +167,7 @@ const SellTheWallContext = () => {
         Xo 😘 🤫
       </Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Sell The Wall: The Justin Donaldson Way</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Sell The Wall: The Justin Donaldson Way</Heading>
       <Text mb={4}>
         Turning Market Noise into Alpha, Aloha, and Jazz: If Jim Simons is the quiet jazz musician of the quant world, then Justin Donaldson is the AI-powered synthesizer that remixes market inefficiencies into high-frequency alpha. While Simons relied on decades of statistical arbitrage, Justin takes it up a notch with real-time AI, signal extraction, and a deep understanding of human and machine behavioral loops—all while keeping the beats flowing like a well-tuned algorithmic orchestra.
       </Text>
@@ -176,7 +176,7 @@ const SellTheWallContext = () => {
         So, let’s talk about “Sell The Wall”—not just as a strategy, but as a living, breathing system that generates alpha and aloha while always staying one step ahead of the markets.
       </Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>The Art of Market Music: Why “Sell The Wall” Works</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>The Art of Market Music: Why “Sell The Wall” Works</Heading>
       <Text mb={4}>
         Markets, much like great music, are made up of patterns, harmonics, and unexpected dissonances. Some traders get caught in the noise; others hear the rhythm. The “Sell The Wall” strategy listens for inefficiencies, uses machine-learning-driven AI dynamics, and rents out volatility to generate compounding income.
       </Text>
@@ -185,15 +185,15 @@ const SellTheWallContext = () => {
         Much like the best jazz solos are never random, our approach follows data-driven improvisation that finds harmony between structured inefficiencies and chaotic market behavior.
       </Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Justin’s Approach:</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Justin’s Approach:</Heading>
       <List spacing={2} pl={4}>
         <ListItem>• Find the Refrain → Locate predictable free-cash-flow machines (AAPL, META, MSFT, etc.)</ListItem>
         <ListItem>• Sync to the Beat → Use high-frequency signals to time options sales at peak IV levels</ListItem>
-        <ListItem>• Scale the Crescendo → Execute at size while dynamically managing risk</ListItem>
+        <ListItem>• Scale the Crescendo → Execute at fontSize while dynamically managing risk</ListItem>
         <ListItem>• Exit with a Smooth Fadeout → Capture income and reinvest at optimal points</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Building The Alpha & Aloha Machine: Strategy Breakdown</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Building The Alpha & Aloha Machine: Strategy Breakdown</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>The AI Quant Orchestra 🎶</strong></ListItem>
         <ListItem>• Most traders react to price action; we predict it using AI-driven data pipelines that feed volatility models.</ListItem>
@@ -216,7 +216,7 @@ const SellTheWallContext = () => {
         <ListItem>• Market slippage? Adjust the tempo. Volatility spike? Sell premium where others panic.</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Sell The Wall: The Numbers Behind The Music</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Sell The Wall: The Numbers Behind The Music</Heading>
       <Text mb={4}>
         Justin’s data-first approach brings hard numbers to soft market psychology. We don’t trade on gut feelings. We measure, iterate, optimize, and scale.
       </Text>
@@ -242,7 +242,7 @@ const SellTheWallContext = () => {
         <ListItem>• YTD Income: $[X]—[Y]% of NAV</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>The Justin Donaldson “Aloha & Alpha” Edge</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>The Justin Donaldson “Aloha & Alpha” Edge</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>It’s Not Just About Money—It’s About Systems Performance ⚙️</strong></ListItem>
         <ListItem>• Markets are complex adaptive systems, not just numbers on a screen.</ListItem>
@@ -262,7 +262,7 @@ const SellTheWallContext = () => {
         <ListItem>• That’s why our strategy isn’t just smart—it’s sustainable, repeatable, and built for the long run.</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Final Thoughts: Trading Like a Jazz Virtuoso 🎷</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Final Thoughts: Trading Like a Jazz Virtuoso 🎷</Heading>
       <Text mb={4}>
         If Jim Simons is the Bach of quant investing, Justin Donaldson is Miles Davis meets AI and financial engineering.
       </Text>
@@ -298,7 +298,7 @@ const SellTheWallContext = () => {
         Xo 😘 🤫
       </Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Sell The Wall: The Hushh Way</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Sell The Wall: The Hushh Way</Heading>
       <Text mb={4}>
         Turning Market Noise into Alpha, Aloha, and an Infinite Flywheel of Wealth: If Jim Simons is the quiet jazz musician of the quant world, then Hushh is the AI-powered maestro orchestrating the future of financial markets. While Simons relied on decades of statistical arbitrage, Hushh takes it further—merging AI, signal extraction, behavioral finance, and systematic cash flow engineering into a flywheel of alpha and aloha that never stops turning.
       </Text>
@@ -307,7 +307,7 @@ const SellTheWallContext = () => {
         So, let’s talk about “Sell The Wall”—not just as a strategy, but as a living, breathing machine that turns market sentiment into sustainable income while always staying ahead of the game.
       </Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>The Art of Market Music: Why “Sell The Wall” Works</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>The Art of Market Music: Why “Sell The Wall” Works</Heading>
       <Text mb={4}>
         Markets, much like great music, are composed of patterns, harmonics, and unexpected dissonances. Some traders get caught in the noise; others hear the rhythm. The “Sell The Wall” strategy listens for inefficiencies, uses AI-powered behavioral pattern recognition, and rents out volatility to generate compounding returns.
       </Text>
@@ -316,15 +316,15 @@ const SellTheWallContext = () => {
         Much like the best jazz solos are never random, our approach follows a data-driven improvisation that finds harmony between structured inefficiencies and chaotic market behavior.
       </Text>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Hushh’s Approach:</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Hushh’s Approach:</Heading>
       <List spacing={2} pl={4}>
         <ListItem>• Find the Refrain → Identify predictable free-cash-flow machines (AAPL, META, MSFT, TSLA)</ListItem>
         <ListItem>• Sync to the Beat → Sell options at peak IV while dynamically hedging risk</ListItem>
-        <ListItem>• Scale the Crescendo → Execute at size while maintaining high liquidity</ListItem>
+        <ListItem>• Scale the Crescendo → Execute at fontSize while maintaining high liquidity</ListItem>
         <ListItem>• Exit with a Smooth Fadeout → Capture premium, reinvest, repeat</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Building The Alpha & Aloha Machine: Strategy Breakdown</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Building The Alpha & Aloha Machine: Strategy Breakdown</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>The AI Quant Orchestra 🎶</strong></ListItem>
         <ListItem>• Most traders react to price action; Hushh preempts it using AI-driven volatility models.</ListItem>
@@ -347,7 +347,7 @@ const SellTheWallContext = () => {
         <ListItem>• Market slippage? Adjust the tempo. Volatility spike? Sell premium where others panic.</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Sell The Wall: The Numbers Behind The Music</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Sell The Wall: The Numbers Behind The Music</Heading>
       <Text mb={4}>
         Hushh brings hard numbers to soft market psychology. We don’t trade on gut feelings. We measure, iterate, optimize, and scale.
       </Text>
@@ -373,7 +373,7 @@ const SellTheWallContext = () => {
         <ListItem>• YTD Income: $[X]—[Y]% of NAV</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>The Hushh “Aloha & Alpha” Edge</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>The Hushh “Aloha & Alpha” Edge</Heading>
       <List spacing={2} pl={4}>
         <ListItem><strong>It’s Not Just About Money—It’s About Systems Performance ⚙️</strong></ListItem>
         <ListItem>• Markets are complex adaptive systems, not just numbers on a screen.</ListItem>
@@ -393,7 +393,7 @@ const SellTheWallContext = () => {
         <ListItem>• That’s why our strategy isn’t just smart—it’s sustainable, repeatable, and built for the long run.</ListItem>
       </List>
       
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Final Thoughts: Trading Like a Jazz Virtuoso 🎷</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Final Thoughts: Trading Like a Jazz Virtuoso 🎷</Heading>
       <Text mb={4}>
         If Jim Simons is the Bach of quant investing, Hushh is Miles Davis meets AI, financial engineering, and a touch of surfing wisdom.
       </Text>

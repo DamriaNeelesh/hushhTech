@@ -12,8 +12,8 @@ export const frontmatter = {
 
 const ValuationAnalysis: React.FC = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Valuation Analysis of HushhTech.com
       </Heading>
 
@@ -21,11 +21,11 @@ const ValuationAnalysis: React.FC = () => {
         Valuing HushhTech.com, a fintech startup generating a 5% monthly return on a $7.5 million capital base, requires an analysis of current market valuation multiples for profitable fintech companies. Given its impressive gross and net margins, we can estimate its valuation using industry-standard multiples.
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
       <VStack spacing={4} align="stretch">
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">1. EBITDA Multiples</Heading>
+          <Heading as="h3" fontSize="lg" color="black">1. EBITDA Multiples</Heading>
           <Text mt={2}>For profitable fintech firms, EBITDA multiples are a common valuation metric. Recent data indicates that fintech companies with EBITDA in the range of $5 million to $10 million have been valued at approximately 12.3 times EBITDA.</Text>
           <Text mt={2}><strong>Calculation:</strong></Text>
           <Text>• Annual Net Cash Flow (EBITDA): $375,000 (monthly) × 12 = $4.5 million</Text>
@@ -33,7 +33,7 @@ const ValuationAnalysis: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">2. Revenue Multiples</Heading>
+          <Heading as="h3" fontSize="lg" color="black">2. Revenue Multiples</Heading>
           <Text mt={2}>Although HushhTech.com is in its early stages, revenue multiples can provide additional context. Fintech companies with revenues between $1 million and $5 million have been valued at approximately 2.7 times revenue.</Text>
           <Text mt={2}><strong>Calculation:</strong></Text>
           <Text>• Annual Revenue: Assuming the net cash flow represents net profit after expenses, and considering typical fintech profit margins, the annual revenue could be estimated around $9 million.</Text>
@@ -41,17 +41,17 @@ const ValuationAnalysis: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Conclusion</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Conclusion</Heading>
           <Text mt={2}>Based on current market multiples, HushhTech.com’s valuation could range between $24.3 million and $55.35 million, depending on the valuation method applied. Given its profitability and strong cash flow generation, the higher end of this range may be more appropriate. It’s important to note that these valuations are based on available market data and should be refined with more detailed financial information and market conditions.</Text>
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Realistic Valuation of HushhTech.com</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Realistic Valuation of HushhTech.com</Heading>
           <Text mt={2}>Given that Hushh Technologies is generating an average 5% monthly return on its $7.5M capital base, we can estimate its realistic valuation based on different financial methodologies:</Text>
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">1. Net Income Valuation Approach (Cash Flow Multiplier)</Heading>
+          <Heading as="h3" fontSize="lg" color="black">1. Net Income Valuation Approach (Cash Flow Multiplier)</Heading>
           <Text mt={2}>Since HushhTech is generating 5% of $7.5M per month, that translates to:</Text>
           <Text>• Monthly Net Cash Flow: $375,000</Text>
           <Text>• Annualized Net Cash Flow: $4.5M</Text>
@@ -64,7 +64,7 @@ const ValuationAnalysis: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">2. Assets Under Management (AUM) Valuation Approach</Heading>
+          <Heading as="h3" fontSize="lg" color="black">2. Assets Under Management (AUM) Valuation Approach</Heading>
           <Text mt={2}>Hedge funds and quant firms are often valued based on AUM and performance fees, particularly when they show consistent profitability.</Text>
           <Text mt={2}><strong>Hedge Fund Valuation Based on AUM</strong></Text>
           <Text>• HushhTech manages $7.5M of its capital, growing at a rate of 5% per month.</Text>
@@ -76,7 +76,7 @@ const ValuationAnalysis: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">3. Discounted Cash Flow (DCF) Model</Heading>
+          <Heading as="h3" fontSize="lg" color="black">3. Discounted Cash Flow (DCF) Model</Heading>
           <Text mt={2}>Using a DCF approach with conservative 10-year projections, assuming:</Text>
           <Text>• Growth Rate of 5% Monthly, then tapering to 3% annually after Year 3.</Text>
           <Text>• Discount Rate (Risk-Free + Risk Premium): 15%</Text>
@@ -86,14 +86,14 @@ const ValuationAnalysis: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">4. Fintech & AI-Driven Valuation Premium</Heading>
+          <Heading as="h3" fontSize="lg" color="black">4. Fintech & AI-Driven Valuation Premium</Heading>
           <Text mt={2}>If HushhTech is positioned as an AI-powered fintech investment platform, quant firm, or automated trading business, it could command a higher multiple, similar to fintech firms like Robinhood, Renaissance Technologies, or DE Shaw.</Text>
           <Text>• AI/quant-driven hedge funds typically trade at 12x - 20x cash flow.</Text>
           <Text>• This places HushhTech at a potential $90M - $120M+ valuation if it scales and maintains consistent performance and capital inflow.</Text>
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Final Estimated Valuation</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Final Estimated Valuation</Heading>
           <Text mt={2}>Conservative Range: $45M - $75M</Text>
           <Text>👉 (Traditional hedge fund multiples & AUM-based models)</Text>
           <Text>Growth-Oriented & AI-Powered Range: $85M - $120M</Text>
@@ -103,7 +103,7 @@ const ValuationAnalysis: React.FC = () => {
         </Box>
 
         <Box>
-          <Heading as="h3" size="lg" color="teal.200">Conclusion</Heading>
+          <Heading as="h3" fontSize="lg" color="black">Conclusion</Heading>
           <Text mt={2}>HushhTech is currently worth between $45M (conservative hedge fund valuation) to $120M (AI-powered growth firm valuation), with a strong case for an $85M central valuation.</Text>
           <Text mt={2}><strong>📌 Key Levers to Increase Valuation:</strong></Text>
           <Text>• Raising AUM (every $1 raised adds ~$0.10-$0.15 in valuation)</Text>

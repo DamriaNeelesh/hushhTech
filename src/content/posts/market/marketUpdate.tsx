@@ -11,10 +11,10 @@ export const frontmatter = {
 
 const AlphaAlohaFundUpdate: React.FC = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
+    <Box color="black" borderRadius="md">
             <Image src={MarketUpdate} alt="Funds Update" mb={4} borderRadius="md" />
 
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         🤫 Alpha Aloha Fund Update – February 4, 2025
       </Heading>
 
@@ -22,57 +22,57 @@ const AlphaAlohaFundUpdate: React.FC = () => {
         A Day of Reflection and Resilience: Celebrating a new high-water NAV of $7.614M and a strong cash position of $4.4M.
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Alphabet (GOOGL): A Disappointing Revenue Miss and Expanding AI Investments</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Alphabet (GOOGL): A Disappointing Revenue Miss and Expanding AI Investments</Heading>
       <List spacing={2} pl={4}>
         <ListItem>Revenue: $96.47B (vs. $96.56B expected)</ListItem>
         <ListItem>EPS: $2.15 (vs. $2.13 expected)</ListItem>
         <ListItem>Google Cloud Revenue: $11.96B (vs. $12.19B expected)</ListItem>
       </List>
 
-      <Heading as="h4" size="md" color="yellow.300" mt={4}>Insights:</Heading>
+      <Heading as="h4" fontSize="md" color="black" mt={4}>Insights:</Heading>
       <List spacing={2} pl={4}>
         <ListItem>AI-Focused CapEx: $75B planned for 2025.</ListItem>
         <ListItem>Cloud Revenue Miss: Tight supply-demand conditions.</ListItem>
         <ListItem>Slowing Ad Growth: YouTube ad growth at 13.8% YoY.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Snap (SNAP): A Better-Than-Expected Quarter</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Snap (SNAP): A Better-Than-Expected Quarter</Heading>
       <List spacing={2} pl={4}>
         <ListItem>Revenue: $1.56B (+14% YoY)</ListItem>
         <ListItem>EPS: $0.16 (vs. $0.14 expected)</ListItem>
         <ListItem>Daily Active Users: 453M (vs. 451.1M expected)</ListItem>
       </List>
 
-      <Heading as="h4" size="md" color="yellow.300" mt={4}>Highlights:</Heading>
+      <Heading as="h4" fontSize="md" color="black" mt={4}>Highlights:</Heading>
       <List spacing={2} pl={4}>
         <ListItem>Snapchat+ Momentum: 14M subscribers.</ListItem>
         <ListItem>Advertiser Diversification amid regulatory shifts.</ListItem>
         <ListItem>AI Commentary: Efficiency gains via new AI models.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>Market Commentary and Broader Trends</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>Market Commentary and Broader Trends</Heading>
       <List spacing={2} pl={4}>
         <ListItem>S&P 500: +0.7%, led by healthcare and tech.</ListItem>
         <ListItem>Dow Jones: +0.3%, driven by industrials.</ListItem>
         <ListItem>Nasdaq: +1.4%, fueled by AI optimism.</ListItem>
       </List>
 
-      <Heading as="h4" size="md" color="yellow.300" mt={4}>Sector Highlights:</Heading>
+      <Heading as="h4" fontSize="md" color="black" mt={4}>Sector Highlights:</Heading>
       <List spacing={2} pl={4}>
         <ListItem>Tech: AI-driven growth themes with execution hurdles.</ListItem>
         <ListItem>Consumer Discretionary: Retail data boosts confidence.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>YTD Income Performance</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>YTD Income Performance</Heading>
       <Text>$389,300 generated YTD, representing 5.11% of NAV.</Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mt={4}>Looking Forward</Heading>
+      <Heading as="h3" fontSize="lg" color="black" mt={4}>Looking Forward</Heading>
       <Text mb={4}>
         Focus on disciplined execution, strategic allocations, and capturing opportunities in a dynamic market environment.
       </Text>

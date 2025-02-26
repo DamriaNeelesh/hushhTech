@@ -11,9 +11,8 @@ export const frontmatter = {
 
 const SECReportRegD = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Image src={AlphaAlohaImg} alt="SEC Report for Reg D Filing" mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         SEC Report for Reg D Filing
       </Heading>
 
@@ -24,16 +23,16 @@ const SECReportRegD = () => {
         End of Day Summary: February 7, 2025
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         Key Performance Indicators (KPI) Overview
       </Heading>
       <Text mb={4}>
         This report provides a comprehensive analysis of the Alpha Aloha Fund’s financial health and performance metrics as of February 7, 2025. The data is presented to comply with SEC filing requirements under Regulation D.
       </Text>
 
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         1. Financial Position Overview
       </Heading>
       <List spacing={2} pl={4}>
@@ -50,9 +49,9 @@ const SECReportRegD = () => {
         • Cash reserves are sufficient to manage liquidity needs, despite active use of margin for leveraging high-quality positions.
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         2. Profit & Loss Performance
       </Heading>
       <Text>
@@ -91,9 +90,9 @@ const SECReportRegD = () => {
         • The fund generated steady premium income, bolstering liquidity and NAV growth.
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         3. Portfolio Composition
       </Heading>
       <Text>
@@ -120,9 +119,9 @@ const SECReportRegD = () => {
         • Risk is well-managed through dynamic margin balances and conservative leverage.
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         4. Risk Management and Liquidity
       </Heading>
       <Text>
@@ -151,9 +150,9 @@ const SECReportRegD = () => {
         • Liquidity reserves remain robust, ensuring ability to meet margin calls in extreme scenarios.
       </Text>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         5. Fee Structure and Returns
       </Heading>
       <Text>
@@ -173,9 +172,9 @@ const SECReportRegD = () => {
         <ListItem>Worst Case: 5% annualized returns over 3 years.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         6. Compliance and Governance
       </Heading>
       <List spacing={2} pl={4}>
@@ -184,9 +183,9 @@ const SECReportRegD = () => {
         <ListItem>Reg D Filing Status: All material changes and financial updates documented for regulatory review.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         Recommendations and Strategic Actions
       </Heading>
       <List spacing={2} pl={4}>
@@ -196,9 +195,9 @@ const SECReportRegD = () => {
         <ListItem>Compliance: Update investor documents to reflect the fund’s latest performance data and strategic outlook.</ListItem>
       </List>
 
-      <Divider my={4} borderColor="teal.500" />
+      <Divider my={4} borderColor="black" />
 
-      <Heading as="h4" size="md" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" mt={4} mb={2}>
         Prepared for:
       </Heading>
       <Text>

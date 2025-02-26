@@ -4,9 +4,8 @@ import AlphaAlohaImg from '../../../components/images/blog2o.png';
 
 const CommitmentLetter = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Image src={AlphaAlohaImg} alt="Commitment Letter" mb={4} borderRadius="md" />
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Commitment Letter
       </Heading>
       <Text fontSize="lg" mb={4}>
@@ -34,7 +33,7 @@ const CommitmentLetter = () => {
         Investor Type: [Accredited Individual / Institutional Investor / Family Office / Other]
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         1. Investment Commitment
       </Heading>
       <Text mb={4}>
@@ -48,7 +47,7 @@ const CommitmentLetter = () => {
         <ListItem>• Use of Funds: The funds will be used to further HushOne’s mission to develop AI-driven financial and investment technologies, expand operational capabilities, and accelerate growth initiatives.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         2. Terms & Acknowledgments
       </Heading>
       <List spacing={2} pl={4}>
@@ -59,7 +58,7 @@ const CommitmentLetter = () => {
         <ListItem>5. Final Agreement: The investment will be finalized upon execution of the Subscription Agreement, SAFE Note, or Share Purchase Agreement, as applicable.</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         3. Fund Transfer Instructions
       </Heading>
       <Text mb={4}>
@@ -75,14 +74,14 @@ const CommitmentLetter = () => {
         <ListItem>• Reference: [Investor Name - Investment in HushOne, Inc.]</ListItem>
       </List>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         4. Confidentiality & Non-Disclosure
       </Heading>
       <Text mb={4}>
         The Investor agrees that all discussions, documentation, and details of this investment shall remain strictly confidential and shall not be disclosed to any third party without prior written consent from the Company, except as required by law.
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         5. Signature & Acknowledgment
       </Heading>
       <Text mb={4}>
@@ -104,7 +103,7 @@ const CommitmentLetter = () => {
         Date Signed: [Insert Date]
       </Text>
 
-      <Heading as="h3" size="lg" color="teal.200" mb={4}>
+      <Heading as="h3" fontSize="lg" color="black" mb={4}>
         Issuer Confirmation & Acceptance
       </Heading>
       <Text mb={4}>

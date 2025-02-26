@@ -3,8 +3,8 @@ import { Box, Text, Heading, List, ListItem } from '@chakra-ui/react';
 
 const SubscriptionAgreementCShares = () => {
   return (
-    <Box p={5} bg="gray.900" color="white" borderRadius="md" shadow="lg">
-      <Heading as="h2" size="xl" mb={4} color="teal.300">
+    <Box color="black" borderRadius="md">
+      <Heading as="h2" fontSize="2xl" mb={4} color="black">
         SUBSCRIPTION AGREEMENT FOR CLASS C SHARES
       </Heading>
       <Text fontSize="sm" color="gray.500" mb={4}>
@@ -12,13 +12,13 @@ const SubscriptionAgreementCShares = () => {
         Hushh Technologies LLC<br />
         Effective Date: [Insert Date]
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         1. SUBSCRIPTION & CLASS C INVESTMENT TERMS
       </Heading>
       <Text mb={4}>
         This Subscription Agreement (the “Agreement”) is made between Hushh Technologies LLC, a Delaware limited liability company (the “Fund”), and the undersigned investor (the “Investor”), who wishes to subscribe for Class C Shares in the Fund under the terms and conditions outlined below.
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         2. SUBSCRIPTION DETAILS
       </Heading>
       <List spacing={3} mb={4}>
@@ -29,7 +29,7 @@ const SubscriptionAgreementCShares = () => {
         <ListItem>• Lock-Up Period: 12 months</ListItem>
         <ListItem>• Redemption Terms: Quarterly withdrawals allowed with 90 days’ notice</ListItem>
       </List>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         3. REPRESENTATIONS & WARRANTIES OF INVESTOR
       </Heading>
       <Text mb={4}>
@@ -41,7 +41,7 @@ const SubscriptionAgreementCShares = () => {
         <ListItem>3. Due Diligence: Investor has received, read, and understood the Fund’s Private Placement Memorandum (PPM) and agrees to the terms set forth therein.</ListItem>
         <ListItem>4. Capital Commitment: Investor confirms they have the financial capacity to commit capital without causing undue hardship or liquidity issues.</ListItem>
       </List>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         4. FUND STRATEGY & USE OF PROCEEDS
       </Heading>
       <List spacing={3} mb={4}>
@@ -49,7 +49,7 @@ const SubscriptionAgreementCShares = () => {
         <ListItem>✅ AI-Driven Market Making – Leveraging machine learning and real-time risk modeling to capture statistical arbitrage and volatility premiums.</ListItem>
         <ListItem>✅ Capital Efficiency – Deploying capital in high-liquidity options markets to maximize return on risk-adjusted capital while maintaining strict risk controls.</ListItem>
       </List>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         5. REDEMPTIONS & WITHDRAWALS
       </Heading>
       <List spacing={3} mb={4}>
@@ -57,7 +57,7 @@ const SubscriptionAgreementCShares = () => {
         <ListItem>• The Fund reserves the right to suspend redemptions during periods of extreme market stress to protect all investors.</ListItem>
         <ListItem>• Early withdrawals (before lock-up expiry) are subject to a 5% early redemption fee.</ListItem>
       </List>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         6. FUND RISKS & DISCLOSURES
       </Heading>
       <Text mb={4}>
@@ -72,20 +72,20 @@ const SubscriptionAgreementCShares = () => {
       <Text mb={4}>
         Risk Acceptance: By subscribing, the Investor accepts all risks outlined in the Fund’s Private Placement Memorandum (PPM) and agrees that returns are not guaranteed.
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         7. CONFIDENTIALITY & RESTRICTED INFORMATION
       </Heading>
       <List spacing={3} mb={4}>
         <ListItem>• The Investor agrees to maintain strict confidentiality regarding the Fund’s proprietary strategies, holdings, and trade execution methods.</ListItem>
         <ListItem>• Any unauthorized sharing of Fund information will result in immediate termination of investment rights.</ListItem>
       </List>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         8. EXECUTION & ACCEPTANCE
       </Heading>
       <Text mb={4}>
         Upon execution of this Agreement and receipt of funds, the Investor shall be issued Class C Shares in the Fund. The Fund Manager reserves the right to accept or reject any subscription at their discretion.
       </Text>
-      <Heading as="h3" size="lg" mb={3} color="teal.200">
+      <Heading as="h3" fontSize="lg" mb={3} color="black">
         SIGNATURES & EXECUTION
       </Heading>
       <Text mb={4}>
@@ -104,7 +104,7 @@ const SubscriptionAgreementCShares = () => {
       <Text mb={4}>
         This Subscription Agreement shall be governed by and construed in accordance with the laws of the State of Delaware. Any disputes shall be resolved via arbitration in New York, NY.
       </Text>
-      <Text fontSize="lg" color="teal.300">
+      <Text fontSize="lg" color="black">
         Welcome to the Aloha & Alpha Fund. Let’s create sustainable alpha together. 🚀
       </Text>
     </Box>
