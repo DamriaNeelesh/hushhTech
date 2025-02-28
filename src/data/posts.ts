@@ -110,6 +110,7 @@ import InvestorPowerOfAttorney from '../content/posts/nda/investorsPower';
 import dmu24Feb from '../content/posts/market/dmu24feb';
 import dmu25feb from '../content/posts/market/dmu25feb';
 import HeadOfQuants from '../content/posts/general/headOfQuants';
+import Dmu27Feb from '../content/posts/market/dmu27feb';
 
 export interface PostData {
   slug: string;
@@ -1024,6 +1025,17 @@ export const posts: PostData[] = [
     Component: HeadOfQuants, // Ensure the component is imported correctly
     image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
     accessLevel: 'Public', // Set the appropriate access level
+  },
+  {
+    count: 79, // Ensure this is the next sequential number
+    slug: 'market/daily-update-27-feb-2025',
+    title: '🤫 Aloha Alpha Fund – Daily Market Update',
+    publishedAt: '2025-02-27', // Use the actual date of the update
+    description: 'Daily market update and fund performance insights for the Aloha Alpha Fund on February 27, 2025.',
+    category: 'market updates',
+    Component: Dmu27Feb, // Ensure the component is imported correctly
+    image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'Internal', // Set the appropriate access level
   },
 ];
 
