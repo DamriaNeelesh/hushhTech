@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, Text, Image, Heading, List, ListItem, Divider, VStack, Table, Thead, Tr, Th, Tbody, Td } from '@chakra-ui/react';
-import AlphaAlohaImg from '../../../components/images/blog2o.png';
 
 export const frontmatter = {
   title: "Valuation Framework for Fund A",

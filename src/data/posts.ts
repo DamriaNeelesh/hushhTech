@@ -109,6 +109,7 @@ import SubscriptionAgreementCShares from '../content/posts/investors-faq/subscri
 import InvestorPowerOfAttorney from '../content/posts/nda/investorsPower';
 import dmu24Feb from '../content/posts/market/dmu24feb';
 import dmu25feb from '../content/posts/market/dmu25feb';
+import HeadOfQuants from '../content/posts/general/headOfQuants';
 
 export interface PostData {
   slug: string;
@@ -1010,6 +1011,17 @@ export const posts: PostData[] = [
     description: 'Daily market update and fund performance insights for the Aloha Alpha Fund on February 25, 2024.',
     category: 'market updates',
     Component: dmu25feb, // Ensure the component is imported correctly
+    image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'Public', // Set the appropriate access level
+  },
+  {
+    count: 78, // Ensure this is the next sequential number
+    slug: 'general/head-of-quants',
+    title: 'Head of Quants and Investment Programs Engineer',
+    publishedAt: '2025-02-28', // Use the actual date of the update
+    description: 'Join hushhTech as the Head of AI-Powered Quant Trading & Engineering to build the future of autonomous trading.',
+    category: 'general',
+    Component: HeadOfQuants, // Ensure the component is imported correctly
     image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
     accessLevel: 'Public', // Set the appropriate access level
   },
