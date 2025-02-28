@@ -111,6 +111,7 @@ import dmu24Feb from '../content/posts/market/dmu24feb';
 import dmu25feb from '../content/posts/market/dmu25feb';
 import HeadOfQuants from '../content/posts/general/headOfQuants';
 import Dmu27Feb from '../content/posts/market/dmu27feb';
+import Dmu26Feb from '../content/posts/market/dmu26feb';
 
 export interface PostData {
   slug: string;
@@ -1034,6 +1035,17 @@ export const posts: PostData[] = [
     description: 'Daily market update and fund performance insights for the Aloha Alpha Fund on February 27, 2025.',
     category: 'market updates',
     Component: Dmu27Feb, // Ensure the component is imported correctly
+    image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'Internal', // Set the appropriate access level
+  },
+  {
+    count: 80, // Ensure this is the next sequential number
+    slug: 'market/daily-update-26-feb-2025',
+    title: 'Aloha Alpha Fund – Daily Market & Performance Update',
+    publishedAt: '2025-02-26', // Use the actual date of the update
+    description: 'Market and performance update for the Aloha Alpha Fund on February 26, 2025, with insights on Nvidia earnings and fund strategy.',
+    category: 'market updates',
+    Component: Dmu26Feb, // Ensure the component is imported correctly
     image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
     accessLevel: 'Internal', // Set the appropriate access level
   },
