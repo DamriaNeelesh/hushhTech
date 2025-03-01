@@ -112,6 +112,7 @@ import dmu25feb from '../content/posts/market/dmu25feb';
 import HeadOfQuants from '../content/posts/general/headOfQuants';
 import Dmu27Feb from '../content/posts/market/dmu27feb';
 import Dmu26Feb from '../content/posts/market/dmu26feb';
+import InvestorUpdate from '../content/posts/investors-faq/investorUpdate';
 
 export interface PostData {
   slug: string;
@@ -1036,7 +1037,7 @@ export const posts: PostData[] = [
     category: 'market updates',
     Component: Dmu27Feb, // Ensure the component is imported correctly
     image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'Internal', // Set the appropriate access level
+    accessLevel: 'Public', // Set the appropriate access level
   },
   {
     count: 80, // Ensure this is the next sequential number
@@ -1047,7 +1048,18 @@ export const posts: PostData[] = [
     category: 'market updates',
     Component: Dmu26Feb, // Ensure the component is imported correctly
     image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'Internal', // Set the appropriate access level
+    accessLevel: 'Public', // Set the appropriate access level
+  },
+  {
+    count: 81, // Ensure this is the next sequential number
+    slug: 'updates/investor-update',
+    title: 'Hushh Investments LLC - Investor Update & Forward-Looking Thesis',
+    publishedAt: '2025-03-01', // Use the actual date of the update
+    description: 'Comprehensive investor update and forward-looking thesis for Hushh Investments LLC.',
+    category: 'investor relations & strategies',
+    Component: InvestorUpdate, // Ensure the component is imported correctly
+    image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'Public', // Set the appropriate access level
   },
 ];
 

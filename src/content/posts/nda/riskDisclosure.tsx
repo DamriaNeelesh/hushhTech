@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box, Text, Image, Heading, List, ListItem, Divider, VStack, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
-import AlphaAlohaImg from '../../../components/images/blog2o.png';
+import { Box, Text, Heading,Divider, VStack } from '@chakra-ui/react';
 
 export const frontmatter = {
   title: "Risk Disclosures",
