@@ -113,6 +113,7 @@ import HeadOfQuants from '../content/posts/general/headOfQuants';
 import Dmu27Feb from '../content/posts/market/dmu27feb';
 import Dmu26Feb from '../content/posts/market/dmu26feb';
 import InvestorUpdate from '../content/posts/investors-faq/investorUpdate';
+import Dmu28Feb from '../content/posts/market/dmu28feb';
 
 export interface PostData {
   slug: string;
@@ -1058,6 +1059,17 @@ export const posts: PostData[] = [
     description: 'Comprehensive investor update and forward-looking thesis for Hushh Investments LLC.',
     category: 'investor relations & strategies',
     Component: InvestorUpdate, // Ensure the component is imported correctly
+    image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'Public', // Set the appropriate access level
+  },
+  {
+    count: 82, // Ensure this is the next sequential number
+    slug: 'market/updates-28-feb-2025',
+    title: '🤫 Aloha Alpha Fund — February 28, 2025 Performance Recap',
+    publishedAt: '2025-02-28', // Use the actual date of the update
+    description: 'Performance recap for the Aloha Alpha Fund on February 28, 2025, highlighting gains and strategic execution.',
+    category: 'market updates',
+    Component: Dmu28Feb, // Ensure the component is imported correctly
     image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
     accessLevel: 'Public', // Set the appropriate access level
   },
