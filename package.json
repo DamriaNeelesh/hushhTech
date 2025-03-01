@@ -18,6 +18,7 @@
     "@headlessui/react": "^1.7.17",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
+    "@next/mdx": "^15.2.0",
     "@supabase/supabase-js": "^2.46.1",
     "antd": "^5.22.1",
     "axios": "^1.7.9",
@@ -50,6 +51,7 @@
     "remark-gfm": "^4.0.0",
     "supabase": "^1.219.0",
     "tailwindcss": "^3.4.0",
+    "turndown": "^7.2.0",
     "vite-plugin-mdx": "^3.6.1"
   },
   "devDependencies": {

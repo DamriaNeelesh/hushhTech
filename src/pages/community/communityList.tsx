@@ -1,10 +1,9 @@
+// src/pages/community/CommunityList.tsx
 import { useState, useEffect } from "react"; 
 import {
   Container,
   Heading,
   Box,
-  SimpleGrid,
-  Button,
   Select,
   Spinner,
   useToast,
@@ -17,8 +16,7 @@ import axios from "axios";
 import NDARequestModal from "../../components/NDARequestModal";
 import NDADocumentModal from "../../components/NDADocumentModal";
 import config from "../../resources/config/config";
-import { getPosts, PostData } from "../../data/posts";
-
+import { getAllPosts } from "../../data/allPosts";
 // Dropdown option text for NDA documents.
 const NDA_OPTION = "Sensitive Documents (NDA approval Req.)";
 
@@ -27,7 +25,7 @@ const toTitleCase = (str: string): string =>
   str.replace(/\w\S*/g, (txt) =>
     txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
   );
-
+  console.log('Get All Posts:',getAllPosts());
 // Helper function to format dates as "2nd Feb '25"
 const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
@@ -74,7 +72,7 @@ const PostImage: React.FC<{ src: string; alt: string; height?: string }> = ({
 
 const CommunityList: React.FC = () => {
   const toast = useToast();
-  const allPosts: PostData[] = getPosts();
+  const allPosts = getAllPosts();
 
   // Separate posts by access level.
   const publicPosts = allPosts.filter((post) => post.accessLevel === "Public");
@@ -130,7 +128,6 @@ const CommunityList: React.FC = () => {
       if (selectedCategory === NDA_OPTION && session && !ndaApproved) {
         const access = await checkNdaAccessStatus();
         if (!access) {
-          // If access not granted, reset dropdown to All.
           setSelectedCategory("All");
           localStorage.setItem("communityFilter", "all");
         }
@@ -178,7 +175,10 @@ const CommunityList: React.FC = () => {
           isClosable: true,
         });
         return false;
-      } else if (status === "Pending" || status === "Requested permission for the sensitive file.") {
+      } else if (
+        status === "Pending" ||
+        status === "Requested permission for the sensitive file."
+      ) {
         toast({
           title: "Request Pending",
           description: "Your NDA access request is still under review.",
@@ -206,7 +206,8 @@ const CommunityList: React.FC = () => {
           } else {
             toast({
               title: "Error",
-              description: ndaResponse.data.message || "Error fetching NDA metadata.",
+              description:
+                ndaResponse.data.message || "Error fetching NDA metadata.",
               status: "error",
               duration: 4000,
               isClosable: true,
@@ -231,7 +232,6 @@ const CommunityList: React.FC = () => {
           duration: 4000,
           isClosable: true,
         });
-        // Redirect to profile page.
         window.location.href = "/profile";
         return false;
       } else {
@@ -268,6 +268,7 @@ const CommunityList: React.FC = () => {
     setSelectedCategory(category);
     localStorage.setItem("communityFilter", category === NDA_OPTION ? "nda" : "all");
   };
+  console.log('Get All Posts:',getAllPosts());
 
   // --- Filter Posts Based on Selected Category ---
   let filteredPosts;
@@ -279,20 +280,16 @@ const CommunityList: React.FC = () => {
     filteredPosts = publicPosts.filter((post) => post.category === selectedCategory);
   }
 
-  // --- Sort Posts (Latest on Top) ---
   filteredPosts.sort(
-    (a, b) =>
-      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 
-  // --- Render Loader if API Calls Are In Progress ---
   const renderLoader = () => (
     <Box textAlign="center" py={8}>
       <Spinner size="xl" />
     </Box>
   );
 
-  // --- Handle Restricted Post Clicks ---
   const handleRestrictedClick = () => {
     toast({
       title: "Access Restricted",
@@ -303,7 +300,6 @@ const CommunityList: React.FC = () => {
     });
   };
 
-  // --- Preload Images ---
   useEffect(() => {
     allPosts.forEach((post) => {
       const img = new window.Image();
@@ -311,7 +307,6 @@ const CommunityList: React.FC = () => {
     });
   }, [allPosts]);
 
-  // --- Handler for NDA Request Modal Submission ---
   const handleNdaRequestSubmit = async (result: string) => {
     if (result === "Pending: Waiting for NDA Process") {
       try {
@@ -353,12 +348,9 @@ const CommunityList: React.FC = () => {
 
   return (
     <Container maxW="container.lg" py={8}>
-      {/* Page Heading */}
-      <Heading as="h1" mb={6} textAlign="left" fontSize={{md:"2xl",base:'xl'}}>
-      Latest Updates from Hushh Technologies
+      <Heading as="h1" mb={6} textAlign="left" fontSize={{ md: "2xl", base: "xl" }}>
+        Latest Updates from Hushh Technologies
       </Heading>
-
-      {/* Dropdown Filter */}
       <Box mb={8} textAlign="left">
         <Select
           maxW="300px"
@@ -372,8 +364,14 @@ const CommunityList: React.FC = () => {
           ))}
         </Select>
       </Box>
-<Text my={'8'} fontWeight={'400'} fontSize={{md:'3rem',base:'1.7rem'}} lineHeight={{md:'65px',base:'32px'}}>{toTitleCase(selectedCategory)}</Text>
-      {/* Loader or List */}
+      <Text
+        my={"8"}
+        fontWeight={"400"}
+        fontSize={{ md: "3rem", base: "1.7rem" }}
+        lineHeight={{ md: "65px", base: "32px" }}
+      >
+        {toTitleCase(selectedCategory)}
+      </Text>
       {loading ? (
         renderLoader()
       ) : (
@@ -386,10 +384,7 @@ const CommunityList: React.FC = () => {
               }
             };
             return (
-              <>
-              
               <Box key={post.slug} mb={6}>
-                {/* Date in red, bold */}
                 <Text
                   color="red.600"
                   fontWeight="bold"
@@ -398,7 +393,6 @@ const CommunityList: React.FC = () => {
                 >
                   {dateString}
                 </Text>
-                {/* Title as a link */}
                 <Link to={`/community/${post.slug}`} onClick={handleClick}>
                   <Text
                     color="gray.900"
@@ -409,13 +403,10 @@ const CommunityList: React.FC = () => {
                   </Text>
                 </Link>
               </Box>
-              </>
             );
           })}
         </Box>
       )}
-
-      {/* NDA Request Modal */}
       {showNdaModal && session && (
         <NDARequestModal
           isOpen={showNdaModal}
@@ -427,8 +418,6 @@ const CommunityList: React.FC = () => {
           }}
         />
       )}
-
-      {/* NDA Document Modal */}
       {showNdaDocModal && ndaMetadata && session && (
         <NDADocumentModal
           isOpen={showNdaDocModal}
@@ -446,7 +435,6 @@ const CommunityList: React.FC = () => {
             });
             setNdaApproved(true);
             setShowNdaDocModal(false);
-            // Update default filter to NDA.
             localStorage.setItem("communityFilter", "nda");
             setSelectedCategory(NDA_OPTION);
           }}
