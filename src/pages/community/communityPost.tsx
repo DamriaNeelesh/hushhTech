@@ -3,26 +3,27 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   Container,
-  Heading,
   Box,
   Text,
   Spinner,
   useToast,
 } from "@chakra-ui/react";
-import { getPostBySlug, PostData } from "../../data/posts";
+import { getAllPosts } from "../../data/allPosts";
 import axios from "axios";
 import config from "../../resources/config/config";
+const mdxModules = import.meta.glob('../posts/*.mdx');  // for dynamic MDX import
+const reactModules = import.meta.glob('../posts/*.tsx');  // for dynamic React import
 
 const CommunityPost: React.FC = () => {
-  // Extract the slug (using wildcard parameter for nested routes)
-  const { "*": slug } = useParams();
-  const [post, setPost] = useState<PostData | null>(null);
+  // const { "*": slug } = useParams();
+  // const [post, setPost] = useState<PostData | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const toast = useToast();
-
-  // Use a ref to ensure that the same toast is not shown twice.
   const toastShownRef = useRef<{ [key: string]: boolean }>({});
+  const { slug } = useParams<{ slug: string }>();
+  const [PostContent, setPostContent] = useState<React.FC | null>(null);
+  const post = getAllPosts().find(p => p.slug === slug);
 
   const showToastOnce = (id: string, options: any) => {
     if (!toastShownRef.current[id]) {
@@ -32,85 +33,20 @@ const CommunityPost: React.FC = () => {
   };
 
   useEffect(() => {
-    const loadPost = async () => {
-      // Retrieve the post using the slug.
-      const foundPost = getPostBySlug(slug || "");
-      if (!foundPost) {
-        showToastOnce(`post-not-found-${slug}`, {
-          title: "Post Not Found",
-          description: `The post with slug "${slug}" was not found.`,
-          status: "error",
-          duration: 4000,
-          isClosable: true,
-        });
-        navigate("/community");
-        return;
-      }
-
-      // If the post is confidential (accessLevel "NDA"), then check NDA access via API.
-      if (foundPost.accessLevel === "NDA") {
-        // Retrieve the current session.
-        const { data: { session } } = await config.supabaseClient.auth.getSession();
-        if (!session) {
-          showToastOnce("access-restricted-no-session", {
-            title: "Access Restricted",
-            description:
-              "You must be logged in and complete the NDA process to view confidential posts.",
-            status: "error",
-            duration: 4000,
-            isClosable: true,
-          });
-          navigate("/community");
-          return;
-        }
-        try {
-          const response = await axios.post(
-            "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/check_access_status",
-            {},
-            {
-              headers: {
-                apikey: config.SUPABASE_ANON_KEY,
-                Authorization: `Bearer ${session.access_token}`,
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          const ndaStatus = response.data;
-          console.log("NDA Access Status:", ndaStatus);
-          if (ndaStatus !== "Approved") {
-            showToastOnce("access-restricted-nda", {
-              title: "Access Restricted",
-              description:
-                "You are not approved to view this confidential post. Please complete the NDA process.",
-              status: "error",
-              duration: 4000,
-              isClosable: true,
-            });
-            navigate("/community");
-            return;
-          }
-        } catch (error) {
-          console.error("Error checking NDA status:", error);
-          showToastOnce("access-error-nda", {
-            title: "Error",
-            description:
-              "Error checking NDA access status. Please try again later.",
-            status: "error",
-            duration: 4000,
-            isClosable: true,
-          });
-          navigate("/community");
-          return;
-        }
-      }
-
-      // If all checks pass, set the post and stop loading.
-      setPost(foundPost);
-      setLoading(false);
-    };
-
-    loadPost();
-  }, [slug, navigate, toast]);
+    if (!slug || !post) return;
+    if (post.contentType === 'mdx') {
+      // Dynamically import the MDX component by file path
+      mdxModules[`../posts/${slug}.mdx`]().then(mod => {
+        setPostContent(() => mod.default);
+      });
+    } else if (post.contentType === 'react') {
+      // Dynamically import the React component (if not already in bundle)
+      reactModules[`../posts/${slug}.tsx`]().then(mod => {
+        setPostContent(() => mod.default);
+      });
+    }
+  }, [slug, post]);
+  
 
   if (loading) {
     return (
@@ -120,27 +56,25 @@ const CommunityPost: React.FC = () => {
     );
   }
 
-  if (!post) return null;
+  if (!PostContent) {
+    return <div>Loading post...</div>;
+  }
 
-  const PostComponent = post.Component;
-  const toTitleCase = (str: string) => {
-    return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
-  };
+  // const PostComponent = post.Component;
+  const toTitleCase = (str: string) =>
+    str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 
   return (
     <Box bg="white" minH="100vh" py={12} px={4}>
       <Container maxW="container.md">
-        <Text as={'h2'} fontSize={{base:'sm',md:'md'}} fontWeight={'600'} color={'#e7131a'}>
-{toTitleCase(post.category)}
+        <Text as={'h2'} fontSize={{ base: 'sm', md: 'md' }} fontWeight="600" color="#e7131a">
+          {toTitleCase(post.category)}
         </Text>
-        {/* <Heading as="h1" fontWeight={'500'} mb={4} fontSize={{md:'xl',base:'lg'}} color="black">
-          {post.title}
-        </Heading> */}
         <Text fontSize="sm" color="gray.900" mb={8}>
           {new Date(post.publishedAt).toLocaleDateString()}
         </Text>
-        <Box color="white" lineHeight="tall" fontSize="lg">
-          <PostComponent />
+        <Box color="black" lineHeight="tall" fontSize="lg">
+          <PostContent />
         </Box>
       </Container>
     </Box>
