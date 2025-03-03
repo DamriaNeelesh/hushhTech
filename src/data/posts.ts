@@ -1060,7 +1060,7 @@ export const posts: PostData[] = [
     category: 'investor relations & strategies',
     Component: InvestorUpdate, // Ensure the component is imported correctly
     image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'Public', // Set the appropriate access level
+    accessLevel: 'NDA', // Set the appropriate access level
   },
   {
     count: 82, // Ensure this is the next sequential number
