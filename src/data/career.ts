@@ -135,7 +135,7 @@ export const careers : DepartmentJobs = {
         id: "investment-program-engineer",
         title: "Head of Quants and Investment Programs Engineer",
         location: "Kirkland, WA (Hybrid options available)",
-        salary: "$200,000 - $300,000",
+        salary: "$150,000 - $200,000",
         responsibilities: [
           "AI-Driven Trading Strategy: Design, implement, and refine algorithmic trading strategies powered by advanced AI (deep reinforcement learning, supervised learning, etc.). Your algorithms will autonomously execute trades across multiple asset classes, continuously learning and improving, while incorporating a human-in-the-loop for high-level guidance and risk oversight.",
           "Human-in-the-Loop Oversight: Develop a framework for human oversight and intervention in the trading loop. Ensure our AI makes intelligent decisions but keeps humans in control at critical junctures, aligning with best practices that cite keeping a “human in the loop” as key to mitigating AI risks . You will build dashboards and controls for real-time human monitoring, and mechanisms for human traders to easily override or adjust AI strategies when needed.",
