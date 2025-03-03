@@ -17,6 +17,8 @@ export const careers : DepartmentJobs = {
         leadershipPrinciples: [
           
         ],
+        hiringProcedure:[],
+        compensationProcedure:[],
         qualifications: [
           "Ph.D. or Master's degree in Mathematics, Statistics, Computer Science, Physics, or a related field",
           "Demonstrated ability to conduct first-class research and apply insights to real-world problems",
@@ -37,6 +39,8 @@ export const careers : DepartmentJobs = {
           "Generate reports on portfolio health, attribution analysis, and market conditions",
           "Collaborate with quantitative researchers to refine strategies based on empirical results"
         ],
+        hiringProcedure:[],
+        compensationProcedure:[],
         leadershipPrinciples: [
           
         ],
@@ -65,6 +69,8 @@ export const careers : DepartmentJobs = {
         leadershipPrinciples: [
           
         ],
+        hiringProcedure:[],
+        compensationProcedure:[],
         qualifications: [
           "Bachelor's or Master's degree in Computer Science, Data Engineering, or a related field",
           "Strong experience with SQL, Spark, Kafka, or Hadoop in cloud-based environments like AWS/GCP",
@@ -88,6 +94,8 @@ export const careers : DepartmentJobs = {
         leadershipPrinciples: [
           
         ],
+        hiringProcedure:[],
+        compensationProcedure:[],
         qualifications: [
           "Bachelor's degree in Computer Science, Software Engineering, or equivalent experience",
           "Expertise in C++ (preferably C++17 or later) in Linux/Unix environments",
@@ -113,8 +121,56 @@ export const careers : DepartmentJobs = {
         leadershipPrinciples: [
           
         ],
+        hiringProcedure:[],
+        compensationProcedure:[],
         qualifications: [
           "Extensive experience in technology leadership roles within financial services or related industries",
+          "Strong expertise in software architecture, cloud infrastructure, and high-performance computing",
+          "Proven track record of delivering scalable systems for data-driven decision-making",
+          "Exceptional leadership and team-building skills with a focus on mentorship and innovation",
+          "Passion for combining AI, machine learning, and data to drive investment outcomes"
+        ]
+      },
+      {
+        id: "investment-program-engineer",
+        title: "Head of Quants and Investment Programs Engineer",
+        location: "Kirkland, WA (Hybrid options available)",
+        salary: "$200,000 - $300,000",
+        responsibilities: [
+          "AI-Driven Trading Strategy: Design, implement, and refine algorithmic trading strategies powered by advanced AI (deep reinforcement learning, supervised learning, etc.). Your algorithms will autonomously execute trades across multiple asset classes, continuously learning and improving, while incorporating a human-in-the-loop for high-level guidance and risk oversight.",
+          "Human-in-the-Loop Oversight: Develop a framework for human oversight and intervention in the trading loop. Ensure our AI makes intelligent decisions but keeps humans in control at critical junctures, aligning with best practices that cite keeping a “human in the loop” as key to mitigating AI risks . You will build dashboards and controls for real-time human monitoring, and mechanisms for human traders to easily override or adjust AI strategies when needed.",
+          "Ultra-Low-Latency Infrastructure: Architect and optimize ultra-low-latency trading systems from the ground up. You’ll oversee everything from hardware choices (network cards, colocation, FPGA/ASIC acceleration) to software optimizations (lock-free programming, kernel bypass, etc.) to achieve execution speeds at the limits of physics. For certain strategies, even a few nanoseconds can make the difference in profitability – you will ensure our tick-to-trade pipeline is as fast as technologically possible.",
+          "Market Microstructure & Execution: Leverage your expert knowledge of market microstructure (order books, matching engines, order types, etc.) to give our trading strategies an edge. Design smart execution algorithms that minimize slippage and trading costs while capitalizing on microstructure inefficiencies. You’ll guide the team in fine-tuning how our AI submits and cancels orders, reacts to market data, and navigates multiple venues to capture opportunities that others miss.",
+          "Leadership & Collaboration: Build and lead a top-tier team of quantitative researchers and engineers. Foster a culture of excellence, innovation, and rigorous testing. You will mentor team members, set technical direction, and ensure effective collaboration between the AI research side and the trading operations side. As a senior leader, you’ll also work closely with our founders and advisors on overall company strategy, and interface with investors/partners as the technical visionary for our trading capabilities.",
+          "Risk Management and Performance Optimization: Implement robust risk controls within the trading algorithms (position limits, kill-switches, anomaly detection) to protect against unforeseen scenarios. Constantly evaluate performance of strategies using metrics like Sharpe, drawdowns, and latency benchmarks, and drive improvements. You’ll balance aggression with prudence – pushing the AI to be bold in seeking alpha, while always controlling for tail risks and aligning with the firm’s risk appetite."
+        ],
+        hiringProcedure: [
+          "We believe that great talent appreciates a great challenge. That’s why our hiring process kicks off with a direct quant trading challenge instead of a typical HR screen. If our mission excites you, we invite you to demonstrate your skills from the get-go:",
+          "Real-World Trading Puzzle: Shortlisted candidates will receive a high-caliber trading problem to solve. This might be a simplified market simulation, a dataset to analyze for alpha, or a coding task to optimize an execution algorithm. It’s designed to be intellectually stimulating and reflective of the work you’ll do here – no generic brainteasers or leetcode trivia. For example, you might be asked to design a reinforcement learning agent for a toy trading environment, or to decode a pattern in high-frequency tick data and formulate a trading strategy around it.",
+          "Show Us Your Edge: We want to see how you think, not just that you can churn out code. There won’t be rigid right or wrong answers; instead we look for creativity, rigorous analysis, and an understanding of the trade-offs involved in your solution. This is your chance to show off what makes you one of the best in this field. Impress us with elegant logic, clever modeling, or performance hacks – whatever showcases your unique edge.",
+          "Fast Feedback & Next Steps: We respect your time. Our team (including the CEO and CTO) will rapidly review submissions. High performers will quickly move through to deep-dive interviews where you’ll discuss your solution and vision. Throughout, you’ll be talking to fellow experts who speak your language. The bottom line: if you have what it takes, you’ll find our process exciting and meritocratic, not a hoop-jumping exercise.",
+          "By the time you finish the challenge, you’ll have a genuine sense of the problems we’re solving and we’ll have a clear sense of your fit. It’s a win-win that kicks off your journey with us on the right note. If you’re ready to embrace the challenge and opportunity, we want to hear from you."
+        ],
+        compensationProcedure : [
+            "We believe in being straightforward – including about pay. This role is high-impact, and we compensate accordingly, with competitive salary, performance-based bonus, and equity. We openly share salary ranges for each location so you know we’re not playing games. (All amounts below are annual and in local currency.)",
+            "Pune, India: Base salary in the range of INR 5-8 lakhs (₹5,000,000 – ₹8,000,000), plus performance bonus targeting ~20% of base. This yields a total compensation of roughly INR 6 to 9 lakhs for strong performers. (For context, senior quant researchers in India can earn up to around ₹1.2 crore at top firms , and our offers will be in that upper-market range.)",
+            "Mumbai, India: Base salary in the range of INR 5 to 8 lakhs, plus ~20% performance bonus potential (11–17 lakhs). Total target comp about INT 6 to 10 lakhs. (Mumbai is a finance hub, and we remain fully competitive with leading market salaries here.)",
+            "Seattle (Kirkland, WA), USA: Base salary roughly $150,000 – $200,000, with performance bonus potential up to ~50% of base. Total annual compensation target around $225,000 – $300,000. (Industry averages for head quant roles in the U.S. are about $278K total with ~$176K base , and top hedge funds pay in the $270K–$400K+ range . We position our compensation in line with these top-tier standards, plus meaningful equity stock options.)",
+            "Other Locations / Remote: We are open to exceptional candidates globally. Compensation will be calibrated to your local market’s top standards (we benchmark London, New York, Singapore, etc. equivalently). Rest assured, wherever you are, our philosophy is to pay for the absolute best talent commensurate with experience and impact.",
+            "Note: Bonuses are of course performance-dependent. Truly stellar outcomes could mean higher rewards, just as we expect full commitment and excellence. We want everyone sharing in the upside of the results they drive. On top of the figures above, we offer stock options/equity so you have an ownership stake in hushhTech’s growth. We want you to not just earn a salary, but build wealth as the company succeeds.",
+            "No secrets, no ambiguity – you’ll know exactly what you can earn. We set these ranges to reflect the massive impact we expect from this role and to attract someone truly outstanding. If you have a proven track record that warrants it, we are prepared to go to the top of these ranges or beyond. Additionally, all employees receive regular equity refreshes and there is potential for a multi-year guaranteed bonus for exceptional hires to provide extra confidence in making the move. Our goal is to ensure you feel valued and motivated to stay for the long haul as we build something legendary together.",
+            "On top of competitive pay, we offer: flexibility in work hours and location, a high-end development workstation and budget for any special hardware/software you need, VIP access to industry conferences and research, and an immersive, collegial culture that includes team offsites at exciting locales (once we hit key milestones!). We’ll handle immigration/visa support as needed. In short, we’ve got you covered so you can focus on changing the game in quant trading.",
+          ],
+        leadershipPrinciples: [
+          "We seek elite quant traders and engineers who have demonstrated exceptional talent and a relentless drive to push boundaries. The ideal candidate will have:",
+          "Cutting-Edge AI Expertise: Deep experience with machine learning, particularly reinforcement learning in trading or complex decision-making systems. You understand state-of-the-art algorithms (DQN, PPO, actor-critic methods, etc.) and have possibly applied them to real trading or similar high-frequency decision environments. You believe in the power of AI – perhaps you even know that modern RL can, in many cases, make better trading decisions than humans – and you’re excited to prove it in live markets.",
+          "Quantitative Trading Acumen: A strong track record in quantitative trading, ideally in high-frequency or ultra-low-latency contexts. You deeply understand market microstructure and have built or traded strategies in equities, futures, FX, or crypto that require reacting in milliseconds or faster. Experience with strategy development (momentum, market making, stat arb, etc.) and a keen intuition for what makes a trading strategy successful are essential.",
+          "Systems & Infrastructure Mastery: Proven ability to design and optimize high-performance trading systems. You’ve engineered systems where every microsecond counts – tuning network stack performance, using efficient languages (C/C++/Rust), leveraging parallel computing, and maybe deploying FPGA or GPU acceleration. You know how to get from tick to trade in as close to zero time as possible, and you’re up-to-date on the latest tools and technologies for low-latency and high-throughput computing.",
+          "Leadership and Execution: Experience leading teams or projects at the intersection of quantitative research and engineering. You can wear multiple hats – researcher, engineer, mentor, strategist. You know how to take a visionary idea from whiteboard to reality, rally a team around it, and deliver results. Excellent communication skills are a must: you can discuss deep tech ideas with engineers, complex risk-reward trade-offs with traders, and business strategy with executives.",
+          "Passion for Innovation: This role is for someone who lives and breathes innovation. You stay on top of research papers, experiment with new ideas for fun, and are excited by “impossible” problems. You have a hacker mindset geared toward finding clever solutions, and you’re thrilled by the idea of creating something truly revolutionary. Importantly, you share our philosophy that combining AI automation with human insight can yield the best outcomes."
+        ],
+        qualifications: [
+          "Education and Domain Credentials: An advanced degree (PhD or Masters) in a relevant field – e.g. Computer Science, Machine Learning, Mathematics, Financial Engineering – is a strong plus, but we care more about what you’ve done and your ability to apply knowledge creatively. Publications or competition wins in AI/ML (e.g. Kaggle, ACM competitions) or a track record of profitable trading strategies will make you stand out.",
           "Strong expertise in software architecture, cloud infrastructure, and high-performance computing",
           "Proven track record of delivering scalable systems for data-driven decision-making",
           "Exceptional leadership and team-building skills with a focus on mentorship and innovation",
@@ -138,6 +194,8 @@ export const careers : DepartmentJobs = {
         "Strong programming skills in Python, TensorFlow/PyTorch, and familiarity with Hugging Face.",
         "Proven ability to design AI systems with user-centric applications."
       ],
+      hiringProcedure:[],
+        compensationProcedure:[],
       leadershipPrinciples: [
         "Customer-First Mindset: Build systems that respond intuitively to user needs.",
         "Iterative Learning: Always improve models based on real-world feedback.",
@@ -159,6 +217,8 @@ export const careers : DepartmentJobs = {
         "Proficiency in building RESTful and GraphQL APIs.",
         "Strong design sense for crafting intuitive and elegant user interfaces."
       ],
+      hiringProcedure:[],
+        compensationProcedure:[],
       leadershipPrinciples: [
         "Ownership: Take full accountability for delivering user-centric experiences.",
         "Bias for Action: Rapidly prototype, test, and iterate on features.",
@@ -175,6 +235,8 @@ export const careers : DepartmentJobs = {
         "Build quant models that generate income by selling time decay and volatility.",
         "Collaborate with data engineers to integrate financial data streams."
       ],
+      hiringProcedure:[],
+        compensationProcedure:[],
       qualifications: [
         "5+ years of experience in quantitative finance or algorithmic trading.",
         "Strong proficiency in Python, NumPy, Pandas, and financial modeling libraries.",
@@ -196,6 +258,8 @@ export const careers : DepartmentJobs = {
         "Ensure data consistency, integrity, and accuracy across all systems.",
         "Optimize data lakes and warehouses for analytical workloads."
       ],
+      hiringProcedure:[],
+        compensationProcedure:[],
       qualifications: [
         "3+ years of experience in data engineering with expertise in AWS, Kafka, and PostgreSQL.",
         "Strong programming skills in Python/Scala and SQL.",
@@ -217,6 +281,8 @@ export const careers : DepartmentJobs = {
         "Design secure and scalable cloud infrastructure on AWS or GCP.",
         "Optimize performance for real-time data processing and AI workloads."
       ],
+      hiringProcedure:[],
+        compensationProcedure:[],
       qualifications: [
         "4+ years of experience in DevOps or site reliability engineering (SRE).",
         "Expertise in Kubernetes, Docker, and CI/CD pipelines.",
@@ -238,6 +304,8 @@ export const careers : DepartmentJobs = {
         "Ensure human-like interactions using NLP and speech-to-text systems.",
         "Collaborate with engineers to prototype and test voice interfaces."
       ],
+      hiringProcedure:[],
+        compensationProcedure:[],
       qualifications: [
         "3+ years of experience in UI/UX design with a focus on voice-first products.",
         "Proficiency in conversational design tools (Voiceflow, Dialogflow).",
@@ -259,6 +327,8 @@ export const careers : DepartmentJobs = {
         "Ensure alignment with the company’s mission, purpose, and leadership principles.",
         "Act as a bridge between business goals and technical execution."
       ],
+      hiringProcedure:[],
+        compensationProcedure:[],
       qualifications: [
         "7+ years of experience in software engineering with leadership roles.",
         "Strong technical background with expertise in AI, APIs, or full-stack development.",

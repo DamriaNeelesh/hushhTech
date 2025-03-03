@@ -55,6 +55,27 @@ const JobDetails = () => {
             </ul>
           </div>
         )}
+{job?.hiringProcedure && job?.hiringProcedure.length > 0 && (
+          <div className="leadership-principles-section mb-4">
+            <h3 className="section-title">Hiring Procedure</h3>
+            <ul className="list-disc pl-5">
+              {job?.hiringProcedure.map((principle, index) => (
+                <li key={index}>{principle}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+{job?.compensationProcedure && job?.compensationProcedure.length > 0 && (
+          <div className="leadership-principles-section mb-4">
+            <h3 className="section-title">Compensation Procedure</h3>
+            <ul className="list-disc pl-5">
+              {job?.compensationProcedure.map((principle, index) => (
+                <li key={index}>{principle}</li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <button 
           className="apply-button"

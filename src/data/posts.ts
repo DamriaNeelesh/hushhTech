@@ -1018,17 +1018,17 @@ export const posts: PostData[] = [
     image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
     accessLevel: 'Public', // Set the appropriate access level
   },
-  {
-    count: 78, // Ensure this is the next sequential number
-    slug: 'general/head-of-quants',
-    title: 'Head of Quants and Investment Programs Engineer',
-    publishedAt: '2025-02-28', // Use the actual date of the update
-    description: 'Join hushhTech as the Head of AI-Powered Quant Trading & Engineering to build the future of autonomous trading.',
-    category: 'general',
-    Component: HeadOfQuants, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'Public', // Set the appropriate access level
-  },
+  // {
+  //   count: 78, // Ensure this is the next sequential number
+  //   slug: 'general/head-of-quants',
+  //   title: 'Head of Quants and Investment Programs Engineer',
+  //   publishedAt: '2025-02-28', // Use the actual date of the update
+  //   description: 'Join hushhTech as the Head of AI-Powered Quant Trading & Engineering to build the future of autonomous trading.',
+  //   category: 'general',
+  //   Component: HeadOfQuants, // Ensure the component is imported correctly
+  //   image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
+  //   accessLevel: 'Public', // Set the appropriate access level
+  // },
   {
     count: 79, // Ensure this is the next sequential number
     slug: 'market/daily-update-27-feb-2025',
