@@ -54,6 +54,9 @@ function App() {
       <div className="min-h-screen flex flex-col">
         <Navbar />
         {/* {session && <NDAPopup />} */}
+        <div className='mt-20'>
+
+        
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/about/leadership" element={<Leadership />} />
@@ -76,6 +79,7 @@ function App() {
           <Route path='/eu-uk-jobs-privacy-policy' element={<EUUKPrivacyPolicy/>}/>
           <Route path="/community/*" element={<CommunityPost />} />
             </Routes>
+            </div>
         <Footer />
       </div>
   </Router>

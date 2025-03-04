@@ -254,7 +254,7 @@ const ProfilePage: React.FC = () => {
   };
 
   return (
-    <Box bg="black" width="100%" color="white">
+    <Box bg="black" width="100%" color="white" mt={-4}>
       <VStack bg="black" px={5} spacing={6} alignItems="center">
         <Image src={HushhLogo} alt="Hushh Tech Logo" boxSize={{ md: "14rem", base: "xs" }} />
         <Box w="100%" textAlign="left">
@@ -264,11 +264,12 @@ const ProfilePage: React.FC = () => {
           </Text>
         </Box>
       </VStack>
-
+      <div className="py-8">
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} my={8} px={5}>
         {/* Documents Section */}
+       
         <Box bg="#1D1D1D" p={6} borderRadius="lg" shadow="lg" textAlign="left">
-          <Heading size="md" display="flex" flexDirection="row" gap={{ md: "0.5rem", base: "0.3rem" }}
+          <Heading fontSize="md" display="flex" flexDirection="row" gap={{ md: "0.5rem", base: "0.3rem" }}
             alignItems="center" justifyContent="center">
             <Icon as={FaFileAlt} w={8} h={8} color="grey" /> Documents
           </Heading>
@@ -301,7 +302,7 @@ const ProfilePage: React.FC = () => {
         {/* NDA Process Section */}
         <Box bg="#1D1D1D" p={6} display="flex" flexDirection="column" justifyContent="space-between"
           alignItems="center" borderRadius="lg" shadow="lg" textAlign="center">
-          <Heading size="md" display="flex" flexDirection="row" gap={{ md: "0.5rem", base: "0.3rem" }}
+          <Heading fontSize="md" display="flex" flexDirection="row" gap={{ md: "0.5rem", base: "0.3rem" }}
             alignItems="center" justifyContent="center">
             <Icon as={FaUserShield} w={8} h={8} color="grey" />
             NDA Process
@@ -343,7 +344,7 @@ const ProfilePage: React.FC = () => {
         {/* KYC Verification Section */}
         <Box bg="#1D1D1D" p={6} display="flex" flexDirection="column" justifyContent="space-between"
           alignItems="center" borderRadius="lg" shadow="lg" textAlign="center">
-          <Heading size="md" display="flex" flexDirection="row" gap={{ md: "0.5rem", base: "0.3rem" }}
+          <Heading fontSize="md" display="flex" flexDirection="row" gap={{ md: "0.5rem", base: "0.3rem" }}
             alignItems="center" justifyContent="center">
             <Icon as={CheckCircleIcon} w={8} h={8} color="grey" /> KYC Verification
           </Heading>
@@ -358,6 +359,8 @@ const ProfilePage: React.FC = () => {
           </Button>
         </Box>
       </SimpleGrid>
+      </div>
+
 
       {/* NDA Request Modal */}
       {showNdaModal && session && (
