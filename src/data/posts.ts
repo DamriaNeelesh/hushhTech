@@ -114,6 +114,7 @@ import Dmu27Feb from '../content/posts/market/dmu27feb';
 import Dmu26Feb from '../content/posts/market/dmu26feb';
 import InvestorUpdate from '../content/posts/investors-faq/investorUpdate';
 import Dmu28Feb from '../content/posts/market/dmu28feb';
+import ProfitMarginReport from '../content/posts/investors-faq/profitMarginReport';
 
 export interface PostData {
   slug: string;
@@ -1072,6 +1073,17 @@ export const posts: PostData[] = [
     Component: Dmu28Feb, // Ensure the component is imported correctly
     image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
     accessLevel: 'Public', // Set the appropriate access level
+  },
+  {
+    count: 83, // Ensure this is the next sequential number
+    slug: 'investors-relations/profit-margin-report',
+    title: 'Profit Margin & Detailed Business Report',
+    publishedAt: '2025-03-03', // Use the actual date of the update
+    description: 'Comprehensive report on profit margins and business operations for Hushh Technologies.',
+    category: 'investor relations & strategies',
+    Component: ProfitMarginReport, // Ensure the component is imported correctly
+    image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
+    accessLevel: 'NDA', // Set the appropriate access level
   },
 ];
 
