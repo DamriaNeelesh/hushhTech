@@ -28,6 +28,50 @@ export const careers : DepartmentJobs = {
         ]
       },
       {
+        id: "analyst-role",
+        title: "Analyst - Global",
+        location: "Global (Remote Friendly)",
+        salary: "$180,000 - $240,000",
+        responsibilities: [
+          "Market Research & Competitive Intelligence: Conduct in-depth market research on industry trends, emerging technologies, and competitor strategies. Gather and synthesize intelligence on the fintech and investment management landscape to uncover opportunities and inform strategic decisions.",
+          "Financial Modeling & Data Analysis: Develop robust financial models and perform quantitative analyses to support business planning, forecasting, and investment decisions. Analyze datasets (financial results, user metrics, market data) to extract actionable insights that drive our product and business strategy.",
+          "AI-Driven Insights & Automation: Leverage AI tools and automation to enhance decision-making and efficiency. Use machine learning-driven analytics platforms or custom models to identify patterns, optimize processes, and generate predictive insights that give us a competitive edge.",
+          "Strategic Decision Support: Work hand-in-hand with the CEO on evaluating new initiatives and key decisions. Prepare detailed analytics-backed recommendations for strategic projects (e.g. entering a new market, launching a product feature, optimizing operations) and present your findings to the leadership team. Act as a trusted thought partner by translating complex data into clear business implications and next steps.",
+          "Business Performance Tracking & Optimization: Define and monitor key performance indicators (KPIs) across all areas of the business. Build dashboards and reports to track performance against targets. Proactively identify gaps or trends in business performance and collaborate with teams to implement improvements, ensuring we achieve maximum outcomes in growth and efficiency.",
+          "Cross-Functional Collaboration: Liaise between business and technical teams to drive data-driven improvements. Collaborate with engineers, data scientists, and product managers to gather the data you need, implement analytical solutions, and turn insights into action. Foster a culture of informed decision-making across the company by sharing insights and best practices.",
+          "Reporting & Presentation: Create high-impact presentations and reports for internal and external stakeholders. Clearly communicate your research findings, models, and recommendations in meetings with executives, board members, or potential investors. Help tell the story behind the numbers in a compelling way that influences strategic direction."
+        ],
+        leadershipPrinciples: [
+          "Top-Tier Experience: A track record of excellence in high-performance environments such as management consulting, investment banking, private equity, or a strategy/analytics role at a leading tech or fintech company. Candidates who have thrived at top-tier firms and now want a more entrepreneurial arena are encouraged to apply.",
+          "Strategic Impact: Demonstrated experience working directly with senior executives or founders on strategic projects. You’ve been the go-to person for analysis that has influenced key decisions, and you’re comfortable advising leadership with data-backed insights.",
+          "Cross-Functional Exposure: Broad exposure across business functions. Perhaps you’ve rotated through different roles or worked on cross-functional task forces – the key is that you can connect the dots between product, finance, marketing, and operations.",
+          "Start-up or Growth Stage Exposure: Experience in a startup or high-growth company where you’ve worn multiple hats. You understand the agility and resourcefulness required in a smaller, dynamic team and are excited by the “all-hands-on-deck” mentality.",
+          "Passion for Tech & Finance: Genuine interest in the intersection of technology and finance. You stay up-to-date on trends in AI, fintech, and global markets. Maybe you’ve dabbled in coding, built your own dashboards, or have a personal investing hobby – we love inquisitive minds that are always learning.",
+          "Outcome-Driven Mindset: A clear history of setting ambitious goals and delivering results. Whether it was launching a new analysis framework that saved costs or discovering an insight that drove revenue growth, you can point to outcomes that you personally influenced.",
+
+        ],
+        hiringProcedure:[],
+        compensationProcedure:[
+          "Competitive Compensation: We offer a fair base salary commensurate with top-tier talent, along with significant performance-based bonuses tied to individual and company outcomes. When we win, you win.",
+          "Equity Upside: As an early team member, you may be eligible for stock options/equity in hushhTech. You’ll have a direct stake in the company’s success and long-term value creation.",
+          "Rapid Career Growth: This role is designed to grow as the company grows. Succeeding in this position will open doors to senior roles (e.g. Strategy Lead, Chief of Staff, Head of Analytics) or the opportunity to build out and lead a team of analysts as we scale. Your professional development will be a priority, with potential to take on increasing responsibility quickly.",
+          "Learning & Mentorship: Working side-by-side with the CEO and a leadership team that includes pioneers in AI and data science means you’ll receive invaluable mentorship. You will learn at an accelerated pace – gaining exposure to high-level decision-making, advanced technologies, and the intricacies of building a startup from the ground up.",
+          "Global Exposure & Flexibility: We are a global, remote-friendly company. You’ll collaborate with colleagues and partners from different parts of the world, broadening your perspective. We offer flexibility in how you work – what matters to us are outcomes, not hours clocked. This means you have autonomy in your schedule and the freedom to innovate in how you achieve objectives. "
+        ],
+        qualifications: [
+          "Education: Bachelor’s degree in Business, Finance, Economics, Data Science, Engineering or a related field. A Master’s degree (MBA, MS) or professional certifications (CFA, etc.) is a plus.",
+          "Analytical Expertise: 3+ years of experience in roles involving strategic analysis, financial modeling, or business intelligence. Proven ability to dissect complex problems using data and quantitative reasoning.",
+          "Financial Acumen: Strong command of financial concepts and modeling. Able to build and interpret financial statements, projections, and ROI analyses; comfortable evaluating investment opportunities and business cases.",
+          "Data & Tech Proficiency: Hands-on experience with data analysis tools and methodologies. Advanced Excel skills are required, and proficiency with SQL, Python/R or BI tools (Tableau, Power BI) to manipulate and visualize data is highly desirable. Familiarity with statistical analysis or machine learning concepts is a plus, as is experience working with large datasets.",
+          "AI Mindset: Eagerness to embrace AI-driven tools and automation. You don’t need to be a data scientist, but you should be able to understand AI/ML basics and leverage AI-based platforms or scripts to work smarter and faster. (Any prior experience with AI analytics, NLP, or process automation will be an advantage.)",
+          "Research & Synthesis: Excellent research skills – adept at gathering information from diverse sources (market reports, news, databases, interviews) and synthesizing it into clear insights. Ability to quickly learn about new industries or technologies and assess their business impact.",
+          "Communication Skills: Exceptional written and verbal communication abilities. Capable of distilling complex analyses into clear, persuasive narratives and visualizations. Comfortable presenting to senior leaders and explaining data-driven recommendations in a compelling manner.",
+          "Agility & Drive: Self-starter with a bias for action and results. Thrives in a fast-paced, ambiguous environment. Able to juggle multiple priorities and pivot quickly as new challenges arise. Highly organized, detail-oriented, and committed to excellence in every output.",
+          "Global Mindset: Proven ability to work in a global context – whether through collaborating with international teams or analyzing global markets. Cultural awareness and adaptability, with willingness to accommodate meetings across time zones. (Multilingual skills or international work experience are a plus.)",
+          "Integrity & Discretion: High ethical standards and professional integrity. Able to handle confidential information with trust and care. We seek someone who will always put what’s right for the business and our customers first."
+        ]
+      },
+      {
         id: "portfolio-analyst",
         title: "Portfolio Analyst",
         location: "Kirkland, WA (Hybrid/Remote options available)",
