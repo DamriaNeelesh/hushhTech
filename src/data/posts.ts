@@ -1077,7 +1077,7 @@ export const posts: PostData[] = [
   {
     count: 83, // Ensure this is the next sequential number
     slug: 'investors-relations/profit-margin-report',
-    title: 'Profit Margin & Detailed Business Report',
+    title: 'Profit Margin & Detailed Business Report (unaudited financial profit report)',
     publishedAt: '2025-03-03', // Use the actual date of the update
     description: 'Comprehensive report on profit margins and business operations for Hushh Technologies.',
     category: 'investor relations & strategies',
