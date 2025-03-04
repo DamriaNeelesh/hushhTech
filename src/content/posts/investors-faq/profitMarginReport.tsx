@@ -5,7 +5,7 @@ const ProfitMarginReport = () => {
   return (
     <Box color="black" borderRadius="md">
       <Heading as="h1" fontSize="2xl" mb={4} color="black">
-        Profit Margin & Detailed Business Report
+        Profit Margin & Detailed Business Report (unaudited financial profit report)
       </Heading>
 
       <Heading as="h2" fontSize="lg" color="black" mb={2}>
@@ -33,10 +33,10 @@ const ProfitMarginReport = () => {
         2. How We Make Money
       </Heading>
       <VStack align="start" spacing={4}>
-        <Text>2.1 Hushh Technologies – AI-Driven Investment Programs</Text>
-        <Text>1. Core Business Model</Text>
+        <Text>Hushh Technologies – AI-Driven Investment Programs</Text>
+        <Text>Core Business Model</Text>
         <ul>
-          <li>• Hushh Technologies operates as an AI-driven investment management firm, generating revenues (and profits) through:</li>
+          <li>Hushh Technologies operates as an AI-driven investment management firm, generating revenues (and profits) through:</li>
           <li>(a) Option Premiums & Management Fees – The “Sell the Wall” strategy systematically sells options on top free cash flow businesses, earning short-term rental income (“aloha income”) from time decay and implied volatility mispricings.</li>
           <li>(b) Proprietary AI/Quant Strategies – By applying advanced math and automation, HushhTech captures alpha from short-term market inefficiencies, generating trading gains and performance fees from any external capital (in a hedge fund model).</li>
           <li>(c) Subscription or Licensing – Potentially licensing AI-driven analytics to institutional partners or offering a next-gen robo-advisor product (a future expansion).</li>
