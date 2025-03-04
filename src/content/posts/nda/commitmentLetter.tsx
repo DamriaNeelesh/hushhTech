@@ -39,7 +39,7 @@ const CommitmentLetter = () => {
       <Text mb={4}>
         This Commitment Letter (“Letter”) is made and entered into by and between HushOne, Inc. (“Company”) and the undersigned Investor (“Investor”), confirming the Investor’s intent to invest in the Company under the terms outlined below:
       </Text>
-      <List spacing={2} pl={4}>
+      <List spacing={2} pl={4} mb={4}>
         <ListItem>• Investment Amount Committed: $[Insert Investment Amount]</ListItem>
         <ListItem>• Security Type: [SAFE Note / Preferred Equity / Common Equity / Convertible Note]</ListItem>
         <ListItem>• Fund Transfer Date: [Insert Expected Transfer Date]</ListItem>
@@ -50,7 +50,7 @@ const CommitmentLetter = () => {
       <Heading as="h3" fontSize="lg" color="black" mb={4}>
         2. Terms & Acknowledgments
       </Heading>
-      <List spacing={2} pl={4}>
+      <List spacing={2} pl={4} mb={2}>
         <ListItem>1. Binding Intent: This Letter represents a binding commitment to invest the stated amount under the final terms of the definitive investment agreement.</ListItem>
         <ListItem>2. Due Diligence Completed: The Investor has conducted all necessary due diligence and has reviewed Company financials, business plans, and disclosures.</ListItem>
         <ListItem>3. Regulatory Compliance: The Investor is an Accredited Investor under applicable securities laws and will comply with all regulatory requirements.</ListItem>
@@ -64,7 +64,7 @@ const CommitmentLetter = () => {
       <Text mb={4}>
         The Investor agrees to wire transfer funds per the following instructions on or before the agreed Fund Transfer Date:
       </Text>
-      <List spacing={2} pl={4}>
+      <List spacing={2} pl={4} mb={4}>
         <ListItem>• Receiving Bank: [Insert Bank Name]</ListItem>
         <ListItem>• Bank Address: [Insert Bank Address]</ListItem>
         <ListItem>• Account Name: HushOne, Inc.</ListItem>
