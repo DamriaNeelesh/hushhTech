@@ -6,7 +6,9 @@ import ApplicationForm from "./ApplicationForm";
 const JobDetails = () => {
   const { jobId } = useParams();
   const [showForm, setShowForm] = useState(false);
-
+  const toTitleCase = (str: string) => {
+    return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+  };
   const job = Object.values(careers)
     .flat()
     .find((j) => j.id === jobId);
@@ -23,6 +25,32 @@ const JobDetails = () => {
           <div className="salary-range flex flex-row">
             <h3>Salary Range :</h3>
             <p>{job.salary ? job.salary : "Not Disclosed"}</p>
+          </div>
+        )}
+
+{job?.salaryDetails && (
+          <div className="salary-details-section">
+            <ul className="salary-range flex flex-col gap-2" >
+              {Object.entries(job.salaryDetails).map(([role, details], index) => (
+                <li key={index} className="">
+                  <strong>{toTitleCase(role.replace(/([A-Z])/g, ' $1').trim())}:</strong>
+                  <ul className="ml-4">
+                    {details.averageSalary && <li>Average Salary: {details.averageSalary}</li>}
+                    {details.range && <li>Range: {details.range}</li>}
+                    {details.competitiveSalaryRange && (
+                      <li>
+                        Competitive Salary Range:
+                        <ul>
+                          {Object.entries(details.competitiveSalaryRange).map(([level, range], idx) => (
+                            <li key={idx}>{level.charAt(0).toUpperCase() + level.slice(1)}: {range}</li>
+                          ))}
+                        </ul>
+                      </li>
+                    )}
+                  </ul>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
 

@@ -30,8 +30,39 @@ export const careers : DepartmentJobs = {
       {
         id: "analyst-role",
         title: "Analyst - Global",
-        location: "Global (Remote Friendly)",
-        salary: "$180,000 - $240,000",
+        location: "Global (Remote Friendly) - Pune Based",
+        salary: "INR 2,00,000 - INR 10,02,000",
+        salaryDetails: {
+          financialAnalyst: {
+            averageSalary: "₹4,91,229 per year",
+            range: "₹2.1 Lakhs to ₹10.2 Lakhs per year, depending on experience"
+          },
+          businessAnalyst: {
+            averageSalary: "₹8,82,135 per year",
+            range: "₹3 Lakhs to ₹17.8 Lakhs per year, based on experience"
+          },
+          seniorBusinessAnalyst: {
+            averageSalary: "₹12,05,101 per year",
+            competitiveSalaryRange: {
+              entryLevel: "₹8 Lakhs to ₹12 Lakhs per year",
+              midLevel: "₹12 Lakhs to ₹18 Lakhs per year",
+              seniorLevel: "₹18 Lakhs to ₹25 Lakhs per year"
+            }
+          },
+          investmentAnalyst: {
+            averageSalary: "₹6,12,424 per year",
+            range: "Salaries can vary based on experience and qualifications"
+          },
+          seniorInvestmentAnalyst: {
+            averageSalary: "₹9,61,881 per year"
+          },
+          businessStrategist: {
+            averageSalary: "₹2.7 Lakhs to ₹40 Lakhs per year, depending on experience"
+          },
+          strategyConsultant: {
+            averageSalary: "₹7.5 Lakhs to ₹29.6 Lakhs per year, based on experience"
+          }
+        },
         responsibilities: [
           "Market Research & Competitive Intelligence: Conduct in-depth market research on industry trends, emerging technologies, and competitor strategies. Gather and synthesize intelligence on the fintech and investment management landscape to uncover opportunities and inform strategic decisions.",
           "Financial Modeling & Data Analysis: Develop robust financial models and perform quantitative analyses to support business planning, forecasting, and investment decisions. Analyze datasets (financial results, user metrics, market data) to extract actionable insights that drive our product and business strategy.",
@@ -52,6 +83,7 @@ export const careers : DepartmentJobs = {
         ],
         hiringProcedure:[],
         compensationProcedure:[
+          "",
           "Competitive Compensation: We offer a fair base salary commensurate with top-tier talent, along with significant performance-based bonuses tied to individual and company outcomes. When we win, you win.",
           "Equity Upside: As an early team member, you may be eligible for stock options/equity in hushhTech. You’ll have a direct stake in the company’s success and long-term value creation.",
           "Rapid Career Growth: This role is designed to grow as the company grows. Succeeding in this position will open doors to senior roles (e.g. Strategy Lead, Chief of Staff, Head of Analytics) or the opportunity to build out and lead a team of analysts as we scale. Your professional development will be a priority, with potential to take on increasing responsibility quickly.",
