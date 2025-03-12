@@ -351,17 +351,17 @@ export const posts: PostData[] = [
     image: ManagementFee,
     accessLevel: 'NDA',
   },
-  {
-    count:21,
-    slug: 'general/sell-the-wall-context',
-    title: '“Sell the Wall” Explained in the Context of Jim Simons’ Quantitative Precision',
-    publishedAt: '2025-02-15',
-    description: 'An in-depth exploration of the “Sell the Wall” strategy through the lens of Jim Simons’ quantitative precision.',
-    category: 'general',
-    Component: SellTheWall,
-    image: HushhAiLogoImg, 
-    accessLevel: 'Public',
-  },
+  // {
+  //   count:21,
+  //   slug: 'general/sell-the-wall-context',
+  //   title: '“Sell the Wall” Explained in the Context of Jim Simons’ Quantitative Precision',
+  //   publishedAt: '2025-02-15',
+  //   description: 'An in-depth exploration of the “Sell the Wall” strategy through the lens of Jim Simons’ quantitative precision.',
+  //   category: 'general',
+  //   Component: SellTheWall,
+  //   image: HushhAiLogoImg, 
+  //   accessLevel: 'Public',
+  // },
   {
     count:22,
     slug: 'funds/alpha-aloha-fund-update-feb6',
@@ -583,7 +583,7 @@ export const posts: PostData[] = [
     image: FundsUpdateImg4,
     accessLevel: 'Public',
   },
-  // First 12 investment programs pura nhi hai content usme
+  
   // Sell the wall the hushh Way -  2-2 baar 
   {
     count:41,
