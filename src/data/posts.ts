@@ -578,11 +578,13 @@ export const posts: PostData[] = [
   title: 'Anti-Money Laundering (AML) & Know Your Customer (KYC) Documentation',
   publishedAt: '2025-02-08',
   description: 'Comprehensive compliance framework ensuring transparency and security in investor onboarding.',
-  category: 'fund updates', // updated from 'investor relations'
+  category: 'general', // updated from 'investor relations'
     Component: AMLKYCDocumentation,
     image: FundsUpdateImg4,
     accessLevel: 'Public',
   },
+  // First 12 investment programs pura nhi hai content usme
+  // Sell the wall the hushh Way -  2-2 baar 
   {
     count:41,
     slug: 'general/compensation-report',
@@ -1003,7 +1005,7 @@ export const posts: PostData[] = [
     title: 'Aloha Alpha Fund – Daily Market Update',
     publishedAt: '2025-02-24', // Replace with the actual date
     description: 'Daily market update and fund performance insights for the Aloha Alpha Fund.',
-    category: 'market',
+    category: 'market updates',
     Component: dmu24Feb, // Ensure the component is imported correctly
     image: HushhAiLogoImg, // Use the specified image
     accessLevel: 'Public', // Set the appropriate access level

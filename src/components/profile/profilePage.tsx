@@ -171,7 +171,7 @@ const ProfilePage: React.FC = () => {
   // Download NDA if approved.
   const handleDownloadNda = async () => {
     const FETCH_NDA_URL =
-      "https://hushhtech-nda-generation-53407187172.us-central1.run.app/fetch-nda";
+      "https://hushhtech-nda-generation-53407187172.us-central1.run.app/v2/fetch-nda";
     try {
       const response = await axios.get(FETCH_NDA_URL, {
         headers: {
@@ -216,7 +216,7 @@ const ProfilePage: React.FC = () => {
     } else if (ndaStatus === "Requested permission for the sensitive file." || ndaStatus === "Pending") {
       return { text: "Waiting for approval", disabled: true };
     } else if (ndaStatus === "Pending: Waiting for NDA Process") {
-      return { text: "Verify and Accept the NDA", disabled: false };
+      return { text: "Please sign NDA sent to your email", disabled: true };
     } else if (ndaStatus === "Rejected") {
       return { text: "Re-apply for NDA Process", disabled: false };
     }
@@ -235,9 +235,10 @@ const ProfilePage: React.FC = () => {
       return;
     } else if (ndaStatus === "Not Applied" || ndaStatus === "Rejected") {
       setShowNdaModal(true);
-    } else if (ndaStatus === "Pending: Waiting for NDA Process") {
-      setShowNdaDocModal(true);
-    }
+    } 
+    // else if (ndaStatus === "Pending: Waiting for NDA Process") {
+    //   setShowNdaDocModal(true);
+    // }
   };
 
   // Navigation handlers using useNavigate.
@@ -327,9 +328,15 @@ const ProfilePage: React.FC = () => {
             mb={2} p={1} borderRadius="full">
             {ndaStatus}
           </Badge>
-          <Text fontSize="sm" color="gray.400">
-            Complete NDA to access sensitive documents
-          </Text>
+          {ndaStatus === "Pending: Waiting for NDA Process" ? (
+            <Text fontSize={{md:"0.8rem",base:'xs'}} color="white">
+              The NDA signing is in process. Please sign the NDA sent to your email if you haven't signed it yet. Once the NDA is accepted by Hush1one Inc., you will be notified. For further information, please visit the contact page.
+            </Text>
+          ):(
+            <Text fontSize="sm" color="gray.400">
+              Complete NDA to access sensitive documents
+            </Text>
+          )}
           <Button
             w="full"
             colorScheme={ndaStatus === "Approved" ? "teal" : "blue"}
