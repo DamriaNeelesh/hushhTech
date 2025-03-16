@@ -116,6 +116,7 @@ import InvestorUpdate from '../content/posts/investors-faq/investorUpdate';
 import Dmu28Feb from '../content/posts/market/dmu28feb';
 import ProfitMarginReport from '../content/posts/investors-faq/profitMarginReport';
 import Dmu13Mar from '../content/posts/market/dmu13mar';
+import Dmu14Mar from '../content/posts/market/dmu14mar';
 
 export interface PostData {
   slug: string;
@@ -1099,6 +1100,18 @@ export const posts: PostData[] = [
     image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
     accessLevel: 'Public', // Set the appropriate access level
 },
+{
+  count: 84, // Ensure this is the next sequential number
+  slug: 'market/weekly-update-14-mar-2025',
+  title: 'Aloha Alpha Club – Weekly Market Update',
+  publishedAt: '2025-03-14', // Use the actual date of the update
+  description: 'Weekly market update and performance insights for the Aloha Alpha Fund on March 14, 2025.',
+  category: 'market updates',
+  Component: Dmu14Mar, // Ensure the component is imported correctly
+  image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
+  accessLevel: 'Public', // Set the appropriate access level
+},
+
 ];
 
 export function getPosts(): PostData[] {
