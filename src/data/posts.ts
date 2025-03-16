@@ -117,6 +117,7 @@ import Dmu28Feb from '../content/posts/market/dmu28feb';
 import ProfitMarginReport from '../content/posts/investors-faq/profitMarginReport';
 import Dmu13Mar from '../content/posts/market/dmu13mar';
 import Dmu14Mar from '../content/posts/market/dmu14mar';
+import Dmu10Mar from '../content/posts/market/dmu10mar';
 
 export interface PostData {
   slug: string;
@@ -1111,7 +1112,17 @@ export const posts: PostData[] = [
   image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
   accessLevel: 'Public', // Set the appropriate access level
 },
-
+{
+  count: 85, // Ensure this is the next sequential number
+  slug: 'market/performance-update-10-mar-2025',
+  title: '🤫 Aloha Alpha Fund – Performance & Market Update (March 10, 2025)',
+  publishedAt: '2025-03-10', // Use the actual date of the update
+  description: 'Performance summary and market insights for the Aloha Alpha Fund on March 10, 2025.',
+  category: 'market updates',
+  Component: Dmu10Mar, // Ensure the component is imported correctly
+  image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
+  accessLevel: 'Public', // Set the appropriate access level
+},
 ];
 
 export function getPosts(): PostData[] {
