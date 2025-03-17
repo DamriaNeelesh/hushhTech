@@ -118,6 +118,7 @@ import ProfitMarginReport from '../content/posts/investors-faq/profitMarginRepor
 import Dmu13Mar from '../content/posts/market/dmu13mar';
 import Dmu14Mar from '../content/posts/market/dmu14mar';
 import Dmu10Mar from '../content/posts/market/dmu10mar';
+import HushhAlpha27Bets from '../content/posts/nda/hushhAlpha27bets';
 
 export interface PostData {
   slug: string;
@@ -1123,6 +1124,19 @@ export const posts: PostData[] = [
   image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
   accessLevel: 'Public', // Set the appropriate access level
 },
+
+{
+  count: 89, // Ensure this is the next sequential number
+  slug: 'investor-relations/hushh-alpha-27-bets',
+  title: 'HushhAlpha27 Comprehensive Proposal',
+  publishedAt: '2025-03-17', // Use the actual date of the update
+  description: 'A comprehensive proposal for your HushhAlpha27 portfolio, addressing price ranges, target allocations, guidance on reinvestment of aloha income, and a defensive overlay using deeply out-of-the-money (OTM) index puts to mitigate black swan scenarios.',
+  category: 'investor relations & strategies',
+  Component: HushhAlpha27Bets, // Ensure the component is imported correctly
+  image: HushhAiLogoImg, // Use the specified image or replace with a specific one if needed
+  accessLevel: 'NDA', // Set the appropriate access level
+},
+
 ];
 
 export function getPosts(): PostData[] {
