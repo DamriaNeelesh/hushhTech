@@ -142,6 +142,9 @@ const CommunityPost: React.FC = () => {
         <Box color="white" lineHeight="tall" fontSize="lg">
           <PostComponent />
         </Box>
+        <Text fontSize={'sm'} my={{md:'3rem',base:'1.5rem'}}>
+        © 2025 Hushh Technologies LLC. All Rights Reserved. The materials on this website are for illustration and discussion purposes only and do not constitute an offering. An offering may be made only by delivery of a confidential offering memorandum to appropriate investors. PAST PERFORMANCE IS NO GUARANTEE OF FUTURE RESULTS. 
+        </Text>
       </Container>
     </Box>
   );
