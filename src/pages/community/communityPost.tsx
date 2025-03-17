@@ -12,6 +12,7 @@ import {
 import { getPostBySlug, PostData } from "../../data/posts";
 import axios from "axios";
 import config from "../../resources/config/config";
+import CommentSection from "../../components/CommentSection"; // Adjust the path as needed
 
 const CommunityPost: React.FC = () => {
   // Extract the slug (using wildcard parameter for nested routes)
@@ -49,7 +50,6 @@ const CommunityPost: React.FC = () => {
 
       // If the post is confidential (accessLevel "NDA"), then check NDA access via API.
       if (foundPost.accessLevel === "NDA") {
-        // Retrieve the current session.
         const { data: { session } } = await config.supabaseClient.auth.getSession();
         if (!session) {
           showToastOnce("access-restricted-no-session", {
@@ -104,7 +104,6 @@ const CommunityPost: React.FC = () => {
         }
       }
 
-      // If all checks pass, set the post and stop loading.
       setPost(foundPost);
       setLoading(false);
     };
@@ -123,15 +122,14 @@ const CommunityPost: React.FC = () => {
   if (!post) return null;
 
   const PostComponent = post.Component;
-  const toTitleCase = (str: string) => {
-    return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
-  };
+  const toTitleCase = (str: string) =>
+    str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 
   return (
     <Box bg="white" minH="100vh" py={12} px={4}>
       <Container maxW="container.md">
-        <Text as={'h2'} fontSize={{base:'sm',md:'md'}} fontWeight={'600'} color={'#e7131a'}>
-{toTitleCase(post.category)}
+        <Text as="h2" fontSize={{ base: "sm", md: "md" }} fontWeight="600" color="#e7131a">
+          {toTitleCase(post.category)}
         </Text>
         <Text fontSize="sm" color="gray.900" mb={8}>
           {new Date(post.publishedAt).toLocaleDateString()}
@@ -139,8 +137,11 @@ const CommunityPost: React.FC = () => {
         <Box color="white" lineHeight="tall" fontSize="lg">
           <PostComponent />
         </Box>
-        <Text fontSize={'sm'} my={{md:'3rem',base:'1.5rem'}}>
-        © 2025 Hushh Technologies LLC. All Rights Reserved. The materials on this website are for illustration and discussion purposes only and do not constitute an offering. An offering may be made only by delivery of a confidential offering memorandum to appropriate investors. PAST PERFORMANCE IS NO GUARANTEE OF FUTURE RESULTS. 
+        {/* Render the Comment Section */}
+        <CommentSection postSlug={post.slug} postTitle={post.title} />
+
+        <Text fontSize="sm" my={{ md: "3rem", base: "1.5rem" }}>
+          © 2025 Hushh Technologies LLC. All Rights Reserved. The materials on this website are for illustration and discussion purposes only and do not constitute an offering. An offering may be made only by delivery of a confidential offering memorandum to appropriate investors. PAST PERFORMANCE IS NO GUARANTEE OF FUTURE RESULTS.
         </Text>
       </Container>
     </Box>
