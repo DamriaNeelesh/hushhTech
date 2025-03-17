@@ -133,9 +133,6 @@ const CommunityPost: React.FC = () => {
         <Text as={'h2'} fontSize={{base:'sm',md:'md'}} fontWeight={'600'} color={'#e7131a'}>
 {toTitleCase(post.category)}
         </Text>
-        {/* <Heading as="h1" fontWeight={'500'} mb={4} fontSize={{md:'xl',base:'lg'}} color="black">
-          {post.title}
-        </Heading> */}
         <Text fontSize="sm" color="gray.900" mb={8}>
           {new Date(post.publishedAt).toLocaleDateString()}
         </Text>
