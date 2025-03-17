@@ -119,6 +119,7 @@ import Dmu13Mar from '../content/posts/market/dmu13mar';
 import Dmu14Mar from '../content/posts/market/dmu14mar';
 import Dmu10Mar from '../content/posts/market/dmu10mar';
 import HushhAlpha27Bets from '../content/posts/nda/hushhAlpha27bets';
+import dmu3mar from '../content/posts/market/dmu3mar';
 
 export interface PostData {
   slug: string;
@@ -1135,6 +1136,18 @@ export const posts: PostData[] = [
   Component: HushhAlpha27Bets, // Ensure the component is imported correctly
   image: HushhAiLogoImg, // Use the specified image or replace with a specific one if needed
   accessLevel: 'NDA', // Set the appropriate access level
+},
+
+{
+  count: 90, // Ensure this is the next sequential number
+  slug: 'market-updates/march-3-2025',
+  title: 'Market Wrap: Tariff Turbulence Trips Stocks, Europe Defies the Drop',
+  publishedAt: '2025-03-03', // Use the actual date of the update
+  description: 'U.S. markets stumbled into March with their worst day of the year, as trade war jitters and soft economic data spooked investors. Major Wall Street indices sank deep into the red by the close, even as European and Asian markets showed surprising resilience.',
+  category: 'market updates',
+  Component: dmu3mar, // Ensure the component is imported correctly
+  image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
+  accessLevel: 'Public', // Set the appropriate access level
 },
 
 ];
