@@ -1091,6 +1091,7 @@ export const posts: PostData[] = [
     image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
     accessLevel: 'NDA', // Set the appropriate access level
   },
+  
   {
     count: 83, // Ensure this is the next sequential number
     slug: 'market/daily-update-13-mar-2025',
