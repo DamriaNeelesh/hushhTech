@@ -151,7 +151,7 @@ const HushhAlpha27Bets = () => {
         </List>
       </VStack>
       <Text mb={4}>
-        (Note: These P/E calculations are approximate examples; confirm each stock’s forward EPS from your own data.)
+        (Note: These P/E calculations are approximate examples; confirm each stocks forward EPS from your own data.)
       </Text>
 
       <Divider my={4} borderColor="black" />
@@ -233,7 +233,7 @@ const HushhAlpha27Bets = () => {
         <ListItem><strong>4. Compatibility with “Sell the Wall”:</strong> Decent (or high) implied volatility, liquid options markets—allowing us to sell weekly calls/puts to generate extra “aloha” income.</ListItem>
       </List>
       <Text mb={4}>
-        Below, we give a brief investment thesis for each, focusing on why it stands out over the next 5–7 years.
+        Below, we give a brief investment thesis for each, focusing on why it stands out over the next 5 to 7 years.
       </Text>
 
       <Heading as="h4" fontSize="md" color="black" mb={2}>
@@ -477,7 +477,7 @@ const HushhAlpha27Bets = () => {
   </ListItem>
   <ListItem>
     2. Pricing Power & Moats:
-    <Text ml={4} fontSize={'md'}>• We tested each candidate’s ability to sustain margins despite competition or macro headwinds.</Text>
+    <Text ml={4} fontSize={'md'}>• We tested each candidates ability to sustain margins despite competition or macro headwinds.</Text>
     <Text ml={4} fontSize={'md'}>• Exclusions often stemmed from uncertain moats or heavy reliance on ephemeral market conditions.</Text>
   </ListItem>
   <ListItem>
@@ -487,12 +487,12 @@ const HushhAlpha27Bets = () => {
   </ListItem>
   <ListItem>
     4. AI/Data-First Edge:
-    <Text ml={4} fontSize={'md'}>• Each final pick harnesses AI or data analytics to reinforce a competitive advantage, whether it’s enterprise software, user personalization, or advanced chip design.</Text>
+    <Text ml={4} fontSize={'md'}>• Each final pick harnesses AI or data analytics to reinforce a competitive advantage, whether its enterprise software, user personalization, or advanced chip design.</Text>
   </ListItem>
   <ListItem>
     5. Long-Term FCF Path:
     <Text ml={4} fontSize={'md'}>• Some picks (like Tesla) have historically had more volatility in free cash flow, but they now show credible or emergent FCF.</Text>
-    <Text ml={4} fontSize={'md'}>• The common thread: 5–7 year horizon for FCF growth, not just a single quarter’s earnings beat.</Text>
+    <Text ml={4} fontSize={'md'}>• The common thread: 5 to 7 year horizon for FCF growth, not just a single quarterss earnings beat.</Text>
   </ListItem>
         </List>
       </VStack>
@@ -525,7 +525,7 @@ const HushhAlpha27Bets = () => {
                 <strong>Monitoring & Adjustments </strong>
                <Text ml={4} fontSize={'md'}>Quarterly re-check moats, FCF trends, AI expansions.
                </Text> 
-               <Text ml={4} fontSize={'md'}>If a name stumbles (e.g., major R&D failures or moat erosion), rotate out for a watchlist name that’s improved or is newly attractive.</Text>
+               <Text ml={4} fontSize={'md'}>If a name stumbles (e.g., major R&D failures or moat erosion), rotate out for a watchlist name thats improved or is newly attractive.</Text>
             </ListItem>            
         </List>
       </VStack>
@@ -557,7 +557,7 @@ const HushhAlpha27Bets = () => {
   🤫 Confidential 🤐 
 </Text>
 <Text mb={4}>
-  Our CIO loves this list, she’s requesting us to provide a clear price range and target % of fund to ownership and allocation towards Fund A Alpha Bets #007. We also need to provide the guidance on how the reinvestment of the aggressive aloha income to repurchase more shares of these 27 businesses transforms the IRR that typical funds offer - we need to show how the aloha income reinvestment results in greatly improved IRR in all cases except black swan events where we end up with only maybe 30% of all the shares we actually had due to extreme margin calls - ideally we should try to protect ourselves from black swans all the time by loading up on way out of the money index puts 7%, 14%, 21%, 27%, and 39% below the highs of the market indexes and highs of the flying stocks in the recent AI boom 💥 
+  Our CIO loves this list, she is requesting us to provide a clear price range and target % of fund to ownership and allocation towards Fund A Alpha Bets #007. We also need to provide the guidance on how the reinvestment of the aggressive aloha income to repurchase more shares of these 27 businesses transforms the IRR that typical funds offer - we need to show how the aloha income reinvestment results in greatly improved IRR in all cases except black swan events where we end up with only maybe 30% of all the shares we actually had due to extreme margin calls - ideally we should try to protect ourselves from black swans all the time by loading up on way out of the money index puts 7%, 14%, 21%, 27%, and 39% below the highs of the market indexes and highs of the flying stocks in the recent AI boom 💥 
 </Text>
 <Text mb={4}>
   Screenshots below 👇 
@@ -623,7 +623,7 @@ const HushhAlpha27Bets = () => {
   </ListItem>
   <ListItem>
     8. Berkshire Hathaway (BRK.B)
-    <Text ml={4} fontSize={'md'}>• Moat: Warren Buffett’s conglomerate with diverse holdings (insurance, railroads, energy, consumer).</Text>
+    <Text ml={4} fontSize={'md'}>• Moat: Warren Buffetts conglomerate with diverse holdings (insurance, railroads, energy, consumer).</Text>
     <Text ml={4} fontSize={'md'}>• AI/Data Edge: Incremental AI adoption in portfolio companies (e.g., manufacturing efficiency, insurance analytics).</Text>
     <Text ml={4} fontSize={'md'}>• FCF & Pricing Power: Major cash buffer for opportunistic acquisitions, stable cross-industry profits.</Text>
   </ListItem>
@@ -660,12 +660,12 @@ const HushhAlpha27Bets = () => {
   <ListItem>
     14. ASML Holding (ASML)
     <Text ml={4} fontSize={'md'}>• Moat: Near-monopoly on EUV lithography machines for advanced semiconductor manufacturing.</Text>
-    <Text ml={4} fontSize={'md'}>• AI/Data Edge: Every advanced AI chip (N5, N3, N2 nodes, etc.) requires ASML’s cutting-edge gear.</Text>
+    <Text ml={4} fontSize={'md'}>• AI/Data Edge: Every advanced AI chip (N5, N3, N2 nodes, etc.) requires ASMLs cutting-edge gear.</Text>
     <Text ml={4} fontSize={'md'}>• FCF & Pricing Power: Multi-year backlog, essential for TSMC, Samsung, Intel.</Text>
   </ListItem>
   <ListItem>
     15. Taiwan Semiconductor (TSM)
-    <Text ml={4} fontSize={'md'}>• Moat: World’s largest contract chip foundry, advanced process nodes.</Text>
+    <Text ml={4} fontSize={'md'}>• Moat: Worlds largest contract chip foundry, advanced process nodes.</Text>
     <Text ml={4} fontSize={'md'}>• AI/Data Edge: Fabrication for Nvidia/Apple/AMD, unstoppable demand for next-gen AI chips.</Text>
     <Text ml={4} fontSize={'md'}>• FCF & Pricing Power: High volume, scale advantage, leading yields on advanced nodes.</Text>
   </ListItem>
@@ -786,7 +786,7 @@ const HushhAlpha27Bets = () => {
   </ListItem>
   <ListItem>
     • Reinvestment:
-    <Text ml={4} fontSize={'md'}>All net option income is reinvested into these 27 names, compounding share count and overall returns over the 5–7 year horizon.</Text>
+    <Text ml={4} fontSize={'md'}>All net option income is reinvested into these 27 names, compounding share count and overall returns over the 5 to 7 year horizon.</Text>
   </ListItem>
 </List>
 
@@ -994,7 +994,7 @@ const HushhAlpha27Bets = () => {
   </ListItem>
 </List>
 <Text mb={4}>
-  By owning these companies and “selling the wall” (covered calls) at key resistance points, you can generate additional income while allowing for upside participation. Over a 5–7 year horizon, this approach blends long-term growth with disciplined risk management, capitalizing on advanced technologies and mega-trends—ultimately aiming for both alpha and aloha in your portfolio.
+  By owning these companies and “selling the wall” (covered calls) at key resistance points, you can generate additional income while allowing for upside participation. Over a 5 to 7 year horizon, this approach blends long-term growth with disciplined risk management, capitalizing on advanced technologies and mega-trends—ultimately aiming for both alpha and aloha in your portfolio.
 </Text>
 
 
@@ -1006,7 +1006,7 @@ const HushhAlpha27Bets = () => {
   Below is a conceptual IRR (Internal Rate of Return) modeling approach for the bold, high-conviction “HushhAlpha27” strategy. This version focuses on companies with massive pricing power, wide moats, robust free cash flow (FCF), and AI/data-first expansion over a 5–7 year horizon. We also incorporate a “Sell the Wall” overlay, where we sell both calls and puts—using proceeds to either enhance income or acquire additional shares—and reinvest all net premiums back into these top-tier businesses.
 </Text>
 <Text mb={4}>
-  Note: Figures are illustrative rather than prescriptive. Actual IRR will vary based on market conditions, implied volatility, option strike selection, transaction costs, taxes, and each investor’s specific constraints.
+  Note: Figures are illustrative rather than prescriptive. Actual IRR will vary based on market conditions, implied volatility, option strike selection, transaction costs, taxes, and each investors specific constraints.
 </Text>
 
 <Heading as="h3" fontSize="lg" color="black" mb={4}>
@@ -1026,7 +1026,7 @@ const HushhAlpha27Bets = () => {
     <Text ml={8}>• All net option income (after closing or rolling positions) is systematically reinvested into shares of the HushhAlpha27.</Text>
     <Text ml={8}>• Over time, compounding effect: more shares → more potential capital gains → more call-writing opportunities.</Text>
     <Text ml={4} fontSize={'md'}>4. Holding Period</Text>
-    <Text ml={8}>• 5–7 years, allowing mega-trend tailwinds in AI, data analytics, and secular growth to materialize.</Text>
+    <Text ml={8}>• 5 to 7 years, allowing mega-trend tailwinds in AI, data analytics, and secular growth to materialize.</Text>
   </ListItem>
 </List>
 
@@ -1052,7 +1052,7 @@ const HushhAlpha27Bets = () => {
     4. Tax & Fee Drag
     <Text ml={4} fontSize={'md'}>• Short-term option premiums typically face higher tax rates (if taxed as ordinary income).</Text>
     <Text ml={4} fontSize={'md'}>• Even so, an active approach might offset that with higher gross premium.</Text>
-    <Text ml={4} fontSize={'md'}>• Assume a ~1–2% annual drag from taxes/fees in many jurisdictions, though this can vary widely.</Text>
+    <Text ml={4} fontSize={'md'}>• Assume a ~1 to 2% annual drag from taxes/fees in many jurisdictions, though this can vary widely.</Text>
   </ListItem>
 </List>
 
@@ -1066,13 +1066,13 @@ const HushhAlpha27Bets = () => {
     <Text ml={8}>• Time 0: Invest $X across the 27 names.</Text>
     <Text ml={4} fontSize={'md'}>• Periodic Inflows</Text>
     <Text ml={8}>• Premium Income from weekly/monthly call/put sales.</Text>
-    <Text ml={8}>• Dividends (if any) from the portfolio (some big-tech names might have low yield, but certain others or newly added picks could pay 1–3%).</Text>
+    <Text ml={8}>• Dividends (if any) from the portfolio (some big-tech names might have low yield, but certain others or newly added picks could pay 1 to 3%).</Text>
     <Text ml={8}>• Assignment/Exercise Proceeds:</Text>
     <Text ml={12}>• If calls are assigned, you might realize a capital gain on the shares sold at strike price. You can repurchase shares or shift to another name.</Text>
     <Text ml={12}>• If puts are assigned, you expend capital to buy shares below market (a “cash outflow” at that time), but you keep the premium.</Text>
     <Text ml={4} fontSize={'md'}>• Reinvestment</Text>
     <Text ml={8}>• Net inflows from premiums and dividends are used to buy more shares.</Text>
-    <Text ml={8}>• Each reinvestment is effectively an outflow from the portfolio’s cash balance but yields higher future equity ownership.</Text>
+    <Text ml={8}>• Each reinvestment is effectively an outflow from the portfolios cash balance but yields higher future equity ownership.</Text>
     <Text ml={4} fontSize={'md'}>• Terminal Value</Text>
     <Text ml={8}>• End of year 5 or 7, you have a liquidation scenario:</Text>
     <Text ml={12}>• The total shares held × final share prices.</Text>

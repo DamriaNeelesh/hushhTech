@@ -16,6 +16,9 @@ export default defineConfig({
   build: {
     outDir: "dist",
     emptyOutDir: false, 
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.mdx'],
