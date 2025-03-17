@@ -1,11 +1,22 @@
 import React from 'react';
-import { Box, Text, Heading, VStack, Divider, List, ListItem, Table, Thead, Tr, Th, Tbody, Td } from '@chakra-ui/react';
+import { Box, Text,Image, Heading, VStack, Divider, List, ListItem, Table, Thead, Tr, Th, Tbody, Td } from '@chakra-ui/react';
+import q1 from '../../../components/images/nda/alpha27bets/1.png';
+import q2 from '../../../components/images/nda/alpha27bets/2.png';
+import q3 from '../../../components/images/nda/alpha27bets/3.png';
+import q4 from '../../../components/images/nda/alpha27bets/4.png';
+import q5 from '../../../components/images/nda/alpha27bets/5.png';
+import q6 from '../../../components/images/nda/alpha27bets/6.png';
+import q7 from '../../../components/images/nda/alpha27bets/7.png';
+import q8 from '../../../components/images/nda/alpha27bets/8.png';
+import q9 from '../../../components/images/nda/alpha27bets/9.png';
+
 
 const HushhAlpha27Bets = () => {
   return (
-    <Box color="black" borderRadius="md" p={4}>
+    <Box color="black" borderRadius="md" p={0}>
       <Heading as="h2" fontSize="2xl" mb={4} color="black">
-        🤫 Confidential 🤐
+        Hushh Alpha 27 Bets
+        🤫 Confidential 
       </Heading>
       <Text mb={4}>
         Below is a rough ranking of your selected stocks from “cheapest” to “most expensive” based on approximate forward P/E (price ÷ forward EPS). Because some EPS figures in the screenshots are TTM or partial, and certain values (like for ABBV) may reflect only a recent quarter rather than a forward estimate, we’ve made best-effort assumptions to illustrate how you might order them in practice.
@@ -551,6 +562,18 @@ const HushhAlpha27Bets = () => {
 <Text mb={4}>
   Screenshots below 👇 
 </Text>
+
+<VStack spacing={4} align="center" mb={4}>
+  <Image src={q1} alt="Screenshot 1" boxSize={{ base: '100%', md: '50%' }} objectFit="cover" />
+  <Image src={q2} alt="Screenshot 1" boxSize={{ base: '100%', md: '50%' }} objectFit="cover" />
+  <Image src={q3} alt="Screenshot 1" boxSize={{ base: '100%', md: '50%' }} objectFit="cover" />
+  <Image src={q4} alt="Screenshot 1" boxSize={{ base: '100%', md: '50%' }} objectFit="cover" />
+  <Image src={q5} alt="Screenshot 1" boxSize={{ base: '100%', md: '50%' }} objectFit="cover" />
+  <Image src={q6} alt="Screenshot 1" boxSize={{ base: '100%', md: '50%' }} objectFit="cover" />
+  <Image src={q7} alt="Screenshot 1" boxSize={{ base: '100%', md: '50%' }} objectFit="cover" />
+  <Image src={q8} alt="Screenshot 1" boxSize={{ base: '100%', md: '50%' }} objectFit="cover" />
+  <Image src={q9} alt="Screenshot 1" boxSize={{ base: '100%', md: '50%' }} objectFit="cover" />
+</VStack>
 
 <Heading as="h2" fontSize="2xl" my={4} color="black">
       HushhAlpha27: The 2025 Edition
