@@ -15,7 +15,6 @@ import Career from './pages/career';
 // import Community from './pages/community';
 import CommunityList from './pages/community/communityList';
 import CommunityPost from './pages/community/communityPost';
-import { getPosts } from './lib/posts';
 import BenefitsPage from './pages/benefits';
 import PrivacyPolicy from './pages/privacy-policy';
 import CareersPrivacyPolicy from './pages/career-privacy-policy';
@@ -26,7 +25,6 @@ import config from './resources/config/config';
 import NDAPopup from './components/NdaForm';
 import Profile from './pages/profile';
 
-const posts = getPosts();
 
 function App() {
 
