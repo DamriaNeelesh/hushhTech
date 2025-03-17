@@ -14,6 +14,7 @@ import q9 from '../../../components/images/nda/alpha27bets/9.png';
 const HushhAlpha27Bets = () => {
   return (
     <Box color="black" borderRadius="md" p={0}>
+        
       <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Hushh Alpha 27 Bets
         🤫 Confidential 
