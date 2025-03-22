@@ -1,5 +1,14 @@
 import React from 'react';
-import { Box, Text, Heading, List, ListItem, Divider, VStack } from '@chakra-ui/react';
+import { Box, Text, Image, Heading, List, ListItem, Divider, VStack } from '@chakra-ui/react';
+import q1 from '../../../components/images/market-updates/dmu21mar/1.jpg';
+import q2 from '../../../components/images/market-updates/dmu21mar/2.jpg';
+import q3 from '../../../components/images/market-updates/dmu21mar/3.jpg';
+import q4 from '../../../components/images/market-updates/dmu21mar/4.jpg';
+import q5 from '../../../components/images/market-updates/dmu21mar/5.jpg';
+import q6 from '../../../components/images/market-updates/dmu21mar/6.jpg';
+import q7 from '../../../components/images/market-updates/dmu21mar/7.jpg';
+import q8 from '../../../components/images/market-updates/dmu21mar/8.jpg';
+
 
 const InvestorsNews = () => {
   return (
@@ -155,6 +164,26 @@ const InvestorsNews = () => {
       <Text mb={4}>
         Disclaimer: This forward-looking commentary is for guidance only, reflecting market conditions as of March 21, 2025. hushh’s strategy can generate robust “aloha” but still faces typical equity risk and partial upside capping. Actual results may vary as new data and policy shifts emerge.
       </Text>
+      <Divider my={4} borderColor="black" />
+      <Box display="flex" flexWrap="wrap" justifyContent="center" flexDirection={{ base: 'column', md: 'row' }}>
+        <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center" width={{ base: '100%', md: '50%' }}>
+          <Image src={q1} alt='Hushh market update 28 feb' mr={2} boxSize="xl" />
+          <Image src={q2} alt='Hushh market update 28 feb' mr={2} boxSize="xl" />
+        </Box>
+        <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center" width={{ base: '100%', md: '50%' }}>
+          <Image src={q3} alt='Hushh market update 28 feb' mr={2} boxSize="xl" />
+          <Image src={q4} alt='Hushh market update 28 feb' mr={2} boxSize="xl" />
+        </Box>
+        <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center" width={{ base: '100%', md: '50%' }}>
+          <Image src={q5} alt='Hushh market update 28 feb' mr={2} boxSize="xl" />
+          <Image src={q6} alt='Hushh market update 28 feb' mr={2} boxSize="xl" />
+        </Box>
+        <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center" width={{ base: '100%', md: '50%' }}>
+          <Image src={q7} alt='Hushh market update 28 feb' mr={2} boxSize="xl" />
+          <Image src={q8} alt='Hushh market update 28 feb' mr={2} boxSize="xl" />
+        </Box>
+      </Box>
+
     </Box>
   );
 };
