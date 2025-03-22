@@ -120,6 +120,7 @@ import Dmu14Mar from '../content/posts/market/dmu14mar';
 import Dmu10Mar from '../content/posts/market/dmu10mar';
 import HushhAlpha27Bets from '../content/posts/nda/hushhAlpha27bets';
 import dmu3mar from '../content/posts/market/dmu3mar';
+import InvestorsNews from '../content/posts/investors-faq/investorsNews';
 
 export interface PostData {
   slug: string;
@@ -1146,6 +1147,17 @@ export const posts: PostData[] = [
   description: 'U.S. markets stumbled into March with their worst day of the year, as trade war jitters and soft economic data spooked investors. Major Wall Street indices sank deep into the red by the close, even as European and Asian markets showed surprising resilience.',
   category: 'market updates',
   Component: dmu3mar, // Ensure the component is imported correctly
+  image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
+  accessLevel: 'Public', // Set the appropriate access level
+},
+{
+  count: 91, // Ensure this is the next sequential number
+  slug: 'investors-news/market-wrap',
+  title: 'Investors new and Market Wrap: Tariff Turbulence Trips Stocks, Europe Defies the Drop',
+  publishedAt: '2025-03-21', // Use the actual date of the update
+  description: 'U.S. markets stumbled into March with their worst day of the year, as trade war jitters and soft economic data spooked investors. Major Wall Street indices sank deep into the red by the close, even as European and Asian markets showed surprising resilience.',
+  category: 'market updates',
+  Component: InvestorsNews, // Ensure the component is imported correctly
   image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
   accessLevel: 'Public', // Set the appropriate access level
 },
