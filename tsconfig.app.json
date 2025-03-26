@@ -8,6 +8,9 @@
       "DOM",
       "DOM.Iterable"
     ],
+    "paths": {
+      "contentlayer/generated": ["./.contentlayer/generated"]
+    },
     "module": "ESNext",
     "skipLibCheck": true,
     "composite": true,

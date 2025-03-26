@@ -1,5 +1,10 @@
-import { Post, allPosts } from 'contentlayer/generated'
+import { Post, allPosts } from 'contentlayer/generated';
 
-// You can optionally sort or filter allPosts here if needed
-// e.g., sort by title or date. For now, we'll export as-is:
-export const posts: Post[] = allPosts
+export const posts: Post[] = Array.isArray(allPosts)
+  ? allPosts.sort(
+      (a, b) =>
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    )
+  : [];
+
+  console.log("All posts:", posts);

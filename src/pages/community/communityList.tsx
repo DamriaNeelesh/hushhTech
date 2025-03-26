@@ -19,8 +19,8 @@ import axios from "axios";
 import NDARequestModal from "../../components/NDARequestModal";
 import NDADocumentModal from "../../components/NDADocumentModal";
 import config from "../../resources/config/config";
-import { getPosts, PostData } from "../../data/posts";
-
+// import { allPosts as contentPosts } from "contentlayer/generated";
+import { posts as allPosts } from "../../data/posts";  
 // Dropdown option text for NDA documents.
 const NDA_OPTION = "Sensitive Documents (NDA approval Req.)";
 
@@ -76,7 +76,6 @@ const PostImage: React.FC<{ src: string; alt: string; height?: string }> = ({
 
 const CommunityList: React.FC = () => {
   const toast = useToast();
-  const allPosts: PostData[] = getPosts();
 
   // Separate posts by access level.
   const publicPosts = allPosts.filter((post) => post.accessLevel === "Public");

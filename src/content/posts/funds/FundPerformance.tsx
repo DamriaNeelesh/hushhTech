@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, Text, Image, Heading, List, ListItem, Divider, Badge, VStack } from '@chakra-ui/react';
-import FundsUpdate from '../../../components/images/1_Fund Performance.jpg';
 
 export const frontmatter = {
   title: "🤫 Fund Performance – January 28, 2025",
