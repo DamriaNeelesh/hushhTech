@@ -62,7 +62,7 @@ const faqs = [
     question: "How Can I Learn More or Get Involved?",
     answer: `• Potential Investors: If you are an accredited investor, reach out to our Investor Relations team at ir@hushhtech.com.
     • General Public: Follow us for technology updates, educational content, and “Sell the Wall” insights.
-    • Partnerships/Developers: Our hushh.ai APIs and documentation are available for qualified fintech or developer partners. Contact developers@hushh.ai or developer@hushhtech.com to discuss collaboration.`
+    • Partnerships/Developers: Our hushh.ai APIs and documentation are available for qualified fintech or developer partners. Contact info@hush1one.com or developer@hushhtech.com to discuss collaboration.`
   },
   {
     question: "Final Disclaimer",

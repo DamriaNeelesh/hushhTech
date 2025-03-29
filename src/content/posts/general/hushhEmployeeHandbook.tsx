@@ -170,7 +170,7 @@ const HushhEmployeeChampionHandbook = () => {
         <strong>Need More Info?</strong>
       </Text>
       <List spacing={3} mb={4}>
-        <ListItem>• For employee HR inquiries: HR@hushh.ai</ListItem>
+        <ListItem>• For employee HR inquiries: hr@hush1one.com</ListItem>
         <ListItem>• For champion commissions or brand guidelines: partnerships@hushh.ai</ListItem>
         <ListItem>• For compliance questions: compliance@hushh.ai</ListItem>
       </List>
