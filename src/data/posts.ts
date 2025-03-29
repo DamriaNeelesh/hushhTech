@@ -121,6 +121,7 @@ import Dmu10Mar from '../content/posts/market/dmu10mar';
 import HushhAlpha27Bets from '../content/posts/nda/hushhAlpha27bets';
 import dmu3mar from '../content/posts/market/dmu3mar';
 import InvestorsNews from '../content/posts/investors-faq/investorsNews';
+import InvestmentPerspective from '../content/posts/general/investmentPerspective';
 
 export interface PostData {
   slug: string;
@@ -1160,6 +1161,17 @@ export const posts: PostData[] = [
   Component: InvestorsNews, // Ensure the component is imported correctly
   image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
   accessLevel: 'Public', // Set the appropriate access level
+},
+{
+  count: 92, 
+  slug: 'general/investment-perspective',
+  title: 'Q1 2025 Investment Perspectives – Letter to 🤫 Fund A Partners',
+  publishedAt: '2025-03-29',
+  description: 'An in-depth overview of the investment perspectives for Q1 2025, focusing on market trends and strategies.',
+  category: 'investor relations & strategies', 
+  Component: InvestmentPerspective, 
+  image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
+  accessLevel: 'Public',
 },
 
 ];
