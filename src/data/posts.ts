@@ -1164,7 +1164,7 @@ export const posts: PostData[] = [
 },
 {
   count: 92, 
-  slug: 'general/investment-perspective',
+  slug: 'news/investment-perspective',
   title: 'Q1 2025 Investment Perspectives – Letter to 🤫 Fund A Partners',
   publishedAt: '2025-03-29',
   description: 'An in-depth overview of the investment perspectives for Q1 2025, focusing on market trends and strategies.',
