@@ -7,7 +7,7 @@ const faqs = [
     answer: `We are an AI-first financial services and investment management company focused on generating sustainable “aloha income” (recurring cash flow) for investors. By blending data-driven strategies, advanced option overlays, and free-cash-flow-rich equities, we strive for both predictable income and long-term capital appreciation.
     Important: This FAQ is not a solicitation to sell securities. It is for informational purposes only.`
   },
-  {
+  { 
     question: "Who Can Invest in HushhTech’s Strategies?",
     answer: `Currently, our advanced derivative and AI strategies (like “Sell the Wall”) are typically available only to accredited or qualified investors. This adheres to U.S. securities laws and regulations.
     • We may, in the future, offer more broadly accessible vehicles (such as ETFs), but no public offering is made at this time.
