@@ -19,7 +19,6 @@ import axios from "axios";
 import NDARequestModal from "../../components/NDARequestModal";
 import NDADocumentModal from "../../components/NDADocumentModal";
 import config from "../../resources/config/config";
-// import { allPosts as contentPosts } from "contentlayer/generated";
 import { posts as allPosts } from "../../data/posts";  
 // Dropdown option text for NDA documents.
 const NDA_OPTION = "Sensitive Documents (NDA approval Req.)";

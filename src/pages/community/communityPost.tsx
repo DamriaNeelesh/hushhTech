@@ -18,7 +18,7 @@ const mdxComponents = {
 
 const CommunityPost: React.FC = () => {
   // Extract the slug from the route
-  const { slug } = useParams<{ slug: string }>()
+  const { "*": slug } = useParams();
   const navigate = useNavigate()
   const toast = useToast()
 

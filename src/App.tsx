@@ -75,7 +75,7 @@ function App() {
           <Route path="/community" element={<CommunityList/>} />
           <Route path='/california-privacy-policy' element={<CaliforniaPrivacyPolicy/>}/>
           <Route path='/eu-uk-jobs-privacy-policy' element={<EUUKPrivacyPolicy/>}/>
-          <Route path="/community/:slug" element={<CommunityPost />} />
+          <Route path="/community/*" element={<CommunityPost />} />
             </Routes>
             </div>
         <Footer />
