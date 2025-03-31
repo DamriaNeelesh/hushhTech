@@ -778,175 +778,175 @@ export const posts: PostData[] = [
     accessLevel: 'Public',
   },
   {
-    count: 56, // Ensure this is the next sequential number
+    count: 56, 
     slug: 'nda/safe-note',
     title: 'SAFE (Simple Agreement for Future Equity)',
-    publishedAt: '2025-02-20', // Replace with the actual date
+    publishedAt: '2025-02-20', 
     description: 'Details of the SAFE Note for Hushh AI Technologies and Computers Trading LLC.',
     category: 'investment agreements',
     Component: SafeNote, // Use the SafeNote component
-    image: SubscriptionAgreementCImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'NDA', // Set the appropriate access level
+    image: SubscriptionAgreementCImg, 
+    accessLevel: 'NDA', 
   },
   {
-    count: 57, // Ensure this is the next sequential number
+    count: 57, 
     slug: 'market/market-update-19-feb',
     title: 'Aloha Alpha Fund Market & Fund Update – February 19, 2025',
     publishedAt: '2025-02-19',
     description: 'Legal approved market and fund update for the Aloha Alpha Fund, covering performance, strategy highlights, and market commentary.',
     category: 'market updates',
     Component: MarketUpdate19Feb, 
-    image:DailyMarketUpdateImg2 , // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'Public', // Set the appropriate access level
+    image:DailyMarketUpdateImg2 , 
+    accessLevel: 'Public', 
   },
   {
-    count: 58, // Ensure this is the next sequential number
+    count: 58, 
     slug: 'market/market-update-20-feb',
     title: 'Market & Fund Update – February 20, 2025',
     publishedAt: '2025-02-20',
     description: 'Detailed market and fund update for the Aloha Alpha Fund, covering daily performance, strategy highlights, and future outlook.',
     category: 'market updates',
     Component: MarketUpdate20feb, // Use the AlohaAlphaFundUpdate component
-    image: DailyMarketUpdateImg3, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'Public', // Set the appropriate access level
+    image: DailyMarketUpdateImg3, 
+    accessLevel: 'Public', 
   },
   {
-    count: 59, // Ensure this is the next sequential number
+    count: 59, 
     slug: 'investment-strategies/confidential-report',
     title: 'Confidential: Delta Allocation Report',
-    publishedAt: '2025-02-22', // Replace with the actual date
+    publishedAt: '2025-02-22', 
     description: 'Detailed report on Delta Allocation for SPX7 and Top FCF Stocks, focusing on selling puts and covered calls.',
     category: 'investment & financial strategies',
-    Component: ConfidentialReport, // Ensure the component is imported correctly
-    image: ExhibitLPAImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'NDA', // Set the appropriate access level
+    Component: ConfidentialReport, 
+    image: ExhibitLPAImg, 
+    accessLevel: 'NDA', 
   },
   {
-    count: 60, // Ensure this is the next sequential number
+    count: 60, 
     slug: 'market-updates/feb-12-2025',
     title: 'Alpha Aloha Fund Market and Fund Update Report',
-    publishedAt: '2025-02-12', // Replace with the actual date
+    publishedAt: '2025-02-12', 
     description: 'Fund update report for Internal Review & Investor Communication',
     category: 'market updates',
-    Component: dmu12feb, // Ensure the component is imported correctly
-    image: DailyMarketUpdateImg1, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'Public', // Set the appropriate access level
+    Component: dmu12feb, 
+    image: DailyMarketUpdateImg1, 
+    accessLevel: 'Public', 
   },
   {
-    count: 60, // Ensure this is the next sequential number
+    count: 60, 
     slug: 'market-updates/feb-13-2025',
     title: 'Alpha Aloha Fund Market and Fund Update Report',
-    publishedAt: '2025-02-13', // Replace with the actual date
+    publishedAt: '2025-02-13', 
     description: 'Comprehensive market and fund update for the Alpha Aloha Fund, covering performance, strategy highlights, and market commentary.',
     category: 'market updates',
-    Component: dmu13feb, // Ensure the component is imported correctly
-    image: DailyMarketUpdateImg3, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'Public', // Set the appropriate access level
+    Component: dmu13feb, 
+    image: DailyMarketUpdateImg3, 
+    accessLevel: 'Public', 
   },
   {
-    count: 61, // Ensure this is the next sequential number
+    count: 61, 
     slug: 'market-updates/18-feb-2025',
     title: '🤫 Aloha Alpha Fund Market and Fund Update Report',
-    publishedAt: '2025-02-18', // Replace with the actual date
+    publishedAt: '2025-02-18', 
     description: 'Detailed market and fund update for the Aloha Alpha Fund, covering performance, strategy highlights, and market commentary.',
     category: 'market updates',
-    Component: dmu18feb, // Ensure the component is imported correctly
-    image: DailyMarketUpdateImg1, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'Public', // Set the appropriate access level
+    Component: dmu18feb, 
+    image: DailyMarketUpdateImg1, 
+    accessLevel: 'Public', 
   },
   {
-    count: 62, // Ensure this is the next sequential number
+    count: 62, 
     slug: 'investor-memos/investor-memo-with-focus-on-risk',
     title: '🤫Investor Memo - Risk Focus',
-    publishedAt: '2025-02-18', // Replace with the actual date
+    publishedAt: '2025-02-18', 
     description: 'Investor memo for the Aloha Alpha Fund, detailing investment philosophy, risks, and performance transparency.',
     category: 'investor memos',
-    Component: InvestorMemoRisk, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'NDA', // Set the appropriate access level
+    Component: InvestorMemoRisk, 
+    image: HushhAiLogoImg, 
+    accessLevel: 'NDA', 
   },
   {
-    count: 63, // Ensure this is the next sequential number
+    count: 63, 
     slug: 'fund-reviews/aloha-alpha-fund-review',
     title: '🤫 Aloha Alpha Fund Review from the Perspective of Warren Buffett & Charlie Munger',
-    publishedAt: '2025-02-19', // Replace with the actual date
+    publishedAt: '2025-02-19', 
     description: 'A review of the Aloha Alpha Fund from the perspectives of Warren Buffett, Charlie Munger, and Berkshire’s Advisory Board.',
     category: 'fund reviews',
-    Component: HushhAiLogoImg, // Ensure the component is imported correctly
-    image: ExhibitLPAImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'NDA', // Set the appropriate access level
+    Component: HushhAiLogoImg, 
+    image: ExhibitLPAImg, 
+    accessLevel: 'NDA', 
   },
   {
-    count: 64, // Ensure this is the next sequential number
+    count: 64, 
     slug: 'legal/evergreen-fund-subscription-agreement',
     title: 'SUBSCRIPTION AGREEMENT Hushh Technologies LLC – Evergreen 🌲 Fund',
-    publishedAt: '2025-02-20', // Replace with the actual date
+    publishedAt: '2025-02-20', 
     description: 'Subscription agreement for the Evergreen 🌲 Fund, detailing investment terms, governance, and compliance.',
     category: 'legal',
-    Component: EvergreenFundSubscriptionAgreement, // Ensure the component is imported correctly
-    image: SubscriptionAgreementBImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'NDA', // Set the appropriate access level
+    Component: EvergreenFundSubscriptionAgreement, 
+    image: SubscriptionAgreementBImg, 
+    accessLevel: 'NDA', 
   },
   {
-    count: 65, // Ensure this is the next sequential number
+    count: 65, 
     slug: 'legal/general-partnership-agreement',
     title: 'GENERAL PARTNERSHIP AGREEMENT (GPA) OF 🤫 Hushh AI Technologies and Computers Trading LLC',
-    publishedAt: '2025-02-19', // Replace with the actual date
+    publishedAt: '2025-02-19', 
     description: 'General Partnership Agreement for Hushh AI Technologies and Computers Trading LLC, detailing formation, roles, and governance.',
     category: 'legal',
-    Component: GeneralPartnershipAgreement, // Ensure the component is imported correctly
-    image: SubscriptionAgreementCImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'NDA', // Set the appropriate access level
+    Component: GeneralPartnershipAgreement, 
+    image: SubscriptionAgreementCImg, 
+    accessLevel: 'NDA', 
   },
   {
-    count: 66, // Ensure this is the next sequential number
+    count: 66, 
     slug: 'legal/limited-partnership-agreement-LPA',
     title: 'Limited Partnership Agreement (LPA) for 🤫 Hushh Evergreen Fund',
-    publishedAt: '2025-02-20', // Replace with the actual date
+    publishedAt: '2025-02-20', 
     description: 'Limited Partnership Agreement for the Hushh Evergreen Fund, detailing structure, contributions, and governance.',
     category: 'legal',
-    Component: LpaAGDM, // Ensure the component is imported correctly
-    image: ExhibitLPAImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'NDA', // Set the appropriate access level
+    Component: LpaAGDM, 
+    image: ExhibitLPAImg, 
+    accessLevel: 'NDA', 
   },
   {
-    count: 67, // Ensure this is the next sequential number
+    count: 67, 
     slug: 'legal/investor-accreditation-certificate',
     title: 'Investor Accreditation Certificate',
-    publishedAt: '2025-02-19', // Replace with the actual date
+    publishedAt: '2025-02-19', 
     description: 'Certification of Accredited Investor Status for participation in private securities offerings with HushOne, Inc.',
     category: 'legal',
-    Component: InvestorAccreditationCertificate, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use the specified image
-    accessLevel: 'NDA', // Set the appropriate access level
+    Component: InvestorAccreditationCertificate, 
+    image: HushhAiLogoImg, 
+    accessLevel: 'NDA', 
   },
   {
-    count: 68, // Ensure this is the next sequential number
+    count: 68, 
     slug: 'investment/commitment-letter',
     title: 'Commitment Letter',
-    publishedAt: '2025-02-19', // Replace with the actual date
+    publishedAt: '2025-02-19', 
     description: 'Commitment Letter for investment in HushOne, Inc., detailing terms and conditions.',
     category: 'legal',
-    Component: CommitmentLetter, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use the specified image
-    accessLevel: 'NDA', // Set the appropriate access level
+    Component: CommitmentLetter, 
+    image: HushhAiLogoImg, 
+    accessLevel: 'NDA', 
   },
   {
-    count: 69, // Ensure this is the next sequential number
+    count: 69, 
     slug: 'legal/hushh-fund-faq',
     title: 'Hushh Fund – Frequently Asked Questions',
-    publishedAt: '2025-02-24', // Replace with the actual date
+    publishedAt: '2025-02-24', 
     description: 'Comprehensive FAQ about the Hushh Fund, covering structure, strategy, and AI integration.',
     category: 'general',
-    Component: HushhFundFAQ, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use the specified image
-    accessLevel: 'Public', // Set the appropriate access level
+    Component: HushhFundFAQ, 
+    image: HushhAiLogoImg, 
+    accessLevel: 'Public', 
   },
   {
-    count: 70, // Ensure this is the next sequential number
+    count: 70, 
     slug: 'funds/review-from-jim-and-ken',
     title: 'Fund Review from the Perspective of Jim Simons & Ken Griffin',
-    publishedAt: '2025-02-20', // Replace with the actual date
+    publishedAt: '2025-02-20', 
     description: 'A detailed review of the Aloha Alpha Fund from the perspectives of Jim Simons and Ken Griffin.',
     category: 'legal',
     Component: JimSimonsFundReview, 
@@ -954,215 +954,215 @@ export const posts: PostData[] = [
     accessLevel: 'NDA',
   },
   {
-    count: 71, // Ensure this is the next sequential number
+    count: 71, 
     slug: 'legal/publish-thoughts-fcf-analysis',
     title: 'Confidential: Deep-Dive FCF Analysis',
-    publishedAt: '2025-02-22', // Replace with the actual date
+    publishedAt: '2025-02-22', 
     description: 'A quantitative approach for analyzing and ranking the 27 free cash flow aces.',
     category: 'legal',
-    Component: ConfidentialFCFAnalysis, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use the specified image
-    accessLevel: 'NDA', // Set the appropriate access level
+    Component: ConfidentialFCFAnalysis, 
+    image: HushhAiLogoImg, 
+    accessLevel: 'NDA', 
   },
   {
-    count: 72, // Ensure this is the next sequential number
+    count: 72, 
     slug: 'general/hushh-employee-champion-handbook',
     title: 'Hushh: Employee & Champion Handbook',
-    publishedAt: '2025-02-22', // Replace with the actual date
+    publishedAt: '2025-02-22', 
     description: 'A comprehensive guide for Hushh employees and champions, detailing culture, roles, and operations.',
     category: 'general',
-    Component: HushhEmployeeChampionHandbook, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use the specified image
-    accessLevel: 'Public', // Set the appropriate access level
+    Component: HushhEmployeeChampionHandbook, 
+    image: HushhAiLogoImg, 
+    accessLevel: 'Public', 
   },
   {
-    count: 73, // Ensure this is the next sequential number
+    count: 73, 
     slug: 'general/hushhtech-prospectus',
     title: 'HushhTech: AI-First Financial Services & Investment Management Prospectus',
-    publishedAt: '2025-02-22', // Replace with the actual date
+    publishedAt: '2025-02-22', 
     description: 'An overview of HushhTech’s vision, offerings, and growth plans in AI-driven financial services.',
     category: 'investment & financial strategies',
-    Component: HushhTechProspectus, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use the specified image
-    accessLevel: 'Public', // Set the appropriate access level
+    Component: HushhTechProspectus, 
+    image: HushhAiLogoImg, 
+    accessLevel: 'Public', 
   },
   {
-    count: 74, // Ensure this is the next sequential number
+    count: 74, 
     slug: 'legal/subscription-agreement-class-c-shares',
     title: 'Subscription Agreement for Class C Shares',
-    publishedAt: '2025-02-24', // Replace with the actual date
+    publishedAt: '2025-02-24', 
     description: 'Details the terms and conditions for subscribing to Class C Shares in the Aloha & Alpha Fund.',
     category: 'legal',
-    Component: SubscriptionAgreementCShares, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use the specified image
-    accessLevel: 'NDA', // Set the appropriate access level
+    Component: SubscriptionAgreementCShares, 
+    image: HushhAiLogoImg, 
+    accessLevel: 'NDA', 
   },
   {
-    count: 75, // Ensure this is the next sequential number
+    count: 75, 
     slug: 'legal/investor-power-of-attorney',
     title: 'Investor Power of Attorney (POA)',
-    publishedAt: '2025-02-19', // Replace with the actual date
+    publishedAt: '2025-02-19', 
     description: 'Details the Power of Attorney for executing investment transactions and fund operations on behalf of the investor.',
     category: 'legal',
-    Component: InvestorPowerOfAttorney, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use the specified image
-    accessLevel: 'NDA', // Set the appropriate access level
+    Component: InvestorPowerOfAttorney, 
+    image: HushhAiLogoImg, 
+    accessLevel: 'NDA', 
   },
   {
-    count: 76, // Ensure this is the next sequential number
+    count: 76, 
     slug: 'updates/daily-market-updates',
     title: 'Aloha Alpha Fund – Daily Market Update',
-    publishedAt: '2025-02-24', // Replace with the actual date
+    publishedAt: '2025-02-24', 
     description: 'Daily market update and fund performance insights for the Aloha Alpha Fund.',
     category: 'market updates',
-    Component: dmu24Feb, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use the specified image
-    accessLevel: 'Public', // Set the appropriate access level
+    Component: dmu24Feb, 
+    image: HushhAiLogoImg, 
+    accessLevel: 'Public', 
   },
   {
-    count: 77, // Ensure this is the next sequential number
+    count: 77, 
     slug: 'market/daily-update-25-feb-2025',
     title: 'Aloha Alpha Fund – Daily Market Update',
-    publishedAt: '2025-02-25', // Use the actual date of the update
+    publishedAt: '2025-02-25', 
     description: 'Daily market update and fund performance insights for the Aloha Alpha Fund on February 25, 2024.',
     category: 'market updates',
-    Component: dmu25feb, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'Public', // Set the appropriate access level
+    Component: dmu25feb, 
+    image: HushhAiLogoImg, 
+    accessLevel: 'Public', 
   },
   // {
-  //   count: 78, // Ensure this is the next sequential number
+  //   count: 78, 
   //   slug: 'general/head-of-quants',
   //   title: 'Head of Quants and Investment Programs Engineer',
-  //   publishedAt: '2025-02-28', // Use the actual date of the update
+  //   publishedAt: '2025-02-28', 
   //   description: 'Join hushhTech as the Head of AI-Powered Quant Trading & Engineering to build the future of autonomous trading.',
   //   category: 'general',
-  //   Component: HeadOfQuants, // Ensure the component is imported correctly
-  //   image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-  //   accessLevel: 'Public', // Set the appropriate access level
+  //   Component: HeadOfQuants, 
+  //   image: HushhAiLogoImg, 
+  //   accessLevel: 'Public', 
   // },
   {
-    count: 79, // Ensure this is the next sequential number
+    count: 79, 
     slug: 'market/daily-update-27-feb-2025',
     title: '🤫 Aloha Alpha Fund – Daily Market Update',
-    publishedAt: '2025-02-27', // Use the actual date of the update
+    publishedAt: '2025-02-27', 
     description: 'Daily market update and fund performance insights for the Aloha Alpha Fund on February 27, 2025.',
     category: 'market updates',
-    Component: Dmu27Feb, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'Public', // Set the appropriate access level
+    Component: Dmu27Feb, 
+    image: HushhAiLogoImg, 
+    accessLevel: 'Public', 
   },
   {
-    count: 80, // Ensure this is the next sequential number
+    count: 80, 
     slug: 'market/daily-update-26-feb-2025',
     title: 'Aloha Alpha Fund – Daily Market & Performance Update',
-    publishedAt: '2025-02-26', // Use the actual date of the update
+    publishedAt: '2025-02-26', 
     description: 'Market and performance update for the Aloha Alpha Fund on February 26, 2025, with insights on Nvidia earnings and fund strategy.',
     category: 'market updates',
-    Component: Dmu26Feb, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'Public', // Set the appropriate access level
+    Component: Dmu26Feb, 
+    image: HushhAiLogoImg, 
+    accessLevel: 'Public', 
   },
   {
-    count: 81, // Ensure this is the next sequential number
+    count: 81, 
     slug: 'updates/investor-update',
     title: 'Hushh Investments LLC - Investor Update & Forward-Looking Thesis',
-    publishedAt: '2025-03-01', // Use the actual date of the update
+    publishedAt: '2025-03-01', 
     description: 'Comprehensive investor update and forward-looking thesis for Hushh Investments LLC.',
     category: 'investor relations & strategies',
-    Component: InvestorUpdate, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'NDA', // Set the appropriate access level
+    Component: InvestorUpdate, 
+    image: HushhAiLogoImg, 
+    accessLevel: 'NDA', 
   },
   {
-    count: 82, // Ensure this is the next sequential number
+    count: 82, 
     slug: 'market/updates-28-feb-2025',
     title: '🤫 Aloha Alpha Fund — February 28, 2025 Performance Recap',
-    publishedAt: '2025-02-28', // Use the actual date of the update
+    publishedAt: '2025-02-28', 
     description: 'Performance recap for the Aloha Alpha Fund on February 28, 2025, highlighting gains and strategic execution.',
     category: 'market updates',
-    Component: Dmu28Feb, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'Public', // Set the appropriate access level
+    Component: Dmu28Feb, 
+    image: HushhAiLogoImg, 
+    accessLevel: 'Public', 
   },
   {
-    count: 83, // Ensure this is the next sequential number
+    count: 83, 
     slug: 'investors-relations/profit-margin-report',
     title: 'Profit Margin & Detailed Business Report (unaudited financial profit report)',
-    publishedAt: '2025-03-03', // Use the actual date of the update
+    publishedAt: '2025-03-03', 
     description: 'Comprehensive report on profit margins and business operations for Hushh Technologies.',
     category: 'investor relations & strategies',
-    Component: ProfitMarginReport, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'NDA', // Set the appropriate access level
+    Component: ProfitMarginReport, 
+    image: HushhAiLogoImg, 
+    accessLevel: 'NDA', 
   },
   {
-    count: 83, // Ensure this is the next sequential number
+    count: 83, 
     slug: 'market/daily-update-13-mar-2025',
     title: '🤫 Aloha Alpha Fund – Daily Market Update',
-   publishedAt: '2025-03-13', // Use the actual date of the update
+   publishedAt: '2025-03-13', 
     description: 'Daily market update and fund performance insights for the Aloha Alpha Fund on March 13, 2025.',
     category: 'market updates',
-    Component: Dmu13Mar, // Ensure the component is imported correctly
-    image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-    accessLevel: 'Public', // Set the appropriate access level
+    Component: Dmu13Mar, 
+    image: HushhAiLogoImg, 
+    accessLevel: 'Public', 
 },
 {
-  count: 84, // Ensure this is the next sequential number
+  count: 84, 
   slug: 'market/weekly-update-14-mar-2025',
   title: 'Aloha Alpha Club – Weekly Market Update',
-  publishedAt: '2025-03-14', // Use the actual date of the update
+  publishedAt: '2025-03-14', 
   description: 'Weekly market update and performance insights for the Aloha Alpha Fund on March 14, 2025.',
   category: 'market updates',
-  Component: Dmu14Mar, // Ensure the component is imported correctly
-  image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-  accessLevel: 'Public', // Set the appropriate access level
+  Component: Dmu14Mar, 
+  image: HushhAiLogoImg, 
+  accessLevel: 'Public', 
 },
 {
-  count: 85, // Ensure this is the next sequential number
+  count: 85, 
   slug: 'market/performance-update-10-mar-2025',
   title: '🤫 Aloha Alpha Fund – Performance & Market Update (March 10, 2025)',
-  publishedAt: '2025-03-10', // Use the actual date of the update
+  publishedAt: '2025-03-10', 
   description: 'Performance summary and market insights for the Aloha Alpha Fund on March 10, 2025.',
   category: 'market updates',
-  Component: Dmu10Mar, // Ensure the component is imported correctly
-  image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-  accessLevel: 'Public', // Set the appropriate access level
+  Component: Dmu10Mar, 
+  image: HushhAiLogoImg, 
+  accessLevel: 'Public', 
 },
 
 {
-  count: 89, // Ensure this is the next sequential number
+  count: 89, 
   slug: 'investor-relations/hushh-alpha-27-bets',
   title: 'HushhAlpha27 Comprehensive Proposal',
-  publishedAt: '2025-03-17', // Use the actual date of the update
+  publishedAt: '2025-03-17', 
   description: 'A comprehensive proposal for your HushhAlpha27 portfolio, addressing price ranges, target allocations, guidance on reinvestment of aloha income, and a defensive overlay using deeply out-of-the-money (OTM) index puts to mitigate black swan scenarios.',
   category: 'investor relations & strategies',
-  Component: HushhAlpha27Bets, // Ensure the component is imported correctly
-  image: HushhAiLogoImg, // Use the specified image or replace with a specific one if needed
-  accessLevel: 'NDA', // Set the appropriate access level
+  Component: HushhAlpha27Bets, 
+  image: HushhAiLogoImg, 
+  accessLevel: 'NDA',
 },
 
 {
-  count: 90, // Ensure this is the next sequential number
+  count: 90, 
   slug: 'market-updates/march-3-2025',
   title: 'Market Wrap: Tariff Turbulence Trips Stocks, Europe Defies the Drop',
-  publishedAt: '2025-03-03', // Use the actual date of the update
+  publishedAt: '2025-03-03', 
   description: 'U.S. markets stumbled into March with their worst day of the year, as trade war jitters and soft economic data spooked investors. Major Wall Street indices sank deep into the red by the close, even as European and Asian markets showed surprising resilience.',
   category: 'market updates',
-  Component: dmu3mar, // Ensure the component is imported correctly
-  image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-  accessLevel: 'Public', // Set the appropriate access level
+  Component: dmu3mar, 
+  image: HushhAiLogoImg, 
+  accessLevel: 'Public', 
 },
 {
-  count: 91, // Ensure this is the next sequential number
+  count: 91, 
   slug: 'investors-news/market-wrap',
   title: 'Investors new and Market Wrap: Tariff Turbulence Trips Stocks, Europe Defies the Drop',
-  publishedAt: '2025-03-21', // Use the actual date of the update
+  publishedAt: '2025-03-21', 
   description: 'U.S. markets stumbled into March with their worst day of the year, as trade war jitters and soft economic data spooked investors. Major Wall Street indices sank deep into the red by the close, even as European and Asian markets showed surprising resilience.',
   category: 'market updates',
-  Component: InvestorsNews, // Ensure the component is imported correctly
-  image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-  accessLevel: 'Public', // Set the appropriate access level
+  Component: InvestorsNews, 
+  image: HushhAiLogoImg, 
+  accessLevel: 'Public', 
 },
 {
   count: 92, 
@@ -1172,30 +1172,30 @@ export const posts: PostData[] = [
   description: 'An in-depth overview of the investment perspectives for Q1 2025, focusing on market trends and strategies.',
   category: 'investor relations & strategies', 
   Component: InvestmentPerspective, 
-  image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
+  image: HushhAiLogoImg, 
   accessLevel: 'Public',
 },
 {
-  count: 93, // Ensure this is the next sequential number
+  count: 93, 
   slug: 'general/fund-a-faq',
   title: '🤫 Fund A: Frequently Asked Questions (FAQ)',
-  publishedAt: '2025-03-31', // Replace with the actual date
+  publishedAt: '2025-03-31', 
   description: 'Comprehensive FAQ addressing common questions from our LPs about 🤫 Fund A’s strategy and operations.',
-  category: 'general', // Adjust the category as needed
-  Component: FundAFaq, // Ensure the component is imported correctly
-  image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-  accessLevel: 'Public', // Set the appropriate access level
+  category: 'general', 
+  Component: FundAFaq, 
+  image: HushhAiLogoImg, 
+  accessLevel: 'Public', 
 },
 {
-  count: 94, // Ensure this is the next sequential number
+  count: 94, 
   slug: 'nda/funds-review-perspective',
   title: '🤫 Aloha Alpha Fund Review from the Perspective of Warren Buffett & Charlie Munger',
-  publishedAt: '2025-03-30', // Replace with the actual date
+  publishedAt: '2025-03-30', 
   description: 'A detailed review of the Aloha Alpha Fund from the perspectives of Warren Buffett and Charlie Munger.',
-  category: 'nda', // Adjust the category as needed
-  Component: FundReviewPerspective, // Ensure the component is imported correctly
-  image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
-  accessLevel: 'NDA', // Set the appropriate access level
+  category: 'nda', 
+  Component: FundReviewPerspective, 
+  image: HushhAiLogoImg, 
+  accessLevel: 'NDA', 
 },
 
 ];
