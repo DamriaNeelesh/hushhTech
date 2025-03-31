@@ -1,6 +1,6 @@
 import { makeSource, defineDocumentType } from 'contentlayer/source-files';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypePrettyCode from 'rehype-pretty-code';
+// import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 
@@ -31,7 +31,7 @@ const Post = defineDocumentType(() => ({
 const codeOptions = { theme: 'github-dark', grid: false };
 
 export default makeSource({
-  contentDirPath: 'posts',
+  contentDirPath: 'Posts',
   documentTypes: [Post],
   disableImportAliasWarning: true,  
   mdx: {
