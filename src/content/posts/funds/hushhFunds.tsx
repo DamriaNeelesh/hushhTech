@@ -12,7 +12,6 @@ export const frontmatter = {
 const FundAtHushh: React.FC = () => {
   return (
     <Box p={0} color="black" borderRadius="md">
-      <Image src={FundsUpdate} alt="Funds Update" mb={4} borderRadius="md" />
 
       <Heading as="h2" fontSize="2xl" mb={4} color="black">
         Hushh Technology Fund L.P.
