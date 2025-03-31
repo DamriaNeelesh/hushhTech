@@ -7,4 +7,4 @@ export const posts: Post[] = Array.isArray(allPosts)
     )
   : [];
 
-  console.log("All posts:", posts);
+  console.log("All posts:", posts); 
