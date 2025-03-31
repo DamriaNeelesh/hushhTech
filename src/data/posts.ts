@@ -122,6 +122,8 @@ import HushhAlpha27Bets from '../content/posts/nda/hushhAlpha27bets';
 import dmu3mar from '../content/posts/market/dmu3mar';
 import InvestorsNews from '../content/posts/investors-faq/investorsNews';
 import InvestmentPerspective from '../content/posts/general/investmentPerspective';
+import FundAFaq from '../content/posts/general/fundAFaq';
+import FundReviewPerspective from '../content/posts/nda/fundsReviewPerspective';
 
 export interface PostData {
   slug: string;
@@ -1172,6 +1174,28 @@ export const posts: PostData[] = [
   Component: InvestmentPerspective, 
   image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
   accessLevel: 'Public',
+},
+{
+  count: 93, // Ensure this is the next sequential number
+  slug: 'general/fund-a-faq',
+  title: '🤫 Fund A: Frequently Asked Questions (FAQ)',
+  publishedAt: '2025-03-31', // Replace with the actual date
+  description: 'Comprehensive FAQ addressing common questions from our LPs about 🤫 Fund A’s strategy and operations.',
+  category: 'general', // Adjust the category as needed
+  Component: FundAFaq, // Ensure the component is imported correctly
+  image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
+  accessLevel: 'Public', // Set the appropriate access level
+},
+{
+  count: 94, // Ensure this is the next sequential number
+  slug: 'nda/funds-review-perspective',
+  title: '🤫 Aloha Alpha Fund Review from the Perspective of Warren Buffett & Charlie Munger',
+  publishedAt: '2025-03-30', // Replace with the actual date
+  description: 'A detailed review of the Aloha Alpha Fund from the perspectives of Warren Buffett and Charlie Munger.',
+  category: 'nda', // Adjust the category as needed
+  Component: FundReviewPerspective, // Ensure the component is imported correctly
+  image: HushhAiLogoImg, // Use an appropriate image or replace with a specific one if needed
+  accessLevel: 'NDA', // Set the appropriate access level
 },
 
 ];
