@@ -1200,7 +1200,7 @@ export const posts: PostData[] = [
 },
 {
   count: 95, // Increment from the last count
-  slug: 'market/dmu1april',
+  slug: 'market/market-updates-1st-april',
   title: '🤫 Daily Market Snapshot Q2 Day 1 - April 1, 2025',
   publishedAt: '2025-04-01',
   description: 'Daily market update and fund performance analysis for Q2 2025, covering fund performance, market analysis, and strategic insights.',
