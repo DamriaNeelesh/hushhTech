@@ -3,8 +3,8 @@ import { Box, Text, VStack } from '@chakra-ui/react';
 
 const dmu3mar = () => {
   return (
-    <Box p={4}>
-      <Text fontSize="xl" fontWeight="bold" mb={2}>
+    <Box p={4} color={'black'}>
+      <Text fontSize="xl" fontWeight="bold" color={'black'} mb={2}>
         Market Wrap: Tariff Turbulence Trips Stocks, Europe Defies the Drop
       </Text>
       <Text mb={4}>

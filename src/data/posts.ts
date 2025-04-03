@@ -124,6 +124,7 @@ import InvestorsNews from '../content/posts/investors-faq/investorsNews';
 import InvestmentPerspective from '../content/posts/general/investmentPerspective';
 import FundAFaq from '../content/posts/general/fundAFaq';
 import FundReviewPerspective from '../content/posts/nda/fundsReviewPerspective';
+import dmu1april from '../content/posts/market/dmu1april';
 
 export interface PostData {
   slug: string;
@@ -1156,7 +1157,7 @@ export const posts: PostData[] = [
 {
   count: 91, 
   slug: 'investors-news/market-wrap',
-  title: 'Investors new and Market Wrap: Tariff Turbulence Trips Stocks, Europe Defies the Drop',
+  title: 'Investors news and Market Wrap: Tariff Turbulence Trips Stocks, Europe Defies the Drop',
   publishedAt: '2025-03-21', 
   description: 'U.S. markets stumbled into March with their worst day of the year, as trade war jitters and soft economic data spooked investors. Major Wall Street indices sank deep into the red by the close, even as European and Asian markets showed surprising resilience.',
   category: 'market updates',
@@ -1196,6 +1197,17 @@ export const posts: PostData[] = [
   Component: FundReviewPerspective, 
   image: HushhAiLogoImg, 
   accessLevel: 'NDA', 
+},
+{
+  count: 95, // Increment from the last count
+  slug: 'market/dmu1april',
+  title: '🤫 Daily Market Snapshot Q2 Day 1 - April 1, 2025',
+  publishedAt: '2025-04-01',
+  description: 'Daily market update and fund performance analysis for Q2 2025, covering fund performance, market analysis, and strategic insights.',
+  category: 'market updates',
+  Component: dmu1april,
+  image: DailyMarketUpdateImg1, // Using existing market update image
+  accessLevel: 'Publich',
 },
 
 ];
