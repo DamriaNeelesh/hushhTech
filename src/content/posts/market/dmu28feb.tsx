@@ -11,6 +11,7 @@ import q8 from '../../../components/images/market-updates/dmu28feb/q8.jpg';
 import video1 from '../../../components/images/market-updates/dmu28feb/v1.mp4';
 import video2 from '../../../components/images/market-updates/dmu28feb/v2.mp4';
 import video3 from '../../../components/images/market-updates/dmu28feb/v3.mp4';
+import MarketUpdateGallery from '../../../components/MarketUpdateGallery';
 
 
 const Dmu28Feb = () => {
@@ -127,24 +128,11 @@ const Dmu28Feb = () => {
       <Heading as="h3" fontSize="lg" color="black" mb={4}>
         Reference:
       </Heading>
-      <Box display="flex" flexWrap="wrap" justifyContent="center" flexDirection={{ base: 'column', md: 'row' }}>
-        <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center" width={{ base: '100%', md: '50%' }}>
-          <Image src={q1} alt='Hushh market update 28 feb' mr={2} boxSize="md" />
-          <Image src={q2} alt='Hushh market update 28 feb' mr={2} boxSize="md" />
-        </Box>
-        <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center" width={{ base: '100%', md: '50%' }}>
-          <Image src={q3} alt='Hushh market update 28 feb' mr={2} boxSize="md" />
-          <Image src={q4} alt='Hushh market update 28 feb' mr={2} boxSize="md" />
-        </Box>
-        <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center" width={{ base: '100%', md: '50%' }}>
-          <Image src={q5} alt='Hushh market update 28 feb' mr={2} boxSize="md" />
-          <Image src={q6} alt='Hushh market update 28 feb' mr={2} boxSize="md" />
-        </Box>
-        <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center" width={{ base: '100%', md: '50%' }}>
-          <Image src={q7} alt='Hushh market update 28 feb' mr={2} boxSize="md" />
-          <Image src={q8} alt='Hushh market update 28 feb' mr={2} boxSize="md" />
-        </Box>
-      </Box>
+      <MarketUpdateGallery 
+        date="dmu28feb" 
+        imagePattern='q{i}.jpg'
+        title = "Supporting Charts & Data"
+      />
       <Box display="flex" flexDirection={{ base: 'column', md: 'row' }} justifyContent="center" alignItems="center" mt={4}>
         <Box as="video" src={video1} controls width={{ base: '100%', md: '30%' }} mb={{ base: 4, md: 0 }} mr={{ md: 2 }} />
         <Box as="video" src={video2} controls width={{ base: '100%', md: '30%' }} mb={{ base: 4, md: 0 }} mr={{ md: 2 }} />

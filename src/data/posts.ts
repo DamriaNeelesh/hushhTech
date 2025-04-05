@@ -125,6 +125,16 @@ import InvestmentPerspective from '../content/posts/general/investmentPerspectiv
 import FundAFaq from '../content/posts/general/fundAFaq';
 import FundReviewPerspective from '../content/posts/nda/fundsReviewPerspective';
 import dmu1april from '../content/posts/market/dmu1april';
+import dmu28mar from '../content/posts/market/dmu27mar';
+import dmu27mar from '../content/posts/market/dmu27mar';
+import dmu26mar from '../content/posts/market/dmu26mar';
+import dmu25mar from '../content/posts/market/dmu25mar';
+import dmu24mar from '../content/posts/market/dmu24mar';
+import dmu21mar from '../content/posts/market/dmu21mar';
+import dmu5apr from '../content/posts/market/dmu5apr';
+import dmu4apr from '../content/posts/market/dmu4apr';
+import Dmu3apr from '../content/posts/market/dmu3apr';
+import Dmu2apr from '../content/posts/market/dmu2apr';
 
 export interface PostData {
   slug: string;
@@ -1206,10 +1216,108 @@ export const posts: PostData[] = [
   description: 'Daily market update and fund performance analysis for Q2 2025, covering fund performance, market analysis, and strategic insights.',
   category: 'market updates',
   Component: dmu1april,
-  image: DailyMarketUpdateImg1, // Using existing market update image
+  image: DailyMarketUpdateImg1, 
   accessLevel: 'Public',
 },
-
+{
+  count: 96, 
+  slug: 'market/hushh-daily-market-update-28-feb',
+  title: '🤫 Daily Market Snapshot - March 28, 2025',
+  publishedAt: '2025-03-28',
+  description: 'Daily market update covering significant volume trading, successful wall rolls, and month-end performance metrics.',
+  category: 'market updates',
+  Component: dmu28mar,
+  image: DailyMarketUpdateImg1,
+  accessLevel: 'Public',
+},
+{
+  count: 97, // Increment from the last count
+  slug: 'market/hushh-market-update-27-march',  // Updated SEO-friendly slug
+  title: '🤫 Daily Market Snapshot - March 27, 2025',
+  publishedAt: '2025-03-27',
+  description: 'Daily market update covering VWAP analysis, market opportunities, and Aloha Alpha Fund A performance metrics.',
+  category: 'market updates',
+  Component: dmu27mar,
+  image: DailyMarketUpdateImg1,
+  accessLevel: 'Public',
+},
+{
+  count: 98, // Increment from the last count
+  slug: 'market/hushh-market-update-26-march',  // SEO-friendly slug
+  title: '🤫 Daily Market Snapshot - March 26, 2025',
+  publishedAt: '2025-03-26',
+  description: 'Daily market update covering unfavorable market conditions, strategic position adjustments, and Aloha program execution metrics.',
+  category: 'market updates',
+  Component: dmu26mar,
+  image: DailyMarketUpdateImg1,
+  accessLevel: 'Public',
+},
+{
+  count: 99, // Increment from the last count
+  slug: 'market/hushh-market-update-25-march',  // SEO-friendly slug
+  title: '🤫 Daily Market Snapshot - March 25, 2025',
+  publishedAt: '2025-03-25',
+  description: 'Daily market update covering positive performance, successful wall rollovers, and Aloha program income metrics.',
+  category: 'market updates',
+  Component: dmu25mar,
+  image: DailyMarketUpdateImg1,
+  accessLevel: 'Public',
+},
+{
+  count: 100,
+  slug: 'market/hushh-market-update-24-march',
+  title: '🤫 Daily Market Snapshot - March 24, 2025',
+  publishedAt: '2025-03-24',
+  description: 'Daily market update covering trading activity, performance metrics, and portfolio positioning adjustments.',
+  category: 'market updates',
+  Component: dmu24mar,
+  image: DailyMarketUpdateImg1,
+  accessLevel: 'Public',
+},
+{
+  count: 100,
+  slug: 'market/hushh-market-update-21-march',
+  title: '🤫 Daily Market Snapshot - March 21, 2025',
+  publishedAt: '2025-03-21',
+  description: 'Daily market update covering trading activity, performance metrics, and areas for improvement in trade execution.',
+  category: 'market updates',
+  Component: dmu21mar,
+  image: DailyMarketUpdateImg1,
+  accessLevel: 'Public',
+},
+{
+  count: 101,
+  slug: 'market/market-updates-4th-april',
+  title: '🤫 Daily Market Update - April 4, 2025',
+  publishedAt: '2025-04-04',
+  description: 'Weekly market wrap-up and fund performance analysis for April 4, 2025, covering technical challenges, aloha income, and overall fund performance.',
+  category: 'market updates',
+  Component: dmu4apr,
+  image: DailyMarketUpdateImg2,
+  accessLevel: 'Public',
+},
+{
+  count: 102,
+  slug: 'market/hushh-market-update-3-april',
+  title: '🤫 Daily Market Snapshot - April 3, 2025',
+  publishedAt: '2025-04-03',
+  description: 'Significant market drawdown update with AAPL concentration impact, successful wall rolling operations generating 5% aloha income, and strategic positioning amid market turbulence.',
+  category: 'market updates',
+  Component: Dmu3apr,
+  image: DailyMarketUpdateImg1,
+  accessLevel: 'Public',
+},
+{
+  count: 103, // Make sure this is incremented from the last count
+  slug: 'market/hushh-market-update-2-april',
+  title: '🤫 Daily Market Snapshot - April 2, 2025',
+  publishedAt: '2025-04-02',
+  description: 'Market analysis covering automated wall adjustments, AAPL trading levels, and significant NQ futures decline with technical support levels discussion.',
+  category: 'market updates',
+  Component: Dmu2apr,
+  image: DailyMarketUpdateImg1,
+  accessLevel: 'Public',
+},
 ];
 
 export function getPosts(): PostData[] {
