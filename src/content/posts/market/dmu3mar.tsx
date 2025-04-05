@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Text, VStack } from '@chakra-ui/react';
+import { Box, Divider, Text, VStack } from '@chakra-ui/react';
+import MarketUpdateGallery from '../../../components/MarketUpdateGallery';
 
 const dmu3mar = () => {
   return (
@@ -223,6 +224,13 @@ const dmu3mar = () => {
       <Text mb={4}>
         • World Gold Council – Gold as Portfolio Diversifier (gold’s low correlation and small allocations improving portfolio Sharpe ratios)
       </Text>
+
+      <Divider my={4} borderColor="black" />
+
+      <MarketUpdateGallery 
+        date="dmu3mar" 
+        title="Supporting Charts & Data"
+      />
     </Box>
   );
 };
