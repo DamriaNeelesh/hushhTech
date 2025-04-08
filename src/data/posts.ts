@@ -1346,7 +1346,7 @@ export const posts: PostData[] = [
 {
   count: 106, // Make sure this is incremented from the last count
   slug: 'market/hushh-market-update-8-april',
-  title: '🤫 Daily Market Snapshot - April 8, 2025',
+  title: '🤫 Daily Market Update - April 8, 2025',
   publishedAt: '2025-04-08',
   description: 'Market update highlighting successful wall rolling operations, significant Aloha income generation, and strategic positioning in key tech names.',
   category: 'market updates',
