@@ -137,6 +137,7 @@ import Dmu3apr from '../content/posts/market/dmu3apr';
 import Dmu2apr from '../content/posts/market/dmu2apr';
 import Dmu4mar from '../content/posts/market/dmu4mar';
 import Dmu7mar from '../content/posts/market/dmu7mar';
+import Dmu8apr from '../content/posts/market/dmu8apr';
 
 export interface PostData {
   slug: string;
@@ -1339,6 +1340,17 @@ export const posts: PostData[] = [
   description: 'Weekly performance update highlighting $1M milestone in Aloha income, market volatility analysis, and strategy effectiveness review.',
   category: 'market updates',
   Component: Dmu7mar,
+  image: DailyMarketUpdateImg1,
+  accessLevel: 'Public',
+},
+{
+  count: 106, // Make sure this is incremented from the last count
+  slug: 'market/hushh-market-update-8-april',
+  title: '🤫 Daily Market Snapshot - April 8, 2025',
+  publishedAt: '2025-04-08',
+  description: 'Market update highlighting successful wall rolling operations, significant Aloha income generation, and strategic positioning in key tech names.',
+  category: 'market updates',
+  Component: Dmu8apr,
   image: DailyMarketUpdateImg1,
   accessLevel: 'Public',
 }

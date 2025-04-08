@@ -1,0 +1,69 @@
+Major Do's :  
+   Add files name via comments in each file. and the exact location of each file as well
+   If the issues or bugs are very big and you don't have much context or knowledge about the issue, tell AI the truth  that what you know and what the issue is and how should i approach this error or bug to fix this and then use that same context detalaied to AI 
+   Tell me step by step instrucutction on how can I give you that context clearly to you
+
+# HOW TO ADD A NEW FEATURE (MVP)
+- First of all, you need to understand the user's requirements and the context of the project.
+- Then, you need to break down the feature into smaller, manageable steps.
+- For each step, you need to identify the files that need to be modified.
+- Then, you need to provide a testing strategy to verify that the step works.
+- Finally, you need to explain how to validate the step before moving on to the next one.
+
+--------------------------------
+# Using YOLO mode only for complex tasks, complex issues and complex refactorings
+- Write tests first, then the code, then run the tests and update the code until tests pass.
+--------------------------------
+
+# PROPERLY FORMED SEARCH QUERY  
+Your task is to write a one-paragraph search query as if you were instructing a human researcher. Clearly state what to find and request code snippets or technical details when relevant.
+
+# BE CAREFUL WITH RED HERRINGS  
+Give me the TL;DR of the search results, but be careful. Often the search results contain dangerous and distracting red herrings.
+
+# ONLY INCLUDE TRULY NECESSARY STEPS (Always direct on click huge refractor)
+Break this large change into the required steps. Only include the truly necessary steps.
+
+## STEP-BY-STEP IMPLEMENTATION WITH TESTING
+Break down this large feature into small, manageable steps. For each step:
+1. Describe the specific change to make
+2. Identify which files need modification
+3. Provide a testing strategy to verify this step works
+4. Explain how to validate the step before moving to the next one
+
+Remember: Implement incrementally, test thoroughly after each step, and only proceed when each component is working correctly. This approach prevents cascading errors and ensures the entire feature works perfectly.
+
+# PROMPTS FROM VIDEO:
+
+1. The fewer lines of code, the better.  
+
+2. Proceed like a senior developer. 
+   Proceed like a 10x engineer.
+
+# WORKING PROMPTS:
+3. Do not stop working on this until you've implemented this feature fully and completely.
+   
+   Do not include any assumptions or theories, just the facts.
+# ERROR FINDING PROMPTS:
+4. Start by writing three reasoning paragraphs analyzing what the error might be. Do not jump to conclusions.
+
+5. Answer in short.
+
+6. Do not delete comments.
+
+7. Before we proceed, I need you to give me a summary of the current state. Summarize what we just did, which files were updated, and what didn’t work. Do not include assumptions or theories—only the facts.
+
+# SEARCH PROMPTS:
+8. Before you answer, I want you to write two detailed paragraphs, one for each solution. Do not jump to conclusions or commit to either solution until you have fully considered both. Then tell me which solution is obviously better and why.
+
+# REASONING PROMPTS:
+9. Your task is to write a one-paragraph search query as if you were instructing a human researcher. Clearly state what to find and request code snippets or technical details when relevant.
+
+# SEARCH RESULTS PROMPTS:
+10. You should start the reasoning paragraph with lots of uncertainty and slowly gain confidence as you think about the item more.
+
+# SEARCH RESULTS PROMPTS:
+11. Give me the TL;DR of the search results, but be careful. Often the search results contain dangerous and distracting red herrings.
+
+# STEPS PROMPTS:
+12. Break this large change into the required steps. Only include the truly necessary steps.
