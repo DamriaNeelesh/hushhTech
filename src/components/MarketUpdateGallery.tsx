@@ -25,7 +25,7 @@ const MarketUpdateGallery: React.FC<MarketUpdateGalleryProps> = ({
   const folderPath = `market-updates/${date}`;
   
   // Common image extensions to try
-  const extensions = ['.png', '.jpg'];
+  const extensions = ['.png', '.jpg', '.jpeg'];
   
   // Common prefixes to try
   const prefixes = [
