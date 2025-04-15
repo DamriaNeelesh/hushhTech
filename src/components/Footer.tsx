@@ -108,13 +108,9 @@ export default function Footer() {
         </div>
         {/* Bottom Text */}
         <div className="mt-8 text-sm text-gray-400">
-          <p>© 2024 Hushh 🤫 Technologies LLC. All Rights Reserved.</p>
+          <p>© 2025 Hushh 🤫 Technologies LLC. All Rights Reserved.</p>
           <p className="mt-2">
-            The materials on this website are for illustration and discussion
-            purposes only and do not constitute an offering. An offering may be
-            made only by delivery of a confidential offering memorandum to
-            appropriate investors. PAST PERFORMANCE IS NO GUARANTEE OF FUTURE
-            RESULTS.
+           All Rights Reserved. The materials on this website are for illustration and discussion purposes only and do not constitute an offering. An offering may be made only by delivery of a confidential offering memorandum to appropriate investors. PAST PERFORMANCE IS NO GUARANTEE OF FUTURE RESULTS
           </p>
         </div>
       </div>

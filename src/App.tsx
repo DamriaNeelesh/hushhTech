@@ -15,6 +15,7 @@ import Career from './pages/career';
 // import Community from './pages/community';
 import CommunityList from './pages/community/communityList';
 import CommunityPost from './pages/community/communityPost';
+import ReportDetailPage from './pages/reports/reportDetail';
 import BenefitsPage from './pages/benefits';
 import PrivacyPolicy from './pages/privacy-policy';
 import CareersPrivacyPolicy from './pages/career-privacy-policy';
@@ -76,6 +77,7 @@ function App() {
           <Route path='/california-privacy-policy' element={<CaliforniaPrivacyPolicy/>}/>
           <Route path='/eu-uk-jobs-privacy-policy' element={<EUUKPrivacyPolicy/>}/>
           <Route path="/community/*" element={<CommunityPost />} />
+          <Route path="/reports/:id" element={<ReportDetailPage />} />
             </Routes>
             </div>
         <Footer />

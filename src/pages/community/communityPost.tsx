@@ -12,6 +12,8 @@ import {
 import { getPostBySlug, PostData } from "../../data/posts";
 import axios from "axios";
 import config from "../../resources/config/config";
+import { Session } from "@supabase/supabase-js";
+import { formatShortDate } from "../../utils/dateFormatter";
 
 const CommunityPost: React.FC = () => {
   // Extract the slug (using wildcard parameter for nested routes)
@@ -50,7 +52,7 @@ const CommunityPost: React.FC = () => {
       // If the post is confidential (accessLevel "NDA"), then check NDA access via API.
       if (foundPost.accessLevel === "NDA") {
         // Retrieve the current session.
-        const { data: { session } } = await config.supabaseClient.auth.getSession();
+        const { data: { session } } = await config.supabaseClient?.auth.getSession() || { data: { session: null } };
         if (!session) {
           showToastOnce("access-restricted-no-session", {
             title: "Access Restricted",
@@ -137,14 +139,14 @@ const CommunityPost: React.FC = () => {
           {post.title}
         </Heading> */}
         <Text fontSize="sm" color="gray.900" mb={8}>
-          {new Date(post.publishedAt).toLocaleDateString()}
+          {formatShortDate(post.publishedAt)}
         </Text>
         <Box color="white" lineHeight="tall" fontSize="lg">
           <PostComponent />
         </Box>
-        <Text fontSize={'sm'} my={{md:'3rem',base:'1.5rem'}}>
+        {/* <Text fontSize={'sm'} my={{md:'3rem',base:'1.5rem'}}>
         © 2025 Hushh Technologies LLC. All Rights Reserved. The materials on this website are for illustration and discussion purposes only and do not constitute an offering. An offering may be made only by delivery of a confidential offering memorandum to appropriate investors. PAST PERFORMANCE IS NO GUARANTEE OF FUTURE RESULTS. 
-        </Text>
+        </Text> */}
       </Container>
     </Box>
   );

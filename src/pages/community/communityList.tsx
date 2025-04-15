@@ -1,6 +1,6 @@
 // Path: /pages/community/communityList.tsx
 
-import { useState, useEffect } from "react"; 
+import { useState, useEffect, useMemo, useCallback } from "react"; 
 import {
   Container,
   Heading,
@@ -13,16 +13,24 @@ import {
   Skeleton,
   Image,
   Text,
+  Divider,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import NDARequestModal from "../../components/NDARequestModal";
 import NDADocumentModal from "../../components/NDADocumentModal";
+import ReportCard from "../../components/ReportCard";
 import config from "../../resources/config/config";
 import { getPosts, PostData } from "../../data/posts";
+import { getAllReports, Report } from "../../services/reportService";
+import { Session } from "@supabase/supabase-js";
+import { formatShortDate, parseDate } from "../../utils/dateFormatter";
 
 // Dropdown option text for NDA documents.
 const NDA_OPTION = "Sensitive Documents (NDA approval Req.)";
+const MARKET_UPDATES_OPTION = "Market Updates";
 
 // Utility to convert a string to Title Case.
 const toTitleCase = (str: string): string =>
@@ -30,27 +38,14 @@ const toTitleCase = (str: string): string =>
     txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
   );
 
-// Helper function to format dates as "2nd Feb '25"
-const formatDate = (dateString: string): string => {
-  const date = new Date(dateString);
-  const day = date.getDate();
-  const dayOrdinal =
-    day +
-    (day % 10 === 1 && day !== 11
-      ? "st"
-      : day % 10 === 2 && day !== 12
-      ? "nd"
-      : day % 10 === 3 && day !== 13
-      ? "rd"
-      : "th");
-  const monthNames = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-  ];
-  const month = monthNames[date.getMonth()];
-  const year = date.getFullYear().toString().slice(-2);
-  return `${dayOrdinal} ${month} '${year}`;
-};
+// Interface for unified post type that can handle both sources
+interface UnifiedPost {
+  id: string;
+  title: string;
+  date: string;
+  slug?: string; // For posts.ts posts only
+  isApiReport?: boolean; // To identify the source
+}
 
 // Define PostImage component.
 const PostImage: React.FC<{ src: string; alt: string; height?: string }> = ({
@@ -79,19 +74,28 @@ const CommunityList: React.FC = () => {
   const allPosts: PostData[] = getPosts();
 
   // Separate posts by access level.
-  const publicPosts = allPosts.filter((post) => post.accessLevel === "Public");
-  const ndaPosts = allPosts.filter((post) => post.accessLevel === "NDA");
+  const publicPosts = useMemo(() => allPosts.filter((post) => post.accessLevel === "Public"), [allPosts]);
+  const ndaPosts = useMemo(() => allPosts.filter((post) => post.accessLevel === "NDA"), [allPosts]);
+
+  // Separate out the market update posts from posts.ts - use useMemo to prevent recalculation on every render
+  const marketUpdatePosts = useMemo(() => publicPosts.filter(post => 
+    post.category.toLowerCase() === 'market updates' || 
+    post.category.toLowerCase() === 'market' ||
+    post.slug.toLowerCase().includes('market')
+  ), [publicPosts]);
 
   // Get unique categories from public posts.
-  const publicCategories = Array.from(new Set(publicPosts.map((post) => post.category)));
-  const dropdownOptions = ["All", ...publicCategories, NDA_OPTION];
+  const publicCategories = useMemo(() => Array.from(new Set(publicPosts.map((post) => post.category))), [publicPosts]);
+  const dropdownOptions = useMemo(() => ["All", ...publicCategories.filter(cat => 
+    cat.toLowerCase() !== 'market updates' && cat.toLowerCase() !== 'market'
+  ), MARKET_UPDATES_OPTION, NDA_OPTION], [publicCategories]);
 
   // State for selected dropdown option.
   const [selectedCategory, setSelectedCategory] = useState("All");
   // Flag to indicate if NDA access is approved.
   const [ndaApproved, setNdaApproved] = useState(false);
   // Session state.
-  const [session, setSession] = useState<any>(null);
+  const [session, setSession] = useState<Session | null>(null);
   // Controls showing the NDA request modal.
   const [showNdaModal, setShowNdaModal] = useState(false);
   // Controls showing the NDA document modal.
@@ -99,16 +103,126 @@ const CommunityList: React.FC = () => {
   // To store NDA metadata returned from the API.
   const [ndaMetadata, setNdaMetadata] = useState<any>(null);
   const [loading, setLoading] = useState(false);
+  
+  // State for API reports
+  const [reports, setReports] = useState<Report[]>([]);
+  const [reportsLoading, setReportsLoading] = useState(false);
+  const [reportsError, setReportsError] = useState<string | null>(null);
+
+  // Combined market updates from both sources
+  const [combinedMarketUpdates, setCombinedMarketUpdates] = useState<UnifiedPost[]>([]);
+
+  // --- Fetch API Reports ---
+  useEffect(() => {
+    // Only fetch reports when Market Updates is selected
+    if (selectedCategory !== MARKET_UPDATES_OPTION) return;
+    
+    const fetchReports = async () => {
+      setReportsError(null);
+      setReportsLoading(true);
+      try {
+        console.log('Fetching market reports...');
+        const fetchedReports = await getAllReports();
+        console.log('Fetched reports:', fetchedReports);
+        setReports(fetchedReports);
+        
+        // If we got an empty array when we shouldn't have, show a message
+        if (fetchedReports.length === 0 && marketUpdatePosts.length === 0) {
+          setReportsError('No market updates available. Please check back later.');
+        }
+      } catch (error) {
+        console.error('Error fetching reports:', error);
+        setReportsError('Failed to load market updates. Please try again later.');
+      } finally {
+        setReportsLoading(false);
+      }
+    };
+
+    fetchReports();
+  }, [selectedCategory, marketUpdatePosts.length]);
+
+  // Transform market update posts from posts.ts to unified format using useMemo
+  const postsFormatted = useMemo(() => {
+    if (selectedCategory !== MARKET_UPDATES_OPTION) return [];
+    
+    return marketUpdatePosts.map(post => ({
+      id: post.slug, 
+      title: post.title,
+      date: post.publishedAt, 
+      slug: post.slug,
+      isApiReport: false
+    }));
+  }, [marketUpdatePosts, selectedCategory]);
+
+  // Transform API reports to unified format using useMemo
+  const reportsFormatted = useMemo(() => {
+    if (selectedCategory !== MARKET_UPDATES_OPTION) return [];
+    
+    return reports.map(report => ({
+      id: report.id,
+      title: report.title || 'Untitled Report',
+      date: report.date,
+      isApiReport: true
+    }));
+  }, [reports, selectedCategory]);
+
+  // Combined and sorted market updates
+  const sortedCombinedUpdates = useMemo(() => {
+    if (selectedCategory !== MARKET_UPDATES_OPTION) return [];
+    
+    // Combine both sources
+    const combined = [...postsFormatted, ...reportsFormatted];
+    
+    // Sort by date, latest first
+    return combined.sort((a, b) => {
+      const dateA = parseDate(a.date) || new Date(0);
+      const dateB = parseDate(b.date) || new Date(0);
+      return dateB.getTime() - dateA.getTime();
+    });
+  }, [postsFormatted, reportsFormatted, selectedCategory]);
+
+  // Update combined market updates when sorted data changes - synchronize state with memoized value
+  useEffect(() => {
+    setCombinedMarketUpdates(sortedCombinedUpdates);
+  }, [sortedCombinedUpdates]);
+
+  // --- Filter Posts Based on Selected Category --- move to useMemo
+  const filteredPosts = useMemo(() => {
+    let result: PostData[] = [];
+    
+    if (selectedCategory === NDA_OPTION) {
+      result = ndaApproved ? ndaPosts : [];
+    } else if (selectedCategory === "All") {
+      // For "All" category, include all public posts EXCEPT those in "market updates" category
+      result = publicPosts.filter(post => 
+        post.category.toLowerCase() !== 'market updates' && 
+        post.category.toLowerCase() !== 'market' &&
+        !post.slug.toLowerCase().includes('market')
+      );
+    } else if (selectedCategory === MARKET_UPDATES_OPTION) {
+      // This will be handled by the combinedMarketUpdates state
+      result = [];
+    } else {
+      result = publicPosts.filter((post) => post.category === selectedCategory);
+    }
+
+    // Sort posts (latest on top)
+    return [...result].sort(
+      (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    );
+  }, [selectedCategory, ndaApproved, ndaPosts, publicPosts]);
 
   // --- Fetch Session & Subscribe to Auth Changes ---
   useEffect(() => {
-    config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
+    config.supabaseClient?.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
+    
     const { data: { subscription } } =
-      config.supabaseClient.auth.onAuthStateChange((_event, session) => {
+      config.supabaseClient?.auth.onAuthStateChange((_event: string, session: Session | null) => {
         setSession(session);
-      });
+      }) || { data: { subscription: undefined } };
+      
     return () => {
       if (subscription && typeof subscription.unsubscribe === "function") {
         subscription.unsubscribe();
@@ -121,6 +235,8 @@ const CommunityList: React.FC = () => {
     const storedFilter = localStorage.getItem("communityFilter");
     if (storedFilter === "nda") {
       setSelectedCategory(NDA_OPTION);
+    } else if (storedFilter === "market-updates") {
+      setSelectedCategory(MARKET_UPDATES_OPTION);
     } else {
       setSelectedCategory("All");
     }
@@ -142,7 +258,7 @@ const CommunityList: React.FC = () => {
   }, [selectedCategory, session, ndaApproved]);
 
   // --- Function to Check NDA Access Status ---
-  const checkNdaAccessStatus = async (): Promise<boolean> => {
+  const checkNdaAccessStatus = useCallback(async (): Promise<boolean> => {
     if (!session) {
       toast({
         title: "Access Denied",
@@ -259,7 +375,7 @@ const CommunityList: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [session, toast]);
 
   // --- When Dropdown Category is Selected ---
   const handleCategoryChange = async (category: string) => {
@@ -267,35 +383,36 @@ const CommunityList: React.FC = () => {
       const accessGranted = await checkNdaAccessStatus();
       if (!accessGranted) return;
     }
+    
     setSelectedCategory(category);
-    localStorage.setItem("communityFilter", category === NDA_OPTION ? "nda" : "all");
+    
+    // Store the user's preference
+    if (category === NDA_OPTION) {
+      localStorage.setItem("communityFilter", "nda");
+    } else if (category === MARKET_UPDATES_OPTION) {
+      localStorage.setItem("communityFilter", "market-updates");
+    } else {
+      localStorage.setItem("communityFilter", "all");
+    }
   };
 
-  // --- Filter Posts Based on Selected Category ---
-  let filteredPosts;
-  if (selectedCategory === NDA_OPTION) {
-    filteredPosts = ndaApproved ? ndaPosts : [];
-  } else if (selectedCategory === "All") {
-    filteredPosts = publicPosts;
-  } else {
-    filteredPosts = publicPosts.filter((post) => post.category === selectedCategory);
-  }
-
-  // --- Sort Posts (Latest on Top) ---
-  filteredPosts.sort(
-    (a, b) =>
-      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-  );
-
   // --- Render Loader if API Calls Are In Progress ---
-  const renderLoader = () => (
+  const renderLoader = useCallback(() => (
     <Box textAlign="center" py={8}>
       <Spinner size="xl" />
     </Box>
-  );
+  ), []);
+
+  // --- Render Error Message --- 
+  const renderError = useCallback((message: string) => (
+    <Alert status="error" borderRadius="md" mb={4}>
+      <AlertIcon />
+      {message}
+    </Alert>
+  ), []);
 
   // --- Handle Restricted Post Clicks ---
-  const handleRestrictedClick = () => {
+  const handleRestrictedClick = useCallback(() => {
     toast({
       title: "Access Restricted",
       description: "Please sign in and complete NDA process to access these posts.",
@@ -303,7 +420,7 @@ const CommunityList: React.FC = () => {
       duration: 4000,
       isClosable: true,
     });
-  };
+  }, [toast]);
 
   // --- Preload Images ---
   useEffect(() => {
@@ -314,7 +431,7 @@ const CommunityList: React.FC = () => {
   }, [allPosts]);
 
   // --- Handler for NDA Request Modal Submission ---
-  const handleNdaRequestSubmit = async (result: string) => {
+  const handleNdaRequestSubmit = useCallback(async (result: string) => {
     if (result === "Pending: Waiting for NDA Process") {
       try {
         const ndaResponse = await axios.post(
@@ -323,7 +440,7 @@ const CommunityList: React.FC = () => {
           {
             headers: {
               apikey: config.SUPABASE_ANON_KEY,
-              Authorization: `Bearer ${session.access_token}`,
+              Authorization: `Bearer ${session?.access_token || ''}`,
               "Content-Type": "application/json",
             },
           }
@@ -351,7 +468,7 @@ const CommunityList: React.FC = () => {
         });
       }
     }
-  };
+  }, [session, toast]);
 
   return (
     <Container maxW="container.lg" py={8}>
@@ -369,51 +486,116 @@ const CommunityList: React.FC = () => {
         >
           {dropdownOptions.map((category) => (
             <option key={category} value={category}>
-              {category === NDA_OPTION ? category : toTitleCase(category)}
+              {category === NDA_OPTION 
+                ? category 
+                : category === MARKET_UPDATES_OPTION 
+                  ? category 
+                  : toTitleCase(category)
+              }
             </option>
           ))}
         </Select>
       </Box>
-<Text my={'8'} fontWeight={'400'} fontSize={{md:'3rem',base:'1.7rem'}} lineHeight={{md:'65px',base:'32px'}}>{toTitleCase(selectedCategory)}</Text>
+
+      <Text my={'8'} fontWeight={'400'} fontSize={{md:'3rem',base:'1.7rem'}} lineHeight={{md:'65px',base:'32px'}}>
+        {selectedCategory === MARKET_UPDATES_OPTION ? "Market Updates" : toTitleCase(selectedCategory)}
+      </Text>
+
       {/* Loader or List */}
-      {loading ? (
+      {loading || (reportsLoading && selectedCategory === MARKET_UPDATES_OPTION) ? (
         renderLoader()
       ) : (
         <Box>
-          {filteredPosts.map((post) => {
-            const dateString = formatDate(post.publishedAt);
-            const handleClick = () => {
-              if (selectedCategory === NDA_OPTION && !ndaApproved) {
-                handleRestrictedClick();
-              }
-            };
-            return (
-              <>
-              
-              <Box key={post.slug} mb={6}>
-                {/* Date in red, bold */}
-                <Text
-                  color="red.600"
-                  fontWeight="bold"
-                  fontSize={{ base: "sm", md: "md" }}
-                  mb={1}
+          {reportsError && selectedCategory === MARKET_UPDATES_OPTION && combinedMarketUpdates.length === 0 && (
+            renderError(reportsError)
+          )}
+          
+          {selectedCategory === MARKET_UPDATES_OPTION ? (
+            /* Display combined market updates from both sources */
+            combinedMarketUpdates.length > 0 ? (
+              combinedMarketUpdates.map((post) => (
+                <Box
+                  key={post.id}
+                  mb={6}
+                  _hover={{
+                    "& > p:last-of-type": {
+                      textDecoration: "underline"
+                    }
+                  }}
                 >
-                  {dateString}
-                </Text>
-                {/* Title as a link */}
-                <Link to={`/community/${post.slug}`} onClick={handleClick}>
+                  {/* Date in red, bold */}
                   <Text
-                    color="gray.900"
-                    fontSize={{ base: "md", md: "lg" }}
-                    _hover={{ textDecoration: "underline" }}
+                    color="red.600"
+                    fontWeight="bold"
+                    fontSize={{ base: "sm", md: "md" }}
+                    mb={1}
                   >
-                    {post.title}
+                    {formatShortDate(post.date)}
                   </Text>
-                </Link>
+                  
+                  {/* Title as a link */}
+                  {post.isApiReport ? (
+                    <Link to={`/reports/${post.id}`}>
+                      <Text
+                        color="gray.900"
+                        fontSize={{ base: "md", md: "lg" }}
+                        _hover={{ textDecoration: "underline" }}
+                      >
+                        {post.title}
+                      </Text>
+                    </Link>
+                  ) : (
+                    <Link to={`/community/${post.slug}`}>
+                      <Text
+                        color="gray.900"
+                        fontSize={{ base: "md", md: "lg" }}
+                        _hover={{ textDecoration: "underline" }}
+                      >
+                        {post.title}
+                      </Text>
+                    </Link>
+                  )}
+                </Box>
+              ))
+            ) : !reportsError ? (
+              <Box textAlign="center" py={8}>
+                <Text color="gray.500">No market updates available at this time.</Text>
               </Box>
-              </>
-            );
-          })}
+            ) : null
+          ) : (
+            /* Display regular posts */
+            filteredPosts.map((post) => {
+              const dateString = formatShortDate(post.publishedAt);
+              const handleClick = () => {
+                if (selectedCategory === NDA_OPTION && !ndaApproved) {
+                  handleRestrictedClick();
+                }
+              };
+              return (
+                <Box key={post.slug} mb={6}>
+                  {/* Date in red, bold */}
+                  <Text
+                    color="red.600"
+                    fontWeight="bold"
+                    fontSize={{ base: "sm", md: "md" }}
+                    mb={1}
+                  >
+                    {dateString}
+                  </Text>
+                  {/* Title as a link */}
+                  <Link to={`/community/${post.slug}`} onClick={handleClick}>
+                    <Text
+                      color="gray.900"
+                      fontSize={{ base: "md", md: "lg" }}
+                      _hover={{ textDecoration: "underline" }}
+                    >
+                      {post.title}
+                    </Text>
+                  </Link>
+                </Box>
+              );
+            })
+          )}
         </Box>
       )}
 
