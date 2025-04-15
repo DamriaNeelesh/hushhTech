@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 // Define the base URL for the reports API - this is a separate Supabase instance from the main app
-const REPORTS_API_BASE_URL = 'https://jspoprlahvtektkpbsbg.supabase.co/rest/v1';
+const REPORTS_API_BASE_URL = 'https://spmxyqxjqxcyywkapong.supabase.co/rest/v1';
 
 // The API key for the reports Supabase instance - Updated with the correct key
-const REPORTS_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpzcG9wcmxhaHZ0ZWt0a3Bic2JnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM1ODk0MzUsImV4cCI6MjA1OTE2NTQzNX0.e5Wwi3hFzAjy4OjjNAQNYRBYPiiWyPZbCEFjMs7UVGo';
+const REPORTS_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNwbXh5cXhqcXhjeXl3a2Fwb25nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3MTYwNDIsImV4cCI6MjA2MDI5MjA0Mn0._C6lZcTubk2VuwDKC2uDOsiFFPaKRiEJSqBjtGpm99E';
 
 export interface Report {
   id: string;
