@@ -6,8 +6,17 @@ import {
   SimpleGrid, 
   Text, 
   Spinner,
-  Skeleton
+  Skeleton,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  IconButton,
+  Flex
 } from '@chakra-ui/react';
+import { CloseIcon } from '@chakra-ui/icons';
 
 interface MarketUpdateGalleryProps {
   date: string; // Format: 'dmu14mar' or 'DD/MM/YYYY'
@@ -27,6 +36,8 @@ const MarketUpdateGallery: React.FC<MarketUpdateGalleryProps> = ({
   const [images, setImages] = useState<{name: string, url: string}[]>([]);
   const [imagesLoaded, setImagesLoaded] = useState<{[key: string]: boolean}>({});
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   
   // Define the base URL for Supabase storage
   const baseUrl = 'https://gsqmwxqgqrgzhlhmbscg.supabase.co/storage/v1/object/public/website';
@@ -105,6 +116,11 @@ const MarketUpdateGallery: React.FC<MarketUpdateGalleryProps> = ({
     }));
   };
 
+  const handleImageClick = (imageUrl: string) => {
+    setSelectedImage(imageUrl);
+    onOpen();
+  };
+
   // Generate skeleton placeholders
   const renderSkeletons = () => {
     return Array(imageCount).fill(0).map((_, index) => (
@@ -150,6 +166,10 @@ const MarketUpdateGallery: React.FC<MarketUpdateGalleryProps> = ({
               bg="white"
               p={2}
               position="relative"
+              cursor="pointer"
+              onClick={() => handleImageClick(image.url)}
+              transition="transform 0.2s"
+              _hover={{ transform: 'scale(1.02)' }}
             >
               {/* Skeleton loader */}
               <Skeleton
@@ -175,12 +195,6 @@ const MarketUpdateGallery: React.FC<MarketUpdateGalleryProps> = ({
                     const parent = e.currentTarget.parentElement?.parentElement;
                     if (parent) {
                       parent.style.display = 'none';
-                    }
-                  }}
-                  sx={{
-                    '&:hover': {
-                      transform: 'scale(1.02)',
-                      transition: 'transform 0.2s ease-in-out'
                     }
                   }}
                 />
@@ -212,6 +226,41 @@ const MarketUpdateGallery: React.FC<MarketUpdateGalleryProps> = ({
           </Box>
         )}
       </SimpleGrid>
+
+      {/* Full-screen image modal */}
+      <Modal isOpen={isOpen} onClose={onClose} size="full" isCentered>
+        <ModalOverlay bg="blackAlpha.900" />
+        <ModalContent bg="transparent" maxW="100vw" maxH="100vh" m={0} p={0}>
+          <ModalBody p={0} display="flex" alignItems="center" justifyContent="center">
+            <Flex 
+              position="absolute" 
+              top={4} 
+              right={4} 
+              zIndex={2}
+            >
+              <IconButton
+                aria-label="Close modal"
+                icon={<CloseIcon />}
+                onClick={onClose}
+                colorScheme="whiteAlpha"
+                variant="ghost"
+                size="lg"
+              />
+            </Flex>
+            {selectedImage && (
+              <Image
+                src={selectedImage}
+                alt="Full-screen market analysis chart"
+                maxH="95vh"
+                maxW="95vw"
+                objectFit="contain"
+                onClick={onClose}
+                cursor="pointer"
+              />
+            )}
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
