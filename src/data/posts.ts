@@ -141,6 +141,13 @@ import Dmu8apr from '../content/posts/market/dmu8apr';
 import Dmu7apr from '../content/posts/market/dmu7apr';
 import Dmu9apr from '../content/posts/market/dmu9apr';
 
+// Import the new market update components
+import Dmu10apr from '../content/posts/market/dmu10apr';
+import Dmu11apr from '../content/posts/market/dmu11apr';
+import Dmu15apr from '../content/posts/market/dmu15apr';
+import Dmu16apr from '../content/posts/market/dmu16apr';
+import Dmu17apr from '../content/posts/market/dmu17apr';
+
 export interface PostData {
   slug: string;
   title: string;
@@ -154,6 +161,62 @@ export interface PostData {
 }
 
 export const posts: PostData[] = [
+  // Add the new market updates at the top of the array for newest first
+  {
+    count: 142,
+    slug: 'daily-market-update/17-apr-2025',
+    title: 'Daily Market Update - 17th April',
+    publishedAt: '17/04/2025',
+    description: 'Internal review and investor communication for the Aloha Alpha Fund, highlighting performance and strategy updates.',
+    category: 'market updates',
+    Component: Dmu17apr,
+    image: DailyMarketUpdateImg1,
+    accessLevel: 'Public',
+  },
+  {
+    count: 141,
+    slug: 'daily-market-update/16-apr-2025',
+    title: 'Daily Market Update - 16th April',
+    publishedAt: '16/04/2025',
+    description: 'Internal review and investor communication for the Aloha Alpha Fund, highlighting performance and strategy updates.',
+    category: 'market updates',
+    Component: Dmu16apr,
+    image: DailyMarketUpdateImg3,
+    accessLevel: 'Public',
+  },
+  {
+    count: 140,
+    slug: 'daily-market-update/15-apr-2025',
+    title: 'Daily Market Update - 15th April',
+    publishedAt: '15/04/2025',
+    description: 'Internal review and investor communication for the Aloha Alpha Fund, highlighting performance and strategy updates.',
+    category: 'market updates',
+    Component: Dmu15apr,
+    image: DailyMarketUpdateImg2,
+    accessLevel: 'Public',
+  },
+  {
+    count: 139,
+    slug: 'daily-market-update/11-apr-2025',
+    title: 'Weekly Market Update - 11th April',
+    publishedAt: '11/04/2025',
+    description: 'Weekly market review and investor communication for the Aloha Alpha Fund, highlighting performance and strategy updates.',
+    category: 'market updates',
+    Component: Dmu11apr,
+    image: DailyMarketUpdateImg1,
+    accessLevel: 'Public',
+  },
+  {
+    count: 138,
+    slug: 'daily-market-update/10-apr-2025',
+    title: 'Daily Market Update - 10th April',
+    publishedAt: '10/04/2025',
+    description: 'Internal review and investor communication for the Aloha Alpha Fund, highlighting performance and strategy updates.',
+    category: 'market updates',
+    Component: Dmu10apr,
+    image: DailyMarketUpdateImg2,
+    accessLevel: 'Public',
+  },
   {
     count:1,
     slug: 'funds/fund-performance',
@@ -182,7 +245,7 @@ export const posts: PostData[] = [
     slug: 'investors/hushh-investors-memo',
     title: "Hushh Technologies Investor Memo",
     publishedAt: '2025-02-09',
-    description: "A detailed overview of Hushh Technologies’ vision, market opportunity, revenue model, and growth strategy.",
+    description: "A detailed overview of Hushh Technologies' vision, market opportunity, revenue model, and growth strategy.",
     category: 'investor relations & strategies',
     Component: HushhInvestorMemo,
     image: FundsUpdateImg2,
@@ -204,7 +267,7 @@ export const posts: PostData[] = [
     slug: 'investors/roadmap-material',
     title: "Investors Roadmap Materials",
     publishedAt: '2025-02-09',
-    description: "A comprehensive set of materials and strategies to enhance transparency, build trust, and showcase the fund’s long-term potential.",
+    description: "A comprehensive set of materials and strategies to enhance transparency, build trust, and showcase the fund's long-term potential.",
     category: 'investor relations & strategies',
     Component: InvestorMaterials,
     image: FundsUpdateImg4,
@@ -226,7 +289,7 @@ export const posts: PostData[] = [
     slug: 'fund-compliance/sec-report-regD-filling',
     title: "SEC Report for Reg D Filing",
     publishedAt: '2025-02-09',
-    description: "A detailed analysis of Alpha Aloha Fund’s financial health and performance as of February 7, 2025.",
+    description: "A detailed analysis of Alpha Aloha Fund's financial health and performance as of February 7, 2025.",
     category: 'investor relations & strategies',
     Component: SECReportRegD,
     image: FundsUpdateImg2,
@@ -235,9 +298,9 @@ export const posts: PostData[] = [
   {
     count:8,
     slug: 'fund-analysis/discussion',
-    title: "Analysis and Discussion of the Fund’s Concentrated Positions",
+    title: "Analysis and Discussion of the Fund's Concentrated Positions",
     publishedAt: '2025-02-09',
-    description: "An in-depth examination of the Alpha Aloha Fund’s concentrated approach, highlighting its rationale, risks, rewards, and transparency strategies.",
+    description: "An in-depth examination of the Alpha Aloha Fund's concentrated approach, highlighting its rationale, risks, rewards, and transparency strategies.",
     category: 'investor relations & strategies',
     Component: FundConcentrationAnalysis,
     image: FundsUpdateImg3,
@@ -379,9 +442,9 @@ export const posts: PostData[] = [
   // {
   //   count:21,
   //   slug: 'general/sell-the-wall-context',
-  //   title: '“Sell the Wall” Explained in the Context of Jim Simons’ Quantitative Precision',
+  //   title: '“Sell the Wall” Explained in the Context of Jim Simons' Quantitative Precision',
   //   publishedAt: '2025-02-15',
-  //   description: 'An in-depth exploration of the “Sell the Wall” strategy through the lens of Jim Simons’ quantitative precision.',
+  //   description: 'An in-depth exploration of the "Sell the Wall" strategy through the lens of Jim Simons' quantitative precision.',
   //   category: 'general',
   //   Component: SellTheWall,
   //   image: HushhAiLogoImg, 
@@ -638,7 +701,7 @@ export const posts: PostData[] = [
     slug: 'general/hushh-pda',
     title: 'HushhPDA: Empowering Personal Data Management',
     publishedAt: '2025-01-31',
-    description: 'An introduction to HushhPDA, the world’s first personal data assistant, and its role in revolutionizing personal data management.',
+    description: 'An introduction to HushhPDA, the worlds first personal data assistant, and its role in revolutionizing personal data management.',
     category: 'general',
     Component: hushhPDA,
     image: HushhAiLogoImg, // Update with the appropriate image if needed
@@ -660,7 +723,7 @@ export const posts: PostData[] = [
     slug: 'funds/market-fund-update-10th-feb',
     title: 'Alpha Aloha Fund Market and Fund Update Report',
     publishedAt: '2025-02-10',
-    description: 'A comprehensive update on the Alpha Aloha Fund’s market performance and strategic highlights.',
+    description: 'A comprehensive update on the Alpha Aloha Funds market performance and strategic highlights.',
     category: 'fund updates',
     Component: MarketFundUpdate10feb,
     image: HushhAiLogoImg, // Ensure the image path is correct
@@ -717,7 +780,7 @@ export const posts: PostData[] = [
     slug: 'strategy/details-strategy-risks',
     title: "Detailed Options Strategy Risks",
     publishedAt: "2025-02-08",
-    description: "Comprehensive breakdown of risks in the Fund’s options-based investment strategy.",
+    description: "Comprehensive breakdown of risks in the Fund's options-based investment strategy.",
     category: 'investor relations & strategies',
     Component: OptionsStrategyRisks,
     image: HushhAiLogoImg,
@@ -751,7 +814,7 @@ export const posts: PostData[] = [
     slug: 'market/daily-market-update',
     title: 'Daily Market Update – January 28, 2025',
     publishedAt: '2025-01-28',
-    description: 'Markets rallied, driven by strong earnings from major tech companies and optimism about the Federal Reserve’s upcoming decisions on interest rates.',
+    description: 'Markets rallied, driven by strong earnings from major tech companies and optimism about the Federal Reserves upcoming decisions on interest rates.',
     category: 'market updates',
     Component: DailyMarketUpdate,
     image: DailyMarketUpdateImg1,
@@ -886,7 +949,7 @@ export const posts: PostData[] = [
     slug: 'fund-reviews/aloha-alpha-fund-review',
     title: '🤫 Aloha Alpha Fund Review from the Perspective of Warren Buffett & Charlie Munger',
     publishedAt: '2025-02-19', 
-    description: 'A review of the Aloha Alpha Fund from the perspectives of Warren Buffett, Charlie Munger, and Berkshire’s Advisory Board.',
+    description: 'A review of the Aloha Alpha Fund from the perspectives of Warren Buffett, Charlie Munger, and Berkshires Advisory Board.',
     category: 'fund reviews',
     Component: HushhAiLogoImg, 
     image: ExhibitLPAImg, 
@@ -996,7 +1059,7 @@ export const posts: PostData[] = [
     slug: 'general/hushhtech-prospectus',
     title: 'HushhTech: AI-First Financial Services & Investment Management Prospectus',
     publishedAt: '2025-02-22', 
-    description: 'An overview of HushhTech’s vision, offerings, and growth plans in AI-driven financial services.',
+    description: "An overview of HushhTech's vision, offerings, and growth plans in AI-driven financial services.",
     category: 'investment & financial strategies',
     Component: HushhTechProspectus, 
     image: HushhAiLogoImg, 
@@ -1196,7 +1259,7 @@ export const posts: PostData[] = [
   slug: 'general/fund-a-faq',
   title: '🤫 Fund A: Frequently Asked Questions (FAQ)',
   publishedAt: '2025-03-31', 
-  description: 'Comprehensive FAQ addressing common questions from our LPs about 🤫 Fund A’s strategy and operations.',
+  description: "Comprehensive FAQ addressing common questions from our LPs about 🤫 Fund A's strategy and operations.",
   category: 'general', 
   Component: FundAFaq, 
   image: HushhAiLogoImg, 

@@ -7,10 +7,9 @@ import MarketUpdateGallery from './MarketUpdateGallery';
 interface ReportDetailProps {
   report: Report | null;
   isLoading: boolean;
-  apiDateFormat?: boolean;
 }
 
-const ReportDetail: React.FC<ReportDetailProps> = ({ report, isLoading, apiDateFormat = true }) => {
+const ReportDetail: React.FC<ReportDetailProps> = ({ report, isLoading }) => {
   if (isLoading) {
     return (
       <Box textAlign="center" py={8}>
@@ -59,7 +58,6 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isLoading, apiDateF
   }
 
   // Check if this is a daily market update by looking at the format of the date
-  // Format should be: "DD/M/YYYY HH:mm" according to API docs
   const isMarketUpdate = report.date && report.date.match(/^\d{1,2}\/\d{1,2}\/\d{4}/);
   
   // Extract the date part from the combined date field if needed
@@ -68,40 +66,34 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isLoading, apiDateF
     return dateString.split(' ')[0]; // Extract just the date part
   };
   
-  // Convert the date format to the MarketUpdateGallery expected format (e.g., 'dmu7apr')
-  const getMarketUpdateDate = (): string => {
-    if (!report.date) return '';
+  // Convert the date to the DMU format
+  const getMarketUpdateFolder = (): string => {
+    if (!report.date) return 'dmu14mar'; // default fallback
     
     try {
-      // Parse the date from the API format (DD/M/YYYY)
       const datePart = getDatePart(report.date);
-      const date = parseDate(datePart);
+      const parsedDate = parseDate(datePart);
       
-      if (!date || isNaN(date.getTime())) return '';
+      if (!parsedDate || isNaN(parsedDate.getTime())) {
+        return 'dmu14mar'; // default fallback
+      }
       
-      const day = date.getDate();
+      const day = parsedDate.getDate();
       const monthNames = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
-      const month = monthNames[date.getMonth()];
+      const month = monthNames[parsedDate.getMonth()];
       
       return `dmu${day}${month}`;
     } catch (error) {
-      console.error('Error converting date format:', error);
-      return '';
+      console.error('Error converting date to DMU format:', error);
+      return 'dmu14mar'; // default fallback
     }
   };
   
-  const marketUpdateDate = getMarketUpdateDate();
+  // Get the market update folder name
+  const marketUpdateFolder = getMarketUpdateFolder();
+  
+  // Get date string for display
   const dateForDisplay = formatLongDate(report.date);
-  
-  // Get appropriate base URLs for the storage buckets
-  const getStorageBucketBaseUrl = (url: string): string => {
-    if (url.includes('alohafundsreport-images')) {
-      return STORAGE_BUCKETS.IMAGES;
-    } else if (url.includes('alohafundsreport-videos')) {
-      return STORAGE_BUCKETS.VIDEOS;
-    }
-    return url;
-  };
 
   return (
     <Box>
@@ -123,57 +115,14 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isLoading, apiDateF
       </Box>
 
       {/* Images Section */}
-      {imageUrls.length > 0 && (
-        <Box mb={8}>
-          {isMarketUpdate ? (
-            // Use MarketUpdateGallery for daily market updates
-            <MarketUpdateGallery 
-              date={isMarketUpdate ? getDatePart(report.date) : marketUpdateDate}
-              title="Supporting Charts & Data"
-              apiDateFormat={true}
-              userId={report.id ? `user_${report.id.slice(0, 8)}` : 'system'}
-              reportId={report.id}
-            />
-          ) : (
-            // Use the standard image grid for other types of reports
-            <>
-              <Heading as="h3" size="md" mb={4}>
-                Supporting Charts & Data
-              </Heading>
-              <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
-                {imageUrls.map((imageUrl, index) => (
-                  <Box
-                    key={`img-${index}`}
-                    borderRadius="lg"
-                    overflow="hidden"
-                    boxShadow="md"
-                    bg="white"
-                    p={2}
-                  >
-                    <Image
-                      src={imageUrl}
-                      alt={`${report.title || 'Report'} chart ${index + 1}`}
-                      borderRadius="md"
-                      objectFit="contain"
-                      w="100%"
-                      minH="250px"
-                      maxH="400px"
-                      loading="lazy"
-                      fallbackSrc="https://via.placeholder.com/400x300?text=Image+Unavailable"
-                      sx={{
-                        '&:hover': {
-                          transform: 'scale(1.02)',
-                          transition: 'transform 0.2s ease-in-out'
-                        }
-                      }}
-                    />
-                  </Box>
-                ))}
-              </SimpleGrid>
-            </>
-          )}
-        </Box>
-      )}
+      <Box mb={8}>
+        {/* Use MarketUpdateGallery component with the correct date folder */}
+        <MarketUpdateGallery 
+          date={marketUpdateFolder}
+          title="Supporting Charts & Data"
+          imageCount={6}
+        />
+      </Box>
 
       {/* Videos Section - Mobile Optimized */}
       {videoUrls.length > 0 && (

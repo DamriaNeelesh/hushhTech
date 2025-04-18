@@ -111,11 +111,7 @@ const ReportDetailPage: React.FC = () => {
       );
     }
 
-    // Determine if this report is from the Aloha Funds API 
-    // based on date format (DD/M/YYYY) and pass the apiDateFormat prop
-    const isAlohaFundsApiFormat = report.date ? !!report.date.match(/^\d{1,2}\/\d{1,2}\/\d{4}/) : false;
-
-    return <ReportDetail report={report} isLoading={false} apiDateFormat={isAlohaFundsApiFormat} />;
+    return <ReportDetail report={report} isLoading={false} />;
   };
 
   return (

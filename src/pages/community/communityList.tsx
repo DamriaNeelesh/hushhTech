@@ -1,6 +1,6 @@
 // Path: /pages/community/communityList.tsx
 
-import { useState, useEffect, useMemo, useCallback } from "react"; 
+import { useState, useEffect, useMemo, useCallback, useRef } from "react"; 
 import {
   Container,
   Heading,
@@ -16,6 +16,7 @@ import {
   Divider,
   Alert,
   AlertIcon,
+  Badge,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -76,13 +77,15 @@ const PostImage: React.FC<{ src: string; alt: string; height?: string }> = ({
 const CommunityList: React.FC = () => {
   const toast = useToast();
   const allPosts: PostData[] = getPosts();
+  // Ref to track initial mount
+  const mountRef = useRef(true);
 
   // Separate posts by access level.
   const publicPosts = useMemo(() => allPosts.filter((post) => post.accessLevel === "Public"), [allPosts]);
   const ndaPosts = useMemo(() => allPosts.filter((post) => post.accessLevel === "NDA"), [allPosts]);
 
   // Separate out the market update posts from posts.ts - use useMemo to prevent recalculation on every render
-  const marketUpdatePosts = useMemo(() => publicPosts.filter(post => 
+  const postMarketUpdates = useMemo(() => publicPosts.filter(post => 
     post.category.toLowerCase() === 'market updates' || 
     post.category.toLowerCase() === 'market' ||
     post.slug.toLowerCase().includes('market')
@@ -118,7 +121,7 @@ const CommunityList: React.FC = () => {
   const [loading, setLoading] = useState(false);
   
   // State for API reports
-  const [reports, setReports] = useState<Report[]>([]);
+  const [apiReports, setApiReports] = useState<Report[]>([]);
   const [reportsLoading, setReportsLoading] = useState(false);
   const [reportsError, setReportsError] = useState<string | null>(null);
 
@@ -127,25 +130,47 @@ const CommunityList: React.FC = () => {
 
   // --- Fetch API Reports ---
   useEffect(() => {
-    // Always fetch reports when market updates are selected or when the component mounts
-    // This ensures we have the data ready when needed
+    // Fetch reports when component mounts or when selecting the market updates category
     const fetchReports = async () => {
-      if (reportsLoading) return; // Prevent duplicate fetches
+      if (reportsLoading) {
+        return; // Prevent duplicate fetches
+      }
+      
+      // Log API fetch attempt in development mode
+      if (process.env.NODE_ENV === 'development') {
+        console.debug(`Attempting to fetch API reports. isFirstMount: ${mountRef.current}, selectedCategory: ${selectedCategory}, hasExistingReports: ${apiReports.length > 0}`);
+      }
+      
+      // If we're not on the Market Updates category and not on first mount, skip fetching
+      if (!mountRef.current && selectedCategory !== MARKET_UPDATES_OPTION && selectedCategory !== "All") {
+        return;
+      }
+      
+      // If we already have API reports and we're not on first mount, don't fetch again
+      if (!mountRef.current && apiReports.length > 0) {
+        return;
+      }
+      
+      // Only fetch once on component mount, regardless of category
+      if (!mountRef.current && reportsLoading === false) {
+        return;
+      }
       
       setReportsLoading(true);
       setReportsError(null);
       
       try {
-        console.log('Fetching market reports from Aloha Funds Report API...');
-        
         // Use the exact API endpoint format from the documentation
-        // API Key must be sent as a query parameter per documentation
+        const apiUrl = `${ALOHA_FUNDS_API_BASE_URL}/reports?select=*&order=date.desc,time.desc&apikey=${ALOHA_FUNDS_API_KEY}`;
+        
         const response = await fetch(
-          `${ALOHA_FUNDS_API_BASE_URL}/reports?select=*&order=date.desc,time.desc&apikey=${ALOHA_FUNDS_API_KEY}`,
+          apiUrl,
           {
             headers: {
-              'Content-Type': 'application/json'
-            }
+              'Content-Type': 'application/json',
+              'Cache-Control': 'no-cache' // Prevent caching
+            },
+            cache: 'no-store' // Ensure fresh data each time
           }
         );
         
@@ -154,60 +179,111 @@ const CommunityList: React.FC = () => {
         }
         
         const fetchedReports = await response.json();
-        console.log('Fetched reports:', fetchedReports);
-        setReports(fetchedReports);
         
-        // If we got an empty array when we shouldn't have, show a message
-        if (fetchedReports.length === 0 && selectedCategory === MARKET_UPDATES_OPTION && marketUpdatePosts.length === 0) {
-          setReportsError('No market updates available. Please check back later.');
+        if (Array.isArray(fetchedReports) && fetchedReports.length > 0) {
+          // Validate reports have required fields
+          const validReports = fetchedReports.filter(report => 
+            report && typeof report === 'object' && report.id && report.date
+          );
+          
+          setApiReports(validReports);
+          
+          if (validReports.length === 0 && fetchedReports.length > 0) {
+            setReportsError('Market updates were found but they contain invalid data');
+          }
+        } else {
+          // If we got an empty array when we shouldn't have, show a message
+          if (selectedCategory === MARKET_UPDATES_OPTION && postMarketUpdates.length === 0) {
+            setReportsError('No market updates available from API. Please check back later.');
+          }
         }
-      } catch (error) {
+      } catch (error: unknown) {
         console.error('Error fetching reports:', error);
-        setReportsError('Failed to load market updates. Please try again later.');
+        setReportsError(`Failed to load market updates: ${error instanceof Error ? error.message : 'Unknown error'}`);
       } finally {
         setReportsLoading(false);
+        
+        // Set mount ref to false after initial fetch
+        if (mountRef.current) {
+          mountRef.current = false;
+        }
       }
     };
 
-    fetchReports();
-  }, [selectedCategory, marketUpdatePosts.length]);
+    // Only fetch reports when the component mounts or when explicitly changing to Market Updates
+    if (mountRef.current || (selectedCategory === MARKET_UPDATES_OPTION && !apiReports.length)) {
+      fetchReports();
+    }
+    
+    // No automatic refresh or interval
+    
+    return () => {
+      // No cleanup needed without intervals
+    };
+  }, [selectedCategory]); // Only re-run when selectedCategory changes, not on every reportsLoading change
 
   // Transform market update posts from posts.ts to unified format
   const postsFormatted = useMemo(() => 
-    marketUpdatePosts.map(post => ({
+    postMarketUpdates.map(post => ({
       id: post.slug, 
       title: post.title,
       date: post.publishedAt, 
       slug: post.slug,
       isApiReport: false
     })),
-    [marketUpdatePosts]
+    [postMarketUpdates]
   );
 
   // Transform API reports to unified format
-  const reportsFormatted = useMemo(() => 
-    reports.map(report => ({
+  const apiReportsFormatted = useMemo(() => 
+    apiReports.map(report => ({
       id: report.id,
       title: report.title || 'Untitled Report',
       date: report.date,
+      slug: `api-report-${report.id}`,
       isApiReport: true
     })),
-    [reports]
+    [apiReports]
   );
 
   // Combined and sorted market updates 
   const sortedCombinedUpdates = useMemo(() => {
-    // Combine both sources
-    const combined = [...postsFormatted, ...reportsFormatted];
-    
-    // Sort by date, latest first
-    return combined.sort((a, b) => {
-      // Use parseDate to handle both date formats correctly
-      const dateA = parseDate(a.date) || new Date(0);
-      const dateB = parseDate(b.date) || new Date(0);
-      return dateB.getTime() - dateA.getTime();
-    });
-  }, [postsFormatted, reportsFormatted]);
+    try {
+      // Combine both sources
+      const combined: UnifiedPost[] = [...postsFormatted];
+      
+      // Only add API reports if available
+      if (apiReportsFormatted && apiReportsFormatted.length > 0) {
+        combined.push(...apiReportsFormatted);
+      }
+      
+      if (process.env.NODE_ENV === 'development') {
+        console.debug(`Combining and sorting ${postsFormatted.length} posts and ${apiReportsFormatted.length} API reports`);
+      }
+      
+      // Sort by date, latest first, using parseDate to handle both formats correctly
+      return combined.sort((a, b) => {
+        try {
+          const dateA = parseDate(a.date);
+          const dateB = parseDate(b.date);
+          
+          // Handle null dates (should be rare with our robust parseDate function)
+          if (!dateA && !dateB) return 0;
+          if (!dateA) return 1; // null dates go to the end
+          if (!dateB) return -1;
+          
+          // Normal comparison - descending (newest first)
+          return dateB.getTime() - dateA.getTime();
+        } catch (error) {
+          console.error('Error sorting dates:', error, 'Date A:', a.date, 'Date B:', b.date);
+          return 0; // Keep original order if there's an error
+        }
+      });
+    } catch (error) {
+      console.error('Error combining market updates:', error);
+      return []; // Return empty array in case of error
+    }
+  }, [postsFormatted, apiReportsFormatted]);
 
   // Update combined market updates when sorted data changes
   useEffect(() => {
@@ -216,52 +292,91 @@ const CommunityList: React.FC = () => {
 
   // --- Filter Posts Based on Selected Category ---
   const filteredPosts = useMemo(() => {
-    let result: PostData[] = [];
-    
-    if (selectedCategory === NDA_OPTION) {
-      result = ndaApproved ? ndaPosts : [];
-    } else if (selectedCategory === "All") {
-      // For "All" category, include all public posts (including market updates)
-      result = publicPosts;
-    } else if (selectedCategory === MARKET_UPDATES_OPTION) {
-      // This will be handled by the combinedMarketUpdates state
-      result = [];
-    } else {
-      result = publicPosts.filter((post) => post.category === selectedCategory);
+    try {
+      let result: PostData[] = [];
+      
+      if (selectedCategory === NDA_OPTION) {
+        result = ndaApproved ? ndaPosts : [];
+      } else if (selectedCategory === "All") {
+        // For "All" category, include all public posts (including market updates)
+        result = publicPosts;
+      } else if (selectedCategory === MARKET_UPDATES_OPTION) {
+        // This will be handled by the combinedMarketUpdates state
+        result = [];
+      } else {
+        result = publicPosts.filter((post) => post.category === selectedCategory);
+      }
+  
+      // Sort posts (latest on top)
+      return [...result].sort((a, b) => {
+        try {
+          const dateA = parseDate(a.publishedAt);
+          const dateB = parseDate(b.publishedAt);
+          
+          // Handle null dates
+          if (!dateA && !dateB) return 0;
+          if (!dateA) return 1;
+          if (!dateB) return -1;
+          
+          return dateB.getTime() - dateA.getTime();
+        } catch (error) {
+          console.error('Error sorting dates in filteredPosts:', error, 'Date A:', a.publishedAt, 'Date B:', b.publishedAt);
+          return 0; // Keep original order if there's an error
+        }
+      });
+    } catch (error) {
+      console.error('Error filtering posts:', error);
+      return []; // Return empty array in case of error
     }
-
-    // Sort posts (latest on top)
-    return [...result].sort(
-      (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-    );
   }, [selectedCategory, ndaApproved, ndaPosts, publicPosts]);
 
   // --- Combined list for "All" category with all posts and all market updates ---
   const allContentSorted = useMemo(() => {
-    // Get non-market update posts directly from publicPosts
-    const regularPostsFormatted = publicPosts
-      .filter(post => 
-        post.category.toLowerCase() !== 'market updates' && 
-        post.category.toLowerCase() !== 'market' &&
-        !post.slug.toLowerCase().includes('market')
-      )
-      .map(post => ({
-        id: post.slug,
-        title: post.title,
-        date: post.publishedAt,
-        slug: post.slug,
-        isApiReport: false
-      }));
-    
-    // Combine regular posts with all market updates (from both sources)
-    const allContent = [...regularPostsFormatted, ...sortedCombinedUpdates];
-    
-    // Sort everything by date
-    return allContent.sort((a, b) => {
-      const dateA = parseDate(a.date) || new Date(0);
-      const dateB = parseDate(b.date) || new Date(0);
-      return dateB.getTime() - dateA.getTime();
-    });
+    try {
+      // Get non-market update posts directly from publicPosts
+      const regularPostsFormatted = publicPosts
+        .filter(post => 
+          post.category.toLowerCase() !== 'market updates' && 
+          post.category.toLowerCase() !== 'market' &&
+          !post.slug.toLowerCase().includes('market')
+        )
+        .map(post => ({
+          id: post.slug,
+          title: post.title,
+          date: post.publishedAt,
+          slug: post.slug,
+          isApiReport: false
+        }));
+      
+      // Combine regular posts with all market updates (from both sources)
+      const allContent = [...regularPostsFormatted, ...sortedCombinedUpdates];
+      
+      if (process.env.NODE_ENV === 'development') {
+        console.debug(`All content contains ${allContent.length} items (${regularPostsFormatted.length} regular posts + ${sortedCombinedUpdates.length} market updates)`);
+      }
+      
+      // Sort everything by date, ensuring newest first
+      return allContent.sort((a, b) => {
+        try {
+          const dateA = parseDate(a.date);
+          const dateB = parseDate(b.date);
+          
+          // Handle null dates
+          if (!dateA && !dateB) return 0;
+          if (!dateA) return 1; // null dates go to the end
+          if (!dateB) return -1;
+          
+          // Descending order - newest first
+          return dateB.getTime() - dateA.getTime();
+        } catch (error) {
+          console.error('Error sorting dates in allContentSorted:', error, 'Date A:', a.date, 'Date B:', b.date);
+          return 0; // Keep original order if there's an error
+        }
+      });
+    } catch (error) {
+      console.error('Error combining all content:', error);
+      return []; // Return empty array in case of error
+    }
   }, [publicPosts, sortedCombinedUpdates]);
 
   // --- Fetch Session & Subscribe to Auth Changes ---
@@ -524,54 +639,91 @@ const CommunityList: React.FC = () => {
 
   // Render a market update post/report item
   const renderMarketUpdateItem = useCallback((post: UnifiedPost) => {
-    // Format date using formatShortDate from dateFormatter
-    // This handles both YYYY-MM-DD and DD/MM/YYYY formats
-    const formattedDate = formatShortDate(post.date);
-    
-    return (
-      <Box
-        key={post.id}
-        mb={6}
-        _hover={{
-          "& > p:last-of-type": {
-            textDecoration: "underline"
-          }
-        }}
-      >
-        {/* Date in red, bold */}
-        <Text
-          color="red.600"
-          fontWeight="bold"
-          fontSize={{ base: "sm", md: "md" }}
-          mb={1}
+    try {
+      // Format date using formatShortDate from dateFormatter
+      // This handles both YYYY-MM-DD and DD/MM/YYYY formats
+      let formattedDate;
+      try {
+        formattedDate = formatShortDate(post.date);
+      } catch (error) {
+        console.error(`Error formatting date for post "${post.title}":`, error);
+        formattedDate = post.date || 'Date unavailable'; // Fallback to original date or error message
+      }
+      
+      // Debug log for date verification
+      if (process.env.NODE_ENV === 'development') {
+        try {
+          const parsedDate = parseDate(post.date);
+          const dateStr = parsedDate ? parsedDate.toISOString() : 'Invalid date';
+          console.debug(`Market update "${post.title}": Original date "${post.date}" parsed as "${dateStr}", formatted as "${formattedDate}"`);
+        } catch (debugError) {
+          console.error('Error in date debug logging:', debugError);
+        }
+      }
+      
+      return (
+        <Box
+          key={post.id}
+          mb={6}
+          _hover={{
+            "& > p:last-of-type": {
+              textDecoration: "underline"
+            }
+          }}
         >
-          {formattedDate}
-        </Text>
-        
-        {/* Title as a link */}
-        {post.isApiReport ? (
-          <Link to={`/reports/${post.id}`}>
-            <Text
-              color="gray.900"
-              fontSize={{ base: "md", md: "lg" }}
-              _hover={{ textDecoration: "underline" }}
-            >
-              {post.title}
-            </Text>
-          </Link>
-        ) : (
-          <Link to={`/community/${post.slug}`}>
-            <Text
-              color="gray.900"
-              fontSize={{ base: "md", md: "lg" }}
-              _hover={{ textDecoration: "underline" }}
-            >
-              {post.title}
-            </Text>
-          </Link>
-        )}
-      </Box>
-    );
+          {/* Date in red, bold */}
+          <Text
+            color="red.600"
+            fontWeight="bold"
+            fontSize={{ base: "sm", md: "md" }}
+            mb={1}
+          >
+            {formattedDate}
+            {post.isApiReport && (
+              <Badge ml={2} colorScheme="blue" fontSize="xs">
+                API
+              </Badge>
+            )}
+            {!post.isApiReport && (
+              <Badge ml={2} colorScheme="green" fontSize="xs">
+                Post
+              </Badge>
+            )}
+          </Text>
+          
+          {/* Title as a link */}
+          {post.isApiReport ? (
+            <Link to={`/reports/${post.id}`}>
+              <Text
+                color="gray.900"
+                fontSize={{ base: "md", md: "lg" }}
+                _hover={{ textDecoration: "underline" }}
+              >
+                {post.title || 'Untitled Report'}
+              </Text>
+            </Link>
+          ) : (
+            <Link to={`/community/${post.slug}`}>
+              <Text
+                color="gray.900"
+                fontSize={{ base: "md", md: "lg" }}
+                _hover={{ textDecoration: "underline" }}
+              >
+                {post.title || 'Untitled Post'}
+              </Text>
+            </Link>
+          )}
+        </Box>
+      );
+    } catch (error) {
+      console.error('Error rendering market update item:', error, post);
+      // Return a fallback UI for this item
+      return (
+        <Box key={post.id || 'unknown'} mb={6}>
+          <Text color="gray.600">Error displaying this update</Text>
+        </Box>
+      );
+    }
   }, []);
 
   return (
@@ -606,8 +758,23 @@ const CommunityList: React.FC = () => {
       </Text>
 
       {/* Loader or List */}
-      {loading || (reportsLoading && (selectedCategory === MARKET_UPDATES_OPTION || selectedCategory === "All")) ? (
+      {loading ? (
+        // Show loader for NDA checks and other operations
         renderLoader()
+      ) : (reportsLoading && selectedCategory === MARKET_UPDATES_OPTION && combinedMarketUpdates.length === 0) ? (
+        // Only show loader for API reports loading when specifically on Market Updates tab AND we don't have any data
+        <Box>
+          <Box textAlign="left" py={2} mb={4}>
+            <Text fontSize="sm" color="gray.600">Loading market updates from API...</Text>
+            {process.env.NODE_ENV === 'development' && (
+              <Text fontSize="xs" color="gray.500" mt={1}>
+                Debug: Loading state active. API reports: {apiReports.length}, 
+                Posts: {postMarketUpdates.length}, Combined: {combinedMarketUpdates.length}
+              </Text>
+            )}
+          </Box>
+          {renderLoader()}
+        </Box>
       ) : (
         <Box>
           {/* Show error message if needed */}
@@ -636,35 +803,53 @@ const CommunityList: React.FC = () => {
           ) : (
             /* Display regular posts for all other categories */
             filteredPosts.map((post) => {
-              const dateString = formatShortDate(post.publishedAt);
-              const handleClick = () => {
-                if (selectedCategory === NDA_OPTION && !ndaApproved) {
-                  handleRestrictedClick();
+              try {
+                let dateString;
+                try {
+                  dateString = formatShortDate(post.publishedAt);
+                } catch (error) {
+                  console.error(`Error formatting date for post "${post.title}":`, error);
+                  dateString = post.publishedAt || 'Date unavailable';
                 }
-              };
-              return (
-                <Box key={post.slug} mb={6}>
-                  {/* Date in red, bold */}
-                  <Text
-                    color="red.600"
-                    fontWeight="bold"
-                    fontSize={{ base: "sm", md: "md" }}
-                    mb={1}
-                  >
-                    {dateString}
-                  </Text>
-                  {/* Title as a link */}
-                  <Link to={`/community/${post.slug}`} onClick={handleClick}>
+                
+                const handleClick = () => {
+                  if (selectedCategory === NDA_OPTION && !ndaApproved) {
+                    handleRestrictedClick();
+                  }
+                };
+                
+                return (
+                  <Box key={post.slug} mb={6}>
+                    {/* Date in red, bold */}
                     <Text
-                      color="gray.900"
-                      fontSize={{ base: "md", md: "lg" }}
-                      _hover={{ textDecoration: "underline" }}
+                      color="red.600"
+                      fontWeight="bold"
+                      fontSize={{ base: "sm", md: "md" }}
+                      mb={1}
                     >
-                      {post.title}
+                      {dateString}
                     </Text>
-                  </Link>
-                </Box>
-              );
+                    {/* Title as a link */}
+                    <Link to={`/community/${post.slug}`} onClick={handleClick}>
+                      <Text
+                        color="gray.900"
+                        fontSize={{ base: "md", md: "lg" }}
+                        _hover={{ textDecoration: "underline" }}
+                      >
+                        {post.title || 'Untitled Post'}
+                      </Text>
+                    </Link>
+                  </Box>
+                );
+              } catch (error) {
+                console.error('Error rendering post item:', error, post);
+                // Return a fallback UI for this item
+                return (
+                  <Box key={post.slug || 'unknown'} mb={6}>
+                    <Text color="gray.600">Error displaying this post</Text>
+                  </Box>
+                );
+              }
             })
           )}
         </Box>

@@ -133,10 +133,7 @@ const CommunityPost: React.FC = () => {
   const getFormattedDate = () => {
     if (!post.publishedAt) return 'Date unavailable';
     
-    // Check if the date is in DD/M/YYYY format (Aloha Funds API format)
-    const isApiFormat = !!post.publishedAt.match(/^\d{1,2}\/\d{1,2}\/\d{4}/);
-    
-    // Use appropriate formatter based on format
+    // Use formatShortDate which internally uses parseDate to handle both API and standard formats
     return formatShortDate(post.publishedAt);
   };
 

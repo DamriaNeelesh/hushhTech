@@ -6,100 +6,46 @@ import {
   SimpleGrid, 
   Text, 
   Spinner,
-  Skeleton,
-  SkeletonText 
+  Skeleton
 } from '@chakra-ui/react';
-import { STORAGE_BUCKETS } from '../services/reportService';
 
 interface MarketUpdateGalleryProps {
-  date: string; // Format: 'dmu14mar', 'dmu24mar', etc. or 'DD/M/YYYY' for API format
-  showTestImage?: boolean; // Option to show/hide the test image
-  title?: string; // Optional custom title
+  date: string; // Format: 'dmu14mar' or 'DD/MM/YYYY'
+  showTestImage?: boolean;
+  title?: string;
   imageCount?: number;
-  apiDateFormat?: boolean; // Whether the date is in API format (DD/M/YYYY)
-  userId?: string; // Optional user ID for API format images
-  reportId?: string; // Optional report ID for API format images
+  apiDateFormat?: boolean; // Flag to indicate if date is in DD/MM/YYYY format
 }
 
-/**
- * A reusable gallery component for displaying market update images from Supabase
- * @param date - The date folder in format 'dmu14mar', 'dmu24mar', etc. or 'DD/M/YYYY' for API format
- * @param showTestImage - Whether to show a test image at the top (default: false)
- * @param title - Custom title for the gallery section (default: "Supporting Charts & Data")
- * @param imageCount - Number of skeleton placeholders to show while loading (default: 6)
- * @param apiDateFormat - Whether the date is in API format (DD/M/YYYY) (default: false)
- * @param userId - User ID for API format images
- * @param reportId - Report ID for API format images
- */
 const MarketUpdateGallery: React.FC<MarketUpdateGalleryProps> = ({
   date,
   showTestImage = false,
   title = "Supporting Charts & Data",
-  imageCount = 6, // Default to showing 6 skeleton placeholders
-  apiDateFormat = false,
-  userId = 'system',
-  reportId
+  imageCount = 6,
+  apiDateFormat = false
 }) => {
   const [images, setImages] = useState<{name: string, url: string}[]>([]);
   const [imagesLoaded, setImagesLoaded] = useState<{[key: string]: boolean}>({});
   const [isLoading, setIsLoading] = useState(true);
   
   // Define the base URL for Supabase storage
-  const baseUrl = STORAGE_BUCKETS.IMAGES;
-
-  // Get the folder path based on the date format
-  const getFolderPath = (): string => {
-    if (!date) return '';
-
-    // If it's already in the dmu format, use it directly
-    if (date.startsWith('dmu')) {
-      return `market-updates/${date}`;
+  const baseUrl = 'https://gsqmwxqgqrgzhlhmbscg.supabase.co/storage/v1/object/public/website';
+  
+  // Format the folder path based on date format
+  const formatFolderPath = (dateStr: string, isApiFormat: boolean): string => {
+    if (isApiFormat && dateStr.match(/^\d{1,2}\/\d{1,2}\/\d{4}$/)) {
+      // For DD/MM/YYYY format
+      return `market-updates/${dateStr}`;
+    } else {
+      // For 'dmuXXmon' format
+      return `market-updates/${dateStr}`;
     }
-
-    // If it's in the API format (DD/M/YYYY), convert it to dmu format
-    if (apiDateFormat && date.match(/^\d{1,2}\/\d{1,2}\/\d{4}/)) {
-      try {
-        // Parse the date parts
-        const parts = date.split('/');
-        if (parts.length >= 3) {
-          const day = parseInt(parts[0], 10);
-          const month = parseInt(parts[1], 10) - 1; // Convert to 0-based
-          
-          // Month abbreviations
-          const monthNames = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
-          const monthAbbr = monthNames[month];
-          
-          // If this is an API report, it should use the reports/{user_id} path from documentation
-          if (apiDateFormat) {
-            return `reports/${userId}`;
-          }
-          
-          return `market-updates/dmu${day}${monthAbbr}`;
-        }
-      } catch (error) {
-        console.error('Error parsing API date format:', error);
-      }
-    }
-
-    // Fallback - use the date as-is and hope it works
-    return `market-updates/${date}`;
   };
   
-  // Get the folder path
-  const folderPath = getFolderPath();
+  const folderPath = formatFolderPath(date, apiDateFormat);
   
   // Common image extensions to try
-  const extensions = ['.png', '.jpg', '.jpeg', '.gif'];
-  
-  // Common prefixes to try
-  const prefixes = [
-    '', // Just the number (1.png)
-    'v', // v1.png (for videos)
-    'chart', // chart1.png
-    'data', // data1.png
-    'img', // img1.png
-    'image', // image1.png
-  ];
+  const extensions = ['.png', '.jpg', '.jpeg'];
   
   useEffect(() => {
     setIsLoading(true);
@@ -107,59 +53,13 @@ const MarketUpdateGallery: React.FC<MarketUpdateGalleryProps> = ({
     // Generate a comprehensive set of possible image URLs to try
     const possibleImages = [];
     
-    // Special case for API format - try to find images in the 'reports/{user_id}' format per documentation
-    if (apiDateFormat) {
-      // Generate possible timestamps to try (since we don't know the exact one)
-      // In production code, these would ideally come from the API itself
-      const timestamps = [
-        // Try some generic names for reports
-        '',
-        'latest_',
-        'chart_',
-        'data_',
-        'market_',
-        'update_'
-      ];
-      
-      // Use the report ID if available
-      if (reportId) {
-        timestamps.push(`${reportId}_`);
-      }
-      
-      // Try different combinations of timestamps and filenames
-      for (const timestamp of timestamps) {
-        for (let i = 1; i <= 10; i++) {
-          // Try standard image formats with timestamps
-          for (const ext of extensions) {
-            possibleImages.push({
-              name: `${timestamp}${i}${ext}`,
-              url: `${baseUrl}/reports/${userId}/${timestamp}${i}${ext}`
-            });
-            
-            // Also try with prefixes
-            for (const prefix of prefixes) {
-              if (prefix) { // Skip empty prefix as it's covered above
-                possibleImages.push({
-                  name: `${timestamp}${prefix}${i}${ext}`,
-                  url: `${baseUrl}/reports/${userId}/${timestamp}${prefix}${i}${ext}`
-                });
-              }
-            }
-          }
-        }
-      }
-    } else {
-      // Original behavior for non-API images
-      // Try numbers 1-20 with different prefixes and extensions
-      for (let i = 1; i <= 20; i++) {
-        for (const prefix of prefixes) {
-          for (const ext of extensions) {
-            possibleImages.push({
-              name: `${prefix}${i}${ext}`,
-              url: `${baseUrl}/${folderPath}/${prefix}${i}${ext}`
-            });
-          }
-        }
+    // Try numbers 1-20 with different extensions
+    for (let i = 1; i <= 20; i++) {
+      for (const ext of extensions) {
+        possibleImages.push({
+          name: `${i}${ext}`,
+          url: `${baseUrl}/${folderPath}/${i}${ext}`
+        });
       }
     }
     
@@ -186,10 +86,17 @@ const MarketUpdateGallery: React.FC<MarketUpdateGalleryProps> = ({
     
     // When all images have been tried, update state with the ones that loaded
     Promise.all(imagePromises).then(() => {
-      setImages(loadedImages);
+      // Sort images numerically by name (1.png, 2.png, etc.)
+      const sortedImages = loadedImages.sort((a, b) => {
+        const numA = parseInt(a.name.match(/^\d+/)?.[0] || '0', 10);
+        const numB = parseInt(b.name.match(/^\d+/)?.[0] || '0', 10);
+        return numA - numB;
+      });
+      
+      setImages(sortedImages);
       setIsLoading(false);
     });
-  }, [date, baseUrl, folderPath, apiDateFormat, userId, reportId]);
+  }, [date, baseUrl, folderPath, apiDateFormat]);
 
   const handleImageLoad = (imageName: string) => {
     setImagesLoaded(prev => ({
@@ -255,7 +162,7 @@ const MarketUpdateGallery: React.FC<MarketUpdateGalleryProps> = ({
               >
                 <Image
                   src={image.url}
-                  alt={`Market Analysis ${image.name}`}
+                  alt={`Market Analysis Chart ${image.name.match(/^\d+/)?.[0] || ''}`}
                   borderRadius="md"
                   objectFit="contain"
                   w="100%"
