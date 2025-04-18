@@ -13,7 +13,7 @@ import { getPostBySlug, PostData } from "../../data/posts";
 import axios from "axios";
 import config from "../../resources/config/config";
 import { Session } from "@supabase/supabase-js";
-import { formatShortDate } from "../../utils/dateFormatter";
+import { formatShortDate, formatLongDate, parseDate } from "../../utils/dateFormatter";
 
 const CommunityPost: React.FC = () => {
   // Extract the slug (using wildcard parameter for nested routes)
@@ -128,18 +128,29 @@ const CommunityPost: React.FC = () => {
   const toTitleCase = (str: string) => {
     return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
   };
+  
+  // Format the date based on its format (supports both YYYY-MM-DD and DD/M/YYYY)
+  const getFormattedDate = () => {
+    if (!post.publishedAt) return 'Date unavailable';
+    
+    // Check if the date is in DD/M/YYYY format (Aloha Funds API format)
+    const isApiFormat = !!post.publishedAt.match(/^\d{1,2}\/\d{1,2}\/\d{4}/);
+    
+    // Use appropriate formatter based on format
+    return formatShortDate(post.publishedAt);
+  };
 
   return (
     <Box bg="white" minH="100vh" py={12} px={4}>
       <Container maxW="container.md">
         <Text as={'h2'} fontSize={{base:'sm',md:'md'}} fontWeight={'600'} color={'#e7131a'}>
-{toTitleCase(post.category)}
+          {toTitleCase(post.category)}
         </Text>
         {/* <Heading as="h1" fontWeight={'500'} mb={4} fontSize={{md:'xl',base:'lg'}} color="black">
           {post.title}
         </Heading> */}
         <Text fontSize="sm" color="gray.900" mb={8}>
-          {formatShortDate(post.publishedAt)}
+          {getFormattedDate()}
         </Text>
         <Box color="white" lineHeight="tall" fontSize="lg">
           <PostComponent />

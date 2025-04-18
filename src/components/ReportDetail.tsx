@@ -1,15 +1,16 @@
 import React from 'react';
 import { Box, Heading, Text, Image, SimpleGrid, Spinner, AspectRatio } from '@chakra-ui/react';
-import { Report } from '../services/reportService';
+import { Report, STORAGE_BUCKETS } from '../services/reportService';
 import { formatLongDate, parseDate } from '../utils/dateFormatter';
 import MarketUpdateGallery from './MarketUpdateGallery';
 
 interface ReportDetailProps {
   report: Report | null;
   isLoading: boolean;
+  apiDateFormat?: boolean;
 }
 
-const ReportDetail: React.FC<ReportDetailProps> = ({ report, isLoading }) => {
+const ReportDetail: React.FC<ReportDetailProps> = ({ report, isLoading, apiDateFormat = true }) => {
   if (isLoading) {
     return (
       <Box textAlign="center" py={8}>
@@ -58,21 +59,24 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isLoading }) => {
   }
 
   // Check if this is a daily market update by looking at the format of the date
-  // Format could be: "YYYY-MM-DD" or "DD/MM/YYYY"
-  const isMarketUpdate = report.date && (
-    report.date.match(/^\d{4}-\d{2}-\d{2}$/) || 
-    report.date.match(/^\d{1,2}\/\d{1,2}\/\d{4}/)
-  );
+  // Format should be: "DD/M/YYYY HH:mm" according to API docs
+  const isMarketUpdate = report.date && report.date.match(/^\d{1,2}\/\d{1,2}\/\d{4}/);
   
-  // Check if the date is in the API format (DD/MM/YYYY)
-  const isApiDateFormat = report.date ? !!report.date.match(/^\d{1,2}\/\d{1,2}\/\d{4}/) : false;
+  // Extract the date part from the combined date field if needed
+  const getDatePart = (dateString: string): string => {
+    if (!dateString) return '';
+    return dateString.split(' ')[0]; // Extract just the date part
+  };
   
   // Convert the date format to the MarketUpdateGallery expected format (e.g., 'dmu7apr')
   const getMarketUpdateDate = (): string => {
     if (!report.date) return '';
     
     try {
-      const date = parseDate(report.date);
+      // Parse the date from the API format (DD/M/YYYY)
+      const datePart = getDatePart(report.date);
+      const date = parseDate(datePart);
+      
       if (!date || isNaN(date.getTime())) return '';
       
       const day = date.getDate();
@@ -87,6 +91,17 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isLoading }) => {
   };
   
   const marketUpdateDate = getMarketUpdateDate();
+  const dateForDisplay = formatLongDate(report.date);
+  
+  // Get appropriate base URLs for the storage buckets
+  const getStorageBucketBaseUrl = (url: string): string => {
+    if (url.includes('alohafundsreport-images')) {
+      return STORAGE_BUCKETS.IMAGES;
+    } else if (url.includes('alohafundsreport-videos')) {
+      return STORAGE_BUCKETS.VIDEOS;
+    }
+    return url;
+  };
 
   return (
     <Box>
@@ -100,7 +115,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isLoading }) => {
           </Heading>
         )}
         <Text fontSize="sm" color="gray.600" mb={4}>
-          {formatLongDate(report.date)} {report.time && `at ${report.time}`}
+          {dateForDisplay} {report.time && `at ${report.time}`}
         </Text>
         <Text fontSize="md" mb={8} whiteSpace="pre-line">
           {formatDescription(report.description)}
@@ -113,9 +128,11 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isLoading }) => {
           {isMarketUpdate ? (
             // Use MarketUpdateGallery for daily market updates
             <MarketUpdateGallery 
-              date={isApiDateFormat ? report.date : marketUpdateDate}
+              date={isMarketUpdate ? getDatePart(report.date) : marketUpdateDate}
               title="Supporting Charts & Data"
-              apiDateFormat={isApiDateFormat}
+              apiDateFormat={true}
+              userId={report.id ? `user_${report.id.slice(0, 8)}` : 'system'}
+              reportId={report.id}
             />
           ) : (
             // Use the standard image grid for other types of reports
@@ -224,7 +241,6 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isLoading }) => {
                       title={`${report.title || 'Report'} video ${index + 1}`}
                       src={processedUrl}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-                    //   allowFullScreen={true}
                       loading="lazy"
                       frameBorder="0"
                       sandbox="allow-same-origin allow-scripts allow-forms allow-presentation allow-popups allow-popups-to-escape-sandbox allow-top-navigation"
@@ -286,7 +302,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isLoading }) => {
                       onClick={() => {
                         // Try to trigger fullscreen on the iframe
                         try {
-                          const iframe = document.querySelector(`iframe[title="${report.title || 'Report'} video ${index + 1}"]`);
+                          const iframe = document.querySelector(`iframe[title="${report.title || 'Report'} video ${index + 1}"]`) as HTMLIFrameElement;
                           if (iframe) {
                             // Try various fullscreen methods
                             if (iframe.requestFullscreen) {
@@ -358,12 +374,12 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isLoading }) => {
                         _hover={{ bg: "rgba(0,0,0,0.8)", transform: "scale(1.1)" }}
                         onClick={() => {
                           // This helps engage with the iframe on desktop to enable controls
-                          const iframe = document.querySelector(`iframe[title="${report.title || 'Report'} video ${index + 1}"]`);
+                          const iframe = document.querySelector(`iframe[title="${report.title || 'Report'} video ${index + 1}"]`) as HTMLIFrameElement;
                           if (iframe) {
                             iframe.focus();
                             // Try to send a click event to the iframe
                             try {
-                              const iframeWindow = (iframe as HTMLIFrameElement).contentWindow;
+                              const iframeWindow = iframe.contentWindow;
                               if (iframeWindow) {
                                 iframeWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
                               }

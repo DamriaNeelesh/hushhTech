@@ -32,6 +32,10 @@ import { formatShortDate, parseDate } from "../../utils/dateFormatter";
 const NDA_OPTION = "Sensitive Documents (NDA approval Req.)";
 const MARKET_UPDATES_OPTION = "Market Updates";
 
+// Aloha Funds Report API constants
+const ALOHA_FUNDS_API_BASE_URL = 'https://spmxyqxjqxcyywkapong.supabase.co/rest/v1';
+const ALOHA_FUNDS_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNwbXh5cXhqcXhjeXl3a2Fwb25nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3MTYwNDIsImV4cCI6MjA2MDI5MjA0Mn0._C6lZcTubk2VuwDKC2uDOsiFFPaKRiEJSqBjtGpm99E';
+
 // Utility to convert a string to Title Case.
 const toTitleCase = (str: string): string =>
   str.replace(/\w\S*/g, (txt) =>
@@ -84,11 +88,20 @@ const CommunityList: React.FC = () => {
     post.slug.toLowerCase().includes('market')
   ), [publicPosts]);
 
-  // Get unique categories from public posts.
-  const publicCategories = useMemo(() => Array.from(new Set(publicPosts.map((post) => post.category))), [publicPosts]);
-  const dropdownOptions = useMemo(() => ["All", ...publicCategories.filter(cat => 
-    cat.toLowerCase() !== 'market updates' && cat.toLowerCase() !== 'market'
-  ), MARKET_UPDATES_OPTION, NDA_OPTION], [publicCategories]);
+  // Get unique categories from public posts, excluding market updates
+  const publicCategories = useMemo(() => {
+    const allCategories = Array.from(new Set(publicPosts.map((post) => post.category)));
+    return allCategories.filter(cat => 
+      cat.toLowerCase() !== 'market updates' && 
+      cat.toLowerCase() !== 'market'
+    );
+  }, [publicPosts]);
+  
+  // Create dropdown options, ensuring no duplicate categories
+  const dropdownOptions = useMemo(() => 
+    ["All", ...publicCategories, MARKET_UPDATES_OPTION, NDA_OPTION], 
+    [publicCategories]
+  );
 
   // State for selected dropdown option.
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -114,20 +127,38 @@ const CommunityList: React.FC = () => {
 
   // --- Fetch API Reports ---
   useEffect(() => {
-    // Only fetch reports when Market Updates is selected
-    if (selectedCategory !== MARKET_UPDATES_OPTION) return;
-    
+    // Always fetch reports when market updates are selected or when the component mounts
+    // This ensures we have the data ready when needed
     const fetchReports = async () => {
-      setReportsError(null);
+      if (reportsLoading) return; // Prevent duplicate fetches
+      
       setReportsLoading(true);
+      setReportsError(null);
+      
       try {
-        console.log('Fetching market reports...');
-        const fetchedReports = await getAllReports();
+        console.log('Fetching market reports from Aloha Funds Report API...');
+        
+        // Use the exact API endpoint format from the documentation
+        // API Key must be sent as a query parameter per documentation
+        const response = await fetch(
+          `${ALOHA_FUNDS_API_BASE_URL}/reports?select=*&order=date.desc,time.desc&apikey=${ALOHA_FUNDS_API_KEY}`,
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        );
+        
+        if (!response.ok) {
+          throw new Error(`API request failed with status ${response.status}: ${response.statusText}`);
+        }
+        
+        const fetchedReports = await response.json();
         console.log('Fetched reports:', fetchedReports);
         setReports(fetchedReports);
         
         // If we got an empty array when we shouldn't have, show a message
-        if (fetchedReports.length === 0 && marketUpdatePosts.length === 0) {
+        if (fetchedReports.length === 0 && selectedCategory === MARKET_UPDATES_OPTION && marketUpdatePosts.length === 0) {
           setReportsError('No market updates available. Please check back later.');
         }
       } catch (error) {
@@ -141,52 +172,49 @@ const CommunityList: React.FC = () => {
     fetchReports();
   }, [selectedCategory, marketUpdatePosts.length]);
 
-  // Transform market update posts from posts.ts to unified format using useMemo
-  const postsFormatted = useMemo(() => {
-    if (selectedCategory !== MARKET_UPDATES_OPTION) return [];
-    
-    return marketUpdatePosts.map(post => ({
+  // Transform market update posts from posts.ts to unified format
+  const postsFormatted = useMemo(() => 
+    marketUpdatePosts.map(post => ({
       id: post.slug, 
       title: post.title,
       date: post.publishedAt, 
       slug: post.slug,
       isApiReport: false
-    }));
-  }, [marketUpdatePosts, selectedCategory]);
+    })),
+    [marketUpdatePosts]
+  );
 
-  // Transform API reports to unified format using useMemo
-  const reportsFormatted = useMemo(() => {
-    if (selectedCategory !== MARKET_UPDATES_OPTION) return [];
-    
-    return reports.map(report => ({
+  // Transform API reports to unified format
+  const reportsFormatted = useMemo(() => 
+    reports.map(report => ({
       id: report.id,
       title: report.title || 'Untitled Report',
       date: report.date,
       isApiReport: true
-    }));
-  }, [reports, selectedCategory]);
+    })),
+    [reports]
+  );
 
   // Combined and sorted market updates
   const sortedCombinedUpdates = useMemo(() => {
-    if (selectedCategory !== MARKET_UPDATES_OPTION) return [];
-    
     // Combine both sources
     const combined = [...postsFormatted, ...reportsFormatted];
     
     // Sort by date, latest first
     return combined.sort((a, b) => {
+      // Use parseDate to handle both date formats correctly
       const dateA = parseDate(a.date) || new Date(0);
       const dateB = parseDate(b.date) || new Date(0);
       return dateB.getTime() - dateA.getTime();
     });
-  }, [postsFormatted, reportsFormatted, selectedCategory]);
+  }, [postsFormatted, reportsFormatted]);
 
-  // Update combined market updates when sorted data changes - synchronize state with memoized value
+  // Update combined market updates when sorted data changes
   useEffect(() => {
     setCombinedMarketUpdates(sortedCombinedUpdates);
   }, [sortedCombinedUpdates]);
 
-  // --- Filter Posts Based on Selected Category --- move to useMemo
+  // --- Filter Posts Based on Selected Category ---
   const filteredPosts = useMemo(() => {
     let result: PostData[] = [];
     
@@ -470,6 +498,58 @@ const CommunityList: React.FC = () => {
     }
   }, [session, toast]);
 
+  // Render a market update post/report item
+  const renderMarketUpdateItem = useCallback((post: UnifiedPost) => {
+    // Format date using formatShortDate from dateFormatter
+    // This handles both YYYY-MM-DD and DD/MM/YYYY formats
+    const formattedDate = formatShortDate(post.date);
+    
+    return (
+      <Box
+        key={post.id}
+        mb={6}
+        _hover={{
+          "& > p:last-of-type": {
+            textDecoration: "underline"
+          }
+        }}
+      >
+        {/* Date in red, bold */}
+        <Text
+          color="red.600"
+          fontWeight="bold"
+          fontSize={{ base: "sm", md: "md" }}
+          mb={1}
+        >
+          {formattedDate}
+        </Text>
+        
+        {/* Title as a link */}
+        {post.isApiReport ? (
+          <Link to={`/reports/${post.id}`}>
+            <Text
+              color="gray.900"
+              fontSize={{ base: "md", md: "lg" }}
+              _hover={{ textDecoration: "underline" }}
+            >
+              {post.title}
+            </Text>
+          </Link>
+        ) : (
+          <Link to={`/community/${post.slug}`}>
+            <Text
+              color="gray.900"
+              fontSize={{ base: "md", md: "lg" }}
+              _hover={{ textDecoration: "underline" }}
+            >
+              {post.title}
+            </Text>
+          </Link>
+        )}
+      </Box>
+    );
+  }, []);
+
   return (
     <Container maxW="container.lg" py={8}>
       {/* Page Heading */}
@@ -506,6 +586,7 @@ const CommunityList: React.FC = () => {
         renderLoader()
       ) : (
         <Box>
+          {/* Show error message if needed */}
           {reportsError && selectedCategory === MARKET_UPDATES_OPTION && combinedMarketUpdates.length === 0 && (
             renderError(reportsError)
           )}
@@ -513,50 +594,7 @@ const CommunityList: React.FC = () => {
           {selectedCategory === MARKET_UPDATES_OPTION ? (
             /* Display combined market updates from both sources */
             combinedMarketUpdates.length > 0 ? (
-              combinedMarketUpdates.map((post) => (
-                <Box
-                  key={post.id}
-                  mb={6}
-                  _hover={{
-                    "& > p:last-of-type": {
-                      textDecoration: "underline"
-                    }
-                  }}
-                >
-                  {/* Date in red, bold */}
-                  <Text
-                    color="red.600"
-                    fontWeight="bold"
-                    fontSize={{ base: "sm", md: "md" }}
-                    mb={1}
-                  >
-                    {formatShortDate(post.date)}
-                  </Text>
-                  
-                  {/* Title as a link */}
-                  {post.isApiReport ? (
-                    <Link to={`/reports/${post.id}`}>
-                      <Text
-                        color="gray.900"
-                        fontSize={{ base: "md", md: "lg" }}
-                        _hover={{ textDecoration: "underline" }}
-                      >
-                        {post.title}
-                      </Text>
-                    </Link>
-                  ) : (
-                    <Link to={`/community/${post.slug}`}>
-                      <Text
-                        color="gray.900"
-                        fontSize={{ base: "md", md: "lg" }}
-                        _hover={{ textDecoration: "underline" }}
-                      >
-                        {post.title}
-                      </Text>
-                    </Link>
-                  )}
-                </Box>
-              ))
+              combinedMarketUpdates.map(renderMarketUpdateItem)
             ) : !reportsError ? (
               <Box textAlign="center" py={8}>
                 <Text color="gray.500">No market updates available at this time.</Text>
