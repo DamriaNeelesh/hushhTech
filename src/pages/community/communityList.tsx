@@ -195,7 +195,7 @@ const CommunityList: React.FC = () => {
     [reports]
   );
 
-  // Combined and sorted market updates
+  // Combined and sorted market updates 
   const sortedCombinedUpdates = useMemo(() => {
     // Combine both sources
     const combined = [...postsFormatted, ...reportsFormatted];
@@ -221,12 +221,8 @@ const CommunityList: React.FC = () => {
     if (selectedCategory === NDA_OPTION) {
       result = ndaApproved ? ndaPosts : [];
     } else if (selectedCategory === "All") {
-      // For "All" category, include all public posts EXCEPT those in "market updates" category
-      result = publicPosts.filter(post => 
-        post.category.toLowerCase() !== 'market updates' && 
-        post.category.toLowerCase() !== 'market' &&
-        !post.slug.toLowerCase().includes('market')
-      );
+      // For "All" category, include all public posts (including market updates)
+      result = publicPosts;
     } else if (selectedCategory === MARKET_UPDATES_OPTION) {
       // This will be handled by the combinedMarketUpdates state
       result = [];
@@ -239,6 +235,34 @@ const CommunityList: React.FC = () => {
       (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
     );
   }, [selectedCategory, ndaApproved, ndaPosts, publicPosts]);
+
+  // --- Combined list for "All" category with all posts and all market updates ---
+  const allContentSorted = useMemo(() => {
+    // Get non-market update posts directly from publicPosts
+    const regularPostsFormatted = publicPosts
+      .filter(post => 
+        post.category.toLowerCase() !== 'market updates' && 
+        post.category.toLowerCase() !== 'market' &&
+        !post.slug.toLowerCase().includes('market')
+      )
+      .map(post => ({
+        id: post.slug,
+        title: post.title,
+        date: post.publishedAt,
+        slug: post.slug,
+        isApiReport: false
+      }));
+    
+    // Combine regular posts with all market updates (from both sources)
+    const allContent = [...regularPostsFormatted, ...sortedCombinedUpdates];
+    
+    // Sort everything by date
+    return allContent.sort((a, b) => {
+      const dateA = parseDate(a.date) || new Date(0);
+      const dateB = parseDate(b.date) || new Date(0);
+      return dateB.getTime() - dateA.getTime();
+    });
+  }, [publicPosts, sortedCombinedUpdates]);
 
   // --- Fetch Session & Subscribe to Auth Changes ---
   useEffect(() => {
@@ -582,7 +606,7 @@ const CommunityList: React.FC = () => {
       </Text>
 
       {/* Loader or List */}
-      {loading || (reportsLoading && selectedCategory === MARKET_UPDATES_OPTION) ? (
+      {loading || (reportsLoading && (selectedCategory === MARKET_UPDATES_OPTION || selectedCategory === "All")) ? (
         renderLoader()
       ) : (
         <Box>
@@ -600,8 +624,17 @@ const CommunityList: React.FC = () => {
                 <Text color="gray.500">No market updates available at this time.</Text>
               </Box>
             ) : null
+          ) : selectedCategory === "All" ? (
+            /* For All category: Display all content sorted by date */
+            allContentSorted.length > 0 ? (
+              allContentSorted.map(renderMarketUpdateItem)
+            ) : (
+              <Box textAlign="center" py={8}>
+                <Text color="gray.500">No posts available at this time.</Text>
+              </Box>
+            )
           ) : (
-            /* Display regular posts */
+            /* Display regular posts for all other categories */
             filteredPosts.map((post) => {
               const dateString = formatShortDate(post.publishedAt);
               const handleClick = () => {
