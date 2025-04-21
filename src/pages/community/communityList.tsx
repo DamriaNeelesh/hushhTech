@@ -25,17 +25,12 @@ import NDADocumentModal from "../../components/NDADocumentModal";
 import ReportCard from "../../components/ReportCard";
 import config from "../../resources/config/config";
 import { getPosts, PostData } from "../../data/posts";
-import { getAllReports, Report } from "../../services/reportService";
 import { Session } from "@supabase/supabase-js";
 import { formatShortDate, parseDate } from "../../utils/dateFormatter";
 
 // Dropdown option text for NDA documents.
 const NDA_OPTION = "Sensitive Documents (NDA approval Req.)";
 const MARKET_UPDATES_OPTION = "Market Updates";
-
-// Aloha Funds Report API constants
-const ALOHA_FUNDS_API_BASE_URL = 'https://spmxyqxjqxcyywkapong.supabase.co/rest/v1';
-const ALOHA_FUNDS_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNwbXh5cXhqcXhjeXl3a2Fwb25nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3MTYwNDIsImV4cCI6MjA2MDI5MjA0Mn0._C6lZcTubk2VuwDKC2uDOsiFFPaKRiEJSqBjtGpm99E';
 
 // Utility to convert a string to Title Case.
 const toTitleCase = (str: string): string =>
@@ -49,7 +44,7 @@ interface UnifiedPost {
   title: string;
   date: string;
   slug?: string; // For posts.ts posts only
-  isApiReport?: boolean; // To identify the source
+  isApiReport?: boolean; // To identify the source (kept for backward compatibility)
 }
 
 // Define PostImage component.
@@ -120,107 +115,12 @@ const CommunityList: React.FC = () => {
   const [ndaMetadata, setNdaMetadata] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   
-  // State for API reports
-  const [apiReports, setApiReports] = useState<Report[]>([]);
+  // State for reports (keeping for backward compatibility, but no longer fetching from API)
   const [reportsLoading, setReportsLoading] = useState(false);
   const [reportsError, setReportsError] = useState<string | null>(null);
 
-  // Combined market updates from both sources
+  // Combined market updates from posts only (no longer from API)
   const [combinedMarketUpdates, setCombinedMarketUpdates] = useState<UnifiedPost[]>([]);
-
-  // --- Fetch API Reports ---
-  useEffect(() => {
-    // Fetch reports when component mounts or when selecting the market updates category
-    const fetchReports = async () => {
-      if (reportsLoading) {
-        return; // Prevent duplicate fetches
-      }
-      
-      // Log API fetch attempt in development mode
-      if (process.env.NODE_ENV === 'development') {
-        console.debug(`Attempting to fetch API reports. isFirstMount: ${mountRef.current}, selectedCategory: ${selectedCategory}, hasExistingReports: ${apiReports.length > 0}`);
-      }
-      
-      // If we're not on the Market Updates category and not on first mount, skip fetching
-      if (!mountRef.current && selectedCategory !== MARKET_UPDATES_OPTION && selectedCategory !== "All") {
-        return;
-      }
-      
-      // If we already have API reports and we're not on first mount, don't fetch again
-      if (!mountRef.current && apiReports.length > 0) {
-        return;
-      }
-      
-      // Only fetch once on component mount, regardless of category
-      if (!mountRef.current && reportsLoading === false) {
-        return;
-      }
-      
-      setReportsLoading(true);
-      setReportsError(null);
-      
-      try {
-        // Use the exact API endpoint format from the documentation
-        const apiUrl = `${ALOHA_FUNDS_API_BASE_URL}/reports?select=*&order=date.desc,time.desc&apikey=${ALOHA_FUNDS_API_KEY}`;
-        
-        const response = await fetch(
-          apiUrl,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              'Cache-Control': 'no-cache' // Prevent caching
-            },
-            cache: 'no-store' // Ensure fresh data each time
-          }
-        );
-        
-        if (!response.ok) {
-          throw new Error(`API request failed with status ${response.status}: ${response.statusText}`);
-        }
-        
-        const fetchedReports = await response.json();
-        
-        if (Array.isArray(fetchedReports) && fetchedReports.length > 0) {
-          // Validate reports have required fields
-          const validReports = fetchedReports.filter(report => 
-            report && typeof report === 'object' && report.id && report.date
-          );
-          
-          setApiReports(validReports);
-          
-          if (validReports.length === 0 && fetchedReports.length > 0) {
-            setReportsError('Market updates were found but they contain invalid data');
-          }
-        } else {
-          // If we got an empty array when we shouldn't have, show a message
-          if (selectedCategory === MARKET_UPDATES_OPTION && postMarketUpdates.length === 0) {
-            setReportsError('No market updates available from API. Please check back later.');
-          }
-        }
-      } catch (error: unknown) {
-        console.error('Error fetching reports:', error);
-        setReportsError(`Failed to load market updates: ${error instanceof Error ? error.message : 'Unknown error'}`);
-      } finally {
-        setReportsLoading(false);
-        
-        // Set mount ref to false after initial fetch
-        if (mountRef.current) {
-          mountRef.current = false;
-        }
-      }
-    };
-
-    // Only fetch reports when the component mounts or when explicitly changing to Market Updates
-    if (mountRef.current || (selectedCategory === MARKET_UPDATES_OPTION && !apiReports.length)) {
-      fetchReports();
-    }
-    
-    // No automatic refresh or interval
-    
-    return () => {
-      // No cleanup needed without intervals
-    };
-  }, [selectedCategory]); // Only re-run when selectedCategory changes, not on every reportsLoading change
 
   // Transform market update posts from posts.ts to unified format
   const postsFormatted = useMemo(() => 
@@ -234,31 +134,23 @@ const CommunityList: React.FC = () => {
     [postMarketUpdates]
   );
 
-  // Transform API reports to unified format
-  const apiReportsFormatted = useMemo(() => 
-    apiReports.map(report => ({
-      id: report.id,
-      title: report.title || 'Untitled Report',
-      date: report.date,
-      slug: `api-report-${report.id}`,
-      isApiReport: true
-    })),
-    [apiReports]
-  );
+  // Set mountRef to false after initial render
+  useEffect(() => {
+    // Mock API fetch complete on initial mount
+    if (mountRef.current) {
+      setReportsLoading(false);
+      mountRef.current = false;
+    }
+  }, []);
 
-  // Combined and sorted market updates 
+  // Combined and sorted market updates (now only from posts, not API)
   const sortedCombinedUpdates = useMemo(() => {
     try {
-      // Combine both sources
+      // Only use posts, no API reports
       const combined: UnifiedPost[] = [...postsFormatted];
       
-      // Only add API reports if available
-      if (apiReportsFormatted && apiReportsFormatted.length > 0) {
-        combined.push(...apiReportsFormatted);
-      }
-      
       if (process.env.NODE_ENV === 'development') {
-        console.debug(`Combining and sorting ${postsFormatted.length} posts and ${apiReportsFormatted.length} API reports`);
+        console.debug(`Combining and sorting ${postsFormatted.length} posts`);
       }
       
       // Sort by date, latest first, using parseDate to handle both formats correctly
@@ -283,7 +175,7 @@ const CommunityList: React.FC = () => {
       console.error('Error combining market updates:', error);
       return []; // Return empty array in case of error
     }
-  }, [postsFormatted, apiReportsFormatted]);
+  }, [postsFormatted]);
 
   // Update combined market updates when sorted data changes
   useEffect(() => {
@@ -348,7 +240,7 @@ const CommunityList: React.FC = () => {
           isApiReport: false
         }));
       
-      // Combine regular posts with all market updates (from both sources)
+      // Combine regular posts with all market updates (from posts only)
       const allContent = [...regularPostsFormatted, ...sortedCombinedUpdates];
       
       if (process.env.NODE_ENV === 'development') {
@@ -592,8 +484,10 @@ const CommunityList: React.FC = () => {
   // --- Preload Images ---
   useEffect(() => {
     allPosts.forEach((post) => {
-      const img = new window.Image();
-      img.src = post.image;
+      if (post.image) {
+        const img = new window.Image();
+        img.src = post.image;
+      }
     });
   }, [allPosts]);
 
@@ -762,14 +656,13 @@ const CommunityList: React.FC = () => {
         // Show loader for NDA checks and other operations
         renderLoader()
       ) : (reportsLoading && selectedCategory === MARKET_UPDATES_OPTION && combinedMarketUpdates.length === 0) ? (
-        // Only show loader for API reports loading when specifically on Market Updates tab AND we don't have any data
+        // Only show loader for loading when specifically on Market Updates tab AND we don't have any data
         <Box>
           <Box textAlign="left" py={2} mb={4}>
-            <Text fontSize="sm" color="gray.600">Loading market updates from API...</Text>
+            <Text fontSize="sm" color="gray.600">Loading market updates...</Text>
             {process.env.NODE_ENV === 'development' && (
               <Text fontSize="xs" color="gray.500" mt={1}>
-                Debug: Loading state active. API reports: {apiReports.length}, 
-                Posts: {postMarketUpdates.length}, Combined: {combinedMarketUpdates.length}
+                Debug: Loading state active. Posts: {postMarketUpdates.length}, Combined: {combinedMarketUpdates.length}
               </Text>
             )}
           </Box>
@@ -783,7 +676,7 @@ const CommunityList: React.FC = () => {
           )}
           
           {selectedCategory === MARKET_UPDATES_OPTION ? (
-            /* Display combined market updates from both sources */
+            /* Display market updates from posts only */
             combinedMarketUpdates.length > 0 ? (
               combinedMarketUpdates.map(renderMarketUpdateItem)
             ) : !reportsError ? (
