@@ -147,6 +147,7 @@ import Dmu11apr from '../content/posts/market/dmu11apr';
 import Dmu15apr from '../content/posts/market/dmu15apr';
 import Dmu16apr from '../content/posts/market/dmu16apr';
 import Dmu17apr from '../content/posts/market/dmu17apr';
+import Dmu21apr from '../content/posts/market/dmu21apr';
 
 export interface PostData {
   slug: string;
@@ -1438,6 +1439,17 @@ export const posts: PostData[] = [
   description: 'Market update with supporting charts and data for April 9, 2025.',
   category: 'market updates',
   Component: Dmu9apr,
+  image: DailyMarketUpdateImg1,
+  accessLevel: 'Public',
+},
+{
+  count: 109, // Incremented from the last count
+  slug: 'market/hushh-market-update-21-april',
+  title: 'Daily Market Snapshot - April 21, 2025',
+  publishedAt: '2025-04-21',
+  description: 'Internal review and investor communication for the Aloha Alpha Fund, highlighting performance and strategy updates.',
+  category: 'market updates',
+  Component: Dmu21apr,
   image: DailyMarketUpdateImg1,
   accessLevel: 'Public',
 }
