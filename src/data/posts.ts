@@ -21,6 +21,7 @@ import WeeklyReport from '../content/posts/market/weeklyReport';
 import MarketUpdate5Feb from '../content/posts/market/marketUpdate5feb'
 import LimitedPartnershipAgreement from '../content/posts/investors-faq/limitedPartnershipAgreement';
 import FeeSchedule from '../content/posts/funds/feeSchedule'
+import Dmu22apr from '../content/posts/market/dmu22apr';
 
 // Images
 import FundsUpdateImg1 from '../components/images/0_Fund Performance.jpg';
@@ -1451,6 +1452,17 @@ export const posts: PostData[] = [
   category: 'market updates',
   Component: Dmu21apr,
   image: DailyMarketUpdateImg1,
+  accessLevel: 'Public',
+},
+{
+  count: 110, // Incremented from the last count (109)
+  slug: 'market/hushh-market-update-22-april',
+  title: '🤫 Aloha Alpha Bets Club | Daily Performance Summary - April 22, 2025',
+  publishedAt: '2025-04-22',
+  description: 'Daily performance summary for the Evergreen Renaissance AI First Fund A, highlighting fund metrics, portfolio snapshot, and market commentary.',
+  category: 'market updates',
+  Component: Dmu22apr,
+  image: DailyMarketUpdateImg2, // Using image variant 2
   accessLevel: 'Public',
 }
 ];
