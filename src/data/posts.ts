@@ -149,6 +149,7 @@ import Dmu15apr from '../content/posts/market/dmu15apr';
 import Dmu16apr from '../content/posts/market/dmu16apr';
 import Dmu17apr from '../content/posts/market/dmu17apr';
 import Dmu21apr from '../content/posts/market/dmu21apr';
+import Dmu23apr from '../content/posts/market/dmu23apr';
 
 export interface PostData {
   slug: string;
@@ -1464,7 +1465,18 @@ export const posts: PostData[] = [
   Component: Dmu22apr,
   image: DailyMarketUpdateImg2, // Using image variant 2
   accessLevel: 'Public',
-}
+},
+{
+  count: 111, // Incremented from the last count (110)
+  slug: 'market/hushh-market-update-23-april',
+  title: '🤫 Aloha Alpha Bets Club | Daily Performance Summary - April 23, 2025',
+  publishedAt: '2025-04-23',
+  description: 'Daily performance summary for the Evergreen Renaissance AI First Fund A, highlighting fund metrics, portfolio snapshot, and market commentary.',
+  category: 'market updates',
+  Component: Dmu23apr,
+  image: DailyMarketUpdateImg3, // Using image variant 3
+  accessLevel: 'Public',
+},
 ];
 
 export function getPosts(): PostData[] {
