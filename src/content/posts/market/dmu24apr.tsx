@@ -14,7 +14,7 @@ const Dmu24apr = () => {
       <Divider my={4} borderColor="black" />
 
       <Text mb={4}>
-        Aloha to you all, it turned out to be a great day after all. Hope the folks in Seattle are enjoying the sunshine ☀ xx
+        Aloha to you all, it turned out to be a great day after all. Hope the folks in Seattle are enjoying the sunshine 
       </Text>
 
       <Text mb={4}>
