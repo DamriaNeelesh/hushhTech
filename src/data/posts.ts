@@ -1475,18 +1475,18 @@ export const posts: PostData[] = [
   description: 'Daily performance summary for the Evergreen Renaissance AI First Fund A, highlighting fund metrics, portfolio snapshot, and market commentary.',
   category: 'market updates',
   Component: Dmu23apr,
-  image: DailyMarketUpdateImg3, // Using image variant 3
+  image: DailyMarketUpdateImg3, 
   accessLevel: 'Public',
 },
 {
-  count: 112, // Incremented from the last count (111)
+  count: 112, 
   slug: 'market/hushh-market-update-24-april',
   title: '🤫 Aloha Alpha Bets Club | Daily Performance Summary - April 24, 2025',
   publishedAt: '2025-04-24',
   description: 'Daily performance summary for the Evergreen Renaissance AI First Fund A, highlighting fund metrics, portfolio snapshot, and market commentary.',
   category: 'market updates',
   Component: Dmu24apr,
-  image: DailyMarketUpdateImg1, // Using image variant 1
+  image: DailyMarketUpdateImg1,
   accessLevel: 'Public',
 },
 ];
