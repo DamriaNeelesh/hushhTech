@@ -18,7 +18,7 @@ export default function Leadership() {
             lineHeight="1.2"
           >
             Empowering Wealth Creation with{" "}
-            <Text as="span" color="#5CE1E6" display="inline">
+            <Text as="span" color="#0891B2" display="inline">
               Integrity and Innovation
             </Text>
           </Heading>
@@ -87,7 +87,7 @@ export default function Leadership() {
               p={6} 
               borderRadius="lg" 
               boxShadow="sm"
-              borderTop="4px solid #5CE1E6"
+              borderTop="4px solid #0891B2"
             >
               <Heading as="h3" fontSize="xl" mb={4} fontWeight="600">
                 Differentiation in Investment Approach
@@ -103,7 +103,7 @@ export default function Leadership() {
               p={6} 
               borderRadius="lg" 
               boxShadow="sm"
-              borderTop="4px solid #5CE1E6"
+              borderTop="4px solid #0891B2"
             >
               <Heading as="h3" fontSize="xl" mb={4} fontWeight="600">
                 Math-Driven Decision Making
@@ -118,7 +118,7 @@ export default function Leadership() {
               p={6} 
               borderRadius="lg" 
               boxShadow="sm"
-              borderTop="4px solid #5CE1E6"
+              borderTop="4px solid #0891B2"
             >
               <Heading as="h3" fontSize="xl" mb={4} fontWeight="600">
                 AI-Powered Insights
@@ -133,7 +133,7 @@ export default function Leadership() {
               p={6} 
               borderRadius="lg" 
               boxShadow="sm"
-              borderTop="4px solid #5CE1E6"
+              borderTop="4px solid #0891B2"
             >
               <Heading as="h3" fontSize="xl" mb={4} fontWeight="600">
                 Transparency You Can Trust
@@ -188,13 +188,13 @@ export default function Leadership() {
                 overflow="hidden" 
                 mx="auto" 
                 mb={6}
-                border="3px solid #5CE1E6"
+                border="3px solid #0891B2"
               >
                 <Image src={img} alt="Manish Sainani" w="full" h="full" objectFit="cover" />
               </Box>
               
               <Heading as="h3" fontSize="2xl" mb={2}>
-                Manish <Text as="span" color="#5CE1E6">Sainani</Text>
+                Manish <Text as="span" color="#0891B2">Sainani</Text>
               </Heading>
               
               <Text color="gray.500" fontWeight="medium" mb={4}>
@@ -225,13 +225,13 @@ export default function Leadership() {
                 overflow="hidden" 
                 mx="auto" 
                 mb={6}
-                border="3px solid #5CE1E6"
+                border="3px solid #0891B2"
               >
                 <Image src={img2} alt="Justin Donaldson" w="full" h="full" objectFit="cover" />
               </Box>
               
               <Heading as="h3" fontSize="2xl" mb={2}>
-                Justin <Text as="span" color="#5CE1E6">Donaldson</Text>
+                Justin <Text as="span" color="#0891B2">Donaldson</Text>
               </Heading>
               
               <Text color="gray.500" fontWeight="medium" mb={4}>
@@ -252,7 +252,7 @@ export default function Leadership() {
       <Box bg="#1D293D" py={16} px={4} textAlign="center" color="white">
         <Container maxW="container.md">
           <Heading as="h2" fontSize={{ base: "2xl", md: "4xl" }} mb={6}>
-            Join <Text as="span" color="#5CE1E6" display="inline">Us</Text>
+            Join <Text as="span" color="#0891B2" display="inline">Us</Text>
           </Heading>
           
           <Text fontSize={{ base: "md", md: "lg" }} mb={8} color="gray.300">
@@ -269,7 +269,7 @@ export default function Leadership() {
           >
             <Box 
               as="button"
-              bg="#5CE1E6"
+              bg="#0891B2"
               color="#1D293D"
               py={3}
               px={6}

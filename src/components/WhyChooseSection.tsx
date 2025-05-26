@@ -174,7 +174,7 @@ const WhyChooseSection = () => {
           >
             <Button
               onClick={() => navigate("/about")}
-              bg="#5CE1E6"
+              bg="#0891B2"
               color="#1D293D"
               size="lg"
               minW={{ base: "full", sm: "200px" }}

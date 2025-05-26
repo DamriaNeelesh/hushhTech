@@ -43,7 +43,7 @@ export default function Hero() {
             <div className="text-lg md:text-xl lg:text-2xl mb-6 pt-20">
               <span className="block text-5xl md:text-6xl lg:text-7xl font-bold">Precision in Data.</span>
               <span className="block text-5xl md:text-6xl lg:text-7xl font-bold">Power in Investing.</span>
-              <span className="block text-5xl md:text-6xl lg:text-7xl font-bold">Purpose in Results.</span>
+              <span className="block text-5xl md:text-6xl lg:text-7xl font-bold text-[#0AADBC]">Purpose in Results.</span>
             </div>
             <p className="text-base md:text-xl lg:text-2xl mb-6 text-[rgb(209_213_219/var(--tw-text-opacity,1))]">
               At Hushh Technologies, we leverage advanced math, AI, and
@@ -68,10 +68,10 @@ export default function Hero() {
                 </Button>
                 <Button
                   onClick={() => navigate("/Signup")}
-                  bg="#5CE1E6"
+                  bg="#0891B2"
                   color="#1D293D"
                   border="1px"
-                  borderColor="#5CE1E6"
+                  borderColor="#0891B2"
                   rounded="md"
                   _hover={{ bg: "white", color: "#1D293D" }}
                   px={{ base: 2, md: 4 }}
