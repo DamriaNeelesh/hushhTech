@@ -1,105 +1,303 @@
+import React from "react";
 import img from "../../files/img.png";
 import img2 from "../../files/img (1).png";
+import { Box, Container, Heading, Text, SimpleGrid, Flex, Image, VStack, HStack, Icon } from "@chakra-ui/react";
+import { FaCheckCircle } from "react-icons/fa";
 
 export default function Leadership() {
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
-      {/* About Us Section */}
-      <div className="mb-12">
-        <h1 className="text-2xl md:text-4xl font-bold mb-4 text-left">About Us</h1>
-        <p className="text-lg md:text-xl font-semibold mb-2 text-left">
-          Empowering Wealth Creation with Integrity and Innovation
-        </p>
-        <p className="text-base md:text-lg mb-6 text-left">
-          We blend quantitative expertise with ethical investment practices to deliver personalized financial solutions.
-        </p>
-      </div>
+    <Box bg="white">
+      {/* Hero Section */}
+      <Box py={{ base: 12, md: 20 }} px={4} textAlign="center">
+        <Container maxW="container.lg">
+          <Heading 
+            as="h1" 
+            fontSize={{ base: "3xl", md: "5xl" }} 
+            fontWeight="bold" 
+            mb={6}
+            lineHeight="1.2"
+          >
+            Empowering Wealth Creation with{" "}
+            <Text as="span" color="#5CE1E6" display="inline">
+              Integrity and Innovation
+            </Text>
+          </Heading>
+          
+          <Text 
+            fontSize={{ base: "lg", md: "xl" }} 
+            color="gray.600" 
+            maxW="3xl" 
+            mx="auto" 
+            mb={12}
+          >
+            We blend quantitative expertise with ethical investment practices to deliver personalized financial solutions.
+          </Text>
+        </Container>
+      </Box>
 
       {/* Our Mission Section */}
-      <section className="mb-12">
-        <h2 className="text-xl md:text-3xl font-bold mb-2 text-left">Our Mission</h2>
-        <h3 className="text-lg md:text-2xl font-semibold mb-4 text-left">Innovative Strategies, Proven Results</h3>
-        <ul className="list-disc list-inside text-left pl-6 space-y-2">
-          <li>Cutting-edge AI-powered insights for smarter investments.</li>
-          <li>Proprietary options-based strategies generating consistent income.</li>
-          <li>Focused investments in cash-generating giants like Apple & Microsoft.</li>
-          <li>Generating "rental income" through advanced options models.</li>
-        </ul>
-      </section>
+      <Box py={{ base: 12, md: 16 }} px={4}>
+        <Container maxW="container.lg">
+          <Heading 
+            as="h2" 
+            fontSize={{ base: "2xl", md: "4xl" }} 
+            fontWeight="bold" 
+            mb={8}
+          >
+            Our Mission
+          </Heading>
+          
+          <Box 
+            bg="white" 
+            p={{ base: 6, md: 10 }} 
+            borderRadius="lg" 
+            boxShadow="sm"
+            mb={12}
+            style={{ backgroundColor: 'rgb(249 250 251 / var(--tw-bg-opacity, 1))' }}
+          >
+            <Text fontSize={{ base: "md", md: "lg" }} color="gray.700" mb={6} lineHeight="tall" >
+              At Hushh Technologies LLC, our mission is to democratize access to sophisticated investment strategies by leveraging cutting-edge 
+              artificial intelligence and advanced mathematical models. We are committed to generating consistent, risk-adjusted returns while 
+              maintaining the highest standards of transparency and ethical conduct.
+            </Text>
+            
+            <Text fontSize={{ base: "md", md: "lg" }} color="gray.700" lineHeight="tall">
+              We believe that through the power of data science and machine learning, we can unlock investment opportunities that were previously 
+              available only to institutional investors, making them accessible to individual investors and smaller institutions alike.
+            </Text>
+          </Box>
+          
+          {/* Unique Approach Section */}
+          <Heading 
+            as="h2" 
+            fontSize={{ base: "2xl", md: "4xl" }} 
+            fontWeight="bold" 
+            mb={8}
+          >
+            Unique Approach to Investment Management
+          </Heading>
+          
+          <Text fontSize={{ base: "md", md: "lg" }} mb={8} color="gray.700">
+            At <Text as="span" fontWeight="semibold">Hushh Technologies</Text>, we combine the art of investment with the science of technology:
+          </Text>
+          
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8} mb={16}>
+            <Box 
+              bg="white" 
+              p={6} 
+              borderRadius="lg" 
+              boxShadow="sm"
+              borderTop="4px solid #5CE1E6"
+            >
+              <Heading as="h3" fontSize="xl" mb={4} fontWeight="600">
+                Differentiation in Investment Approach
+              </Heading>
+              <Text color="gray.700" fontSize="md">
+                Unlike traditional funds that rely on speculative returns, Hushh combines high-frequency options income with disciplined, 
+                data-driven long-term growth. We prioritize stability, focusing on high-FCF SPX10 companies that represent the backbone of global markets.
+              </Text>
+            </Box>
+            
+            <Box 
+              bg="white" 
+              p={6} 
+              borderRadius="lg" 
+              boxShadow="sm"
+              borderTop="4px solid #5CE1E6"
+            >
+              <Heading as="h3" fontSize="xl" mb={4} fontWeight="600">
+                Math-Driven Decision Making
+              </Heading>
+              <Text color="gray.700" fontSize="md">
+                Every strategy is informed by rigorous quantitative analysis, ensuring precision and accuracy in our investment decisions.
+              </Text>
+            </Box>
+            
+            <Box 
+              bg="white" 
+              p={6} 
+              borderRadius="lg" 
+              boxShadow="sm"
+              borderTop="4px solid #5CE1E6"
+            >
+              <Heading as="h3" fontSize="xl" mb={4} fontWeight="600">
+                AI-Powered Insights
+              </Heading>
+              <Text color="gray.700" fontSize="md">
+                Leveraging the latest advancements in machine learning, we identify market inefficiencies and capitalize on opportunities in real-time.
+              </Text>
+            </Box>
+            
+            <Box 
+              bg="white" 
+              p={6} 
+              borderRadius="lg" 
+              boxShadow="sm"
+              borderTop="4px solid #5CE1E6"
+            >
+              <Heading as="h3" fontSize="xl" mb={4} fontWeight="600">
+                Transparency You Can Trust
+              </Heading>
+              <Text color="gray.700" fontSize="md">
+                Clear communication and a human-centric approach to wealth creation ensures you always understand our strategies and performance.
+              </Text>
+            </Box>
+          </SimpleGrid>
+        </Container>
+      </Box>
 
-      {/* Unique Approach Section */}
-      <section className="mb-12">
-        <h2 className="text-xl md:text-3xl font-bold mb-4 text-left">Unique Approach to Investment Management</h2>
-        <p className="text-base md:text-lg mb-4 text-left">
-          At <span className="font-semibold">Hushh Technologies</span>, we combine the art of investment with the science of technology:
-        </p>
-        <ul className="list-disc list-inside text-left pl-6 space-y-4">
-          <li>
-            <strong>Differentiation in Investment Approach:</strong> Unlike traditional funds that rely on speculative returns, Hushh combines high-frequency options income with disciplined, data-driven long-term growth. We prioritize stability, focusing on high-FCF SPX10 companies that represent the backbone of global markets.
-          </li>
-          <li>
-            <strong>Math-Driven Decision Making:</strong> Every strategy is informed by rigorous quantitative analysis, ensuring precision and accuracy.
-          </li>
-          <li>
-            <strong>AI-Powered Insights:</strong> Leveraging the latest advancements in machine learning, we identify market inefficiencies and capitalize on opportunities in real-time.
-          </li>
-          <li>
-            <strong>Long-Term Stability:</strong> Our investments focus on high-quality, cash-generating businesses, ensuring a balance between growth and reliability.
-          </li>
-          <li>
-            <strong>Transparency You Can Trust:</strong> Clear communication and a human-centric approach to wealth creation.
-          </li>
-        </ul>
-      </section>
+      {/* Leadership Team Section */}
+      <Box py={{ base: 12, md: 16 }} px={4}>
+        <Container maxW="container.lg">
+          <Heading 
+            as="h2" 
+            fontSize={{ base: "2xl", md: "4xl" }} 
+            fontWeight="bold" 
+            mb={4} 
+            textAlign="center"
+          >
+            Our Leadership Team
+          </Heading>
+          
+          <Text 
+            fontSize={{ base: "md", md: "lg" }} 
+            color="gray.600" 
+            maxW="3xl" 
+            mx="auto" 
+            mb={12} 
+            textAlign="center"
+          >
+            At Hushh Technologies LLC, our leadership team combines expertise in technology, finance, and strategy to redefine wealth creation.
+          </Text>
+          
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
+            {/* Manish Sainani */}
+            <Box 
+              bg="white" 
+              p={8} 
+              borderRadius="lg" 
+              boxShadow="md"
+              textAlign="center"
+              transition="transform 0.3s ease"
+              _hover={{ transform: "translateY(-5px)" }}
+            >
+              <Box 
+                w="150px" 
+                h="150px" 
+                borderRadius="full" 
+                overflow="hidden" 
+                mx="auto" 
+                mb={6}
+                border="3px solid #5CE1E6"
+              >
+                <Image src={img} alt="Manish Sainani" w="full" h="full" objectFit="cover" />
+              </Box>
+              
+              <Heading as="h3" fontSize="2xl" mb={2}>
+                Manish <Text as="span" color="#5CE1E6">Sainani</Text>
+              </Heading>
+              
+              <Text color="gray.500" fontWeight="medium" mb={4}>
+                Founder & CEO
+              </Text>
+              
+              <Text color="gray.700">
+                With over a decade of leadership at Google, Microsoft, and Splunk, Manish brings unmatched expertise in AI, 
+                machine learning, and data-driven innovation. His vision drives Hushh's mission to empower investors with 
+                sustainable, technology-powered wealth strategies.
+              </Text>
+            </Box>
 
-      {/* Our Leadership Team Section */}
-      <div className="mb-12">
-        <h2 className="text-xl md:text-3xl font-bold mb-6 text-left">Our Leadership Team</h2>
-        <p className="text-md md:text-xl font-semibold mb-6 text-left">
-          At Hushh Technologies LLC, our leadership team combines expertise in technology, finance, and strategy to redefine wealth creation. Together, they bring innovation, precision, and integrity to every investment decision.
-        </p>
+            {/* Justin Donaldson */}
+            <Box 
+              bg="white" 
+              p={8} 
+              borderRadius="lg" 
+              boxShadow="md"
+              textAlign="center"
+              transition="transform 0.3s ease"
+              _hover={{ transform: "translateY(-5px)" }}
+            >
+              <Box 
+                w="150px" 
+                h="150px" 
+                borderRadius="full" 
+                overflow="hidden" 
+                mx="auto" 
+                mb={6}
+                border="3px solid #5CE1E6"
+              >
+                <Image src={img2} alt="Justin Donaldson" w="full" h="full" objectFit="cover" />
+              </Box>
+              
+              <Heading as="h3" fontSize="2xl" mb={2}>
+                Justin <Text as="span" color="#5CE1E6">Donaldson</Text>
+              </Heading>
+              
+              <Text color="gray.500" fontWeight="medium" mb={4}>
+                Chief Scientist & Investment Strategist
+              </Text>
+              
+              <Text color="gray.700">
+                Justin leads Hushh's scientific and strategic investment approaches. As the architect behind proprietary 
+                options strategies like "Sell the Wall," he uses advanced quantitative models to deliver consistent, 
+                risk-optimized returns.
+              </Text>
+            </Box>
+          </SimpleGrid>
+        </Container>
+      </Box>
 
-        {/* Leadership Profiles */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Manish Sainani */}
-          <div className="flex flex-col items-center text-center">
-            <div className="w-32 h-32 md:w-48 md:h-48 mb-4 bg-gray-200 rounded-full overflow-hidden">
-              <img src={img} alt="Manish Sainani" className="w-full h-full object-cover" />
-            </div>
-            <h3 className="text-lg md:text-2xl font-bold mb-1">
-              Manish <span className="text-red-600">Sainani</span>
-            </h3>
-            <p className="text-gray-600 mb-2">Founder & CEO</p>
-            <p className="text-sm md:text-md text-gray-700">
-              With over a decade of leadership at Google, Microsoft, and Splunk, Manish brings unmatched expertise in AI, machine learning, and data-driven innovation. His vision drives Hushh’s mission to empower investors with sustainable, technology-powered wealth strategies.
-            </p>
-          </div>
-
-          {/* Justin Donaldson */}
-          <div className="flex flex-col items-center text-center">
-            <div className="w-32 h-32 md:w-48 md:h-48 mb-4 bg-gray-200 rounded-full overflow-hidden">
-              <img src={img2} alt="Justin Donaldson" className="w-full h-full object-cover" />
-            </div>
-            <h3 className="text-lg md:text-2xl font-bold mb-1">
-              Justin <span className="text-red-600">Donaldson</span>
-            </h3>
-            <p className="text-gray-600 mb-2">Chief Scientist & Investment Strategist</p>
-            <p className="text-sm md:text-md text-gray-700">
-              Justin leads Hushh’s scientific and strategic investment approaches. As the architect behind proprietary options strategies like "Sell the Wall," he uses advanced quantitative models to deliver consistent, risk-optimized returns.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Footer Section */}
-      <section className="text-center mb-12">
-        <h2 className="text-xl md:text-3xl font-bold mb-4">
-          Join <span className="text-red-600">Us</span>
-        </h2>
-        <p className="text-base md:text-lg mb-4">
-          Whether you're an individual or an institution, Hushh Technologies LLC invites you to join us on our journey.
-        </p>
-      </section>
-    </div>
+      {/* Join Us Section */}
+      <Box bg="#1D293D" py={16} px={4} textAlign="center" color="white">
+        <Container maxW="container.md">
+          <Heading as="h2" fontSize={{ base: "2xl", md: "4xl" }} mb={6}>
+            Join <Text as="span" color="#5CE1E6" display="inline">Us</Text>
+          </Heading>
+          
+          <Text fontSize={{ base: "md", md: "lg" }} mb={8} color="gray.300">
+            Whether you're an individual or an institution, Hushh Technologies LLC invites you to join us on our journey 
+            to transform investment strategies through innovative technology and ethical practices.
+          </Text>
+          
+          <Flex 
+            justifyContent="center" 
+            gap={4} 
+            flexDirection={{ base: "column", sm: "row" }}
+            maxW="md"
+            mx="auto"
+          >
+            <Box 
+              as="button"
+              bg="#5CE1E6"
+              color="#1D293D"
+              py={3}
+              px={6}
+              borderRadius="md"
+              fontWeight="medium"
+              _hover={{ bg: "#4BC0C8" }}
+              w={{ base: "full", sm: "auto" }}
+            >
+              Contact Us
+            </Box>
+            
+            <Box 
+              as="button"
+              bg="transparent"
+              color="white"
+              py={3}
+              px={6}
+              borderRadius="md"
+              fontWeight="medium"
+              border="1px solid white"
+              _hover={{ bg: "rgba(255,255,255,0.1)" }}
+              w={{ base: "full", sm: "auto" }}
+            >
+              Learn More
+            </Box>
+          </Flex>
+        </Container>
+      </Box>
+    </Box>
   );
 }
