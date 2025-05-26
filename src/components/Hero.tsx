@@ -2,10 +2,11 @@ import { useNavigate } from "react-router-dom";
 import isLoggedIn from "../services/authentication/isLoggedIn";
 import { useEffect, useState } from "react";
 import services from "../services/services";
-import { Button, Flex, Image } from "@chakra-ui/react";
+import { Button, Flex, Image, Text, Heading, Box } from "@chakra-ui/react";
 import HushhLogo from "./images/Hushhogo.png"
 import config from "../resources/config/config";
 import ProfilePage from "./profile/profilePage";
+import WhyChooseSection from "./WhyChooseSection";
 
 export default function Hero() {
   const navigate = useNavigate();
@@ -28,64 +29,68 @@ export default function Hero() {
     <>
     {!session ? (
       <div
-    style={{ fontFamily: "'Figtree', sans-serif" }} 
-     className="bg-black text-white min-h-[100vh] flex items-center justify-center px-4 py-12">
-      <div className="max-w-7xl mx-auto text-center">
-        <Flex direction="column" align="center" mb={8}>
-         <Image src={HushhLogo} alt="Hushh logo" boxSize={{md:'xs',base:'100px'}}/>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-            Hushh Technologies LLC
-          </h1>
-          <p className="text-lg md:text-xl lg:text-2xl mb-6">
-            Precision in Data. Power in Investing. Purpose in Results.
-          </p>
-          <p className="text-base md:text-lg lg:text-xl mb-6">
-            At Hushh Technologies, we leverage advanced math, AI, and
-            statistics to generate sustainable alpha in a dynamic market. Invest
-            in the future of wealth with us.
-          </p>
-          {!session ? (
-            <div className="flex justify-center space-x-4">
-            <Button
-              onClick={() => navigate("/Login")}
-              bg="black"
-              color="white"
-              border="1px"
-              borderColor="white"
-              rounded="md"
-              _hover={{ bg: "white", color: "black" }}
-              px={{ base: 2, md: 4 }} // Responsive horizontal padding
-              py={{ base: 1, md: 2 }} // Responsive vertical padding
-              fontSize={{ base: "sm", md: "md" }} // Responsive font size
-            >
-              Have an account? Login
-            </Button>
-            <Button
-              onClick={() => navigate("/Signup")}
-              bg="black"
-              color="white"
-              border="1px"
-              borderColor="white"
-              rounded="md"
-              _hover={{ bg: "white", color: "black" }}
-              px={{ base: 2, md: 4 }} // Responsive horizontal padding
-              py={{ base: 1, md: 2 }} // Responsive vertical padding
-              fontSize={{ base: "sm", md: "md" }} // Responsive font size
-            >
-              Create a new account
-            </Button>
-          </div>
-          ) : (
-            <></>
-          )}
-        </Flex>
+        style={{ 
+          fontFamily: "'Figtree', sans-serif",
+          background: "linear-gradient(to bottom right, #1D293D, #1D2D35)",
+        }} 
+        className="text-white min-h-[100vh] flex items-center justify-center px-4 py-12">
+        <div className="max-w-7xl mx-auto text-center">
+          <Flex direction="column" align="center" mb={8}>
+            {/* <Image src={HushhLogo} alt="Hushh logo" boxSize={{md:'xs',base:'100px'}}/> */}
+            {/* <h1 className="font-bold mb-4">
+              Hushh Technologies LLC
+            </h1> */}
+            <div className="text-lg md:text-xl lg:text-2xl mb-6 pt-20">
+              <span className="block text-5xl md:text-6xl lg:text-7xl font-bold">Precision in Data.</span>
+              <span className="block text-5xl md:text-6xl lg:text-7xl font-bold">Power in Investing.</span>
+              <span className="block text-5xl md:text-6xl lg:text-7xl font-bold">Purpose in Results.</span>
+            </div>
+            <p className="text-base md:text-xl lg:text-2xl mb-6 text-[rgb(209_213_219/var(--tw-text-opacity,1))]">
+              At Hushh Technologies, we leverage advanced math, AI, and
+              statistics to generate sustainable alpha in a dynamic market. Invest
+              in the future of wealth with us.
+            </p>
+            {!session ? (
+              <div className="flex justify-center space-x-4">
+                <Button
+                  onClick={() => navigate("/Login")}
+                  bg="transparent"
+                  color="white"
+                  border="1px"
+                  borderColor="white"
+                  rounded="md"
+                  _hover={{ bg: "white", color: "#1D293D" }}
+                  px={{ base: 2, md: 4 }}
+                  py={{ base: 1, md: 2 }}
+                  fontSize={{ base: "sm", md: "md" }}
+                >
+                  Explore Our Approach
+                </Button>
+                <Button
+                  onClick={() => navigate("/Signup")}
+                  bg="#5CE1E6"
+                  color="#1D293D"
+                  border="1px"
+                  borderColor="#5CE1E6"
+                  rounded="md"
+                  _hover={{ bg: "white", color: "#1D293D" }}
+                  px={{ base: 2, md: 4 }}
+                  py={{ base: 1, md: 2 }}
+                  fontSize={{ base: "sm", md: "md" }}
+                >
+                  Become an Investor
+                </Button>
+              </div>
+            ) : (
+              <></>
+            )}
+          </Flex>
+        </div>
       </div>
-    </div>
     ):(
-<ProfilePage/>
+      <ProfilePage/>
     )}
-     
+    <WhyChooseSection/>
     </>
-   
   );
 }

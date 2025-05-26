@@ -39,81 +39,69 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-white text-black mt-auto">
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Use a three-column grid on medium screens and above */}
+    <footer className="text-white mt-auto py-12 px-4" style={{ backgroundColor: 'rgb(42 59 71 / var(--tw-bg-opacity, 1))' }}>
+      <div className="max-w-7xl mx-auto">
+        {/* Main Footer Content */}
         <div className="grid md:grid-cols-3 gap-8">
-          {/* Column 1: Contact Information */}
+          {/* Column 1: Company Info */}
           <div>
-            <h3 className="text-xl font-bold mb-4">USA</h3>
-            <p>Hushh 🤫 Technologies LLC</p>
-            <p>1021 5th St W, Kirkland, WA 98033</p>
-            <p>+1 (765) 532-4284</p>
-            <p>Office Hours: 10:00 AM-7:00 PM</p>
+            <h3 className="text-xl font-semibold mb-6">Hushh 🤫 Technologies LLC</h3>
+            <div className="space-y-2 text-gray-300">
+              <p>1021 5th St W, Kirkland, WA 98033</p>
+              <p>Phone: +1 (765) 532-4284</p>
+              <p>Office Hours: Mon-Fri 9AM-6PM PST</p>
+            </div>
           </div>
-          <div className="flex flex-col items-start">
-            <div className="flex flex-col text-sm space-y-2 text-gray-400 text-right">
-              <a href="/privacy-policy" className="hover:text-gray-600">
+          
+          {/* Column 2: Quick Links */}
+          <div>
+            <h3 className="text-xl font-semibold mb-6">Quick Links</h3>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="space-y-2">
+                <a href="/about" className="block text-gray-300 hover:text-white transition">About Us</a>
+                <a href="/benefits" className="block text-gray-300 hover:text-white transition">Benefits</a>
+                <a href="/careers" className="block text-gray-300 hover:text-white transition">Careers</a>
+              </div>
+              <div className="space-y-2">
+                <a href="/community" className="block text-gray-300 hover:text-white transition">Community</a>
+                <a href="/faq" className="block text-gray-300 hover:text-white transition">FAQ</a>
+                <a href="/contact" className="block text-gray-300 hover:text-white transition">Contact</a>
+              </div>
+            </div>
+          </div>
+          
+          {/* Column 3: Legal */}
+          <div>
+            <h3 className="text-xl font-semibold mb-6">Legal</h3>
+            <div className="space-y-2 text-gray-300">
+              <a href="/privacy-policy" className="block hover:text-white transition">
                 Website Privacy Policy
               </a>
-              <a href="/eu-uk-jobs-privacy-policy" className="hover:text-gray-600">
+              <a href="/eu-uk-jobs-privacy-policy" className="block hover:text-white transition">
                 EU and UK Privacy Policies
               </a>
-              <a href="/california-privacy-policy" className="hover:text-gray-600">
-              California Privacy Policy
+              <a href="/california-privacy-policy" className="block hover:text-white transition">
+                California Privacy Policy
               </a>
-              <a href="/carrer-privacy-policy" className="hover:text-gray-600">
-              Careers Site Privacy Notice
-              </a>
-            </div>
-          </div>
-          {/* Column 2: Download Links */}
-          <div className="flex flex-col items-end">
-            <div className="flex flex-col text-sm space-y-2 text-gray-400 text-right">
-            <a
-          href="https://drive.google.com/file/d/1AOHCpgP9Y1sKYTCmFnQAPEPeMXYw5cHU/view?usp=sharing"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-gray-600"
-        > 
-          History and Milestones
-        </a>
-              <a
-                onClick={() =>
-                  handleDownload(
-                    "https://drive.google.com/file/d/1aH2VT5CMW0DkNGc2z2Bn8fsNI8CB9IKg/view?usp=sharing"
-                  )
-                }
-                className="hover:text-gray-600 cursor-pointer"
-              >
-                Strategy and Profit Projection
-              </a>
-              <a
-                onClick={() =>
-                  handleDownload(
-                    "https://drive.google.com/file/d/1aMUE3oFb3lI01lU27roO29KOzlGVpqLf/view?usp=sharing"
-                  )
-                }
-                className="hover:text-gray-600 cursor-pointer"
-              >
-                Letter to Shareholders
-              </a>
-              <a href="/Faq" className="hover:text-gray-600">
-                FAQs
+              <a href="/carrer-privacy-policy" className="block hover:text-white transition">
+                Careers Site Privacy Notice
               </a>
             </div>
           </div>
-          {/* Column 3: Additional Links */}
-          
         </div>
+        
+        {/* Divider */}
+        <div className="border-t border-gray-700 my-8"></div>
+        
         {/* Bottom Text */}
-        <div className="mt-8 text-sm text-gray-400">
-          <p>© 2025 Hushh 🤫 Technologies LLC. All Rights Reserved.</p>
-          <p className="mt-2">
-           All Rights Reserved. The materials on this website are for illustration and discussion purposes only and do not constitute an offering. An offering may be made only by delivery of a confidential offering memorandum to appropriate investors. PAST PERFORMANCE IS NO GUARANTEE OF FUTURE RESULTS
+        <div className="text-sm text-gray-400 text-center">
+          <p className="mb-2">© 2025 Hushh 🤫 Technologies LLC. All Rights Reserved.</p>
+          <p>
+            Disclaimer: Investment involves risk. Past performance does not guarantee future results. Please consult with a financial advisor before making investment decisions.
           </p>
         </div>
       </div>
+      
       {/* Toast Notification Container */}
       <ToastContainer position="top-right" autoClose={3000} />
     </footer>
