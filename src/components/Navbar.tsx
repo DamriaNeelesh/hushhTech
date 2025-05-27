@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import config from "../resources/config/config";
 import { Image, useToast, Avatar, useBreakpointValue } from "@chakra-ui/react";
-
+import hushhLogo from "../components/images/Hushhogo.png";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [session, setSession] = useState(null);
@@ -64,7 +64,8 @@ export default function Navbar() {
     <nav className="bg-white shadow-lg fixed w-full z-[999]">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          <Link to="/" className="text-xl font-bold">
+          <Link to="/" className="text-xl flex flex-row items-center font-bold">
+          <Image src={hushhLogo} alt="Hushh Logo" className="w-12 h-12" />
             Hushh Technologies LLC
           </Link>
 

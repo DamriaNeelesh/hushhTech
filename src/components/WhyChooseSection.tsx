@@ -133,7 +133,7 @@ const WhyChooseSection = () => {
               align="center" 
               mb={4}
             >
-              <Icon as={FaSearch} color="cyan.400" boxSize={6} />
+              <Icon as={FaSearch} color="#0AADBC" boxSize={6} />
             </Flex>
             <Heading as="h3" fontSize="xl" mb={3} fontWeight="500" color="gray.800">
               Transparency You Trust

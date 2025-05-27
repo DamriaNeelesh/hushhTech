@@ -77,7 +77,7 @@ const FaqPage: React.FC = () => {
           fontWeight="bold"
         >
           <Text as="span" color="black">Frequently Asked </Text>
-          <Text as="span" color="cyan.400">Questions</Text>
+          <Text as="span" color="#0AADBC">Questions</Text>
         </Heading>
         
         <Text 

@@ -53,7 +53,7 @@ export default function Hero() {
             {!session ? (
               <div className="flex justify-center space-x-4">
                 <Button
-                  onClick={() => navigate("/Login")}
+                  onClick={() => navigate("/about/leadership")}
                   bg="transparent"
                   color="white"
                   border="1px"

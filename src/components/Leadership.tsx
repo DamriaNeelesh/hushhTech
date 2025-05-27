@@ -8,7 +8,7 @@ export default function Leadership() {
   return (
     <Box bg="white">
       {/* Hero Section */}
-      <Box py={{ base: 12, md: 20 }} px={4} textAlign="center">
+      <Box pt={{ base: 12, md: 20 }} px={4} textAlign="center">
         <Container maxW="container.lg">
           <Heading 
             as="h1" 
@@ -36,7 +36,7 @@ export default function Leadership() {
       </Box>
 
       {/* Our Mission Section */}
-      <Box py={{ base: 12, md: 16 }} px={4}>
+      <Box pb={{ base: 12, md: 16 }} px={4}>
         <Container maxW="container.lg">
           <Heading 
             as="h2" 
@@ -274,6 +274,7 @@ export default function Leadership() {
               py={3}
               px={6}
               borderRadius="md"
+              onClick={() => window.location.href = "/contact"}
               fontWeight="medium"
               _hover={{ bg: "#4BC0C8" }}
               w={{ base: "full", sm: "auto" }}
@@ -286,6 +287,7 @@ export default function Leadership() {
               bg="transparent"
               color="white"
               py={3}
+              onClick={() => window.location.href = "/signUp"}
               px={6}
               borderRadius="md"
               fontWeight="medium"
@@ -293,7 +295,7 @@ export default function Leadership() {
               _hover={{ bg: "rgba(255,255,255,0.1)" }}
               w={{ base: "full", sm: "auto" }}
             >
-              Learn More
+              Sign Up Now
             </Box>
           </Flex>
         </Container>

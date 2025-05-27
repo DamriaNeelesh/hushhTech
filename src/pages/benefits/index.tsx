@@ -47,7 +47,7 @@ const BenefitsPage: React.FC = () => {
           bgClip="text"
         >
           <Text as="span" color="black">Hushh Technologies LLC – </Text>
-          <Text as="span" color="cyan.400">World-Class Benefits</Text>
+          <Text as="span" color="#0AADBC">World-Class Benefits</Text>
           <Text as="span" color="black"> for World-Class Talent</Text>
         </Heading>
         

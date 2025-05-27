@@ -125,7 +125,7 @@ export default function Contact() {
           fontWeight="bold"
         >
           <Text as="span" color="black">Get in </Text>
-          <Text as="span" color="cyan.400">Touch</Text>
+          <Text as="span" color="#0AADBC">Touch</Text>
         </Heading>
         
         <Text 
@@ -143,7 +143,7 @@ export default function Contact() {
             href="/career"
             // target="_blank"
             rel="noopener noreferrer"
-            color="cyan.400"
+            color="#0AADBC"
             fontWeight="medium"
             _hover={{ textDecoration: 'underline' }}
           >
@@ -284,7 +284,7 @@ export default function Contact() {
               <Box pt={2}>
                 <Button 
                   type="submit"
-                  bg="cyan.400"
+                  bg="#0AADBC"
                   color="white"
                   size="md"
                   px={8}
@@ -318,8 +318,8 @@ export default function Contact() {
                 <Icon as={MapPin} color="red.400" boxSize={5} mt={1} />
                 <Box>
                   <Text fontWeight="medium">Address</Text>
-                  <Text color="gray.600">1234 Innovation Drive</Text>
-                  <Text color="gray.600">San Francisco, CA 94102</Text>
+                  <Text color="gray.600">021 5th St W</Text>
+                  <Text color="gray.600">Kirkland, WA 98033</Text>
                 </Box>
               </HStack>
               
@@ -327,7 +327,7 @@ export default function Contact() {
                 <Icon as={Phone} color="red.400" boxSize={5} mt={1} />
                 <Box>
                   <Text fontWeight="medium">Phone</Text>
-                  <Text color="gray.600">(555) 123-4567</Text>
+                  <Text color="gray.600">+14252969050</Text>
                 </Box>
               </HStack>
               
@@ -357,7 +357,7 @@ export default function Contact() {
               AI-driven approach to wealth creation.
             </Text>
             <Button
-              bg="cyan.400"
+              bg="#0AADBC"
               color="white"
               _hover={{ bg: "cyan.500" }}
               size="md"
