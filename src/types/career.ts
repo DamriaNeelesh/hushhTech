@@ -8,6 +8,15 @@ export interface JobPosition {
     qualifications: string[];
     compensationProcedure: string[];
     hiringProcedure: string[];
+    salaryDetails?: {
+      [role: string]: {
+        averageSalary?: string;
+        range?: string;
+        competitiveSalaryRange?: {
+          [level: string]: string;
+        };
+      };
+    };
   }
   
   export interface DepartmentJobs {

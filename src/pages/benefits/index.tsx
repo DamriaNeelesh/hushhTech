@@ -4,170 +4,311 @@ import {
   Box,
   Heading,
   Text,
-  List,
-  ListItem,
-  ListIcon,
-  Divider,
+  SimpleGrid,
+  Button,
+  VStack,
+  HStack,
+  Flex,
+  Icon,
 } from "@chakra-ui/react";
-import { CheckCircleIcon } from "lucide-react";
+import {
+  DollarSign,
+  Heart,
+  LifeBuoy,
+  Gift,
+  Clock,
+  Zap,
+  Briefcase,
+  CreditCard,
+  Award,
+  Coffee,
+  Users,
+  BookOpen,
+  Target,
+  Monitor,
+  Star,
+  Headphones,
+  Home,
+  MapPin,
+  Calendar,
+  Smile,
+} from "lucide-react";
 
 const BenefitsPage: React.FC = () => {
   return (
-    <Container maxW="container.xl" py={10} px={4}>
+    <Container maxW="container.xl" py={10} px={{ base: 4, md: 8 }}>
       {/* Main Header */}
-      <Heading as="h1" size={{md:"xl",base:'lg'}} textAlign="center" mb={6}>
-        Hushh Technologies LLC – World-Class Benefits for World-Class Talent
-      </Heading>
-      <Text fontSize={{md:"lg",base:'md'}} textAlign="center" mb={10}>
-        At Hushh Technologies, we are building the AI-first modern renaissance of
-        investment and technology, blending Charlie Munger’s wisdom with the
-        cutting-edge discipline of an AI-powered hedge fund and tech firm. To
-        attract and retain the best minds in finance, engineering, and AI, we
-        offer a compensation and benefits package designed for those who think
-        long-term, value excellence, and seek to compound not just wealth, but
-        knowledge and impact.
-      </Text>
-
-      {/* Section: Compensation & Investment Opportunities */}
-      <Box mb={8}>
-        <Heading as="h2" size={{md:"lg",base:'md'}} mb={4}>
-          Compensation &amp; Investment Opportunities
+      <Box textAlign="center" mb={12}>
+        <Heading 
+          as="h1" 
+          size={{ base: "xl", md: "2xl" }} 
+          mb={4}
+          bgGradient="linear(to-r, #111111, #111111, #54E5FF)"
+          bgClip="text"
+        >
+          <Text as="span" color="black">Hushh Technologies LLC – </Text>
+          <Text as="span" color="cyan.400">World-Class Benefits</Text>
+          <Text as="span" color="black"> for World-Class Talent</Text>
         </Heading>
-        <List spacing={3} size={{md:"md",base:'sm'}}>
-          <ListItem>
-            <ListIcon as={CheckCircleIcon} color="teal.500" />
-            Exceptionally Competitive Pay – We believe in paying for performance.
-            If you help compound alpha, we’ll compound your income.
-          </ListItem>
-          <ListItem>
-            <ListIcon as={CheckCircleIcon} color="teal.500" />
-            Performance-Driven Incentives – Our compensation plans are tied
-            directly to real-world results. Make money? We share the upside.
-          </ListItem>
-          <ListItem>
-            <ListIcon as={CheckCircleIcon} color="teal.500" />
-            Hushh Fund Investment Opportunities – Like Renaissance, but built for
-            the AI age. Qualified employees get to invest in our own alpha-
-            generating strategies.
-          </ListItem>
-          <ListItem>
-            <ListIcon as={CheckCircleIcon} color="teal.500" />
-            Retirement Program – Because compounding works best over decades,
-            and we want you to be part of Hushh for the long haul.
-          </ListItem>
-        </List>
-      </Box>
-
-      <Divider mb={8} />
-
-      {/* Section: Health, Wellness & Family Support */}
-      <Box mb={8}>
-        <Heading as="h2" size={{md:"lg",base:'md'}} mb={4}>
-          Health, Wellness &amp; Family Support
-        </Heading>
-        <List spacing={3}>
-          <ListItem>
-            <ListIcon as={CheckCircleIcon} color="teal.500" />
-            Best-in-Class Insurance – Medical, dental, and vision for employees and
-            their dependents. If you’re solving AI, markets, or building billion-
-            dollar businesses, you shouldn’t be worrying about medical bills.
-          </ListItem>
-          <ListItem>
-            <ListIcon as={CheckCircleIcon} color="teal.500" />
-            Life &amp; Disability Insurance – Because protecting downside risk
-            applies to people, not just portfolios.
-          </ListItem>
-          <ListItem>
-            <ListIcon as={CheckCircleIcon} color="teal.500" />
-            Flexible Spending Accounts – Tax-advantaged accounts for health and
-            dependent care.
-          </ListItem>
-          <ListItem>
-            <ListIcon as={CheckCircleIcon} color="teal.500" />
-            Adoption Assistance – If you can take care of a newborn and still manage
-            a portfolio or ship production code, you deserve a reward.
-          </ListItem>
-        </List>
-      </Box>
-
-      <Divider mb={8} />
-
-      {/* Section: Work-Life, Growth & Giving Back */}
-      <Box mb={8}>
-        <Heading as="h2" size={{md:"lg",base:'md'}} mb={4}>
-          Work-Life, Growth &amp; Giving Back
-        </Heading>
-        <List spacing={3}>
-          <ListItem>
-            <ListIcon as={CheckCircleIcon} color="teal.500" />
-            Educational Assistance Program – Learn, grow, and get better every day.
-            We fund degrees, certifications, and any education that compounds alpha.
-          </ListItem>
-          <ListItem>
-            <ListIcon as={CheckCircleIcon} color="teal.500" />
-            Charitable Gift Matching – We believe in investing in great people and
-            great causes. If you support it, we’ll match it.
-          </ListItem>
-        </List>
-      </Box>
-
-      <Divider mb={8} />
-
-      {/* Section: Perks, Culture & Quality of Life */}
-      <Box mb={8}>
-        <Heading as="h2" size={{md:"lg",base:'md'}} mb={4}>
-          Perks, Culture &amp; Quality of Life
-        </Heading>
-        <List spacing={3}>
-          <ListItem>
-            <ListIcon as={CheckCircleIcon} color="teal.500" />
-            Complimentary (On-Site) Meals, Snacks &amp; Beverages – Because no one
-            ever built a world-class hedge fund and AI company on an empty stomach.
-          </ListItem>
-          <ListItem>
-            <ListIcon as={CheckCircleIcon} color="teal.500" />
-            Elite Fitness &amp; Recreation Facilities –
-            <List spacing={2} ml={6} mt={2}>
-              <ListItem>
-                <ListIcon as={CheckCircleIcon} color="teal.500" />
-                (Kirkland HQ): Two full gyms, indoor basketball and squash courts,
-                outdoor tennis courts, and a jogging trail.
-              </ListItem>
-              <ListItem>
-                <ListIcon as={CheckCircleIcon} color="teal.500" />
-                (New York City Office): Premium gym memberships, transit benefits,
-                and a workplace designed for high performers.
-              </ListItem>
-            </List>
-          </ListItem>
-          <ListItem>
-            <ListIcon as={CheckCircleIcon} color="teal.500" />
-            Annual Company Retreat – Once a year, we step away from our screens to
-            relax, reflect, and bond—think of it as a shareholders’ meeting for our
-            greatest asset: our people.
-          </ListItem>
-        </List>
-      </Box>
-
-      <Divider mb={8} />
-
-      {/* Section: Why Join Hushh Technologies? */}
-      <Box mb={8}>
-        <Heading as="h2" size={{md:"lg",base:'md'}} mb={4}>
-          Why Join Hushh Technologies?
-        </Heading>
-        <Text fontSize="lg" mb={4}>
-          We aren’t just building another tech company or hedge fund. We are
-          engineering a smarter, AI-first version of Renaissance Technologies—an
-          entity that compounds intelligence, capital, and human potential into
-          something exponentially greater.
-        </Text>
-        <Text fontSize="lg">
-          If you believe in first principles, compounding wealth and wisdom, and
-          want to be part of something truly special, Hushh is where you belong.
-          Join us. Let’s build the future together.
+        
+        <Text fontSize={{ base: "md", md: "lg" }} maxW="4xl" mx="auto" color="gray.600">
+          We believe that exceptional people deserve exceptional benefits. Our comprehensive package is
+          designed to support your professional growth, personal wellbeing, and financial future.
         </Text>
       </Box>
+
+      {/* Benefits Sections */}
+      <VStack spacing={8} align="stretch">
+        
+        {/* Compensation & Investment Opportunities */}
+        <Box 
+          bg="orange.50" 
+          borderRadius="xl" 
+          p={6} 
+          boxShadow="md"
+          border="1px solid"
+          borderColor="orange.100"
+        >
+          <HStack mb={4} spacing={3}>
+            <Icon as={DollarSign} color="orange.400" boxSize={6} />
+            <Heading as="h2" size="lg" color="gray.800">Compensation & Investment Opportunities</Heading>
+          </HStack>
+          
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={CreditCard} color="orange.400" />
+              <Text>Competitive base salaries benchmarked to top tier firms</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Target} color="orange.400" />
+              <Text>Access to proprietary investment strategies</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Award} color="orange.400" />
+              <Text>Performance based bonuses tied to individual and company success</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Zap} color="orange.400" />
+              <Text>401(k) with generous company matching</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Users} color="orange.400" />
+              <Text>Equity participation in company growth</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Briefcase} color="orange.400" />
+              <Text>Financial planning and retirement advisory services</Text>
+            </HStack>
+          </SimpleGrid>
+        </Box>
+        
+        {/* Health, Wellness & Family Support */}
+        <Box 
+          bg="purple.50" 
+          borderRadius="xl" 
+          p={6} 
+          boxShadow="md"
+          border="1px solid"
+          borderColor="purple.100"
+        >
+          <HStack mb={4} spacing={3}>
+            <Icon as={Heart} color="purple.400" boxSize={6} />
+            <Heading as="h2" size="lg" color="gray.800">Health, Wellness & Family Support</Heading>
+          </HStack>
+          
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={LifeBuoy} color="purple.400" />
+              <Text>Premium health, dental, and vision insurance (100% company paid)</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Calendar} color="purple.400" />
+              <Text>Generous parental leave policies</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Headphones} color="purple.400" />
+              <Text>Mental health and wellness programs</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Home} color="purple.400" />
+              <Text>Childcare assistance and family support services</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Monitor} color="purple.400" />
+              <Text>On-site fitness facilities and wellness stipend</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Smile} color="purple.400" />
+              <Text>Elder care support and resources</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Star} color="purple.400" />
+              <Text>Comprehensive life and disability insurance</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Heart} color="purple.400" />
+              <Text>Employee assistance programs</Text>
+            </HStack>
+          </SimpleGrid>
+        </Box>
+        
+        {/* Work-Life, Growth & Giving Back */}
+        <Box 
+          bg="green.50" 
+          borderRadius="xl" 
+          p={6} 
+          boxShadow="md"
+          border="1px solid"
+          borderColor="green.100"
+        >
+          <HStack mb={4} spacing={3}>
+            <Icon as={Clock} color="green.400" boxSize={6} />
+            <Heading as="h2" size="lg" color="gray.800">Work-Life, Growth & Giving Back</Heading>
+          </HStack>
+          
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Clock} color="green.400" />
+              <Text>Flexible work arrangements and remote work options</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={BookOpen} color="green.400" />
+              <Text>Conference attendance and continuing education support</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Calendar} color="green.400" />
+              <Text>Unlimited PTO policy with minimum usage requirements</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Users} color="green.400" />
+              <Text>Internal mentorship and leadership development programs</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Clock} color="green.400" />
+              <Text>Sabbatical opportunities for long-term employees</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Gift} color="green.400" />
+              <Text>Charitable giving matching program</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={BookOpen} color="green.400" />
+              <Text>Professional development budget ($15,000+ annually)</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Heart} color="green.400" />
+              <Text>Volunteer time off for community service</Text>
+            </HStack>
+          </SimpleGrid>
+        </Box>
+        
+        {/* Perks, Culture & Quality of Life */}
+        <Box 
+          bg="blue.50" 
+          borderRadius="xl" 
+          p={6} 
+          boxShadow="md"
+          border="1px solid"
+          borderColor="blue.100"
+        >
+          <HStack mb={4} spacing={3}>
+            <Icon as={Gift} color="blue.400" boxSize={6} />
+            <Heading as="h2" size="lg" color="gray.800">Perks, Culture & Quality of Life</Heading>
+          </HStack>
+          
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={MapPin} color="blue.400" />
+              <Text>State-of-the-art office spaces with premium amenities</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Users} color="blue.400" />
+              <Text>Team events, retreats, and cultural activities</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Coffee} color="blue.400" />
+              <Text>Catered meals and premium coffee breaks</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Star} color="blue.400" />
+              <Text>Innovation time for personal projects</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={MapPin} color="blue.400" />
+              <Text>Transportation benefits and parking</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Users} color="blue.400" />
+              <Text>Employee resource groups and diversity initiatives</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Zap} color="blue.400" />
+              <Text>Latest technology and equipment</Text>
+            </HStack>
+            
+            <HStack align="flex-start" spacing={3}>
+              <Icon as={Award} color="blue.400" />
+              <Text>Recognition and award programs</Text>
+            </HStack>
+          </SimpleGrid>
+        </Box>
+        
+        {/* Why Join Hushh Technologies? */}
+        <Box 
+          bgGradient="linear(to-r, #2A3B47, #1D2D35)"
+          borderRadius="xl" 
+          p={8} 
+          color="white"
+          boxShadow="lg"
+        >
+          <Heading as="h2" size="lg" mb={4} textAlign="center">
+            Why Join Hushh Technologies?
+          </Heading>
+          
+          <Text fontSize="md" textAlign="center" mb={6} maxW="4xl" mx="auto">
+            At Hushh Technologies, you'll be part of a team that's revolutionizing the investment industry 
+            through cutting-edge AI and quantitative methods. You'll work alongside brilliant minds, solve 
+            complex challenges, and directly impact the future of finance while enjoying unparalleled benefits 
+            and growth opportunities.
+          </Text>
+          
+          <Flex justify="center">
+            <Button 
+              colorScheme="cyan" 
+              size="md" 
+              px={10}
+              _hover={{ bg: "cyan.500" }}
+            >
+              View Open Positions
+            </Button>
+          </Flex>
+        </Box>
+      </VStack>
     </Container>
   );
 };
