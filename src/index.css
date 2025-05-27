@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 html, body {
-  font-family: 'Figtree', sans-serif !important;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
 }
 
 .gradient-bg {
@@ -38,4 +38,16 @@ html, body {
 
 .hushh-gradient-bg {
   background: linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%);
+}
+
+.blue-gradient-text {
+  background-image: linear-gradient(to right, #00A9E0, #6DD3EF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline;
+}
+
+.blue-gradient-bg {
+  background-color: linear-gradient(to right, #00A9E0, #6DD3EF);
 }

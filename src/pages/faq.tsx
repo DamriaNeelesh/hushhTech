@@ -74,10 +74,10 @@ const FaqPage: React.FC = () => {
           size={{ base: "2xl", md: "3xl" }} 
           mb={4}
           letterSpacing="tight"
-          fontWeight="bold"
+          // fontWeight="bold"
         >
-          <Text as="span" color="black">Frequently Asked </Text>
-          <Text as="span" color="#0AADBC">Questions</Text>
+          <Text as="span" fontWeight="300" color="black">Frequently Asked </Text><br/>
+          <Text as="span" fontWeight="500" className="blue-gradient-text">Questions</Text>
         </Heading>
         
         <Text 

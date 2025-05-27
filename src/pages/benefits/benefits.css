@@ -1,0 +1,33 @@
+/* Benefits page custom styles */
+
+/* Blue gradient text styling for headings */
+.blue-gradient-text {
+  background-image: linear-gradient(to right, #00A9E0, #6DD3EF) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  display: inline !important;
+}
+
+/* Ensure proper spacing for icons in check lists */
+.chakra-icon {
+  flex-shrink: 0;
+}
+
+/* Enhance button hover effects */
+.cta-button {
+  transition: all 0.3s ease !important;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 8px rgba(0, 169, 224, 0.2) !important;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .chakra-container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+} 

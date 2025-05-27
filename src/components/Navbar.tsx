@@ -78,8 +78,8 @@ export default function Navbar() {
 
           <div className="hidden lg:flex items-center space-x-6">
             {[
-               
               { path: "/about/leadership", label: "About Us" },
+              { path: "/solutions", label: "Solutions" },
               { path: "/community", label: "Community" },
               { path: "/benefits", label: "Benefits" },
               { path: "/faq", label: "FAQ" },
@@ -92,7 +92,7 @@ export default function Navbar() {
                 className={`px-3 py-2 rounded ${
                   isActive(path)
                     ? " font-[700] text-[#0AADBC]"
-                    : "text-gray-700 hover:text-gray-900"
+                    : "text-black-700 hover:text-gray-900"
                 }`}
               >
                 {label}
@@ -143,6 +143,7 @@ export default function Navbar() {
             <div className="space-y-6">
               {[
                 { path: "/", label: "Home" },
+                { path: "/solutions", label: "Solutions" },
                 { path: "/about/leadership", label: "About Us" },
                 { path: "/community", label: "Community" },
                 { path: "/benefits", label: "Benefits" },
@@ -154,7 +155,7 @@ export default function Navbar() {
                   key={path}
                   to={path}
                   onClick={() => handleLinkClick(path)}
-                  className={`block text-lg font-semibold ${
+                  className={`block text-lg text-black font-bold ${
                     isActive(path)
                       ? "bg-gradient-to-r from-teal-400 to-blue-500 text-white px-3 py-2 rounded"
                       : "text-gray-700"

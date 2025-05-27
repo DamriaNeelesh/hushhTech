@@ -125,7 +125,18 @@ export default function Contact() {
           fontWeight="bold"
         >
           <Text as="span" color="black">Get in </Text>
-          <Text as="span" color="#0AADBC">Touch</Text>
+          <Text 
+            as="span" 
+            sx={{
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+              display: "inline",
+              backgroundImage: "linear-gradient(to right, #00A9E0, #6DD3EF)"
+            }}
+          >
+            Touch
+          </Text>
         </Heading>
         
         <Text 

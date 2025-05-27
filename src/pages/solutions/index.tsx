@@ -1,310 +1,369 @@
 import React from 'react';
-import { Box, Container, Flex, Heading, Text, Grid, GridItem, Button, Image, VStack, HStack, Divider, Link } from '@chakra-ui/react';
-import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { Box, Container, Flex, Heading, Text, Grid, GridItem, Button, Image, VStack, HStack, Divider, Link, SimpleGrid } from '@chakra-ui/react';
+import { CheckCircle, Monitor, Server, Mail } from 'lucide-react';
+import './Solutions.css';
 
 const SolutionsPage = () => {
   return (
     <>
       {/* Hero Section */}
       <Box 
-        bg="#2A3B47" 
-        color="white" 
+        className="solutions-hero"
+        bg="white" 
+        color="black" 
         minH="100vh" 
-        py={32} 
         display="flex" 
         alignItems="center" 
         justifyContent="center"
       >
         <Container maxW="container.xl">
-          <Box maxW="800px" mx="auto" textAlign="center" px={4}>
-            <Heading as="h1" size="2xl" mb={3} fontWeight="bold">
-              Enterprise-Grade Solutions<br />
-              for a <Text as="span" color="#4FD1C5">Connected Future</Text>
+          <Box maxW="900px" mx="auto" textAlign="center" px={4}>
+            <Heading 
+              as="h1" 
+              fontSize={{ base: "4xl", md: "7xl" }}
+              mb={10}
+              fontWeight="300"
+              className="solutions-heading"
+              lineHeight="1.1"
+            >
+              Enterprise-Grade Solutions
+              <br />
+              for a <Text as="span" className="solutions-gradient-text">Connected Future</Text>
             </Heading>
-            <Text fontSize="lg" lineHeight="1.7">
-              At Hushh Technologies, we specialize in delivering refined IT services and supplying enterprise 
-              hardware that meets the rigorous demands of modern business across the GCC. From 
-              infrastructure design to performance computing and display solutions—we make your 
-              digital transformation journey smoother.
+            <Text 
+              fontSize={{ base: "md", md: "xl" }}
+              lineHeight="1.7"
+              className="solutions-subheading"
+              fontWeight="400"
+              color="#6E6E73"
+            >
+              At Hushh Technologies, we specialise in delivering tailored IT services and supplying 
+              enterprise hardware that meets the rigorous demands of modern business across the 
+              GCC. From infrastructure setup to performance computing and display solutions — we 
+              make your operations smarter, faster, and more secure.
             </Text>
           </Box>
         </Container>
       </Box>
 
       {/* IT Services Section */}
-      <Box py={16} bg="white">
+      <Box py={20} className="bg-light-section">
         <Container maxW="container.xl">
-          <VStack spacing={12}>
-            <Flex direction="column" align="center">
-              <HStack spacing={2} mb={2}>
-                <Box w="6px" h="6px" borderRadius="full" bg="cyan.400"></Box>
-                <Heading as="h2" size="xl" textAlign="center" fontWeight="700">
-                  IT Services Built for Scale
-                </Heading>
-              </HStack>
-              <Text textAlign="center" color="gray.600" maxW="650px">
-                We support your business at every stage of growth with secure, agile, and scalable 
-                technology solutions.
-              </Text>
+          <Box textAlign="center" mb={12}>
+            <Flex justifyContent="center" alignItems="center" mb={4}>
+              <Box as="span" color="#00A9E0" fontSize="2xl" mr={3}>⚙️</Box>
+              <Heading as="h2" fontSize="3xl" fontWeight="600" color="#333">
+                IT Services Built for Scale
+              </Heading>
             </Flex>
+            <Text 
+              maxW="800px" 
+              mx="auto" 
+              fontSize="xl" 
+              color="#6E6E73" 
+              lineHeight="1.7"
+              mt={4}
+            >
+              We support your business at every stage of growth with secure, agile, and scalable services:
+            </Text>
+          </Box>
 
-            <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={8}>
-              {/* Server Architecture */}
-              <GridItem p={6} borderWidth="1px" borderRadius="md" shadow="sm">
-                <Heading as="h3" size="md" mb={3} color="#2A3B47">
-                  Server Architecture & Virtualization
-                </Heading>
-                <Text color="gray.600" fontSize="sm">
-                  Design and deploy high-performance, cost-optimized server infrastructure 
-                  that supports your workload, scaled for your specific needs.
-                </Text>
-              </GridItem>
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8} maxW="container.lg" mx="auto">
+            {/* Server Architecture & Virtualisation */}
+            <Box className="solution-card">
+              <Heading as="h3" className="card-title">
+                Server Architecture & Virtualisation
+              </Heading>
+              <Text className="card-description">
+                Design and deploy high-performance, multi-environment server 
+                infrastructure that supports your workloads, whether on-premises or 
+                hybrid.
+              </Text>
+            </Box>
 
-              {/* Cloud Computing */}
-              <GridItem p={6} borderWidth="1px" borderRadius="md" shadow="sm">
-                <Heading as="h3" size="md" mb={3} color="#2A3B47">
-                  Cloud Computing & Migration
-                </Heading>
-                <Text color="gray.600" fontSize="sm">
-                  Transitions to AWS, Microsoft Azure, or hybrid cloud with supported 
-                  data and security at the core.
-                </Text>
-              </GridItem>
+            {/* Cloud Computing & Migration */}
+            <Box className="solution-card">
+              <Heading as="h3" className="card-title">
+                Cloud Computing & Migration
+              </Heading>
+              <Text className="card-description">
+                Transition to AWS, Microsoft Azure, or hybrid cloud with expert-led 
+                planning and data security at the core.
+              </Text>
+            </Box>
 
-              {/* Enterprise IT Support */}
-              <GridItem p={6} borderWidth="1px" borderRadius="md" shadow="sm">
-                <Heading as="h3" size="md" mb={3} color="#2A3B47">
-                  Enterprise IT Support & Maintenance
-                </Heading>
-                <Text color="gray.600" fontSize="sm">
-                  On-demand remote and onsite support covering server uptime, compute 
-                  performance, and display systems.
-                </Text>
-              </GridItem>
+            {/* Enterprise IT Support & Maintenance */}
+            <Box className="solution-card">
+              <Heading as="h3" className="card-title">
+                Enterprise IT Support & Maintenance
+              </Heading>
+              <Text className="card-description">
+                SLA-driven on-site and remote support covering server upkeep, compute 
+                operations, and display systems.
+              </Text>
+            </Box>
 
-              {/* Data Centre */}
-              <GridItem p={6} borderWidth="1px" borderRadius="md" shadow="sm">
-                <Heading as="h3" size="md" mb={3} color="#2A3B47">
-                  Data Centre Setup & Consulting
-                </Heading>
-                <Text color="gray.600" fontSize="sm">
-                  Structured design and implementation of server rooms, cooling to 
-                  power distribution tailored to your business.
-                </Text>
-              </GridItem>
-            </Grid>
-          </VStack>
+            {/* Data Centre Setup & Consulting */}
+            <Box className="solution-card">
+              <Heading as="h3" className="card-title">
+                Data Centre Setup & Consulting
+              </Heading>
+              <Text className="card-description">
+                End-to-end design and implementation of server rooms, cooling systems, 
+                and power distribution tailored to your business.
+              </Text>
+            </Box>
+          </SimpleGrid>
         </Container>
       </Box>
 
       {/* Hardware Solutions Section */}
-      <Box py={16} bg="gray.50">
+      <Box py={20} className=" bg-white-section">
         <Container maxW="container.xl">
-          <VStack spacing={12}>
-            <Box textAlign="center" maxW="800px" mx="auto">
-              <Heading as="h2" size="xl" fontWeight="700" mb={4}>
+          <Box textAlign="center" mb={12}>
+            <Flex justifyContent="center" alignItems="center" mb={4}>
+              <Box as="span" color="#00A9E0" fontSize="2xl" mr={3}>🖥️</Box>
+              <Heading as="h2" fontSize="3xl" fontWeight="600" color="#333">
                 Hardware Solutions That Perform
               </Heading>
-              <Text color="gray.600">
-                We retail and supply high-class computing and display items from leading brands. All 
-                solutions include warranty, expert installation, and post-sale support.
-              </Text>
-            </Box>
+            </Flex>
+            <Text 
+              maxW="800px" 
+              mx="auto" 
+              fontSize="xl" 
+              color="#6E6E73" 
+              lineHeight="1.7"
+              mt={4}
+            >
+              We retail and support best-in-class computing and display products from leading global brands. All 
+              solutions include warranty, expert installation, and post-sale support.
+            </Text>
+          </Box>
 
-            <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={8}>
-              {/* Servers */}
-              <GridItem>
-                <VStack align="flex-start" spacing={6}>
-                  <Heading as="h3" size="md" color="#2A3B47">
-                    Servers
+          <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={10} maxW="container.lg" mx="auto">
+            {/* Servers */}
+            <GridItem>
+              <Heading as="h3" className="category-heading">
+                Servers
+              </Heading>
+              
+              <VStack align="start" spacing={8} mt={6}>
+                <Box>
+                  <Heading as="h4" className="subcategory-heading">
+                    Rack Servers / Tower Servers
                   </Heading>
-                  
-                  <Box>
-                    <Heading as="h4" size="sm" mb={2} color="#2A3B47">
-                      Rack Servers / Tower Servers
-                    </Heading>
-                    <Text fontSize="sm" color="gray.600">
-                      Enterprise-grade high-volume servers designed for scalability, 
-                      power efficiency, and resilience.
-                    </Text>
-                  </Box>
-                  
-                  <Box>
-                    <Heading as="h4" size="sm" mb={2} color="#2A3B47">
-                      Blade Servers
-                    </Heading>
-                    <Text fontSize="sm" color="gray.600">
-                      High density, space-saving solutions for data centers.
-                    </Text>
-                  </Box>
-                  
-                  <Box>
-                    <Heading as="h4" size="sm" mb={2} color="#2A3B47">
-                      Edge Servers
-                    </Heading>
-                    <Text fontSize="sm" color="gray.600">
-                      Designed for remote or industrial deployments with compact 
-                      power efficiency.
-                    </Text>
-                  </Box>
-                </VStack>
-              </GridItem>
+                  <Text className="subcategory-description">
+                    From entry-level to high-density servers designed 
+                    for scalability and uptime.
+                  </Text>
+                </Box>
+                
+                <Box>
+                  <Heading as="h4" className="subcategory-heading">
+                    Blade Servers
+                  </Heading>
+                  <Text className="subcategory-description">
+                    Space-saving, high-compute solutions for data-
+                    intensive applications.
+                  </Text>
+                </Box>
+                
+                <Box>
+                  <Heading as="h4" className="subcategory-heading">
+                    Edge Servers
+                  </Heading>
+                  <Text className="subcategory-description">
+                    Designed for remote or industrial deployments with 
+                    compact power efficiency.
+                  </Text>
+                </Box>
+              </VStack>
+            </GridItem>
 
-              {/* Computing Products */}
-              <GridItem>
-                <VStack align="flex-start" spacing={6}>
-                  <Heading as="h3" size="md" color="#2A3B47">
-                    Computing Products
+            {/* Computing Products */}
+            <GridItem>
+              <Heading as="h3" className="category-heading">
+                Computing Products
+              </Heading>
+              
+              <VStack align="start" spacing={8} mt={6}>
+                <Box>
+                  <Heading as="h4" className="subcategory-heading">
+                    Workstations
                   </Heading>
-                  
-                  <Box>
-                    <Heading as="h4" size="sm" mb={2} color="#2A3B47">
-                      Workstations
-                    </Heading>
-                    <Text fontSize="sm" color="gray.600">
-                      High-performance desktop computers for data processing, CAD, editing studios.
-                    </Text>
-                  </Box>
-                  
-                  <Box>
-                    <Heading as="h4" size="sm" mb={2} color="#2A3B47">
-                      Laptops & Portable Tablets
-                    </Heading>
-                    <Text fontSize="sm" color="gray.600">
-                      Business-grade mobile computers with the latest "on-the-go" performance.
-                    </Text>
-                  </Box>
-                  
-                  <Box>
-                    <Heading as="h4" size="sm" mb={2} color="#2A3B47">
-                      GPU powered Hardware
-                    </Heading>
-                    <Text fontSize="sm" color="gray.600">
-                      AI-ready, ML-Processing computation systems with NVIDIA 
-                      certified components.
-                    </Text>
-                  </Box>
-                </VStack>
-              </GridItem>
+                  <Text className="subcategory-description">
+                    High-performance systems built for engineering, 
+                    video editing, 3D rendering, and data modelling.
+                  </Text>
+                </Box>
+                
+                <Box>
+                  <Heading as="h4" className="subcategory-heading">
+                    Mini PCs & Compute Nodes
+                  </Heading>
+                  <Text className="subcategory-description">
+                    Compact solutions for specific use cases like kiosks, 
+                    IoT, or point-of-sale environments.
+                  </Text>
+                </Box>
+                
+                <Box>
+                  <Heading as="h4" className="subcategory-heading">
+                    GPU-powered Machines
+                  </Heading>
+                  <Text className="subcategory-description">
+                    AI-ready, ML/Deep Learning compatible systems 
+                    with NVIDIA-certified configurations.
+                  </Text>
+                </Box>
+              </VStack>
+            </GridItem>
 
-              {/* Screens & Displays */}
-              <GridItem>
-                <VStack align="flex-start" spacing={6}>
-                  <Heading as="h3" size="md" color="#2A3B47">
-                    Screens & Displays
+            {/* Screens & Displays */}
+            <GridItem>
+              <Heading as="h3" className="category-heading">
+                Screens & Displays
+              </Heading>
+              
+              <VStack align="start" spacing={8} mt={6}>
+                <Box>
+                  <Heading as="h4" className="subcategory-heading">
+                    Professional Monitors
                   </Heading>
-                  
-                  <Box>
-                    <Heading as="h4" size="sm" mb={2} color="#2A3B47">
-                      Commercial & Industrial Displays
-                    </Heading>
-                    <Text fontSize="sm" color="gray.600">
-                      Digital signage and high-brightness displays for retail, 
-                      hospitality, and education.
-                    </Text>
-                  </Box>
-                  
-                  <Box>
-                    <Heading as="h4" size="sm" mb={2} color="#2A3B47">
-                      Large Format Displays
-                    </Heading>
-                    <Text fontSize="sm" color="gray.600">
-                      Premium video walls for command centers and briefing rooms.
-                    </Text>
-                  </Box>
-                  
-                  <Box>
-                    <Heading as="h4" size="sm" mb={2} color="#2A3B47">
-                      Interactive Touch Displays
-                    </Heading>
-                    <Text fontSize="sm" color="gray.600">
-                      Premium touch and meeting focused unified communications displays.
-                    </Text>
-                  </Box>
-                </VStack>
-              </GridItem>
-            </Grid>
-          </VStack>
+                  <Text className="subcategory-description">
+                    Colour-calibrated displays for design, broadcast, and 
+                    financial sectors.
+                  </Text>
+                </Box>
+                
+                <Box>
+                  <Heading as="h4" className="subcategory-heading">
+                    Large Format Displays
+                  </Heading>
+                  <Text className="subcategory-description">
+                    Commercial-grade screens for command centres, 
+                    boardrooms, and collaboration spaces.
+                  </Text>
+                </Box>
+                
+                <Box>
+                  <Heading as="h4" className="subcategory-heading">
+                    Interactive Touch Displays
+                  </Heading>
+                  <Text className="subcategory-description">
+                    Education, retail, and training-focused solutions with 
+                    robust interactivity and clarity.
+                  </Text>
+                </Box>
+              </VStack>
+            </GridItem>
+          </Grid>
         </Container>
       </Box>
 
       {/* Why Hushh Technologies */}
-      <Box py={16} bg="white">
+      <Box py={20} className="bg-light-section">
         <Container maxW="container.xl">
-          <VStack spacing={12}>
-            <Flex direction="column" align="center">
-              <HStack spacing={2} mb={2}>
-                <Box w="6px" h="6px" borderRadius="full" bg="cyan.400"></Box>
-                <Heading as="h2" size="xl" textAlign="center" fontWeight="700">
-                  Why Hushh Technologies?
-                </Heading>
-              </HStack>
+          <Box textAlign="center" mb={16}>
+            <Flex justifyContent="center" alignItems="center" mb={4}>
+              <Box as="span" color="#00A9E0" fontSize="2xl" mr={3}>✓</Box>
+              <Heading as="h2" fontSize="3xl" fontWeight="600" color="#333">
+                Why Hushh Technologies?
+              </Heading>
             </Flex>
+          </Box>
 
-            <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={8} maxW="800px" mx="auto">
-              <GridItem>
-                <VStack align="flex-start" spacing={4}>
-                  <HStack>
-                    <Box w="18px" h="18px" borderRadius="full" bg="cyan.400" />
-                    <Text fontWeight="medium">Trusted partner for Fortune 500 clients in the GCC</Text>
-                  </HStack>
-                  
-                  <HStack>
-                    <Box w="18px" h="18px" borderRadius="full" bg="cyan.400" />
-                    <Text fontWeight="medium">Certified technical team with deep deployment experience</Text>
-                  </HStack>
-                  
-                  <HStack>
-                    <Box w="18px" h="18px" borderRadius="full" bg="cyan.400" />
-                    <Text fontWeight="medium">Authorized reseller of HP, Dell, Apple, Lenovo, Aruba, and NVIDIA</Text>
-                  </HStack>
-                </VStack>
-              </GridItem>
+          <Grid 
+            templateColumns={{ base: "1fr", md: "repeat(auto-fit, minmax(300px, 1fr))" }} 
+            gap={8} 
+            maxW="container.lg" 
+            mx="auto"
+          >
+            <VStack align="flex-start" spacing={6}>
+              <HStack align="flex-start" spacing={4}>
+                <Box color="#00A9E0" mt={1}>
+                  <CheckCircle size={20} />
+                </Box>
+                <Text fontSize="lg" color="#333" fontWeight="400">
+                  Trusted partner for Fortune 500 clients in the GCC
+                </Text>
+              </HStack>
               
-              <GridItem>
-                <VStack align="flex-start" spacing={4}>
-                  <HStack>
-                    <Box w="18px" h="18px" borderRadius="full" bg="cyan.400" />
-                    <Text fontWeight="medium">Fast regional delivery and local installation</Text>
-                  </HStack>
-                  
-                  <HStack>
-                    <Box w="18px" h="18px" borderRadius="full" bg="cyan.400" />
-                    <Text fontWeight="medium">End-to-end lifecycle support from consultation to maintenance</Text>
-                  </HStack>
-                </VStack>
-              </GridItem>
-            </Grid>
-          </VStack>
+              <HStack align="flex-start" spacing={4}>
+                <Box color="#00A9E0" mt={1}>
+                  <CheckCircle size={20} />
+                </Box>
+                <Text fontSize="lg" color="#333" fontWeight="400">
+                  Certified technical team with deep deployment experience
+                </Text>
+              </HStack>
+              
+              <HStack align="flex-start" spacing={4}>
+                <Box color="#00A9E0" mt={1}>
+                  <CheckCircle size={20} />
+                </Box>
+                <Text fontSize="lg" color="#333" fontWeight="400">
+                  Authorised reseller of HP, Dell, Apple, Lenovo, Acer, and NVIDIA
+                </Text>
+              </HStack>
+            </VStack>
+            
+            <VStack align="flex-start" spacing={6}>
+              <HStack align="flex-start" spacing={4}>
+                <Box color="#00A9E0" mt={1}>
+                  <CheckCircle size={20} />
+                </Box>
+                <Text fontSize="lg" color="#333" fontWeight="400">
+                  Fast regional delivery and local installation
+                </Text>
+              </HStack>
+              
+              <HStack align="flex-start" spacing={4}>
+                <Box color="#00A9E0" mt={1}>
+                  <CheckCircle size={20} />
+                </Box>
+                <Text fontSize="lg" color="#333" fontWeight="400">
+                  End-to-end lifecycle support from consultation to maintenance
+                </Text>
+              </HStack>
+            </VStack>
+          </Grid>
         </Container>
       </Box>
 
       {/* Let's Build the Future Section */}
-      <Box py={16} bg="gray.50">
+      <Box py={20} className="bg-white-section">
         <Container maxW="container.xl">
-          <VStack spacing={10} align="center">
-            <HStack spacing={2}>
-              <Box w="6px" h="6px" borderRadius="full" bg="cyan.400"></Box>
-              <Heading as="h2" size="xl" textAlign="center" fontWeight="700">
+          <Box textAlign="center" maxW="container.lg" mx="auto">
+            <Flex justifyContent="center" alignItems="center" mb={4}>
+              <Box as="span" color="#00A9E0" fontSize="2xl" mr={3}>📧</Box>
+              <Heading as="h2" fontSize="3xl" fontWeight="600" color="#333">
                 Let's Build the Future of Your Infrastructure
               </Heading>
-            </HStack>
+            </Flex>
             
-            <Text textAlign="center" maxW="650px">
+            <Text 
+              textAlign="center" 
+              maxW="700px" 
+              mx="auto" 
+              fontSize="xl" 
+              color="#6E6E73" 
+              mt={6}
+              mb={10}
+            >
               Need help selecting the right server or computing solution? We're just a call or message away.
             </Text>
             
             <Button 
-              colorScheme="cyan" 
-              size="md" 
-              borderRadius="md"
-              px={6}
+              className="cta-button"
               as={Link}
               href="/contact"
+              size="lg"
+              _hover={{}}
             >
-              Contact Our IT Consultants
+              Contact Us for a Consultation
             </Button>
-          </VStack>
+          </Box>
         </Container>
       </Box>
     </>
