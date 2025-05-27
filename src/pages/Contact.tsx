@@ -3,6 +3,26 @@ import { Link, useNavigate } from 'react-router-dom';
 import emailjs from "@emailjs/browser";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {
+  Container,
+  Box,
+  Heading,
+  Text,
+  VStack,
+  HStack,
+  Grid,
+  GridItem,
+  Input,
+  Textarea,
+  Select,
+  Button,
+  FormControl,
+  FormLabel,
+  Icon,
+  Flex,
+  Link as ChakraLink,
+} from "@chakra-ui/react";
+import { MapPin, Phone, Clock } from "lucide-react";
 
 const reasonOptions = [
   "General Inquiry",
@@ -16,7 +36,7 @@ emailjs.init("_TMzDc8Bfy6riSfzq");
 export default function Contact() {
   const [num1, setNum1] = useState<number>(0);
   const [num2, setNum2] = useState<number>(0);
-    const [fullName, setFullName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
   const [subject, setSubject] = useState(null);
@@ -94,150 +114,262 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="flex-grow bg-white">
-        <div className="container mx-auto px-6 py-12">
-          <div className="max-w-2xl mx-auto">
-            <p className="mb-8 text-gray-700">
-              For career-related inquiries, please visit our{' '}
-              <a
-  href="https://www.linkedin.com/in/manishsainani/"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="text-red-700 hover:text-red-800"
->
-  Jobs
-</a>{' '}
-              page.
-            </p>
-            <p className="mb-8 text-gray-700">
-              For all other inquiries, please submit the form below.
-            </p>
+    <Container maxW="container.xl" py={12} px={{ base: 4, md: 6 }}>
+      {/* Main Header */}
+      <Box textAlign="center" mb={8}>
+        <Heading 
+          as="h1" 
+          size={{ base: "2xl", md: "3xl" }} 
+          mb={4}
+          letterSpacing="tight"
+          fontWeight="bold"
+        >
+          <Text as="span" color="black">Get in </Text>
+          <Text as="span" color="cyan.400">Touch</Text>
+        </Heading>
+        
+        <Text 
+          fontSize={{ base: "md", md: "lg" }} 
+          maxW="3xl" 
+          mx="auto" 
+          color="gray.600"
+        >
+          Ready to transform your investment strategy? We'd love to hear from you.
+        </Text>
+        
+        <Text mt={4} fontSize={{ base: "md", md: "md" }} color="gray.600">
+          For career-related inquiries, please visit our{' '}
+          <ChakraLink
+            href="/career"
+            // target="_blank"
+            rel="noopener noreferrer"
+            color="cyan.400"
+            fontWeight="medium"
+            _hover={{ textDecoration: 'underline' }}
+          >
+            Jobs page
+          </ChakraLink>. 
+          For all other inquiries, please submit the form below.
+        </Text>
+      </Box>
 
-            <form ref={form} onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                  Name <span className="text-red-600">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="name"
+      {/* Contact Form and Information */}
+      <Grid 
+        templateColumns={{ base: "1fr", md: "1fr 1fr" }} 
+        gap={8} 
+        mt={10}
+        maxW="container.lg"
+        mx="auto"
+      >
+        {/* Contact Form */}
+        <GridItem 
+          as={Box} 
+          p={8} 
+          borderWidth="1px" 
+          borderRadius="lg" 
+          borderColor="gray.200" 
+          bg="white"
+          boxShadow="sm"
+        >
+          <Heading as="h2" size="lg" mb={6}>
+            Send us a Message
+          </Heading>
+          
+          <form ref={form} onSubmit={handleSubmit}>
+            <VStack spacing={4} align="stretch">
+              <FormControl isRequired>
+                <FormLabel fontWeight="medium">Full Name</FormLabel>
+                <Input 
                   name="name"
-                  required
+                  placeholder="Enter your full name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
+                  size="md"
+                  borderColor="gray.300"
+                  _hover={{ borderColor: "gray.400" }}
                 />
-              </div>
-
-              <div>
-                <label htmlFor="company" className="block text-sm font-medium text-gray-700">
-                  Company
-                </label>
-                <input
-                  type="text"
-                  id="company"
+              </FormControl>
+              
+              <FormControl>
+                <FormLabel fontWeight="medium">Company</FormLabel>
+                <Input 
                   name="company"
+                  placeholder="Enter your company name (optional)"
                   value={formData.company}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
+                  size="md"
+                  borderColor="gray.300"
+                  _hover={{ borderColor: "gray.400" }}
                 />
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email <span className="text-red-600">*</span>
-                </label>
-                <input
-                  type="email"
-                  id="email"
+              </FormControl>
+              
+              <FormControl isRequired>
+                <FormLabel fontWeight="medium">Email Address</FormLabel>
+                <Input 
                   name="email"
-                  required
+                  type="email"
+                  placeholder="Enter your email address"
                   value={formData.email}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
+                  size="md"
+                  borderColor="gray.300"
+                  _hover={{ borderColor: "gray.400" }}
                 />
-              </div>
-
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                  Phone
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
+              </FormControl>
+              
+              <FormControl>
+                <FormLabel fontWeight="medium">Phone Number</FormLabel>
+                <Input 
                   name="phone"
+                  placeholder="Enter your phone number (optional)"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
+                  size="md"
+                  borderColor="gray.300"
+                  _hover={{ borderColor: "gray.400" }}
                 />
-              </div>
-
-              <div>
-                <label htmlFor="reason" className="block text-sm font-medium text-gray-700">
-                  Reason for Contact <span className="text-red-600">*</span>
-                </label>
-                <select
-                  id="reason"
+              </FormControl>
+              
+              <FormControl isRequired>
+                <FormLabel fontWeight="medium">Reason for Contact</FormLabel>
+                <Select 
                   name="reason"
-                  required
+                  placeholder="Select a reason"
                   value={formData.reason}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
+                  size="md"
+                  borderColor="gray.300"
+                  _hover={{ borderColor: "gray.400" }}
                 >
-                  <option value="">Select a reason</option>
                   {reasonOptions.map((option) => (
                     <option key={option} value={option}>
                       {option}
                     </option>
                   ))}
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-                  Message <span className="text-red-600">*</span>
-                </label>
-                <textarea
-                  id="message"
+                </Select>
+              </FormControl>
+              
+              <FormControl isRequired>
+                <FormLabel fontWeight="medium">Message</FormLabel>
+                <Textarea 
                   name="message"
-                  required
-                  rows={6}
+                  placeholder="Tell us how we can help you..."
                   value={formData.message}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
+                  size="md"
+                  borderColor="gray.300"
+                  _hover={{ borderColor: "gray.400" }}
+                  rows={4}
                 />
-              </div>
-
-              <div>
-                <label htmlFor="captcha" className="block text-sm font-medium text-gray-700">
-                  What is the sum of {num1} and {num2}? <span className="text-red-600">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="captcha"
+              </FormControl>
+              
+              <FormControl isRequired>
+                <FormLabel fontWeight="medium">What is the sum of {num1} and {num2}?</FormLabel>
+                <Input 
                   name="captcha"
-                  required
+                  placeholder="Enter the answer"
                   value={formData.captcha}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
+                  size="md"
+                  borderColor="gray.300"
+                  _hover={{ borderColor: "gray.400" }}
                 />
-                {captchaError && <p className="text-red-600 text-sm">{captchaError}</p>}
-              </div>
-
-              <div>
-                <button
+                {captchaError && (
+                  <Text color="red.500" fontSize="sm" mt={1}>
+                    {captchaError}
+                  </Text>
+                )}
+              </FormControl>
+              
+              <Box pt={2}>
+                <Button 
                   type="submit"
-                  className="w-32 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  bg="cyan.400"
+                  color="white"
+                  size="md"
+                  px={8}
+                  _hover={{ bg: "cyan.500" }}
+                  width="full"
                 >
-                  Submit
-                </button>
-              </div>
-            </form>
-            <ToastContainer/>
-          </div>
-        </div>
-      </main>
-    </div>
+                  Submit Message
+                </Button>
+              </Box>
+            </VStack>
+          </form>
+        </GridItem>
+        
+        {/* Contact Information */}
+        <GridItem>
+          <Box 
+            p={8} 
+            borderWidth="1px" 
+            borderRadius="lg" 
+            borderColor="gray.200" 
+            bg="white"
+            boxShadow="sm"
+            mb={8}
+          >
+            <Heading as="h2" size="lg" mb={6}>
+              Contact Information
+            </Heading>
+            
+            <VStack spacing={6} align="start">
+              <HStack spacing={4} align="flex-start">
+                <Icon as={MapPin} color="red.400" boxSize={5} mt={1} />
+                <Box>
+                  <Text fontWeight="medium">Address</Text>
+                  <Text color="gray.600">1234 Innovation Drive</Text>
+                  <Text color="gray.600">San Francisco, CA 94102</Text>
+                </Box>
+              </HStack>
+              
+              <HStack spacing={4} align="flex-start">
+                <Icon as={Phone} color="red.400" boxSize={5} mt={1} />
+                <Box>
+                  <Text fontWeight="medium">Phone</Text>
+                  <Text color="gray.600">(555) 123-4567</Text>
+                </Box>
+              </HStack>
+              
+              <HStack spacing={4} align="flex-start">
+                <Icon as={Clock} color="red.400" boxSize={5} mt={1} />
+                <Box>
+                  <Text fontWeight="medium">Office Hours</Text>
+                  <Text color="gray.600">Monday - Friday</Text>
+                  <Text color="gray.600">9:00 AM - 6:00 PM PST</Text>
+                </Box>
+              </HStack>
+            </VStack>
+          </Box>
+          
+          <Box 
+            p={8} 
+            borderRadius="lg" 
+            bgGradient="linear(to-r, #2A3B47, #1D2D35)"
+            color="white"
+            boxShadow="md"
+          >
+            <Heading as="h3" size="lg" mb={4}>
+              Ready to Invest?
+            </Heading>
+            <Text mb={6}>
+              Join forward-thinking investors who are already benefiting from our 
+              AI-driven approach to wealth creation.
+            </Text>
+            <Button
+              bg="cyan.400"
+              color="white"
+              _hover={{ bg: "cyan.500" }}
+              size="md"
+              onClick={() => navigate('/about/leadership')}
+            >
+              Learn About Our Strategy
+            </Button>
+          </Box>
+        </GridItem>
+      </Grid>
+      
+      <ToastContainer />
+    </Container>
   );
 }
