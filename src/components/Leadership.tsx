@@ -8,27 +8,29 @@ export default function Leadership() {
   return (
     <Box bg="white">
       {/* Hero Section */}
-      <Box pt={{ base: 12, md: 20 }} px={4} textAlign="center">
+      <Box pt={{ base: 12, md: 20 }} px={4} minH="80vh" textAlign="center">
         <Container maxW="container.lg">
           <Heading 
             as="h1" 
-            fontSize={{ base: "3xl", md: "5xl" }} 
-            fontWeight="bold" 
+            fontSize={{ base: "3xl", md: "7xl" }} 
+            fontWeight="300" 
             mb={6}
             lineHeight="1.2"
+            className="font-light text-[#1D1D1F] mb-8 leading-tight tracking-tight"
           >
             Empowering Wealth Creation with{" "}
-            <Text as="span" color="#0891B2" display="inline">
+            <Text as="span" className="blue-gradient-text font-medium" display="inline">
               Integrity and Innovation
             </Text>
           </Heading>
           
           <Text 
-            fontSize={{ base: "lg", md: "xl" }} 
+            fontSize={{ base: "xl", md: "2xl" }} 
             color="gray.600" 
             maxW="3xl" 
             mx="auto" 
             mb={12}
+            className="text-[#6E6E73] mb-12 max-w-4xl mx-auto leading-relaxed font-light"
           >
             We blend quantitative expertise with ethical investment practices to deliver personalized financial solutions.
           </Text>
@@ -36,13 +38,14 @@ export default function Leadership() {
       </Box>
 
       {/* Our Mission Section */}
-      <Box pb={{ base: 12, md: 16 }} px={4}>
+      <Box pb={{ base: 12, md: 16 }} background="rgb(249 250 251 / var(--tw-bg-opacity, 1))"  px={4}>
         <Container maxW="container.lg">
           <Heading 
             as="h2" 
             fontSize={{ base: "2xl", md: "4xl" }} 
-            fontWeight="bold" 
             mb={8}
+            fontWeight="300"
+            className="text-[#1D1D1F] tracking-tight text-center"
           >
             Our Mission
           </Heading>
@@ -53,15 +56,15 @@ export default function Leadership() {
             borderRadius="lg" 
             boxShadow="sm"
             mb={12}
-            style={{ backgroundColor: 'rgb(249 250 251 / var(--tw-bg-opacity, 1))' }}
+            
           >
-            <Text fontSize={{ base: "md", md: "lg" }} color="gray.700" mb={6} lineHeight="tall" >
+            <Text fontSize={{ base: "md", md: "lg" }} className="text-[#1D1D1F] leading-relaxed font-light" mb={6} lineHeight="tall" >
               At Hushh Technologies LLC, our mission is to democratize access to sophisticated investment strategies by leveraging cutting-edge 
               artificial intelligence and advanced mathematical models. We are committed to generating consistent, risk-adjusted returns while 
               maintaining the highest standards of transparency and ethical conduct.
             </Text>
             
-            <Text fontSize={{ base: "md", md: "lg" }} color="gray.700" lineHeight="tall">
+            <Text fontSize={{ base: "md", md: "lg" }} className="text-[#1D1D1F] leading-relaxed font-light" mb={6} lineHeight="tall" >
               We believe that through the power of data science and machine learning, we can unlock investment opportunities that were previously 
               available only to institutional investors, making them accessible to individual investors and smaller institutions alike.
             </Text>
@@ -71,13 +74,14 @@ export default function Leadership() {
           <Heading 
             as="h2" 
             fontSize={{ base: "2xl", md: "4xl" }} 
-            fontWeight="bold" 
+            fontWeight="300" 
             mb={8}
+            className="text-[#1D1D1F] tracking-tight text-center"
           >
             Unique Approach to Investment Management
           </Heading>
           
-          <Text fontSize={{ base: "md", md: "lg" }} mb={8} color="gray.700">
+          <Text fontSize={{ base: "md", md: "lg" }} mb={8} className="text-[#1D1D1F] leading-relaxed font-light">
             At <Text as="span" fontWeight="semibold">Hushh Technologies</Text>, we combine the art of investment with the science of technology:
           </Text>
           
@@ -85,14 +89,14 @@ export default function Leadership() {
             <Box 
               bg="white" 
               p={6} 
-              borderRadius="lg" 
-              boxShadow="sm"
-              borderTop="4px solid #0891B2"
+              borderRadius="2xl" 
+              // boxShadow="sm"
+              className="border-gray-100"
             >
-              <Heading as="h3" fontSize="xl" mb={4} fontWeight="600">
+              <Heading as="h3" fontSize="xl" color={'#1D1D1F'} mb={4} fontWeight="500">
                 Differentiation in Investment Approach
               </Heading>
-              <Text color="gray.700" fontSize="md">
+              <Text className="text-[#1D1D1F] leading-relaxed font-light" fontSize="md">
                 Unlike traditional funds that rely on speculative returns, Hushh combines high-frequency options income with disciplined, 
                 data-driven long-term growth. We prioritize stability, focusing on high-FCF SPX10 companies that represent the backbone of global markets.
               </Text>
@@ -101,29 +105,29 @@ export default function Leadership() {
             <Box 
               bg="white" 
               p={6} 
-              borderRadius="lg" 
-              boxShadow="sm"
-              borderTop="4px solid #0891B2"
+              borderRadius="2xl" 
+              // boxShadow="sm"
+              className="border-gray-100"
             >
-              <Heading as="h3" fontSize="xl" mb={4} fontWeight="600">
+              <Heading as="h3" fontSize="xl" color={'#1D1D1F'} mb={4} fontWeight="500">
                 Math-Driven Decision Making
               </Heading>
-              <Text color="gray.700" fontSize="md">
+              <Text className="text-[#1D1D1F] leading-relaxed font-light" fontSize="md">
                 Every strategy is informed by rigorous quantitative analysis, ensuring precision and accuracy in our investment decisions.
               </Text>
             </Box>
             
             <Box 
-              bg="white" 
-              p={6} 
-              borderRadius="lg" 
-              boxShadow="sm"
-              borderTop="4px solid #0891B2"
+             bg="white" 
+             p={6} 
+             borderRadius="2xl" 
+             // boxShadow="sm"
+             className="border-gray-100"
             >
-              <Heading as="h3" fontSize="xl" mb={4} fontWeight="600">
+              <Heading as="h3" fontSize="xl" color={'#1D1D1F'} mb={4} fontWeight="500">
                 AI-Powered Insights
               </Heading>
-              <Text color="gray.700" fontSize="md">
+              <Text className="text-[#1D1D1F] leading-relaxed font-light" fontSize="md">
                 Leveraging the latest advancements in machine learning, we identify market inefficiencies and capitalize on opportunities in real-time.
               </Text>
             </Box>
@@ -131,14 +135,14 @@ export default function Leadership() {
             <Box 
               bg="white" 
               p={6} 
-              borderRadius="lg" 
-              boxShadow="sm"
-              borderTop="4px solid #0891B2"
+              borderRadius="2xl" 
+              // boxShadow="sm"
+              className="border-gray-100"
             >
-              <Heading as="h3" fontSize="xl" mb={4} fontWeight="600">
+              <Heading as="h3" fontSize="xl" color={'#1D1D1F'} mb={4} fontWeight="500"> 
                 Transparency You Can Trust
               </Heading>
-              <Text color="gray.700" fontSize="md">
+              <Text className="text-[#1D1D1F] leading-relaxed font-light" fontSize="md">
                 Clear communication and a human-centric approach to wealth creation ensures you always understand our strategies and performance.
               </Text>
             </Box>
@@ -152,9 +156,10 @@ export default function Leadership() {
           <Heading 
             as="h2" 
             fontSize={{ base: "2xl", md: "4xl" }} 
-            fontWeight="bold" 
+            fontWeight="300" 
             mb={4} 
             textAlign="center"
+            className="text-[#1D1D1F] tracking-tight text-center"
           >
             Our Leadership Team
           </Heading>
@@ -194,14 +199,14 @@ export default function Leadership() {
               </Box>
               
               <Heading as="h3" fontSize="2xl" mb={2}>
-                Manish <Text as="span" color="#0891B2">Sainani</Text>
+                Manish <Text as="span" className="text-[#0891B2]">Sainani</Text>
               </Heading>
               
-              <Text color="gray.500" fontWeight="medium" mb={4}>
+              <Text className="text-[#1D1D1F] leading-relaxed font-light" mb={4}>
                 Founder & CEO
               </Text>
               
-              <Text color="gray.700">
+              <Text className="text-[#1D1D1F] leading-relaxed font-light" mb={4}>
                 With over a decade of leadership at Google, Microsoft, and Splunk, Manish brings unmatched expertise in AI, 
                 machine learning, and data-driven innovation. His vision drives Hushh's mission to empower investors with 
                 sustainable, technology-powered wealth strategies.
@@ -234,11 +239,11 @@ export default function Leadership() {
                 Justin <Text as="span" color="#0891B2">Donaldson</Text>
               </Heading>
               
-              <Text color="gray.500" fontWeight="medium" mb={4}>
+              <Text className="text-[#1D1D1F] leading-relaxed font-light" mb={4}>
                 Chief Scientist & Investment Strategist
               </Text>
               
-              <Text color="gray.700">
+              <Text className="text-[#1D1D1F] leading-relaxed font-light">
                 Justin leads Hushh's scientific and strategic investment approaches. As the architect behind proprietary 
                 options strategies like "Sell the Wall," he uses advanced quantitative models to deliver consistent, 
                 risk-optimized returns.
