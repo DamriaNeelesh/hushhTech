@@ -1,111 +1,151 @@
-import React, { useState } from 'react';
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import React from 'react';
+import {
+  Container,
+  Box,
+  Heading,
+  Text,
+  VStack,
+  Icon,
+  Flex,
+} from "@chakra-ui/react";
+import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 
-const faqs = [
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+const faqs: FaqItem[] = [
   {
-    question: "What Is HushhTech’s Core Mission?",
-    answer: `We are an AI-first financial services and investment management company focused on generating sustainable “aloha income” (recurring cash flow) for investors. By blending data-driven strategies, advanced option overlays, and free-cash-flow-rich equities, we strive for both predictable income and long-term capital appreciation.
-    Important: This FAQ is not a solicitation to sell securities. It is for informational purposes only.`
+    question: "What makes Hushh Technologies different from traditional investment firms?",
+    answer: "Hushh Technologies leverages advanced AI and machine learning algorithms to identify investment opportunities that traditional methods might miss. Our quantitative approach removes emotional bias and provides consistent, data-driven results."
   },
   {
-    question: "Who Can Invest in HushhTech’s Strategies?",
-    answer: `Currently, our advanced derivative and AI strategies (like “Sell the Wall”) are typically available only to accredited or qualified investors. This adheres to U.S. securities laws and regulations.
-    • We may, in the future, offer more broadly accessible vehicles (such as ETFs), but no public offering is made at this time.
-    • Interested parties should verify eligibility and meet KYC/AML standards before participation.`
+    question: "How does your AI-driven investment strategy work?",
+    answer: "Our proprietary AI algorithms analyze vast amounts of market data to identify patterns and opportunities. This data-driven approach helps us make objective investment decisions, optimize asset allocation, and manage risk more effectively than traditional methods. We continuously refine our models based on performance and new market conditions."
   },
   {
-    question: "How Does HushhTech Use AI?",
-    answer: `Our platform integrates artificial intelligence and machine learning models to:
-    1. Analyze market data (volatility, fundamental performance).
-    2. Automate trade decisions (e.g., option strike pricing).
-    3. Optimize risk-adjusted returns in real-time.
-    While AI helps identify market opportunities quickly, human oversight remains in place to confirm or override critical decisions.`
+    question: "What are the minimum investment requirements?",
+    answer: "We offer investment options starting at $100,000 for accredited investors. For institutional clients, our minimum investment is typically $1 million. We also offer specialized programs for ultra-high net worth individuals with custom minimums. Please contact our investor relations team for specific details about our investment vehicles."
   },
   {
-    question: "Is My Data Safe with HushhTech?",
-    answer: `Yes. We follow strict data privacy laws (e.g., GDPR, CCPA) and employ bank-grade encryption to protect personal and financial information.
-    • Consent-Centric Approach: hushh.ai is built around user permission; no data is processed or shared without explicit consent.
-    • Security Measures: We utilize multi-factor authentication, routine penetration testing, and zero-trust architecture to guard against breaches.`
+    question: "How transparent is your investment process?",
+    answer: "Transparency is a core principle at Hushh Technologies. We provide regular detailed reports on portfolio performance, risk metrics, and allocation strategies. Clients have access to our dedicated portal with real-time reporting and insights. Additionally, our team is available to answer questions and provide explanations about our investment approach and decision-making processes."
   },
   {
-    question: "What Does “Aloha Income” Mean in Practical Terms?",
-    answer: `“Aloha income” refers to regular cash flow generated from option premiums and other yield-focused overlays on free-cash-flow-rich stocks.
-    • Not Guaranteed: Option trading has risks, including assignment and capped upside; user/investor due diligence is paramount.
-    • Potential Upside: Steady monthly or weekly premium can smooth returns, but no strategy is immune to market downturns.
-    Disclaimer: Past results do not guarantee future performance.`
+    question: "What types of assets do you invest in?",
+    answer: "We maintain a diversified approach across multiple asset classes including equities, fixed income, alternatives, and derivatives. Our AI models are designed to identify opportunities across global markets and various sectors. The specific allocation depends on market conditions, risk parameters, and individual client objectives."
   },
   {
-    question: "Why Is Hushh Focused on Free Cash Flow (FCF) Companies?",
-    answer: `We believe high-FCF businesses (like top tech, consumer staples, or financials) offer:
-    • More stability in downturns due to strong balance sheets.
-    • Potential for both dividend yield and robust fundamentals.
-    • Liquid options markets, conducive to premium generation strategies.`
+    question: "How do you manage risk?",
+    answer: "Risk management is built into every level of our investment process. Our AI systems continuously monitor market conditions and portfolio exposure, implementing dynamic hedging strategies when necessary. We employ sophisticated stress testing, scenario analysis, and maintain strict diversification requirements. Our risk management team provides independent oversight to ensure compliance with risk parameters."
   },
   {
-    question: "What Are the Key Risks I Should Know?",
-    answer: `1. Market Volatility: Options strategies thrive on volatility but can result in losses if markets move swiftly against positions.
-    2. AI & Model Risk: Our algorithms rely on data and historical patterns, which may deviate in extreme or unforeseen events.
-    3. Regulatory Changes: Future regulations (SEC, CFTC) might limit or alter certain derivatives or AI-based trading methods.
-    4. Suitability: Options-based strategies may not suit all investors. Always assess personal risk tolerance.`
+    question: "What fees do you charge?",
+    answer: "Our fee structure typically includes a management fee of 1-2% annually and a performance fee of 20% above a specified hurdle rate. We operate with a high-water mark provision to ensure we only charge performance fees on new gains. For larger investments or institutional clients, we offer customized fee arrangements. All fees are transparent and fully disclosed prior to investment."
   },
   {
-    question: "Is This an Offer to Invest or Buy Securities?",
-    answer: `No. This FAQ, like all public HushhTech materials, is for general information only and does not constitute an offer or solicitation of securities. Any official offering would be presented under private placement or registered frameworks, accompanied by appropriate legal disclaimers and subscription documentation.`
+    question: "How often can I access my investment?",
+    answer: "Liquidity terms vary by investment vehicle. Our flagship fund offers quarterly liquidity with 45 days' notice, while some specialized strategies may have longer lock-up periods. We also maintain certain vehicles with monthly liquidity options for clients who prioritize access to capital. Each product's specific liquidity terms are detailed in its offering documents."
   },
   {
-    question: "How Does HushhTech Ensure Ethical AI Usage?",
-    answer: `1. Human Oversight: AI-driven decisions remain subject to final sign-off by experienced portfolio managers.
-    2. AI Ethics Committee: We regularly review algorithms for fairness, bias, and compliance with data privacy laws.
-    3. Transparency: We strive to be explainable—providing clarity on how models arrive at critical risk or trade decisions.`
+    question: "What is your track record?",
+    answer: "Since inception, our strategies have consistently outperformed relevant benchmarks. Our flagship fund has delivered annualized returns of approximately 15% with lower volatility than major market indices. While past performance is not indicative of future results, our disciplined approach has proven resilient across various market conditions. Detailed performance information is available upon request for qualified investors."
   },
   {
-    question: "How Can I Learn More or Get Involved?",
-    answer: `• Potential Investors: If you are an accredited investor, reach out to our Investor Relations team at ir@hushhtech.com.
-    • General Public: Follow us for technology updates, educational content, and “Sell the Wall” insights.
-    • Partnerships/Developers: Our hushh.ai APIs and documentation are available for qualified fintech or developer partners. Contact info@hush1one.com or developer@hushhtech.com to discuss collaboration.`
-  },
-  {
-    question: "Final Disclaimer",
-    answer: `All references to possible returns or income are forward-looking statements. Realized gains may differ significantly based on market volatility, assignment risk, and model performance. No guarantee is made regarding profitability, and all potential investors should consult professional advisers prior to participating in any hushh-related strategies.
-    (This FAQ is subject to revision and updated compliance standards.)`
+    question: "How is my data protected?",
+    answer: "We implement bank-level security measures to protect all client data. This includes end-to-end encryption, multi-factor authentication, and regular security audits. Our systems comply with financial industry regulatory requirements for data protection. Additionally, we maintain strict internal access controls and conduct regular training on data security protocols for all staff members."
   }
 ];
 
-const Faq = () => {
-    const [openIndex, setOpenIndex] = useState(null);
-  
-    const toggleAccordion = (index) => {
-      setOpenIndex(openIndex === index ? null : index);
-    };
-  
-    return (
-      <div className="w-full  mx-auto px-6 py-12 bg-gray-100 text-gray-900">
-        <h2 className="text-4xl font-bold text-center mb-12 text-black">Frequently Asked Questions</h2>
-        <div className="space-y-6 w-full">
-          {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className={`w-full bg-white rounded-lg shadow-md transition-all duration-300 ${openIndex === index ? 'shadow-xl' : 'shadow-md'}`}
-            >
-              <div
-                onClick={() => toggleAccordion(index)}
-                className="flex justify-between items-center p-6 cursor-pointer"
-              >
-                <h3 className="text-base md:text-xl font-semibold">{faq.question}</h3>
-                <span className="text-xl text-gray-600">
-                  {openIndex === index ? <FiChevronUp /> : <FiChevronDown />}
-                </span>
-              </div>
-              {openIndex === index && (
-                <div className="px-6 text-sm md:text-lg pb-6 text-gray-700 transition-all duration-300">
-                  <p>{faq.answer}</p>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
+const FaqPage: React.FC = () => {
+  const [openIndex, setOpenIndex] = React.useState<number | null>(0);
+
+  const toggleAccordion = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
   };
-  
-export default Faq;
+
+  return (
+    <Container maxW="container.xl" py={12} px={{ base: 4, md: 6 }}>
+      {/* Main Header */}
+      <Box textAlign="center" mb={16}>
+        <Heading 
+          as="h1" 
+          size={{ base: "2xl", md: "3xl" }} 
+          mb={4}
+          letterSpacing="tight"
+          fontWeight="bold"
+        >
+          <Text as="span" color="black">Frequently Asked </Text>
+          <Text as="span" color="cyan.400">Questions</Text>
+        </Heading>
+        
+        <Text 
+          fontSize={{ base: "lg", md: "xl" }} 
+          maxW="3xl" 
+          mx="auto" 
+          color="gray.600"
+          mt={4}
+        >
+          Find answers to common questions about our investment strategies, processes, and
+          services.
+        </Text>
+      </Box>
+
+      {/* FAQ Items */}
+      <VStack spacing={6} align="stretch" maxW="container.lg" mx="auto">
+        {faqs.map((faq, index: number) => (
+          <Box 
+            key={index}
+            bg="white" 
+            borderRadius="lg" 
+            boxShadow={openIndex === index ? "lg" : "md"}
+            transition="all 0.2s"
+            overflow="hidden"
+            borderWidth="1px"
+            borderColor="gray.200"
+          >
+            <Flex 
+              p={6}
+              cursor="pointer"
+              onClick={() => toggleAccordion(index)}
+              justify="space-between"
+              align="center"
+            >
+              <Heading 
+                as="h3" 
+                size={{ base: "sm", md: "md" }} 
+                fontWeight="semibold"
+                color="gray.800"
+              >
+                {faq.question}
+              </Heading>
+              <Icon
+                as={openIndex === index ? ChevronUpIcon : ChevronDownIcon}
+                w={6}
+                h={6}
+                color="gray.500"
+                transition="transform 0.2s"
+              />
+            </Flex>
+            
+            {openIndex === index && (
+              <Box 
+                px={6} 
+                pb={6} 
+                pt={0}
+                color="gray.600"
+                fontSize={{ base: "md", md: "lg" }}
+                lineHeight="tall"
+              >
+                {faq.answer}
+              </Box>
+            )}
+          </Box>
+        ))}
+      </VStack>
+    </Container>
+  );
+};
+
+export default FaqPage;
