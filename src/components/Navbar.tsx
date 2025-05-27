@@ -67,8 +67,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="text-xl flex flex-row items-center font-bold">
-          <Image src={hushhLogo} alt="Hushh Logo" className="w-12 h-12" />
-            Hushh Technologies LLC
+          <Image src={hushhLogo} alt="Hushh Logo" className="w-12 h-12"/>
+            <p className="text-xl font-[500] blue-gradient-text">Hushh Technologies</p>
           </Link>
 
           <button

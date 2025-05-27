@@ -37,7 +37,6 @@ const Business = () => {
     <>
       <Box
         gap={{ md: "3rem", base: "1rem" }}
-        fontFamily={"Figtree, sans-serif"}
         display={"flex"}
         flexDirection={"column"}
         alignItems={"center"}
@@ -91,7 +90,6 @@ const Business = () => {
       <HStack
         display={"flex"}
         flexDirection={"row"}
-        fontFamily={"Figtree, sans-serif"}
         my={{ md: "2.5rem", base: "1.5rem" }}
         gap={{ md: "8rem", base: "2.5rem" }}
         px={{ md: "12rem", base: "1rem" }}

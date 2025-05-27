@@ -31,7 +31,6 @@ const Consumers = () => {
     <>
       <Box
         gap={{ md: "3rem", base: "1rem" }}
-        fontFamily={"Figtree, sans-serif"}
         display={"flex"}
         flexDirection={"column"}
         alignItems={"center"}
@@ -90,7 +89,6 @@ const Consumers = () => {
               height={"220px"}
             />
             <Box
-              fontFamily={"Figtree, sans-serif"}
               p={4}
               bg={"rgba(28,28,28,1)"}
               color={"white"}
@@ -897,7 +895,7 @@ const Consumers = () => {
           Find your perfect outfit effortlessly <br></br>with AI-powered fashion
           search.
         </Text>
-        <HStack fontFamily={'Figtree, sans-serif'} my={{md:'2.5rem',base:'1.5rem'}} gap={{md:'8rem',base:'2.5rem'}} px={{md:'12rem',base:'1rem'}} boxSizing="border-box" width={'100%'}>
+        <HStack  my={{md:'2.5rem',base:'1.5rem'}} gap={{md:'8rem',base:'2.5rem'}} px={{md:'12rem',base:'1rem'}} boxSizing="border-box" width={'100%'}>
           <iframe
             width="360"
             height="615"
@@ -969,7 +967,7 @@ const Consumers = () => {
 
 
       </HStack>
- <HStack fontFamily={'Figtree, sans-serif'} my={{md:'2.5rem',base:'1.5rem'}} gap={{md:'14rem',base:'2.5rem'}} px={{md:'12rem',base:'1rem'}} boxSizing="border-box" width={'100%'}>
+ <HStack my={{md:'2.5rem',base:'1.5rem'}} gap={{md:'14rem',base:'2.5rem'}} px={{md:'12rem',base:'1rem'}} boxSizing="border-box" width={'100%'}>
           <iframe
             width="360"
             height="615"
@@ -1018,7 +1016,7 @@ const Consumers = () => {
         </HStack>
 
         <VStack my={{md:'2rem',base:'1rem'}} textAlign={'center'} gap={{md:'2rem',base:'1rem'}}>
-          <Text fontFamily={'Figtree, Arial'} color={'#434343'} fontSize={{md:'1.5rem',base:'0.75rem'}} fontWeight={'600'}>Ready to find your perfect fashion match? Start vibing with Vibe <br></br> Search today!</Text>
+          <Text color={'#434343'} fontSize={{md:'1.5rem',base:'0.75rem'}} fontWeight={'600'}>Ready to find your perfect fashion match? Start vibing with Vibe <br></br> Search today!</Text>
            <Button
           maxW={{ md: "680px", base: "8rem" }}
           px={"12px"}

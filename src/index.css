@@ -49,5 +49,5 @@ html, body {
 }
 
 .blue-gradient-bg {
-  background-color: linear-gradient(to right, #00A9E0, #6DD3EF);
+  background: linear-gradient(to right, #00A9E0, #6DD3EF);
 }
