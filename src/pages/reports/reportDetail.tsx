@@ -117,7 +117,7 @@ const ReportDetailPage: React.FC = () => {
   return (
     <Box bg="white" minH="100vh" py={12} px={4}>
       <Container maxW="container.md">
-        <Text as={'h2'} fontSize={{base:'sm',md:'md'}} fontWeight={'600'} color={'#e7131a'}>
+        <Text as={'h2'} fontSize={{base:'sm',md:'md'}} fontWeight={'600'} color={'#0AADBC'}>
           Market Updates
         </Text>
         

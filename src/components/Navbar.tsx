@@ -90,7 +90,7 @@ export default function Navbar() {
                 to={path}
                 className={`px-3 py-2 rounded ${
                   isActive(path)
-                    ? "hushh-gradient font-[700] text-white"
+                    ? " font-[700] text-[#0AADBC]"
                     : "text-gray-700 hover:text-gray-900"
                 }`}
               >

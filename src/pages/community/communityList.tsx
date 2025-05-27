@@ -15,9 +15,17 @@ import {
   AlertIcon,
   Badge,
   Flex,
+  SimpleGrid,
+  Card,
+  CardBody,
+  Link as ChakraLink,
+  VStack,
+  HStack,
+  Icon,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 import NDARequestModal from "../../components/NDARequestModal";
 import NDADocumentModal from "../../components/NDADocumentModal";
 import config from "../../resources/config/config";
@@ -39,6 +47,7 @@ interface UnifiedPost {
   date: string;
   slug?: string;
   isApiReport?: boolean;
+  description?: string;
 }
 
 const toTitleCase = (s: string) =>
@@ -111,7 +120,7 @@ const CommunityList: React.FC = () => {
 
   // 3) Combine localPosts + apiReports into a single date-sorted list
   const combinedMarketUpdates = useMemo<UnifiedPost[]>(() => {
-    // Local “market” posts
+    // Local "market" posts
     const localMarket = localPosts
       .filter(
         (p) =>
@@ -125,6 +134,7 @@ const CommunityList: React.FC = () => {
         date: p.publishedAt,
         slug: p.slug,
         isApiReport: false,
+        description: p.description || "Our latest analysis of market trends and investment opportunities in the current economic climate.",
       }));
 
     const all = [...localMarket, ...apiReports];
@@ -195,6 +205,7 @@ const CommunityList: React.FC = () => {
         date: p.publishedAt,
         slug: p.slug,
         isApiReport: false,
+        description: p.description || "Comprehensive review of our first quarter performance and strategic adjustments.",
       }));
     const merged = [...regs, ...combinedMarketUpdates];
     return merged.sort((a, b) => {
@@ -293,50 +304,132 @@ const CommunityList: React.FC = () => {
     </Alert>
   );
 
-  const renderMarketItem = useCallback((p: UnifiedPost) => {
+  // Helper function to get sample description based on title
+  const getPostDescription = (post: UnifiedPost) => {
+    if (post.description) return post.description;
+    
+    if (post.title.toLowerCase().includes("ai") || post.title.toLowerCase().includes("artificial intelligence")) {
+      return "Exploring how artificial intelligence is revolutionizing portfolio management and risk assessment.";
+    } else if (post.title.toLowerCase().includes("market")) {
+      return "Our latest analysis of market trends and investment opportunities in the current economic climate.";
+    } else if (post.title.toLowerCase().includes("review") || post.title.toLowerCase().includes("performance")) {
+      return "Comprehensive review of our first quarter performance and strategic adjustments for Q2.";
+    } else {
+      return "Stay informed with our latest market insights, research findings, and company updates.";
+    }
+  };
+
+  const renderMarketItem = useCallback((p: UnifiedPost, index: number) => {
     const dateFmt = formatShortDate(p.date);
+    const dateLabel = dateFmt.split(' ').join(' ');
+    let postDescription = getPostDescription(p);
+    
     return (
-      <Box key={p.id} mb={6}>
-        <Text color="red.600" fontWeight="bold" mb={1}>
-          {dateFmt}{" "}
-          <Badge colorScheme={"blue"} fontSize="xs">
-            Post
-          </Badge>
-        </Text>
-        <Link to={p.isApiReport ? `/reports/${p.id}` : `/community/${p.slug}`}>
-          <Text fontSize="lg" _hover={{ textDecoration: "underline" }}>
-            {p.title}
-          </Text>
-        </Link>
-      </Box>
+      <Card 
+        key={p.id} 
+        variant="outline" 
+        borderRadius="md" 
+        boxShadow="sm"
+        overflow="hidden"
+        transition="all 0.2s"
+        _hover={{ boxShadow: "md" }}
+      >
+        <CardBody p={6}>
+          <VStack align="flex-start" spacing={3}>
+            <Text color="#0AADBC" fontSize="sm" fontWeight="bold">
+              {dateLabel} Post
+            </Text>
+            <Heading as="h3" size="md" fontWeight="bold">
+              {p.title}
+            </Heading>
+            <Text 
+              color="gray.600" 
+              fontSize="md"
+              noOfLines={3}
+              height="4.5rem"
+              overflow="hidden"
+            >
+              {postDescription}
+            </Text>
+            <ChakraLink 
+              as={Link} 
+              to={p.isApiReport ? `/reports/${p.id}` : `/community/${p.slug}`}
+              color="#0AADBC"
+              fontWeight="medium"
+              display="flex"
+              alignItems="center"
+            >
+              Read More <Icon as={ChevronRightIcon} ml={1} />
+            </ChakraLink>
+          </VStack>
+        </CardBody>
+      </Card>
     );
   }, []);
 
   // 9) Main JSX
   return (
     <Container maxW="container.lg" py={8}>
-      <Heading mb={6}>Latest Updates from Hushh Technologies</Heading>
+      <Heading mb={4} textAlign="center" fontSize={{ base: "2xl", md: "4xl" }}>
+        Latest Updates from{" "}
+        <Text as="span" color="#0AADBC" display="inline">
+          Hushh Technologies
+        </Text>
+      </Heading>
 
-      <Select
-        maxW="300px"
-        mb={6}
-        value={selectedCategory}
-        onChange={(e) => onCategoryChange(e.target.value)}
+      <Text 
+        textAlign="center" 
+        fontSize={{ base: "md", md: "lg" }} 
+        color="gray.600" 
+        maxW="container.md" 
+        mx="auto" 
+        mb={10}
       >
-        {dropdownOptions.map((opt) => (
-          <option key={opt} value={opt}>
-            {opt === NDA_OPTION || opt === MARKET_UPDATES_OPTION
-              ? opt
-              : toTitleCase(opt)}
-          </option>
-        ))}
-      </Select>
-
-      <Text fontSize="2xl" my={4}>
-        {selectedCategory === MARKET_UPDATES_OPTION
-          ? "Market Updates"
-          : toTitleCase(selectedCategory)}
+        Stay informed with our latest market insights, research findings, and company updates.
       </Text>
+
+      <Box mb={8} display={{ md: "none" }}>
+        <Select
+          maxW="full"
+          value={selectedCategory}
+          onChange={(e) => onCategoryChange(e.target.value)}
+          bg="white"
+          borderColor="gray.300"
+        >
+          {dropdownOptions.map((opt) => (
+            <option key={opt} value={opt}>
+              {opt === NDA_OPTION || opt === MARKET_UPDATES_OPTION
+                ? opt
+                : toTitleCase(opt)}
+            </option>
+          ))}
+        </Select>
+      </Box>
+
+      <Box display={{ base: "none", md: "block" }} mb={8}>
+        <Flex justify="center">
+          <HStack spacing={4} wrap="wrap" justify="center">
+            {dropdownOptions.map((opt) => (
+              <Box 
+                key={opt}
+                px={4}
+                py={2}
+                borderRadius="md"
+                cursor="pointer"
+                bg={selectedCategory === opt ? "#0AADBC" : "transparent"}
+                color={selectedCategory === opt ? "white" : "gray.700"}
+                fontWeight={selectedCategory === opt ? "bold" : "normal"}
+                _hover={{ bg: selectedCategory === opt ? "#0AADBC" : "gray.100" }}
+                onClick={() => onCategoryChange(opt)}
+              >
+                {opt === NDA_OPTION || opt === MARKET_UPDATES_OPTION
+                  ? opt
+                  : toTitleCase(opt)}
+              </Box>
+            ))}
+          </HStack>
+        </Flex>
+      </Box>
 
       {/* Loading or Error */}
       {apiLoading && selectedCategory === MARKET_UPDATES_OPTION
@@ -345,26 +438,34 @@ const CommunityList: React.FC = () => {
         ? renderError(apiError)
         : (
             <Box>
-              {selectedCategory === MARKET_UPDATES_OPTION
-                ? combinedMarketUpdates.length
-                  ? combinedMarketUpdates.map(renderMarketItem)
-                  : <Text>No market updates available.</Text>
-                : selectedCategory === "All"
-                ? allContentSorted.length
-                  ? allContentSorted.map(renderMarketItem)
-                  : <Text>No content available.</Text>
-                : filteredPosts.map((p) => (
-                    <Box key={p.slug} mb={6}>
-                      <Text color="red.600" fontWeight="bold" mb={1}>
-                        {formatShortDate(p.publishedAt)}
-                      </Text>
-                      <Link to={`/community/${p.slug}`}>
-                        <Text fontSize="lg" _hover={{ textDecoration: "underline" }}>
-                          {p.title}
-                        </Text>
-                      </Link>
-                    </Box>
-                  ))}
+              {selectedCategory === MARKET_UPDATES_OPTION ? (
+                combinedMarketUpdates.length ? (
+                  <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
+                    {combinedMarketUpdates.map((p, index) => renderMarketItem(p, index))}
+                  </SimpleGrid>
+                ) : (
+                  <Text textAlign="center">No market updates available.</Text>
+                )
+              ) : selectedCategory === "All" ? (
+                allContentSorted.length ? (
+                  <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
+                    {allContentSorted.map((p, index) => renderMarketItem(p, index))}
+                  </SimpleGrid>
+                ) : (
+                  <Text textAlign="center">No content available.</Text>
+                )
+              ) : (
+                <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
+                  {filteredPosts.map((p, index) => renderMarketItem({
+                    id: p.slug,
+                    title: p.title,
+                    date: p.publishedAt,
+                    slug: p.slug,
+                    isApiReport: false,
+                    description: p.description || getPostDescription({id: p.slug, title: p.title, date: p.publishedAt})
+                  }, index))}
+                </SimpleGrid>
+              )}
             </Box>
           )}
 

@@ -140,7 +140,7 @@ const CommunityPost: React.FC = () => {
   return (
     <Box bg="white" minH="100vh" py={12} px={4}>
       <Container maxW="container.md">
-        <Text as={'h2'} fontSize={{base:'sm',md:'md'}} fontWeight={'600'} color={'#e7131a'}>
+        <Text as={'h2'} fontSize={{base:'sm',md:'md'}} fontWeight={'600'} color={'#0AADBC'}>
           {toTitleCase(post.category)}
         </Text>
         {/* <Heading as="h1" fontWeight={'500'} mb={4} fontSize={{md:'xl',base:'lg'}} color="black">
