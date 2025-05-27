@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { FiMenu, FiX } from "react-icons/fi";
+import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
 import config from "../resources/config/config";
 import { Image, useToast, Avatar, useBreakpointValue } from "@chakra-ui/react";
 import hushhLogo from "../components/images/Hushhogo.png";
@@ -8,9 +8,11 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [session, setSession] = useState(null);
   const [toastShown, setToastShown] = useState(false);
+  const [careerDropdownOpen, setCareerDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const drawerRef = useRef(null);
+  const careerDropdownRef = useRef(null);
   const toast = useToast();
   const isMobile = useBreakpointValue({ base: true, lg: false });
 
@@ -75,15 +77,13 @@ export default function Navbar() {
           >
             <FiMenu size={24} />
           </button>
-
+{/* For Desktop View */}
           <div className="hidden lg:flex items-center space-x-6">
             {[
               { path: "/about/leadership", label: "About Us" },
               { path: "/solutions", label: "Solutions" },
               { path: "/community", label: "Community" },
-              { path: "/benefits", label: "Benefits" },
               { path: "/faq", label: "FAQ" },
-              { path: "/career", label: "Careers" },
               { path: "/contact", label: "Contact" },
             ].map(({ path, label }) => (
               <Link
@@ -98,6 +98,49 @@ export default function Navbar() {
                 {label}
               </Link>
             ))}
+            
+            {/* Career Dropdown with hover functionality */}
+            <div 
+              className="relative group" 
+              onMouseEnter={() => setCareerDropdownOpen(true)}
+              onMouseLeave={() => setCareerDropdownOpen(false)}
+            >
+              <button 
+                className={`px-3 py-2 rounded flex items-center ${
+                  isActive("/career") || isActive("/benefits")
+                    ? "font-[700] text-[#0AADBC]"
+                    : "text-black-700 hover:text-gray-900"
+                }`}
+              >
+                Join Us <FiChevronDown className="ml-1" />
+              </button>
+              
+              <div 
+                className={`absolute right-0 mt-0 w-48 bg-white rounded-md shadow-lg py-1 z-10 transition-opacity duration-300 ${
+                  careerDropdownOpen ? "opacity-100" : "opacity-0 invisible"
+                }`}
+                style={{ top: "100%", paddingTop: "10px" }}
+              >
+                <div className="pt-2"> {/* Added padding to create space between trigger and content */}
+                  <Link
+                    to="/career"
+                    className={`block px-4 py-2 text-sm ${
+                      isActive("/career") ? "font-[700] text-[#0AADBC]" : "text-gray-700 hover:bg-gray-100"
+                    }`}
+                  >
+                    Careers
+                  </Link>
+                  <Link
+                    to="/benefits"
+                    className={`block px-4 py-2 text-sm ${
+                      isActive("/benefits") ? "font-[700] text-[#0AADBC]" : "text-gray-700 hover:bg-gray-100"
+                    }`}
+                  >
+                    Benefits
+                  </Link>
+                </div>
+              </div>
+            </div>
 
             {!session ? (
               <button
@@ -146,8 +189,6 @@ export default function Navbar() {
                 { path: "/solutions", label: "Solutions" },
                 { path: "/about/leadership", label: "About Us" },
                 { path: "/community", label: "Community" },
-                { path: "/benefits", label: "Benefits" },
-                { path: "/career", label: "Careers" },
                 { path: "/contact", label: "Contact" },
                 { path: "/faq", label: "FAQ" },
               ].map(({ path, label }) => (
@@ -164,6 +205,33 @@ export default function Navbar() {
                   {label}
                 </Link>
               ))}
+              
+              {/* Career section in mobile */}
+              <div className="space-y-2">
+                <div className="text-lg text-black font-bold text-gray-700">Join Us</div>
+                <Link
+                  to="/career"
+                  onClick={() => handleLinkClick("/career")}
+                  className={`block pl-4 text-md ${
+                    isActive("/career")
+                      ? "text-[#0AADBC] font-bold"
+                      : "text-gray-700"
+                  }`}
+                >
+                  Careers
+                </Link>
+                <Link
+                  to="/benefits"
+                  onClick={() => handleLinkClick("/benefits")}
+                  className={`block pl-4 text-md ${
+                    isActive("/benefits")
+                      ? "text-[#0AADBC] font-bold"
+                      : "text-gray-700"
+                  }`}
+                >
+                  Benefits
+                </Link>
+              </div>
 
               {!session ? (
                 <button
