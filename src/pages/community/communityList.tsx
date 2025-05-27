@@ -229,7 +229,7 @@ const CommunityList: React.FC = () => {
 
   const checkNda = useCallback(async () => {
     if (!session) {
-      toast({ title: "Sign in first", status: "error" });
+      toast({ title: "Please sign in to view the files", status: "error" });
       return false;
     }
     setNdaLoading(true);
