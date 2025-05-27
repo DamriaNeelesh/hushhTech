@@ -19,7 +19,13 @@ const config: Config = {
 };
 
 function createSupabaseClient() {
-  const supabase = createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY);
+  const supabase = createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY, {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: true
+    }
+  });
   return supabase;
 }
 

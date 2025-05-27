@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Eye, EyeOff, BarChart } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff, BarChart, AlertCircle } from "lucide-react";
 import services from "../services/services";
 import GoogleIcon from "../svg/googleIcon.svg";
 import { Image } from "@chakra-ui/react";
@@ -10,6 +10,8 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [api, contextHolder] = notification.useNotification();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -27,8 +29,35 @@ export default function Login() {
       duration: duration,
     });
   };
+
+  const handleResendVerification = async () => {
+    if (!email) {
+      setError("Please enter your email address to resend verification");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const { error } = await services.config.supabaseClient.auth.resend({
+        type: 'signup',
+        email: email,
+      });
+
+      if (error) {
+        openNotification("Failed to resend verification email: " + error.message, "Error", 5);
+      } else {
+        openNotification("Verification email sent! Please check your inbox.", "Success", 5);
+      }
+    } catch (err) {
+      openNotification("An unexpected error occurred.", "Error", 5);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      {contextHolder}
       <div className="container max-w-lg mx-auto px-6 py-8">
         {/* Logo and Header */}
         <div className="flex flex-col items-center justify-center mb-10">
@@ -41,6 +70,16 @@ export default function Login() {
 
         {/* Login Form */}
         <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+          {error && (
+            <div className="mb-6 p-4 rounded-md bg-red-50 border border-red-100 text-red-700">
+              <div className="flex items-center gap-2 mb-1">
+                <AlertCircle className="h-5 w-5" />
+                <span className="font-medium">Error</span>
+              </div>
+              <p className="text-sm">{error}</p>
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label
@@ -53,7 +92,10 @@ export default function Login() {
                 type="email"
                 id="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setError(null);
+                }}
                 placeholder="Enter your email"
                 className="block w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
                 required
@@ -72,7 +114,10 @@ export default function Login() {
                   type={showPassword ? "text" : "password"}
                   id="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    setError(null);
+                  }}
                   placeholder="Enter your password"
                   className="block w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
                   required
@@ -93,23 +138,45 @@ export default function Login() {
 
             <button
               type="submit"
-              className="w-full py-3 px-4 border border-transparent rounded-md text-base font-medium text-white bg-cyan-400 hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400 transition-colors"
-              onClick={async () => {
-                let response = await services.authentication.emailLogin(
-                  email,
-                  password
-                );
-                if (response == "error") {
-                  openNotification(
-                    "Invalid Credentials, Please try again",
-                    "Error",
-                    0
-                  );
+              className="w-full py-3 px-4 border border-transparent rounded-md text-base font-medium text-white bg-cyan-400 hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400 transition-colors disabled:opacity-70"
+              onClick={async (e) => {
+                e.preventDefault();
+                setIsLoading(true);
+                setError(null);
+                
+                try {
+                  let response = await services.authentication.emailLogin(email, password);
+                  
+                  if (response === "error") {
+                    setError("Invalid email or password. Please try again.");
+                  } else if (response === "email_not_verified") {
+                    setError(
+                      "Your email has not been verified. Please check your inbox for a verification email or click below to resend it."
+                    );
+                  }
+                } catch (err) {
+                  setError("An unexpected error occurred. Please try again later.");
+                } finally {
+                  setIsLoading(false);
                 }
               }}
+              disabled={isLoading}
             >
-              Log in
+              {isLoading ? "Logging in..." : "Log in"}
             </button>
+
+            {error?.includes("email has not been verified") && (
+              <div className="text-center">
+                <button
+                  type="button"
+                  onClick={handleResendVerification}
+                  className="text-sm text-cyan-500 hover:text-cyan-600 font-medium"
+                  disabled={isLoading}
+                >
+                  Resend verification email
+                </button>
+              </div>
+            )}
 
             <div className="relative py-3">
               <div className="absolute inset-0 flex items-center">
@@ -131,23 +198,7 @@ export default function Login() {
                 <Image src={GoogleIcon} alt="Google Sign In" className="h-5 w-5" />
                 Google
               </button>
-              
-              {/* <button
-                type="button"
-                className="w-full flex justify-center items-center gap-2 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400"
-              >
-                <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                  <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/>
-                </svg>
-                Apple
-              </button> */}
             </div>
-
-            {/* <div className="text-center mt-4">
-              <a href="#" className="text-sm text-cyan-400 hover:text-cyan-500">
-                Forgot password?
-              </a>
-            </div> */}
 
             <div className="text-center mt-4">
               <p className="text-sm text-black">
@@ -156,24 +207,6 @@ export default function Login() {
             </div>
           </form>
         </div>
-
-        {/* <div className="mt-8 space-y-4 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-          <div className="text-sm text-gray-700">
-            This Hushh 🤫 Technologies LLC website
-            (www.hushhtech.com) is by invitation only.
-          </div>
-          <ul className="text-sm text-gray-700 space-y-2 list-disc pl-5">
-            <li>
-              If you have received an invitation, you must first create a
-              login by following the link provided in the email sent to you.
-            </li>
-            <li>
-              If you have not received an invitation, and think you should
-              have, please contact your Hushh 🤫 Technologies LLC
-              representative.
-            </li>
-          </ul>
-        </div> */}
       </div>
     </div>
   );

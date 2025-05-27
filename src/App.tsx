@@ -25,14 +25,16 @@ import { useState, useEffect } from 'react';
 import config from './resources/config/config';
 import NDAPopup from './components/NdaForm';
 import Profile from './pages/profile';
+import AuthCallback from './pages/AuthCallback';
 
 // Content wrapper component that applies conditional margin
 const ContentWrapper = ({ children }) => {
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  const isHomePage = location.pathname === '/' || location.pathname === '/signUp';
+  const isAuthCallback = location.pathname.startsWith('/auth/callback');
   
   return (
-    <div className={`${isHomePage ? '' : 'mt-20'}`}>
+    <div className={`${isHomePage || isAuthCallback ? '' : 'mt-20'}`}>
       {children}
     </div>
   );
@@ -85,6 +87,7 @@ function App() {
               <Route path='/eu-uk-jobs-privacy-policy' element={<EUUKPrivacyPolicy/>}/>
               <Route path="/community/*" element={<CommunityPost />} />
               <Route path="/reports/:id" element={<ReportDetailPage />} />
+              <Route path="/auth/callback" element={<AuthCallback />} />
             </Routes>
           </ContentWrapper>
           <Footer />
