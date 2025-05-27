@@ -254,13 +254,13 @@ export default function Leadership() {
       </Box>
 
       {/* Join Us Section */}
-      <Box bg="#1D293D" py={16} px={4} textAlign="center" color="white">
+      <Box bg="white" py={16} px={4} textAlign="center" color="white">
         <Container maxW="container.md">
-          <Heading as="h2" fontSize={{ base: "2xl", md: "4xl" }} mb={6}>
+          <Heading as="h2" fontSize={{ base: "2xl", md: "4xl" }} mb={6} className="text-[#1D1D1F] tracking-tight text-center">
             Join <Text as="span" color="#0891B2" display="inline">Us</Text>
           </Heading>
           
-          <Text fontSize={{ base: "md", md: "lg" }} mb={8} color="gray.300">
+          <Text fontSize={{ base: "md", md: "lg" }} mb={8} className="text-[#1D1D1F] leading-relaxed font-light">
             Whether you're an individual or an institution, Hushh Technologies LLC invites you to join us on our journey 
             to transform investment strategies through innovative technology and ethical practices.
           </Text>
@@ -275,13 +275,15 @@ export default function Leadership() {
             <Box 
               as="button"
               bg="#0891B2"
-              color="#1D293D"
+              color="white"
               py={3}
               px={6}
               borderRadius="md"
               onClick={() => window.location.href = "/contact"}
               fontWeight="medium"
               _hover={{ bg: "#4BC0C8" }}
+
+              className="bg-[#0891B2] text-[#1D293D] hover:bg-[#4BC0C8] w-full sm:w-auto"
               w={{ base: "full", sm: "auto" }}
             >
               Contact Us
@@ -290,13 +292,13 @@ export default function Leadership() {
             <Box 
               as="button"
               bg="transparent"
-              color="white"
+              color="#0891B2"
               py={3}
               onClick={() => window.location.href = "/signUp"}
               px={6}
               borderRadius="md"
               fontWeight="medium"
-              border="1px solid white"
+              border="1px solid #0891B2"
               _hover={{ bg: "rgba(255,255,255,0.1)" }}
               w={{ base: "full", sm: "auto" }}
             >
