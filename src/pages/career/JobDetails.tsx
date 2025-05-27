@@ -1,7 +1,23 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { careers } from "../../data/career";
 import ApplicationForm from "./ApplicationForm";
+import {
+  Container,
+  Box,
+  Heading,
+  Text,
+  VStack,
+  HStack,
+  Icon,
+  Button,
+  Flex,
+  Divider,
+  UnorderedList,
+  ListItem,
+  Badge
+} from "@chakra-ui/react";
+import { MapPin, Clock, ChevronLeft, DollarSign } from "lucide-react";
 
 const JobDetails = () => {
   const { jobId } = useParams();
@@ -13,160 +29,244 @@ const JobDetails = () => {
     .flat()
     .find((j) => j.id === jobId);
 
-  if (!job) return <div>Position not found</div>;
+  if (!job) return (
+    <Container maxW="container.xl" py={12}>
+      <Box textAlign="center">
+        <Heading>Position not found</Heading>
+        <Button as={Link} to="/career" mt={6} colorScheme="cyan">
+          Back to Careers
+        </Button>
+      </Box>
+    </Container>
+  );
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <Container maxW="container.lg" py={8} px={{ base: 4, md: 6 }}>
       {/* Back to Careers button */}
-      <div className="mb-6">
-        <button 
-          className="flex items-center text-gray-600 hover:text-gray-800 transition-colors"
-          onClick={() => window.history.back()}
-        >
-          <span className="mr-1">←</span> Back to Careers
-        </button>
-      </div>
+      <Button 
+        as={Link}
+        to="/career"
+        leftIcon={<ChevronLeft size={18} />}
+        variant="ghost"
+        color="gray.600"
+        _hover={{ color: "gray.800", bg: "gray.100" }}
+        mb={6}
+        pl={0}
+      >
+        Back to Careers
+      </Button>
 
       {/* Job Details Card */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-8 mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">{job.title}</h1>
+      <Box 
+        bg="white" 
+        borderRadius="lg" 
+        borderWidth="1px" 
+        borderColor="gray.200"
+        boxShadow="sm"
+        p={8} 
+        mb={6}
+      >
+        <Heading as="h1" size="xl" color="gray.800" mb={3}>{job.title}</Heading>
         
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-2 mb-4">
+        <Flex 
+          flexWrap="wrap" 
+          alignItems="center" 
+          gap={{ base: 2, md: 6 }}
+          mt={3} 
+          mb={6}
+        >
           {job.location && (
-            <div className="flex items-center text-gray-600">
-              <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              </svg>
-              <span>{job.location}</span>
-            </div>
+            <HStack spacing={2}>
+              <Icon as={MapPin} color="gray.500" boxSize={4} />
+              <Text color="gray.600">{job.location}</Text>
+            </HStack>
           )}
           
           {job.salary && (
-            <div className="flex items-center text-gray-600">
-              <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              <span>{job.salary}</span>
-            </div>
+            <HStack spacing={2}>
+              <Icon as={DollarSign} color="gray.500" boxSize={4} />
+              <Text color="gray.600">{job.salary}</Text>
+            </HStack>
           )}
           
-          <div className="flex items-center text-gray-600">
-            <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            <span>Full-time</span>
-          </div>
-        </div>
+          <HStack spacing={2}>
+            <Icon as={Clock} color="gray.500" boxSize={4} />
+            <Text color="gray.600">Full-time</Text>
+          </HStack>
+        </Flex>
 
-        <div className="mt-6">
-          <button 
-            className="bg-sky-400 hover:bg-sky-500 text-white font-medium py-2 px-6 rounded-md transition-colors"
-            onClick={() => setShowForm(true)}
-          >
-            Apply Now
-          </button>
-        </div>
-      </div>
+        <Button 
+          colorScheme="cyan"
+          size="lg"
+          color="white"
+          onClick={() => setShowForm(true)}
+          mt={4}
+        >
+          Apply Now
+        </Button>
+      </Box>
 
       {/* About Section */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-8 mb-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">About HushhTech</h2>
-        <p className="text-gray-700 leading-relaxed">
+      <Box 
+        bg="white" 
+        borderRadius="lg" 
+        borderWidth="1px" 
+        borderColor="gray.200"
+        boxShadow="sm"
+        p={8} 
+        mb={6}
+      >
+        <Heading as="h2" size="md" color="gray.800" mb={4}>About HushhTech</Heading>
+        <Text color="gray.700" lineHeight="tall">
           Hushh Technologies LLC is a cutting-edge investment technology firm that leverages artificial intelligence and 
           advanced mathematical models to generate superior risk-adjusted returns. We combine the precision of quantitative 
           analysis with the power of machine learning to identify and capitalize on market opportunities that traditional 
           investment approaches miss.
-        </p>
-        <p className="text-gray-700 leading-relaxed mt-4">
+        </Text>
+        <Text color="gray.700" lineHeight="tall" mt={4}>
           Our team consists of world-class researchers, engineers, and investment professionals who are passionate about 
           pushing the boundaries of what's possible in finance. We offer a collaborative environment where innovation thrives 
           and exceptional talent is recognized and rewarded.
-        </p>
-      </div>
+        </Text>
+      </Box>
 
       {/* Responsibilities Section */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-8 mb-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Responsibilities</h2>
-        <ul className="list-disc pl-5 text-gray-700 space-y-2">
+      <Box 
+        bg="white" 
+        borderRadius="lg" 
+        borderWidth="1px" 
+        borderColor="gray.200"
+        boxShadow="sm"
+        p={8} 
+        mb={6}
+      >
+        <Heading as="h2" size="md" color="gray.800" mb={4}>Responsibilities</Heading>
+        <UnorderedList spacing={2} pl={4}>
           {job.responsibilities.map((resp, index) => (
-            <li key={index} className="leading-relaxed">{resp}</li>
+            <ListItem key={index} color="gray.700" lineHeight="tall">{resp}</ListItem>
           ))}
-        </ul>
-      </div>
+        </UnorderedList>
+      </Box>
 
       {/* Qualifications Section */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-8 mb-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Skills, Qualifications, and Experience</h2>
-        <ul className="list-disc pl-5 text-gray-700 space-y-2">
+      <Box 
+        bg="white" 
+        borderRadius="lg" 
+        borderWidth="1px" 
+        borderColor="gray.200"
+        boxShadow="sm"
+        p={8} 
+        mb={6}
+      >
+        <Heading as="h2" size="md" color="gray.800" mb={4}>Skills, Qualifications, and Experience</Heading>
+        <UnorderedList spacing={2} pl={4}>
           {job.qualifications.map((qual, index) => (
-            <li key={index} className="leading-relaxed">{qual}</li>
+            <ListItem key={index} color="gray.700" lineHeight="tall">{qual}</ListItem>
           ))}
-        </ul>
-      </div>
+        </UnorderedList>
+      </Box>
 
       {/* Leadership Principles Section */}
       {job.leadershipPrinciples && job.leadershipPrinciples.length > 0 && (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-8 mb-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Leadership Principles</h2>
-          <ul className="list-disc pl-5 text-gray-700 space-y-2">
+        <Box 
+          bg="white" 
+          borderRadius="lg" 
+          borderWidth="1px" 
+          borderColor="gray.200"
+          boxShadow="sm"
+          p={8} 
+          mb={6}
+        >
+          <Heading as="h2" size="md" color="gray.800" mb={4}>Leadership Principles</Heading>
+          <UnorderedList spacing={2} pl={4}>
             {job.leadershipPrinciples.map((principle, index) => (
-              <li key={index} className="leading-relaxed">{principle}</li>
+              <ListItem key={index} color="gray.700" lineHeight="tall">{principle}</ListItem>
             ))}
-          </ul>
-        </div>
+          </UnorderedList>
+        </Box>
       )}
 
       {/* Hiring Procedure Section */}
       {job?.hiringProcedure && job?.hiringProcedure.length > 0 && (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-8 mb-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Hiring Procedure</h2>
-          <ul className="list-disc pl-5 text-gray-700 space-y-2">
+        <Box 
+          bg="white" 
+          borderRadius="lg" 
+          borderWidth="1px" 
+          borderColor="gray.200"
+          boxShadow="sm"
+          p={8} 
+          mb={6}
+        >
+          <Heading as="h2" size="md" color="gray.800" mb={4}>Hiring Procedure</Heading>
+          <UnorderedList spacing={2} pl={4}>
             {job.hiringProcedure.map((procedure, index) => (
-              <li key={index} className="leading-relaxed">{procedure}</li>
+              <ListItem key={index} color="gray.700" lineHeight="tall">{procedure}</ListItem>
             ))}
-          </ul>
-        </div>
+          </UnorderedList>
+        </Box>
       )}
 
       {/* Compensation Procedure Section */}
       {job?.compensationProcedure && job?.compensationProcedure.length > 0 && (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-8 mb-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Compensation Procedure</h2>
-          <ul className="list-disc pl-5 text-gray-700 space-y-2">
+        <Box 
+          bg="white" 
+          borderRadius="lg" 
+          borderWidth="1px" 
+          borderColor="gray.200"
+          boxShadow="sm"
+          p={8} 
+          mb={6}
+        >
+          <Heading as="h2" size="md" color="gray.800" mb={4}>Compensation Procedure</Heading>
+          <UnorderedList spacing={2} pl={4}>
             {job.compensationProcedure.map((procedure, index) => (
-              <li key={index} className="leading-relaxed">{procedure}</li>
+              <ListItem key={index} color="gray.700" lineHeight="tall">{procedure}</ListItem>
             ))}
-          </ul>
-        </div>
+          </UnorderedList>
+        </Box>
       )}
 
       {/* Salary Details Section */}
       {job?.salaryDetails && (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-8 mb-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Salary Details</h2>
-          <ul className="text-gray-700 space-y-4">
+        <Box 
+          bg="white" 
+          borderRadius="lg" 
+          borderWidth="1px" 
+          borderColor="gray.200"
+          boxShadow="sm"
+          p={8} 
+          mb={6}
+        >
+          <Heading as="h2" size="md" color="gray.800" mb={4}>Salary Details</Heading>
+          <VStack spacing={4} align="stretch" divider={<Divider />}>
             {Object.entries(job.salaryDetails).map(([role, details], index) => (
-              <li key={index} className="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
-                <strong className="text-gray-900">{toTitleCase(role.replace(/([A-Z])/g, ' $1').trim())}:</strong>
-                <ul className="mt-2 space-y-1">
-                  {details.averageSalary && <li>Average Salary: {details.averageSalary}</li>}
-                  {details.range && <li>Range: {details.range}</li>}
+              <Box key={index}>
+                <Text fontWeight="bold" color="gray.800" mb={2}>
+                  {toTitleCase(role.replace(/([A-Z])/g, ' $1').trim())}
+                </Text>
+                <VStack spacing={1} align="start" pl={2}>
+                  {details.averageSalary && <Text color="gray.700">Average Salary: {details.averageSalary}</Text>}
+                  {details.range && <Text color="gray.700">Range: {details.range}</Text>}
                   {details.competitiveSalaryRange && (
-                    <li>
-                      Competitive Salary Range:
-                      <ul className="ml-4 mt-1 space-y-1">
+                    <Box w="100%">
+                      <Text color="gray.700" mb={1}>Competitive Salary Range:</Text>
+                      <VStack spacing={1} align="start" pl={4}>
                         {Object.entries(details.competitiveSalaryRange).map(([level, range], idx) => (
-                          <li key={idx}>{level.charAt(0).toUpperCase() + level.slice(1)}: {range}</li>
+                          <Text key={idx} color="gray.700">
+                            <Badge colorScheme="cyan" mr={2}>
+                              {level.charAt(0).toUpperCase() + level.slice(1)}
+                            </Badge>
+                            {range}
+                          </Text>
                         ))}
-                      </ul>
-                    </li>
+                      </VStack>
+                    </Box>
                   )}
-                </ul>
-              </li>
+                </VStack>
+              </Box>
             ))}
-          </ul>
-        </div>
+          </VStack>
+        </Box>
       )}
 
       {showForm && (
@@ -176,7 +276,7 @@ const JobDetails = () => {
           onClose={() => setShowForm(false)}
         />
       )}
-    </div>
+    </Container>
   );
 };
 

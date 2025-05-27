@@ -2,6 +2,22 @@ import React, { useState } from 'react';
 import emailjs from '@emailjs/browser';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+  VStack,
+  Text,
+  useToast,
+  Box
+} from '@chakra-ui/react';
 
 interface ApplicationFormProps {
   jobTitle: string;
@@ -9,7 +25,7 @@ interface ApplicationFormProps {
   onClose: () => void;
 }
 
-const ApplicationForm = ({ jobTitle,jobLocation, onClose }: ApplicationFormProps) => {
+const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProps) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -18,6 +34,7 @@ const ApplicationForm = ({ jobTitle,jobLocation, onClose }: ApplicationFormProps
     coverLetterLink: ''
   });
   const [loading, setLoading] = useState(false);
+  const toast = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,18 +60,29 @@ const ApplicationForm = ({ jobTitle,jobLocation, onClose }: ApplicationFormProps
           from_email: formData.email,
           phone: formData.phone,
           position: jobTitle,
-          location: jobLocation, // Add job location here
+          location: jobLocation,
           resume_link: formData.resumeLink,
           cover_letter_link: formData.coverLetterLink || 'Not provided'
         },
         'DtG13YmoZDccI-GgA' 
       );
 
-      alert('Application submitted successfully!');
+      toast({
+        title: 'Application submitted successfully!',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
       onClose();
     } catch (error) {
       console.error('Error:', error);
-      alert(error instanceof Error ? error.message : 'Error submitting application. Please try again.');
+      toast({
+        title: 'Application failed',
+        description: error instanceof Error ? error.message : 'Error submitting application. Please try again.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
     } finally {
       setLoading(false);
     }
@@ -71,79 +99,100 @@ const ApplicationForm = ({ jobTitle,jobLocation, onClose }: ApplicationFormProps
   };
 
   return (
-    <div className="application-form-overlay">
-      <div className="application-form-container">
-        <button className="close-button" onClick={onClose}>×</button>
-        <h2>Apply for {jobTitle}</h2>
-        
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Name *</label>
-            <input
-              type="text"
-              required
-              value={formData.name}
-              onChange={(e) => setFormData({...formData, name: e.target.value})}
-              placeholder="Enter your full name"
-            />
-          </div>
+    <Modal isOpen={true} onClose={onClose} size="lg" isCentered>
+      <ModalOverlay bg="blackAlpha.700" />
+      <ModalContent borderRadius="lg" mx={4}>
+        <ModalHeader fontSize="xl">Apply for {jobTitle}</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody pb={6}>
+          <form onSubmit={handleSubmit}>
+            <VStack spacing={4} align="stretch">
+              <FormControl isRequired>
+                <FormLabel>Name</FormLabel>
+                <Input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({...formData, name: e.target.value})}
+                  placeholder="Enter your full name"
+                  focusBorderColor="cyan.400"
+                />
+              </FormControl>
 
-          <div className="form-group">
-            <label>Email *</label>
-            <input
-              type="email"
-              required
-              value={formData.email}
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
-              placeholder="Enter your email address"
-            />
-          </div>
+              <FormControl isRequired>
+                <FormLabel>Email</FormLabel>
+                <Input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  placeholder="Enter your email address"
+                  focusBorderColor="cyan.400"
+                />
+              </FormControl>
 
-          <div className="form-group">
-            <label>Phone Number *</label>
-            <PhoneInput
-              country={'us'}
-              value={formData.phone}
-              onChange={(phone) => setFormData({...formData, phone})}
-              inputProps={{
-                required: true,
-              }}
-            />
-          </div>
+              <FormControl isRequired>
+                <FormLabel>Phone Number</FormLabel>
+                <Box borderWidth="1px" borderColor="gray.200" borderRadius="md" p={1}>
+                  <PhoneInput
+                    country={'us'}
+                    value={formData.phone}
+                    onChange={(phone) => setFormData({...formData, phone})}
+                    inputStyle={{
+                      width: '100%',
+                      border: 'none',
+                      outline: 'none'
+                    }}
+                    buttonStyle={{
+                      border: 'none',
+                      background: 'none'
+                    }}
+                  />
+                </Box>
+              </FormControl>
 
-          <div className="form-group">
-            <label>Resume Link * (Google Drive, Dropbox, etc.)</label>
-            <input
-              type="url"
-              required
-              value={formData.resumeLink}
-              onChange={(e) => setFormData({...formData, resumeLink: e.target.value})}
-              placeholder="https://drive.google.com/your-resume-link"
-            />
-            <p className="input-help">Please provide a public link to your resume</p>
-          </div>
+              <FormControl isRequired>
+                <FormLabel>Resume Link</FormLabel>
+                <Input
+                  type="url"
+                  value={formData.resumeLink}
+                  onChange={(e) => setFormData({...formData, resumeLink: e.target.value})}
+                  placeholder="https://drive.google.com/your-resume-link"
+                  focusBorderColor="cyan.400"
+                />
+                <Text fontSize="sm" color="gray.500" mt={1}>
+                  Please provide a public link to your resume
+                </Text>
+              </FormControl>
 
-          <div className="form-group">
-            <label>Cover Letter Link (Optional)</label>
-            <input
-              type="url"
-              value={formData.coverLetterLink}
-              onChange={(e) => setFormData({...formData, coverLetterLink: e.target.value})}
-              placeholder="https://drive.google.com/your-cover-letter-link"
-            />
-            <p className="input-help">Optional: Provide a public link to your cover letter</p>
-          </div>
+              <FormControl>
+                <FormLabel>Cover Letter Link (Optional)</FormLabel>
+                <Input
+                  type="url"
+                  value={formData.coverLetterLink}
+                  onChange={(e) => setFormData({...formData, coverLetterLink: e.target.value})}
+                  placeholder="https://drive.google.com/your-cover-letter-link"
+                  focusBorderColor="cyan.400"
+                />
+                <Text fontSize="sm" color="gray.500" mt={1}>
+                  Optional: Provide a public link to your cover letter
+                </Text>
+              </FormControl>
 
-          <button 
-            type="submit" 
-            className="submit-button"
-            disabled={loading}
-          >
-            {loading ? 'Submitting...' : 'Submit Application'}
-          </button>
-        </form>
-      </div>
-    </div>
+              <Button 
+                type="submit" 
+                colorScheme="cyan"
+                size="lg"
+                isLoading={loading}
+                loadingText="Submitting..."
+                w="100%"
+                mt={4}
+              >
+                Submit Application
+              </Button>
+            </VStack>
+          </form>
+        </ModalBody>
+      </ModalContent>
+    </Modal>
   );
 };
 

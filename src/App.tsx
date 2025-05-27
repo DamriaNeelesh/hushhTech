@@ -26,11 +26,11 @@ import config from './resources/config/config';
 import NDAPopup from './components/NdaForm';
 import Profile from './pages/profile';
 import AuthCallback from './pages/AuthCallback';
-
+import SolutionsPage from './pages/solutions';
 // Content wrapper component that applies conditional margin
 const ContentWrapper = ({ children }) => {
   const location = useLocation();
-  const isHomePage = location.pathname === '/' || location.pathname === '/signUp';
+  const isHomePage = location.pathname === '/' || location.pathname === '/signUp' || location.pathname === '/solutions';
   const isAuthCallback = location.pathname.startsWith('/auth/callback');
   
   return (
@@ -88,6 +88,7 @@ function App() {
               <Route path="/community/*" element={<CommunityPost />} />
               <Route path="/reports/:id" element={<ReportDetailPage />} />
               <Route path="/auth/callback" element={<AuthCallback />} />
+              <Route path="/solutions" element={<SolutionsPage />} />
             </Routes>
           </ContentWrapper>
           <Footer />
