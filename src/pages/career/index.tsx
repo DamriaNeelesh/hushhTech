@@ -36,7 +36,7 @@ const CareerList = () => {
           as="h1" 
           lineHeight="1.1"
           fontWeight="semibold"
-          mb={8}
+          mb={{base: 8, md: 0}}
           display={'flex'}
           flexDirection={'column'}
           data-career-heading="true"

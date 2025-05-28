@@ -8,13 +8,13 @@ export default function Leadership() {
   return (
     <Box bg="white">
       {/* Hero Section */}
-      <Box pt={{ base: 12, md: 20 }} px={4} minH="80vh" textAlign="center">
+      <Box pt={{ base: 16, md: 24 }} px={4} minH={{md:"80vh",base:'60vh'}} textAlign="center">
         <Container maxW="container.lg">
           <Heading 
             as="h1" 
             fontSize={{ base: "3xl", md: "7xl" }} 
             fontWeight="300" 
-            mb={6}
+            mb={{md:6,base:2}}
             lineHeight="1.2"
             className="font-light text-[#1D1D1F] mb-8 leading-tight tracking-tight"
           >
@@ -38,7 +38,7 @@ export default function Leadership() {
       </Box>
 
       {/* Our Mission Section */}
-      <Box pb={{ base: 12, md: 16 }} background="rgb(249 250 251 / var(--tw-bg-opacity, 1))"  px={4}>
+      <Box pb={{ base: 12, md: 16 }} pt={{base:5,md:10}} background="rgb(249 250 251 / var(--tw-bg-opacity, 1))"  px={4}>
         <Container maxW="container.lg">
           <Heading 
             as="h2" 

@@ -9,6 +9,7 @@ export default function Navbar() {
   const [session, setSession] = useState(null);
   const [toastShown, setToastShown] = useState(false);
   const [careerDropdownOpen, setCareerDropdownOpen] = useState(false);
+  const [mobileCareerDropdownOpen, setMobileCareerDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const drawerRef = useRef(null);
@@ -196,10 +197,10 @@ export default function Navbar() {
                   key={path}
                   to={path}
                   onClick={() => handleLinkClick(path)}
-                  className={`block text-lg text-black font-bold ${
+                  className={`block text-lg ${
                     isActive(path)
-                      ? "bg-gradient-to-r from-teal-400 to-blue-500 text-white px-3 py-2 rounded"
-                      : "text-gray-700"
+                      ? "font-[700] text-[#0AADBC]"
+                      : "text-gray-700 hover:text-gray-900"
                   }`}
                 >
                   {label}
@@ -208,52 +209,69 @@ export default function Navbar() {
               
               {/* Career section in mobile */}
               <div className="space-y-2">
-                <div className="text-lg text-black font-bold text-gray-700">Join Us</div>
-                <Link
-                  to="/career"
-                  onClick={() => handleLinkClick("/career")}
-                  className={`block pl-4 text-md ${
-                    isActive("/career")
-                      ? "text-[#0AADBC] font-bold"
-                      : "text-gray-700"
-                  }`}
-                >
-                  Careers
-                </Link>
-                <Link
-                  to="/benefits"
-                  onClick={() => handleLinkClick("/benefits")}
-                  className={`block pl-4 text-md ${
-                    isActive("/benefits")
-                      ? "text-[#0AADBC] font-bold"
-                      : "text-gray-700"
-                  }`}
-                >
-                  Benefits
-                </Link>
+                <div className="relative">
+                  <button 
+                    onClick={() => setMobileCareerDropdownOpen(!mobileCareerDropdownOpen)}
+                    className={`flex items-center text-lg focus:outline-none ${
+                      isActive("/career") || isActive("/benefits")
+                        ? "font-[700] text-[#0AADBC]"
+                        : "text-gray-700 hover:text-gray-900"
+                    }`}
+                  >
+                    Join Us
+                    <FiChevronDown className={`ml-1 transition-transform duration-200 ${mobileCareerDropdownOpen ? 'transform rotate-180' : ''}`} />
+                  </button>
+                  <div className={`mt-2 pl-2 transition-all duration-300 overflow-hidden ${
+                    mobileCareerDropdownOpen ? 'max-h-24 opacity-100' : 'max-h-0 opacity-0'
+                  }`}>
+                    <Link
+                      to="/career"
+                      onClick={() => handleLinkClick("/career")}
+                      className={`block py-2 text-lg ${
+                        isActive("/career")
+                          ? "font-[700] text-[#0AADBC]"
+                          : "text-gray-700 hover:text-gray-900"
+                      }`}
+                    >
+                      Careers
+                    </Link>
+                    <Link
+                      to="/benefits"
+                      onClick={() => handleLinkClick("/benefits")}
+                      className={`block py-2 text-lg ${
+                        isActive("/benefits")
+                          ? "font-[700] text-[#0AADBC]"
+                          : "text-gray-700 hover:text-gray-900"
+                      }`}
+                    >
+                      Benefits
+                    </Link>
+                  </div>
+                </div>
               </div>
 
               {!session ? (
                 <button
                   onClick={() => handleLinkClick("/Login")}
-                  className="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800"
+                  className="bg-black text-white px-4 py-2 rounded"
                 >
                   Log In
                 </button>
               ) : (
                 <>
                   <button
-                   onClick={handleLogout}
-                    className="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800"
+                    onClick={handleLogout}
+                    className="bg-black text-white px-4 py-2 rounded"
                   >
                     Log Out
                   </button>
-                  {/* Hide avatar in mobile menu */}
-                  {/* <Avatar
-                    src={session?.user?.user_metadata?.avatar_url || "/default-avatar.png"}
-                    name={session?.user?.email}
-                    className="w-8 h-8 rounded-full mt-4"
-                  /> */}
+                  {/* <div className="flex items-center mt-4">
+                    <Avatar
+                      src={session?.user?.user_metadata?.avatar_url}
+                      name={session?.user?.email}
+                      className="w-8 h-8 rounded-full"
+                    />
+                  </div> */}
                 </>
               )}
             </div>
