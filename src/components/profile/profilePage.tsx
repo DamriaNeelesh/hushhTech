@@ -282,7 +282,7 @@ const ProfilePage: React.FC = () => {
           <VStack spacing={2} mb={8} mt={{base: 10, md: 0}} w="full">
             {/* <Image src={HushhLogo} alt="Hushh Tech Logo" h="50px" /> */}
             <Text fontSize={{ base: "3xl", md: "4xl" }} className="text-5xl font-[300] text-[#1D1D1F] mb-3 tracking-tight" mt={8}>
-              Hello {session?.user?.user_metadata?.full_name || "John Doe"},
+              Hello {session?.user?.user_metadata?.full_name || "User"},
             </Text>
             <Text className="text-xl text-[#6E6E73] font-light">
               Please complete the required processes below to access investment information.

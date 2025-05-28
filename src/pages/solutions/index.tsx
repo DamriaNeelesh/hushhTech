@@ -51,7 +51,7 @@ const SolutionsPage = () => {
         <Container maxW="container.xl">
           <Box textAlign="center" mb={12}>
             <Flex justifyContent="center" alignItems="center" mb={4}>
-              <Box as="span" color="#00A9E0" fontSize="2xl" mr={3}>⚙️</Box>
+              {/* <Box as="span" color="#00A9E0" fontSize="2xl" mr={3}>⚙️</Box> */}
               <Heading as="h2" fontSize="3xl" fontWeight="600" color="#333">
                 IT Services Built for Scale
               </Heading>
@@ -122,7 +122,7 @@ const SolutionsPage = () => {
         <Container maxW="container.xl">
           <Box textAlign="center" mb={12}>
             <Flex justifyContent="center" alignItems="center" mb={4}>
-              <Box as="span" color="#00A9E0" fontSize="2xl" mr={3}>🖥️</Box>
+              {/* <Box as="span" color="#00A9E0" fontSize="2xl" mr={3}>🖥️</Box> */}
               <Heading as="h2" fontSize="3xl" fontWeight="600" color="#333">
                 Hardware Solutions That Perform
               </Heading>
@@ -266,7 +266,7 @@ const SolutionsPage = () => {
         <Container maxW="container.xl">
           <Box textAlign="center" mb={16}>
             <Flex justifyContent="center" alignItems="center" mb={4}>
-              <Box as="span" color="#00A9E0" fontSize="2xl" mr={3}>✓</Box>
+              {/* <Box as="span" color="#00A9E0" fontSize="2xl" mr={3}>✓</Box> */}
               <Heading as="h2" fontSize="3xl" fontWeight="600" color="#333">
                 Why Hushh Technologies?
               </Heading>
@@ -336,7 +336,7 @@ const SolutionsPage = () => {
         <Container maxW="container.xl">
           <Box textAlign="center" maxW="container.lg" mx="auto">
             <Flex justifyContent="center" alignItems="center" mb={4}>
-              <Box as="span" color="#00A9E0" fontSize="2xl" mr={3}>📧</Box>
+              {/* <Box as="span" color="#00A9E0" fontSize="2xl" mr={3}>📧</Box> */}
               <Heading as="h2" fontSize="3xl" fontWeight="600" color="#333">
                 Let's Build the Future of Your Infrastructure
               </Heading>
