@@ -117,14 +117,14 @@ const CareerList = () => {
                       <Heading as="h3" fontSize="xl" fontWeight="semibold" color="gray.800" mb={3}>
                         {job.title}
                       </Heading>
-                      <HStack spacing={8} mt={1}>
-                        <HStack spacing={2}>
+                      <HStack gap={0} p={0}  alignItems={{base: "flex-start", md: "center"}} textAlign={{base: "left"}} spacing={8} mt={1} display={{base: "flex", md: "none"}} flexDirection={{base: "column", md: "row"}}> 
+                        <HStack spacing={2} >
                           <Icon as={MapPin} color="gray.500" boxSize={4} />
-                          <Text color="gray.600" fontSize="md">{job.location}</Text>
+                          <Text color="gray.600" fontSize="sm">{job.location}</Text>
                         </HStack>
-                        <HStack spacing={2}>
+                        <HStack spacing={2} mt={1}>
                           <Icon as={Clock} color="gray.500" boxSize={4} />
-                          <Text color="gray.600" fontSize="md">Full-time</Text>
+                          <Text color="gray.600" fontSize="sm">Full-time</Text>
                         </HStack>
                       </HStack>
                     </Box>
