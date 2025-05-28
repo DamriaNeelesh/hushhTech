@@ -11,6 +11,8 @@ import {
   Icon,
   useToast,
   SimpleGrid,
+  Flex,
+  Center,
 } from "@chakra-ui/react";
 import { FaFileAlt, FaUserShield } from "react-icons/fa";
 import { CheckCircleIcon, InfoIcon } from "lucide-react";
@@ -210,17 +212,17 @@ const ProfilePage: React.FC = () => {
 
   const getNdaButtonProps = () => {
     if (ndaStatus === "Approved") {
-      return { text: "Download Your NDA", disabled: false };
+      return { text: "Download Your NDA", disabled: false, bgClass: "blue-gradient-bg" };
     } else if (ndaStatus === "Not Applied") {
-      return { text: "Start NDA Process", disabled: false };
+      return { text: "Start NDA Process", disabled: false, bgClass: "blue-gradient-bg" };
     } else if (ndaStatus === "Requested permission for the sensitive file." || ndaStatus === "Pending") {
-      return { text: "Waiting for approval", disabled: true };
+      return { text: "Waiting for approval", disabled: true, bgClass: "" };
     } else if (ndaStatus === "Pending: Waiting for NDA Process") {
-      return { text: "Please sign NDA sent to your email", disabled: true };
+      return { text: "Please sign NDA sent to your email", disabled: true, bgClass: "" };
     } else if (ndaStatus === "Rejected") {
-      return { text: "Re-apply for NDA Process", disabled: false };
+      return { text: "Re-apply for NDA Process", disabled: false, bgClass: "blue-gradient-bg" };
     }
-    return { text: "Start NDA Process", disabled: false };
+    return { text: "Start NDA Process", disabled: false, bgClass: "blue-gradient-bg" };
   };
 
   const { text: ndaButtonText, disabled: ndaButtonDisabled } = getNdaButtonProps();
@@ -254,120 +256,163 @@ const ProfilePage: React.FC = () => {
     }
   };
 
+  // Status indicator styles - matches exactly what's in the image
+  const getStatusIndicator = (status: string) => {
+    if (status === "Not Started") {
+      return (
+        <Badge px={3} py={1} bg="gray.600" color="white" borderRadius="full" fontSize="xs">
+          Not Started
+        </Badge>
+      );
+    } else if (status === "Coming Soon") {
+      return (
+        <Badge px={3} py={1} bg="blue.900" color="blue.300" borderRadius="full" fontSize="xs">
+          Coming Soon
+        </Badge>
+      );
+    }
+    return null;
+  };
+
   return (
-    <Box bg="black" width="100%" color="white" mt={-4}>
-      <VStack bg="black" px={5} spacing={6} alignItems="center">
-        <Image src={HushhLogo} alt="Hushh Tech Logo" boxSize={{ md: "14rem", base: "xs" }} />
-        <Box w="100%" textAlign="left">
-          <Heading fontSize="2xl">Hello {session?.user?.user_metadata?.full_name || "User"},</Heading>
-          <Text fontSize="md" color="gray.400">
-            Please complete the required processes below to access investment information.
-          </Text>
-        </Box>
-      </VStack>
-      <div className="py-8">
-      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} my={8} px={5}>
-        {/* Documents Section */}
-       
-        <Box bg="#1D1D1D" p={6} borderRadius="lg" shadow="lg" textAlign="left">
-          <Heading fontSize="md" display="flex" flexDirection="row" gap={{ md: "0.5rem", base: "0.3rem" }}
-            alignItems="center" justifyContent="center">
-            <Icon as={FaFileAlt} w={8} h={8} color="grey" /> Documents
-          </Heading>
-          <Text fontSize="sm" color="gray.400">
-            Access private investment documents and reports
-          </Text>
-          <Button
-            w="full"
-            colorScheme="teal"
-            mt={4}
-            onClick={handleViewPublicDocs}
-          >
-            View Public Documents
-          </Button>
-          <Button
-            w="full"
-            mt={2}
-            colorScheme={ndaStatus !== "Approved" ? "gray" : "teal"}
-            isDisabled={ndaStatus !== "Approved"}
-            onClick={handleViewPrivateDocs}
-          >
-            View Private Documents
-          </Button>
-          <Text mt={2} fontSize="xs" color={ndaStatus !== "Approved" ? "yellow.400" : "green.400"}>
-            <Icon as={ndaStatus !== "Approved" ? InfoIcon : CheckCircleIcon} />{" "}
-            {ndaStatus !== "Approved" ? "NDA required for access" : "NDA approved."}
-          </Text>
-        </Box>
+    <Box bg="#FAFAFA" width="100%" minH="100vh">
+      <Center pt={{ base: 10, md: 20 }} pb={10}>
+        <VStack maxW="1200px" w="full" px={4} spacing={8}>
+          {/* Header */}
+          <VStack spacing={2} mb={8} mt={{base: 10, md: 0}} w="full">
+            {/* <Image src={HushhLogo} alt="Hushh Tech Logo" h="50px" /> */}
+            <Text fontSize={{ base: "3xl", md: "4xl" }} className="text-5xl font-[300] text-[#1D1D1F] mb-3 tracking-tight" mt={8}>
+              Hello {session?.user?.user_metadata?.full_name || "John Doe"},
+            </Text>
+            <Text className="text-xl text-[#6E6E73] font-light">
+              Please complete the required processes below to access investment information.
+            </Text>
+          </VStack>
 
-        {/* NDA Process Section */}
-        <Box bg="#1D1D1D" p={6} display="flex" flexDirection="column" justifyContent="space-between"
-          alignItems="center" borderRadius="lg" shadow="lg" textAlign="center">
-          <Heading fontSize="md" display="flex" flexDirection="row" gap={{ md: "0.5rem", base: "0.3rem" }}
-            alignItems="center" justifyContent="center">
-            <Icon as={FaUserShield} w={8} h={8} color="grey" />
-            NDA Process
-            <Box mt={1}>
-              {ndaStatus === "Approved" && (
-                <Image src={ApprovedGif} alt="Approved" boxSize="14px" />
-              )}
-              {(ndaStatus === "Pending: Waiting for NDA Process" ||
-                ndaStatus === "Pending" ||
-                ndaStatus === "Requested permission for the sensitive file.") && (
-                <Image src={PendingGif} alt="Pending" boxSize="14px" />
-              )}
-              {ndaStatus === "Rejected" && (
-                <Image src={RejectedGif} alt="Rejected" boxSize="14px" />
-              )}
-              {ndaStatus === "Not Applied" && (
-                <Image src={NotappliedGif} alt="Not Applied" boxSize="14px" />
-              )}
+          {/* Three-column grid for the cards */}
+          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} w="full">
+            {/* Documents Card */}
+            <Box className="bg-white p-10 rounded-2xl">
+              <Text className="text-2xl font-medium text-[#1D1D1F] mb-6">
+                Documents
+              </Text>
+              <Text className="text-[#6E6E73] mb-8 font-light leading-relaxed">
+                Access private investment documents and reports
+              </Text>
+              
+              <Button 
+                w="full" 
+                background={'linear-gradient(to right, #00A9E0, #6DD3EF)'}
+                mb={4} 
+                color={'white'}
+                onClick={handleViewPublicDocs}
+                className="mb-4"
+              >
+                View Public Documents
+              </Button>
+              
+              <Button 
+                w="full" 
+                colorScheme={ndaStatus === "Approved" ? "teal" : "gray"}
+                isDisabled={ndaStatus !== "Approved"}
+                onClick={handleViewPrivateDocs}
+                mb={4}
+              >
+                View Private Documents
+              </Button>
+              
+              <Box className="w-full p-4 bg-gray-100 rounded-xl text-center text-[#6E6E73] font-light">
+                {ndaStatus === "Approved" ? "NDA approved" : "NDA and KYC approval required for access"}
+              </Box>
             </Box>
-          </Heading>
-          <Badge w="xxs" colorScheme={ndaStatus === "Approved" ? "green" : "orange"}
-            mb={2} p={1} borderRadius="full">
-            {ndaStatus}
-          </Badge>
-          {ndaStatus === "Pending: Waiting for NDA Process" ? (
-            <Text fontSize={{md:"0.8rem",base:'xs'}} color="white">
-              The NDA signing is in process. Please sign the NDA sent to your email if you haven't signed it yet. Once the NDA is accepted by Hush1one Inc., you will be notified. For further information, please visit the contact page.
-            </Text>
-          ):(
-            <Text fontSize="sm" color="gray.400">
-              Complete NDA to access sensitive documents
-            </Text>
-          )}
-          <Button
-            w="full"
-            colorScheme={ndaStatus === "Approved" ? "teal" : "blue"}
-            mt={4}
-            onClick={handleStartNdaProcess}
-            isDisabled={ndaButtonDisabled}
-          >
-            {ndaButtonText}
-          </Button>
-        </Box>
 
-        {/* KYC Verification Section */}
-        <Box bg="#1D1D1D" p={6} display="flex" flexDirection="column" justifyContent="space-between"
-          alignItems="center" borderRadius="lg" shadow="lg" textAlign="center">
-          <Heading fontSize="md" display="flex" flexDirection="row" gap={{ md: "0.5rem", base: "0.3rem" }}
-            alignItems="center" justifyContent="center">
-            <Icon as={CheckCircleIcon} w={8} h={8} color="grey" /> KYC Verification
-          </Heading>
-          <Badge w="xxs" bg="blue.900" color="blue.300" mb={2} p={1} borderRadius="full">
-            Coming Soon
-          </Badge>
-          <Text fontSize="sm" color="gray.400">
-            Know Your Customer verification process
-          </Text>
-          <Button mt={4} w="full" colorScheme="gray" isDisabled>
-            Coming Soon
-          </Button>
-        </Box>
-      </SimpleGrid>
-      </div>
+            {/* NDA Process Card */}
+            <Box className="bg-white p-10 rounded-2xl">
+              <Text className="text-2xl font-medium text-[#1D1D1F] mb-6 ">
+                NDA Process
+                <Box as="span" ml={2} mb={2} display="inline-block" verticalAlign="middle">
+                  {ndaStatus === "Approved" && (
+                    <Image src={ApprovedGif} alt="Approved" boxSize="14px" display="inline" />
+                  )}
+                  {(ndaStatus === "Pending: Waiting for NDA Process" ||
+                    ndaStatus === "Pending" ||
+                    ndaStatus === "Requested permission for the sensitive file.") && (
+                    <Image src={PendingGif} alt="Pending" boxSize="14px" display="inline" />
+                  )}
+                  {ndaStatus === "Rejected" && (
+                    <Image src={RejectedGif} alt="Rejected" boxSize="14px" display="inline" />
+                  )}
+                  {ndaStatus === "Not Applied" && (
+                    <Image src={NotappliedGif} alt="Not Applied" boxSize="14px" display="inline" />
+                  )}
+                </Box>
+                </Text>
+              
+              <Box mb={3}>
+                <Badge 
+                  colorScheme={ndaStatus === "Approved" ? "green" : "orange"}
+                  px={2}
+                  py={0.5}
+                  borderRadius="full"
+                  fontSize="xs"
+                >
+                  {ndaStatus}
+                </Badge>
+              </Box>
+              
+              <Text className="text-[#6E6E73] mb-8 font-light leading-relaxed">
+                {ndaStatus === "Pending: Waiting for NDA Process" 
+                  ? "The NDA signing is in process. Please sign the NDA sent to your email if you haven't signed it yet. Once the NDA is accepted by Hush1one Inc., you will be notified."
+                  : "Complete NDA to access sensitive documents"
+                }
+              </Text>
+              
+              <Button
+                w="full"
+                background={ndaButtonDisabled ? "" : "linear-gradient(to right, #00A9E0, #6DD3EF)"}
+                onClick={handleStartNdaProcess}
+                color={ndaButtonDisabled ? "gray.400" : "white"}
+                isDisabled={ndaButtonDisabled}
+                mb={4}
+              >
+                {ndaButtonText}
+              </Button>
+              
+              <Box className="w-full p-4 bg-gray-100 rounded-xl text-center text-[#6E6E73] font-light">
+                {ndaStatus === "Approved" 
+                  ? "Your NDA has been approved" 
+                  : ndaStatus === "Pending: Waiting for NDA Process"
+                    ? "NDA signing in progress"
+                    : "NDA process required for document access"
+                }
+              </Box>
+            </Box>
 
+            {/* KYC Verification Card */}
+            <Box className="bg-white p-10 rounded-2xl">
+              <Text className="text-2xl font-medium text-[#1D1D1F] mb-6">
+                KYC Verification
+              </Text>
+              <Text className="text-[#6E6E73] mb-8 font-light leading-relaxed">
+                Know Your Customer verification process
+              </Text>
+              
+              <Button
+                w="full"
+                colorScheme="gray"
+                isDisabled={true}
+                mb={4}
+              >
+                Coming Soon
+              </Button>
+              
+              <Box className="w-full p-4 bg-gray-100 rounded-xl text-center text-[#6E6E73] font-light">
+                KYC verification coming soon
+              </Box>
+            </Box>
+          </SimpleGrid>
+        </VStack>
+      </Center>
 
       {/* NDA Request Modal */}
       {showNdaModal && session && (
@@ -381,6 +426,7 @@ const ProfilePage: React.FC = () => {
           }}
         />
       )}
+      
       {/* NDA Document Modal */}
       {showNdaDocModal && ndaMetadata && session && (
         <NDADocumentModal
