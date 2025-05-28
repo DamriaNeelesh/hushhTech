@@ -295,7 +295,7 @@ export default function Contact() {
               <Box pt={2}>
                 <Button 
                   type="submit"
-                  bg="#0AADBC"
+                  bg="linear-gradient(to right, #00A9E0, #6DD3EF)"
                   color="white"
                   size="md"
                   px={8}
@@ -338,7 +338,7 @@ export default function Contact() {
                 <Icon as={Phone} color="red.400" boxSize={5} mt={1} />
                 <Box>
                   <Text fontWeight="medium">Phone</Text>
-                  <Text color="gray.600">+14252969050</Text>
+                  <Text color="gray.600">+1 (765) 532-4284</Text>
                 </Box>
               </HStack>
               
@@ -368,7 +368,7 @@ export default function Contact() {
               AI-driven approach to wealth creation.
             </Text>
             <Button
-              bg="#0AADBC"
+              bg="linear-gradient(to right, #00A9E0, #6DD3EF)"
               color="white"
               _hover={{ bg: "cyan.500" }}
               size="md"

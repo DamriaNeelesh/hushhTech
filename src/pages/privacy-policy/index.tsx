@@ -11,8 +11,8 @@ import {
 const PrivacyPolicyPage: React.FC = () => {
   return (
     <>
-    <Box textAlign="center" bg={'#d7d5d5'} mb={10}>
-        <Heading as="h1" size="2xl" my={{md:'5rem',base:'2rem'}}>
+    <Box textAlign="center" mt={{md:'5rem',base:'2rem'}} mb={10}>
+        <Heading as="h1" size="2xl" fontWeight={'500'} className="blue-gradient-text" my={{md:'5rem',base:'2rem'}}>
           Website Privacy Policy
         </Heading>
       </Box>
@@ -202,7 +202,7 @@ const PrivacyPolicyPage: React.FC = () => {
           <Text>
             For questions regarding this Policy, please contact{" "}
             <Text as="span" fontWeight="bold">
-              legalcompliance@hushhTech.com
+            ir@hushh.ai
             </Text>
             .
           </Text>

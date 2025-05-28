@@ -171,8 +171,8 @@ const HushhEmployeeChampionHandbook = () => {
       </Text>
       <List spacing={3} mb={4}>
         <ListItem>• For employee HR inquiries: hr@hush1one.com</ListItem>
-        <ListItem>• For champion commissions or brand guidelines: partnerships@hushh.ai</ListItem>
-        <ListItem>• For compliance questions: compliance@hushh.ai</ListItem>
+        <ListItem>• For champion commissions or brand guidelines: ir@hushh.ai</ListItem>
+        <ListItem>• For compliance questions: ir@hushh.ai</ListItem>
       </List>
       <Text fontSize="lg" color="black" mb={4}>
         Let’s continue building a world where the best of AI meets the best of human creativity, all while fostering belonging and prosperity (alpha + aloha).

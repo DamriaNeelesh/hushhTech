@@ -4,8 +4,8 @@ import { Box, Heading, Text, Container, Divider, VStack } from "@chakra-ui/react
 const CareersPrivacyPolicy = () => {
   return (
     <>
-      <Box textAlign="center" bg={'#d7d5d5'} mb={10}>
-        <Heading as="h1" size="2xl" my={{md:'5rem',base:'2rem'}}>
+      <Box textAlign="center" mt={{md:'5rem',base:'2rem'}} mb={10}>
+        <Heading as="h1" size="2xl" fontWeight={'500'} className="blue-gradient-text" my={{md:'5rem',base:'2rem'}}>
           Careers Site Privacy Policy
         </Heading>
       </Box>
