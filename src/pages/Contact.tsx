@@ -25,7 +25,7 @@ import {
 import { MapPin, Phone, Clock } from "lucide-react";
 
 const reasonOptions = [
-  "General Inquiry",
+  "Infrastructure Consultation",
   "Investment Information",
   "Technical Support",
   "Other"

@@ -45,7 +45,7 @@ const WhyChooseSection = () => {
               <Icon as={FaRocket} color="red.400" boxSize={6} />
             </Flex>
             <Heading as="h3" fontSize="xl" mb={3} fontWeight="500" color="gray.800">
-              Innovative <br></br> Strategies
+              Innovative {window.innerWidth >= 768 ? <br /> : ' '}Strategies
             </Heading>
             <Text className='text-[#6E6E73] leading-relaxed font-light'>
               AI-powered algorithms that adapt to market changes in real-time
@@ -73,7 +73,7 @@ const WhyChooseSection = () => {
               <Icon as={FaChartBar} color="blue.400" boxSize={6} />
             </Flex>
             <Heading as="h3" fontSize="xl" mb={3} fontWeight="500" color="gray.800">
-              Math-Driven <br></br> Decisions
+              Math-Driven {window.innerWidth >= 768 ? <br /> : ' '}Decisions
             </Heading>
             <Text className='text-[#6E6E73] leading-relaxed font-light'>
               Every investment backed by rigorous quantitative analysis
@@ -101,7 +101,7 @@ const WhyChooseSection = () => {
               <Icon as={FaBrain} color="pink.400" boxSize={6} />
             </Flex>
             <Heading as="h3" fontSize="xl" mb={3} fontWeight="500" color="gray.800">
-              AI-Powered <br></br> Insights
+              AI-Powered {window.innerWidth >= 768 ? <br /> : ' '}Insights
             </Heading>
             <Text className='text-[#6E6E73] leading-relaxed font-light'>
               Machine learning models that identify hidden opportunities
@@ -128,7 +128,7 @@ const WhyChooseSection = () => {
               <Icon as={FaSearch} color="#0AADBC" boxSize={6} />
             </Flex>
             <Heading as="h3" fontSize="xl" mb={3} fontWeight="500" color="gray.800">
-              Transparency You <br></br> Trust
+              Transparency You {window.innerWidth >= 768 ? <br /> : ' '}Trust
             </Heading>
             <Text className='text-[#6E6E73] leading-relaxed font-light'>
               Clear reporting and ethical practices you can depend on

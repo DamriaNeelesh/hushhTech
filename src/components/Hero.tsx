@@ -41,8 +41,8 @@ export default function Hero() {
           fontFamily={'-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif'}
         >
           <Container maxW="7xl" textAlign="center">
-            <Flex direction="column" align="center" mb={8}>
-              <Box className="pt-20">
+            <Flex direction="column" align="center" mb={{md:8,base:4}}>
+              <Box className="pt-20" display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} gap={{md:0,base:4}}>
                 <Text fontSize={{ base: "3xl", md: "7xl", lg: "8xl" }} color={'rgb(29,29,29)'} fontWeight="300" fontFamily={'-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu'} lineHeight="1">
                   Precision in Data.
                 </Text>
@@ -55,8 +55,8 @@ export default function Hero() {
               </Box>
               
               <Text 
-                fontSize={{ base: "xl", md: "2xl", lg: "3xl" }} 
-                mb={10} 
+                fontSize={{ base: "md", md: "2xl", lg: "3xl" }} 
+                mb={{md:10,base:20}} 
                 mt={6}
                 color="rgb(110 110 115 / var(--tw-text-opacity, 1))"
                 sx={{
@@ -70,18 +70,18 @@ export default function Hero() {
                 in the future of wealth with us.
               </Text>
               
-              <Flex justifyContent="center" gap={4} flexDirection={{ base: 'column', sm: 'row' }} width={{ base: "full", sm: "auto" }}>
+              <Flex justifyContent={{md:"center",base:"flex-end"}} gap={4} flexDirection={{ base: 'column', sm: 'row' }} >
                 <Button
                   onClick={() => navigate("/about/leadership")}
                   bg="#00adbf"
                   color="white"
                   rounded="full"
                   _hover={{ bg: "#0891B2" }}
-                  px={8}
-                  py={4}
+                  px={{md:8,base:4}}
+                  py={{md:4,base:2}}
                   fontSize="md"
                   fontWeight="semibold"
-                  minW="200px"
+                  minW={{md:"200px",base:"100px"}}
                   // h="auto"
                 >
                   Explore Our Approach

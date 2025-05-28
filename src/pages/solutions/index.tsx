@@ -355,9 +355,12 @@ const SolutionsPage = () => {
             </Text>
             
             <Button 
-              className="cta-button"
+              // className="cta-button"
+background={'linear-gradient(to right, #00A9E0, #6DD3EF)'}
               as={Link}
+              borderRadius={'full'}
               href="/contact"
+              color={'white'}
               size="lg"
               _hover={{}}
             >

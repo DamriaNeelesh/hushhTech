@@ -8,8 +8,8 @@ export default function Leadership() {
   return (
     <Box bg="white">
       {/* Hero Section */}
-      <Box pt={{ base: 16, md: 24 }} px={4} minH={{md:"80vh",base:'60vh'}} textAlign="center">
-        <Container maxW="container.lg">
+      <Box pt={{ base: 16, md: 24 }} px={4} minH={{md:"90vh",base:'60vh'}} textAlign="center">
+        <Container maxW="container.lg" mt={{md:16,base:8}}>
           <Heading 
             as="h1" 
             fontSize={{ base: "3xl", md: "7xl" }} 
@@ -269,22 +269,20 @@ export default function Leadership() {
             justifyContent="center" 
             gap={4} 
             flexDirection={{ base: "column", sm: "row" }}
-            maxW="md"
-            mx="auto"
+            // maxW="md"
+            // mx="auto"
           >
             <Box 
               as="button"
-              bg="#0891B2"
+              background={'linear-gradient(to right, #00A9E0, #6DD3EF)'}
               color="white"
-              py={3}
-              px={6}
-              borderRadius="md"
+              
+              borderRadius="full"
               onClick={() => window.location.href = "/contact"}
               fontWeight="medium"
-              _hover={{ bg: "#4BC0C8" }}
-
-              className="bg-[#0891B2] text-[#1D293D] hover:bg-[#4BC0C8] w-full sm:w-auto"
-              w={{ base: "full", sm: "auto" }}
+              px={{md:16,base:4}}
+              py={2}
+              className="bg-[#0891B2] hover:bg-[#4BC0C8]"
             >
               Contact Us
             </Box>
@@ -293,14 +291,14 @@ export default function Leadership() {
               as="button"
               bg="transparent"
               color="#0891B2"
-              py={3}
+              py={2}
               onClick={() => window.location.href = "/signUp"}
-              px={6}
-              borderRadius="md"
+              px={{md:16,base:4}}
+              borderRadius="full"
               fontWeight="medium"
               border="1px solid #0891B2"
-              _hover={{ bg: "rgba(255,255,255,0.1)" }}
-              w={{ base: "full", sm: "auto" }}
+              // _hover={{ bg: "rgba(255,255,255,0.1)" }}
+              // w={{ base: "full", sm: "auto" }}
             >
               Sign Up Now
             </Box>

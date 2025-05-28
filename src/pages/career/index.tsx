@@ -56,6 +56,7 @@ const CareerList = () => {
             fontSize={{ base: "4xl", md: "7xl" }}
             letterSpacing="-0.02em"
             fontWeight="300"
+            mt={{base: 2, md: 0}}
           >  Join Our Team</Text>
         </Heading>
         
@@ -63,6 +64,7 @@ const CareerList = () => {
           fontSize={{ base: "md", md: "xl" }} 
           maxW="3xl" 
           mx="auto" 
+          
           color="#6E6E73"
           lineHeight="1.7"
           fontWeight="400"
