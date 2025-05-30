@@ -179,15 +179,39 @@ const ProfilePage: React.FC = () => {
   // Download NDA if approved.
   const handleDownloadNda = async () => {
     const FETCH_NDA_URL =
-      "https://hushhtech-nda-generation-53407187172.us-central1.run.app/v2/fetch-nda";
+      "https://hushhtech-nda-generation-53407187172.us-central1.run.app/fetch-nda";
+    
+    // Show a loading toast that will persist until download starts or error occurs
+    const loadingToastId = toast({
+      title: "Preparing Download",
+      description: "Generating your NDA document for download, please wait...",
+      status: "loading",
+      duration: null, // No auto-dismiss
+      isClosable: false,
+    });
+    
     try {
+      console.log("Fetching NDA document for download...");
       const response = await axios.get(FETCH_NDA_URL, {
         headers: {
           "jwt-token": session.access_token,
         },
         responseType: "blob",
       });
+      
+      // Close the loading toast
+      toast.close(loadingToastId);
+      
       if (response.status === 200) {
+        // Show success toast
+        toast({
+          title: "Download Ready",
+          description: "Your NDA document is ready to download.",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        
         const blob = new Blob([response.data], { type: "application/pdf" });
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement("a");
@@ -196,6 +220,9 @@ const ProfilePage: React.FC = () => {
         document.body.appendChild(link);
         link.click();
         link.parentNode?.removeChild(link);
+        
+        // Clean up the Blob URL
+        window.URL.revokeObjectURL(url);
       } else {
         toast({
           title: "Download Error",
@@ -206,6 +233,10 @@ const ProfilePage: React.FC = () => {
         });
       }
     } catch (error: any) {
+      // Close the loading toast
+      toast.close(loadingToastId);
+      
+      console.error("Error downloading NDA:", error);
       toast({
         title: "Download Error",
         description: "Failed to download NDA. Please try again.",
@@ -316,6 +347,7 @@ const ProfilePage: React.FC = () => {
                 w="full" 
                 background={'linear-gradient(to right, #00A9E0, #6DD3EF)'}
                 mb={4} 
+                _hover={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)" }}
                 color={'white'}
                 onClick={handleViewPublicDocs}
                 className="mb-4"
@@ -325,8 +357,10 @@ const ProfilePage: React.FC = () => {
               
               <Button 
                 w="full" 
-                colorScheme={ndaStatus === "Approved" ? "teal" : "gray"}
+                color={ndaStatus === "Approved" ? "white" : "gray.400"}
+                background={ndaStatus === "Approved" ? "linear-gradient(to right, #00A9E0, #6DD3EF)" : "gray"}
                 isDisabled={ndaStatus !== "Approved"}
+                _hover={{ background: ndaStatus === "Approved" ? "linear-gradient(to right, #00A9E0, #6DD3EF)" : "gray" }}
                 onClick={handleViewPrivateDocs}
                 mb={4}
               >

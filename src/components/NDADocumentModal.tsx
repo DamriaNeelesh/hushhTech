@@ -49,6 +49,14 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
     apiCalledRef.current = true;
     setLoading(true);
     
+    const loadingToastId = toast({
+      title: "Generating NDA Document",
+      description: "Please wait while we prepare your NDA document...",
+      status: "loading",
+      duration: null, // No auto-dismiss
+      isClosable: false,
+    });
+    
     try {
       console.log("Generating NDA PDF with metadata:", ndaMetadata);
       
@@ -64,14 +72,28 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
         }
       );
       
+      // Close the loading toast
+      toast.close(loadingToastId);
+      
       // Create a Blob URL from the response data
       const blob = new Blob([response.data], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
       setPdfUrl(url);
       
       console.log("NDA PDF generated successfully");
+      
+      toast({
+        title: "Document Ready",
+        description: "Your NDA document has been generated successfully.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
     } catch (error: any) {
       console.error("Error generating NDA PDF:", error);
+      
+      // Close the loading toast
+      toast.close(loadingToastId);
       
       // More detailed error handling
       let errorMessage = "Failed to generate NDA PDF.";
