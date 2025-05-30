@@ -48,7 +48,7 @@ export default function Footer() {
             <h3 className="text-xl font-semibold mb-6">Hushh 🤫 Technologies LLC</h3>
             <div className="space-y-2 text-gray-300">
               <p>1021 5th St W, Kirkland, WA 98033</p>
-              <p>Phone: +1 (765) 532-4284</p>
+              <p>Phone: +14252969050</p>
               <p>Office Hours: Mon-Fri 9AM-6PM PST</p>
             </div>
           </div>

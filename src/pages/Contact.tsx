@@ -329,7 +329,7 @@ export default function Contact() {
                 <Icon as={MapPin} color="red.400" boxSize={5} mt={1} />
                 <Box>
                   <Text fontWeight="medium">Address</Text>
-                  <Text color="gray.600">021 5th St W</Text>
+                  <Text color="gray.600">1021 5th St W</Text>
                   <Text color="gray.600">Kirkland, WA 98033</Text>
                 </Box>
               </HStack>
@@ -338,7 +338,7 @@ export default function Contact() {
                 <Icon as={Phone} color="red.400" boxSize={5} mt={1} />
                 <Box>
                   <Text fontWeight="medium">Phone</Text>
-                  <Text color="gray.600">+1 (765) 532-4284</Text>
+                  <Text color="gray.600">+14252969050</Text>
                 </Box>
               </HStack>
               
