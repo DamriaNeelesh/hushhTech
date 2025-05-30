@@ -401,11 +401,14 @@ const ProfilePage: React.FC = () => {
               
               <Button
                 w="full"
-                colorScheme="gray"
-                isDisabled={true}
+                bg="linear-gradient(to right, #00A9E0, #6DD3EF)"
+                color="white"
+                onClick={() => navigate("/kyc-verification")}
+                _hover={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)" }}
+                // isDisabled={true}
                 mb={4}
               >
-                Coming Soon
+                KYC Verification Requirements
               </Button>
               
               <Box className="w-full p-4 bg-gray-100 rounded-xl text-center text-[#6E6E73] font-light">
