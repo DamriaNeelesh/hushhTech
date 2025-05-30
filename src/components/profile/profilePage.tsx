@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   Box,
   VStack,
@@ -38,6 +38,9 @@ const ProfilePage: React.FC = () => {
   const [showNdaModal, setShowNdaModal] = useState(false);
   const [showNdaDocModal, setShowNdaDocModal] = useState(false);
   const [ndaApproved, setNdaApproved] = useState(false);
+  const [isMetadataLoading, setIsMetadataLoading] = useState(false);
+  // Add a ref to track if metadata has been fetched successfully
+  const metadataFetchedRef = useRef<boolean>(false);
 
   useEffect(() => {
     config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
@@ -54,43 +57,7 @@ const ProfilePage: React.FC = () => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const checkNdaStatus = async () => {
-  //     if (!session) return;
-  //     try {
-  //       const response = await axios.post(
-  //         "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/check_access_status",
-  //         {},
-  //         {
-  //           headers: {
-  //             apikey: config.SUPABASE_ANON_KEY,
-  //             Authorization: `Bearer ${session.access_token}`,
-  //             "Content-Type": "application/json",
-  //           },
-  //         }
-  //       );
-  //       setNdaStatus(response.data);
-  //       if (response.data === "Pending: Waiting for NDA Process") {
-  //         fetchNdaMetadata();
-  //       }
-  //     } catch (error) {
-  //       toast({
-  //         title: "API Error",
-  //         description: "Failed to check NDA access status.",
-  //         status: "error",
-  //         duration: 4000,
-  //         isClosable: true,
-  //       });
-  //     }
-  //   };
-  //   if (session) {
-  //     checkNdaStatus();
-  //   }
-  // }, [session, toast]);
-
-   // Call checkNdaStatus on mount and then poll every 15 seconds.
-   
-     // Extracted function to check NDA status.
+  // Extracted function to check NDA status.
   const checkNdaStatus = useCallback(async () => {
     if (!session) return;
     try {
@@ -105,11 +72,16 @@ const ProfilePage: React.FC = () => {
           },
         }
       );
-      setNdaStatus(response.data);
-      if (response.data === "Approved") {
+      
+      const newStatus = response.data;
+      setNdaStatus(newStatus);
+      
+      if (newStatus === "Approved") {
         setNdaApproved(true);
       }
-      if (response.data === "Pending: Waiting for NDA Process") {
+      
+      // If status is "Pending: Waiting for NDA Process", fetch metadata only if not already fetched
+      if (newStatus === "Pending: Waiting for NDA Process" && !metadataFetchedRef.current) {
         fetchNdaMetadata();
       }
     } catch (error) {
@@ -123,19 +95,26 @@ const ProfilePage: React.FC = () => {
     }
   }, [session, toast]);
 
-
-   useEffect(() => {
+  useEffect(() => {
     if (session) {
       checkNdaStatus(); // initial check
       const intervalId = setInterval(() => {
         checkNdaStatus();
-      }, 2000); 
+      }, 5000); // Check every 5 seconds instead of 2 to reduce API load
       return () => clearInterval(intervalId);
     }
   }, [session, checkNdaStatus]);
 
+  // Enhanced fetchNdaMetadata to prevent multiple API calls
   const fetchNdaMetadata = async () => {
+    // Don't fetch if already loading or if we already have metadata
+    if (isMetadataLoading || (ndaMetadata && Object.keys(ndaMetadata).length > 0) || metadataFetchedRef.current) {
+      return;
+    }
+    
+    setIsMetadataLoading(true);
     try {
+      console.log("Fetching NDA metadata...");
       const ndaResponse = await axios.post(
         "https://gsqmwxqgqrgzhlhmbscg.supabase.co/rest/v1/rpc/get_nda_metadata",
         {},
@@ -147,19 +126,37 @@ const ProfilePage: React.FC = () => {
           },
         }
       );
+      
       if (ndaResponse.data.status === "success") {
-        setNdaMetadata(ndaResponse.data.metadata);
+        const metadata = ndaResponse.data.metadata;
+        setNdaMetadata(metadata);
+        
+        // Mark that we've successfully fetched metadata
+        if (metadata && Object.keys(metadata).length > 0) {
+          console.log("Metadata fetched successfully");
+          metadataFetchedRef.current = true;
+        }
+        
+        // Automatically show the NDA document modal if we have valid metadata
+        // and the user's status is "Pending: Waiting for NDA Process"
+        if (metadata && ndaStatus === "Pending: Waiting for NDA Process") {
+          setShowNdaDocModal(true);
+        }
       } else {
-        // Removing now for smooth process of NDA completion (User not in NDA Stage)
-        // toast({
-        //   title: "Error",
-        //   description: ndaResponse.data.message || "Error fetching NDA metadata.",
-        //   status: "error",
-        //   duration: 4000,
-        //   isClosable: true,
-        // });
+        // Only show error if user is in NDA stage but metadata couldn't be fetched
+        if (ndaStatus === "Pending: Waiting for NDA Process") {
+          toast({
+            title: "Error",
+            description: ndaResponse.data.message || "Error fetching NDA metadata.",
+            status: "error",
+            duration: 4000,
+            isClosable: true,
+          });
+        }
       }
     } catch (error) {
+      // Reset the flag so we can try again
+      metadataFetchedRef.current = false;
       toast({
         title: "Error",
         description: "Failed to fetch NDA metadata.",
@@ -167,8 +164,17 @@ const ProfilePage: React.FC = () => {
         duration: 4000,
         isClosable: true,
       });
+    } finally {
+      setIsMetadataLoading(false);
     }
   };
+
+  // Reset metadata fetched flag when NDA status changes
+  useEffect(() => {
+    if (ndaStatus !== "Pending: Waiting for NDA Process") {
+      metadataFetchedRef.current = false;
+    }
+  }, [ndaStatus]);
 
   // Download NDA if approved.
   const handleDownloadNda = async () => {
@@ -218,7 +224,7 @@ const ProfilePage: React.FC = () => {
     } else if (ndaStatus === "Requested permission for the sensitive file." || ndaStatus === "Pending") {
       return { text: "Waiting for approval", disabled: true, bgClass: "" };
     } else if (ndaStatus === "Pending: Waiting for NDA Process") {
-      return { text: "Please sign NDA sent to your email", disabled: true, bgClass: "" };
+      return { text: "Sign NDA Document", disabled: false, bgClass: "blue-gradient-bg" };
     } else if (ndaStatus === "Rejected") {
       return { text: "Re-apply for NDA Process", disabled: false, bgClass: "blue-gradient-bg" };
     }
@@ -229,6 +235,7 @@ const ProfilePage: React.FC = () => {
 
   const handleNdaAccepted = () => {
     setNdaStatus("Approved");
+    setNdaApproved(true);
   };
 
   const handleStartNdaProcess = () => {
@@ -237,11 +244,15 @@ const ProfilePage: React.FC = () => {
       return;
     } else if (ndaStatus === "Not Applied" || ndaStatus === "Rejected") {
       navigate("/nda-form");
-      // setShowNdaModal(true);
-    } 
-    // else if (ndaStatus === "Pending: Waiting for NDA Process") {
-    //   setShowNdaDocModal(true);
-    // }
+    } else if (ndaStatus === "Pending: Waiting for NDA Process") {
+      // If metadata exists, show the NDA document modal
+      if (ndaMetadata) {
+        setShowNdaDocModal(true);
+      } else {
+        // If no metadata, try to fetch it - this will be a no-op if already fetched
+        fetchNdaMetadata();
+      }
+    }
   };
 
   // Navigation handlers using useNavigate.
@@ -363,7 +374,7 @@ const ProfilePage: React.FC = () => {
               
               <Text className="text-[#6E6E73] mb-8 font-light leading-relaxed">
                 {ndaStatus === "Pending: Waiting for NDA Process" 
-                  ? "The NDA signing is in process. Please sign the NDA sent to your email if you haven't signed it yet. Once the NDA is accepted by Hush1one Inc., you will be notified."
+                  ? "Please sign the NDA document to complete the process."
                   : "Complete NDA to access sensitive documents"
                 }
               </Text>
@@ -428,6 +439,11 @@ const ProfilePage: React.FC = () => {
           onSubmit={(result: string) => {
             setNdaStatus(result);
             setShowNdaModal(false);
+            
+            // If status changes to "Pending: Waiting for NDA Process", fetch metadata
+            if (result === "Pending: Waiting for NDA Process") {
+              fetchNdaMetadata();
+            }
           }}
         />
       )}
@@ -436,12 +452,15 @@ const ProfilePage: React.FC = () => {
       {showNdaDocModal && ndaMetadata && session && (
         <NDADocumentModal
           isOpen={showNdaDocModal}
-          onClose={() => setShowNdaDocModal(false)}
+          onClose={() => {
+            setShowNdaDocModal(false);
+          }}
           session={session}
           ndaMetadata={ndaMetadata}
           onAccept={() => {
             setNdaApproved(true);
             setShowNdaDocModal(false);
+            setNdaStatus("Approved"); // Update status after accepting NDA
             localStorage.setItem("communityFilter", "nda");
           }}
         />

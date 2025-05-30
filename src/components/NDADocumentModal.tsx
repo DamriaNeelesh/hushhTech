@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -37,11 +37,21 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
   const [confirmed, setConfirmed] = useState<boolean>(false);
   const toast = useToast();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  // Use a ref to track if the PDF generation API has been called
+  const apiCalledRef = useRef<boolean>(false);
 
   // Generate NDA PDF and create a blob URL.
   const generateNdaPDF = async () => {
+    // If API has already been called or if we're already loading, don't call again
+    if (apiCalledRef.current || loading) return;
+    
+    // Mark that we've called the API
+    apiCalledRef.current = true;
     setLoading(true);
+    
     try {
+      console.log("Generating NDA PDF with metadata:", ndaMetadata);
+      
       const response = await axios.post(
         "https://hushhtech-nda-generation-53407187172.us-central1.run.app/generate-nda",
         { metadata: ndaMetadata },
@@ -53,32 +63,67 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
           responseType: "blob",
         }
       );
-      const url = URL.createObjectURL(response.data);
+      
+      // Create a Blob URL from the response data
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
       setPdfUrl(url);
+      
+      console.log("NDA PDF generated successfully");
     } catch (error: any) {
       console.error("Error generating NDA PDF:", error);
+      
+      // More detailed error handling
+      let errorMessage = "Failed to generate NDA PDF.";
+      
+      if (error.response) {
+        // Server responded with an error
+        if (error.response.data instanceof Blob) {
+          // Try to read the error message from the Blob
+          try {
+            const text = await error.response.data.text();
+            const errorData = JSON.parse(text);
+            errorMessage = errorData.message || errorMessage;
+          } catch (e) {
+            console.error("Error parsing error blob:", e);
+          }
+        } else {
+          errorMessage = error.response.data?.message || error.response.statusText || errorMessage;
+        }
+      }
+      
       toast({
         title: "Error",
-        description: "Failed to generate NDA PDF.",
+        description: errorMessage,
         status: "error",
         duration: 4000,
         isClosable: true,
       });
+      
+      // Reset the apiCalledRef in case we need to retry
+      apiCalledRef.current = false;
     }
     setLoading(false);
   };
 
   useEffect(() => {
-    if (isOpen) {
+    // Only generate PDF when modal is open and we have metadata
+    if (isOpen && ndaMetadata && !pdfUrl) {
       generateNdaPDF();
     }
+    
+    // Reset the apiCalledRef when the modal closes
+    if (!isOpen) {
+      apiCalledRef.current = false;
+    }
+    
     return () => {
       if (pdfUrl) {
         URL.revokeObjectURL(pdfUrl);
         setPdfUrl(null);
       }
     };
-  }, [isOpen]);
+  }, [isOpen, ndaMetadata]);
 
   const downloadPDF = () => {
     if (pdfUrl) {
@@ -146,6 +191,13 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
     }
   };
 
+  // Add a manual retry button in case the API call fails
+  const handleRetryGeneratePDF = () => {
+    apiCalledRef.current = false; // Reset the flag
+    setPdfUrl(null); // Clear any existing URL
+    generateNdaPDF(); // Try again
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
       <ModalOverlay />
@@ -156,6 +208,7 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
           {loading ? (
             <Box textAlign="center" py={8}>
               <Spinner size="xl" />
+              <Text mt={4}>Generating NDA document, please wait...</Text>
             </Box>
           ) : pdfUrl ? (
             <Box width="100%" height="500px" overflow="hidden">
@@ -169,7 +222,10 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
             </Box>
           ) : (
             <Box textAlign="center" py={8}>
-              <Text>No document available.</Text>
+              <Text mb={4}>No document available.</Text>
+              <Button onClick={handleRetryGeneratePDF} colorScheme="blue">
+                Retry PDF Generation
+              </Button>
             </Box>
           )}
           <Box mt={4}>
@@ -182,10 +238,10 @@ const NDADocumentModal: React.FC<NDADocumentModalProps> = ({
           </Box>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={downloadPDF} colorScheme="blue" mr={4}>
+          <Button onClick={downloadPDF} colorScheme="blue" mr={4} isDisabled={!pdfUrl}>
             Download PDF
           </Button>
-          <Button isLoading={isSubmitting} onClick={handleAcceptNda} colorScheme="blue">
+          <Button isLoading={isSubmitting} onClick={handleAcceptNda} colorScheme="blue" isDisabled={!pdfUrl || !confirmed}>
             Accept NDA
           </Button>
         </ModalFooter>

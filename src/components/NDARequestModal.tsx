@@ -25,10 +25,13 @@ import config from "../resources/config/config";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
+import NDADocumentModal from "./NDADocumentModal";
 
 interface NDARequestModalProps {
   session: any; // Contains the logged-in user's session (including access_token)
   onSubmit: (result: string) => void;
+  isOpen?: boolean; // Optional property for when used in a modal context
+  onClose?: () => void; // Optional property for when used in a modal context
 }
 
 // Format a given phone number string into international format with a space between the country code and the rest.
@@ -55,6 +58,8 @@ const validateEmail = (email: string) => {
 const InvestorProfilePage: React.FC<NDARequestModalProps> = ({
   session,
   onSubmit,
+  isOpen,
+  onClose,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [investorType, setInvestorType] = useState("Individual");
@@ -62,7 +67,15 @@ const InvestorProfilePage: React.FC<NDARequestModalProps> = ({
   const [formErrors, setFormErrors] = useState<any>({});
   const [ndaConfirmed, setNdaConfirmed] = useState(false);
   const [ndaTermsAccepted, setNdaTermsAccepted] = useState(false);
+  const [showNdaDocModal, setShowNdaDocModal] = useState(false);
   const toast = useToast();
+
+  // Handle modal close if component is used as a modal
+  const handleClose = () => {
+    if (onClose) {
+      onClose();
+    }
+  };
 
   const handleInputChange = (field: string, value: string) => {
     setMetadata((prev: any) => ({ ...prev, [field]: value }));
@@ -171,23 +184,37 @@ const InvestorProfilePage: React.FC<NDARequestModalProps> = ({
 
       console.log("Request Access Response:", response.data);
       const resData = response.data;
-      onSubmit(resData);
-
+      
       // Toast messages based on response (existing logic)
-      if (resData === "Approved" || (typeof resData === "string" && resData.startsWith("Requested permission")) || resData === "Pending: Waiting for NDA Process") {
+      if (resData === "Approved" || (typeof resData === "string" && resData.startsWith("Requested permission"))) {
         toast({ title: "Request Submitted", description: "Your access request has been sent and is pending approval.", status: "success", duration: 4000, isClosable: true });
+        window.location.href = "/"; // Or a more appropriate page
+        
+        // Close modal if applicable after successful submission
+        handleClose();
       } else if (resData === "Rejected") {
         toast({ title: "Request Rejected", description: "Your request was rejected. Please re-apply after 2-3 days.", status: "error", duration: 4000, isClosable: true });
       } else if (resData === "Pending") {
         toast({ title: "Request Pending", description: "Your request is still under review.", status: "info", duration: 4000, isClosable: true });
+        onSubmit(resData);
       } else if (resData === "Pending: Waiting for NDA Process") {
-        toast({ title: "NDA Process Required", description: "Please complete the NDA process to proceed.", status: "warning", duration: 4000, isClosable: true });
+        toast({ 
+          title: "NDA Process Required", 
+          description: "Please complete the NDA process to proceed.", 
+          status: "warning", 
+          duration: 4000, 
+          isClosable: true 
+        });
+        
+        // Pass the metadata for NDA generation and open NDA Document Modal
+        onSubmit(resData); // First notify parent component of the status change
+        
+        // Redirect to profile page where NDA document modal can be shown
+        // The profile page will handle showing the NDA document modal based on the status
+        window.location.href = "/profile";
       } else {
         toast({ title: "Unexpected Response", description: `Received: ${resData}`, status: "error", duration: 4000, isClosable: true });
-      }
-      // Consider redirecting only on successful/meaningful states
-      if (resData === "Approved" || (typeof resData === "string" && resData.startsWith("Requested permission"))) {
-          window.location.href = "/"; // Or a more appropriate page
+        onSubmit(resData);
       }
 
     } catch (error: any) {
@@ -201,7 +228,6 @@ const InvestorProfilePage: React.FC<NDARequestModalProps> = ({
         isClosable: true,
       });
     }
-    // Removed the unconditional window.location.href = "/"; It should be conditional based on response.
   };
 
   const renderStepIndicator = () => {
@@ -514,6 +540,12 @@ const InvestorProfilePage: React.FC<NDARequestModalProps> = ({
       </VStack>
     );
   };
+
+  // If component is used outside of a modal context, render as before
+  // If it's used as a modal, don't render when isOpen is false
+  if (isOpen === false) {
+    return null;
+  }
 
   return (
     <Container maxW="container.md" py={8}>
