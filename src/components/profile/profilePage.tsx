@@ -236,7 +236,8 @@ const ProfilePage: React.FC = () => {
       handleDownloadNda();
       return;
     } else if (ndaStatus === "Not Applied" || ndaStatus === "Rejected") {
-      setShowNdaModal(true);
+      navigate("/nda-form");
+      // setShowNdaModal(true);
     } 
     // else if (ndaStatus === "Pending: Waiting for NDA Process") {
     //   setShowNdaDocModal(true);
@@ -373,6 +374,7 @@ const ProfilePage: React.FC = () => {
                 onClick={handleStartNdaProcess}
                 color={ndaButtonDisabled ? "gray.400" : "white"}
                 isDisabled={ndaButtonDisabled}
+                _hover={{ background: "linear-gradient(to right, #0AADBC, #1CADBC)" }}
                 mb={4}
               >
                 {ndaButtonText}

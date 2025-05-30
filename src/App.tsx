@@ -27,6 +27,10 @@ import NDAPopup from './components/NdaForm';
 import Profile from './pages/profile';
 import AuthCallback from './pages/AuthCallback';
 import SolutionsPage from './pages/solutions';
+import KYCVerificationPage from './pages/kyc-verification/page';
+import NDARequestModal from './components/NdaForm';
+import InvestorProfilePage from './components/NDARequestModal';
+import UserProfilePage from './pages/user-profile/page'; 
 // Content wrapper component that applies conditional margin
 const ContentWrapper = ({ children }) => {
   const location = useLocation();
@@ -89,6 +93,19 @@ function App() {
               <Route path="/reports/:id" element={<ReportDetailPage />} />
               <Route path="/auth/callback" element={<AuthCallback />} />
               <Route path="/solutions" element={<SolutionsPage />} />
+              <Route path='/kyc-verification' element={<KYCVerificationPage/>}/>
+              <Route path='/nda-form' element={<InvestorProfilePage 
+                session={session} 
+                onSubmit={(result) => {
+                  console.log("NDA submission result:", result);
+                  // Handle post-submission actions here
+                  if (result === "Approved" || result === "Pending" || result === "Requested permission") {
+                    // Redirect to appropriate page on success
+                    window.location.href = "/";
+                  }
+                }} 
+              />} />
+              <Route path='/user-profile' element={<UserProfilePage/>}/>
             </Routes>
           </ContentWrapper>
           <Footer />
