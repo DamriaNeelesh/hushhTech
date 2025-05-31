@@ -1,0 +1,262 @@
+import React from 'react';
+import { Box, Divider, Text, VStack, Heading, Table, Tbody, Tr, Td, TableContainer, HStack, Icon } from '@chakra-ui/react';
+import MarketUpdateGallery from '../../../components/MarketUpdateGallery';
+import { FiCheckSquare } from 'react-icons/fi';
+
+const dmu30may = () => {
+  return (
+    <Box fontFamily="'Inter', sans-serif" color={'black'} maxW="4xl" mx="auto" p={5}>
+      <Heading as="h1" fontSize="2xl" fontWeight="bold" mb={6} textAlign="center">
+        HUSSH Renaissance AI First Fund A
+      </Heading>
+      <Text fontWeight="bold" fontSize="xl" textAlign="center" mb={2}>
+        Daily Market & Execution Memo
+      </Text>
+      <Text textAlign="center" mb={2}>Date: May 30, 2025</Text>
+      <Text textAlign="center" fontWeight="bold" fontSize="xl" mb={6}>
+        "From GOOG to Great: How One Position Became the Foundation of a Machine for Alpha, 
+        Aloha, and Ownership."
+      </Text>
+
+      <Divider my={6} borderColor="black" />
+
+      <Heading as="h2" fontSize="xl" fontWeight="bold" mb={4}>
+        Origin Story: 32,727 Shares of GOOG → Multi-Strategy Platform
+      </Heading>
+      <Text mb={4}>
+        On April 1, 2024, we launched HUSSH Fund A with 32,727 shares of GOOGL Class C as our 
+        founding asset.
+      </Text>
+      <Text mb={4}>
+        We didn't diversify blindly. We didn't chase returns.
+      </Text>
+      <Text mb={4}>
+        We did what disciplined investors do—we turned one great asset into a flywheel:
+      </Text>
+      <VStack align="start" spacing={2} pl={5} mb={6}>
+        <Text>● A delta-neutral, machine-augmented investment system</Text>
+        <Text>● Monetizing implied volatility daily (Aloha)</Text>
+        <Text>● Allocating capital only into high free cash flow growth equities (Alpha)</Text>
+        <Text>● Occasionally swinging for the fences (Ultra)</Text>
+      </VStack>
+      <Text mb={6}>
+        Now, our Alpha 27, Aloha 27, and Ultra 27 portfolios work in tandem to grow capital, reduce risk, 
+        and increase share ownership over time—without tax drag, portfolio churn, or dilution.
+      </Text>
+
+      <Divider my={6} borderColor="black" />
+
+      <Heading as="h2" fontSize="xl" fontWeight="bold" mb={4}>
+        Daily Highlights
+      </Heading>
+      <VStack align="start" spacing={2} pl={5} mb={6}>
+        <Text>● Net Liquidating Value (NLV): $4,395,203.83</Text>
+        <Text>● Total Market Value (Gross): $9,149,481.45</Text>
+        <Text>● Cash & Sweep: $3.33M</Text>
+        <Text>● Margin Equity: $8.80M</Text>
+        <Text>● Option Buying Power: ($345K)</Text>
+        <Text>● Day's Net P/L: +$26,219.84</Text>
+        <Text>● Delta Position: Maintained &lt;1% net exposure</Text>
+        <Text>● Margin Usage: Conservative, with all leverage supported by blue-chip equity</Text>
+      </VStack>
+      <Text mb={6} fontWeight="medium" fontStyle="italic">
+        We're not guessing direction. We're monetizing fear, greed, and complacency—every single day.
+      </Text>
+
+      <Divider my={6} borderColor="black" />
+
+      <Heading as="h2" fontSize="xl" fontWeight="bold" mb={4}>
+        Strategy Execution Notes
+      </Heading>
+      
+      <VStack align="start" spacing={6} mb={6}>
+        <Box w="full">
+          <HStack align="start" mb={2}>
+            <Icon as={FiCheckSquare} color="green.500" boxSize={6} mt={1} />
+            <Text fontWeight="bold">Aloha 27 – Daily Premium Engine</Text>
+          </HStack>
+          <VStack align="start" spacing={2} pl={10}>
+            <Text>● "Sell the Wall" hit again today across AAPL, BRK.B, TSLA.</Text>
+            <Text>● Premium was harvested safely, outside gamma clusters.</Text>
+            <Text>● Cash is already earmarked for share accumulation next cycle.</Text>
+          </VStack>
+        </Box>
+        
+        <Box w="full">
+          <HStack align="start" mb={2}>
+            <Icon as={FiCheckSquare} color="green.500" boxSize={6} mt={1} />
+            <Text fontWeight="bold">Alpha 27 – Core Compounding</Text>
+          </HStack>
+          <VStack align="start" spacing={2} pl={10}>
+            <Text>● AAPL, AMZN, GOOGL, BRK.B: still compounding intrinsic value.</Text>
+            <Text>● Proceeds from Aloha are increasing share count—every week.</Text>
+            <Text>● We don't trade them. We collect from them and accumulate more.</Text>
+          </VStack>
+        </Box>
+        
+        <Box w="full">
+          <HStack align="start" mb={2}>
+            <Icon as={FiCheckSquare} color="green.500" boxSize={6} mt={1} />
+            <Text fontWeight="bold">Ultra 27 – Asymmetric Alpha</Text>
+          </HStack>
+          <VStack align="start" spacing={2} pl={10}>
+            <Text>● Initiated new AI infrastructure trades via calls/synthetics.</Text>
+            <Text>● Risk-budgeted and gold-backed; delta-hedged on entry.</Text>
+            <Text>● Targeting 3–5x asymmetry from modeled events.</Text>
+          </VStack>
+        </Box>
+      </VStack>
+
+      <Divider my={6} borderColor="black" />
+
+      <Heading as="h2" fontSize="xl" fontWeight="bold" mb={4}>
+        Portfolio Philosophy
+      </Heading>
+      <Text mb={2}>We don't run a strategy. We run a system.</Text>
+      <Text mb={2}>Everything we own is marginable.</Text>
+      <Text mb={2}>Everything we write is monetizable.</Text>
+      <Text mb={2}>Every position must either throw off cash or serve as collateral.</Text>
+      <Text mb={6}>This is a compounding machine—not a hedge fund hobby.</Text>
+
+      <Divider my={6} borderColor="black" />
+
+      <Heading as="h2" fontSize="xl" fontWeight="bold" mb={4}>
+        Asset Book Snapshot (Select Positions)
+      </Heading>
+      <TableContainer mb={6}>
+        <Table variant="simple" size="sm">
+          <Tbody>
+            <Tr>
+              <Td fontWeight="bold">Ticker</Td>
+              <Td fontWeight="bold">Position Value</Td>
+              <Td fontWeight="bold">Day P/L</Td>
+              <Td fontWeight="bold">Delta</Td>
+              <Td fontWeight="bold">Note</Td>
+            </Tr>
+            <Tr>
+              <Td>AAPL</Td>
+              <Td>$2.99M</Td>
+              <Td>+$13.8K</Td>
+              <Td>9,831</Td>
+              <Td>Core anchor</Td>
+            </Tr>
+            <Tr>
+              <Td>NVDA</Td>
+              <Td>$1.83M</Td>
+              <Td>-$17.1K</Td>
+              <Td>7,276</Td>
+              <Td>Volatility adjustment</Td>
+            </Tr>
+            <Tr>
+              <Td>AMZN</Td>
+              <Td>$1.29M</Td>
+              <Td>+$3.9K</Td>
+              <Td>969</Td>
+              <Td>Rolled into new put spread</Td>
+            </Tr>
+            <Tr>
+              <Td>BRK/B</Td>
+              <Td>$824K</Td>
+              <Td>+$4.9K</Td>
+              <Td>-311</Td>
+              <Td>Net neutral post-roll</Td>
+            </Tr>
+            <Tr>
+              <Td>TSLA</Td>
+              <Td>$618K</Td>
+              <Td>+$29K</Td>
+              <Td>-1,996</Td>
+              <Td>Aloha windfall</Td>
+            </Tr>
+            <Tr>
+              <Td>META</Td>
+              <Td>$609K</Td>
+              <Td>-$247</Td>
+              <Td>-694</Td>
+              <Td>Trimmed on spike</Td>
+            </Tr>
+          </Tbody>
+        </Table>
+      </TableContainer>
+      <Text mb={6} fontWeight="medium">
+        We care more about share count than share price. Every roll and premium deposit brings us closer to owning more.
+      </Text>
+
+      <Divider my={6} borderColor="black" />
+
+      <Heading as="h2" fontSize="xl" fontWeight="bold" mb={4}>
+        Real Performance (Reference)
+      </Heading>
+      <Text mb={4}>Verified realized gain data (audited where applicable):</Text>
+      <VStack align="start" spacing={2} pl={5} mb={4}>
+        <Text>● Realized Gains (Since Launch): $9.8M</Text>
+        <Text>● Net P/L: +$5.64M</Text>
+        <Text>● Gain/Loss Ratio: ~70%</Text>
+        <Text>● Avg Gain vs. Loss: +14.04% / -6.51%</Text>
+        <Text>● Win Rate: ~90% over 10,000+ trades</Text>
+      </VStack>
+      <Text mb={2}>This isn't a streak. It's the system working.</Text>
+      <Text mb={6}>We focus on repeatability, not razzle-dazzle.</Text>
+
+      <Divider my={6} borderColor="black" />
+
+      <Heading as="h2" fontSize="xl" fontWeight="bold" mb={4}>
+        Risk Management
+      </Heading>
+      <VStack align="start" spacing={2} pl={5} mb={4}>
+        <Text>● Net Delta Exposure: ~0</Text>
+        <Text>● Margin Usage: ~35%, tightly managed</Text>
+        <Text>● Short Book: $1.77M – structured and risk-neutral</Text>
+        <Text>● Cash on Hand: $3.33M – ready for opportunity</Text>
+        <Text>● Maintenance Headroom: $1.62M over trigger</Text>
+      </VStack>
+      <Text mb={6}>
+        Leverage is only used when we're getting paid to use it. And only when we have premium offsets in place.
+      </Text>
+
+      <Divider my={6} borderColor="black" />
+
+      <Heading as="h2" fontSize="xl" fontWeight="bold" mb={4}>
+        LP Takeaways
+      </Heading>
+      <VStack align="start" spacing={2} pl={5} mb={6}>
+        <Text>1. We're Growing Share Counts: Our holdings are rising because we're reinvesting daily income.</Text>
+        <Text>2. We're Staying Delta-Neutral: This isn't a directional bet. It's a monetization engine.</Text>
+        <Text>3. Every Asset Earns Its Keep: No lazy capital. No idling stocks.</Text>
+        <Text>4. We Respect Risk: Our cash buffer and margin strategy ensures durability, not drama.</Text>
+      </VStack>
+
+      <Divider my={6} borderColor="black" />
+
+      <Heading as="h2" fontSize="xl" fontWeight="bold" mb={4}>
+        Final Thought
+      </Heading>
+      <Text mb={4}>We turned a single GOOG position into a precision-built platform that:</Text>
+      <VStack align="start" spacing={2} pl={5} mb={6}>
+        <Text>● Owns what matters</Text>
+        <Text>● Sells what's overvalued</Text>
+        <Text>● Increases share count daily</Text>
+        <Text>● Defends capital</Text>
+        <Text>● Compounds alpha + aloha in concert</Text>
+      </VStack>
+      <Text mb={6}>We'll keep doing that—with your trust and our conviction.</Text>
+
+      <Text mb={2}>With gratitude and clarity,</Text>
+      <Text fontWeight="bold" mb={1}>Manish</Text>
+      <Text mb={6}>Managing Partner</Text>
+      
+      <Text fontWeight="bold" mb={2}>HUSSH Fund A | Renaissance AI First Fund</Text>
+      
+      <Text fontStyle="italic" textAlign="center" mt={8} mb={4}>Confidential</Text>
+
+      <Divider my={4} borderColor="black" />
+
+      {/* <MarketUpdateGallery 
+        date="dmu30may" 
+        title="Supporting Charts & Data"
+      /> */}
+    </Box>
+  );
+};
+
+export default dmu30may;

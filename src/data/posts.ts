@@ -151,6 +151,7 @@ import Dmu17apr from '../content/posts/market/dmu17apr';
 import Dmu21apr from '../content/posts/market/dmu21apr';
 import Dmu23apr from '../content/posts/market/dmu23apr';
 import Dmu24apr from '../content/posts/market/dmu24apr';
+import dmu30may from '../content/posts/market/dmu30may';
 
 export interface PostData {
   slug: string;
@@ -1489,6 +1490,17 @@ export const posts: PostData[] = [
 //   image: DailyMarketUpdateImg1,
 //   accessLevel: 'Public',
 // },
+{
+  count: 160,
+  slug: 'market/daily-update-30-may',
+  title: 'From GOOG to Great: How One Position Became the Foundation of a Machine for Alpha, Aloha, and Ownership',
+  publishedAt: '2025-05-30',
+  description: 'How HUSSH Fund A transformed from a single GOOG position into a multi-strategy platform generating consistent alpha and income while growing share ownership.',
+  category: 'market updates',
+  Component: dmu30may,
+  image: DailyMarketUpdateImg2,
+  accessLevel: 'Public',
+},
 ];
 
 export function getPosts(): PostData[] {
