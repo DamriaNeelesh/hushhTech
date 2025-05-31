@@ -22,6 +22,7 @@ import MarketUpdate5Feb from '../content/posts/market/marketUpdate5feb'
 import LimitedPartnershipAgreement from '../content/posts/investors-faq/limitedPartnershipAgreement';
 import FeeSchedule from '../content/posts/funds/feeSchedule'
 import Dmu22apr from '../content/posts/market/dmu22apr';
+import aiInfrastructure from '../content/posts/general/aiInfrastructure';
 
 // Images
 import FundsUpdateImg1 from '../components/images/0_Fund Performance.jpg';
@@ -1499,6 +1500,17 @@ export const posts: PostData[] = [
   category: 'market updates',
   Component: dmu30may,
   image: DailyMarketUpdateImg2,
+  accessLevel: 'Public',
+},
+{
+  count: 161, // Adjust this number as needed based on your current highest count
+  slug: "general/ai-infrastructure-thesis",
+  title: "AI Infrastructure Thesis Update – May 2025 (Post-Nvidia Q1 FY2026 Earnings)",
+  publishedAt: '2025-05-29',
+  description: "Nvidia's Q1 FY2026 results underscore an unprecedented surge in AI infrastructure demand, with strategic implications for our portfolio of Aces, Kings, and Queens.",
+  category: 'general',
+  Component: aiInfrastructure,
+  image: DailyMarketUpdateImg2, // Use an appropriate image from your imports
   accessLevel: 'Public',
 },
 ];
