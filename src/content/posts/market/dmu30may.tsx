@@ -13,7 +13,7 @@ const dmu30may = () => {
         Daily Market & Execution Memo
       </Text>
       <Text textAlign="center" mb={2}>Date: May 30, 2025</Text>
-      <Text textAlign="center" fontWeight="bold" fontSize={{md:"xl",base:'lg'}} mb={6}>
+      <Text textAlign="center" fontWeight="bold" fontSize={{md:"lg",base:'md'}} mb={6}>
         "From GOOG to Great: How One Position Became the Foundation of a Machine for Alpha, 
         Aloha, and Ownership."
       </Text>
