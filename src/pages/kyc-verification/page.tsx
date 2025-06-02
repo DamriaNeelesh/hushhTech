@@ -406,18 +406,7 @@ const KYCVerificationPage = () => {
           </VStack>
         </Box>
 
-        {/* NDA Approval */}
-        <Box 
-          borderWidth="1px" 
-          borderRadius="lg" 
-          overflow="hidden"
-          borderColor={borderColor}
-          bg="gray.100"
-          p={4}
-          textAlign="center"
-        >
-          <Text fontWeight="medium">NDA approval required to start KYC process</Text>
-        </Box>
+        
       </VStack>
     </Container>
   )
