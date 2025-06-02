@@ -455,10 +455,18 @@ const ProfilePage: React.FC = () => {
               >
                 KYC Verification Requirements
               </Button>
+              <Button
+                w="full"
+                bg="linear-gradient(to right, #00A9E0, #6DD3EF)"
+                color="white"
+                onClick={() => navigate("/kyc-form")}
+                _hover={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)" }}
+                // isDisabled={true}
+                mb={4}
+              >
+                Start KYC Verification
+              </Button>
               
-              <Box className="w-full p-4 bg-gray-100 rounded-xl text-center text-[#6E6E73] font-light">
-                KYC verification coming soon
-              </Box>
             </Box>
           </SimpleGrid>
         </VStack>
