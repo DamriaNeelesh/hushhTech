@@ -457,7 +457,7 @@ const KYCFormPage = () => {
         if (files.idDocument) formDataToSubmit.append('idDocument', files.idDocument);
         if (files.proofOfAddress) formDataToSubmit.append('addressProof', files.proofOfAddress);
         if (files.taxFormW9) formDataToSubmit.append('taxForm', files.taxFormW9);
-        if (files.taxFormW8BEN) formDataToSubmit.append('taxFormW8BEN', files.taxFormW8BEN);
+        if (files.taxFormW8BEN) formDataToSubmit.append('taxForm', files.taxFormW8BEN);
         if (files.sourceOfFundsDoc) formDataToSubmit.append('sourceOfFundsDoc', files.sourceOfFundsDoc);
       } else {
         // Institutional investor details
