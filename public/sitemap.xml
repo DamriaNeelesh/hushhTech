@@ -3,43 +3,967 @@
       
       <url>
         <loc>https://hushhTech.com/</loc>
-        <lastmod>2025-04-18T17:11:47.082Z</lastmod>
+        <lastmod>2025-06-05T06:25:08.284Z</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
       </url>
 
       <url>
         <loc>https://hushhTech.com/about</loc>
-        <lastmod>2025-04-18T17:11:47.083Z</lastmod>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
       </url>
 
       <url>
         <loc>https://hushhTech.com/contact</loc>
-        <lastmod>2025-04-18T17:11:47.083Z</lastmod>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
       </url>
 
       <url>
         <loc>https://hushhTech.com/blog</loc>
-        <lastmod>2025-04-18T17:11:47.083Z</lastmod>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
       </url>
 
       <url>
         <loc>https://hushhTech.com/privacy-policy</loc>
-        <lastmod>2025-04-18T17:11:47.083Z</lastmod>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
       </url>
 
       <url>
         <loc>https://hushhTech.com/terms-of-service</loc>
-        <lastmod>2025-04-18T17:11:47.083Z</lastmod>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/daily-market-update/10-apr-2025</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/daily-market-update/11-apr-2025</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/daily-market-update/15-apr-2025</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/daily-market-update/16-apr-2025</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/daily-market-update/17-apr-2025</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/daily-market-update/14-feb-2025</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/daily-market-update</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/updates</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/alpha-aloha-fund-update</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/weekly-report</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/feb-5-market-update</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/latest-fund-update-11th-feb</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/updates-28-feb-2025</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/market-updates-1st-april</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/market-updates-4th-april</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/market-update-19-feb</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/market-update-20-feb</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/daily-update-30-may</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/funds/hushh-technology-fund</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/funds/renaissance-tech</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/funds/fund-ahushh</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/funds/fee-schedule</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/funds/alpha-aloha-fund-update-feb6</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/funds/hushh-alpha-fund-nav-update</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/manifesto</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/ai-infrastructure-thesis</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/fund-afaq</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/hushh-fund-faq</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/hushh-employee-champion-handbook</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/hushhtech-prospectus</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/compensation-report</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/product/product-updates</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/product/hushh-wallet</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/product/renaissance-tech</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investor-relations/investor-faq/charlie-munger-edition</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investors-faq/shared-class-explanation</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investors-faq/withdrawal-schedule</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investors-faq/investor-suitability-questionnarie</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investors-news/market-wrap</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investment-strategies/sell-the-wall</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investment-strategy/hushh-alpha-fund-growth-plan</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investment-strategy/investment-framework-renting-maximum-income</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/news/investment-perspective</loc>
+        <lastmod>2025-06-05T06:25:08.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/daily-market-updates</loc>
+        <lastmod>2025-03-31T09:39:17.339Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu10apr</loc>
+        <lastmod>2025-04-18T20:23:07.034Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu10mar</loc>
+        <lastmod>2025-03-31T09:39:27.423Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu11apr</loc>
+        <lastmod>2025-04-21T04:55:05.952Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu11feb</loc>
+        <lastmod>2025-03-31T09:39:17.341Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu12feb</loc>
+        <lastmod>2025-03-31T09:39:17.343Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu13feb</loc>
+        <lastmod>2025-03-31T09:39:17.344Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu13mar</loc>
+        <lastmod>2025-03-31T09:39:27.425Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu14feb</loc>
+        <lastmod>2025-03-31T09:39:17.346Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu14mar</loc>
+        <lastmod>2025-03-31T09:39:27.427Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu15apr</loc>
+        <lastmod>2025-04-18T20:24:40.432Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu16apr</loc>
+        <lastmod>2025-04-21T05:00:43.257Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu17apr</loc>
+        <lastmod>2025-04-21T04:55:05.958Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu18feb</loc>
+        <lastmod>2025-03-31T09:39:17.348Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu1april</loc>
+        <lastmod>2025-04-03T10:05:49.195Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu21apr</loc>
+        <lastmod>2025-04-22T09:30:45.641Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu21mar</loc>
+        <lastmod>2025-04-05T07:14:46.944Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu22apr</loc>
+        <lastmod>2025-04-23T04:25:25.592Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu23apr</loc>
+        <lastmod>2025-04-24T07:19:27.559Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu24apr</loc>
+        <lastmod>2025-04-25T16:02:09.348Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu24feb</loc>
+        <lastmod>2025-03-31T09:39:17.349Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu24mar</loc>
+        <lastmod>2025-04-05T13:32:15.826Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu25feb</loc>
+        <lastmod>2025-03-31T09:39:17.351Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu25mar</loc>
+        <lastmod>2025-04-05T13:33:29.389Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu26feb</loc>
+        <lastmod>2025-03-31T09:39:17.353Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu26mar</loc>
+        <lastmod>2025-04-21T04:55:05.964Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu27feb</loc>
+        <lastmod>2025-03-31T09:39:17.354Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu27mar</loc>
+        <lastmod>2025-04-05T13:40:09.346Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu28feb</loc>
+        <lastmod>2025-04-05T10:06:38.893Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu28mar</loc>
+        <lastmod>2025-04-03T13:53:53.108Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu2apr</loc>
+        <lastmod>2025-04-05T13:29:51.943Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu30may</loc>
+        <lastmod>2025-05-31T09:04:03.045Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu3apr</loc>
+        <lastmod>2025-04-05T12:49:55.153Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu3mar</loc>
+        <lastmod>2025-04-05T14:04:53.920Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu4apr</loc>
+        <lastmod>2025-04-05T12:50:22.228Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu4mar</loc>
+        <lastmod>2025-04-05T14:13:58.827Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu7apr</loc>
+        <lastmod>2025-04-10T13:34:13.880Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu7mar</loc>
+        <lastmod>2025-04-05T14:17:35.665Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu8apr</loc>
+        <lastmod>2025-04-08T21:17:19.613Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/dmu9apr</loc>
+        <lastmod>2025-04-10T13:37:13.979Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/marekt-update2</loc>
+        <lastmod>2025-03-31T09:39:17.357Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/market-update</loc>
+        <lastmod>2025-03-31T09:39:17.359Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/market-update10feb</loc>
+        <lastmod>2025-03-31T09:39:17.362Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/market-update19feb</loc>
+        <lastmod>2025-03-31T09:39:17.363Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/market-update20feb</loc>
+        <lastmod>2025-03-31T09:39:17.365Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/market-update5feb</loc>
+        <lastmod>2025-03-31T09:39:17.366Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/market-update6feb</loc>
+        <lastmod>2025-03-31T09:39:17.368Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/market-update7feb</loc>
+        <lastmod>2025-03-31T09:39:17.370Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/market/weekly-report</loc>
+        <lastmod>2025-03-31T09:39:17.373Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/funds/fee-schedule</loc>
+        <lastmod>2025-03-31T09:39:17.281Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/funds/fund-ahushh</loc>
+        <lastmod>2025-03-31T09:39:17.283Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/funds/fund-performance</loc>
+        <lastmod>2025-04-03T09:58:20.865Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/funds/fund-updates-jan</loc>
+        <lastmod>2025-03-31T09:39:17.285Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/funds/hushh-funds</loc>
+        <lastmod>2025-04-03T09:58:20.865Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/funds/kyc-fund-updates</loc>
+        <lastmod>2025-03-31T09:39:17.290Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/funds/wire-transformation</loc>
+        <lastmod>2025-03-31T09:39:17.292Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/ai-infrastructure</loc>
+        <lastmod>2025-05-31T09:02:21.005Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/ai-skill-testing</loc>
+        <lastmod>2025-03-31T09:39:17.294Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/compensation-report</loc>
+        <lastmod>2025-03-31T09:39:17.299Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/fund-afaq</loc>
+        <lastmod>2025-04-03T09:58:20.867Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/growth-plan</loc>
+        <lastmod>2025-03-31T09:39:17.302Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/head-of-quants</loc>
+        <lastmod>2025-03-31T09:39:17.304Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/hushh-employee-handbook</loc>
+        <lastmod>2025-05-28T12:26:33.068Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/hushh-fund-faq</loc>
+        <lastmod>2025-03-31T09:39:17.307Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/hushh-pda</loc>
+        <lastmod>2025-03-31T09:39:17.309Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/hushh-tech-prospectus</loc>
+        <lastmod>2025-03-31T09:39:17.311Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/investment-perspective</loc>
+        <lastmod>2025-04-03T09:58:20.871Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/manifesto</loc>
+        <lastmod>2025-03-31T09:39:17.296Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/selle-wall</loc>
+        <lastmod>2025-03-31T09:39:17.316Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/sell-the-wall-context</loc>
+        <lastmod>2025-03-31T09:39:17.314Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/general/sell-the-walle-master-class</loc>
+        <lastmod>2025-03-31T09:39:17.315Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investors-faq/delta-allocation-report</loc>
+        <lastmod>2025-03-31T09:39:17.320Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investors-faq/exhibit-lpa</loc>
+        <lastmod>2025-03-31T09:39:17.322Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investors-faq/investors</loc>
+        <lastmod>2025-03-31T09:39:17.319Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investors-faq/investors-news</loc>
+        <lastmod>2025-03-31T09:42:38.311Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investors-faq/investors-questionnaire</loc>
+        <lastmod>2025-03-31T09:39:17.323Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investors-faq/investor-update</loc>
+        <lastmod>2025-03-31T09:39:27.419Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investors-faq/limited-partnership-agreement</loc>
+        <lastmod>2025-03-31T09:39:17.326Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investors-faq/profit-margin-report</loc>
+        <lastmod>2025-03-31T09:39:27.421Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investors-faq/shared-class-explanation</loc>
+        <lastmod>2025-03-31T09:39:17.328Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investors-faq/subscription-agreement-a</loc>
+        <lastmod>2025-03-31T09:39:17.330Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investors-faq/subscription-agreement-b</loc>
+        <lastmod>2025-03-31T09:39:17.331Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investors-faq/subscription-agreement-c</loc>
+        <lastmod>2025-03-31T09:39:17.333Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investors-faq/subscription-cshares</loc>
+        <lastmod>2025-03-31T09:39:17.334Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/investors-faq/withdrawal-schedule</loc>
+        <lastmod>2025-03-31T09:39:17.335Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/product/hushh-product-updates</loc>
+        <lastmod>2025-03-31T09:39:17.434Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/product/products-update</loc>
+        <lastmod>2025-03-31T09:39:17.436Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/product/renaissance-tech</loc>
+        <lastmod>2025-03-31T09:39:27.441Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>
+
+      <url>
+        <loc>https://hushhTech.com/community/product/set-walls</loc>
+        <lastmod>2025-03-31T09:39:17.440Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
       </url>
     </urlset>
