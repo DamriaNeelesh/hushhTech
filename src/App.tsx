@@ -34,6 +34,9 @@ import UserProfilePage from './pages/user-profile/page';
 import KYCFormPage from './pages/kyc-form/page';
 import { Session } from '@supabase/supabase-js';
 
+// Google Analytics configuration
+const GA_TRACKING_ID = 'G-R58S9WWPM0';
+
 // Content wrapper component that applies conditional margin
 const ContentWrapper = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
@@ -47,8 +50,36 @@ const ContentWrapper = ({ children }: { children: ReactNode }) => {
   );
 };
 
+// Google Analytics setup function
+const initializeGoogleAnalytics = () => {
+  // Check if gtag is already loaded
+  if (typeof window !== 'undefined' && !window.gtag) {
+    // Create script element for gtag
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`;
+    document.head.appendChild(script);
+
+    // Initialize gtag
+    script.onload = () => {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(...args: any[]) {
+        window.dataLayer.push(args);
+      }
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', GA_TRACKING_ID);
+    };
+  }
+};
+
 function App() {
   const [session, setSession] = useState<Session | null>(null);
+
+  // Initialize Google Analytics
+  useEffect(() => {
+    initializeGoogleAnalytics();
+  }, []);
 
   // Fetch user session when app loads
   useEffect(() => {

@@ -21,11 +21,12 @@ import NDARequestModal from "../NDARequestModal";
 import NDADocumentModal from "../NDADocumentModal";
 import axios from "axios";
 import config from "../../resources/config/config";
-import ApprovedGif from "../../../public/gif/nda_approved.gif";
-import PendingGif from "../../../public/gif/nda_pending.gif";
-import RejectedGif from "../../../public/gif/nda_rejected.gif";
-import NotappliedGif from "../../../public/gif/nda_notApplied.gif";
 import { useNavigate } from "react-router-dom";
+
+const ApprovedGif = "/gif/nda_approved.gif";
+const PendingGif = "/gif/nda_pending.gif";
+const RejectedGif = "/gif/nda_rejected.gif";
+const NotappliedGif = "/gif/nda_notApplied.gif";
 
 const ProfilePage: React.FC = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
@@ -39,8 +40,11 @@ const ProfilePage: React.FC = () => {
   const [showNdaDocModal, setShowNdaDocModal] = useState(false);
   const [ndaApproved, setNdaApproved] = useState(false);
   const [isMetadataLoading, setIsMetadataLoading] = useState(false);
-  // Add a ref to track if metadata has been fetched successfully
   const metadataFetchedRef = useRef<boolean>(false);
+
+  const [kycStatus, setKycStatus] = useState<string>('');
+  const [kycStatusLoading, setKycStatusLoading] = useState<boolean>(false);
+  const [kycStatusMessage, setKycStatusMessage] = useState<string>('');
 
   useEffect(() => {
     config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
@@ -57,7 +61,6 @@ const ProfilePage: React.FC = () => {
     };
   }, []);
 
-  // Extracted function to check NDA status.
   const checkNdaStatus = useCallback(async () => {
     if (!session) return;
     try {
@@ -80,11 +83,11 @@ const ProfilePage: React.FC = () => {
         setNdaApproved(true);
       }
       
-      // If status is "Pending: Waiting for NDA Process", fetch metadata only if not already fetched
       if (newStatus === "Pending: Waiting for NDA Process" && !metadataFetchedRef.current) {
         fetchNdaMetadata();
       }
     } catch (error) {
+      metadataFetchedRef.current = false;
       toast({
         title: "API Error",
         description: "Failed to check NDA access status.",
@@ -97,17 +100,15 @@ const ProfilePage: React.FC = () => {
 
   useEffect(() => {
     if (session) {
-      checkNdaStatus(); // initial check
+      checkNdaStatus();
       const intervalId = setInterval(() => {
         checkNdaStatus();
-      }, 5000); // Check every 5 seconds instead of 2 to reduce API load
+      }, 5000);
       return () => clearInterval(intervalId);
     }
   }, [session, checkNdaStatus]);
 
-  // Enhanced fetchNdaMetadata to prevent multiple API calls
   const fetchNdaMetadata = async () => {
-    // Don't fetch if already loading or if we already have metadata
     if (isMetadataLoading || (ndaMetadata && Object.keys(ndaMetadata).length > 0) || metadataFetchedRef.current) {
       return;
     }
@@ -131,19 +132,15 @@ const ProfilePage: React.FC = () => {
         const metadata = ndaResponse.data.metadata;
         setNdaMetadata(metadata);
         
-        // Mark that we've successfully fetched metadata
         if (metadata && Object.keys(metadata).length > 0) {
           console.log("Metadata fetched successfully");
           metadataFetchedRef.current = true;
         }
         
-        // Automatically show the NDA document modal if we have valid metadata
-        // and the user's status is "Pending: Waiting for NDA Process"
         if (metadata && ndaStatus === "Pending: Waiting for NDA Process") {
           setShowNdaDocModal(true);
         }
       } else {
-        // Only show error if user is in NDA stage but metadata couldn't be fetched
         if (ndaStatus === "Pending: Waiting for NDA Process") {
           toast({
             title: "Error",
@@ -155,7 +152,6 @@ const ProfilePage: React.FC = () => {
         }
       }
     } catch (error) {
-      // Reset the flag so we can try again
       metadataFetchedRef.current = false;
       toast({
         title: "Error",
@@ -169,24 +165,21 @@ const ProfilePage: React.FC = () => {
     }
   };
 
-  // Reset metadata fetched flag when NDA status changes
   useEffect(() => {
     if (ndaStatus !== "Pending: Waiting for NDA Process") {
       metadataFetchedRef.current = false;
     }
   }, [ndaStatus]);
 
-  // Download NDA if approved.
   const handleDownloadNda = async () => {
     const FETCH_NDA_URL =
       "https://hushhtech-nda-generation-53407187172.us-central1.run.app/fetch-nda";
     
-    // Show a loading toast that will persist until download starts or error occurs
     const loadingToastId = toast({
       title: "Preparing Download",
       description: "Generating your NDA document for download, please wait...",
       status: "loading",
-      duration: null, // No auto-dismiss
+      duration: null,
       isClosable: false,
     });
     
@@ -199,11 +192,9 @@ const ProfilePage: React.FC = () => {
         responseType: "blob",
       });
       
-      // Close the loading toast
       toast.close(loadingToastId);
       
       if (response.status === 200) {
-        // Show success toast
         toast({
           title: "Download Ready",
           description: "Your NDA document is ready to download.",
@@ -221,7 +212,6 @@ const ProfilePage: React.FC = () => {
         link.click();
         link.parentNode?.removeChild(link);
         
-        // Clean up the Blob URL
         window.URL.revokeObjectURL(url);
       } else {
         toast({
@@ -233,7 +223,6 @@ const ProfilePage: React.FC = () => {
         });
       }
     } catch (error: any) {
-      // Close the loading toast
       toast.close(loadingToastId);
       
       console.error("Error downloading NDA:", error);
@@ -276,17 +265,14 @@ const ProfilePage: React.FC = () => {
     } else if (ndaStatus === "Not Applied" || ndaStatus === "Rejected") {
       navigate("/nda-form");
     } else if (ndaStatus === "Pending: Waiting for NDA Process") {
-      // If metadata exists, show the NDA document modal
       if (ndaMetadata) {
         setShowNdaDocModal(true);
       } else {
-        // If no metadata, try to fetch it - this will be a no-op if already fetched
         fetchNdaMetadata();
       }
     }
   };
 
-  // Navigation handlers using useNavigate.
   const handleViewPublicDocs = () => {
     localStorage.setItem("communityFilter", "all");
     navigate("/community");
@@ -299,7 +285,6 @@ const ProfilePage: React.FC = () => {
     }
   };
 
-  // Status indicator styles - matches exactly what's in the image
   const getStatusIndicator = (status: string) => {
     if (status === "Not Started") {
       return (
@@ -317,13 +302,34 @@ const ProfilePage: React.FC = () => {
     return null;
   };
 
+  useEffect(() => {
+    async function fetchKycStatus() {
+      if (!session?.user?.email) return;
+      setKycStatusLoading(true);
+      try {
+        const response = await fetch(`https://hushh-techh.onrender.com/api/admin/kyc-verification-status/${session.user.email}`);
+        const data = await response.json();
+        setKycStatus(data.status || 'Not Applied');
+        setKycStatusMessage(data.message || '');
+      } catch (error) {
+        setKycStatus('Not Applied');
+        setKycStatusMessage('');
+      } finally {
+        setKycStatusLoading(false);
+      }
+    }
+    fetchKycStatus();
+    const intervalId = setInterval(() => {
+      fetchKycStatus();
+    }, 5000);
+    return () => clearInterval(intervalId);
+  }, [session?.user?.email]);
+
   return (
     <Box bg="#FAFAFA" width="100%" minH="100vh">
       <Center pt={{ base: 10, md: 20 }} pb={10}>
         <VStack maxW="1200px" w="full" px={4} spacing={8}>
-          {/* Header */}
           <VStack spacing={2} mb={8} mt={{base: 10, md: 0}} w="full">
-            {/* <Image src={HushhLogo} alt="Hushh Tech Logo" h="50px" /> */}
             <Text fontSize={{ base: "3xl", md: "4xl" }} className="text-5xl font-[300] text-[#1D1D1F] mb-3 tracking-tight" mt={8}>
               Hello {session?.user?.user_metadata?.full_name || "User"},
             </Text>
@@ -332,9 +338,7 @@ const ProfilePage: React.FC = () => {
             </Text>
           </VStack>
 
-          {/* Three-column grid for the cards */}
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} w="full">
-            {/* Documents Card */}
             <Box className="bg-white p-10 rounded-2xl">
               <Text className="text-2xl font-medium text-[#1D1D1F] mb-6">
                 Documents
@@ -372,7 +376,6 @@ const ProfilePage: React.FC = () => {
               </Box>
             </Box>
 
-            {/* NDA Process Card */}
             <Box className="bg-white p-10 rounded-2xl">
               <Text className="text-2xl font-medium text-[#1D1D1F] mb-6 ">
                 NDA Process
@@ -435,22 +438,51 @@ const ProfilePage: React.FC = () => {
               </Box>
             </Box>
 
-            {/* KYC Verification Card */}
             <Box className="bg-white p-10 rounded-2xl">
               <Text className="text-2xl font-medium text-[#1D1D1F] mb-6">
                 KYC Verification
+                <Box as="span" ml={2} mb={2} display="inline-block" verticalAlign="middle">
+                  {kycStatus === "Approved" && (
+                    <Image src={ApprovedGif} alt="Approved" boxSize="14px" display="inline" />
+                  )}
+                  {(kycStatus === "Pending" || kycStatus === "In Review") && (
+                    <Image src={PendingGif} alt="Pending" boxSize="14px" display="inline" />
+                  )}
+                  {kycStatus === "Rejected" && (
+                    <Image src={RejectedGif} alt="Rejected" boxSize="14px" display="inline" />
+                  )}
+                  {kycStatus === "Not Applied" && (
+                    <Image src={NotappliedGif} alt="Not Applied" boxSize="14px" display="inline" />
+                  )}
+                </Box>
               </Text>
+              <Box mb={3}>
+                <Badge 
+                  colorScheme={kycStatus === "Approved" ? "green" : "orange"}
+                  px={2}
+                  py={0.5}
+                  borderRadius="full"
+                  fontSize="xs"
+                >
+                  {kycStatus}
+                </Badge>
+              </Box>
               <Text className="text-[#6E6E73] mb-8 font-light leading-relaxed">
-                Know Your Customer verification process
+                {kycStatus === "Pending" || kycStatus === "In Review"
+                  ? "Your KYC is under review. Please wait for approval."
+                  : kycStatus === "Approved"
+                    ? "Your KYC has been approved."
+                    : kycStatus === "Rejected"
+                      ? "Your KYC was rejected. Please re-apply."
+                      : "Complete KYC to access investment opportunities."
+                }
               </Text>
-              
               <Button
                 w="full"
                 bg="linear-gradient(to right, #00A9E0, #6DD3EF)"
                 color="white"
                 onClick={() => navigate("/kyc-verification")}
                 _hover={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)" }}
-                // isDisabled={true}
                 mb={4}
               >
                 KYC Verification Requirements
@@ -461,18 +493,18 @@ const ProfilePage: React.FC = () => {
                 color="white"
                 onClick={() => navigate("/kyc-form")}
                 _hover={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)" }}
-                // isDisabled={true}
-                mb={4}
               >
                 Start KYC Verification
               </Button>
-              
+
+              <Box className="w-full p-4 bg-gray-100 mt-2 rounded-xl text-center text-[#6E6E73] font-light">
+                {kycStatusMessage || "Complete KYC to access investment opportunities."}
+              </Box>
             </Box>
           </SimpleGrid>
         </VStack>
       </Center>
 
-      {/* NDA Request Modal */}
       {showNdaModal && session && (
         <NDARequestModal
           isOpen={showNdaModal}
@@ -482,7 +514,6 @@ const ProfilePage: React.FC = () => {
             setNdaStatus(result);
             setShowNdaModal(false);
             
-            // If status changes to "Pending: Waiting for NDA Process", fetch metadata
             if (result === "Pending: Waiting for NDA Process") {
               fetchNdaMetadata();
             }
@@ -490,7 +521,6 @@ const ProfilePage: React.FC = () => {
         />
       )}
       
-      {/* NDA Document Modal */}
       {showNdaDocModal && ndaMetadata && session && (
         <NDADocumentModal
           isOpen={showNdaDocModal}
@@ -502,7 +532,7 @@ const ProfilePage: React.FC = () => {
           onAccept={() => {
             setNdaApproved(true);
             setShowNdaDocModal(false);
-            setNdaStatus("Approved"); // Update status after accepting NDA
+            setNdaStatus("Approved");
             localStorage.setItem("communityFilter", "nda");
           }}
         />
