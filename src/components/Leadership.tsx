@@ -8,7 +8,7 @@ export default function Leadership() {
   return (
     <Box bg="white">
       {/* Hero Section */}
-      <Box pt={{ base: 16, md: 24 }} px={4} minH={{md:"90vh",base:'60vh'}} textAlign="center">
+      <Box pt={{ base: 16, md: 24 }} px={4} minH={{md:"70vh",base:'60vh'}} textAlign="center">
         <Container maxW="container.lg" mt={{md:16,base:8}}>
           <Heading 
             as="h1" 
@@ -55,7 +55,7 @@ export default function Leadership() {
             p={{ base: 6, md: 10 }} 
             borderRadius="lg" 
             boxShadow="sm"
-            mb={12}
+            mb={{md:'8rem',base:12}}
             
           >
             <Text fontSize={{ base: "md", md: "lg" }} className="text-[#1D1D1F] leading-relaxed font-light" mb={6} lineHeight="tall" >
@@ -72,6 +72,7 @@ export default function Leadership() {
           
           {/* Unique Approach Section */}
           <Heading 
+            mt={{md:10,base:5}}
             as="h2" 
             fontSize={{ base: "2xl", md: "4xl" }} 
             fontWeight="300" 
@@ -248,6 +249,128 @@ export default function Leadership() {
                 options strategies like "Sell the Wall," he uses advanced quantitative models to deliver consistent, 
                 risk-optimized returns.
               </Text>
+            </Box>
+          </SimpleGrid>
+        </Container>
+      </Box>
+
+      {/* Investment Philosophy Section */}
+      <Box py={{ base: 12, md: 16 }} bg="white" px={4}>
+        <Container maxW="container.xl">
+          <SimpleGrid columns={{ base: 1, md: 1 }} spacing={6}>
+            <Box 
+              className="bg-white p-12 rounded-2xl border border-gray-100 hover:shadow-sm transition-all duration-300"
+            >
+              <Flex className="flex items-start gap-6">
+                <Box className="text-4xl mt-2">
+                  💰
+                </Box>
+                <Box className="flex-1">
+                  <Heading 
+                    as="h3" 
+                    fontSize={{ base: "xl", md: "3xl" }}
+                    fontWeight="500"
+                    className=" text-[#1D1D1F] mb-6"
+                  >
+                    Focus on Free Cash Flow
+                  </Heading>
+                  <Text className="text-xl text-[#6E6E73] leading-relaxed font-light">
+                    We prioritize companies with strong, predictable free cash flow generation and healthy fundamentals. These are the engines of sustainable returns and perpetual income.
+                  </Text>
+                </Box>
+              </Flex>
+            </Box>
+
+            <Box 
+              className="bg-white p-12 rounded-2xl border border-gray-100 hover:shadow-sm transition-all duration-300"
+            >
+              <Flex className="flex items-start gap-6">
+                <Box className="text-4xl mt-2">
+                  🏢
+                </Box>
+                <Box className="flex-1">
+                  <Heading 
+                    as="h3" 
+                    fontSize={{ base: "xl", md: "3xl" }}
+                    fontWeight="500"
+                    className=" text-[#1D1D1F] mb-6"
+                  >
+                    Long-Term Ownership
+                  </Heading>
+                  <Text className="text-xl text-[#6E6E73] leading-relaxed font-light">
+                    "We do not gamble on companies. We own the best businesses on the planet." Our approach is to take significant ownership stakes and hold them to compound value over decades.
+                  </Text>
+                </Box>
+              </Flex>
+            </Box>
+
+            <Box 
+              className="bg-white p-12 rounded-2xl border border-gray-100 hover:shadow-sm transition-all duration-300"
+            >
+              <Flex className="flex items-start gap-6">
+                <Box className="text-4xl mt-2">
+                  ⚡
+                </Box>
+                <Box className="flex-1">
+                  <Heading 
+                    as="h3" 
+                    fontSize={{ base: "xl", md: "3xl" }}
+                    fontWeight="500"
+                    className=" text-[#1D1D1F] mb-6"
+                  >
+                    AI-Driven Alpha & Systematic Risk Management
+                  </Heading>
+                  <Text className="text-xl text-[#6E6E73] leading-relaxed font-light">
+                    We leverage proprietary algorithms, advanced mathematics, and AI to continuously extract alpha across internal, value-maximizing strategies — every second, every day. This includes monitoring volatility of varied instruments and ensuring capital preservation while generating superior yield.
+                  </Text>
+                </Box>
+              </Flex>
+            </Box>
+
+            <Box 
+              className="bg-white p-12 rounded-2xl border border-gray-100 hover:shadow-sm transition-all duration-300"
+            >
+              <Flex className="flex items-start gap-6">
+                <Box className="text-4xl mt-2">
+                  🌟
+                </Box>
+                <Box className="flex-1">
+                  <Heading 
+                    as="h3" 
+                    fontSize={{ base: "xl", md: "3xl" }}
+                    fontWeight="500"
+                    className=" text-[#1D1D1F] mb-6"
+                  >
+                    Human Expertise x AI Synergy
+                  </Heading>
+                  <Text className="text-xl text-[#6E6E73] leading-relaxed font-light">
+                    We believe in the power of human brains and beings to work well together with machines and AI systems. AI provides speed, scale, and data breadth; human insight provides deep understanding, qualitative judgment, and strategic oversight.
+                  </Text>
+                </Box>
+              </Flex>
+            </Box>
+
+            <Box 
+              className="bg-white p-12 rounded-2xl border border-gray-100 hover:shadow-sm transition-all duration-300"
+            >
+              <Flex className="flex items-start gap-6">
+                <Box className="text-4xl mt-2">
+                  📈
+                </Box>
+                <Box className="flex-1">
+                  <Heading 
+                    as="h3" 
+                    fontSize={{ base: "xl", md: "3xl" }}
+                    fontWeight="500"
+                    className=" text-[#1D1D1F] mb-6"
+                  >
+                    Modern Infrastructure, Enhanced Value
+                  </Heading>
+                  <Text className="text-xl text-[#6E6E73] leading-relaxed font-light">
+                    By building on cutting-edge automation and analytics from day one, we operate with efficiency, aiming to deliver superior risk-adjusted returns by moving beyond outdated, higher-fee models.
+                  </Text>
+                </Box>
+              </Flex>
             </Box>
           </SimpleGrid>
         </Container>

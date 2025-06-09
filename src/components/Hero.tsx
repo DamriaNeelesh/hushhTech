@@ -72,11 +72,11 @@ export default function Hero() {
               
               <Flex justifyContent={{md:"center",base:"flex-end"}} gap={4} flexDirection={{ base: 'column', sm: 'row' }} >
                 <Button
-                  onClick={() => navigate("/about/leadership")}
-                  bg="#00adbf"
+                  onClick={() => navigate("/discover-fund-a")}
+                  background="linear-gradient(to right, #00A9E0, #6DD3EF)"
                   color="white"
                   rounded="full"
-                  _hover={{ bg: "#0891B2" }}
+                  _hover={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)" }}
                   px={{md:8,base:4}}
                   py={{md:4,base:2}}
                   fontSize="md"
@@ -84,7 +84,7 @@ export default function Hero() {
                   minW={{md:"200px",base:"100px"}}
                   // h="auto"
                 >
-                  Explore Our Approach
+                  Discover Fund A
                 </Button>
                 <Button
                   onClick={() => navigate("/Signup")}

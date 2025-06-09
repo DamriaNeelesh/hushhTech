@@ -26,13 +26,13 @@ import config from './resources/config/config';
 import NDAPopup from './components/NdaForm';
 import Profile from './pages/profile';
 import AuthCallback from './pages/AuthCallback';
-import SolutionsPage from './pages/solutions';
 import KYCVerificationPage from './pages/kyc-verification/page';
 import NDARequestModal from './components/NdaForm';
 import InvestorProfilePage from './components/NDARequestModal';
 import UserProfilePage from './pages/user-profile/page';
 import KYCFormPage from './pages/kyc-form/page';
 import { Session } from '@supabase/supabase-js';
+import DiscoverFundA from './pages/discover-fund-a';
 
 // Google Analytics configuration
 const GA_TRACKING_ID = 'G-R58S9WWPM0';
@@ -128,9 +128,10 @@ function App() {
               <Route path="/community/*" element={<CommunityPost />} />
               <Route path="/reports/:id" element={<ReportDetailPage />} />
               <Route path="/auth/callback" element={<AuthCallback />} />
-              <Route path="/solutions" element={<SolutionsPage />} />
+              {/* <Route path="/solutions" element={<SolutionsPage />} /> */}
               <Route path='/kyc-verification' element={<KYCVerificationPage/>}/>
               <Route path='/kyc-form' element={<KYCFormPage/>}/>
+              <Route path='/discover-fund-a' element={<DiscoverFundA/>}/>
               <Route path='/nda-form' element={<InvestorProfilePage 
                 session={session} 
                 onSubmit={(result) => {

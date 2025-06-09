@@ -81,7 +81,7 @@ export default function Navbar() {
 {/* For Desktop View */}
           <div className="hidden lg:flex items-center space-x-6">
             {[
-              { path: "/about/leadership", label: "About Us" },
+              { path: "/about/leadership", label: "Our Philosophy" },
               { path: "/community", label: "Community" },
               { path: "/faq", label: "FAQ" },
               { path: "/contact", label: "Contact" },
@@ -187,7 +187,7 @@ export default function Navbar() {
               {[
                 { path: "/", label: "Home" },
                 // { path: "/solutions", label: "Solutions" },
-                { path: "/about/leadership", label: "About Us" },
+                { path: "/about/leadership", label: "Our Philosophy" },
                 { path: "/community", label: "Community" },
                 { path: "/contact", label: "Contact" },
                 { path: "/faq", label: "FAQ" },
