@@ -59,6 +59,7 @@ export default function Footer() {
             <div className="grid grid-cols-2 gap-2">
               <div className="space-y-2">
                 <a href="/about" className="block text-gray-300 hover:text-white transition">About Us</a>
+                <a href="/discover-fund-a" className="block text-gray-300 hover:text-white transition">Fund A</a>
                 <a href="https://www.hushh.ai/solutions" target="_blank" rel="noopener noreferrer" className="block text-gray-300 hover:text-white transition">Solutions</a>
                 <a href="/benefits" className="block text-gray-300 hover:text-white transition">Benefits</a>
                 <a href="/careers" className="block text-gray-300 hover:text-white transition">Careers</a>

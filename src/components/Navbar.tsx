@@ -82,6 +82,7 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center space-x-6">
             {[
               { path: "/about/leadership", label: "Our Philosophy" },
+              { path: "/discover-fund-a", label: "Fund A" },
               { path: "/community", label: "Community" },
               { path: "/faq", label: "FAQ" },
               { path: "/contact", label: "Contact" },
