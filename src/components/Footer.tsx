@@ -98,7 +98,7 @@ export default function Footer() {
         
         {/* Bottom Text */}
         <div className="text-sm text-gray-400 text-center">
-          <p className="mb-2">© 2025 Hushh 🤫 Technologies LLC. All Rights Reserved.</p>
+          <p className="mb-2">© 2025 Hushh  All Rights Reserved.</p>
           <p>
             Disclaimer: Investment involves risk. Past performance does not guarantee future results. Please consult with a financial advisor before making investment decisions.
           </p>
