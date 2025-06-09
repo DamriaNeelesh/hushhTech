@@ -255,7 +255,7 @@ export default function Leadership() {
       </Box>
 
       {/* Investment Philosophy Section */}
-      <Box py={{ base: 12, md: 16 }} bg="white" px={4}>
+      <Box py={{ base: 12, md: 16 }} background="rgb(249 250 251 / var(--tw-bg-opacity, 1))" px={4}>
         <Container maxW="container.xl">
           <SimpleGrid columns={{ base: 1, md: 1 }} spacing={6}>
             <Box 
