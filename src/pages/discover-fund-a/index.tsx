@@ -756,22 +756,48 @@ const FundA = () => {
                   Share Classes (Min. Investment / Fees - Mgmt/Perf./Hurdle)
                 </Heading>
                 
-                <VStack spacing={4} align="stretch">
-                  <Flex justify="space-between">
-                    <Text fontWeight="500" color="#1D1D1F">Class A:</Text>
-                    <Text color="#00A9E0" fontWeight="500">$25M / 1% / 15% / 12%</Text>
-                  </Flex>
-                  
-                  <Flex justify="space-between">
-                    <Text fontWeight="500" color="#1D1D1F">Class B:</Text>
-                    <Text color="#00A9E0" fontWeight="500">$5M / 1.5% / 15% / 10%</Text>
-                  </Flex>
-                  
-                  <Flex justify="space-between">
-                    <Text fontWeight="500" color="#1D1D1F">Class C:</Text>
-                    <Text color="#00A9E0" fontWeight="500">$1M / 1.5% / 25% / 8%</Text>
-                  </Flex>
-                </VStack>
+                <Box 
+                  borderWidth="1px" 
+                  borderColor="gray.200" 
+                  borderRadius="md" 
+                  overflow="hidden"
+                  bg="#111"
+                >
+                  <Table variant="unstyled" size="md">
+                    <thead>
+                      <Tr borderBottomWidth="1px" borderColor="gray.700">
+                        <Td fontWeight="500" color="white" py={4}>Share Class</Td>
+                        <Td fontWeight="500" color="white" py={4}>Min. Investment</Td>
+                        <Td fontWeight="500" color="white" py={4}>Management Fee</Td>
+                        <Td fontWeight="500" color="white" py={4}>Performance Fee</Td>
+                        <Td fontWeight="500" color="white" py={4}>Hurdle Rate</Td>
+                      </Tr>
+                    </thead>
+                    <Tbody>
+                      <Tr borderBottomWidth="1px" borderColor="gray.700">
+                        <Td color="white" py={4}>Class A</Td>
+                        <Td color="white" py={4}>$25M</Td>
+                        <Td color="white" py={4}>1%</Td>
+                        <Td color="white" py={4}>15%</Td>
+                        <Td color="white" py={4}>12%</Td>
+                      </Tr>
+                      <Tr borderBottomWidth="1px" borderColor="gray.700">
+                        <Td color="white" py={4}>Class B</Td>
+                        <Td color="white" py={4}>$5M</Td>
+                        <Td color="white" py={4}>1.5%</Td>
+                        <Td color="white" py={4}>15%</Td>
+                        <Td color="white" py={4}>10%</Td>
+                      </Tr>
+                      <Tr>
+                        <Td color="white" py={4}>Class C</Td>
+                        <Td color="white" py={4}>$1M</Td>
+                        <Td color="white" py={4}>1.5%</Td>
+                        <Td color="white" py={4}>25%</Td>
+                        <Td color="white" py={4}>8%</Td>
+                      </Tr>
+                    </Tbody>
+                  </Table>
+                </Box>
               </Box>
               
               <Box>
