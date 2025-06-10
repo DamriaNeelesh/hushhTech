@@ -112,7 +112,7 @@ export default function Hero() {
       
       {/* Fund A Section */}
       <Box 
-        py={16} 
+        py={{md:24,base:16}} 
         px={4} 
         bg="white"
         textAlign="center"
@@ -219,6 +219,7 @@ export default function Hero() {
                 size="lg"
                 minW="200px"
                 // h="auto"
+                _hover={{background:"linear-gradient(to right, #00A9E0, #6DD3EF)"}}
                 py={4}
                 fontSize="md"
                 fontWeight="semibold"
