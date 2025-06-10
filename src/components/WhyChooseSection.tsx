@@ -16,11 +16,11 @@ const WhyChooseSection = () => {
       <Container maxW="container.xl">
         <Box textAlign="center" mb={12}>
           <Heading as="h2" fontSize={{ base: "3xl", md: "5xl" }}  fontWeight="300" mb={4} color="gray.800">
-            Why Choose Hushh Technologies?
+          The Hushh Advantage
           </Heading>
-          <Text fontSize={{ base: "lg", md: "xl" }} color="rgb(110 110 115)" className='text-xl text-[#6E6E73] max-w-3xl mx-auto font-light'  mx="auto">
+          {/* <Text fontSize={{ base: "lg", md: "xl" }} color="rgb(110 110 115)" className='text-xl text-[#6E6E73] max-w-3xl mx-auto font-light'  mx="auto">
             Our unique approach combines cutting-edge technology with proven investment strategies
-          </Text>
+          </Text> */}
         </Box>
 
         <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={8}>
@@ -45,10 +45,10 @@ const WhyChooseSection = () => {
               <Icon as={FaRocket} color="red.400" boxSize={6} />
             </Flex>
             <Heading as="h3" fontSize="xl" mb={3} fontWeight="500" color="gray.800">
-              Innovative {window.innerWidth >= 768 ? <br /> : ' '}Strategies
+              AI-Driven {window.innerWidth >= 768 ? <br /> : ' '}Alpha
             </Heading>
             <Text className='text-[#6E6E73] leading-relaxed font-light'>
-              AI-powered algorithms that adapt to market changes in real-time
+            Proprietary AI algorithms systematically extract alpha and adapt to market changes
             </Text>
           </Box>
 
@@ -73,10 +73,10 @@ const WhyChooseSection = () => {
               <Icon as={FaChartBar} color="blue.400" boxSize={6} />
             </Flex>
             <Heading as="h3" fontSize="xl" mb={3} fontWeight="500" color="gray.800">
-              Math-Driven {window.innerWidth >= 768 ? <br /> : ' '}Decisions
+             Systematic Risk {window.innerWidth >= 768 ? <br /> : ' '} Management
             </Heading>
             <Text className='text-[#6E6E73] leading-relaxed font-light'>
-              Every investment backed by rigorous quantitative analysis
+            Rigorous quantitative analysis and AI meticulously control risk, every second, every day
             </Text>
           </Box>
 
@@ -101,11 +101,10 @@ const WhyChooseSection = () => {
               <Icon as={FaBrain} color="pink.400" boxSize={6} />
             </Flex>
             <Heading as="h3" fontSize="xl" mb={3} fontWeight="500" color="gray.800">
-              AI-Powered {window.innerWidth >= 768 ? <br /> : ' '}Insights
+              Hushh Enterprise {window.innerWidth >= 768 ? <br /> : ' '} x AI Synergy
             </Heading>
             <Text className='text-[#6E6E73] leading-relaxed font-light'>
-              Machine learning models that identify hidden opportunities
-            </Text>
+            AI provides speed and scale; human insight delivers deep understanding and strategic oversight            </Text>
           </Box>
 
           {/* Feature 4 */}
@@ -131,7 +130,7 @@ const WhyChooseSection = () => {
               Transparency You {window.innerWidth >= 768 ? <br /> : ' '}Trust
             </Heading>
             <Text className='text-[#6E6E73] leading-relaxed font-light'>
-              Clear reporting and ethical practices you can depend on
+            Clear reporting and ethical practices you can depend on
             </Text>
           </Box>
         </SimpleGrid>

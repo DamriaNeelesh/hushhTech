@@ -44,18 +44,18 @@ export default function Hero() {
             <Flex direction="column" align="center" mb={{md:8,base:4}}>
               <Box className="pt-20" display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} gap={{md:0,base:4}}>
                 <Text fontSize={{ base: "3xl", md: "7xl", lg: "8xl" }} color={'rgb(29,29,29)'} fontWeight="300" fontFamily={'-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu'} lineHeight="1">
-                  Precision in Data.
+                  Investing in the Future.
                 </Text>
-                <Text fontSize={{ base: "3xl", md: "7xl", lg: "8xl" }} color={'rgb(29,29,29)'} fontFamily={'-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu'} fontWeight="300" lineHeight="1">
-                  Power in Investing.
+                <Text fontSize={{ base: "4xl", md: "7xl", lg: "8xl" }} className="blue-gradient-text" fontFamily={'-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu'} fontWeight="500" lineHeight="1">
+                The AI-Powered Berkshire
                 </Text>
                 <Text fontSize={{ base: "4xl", md: "7xl", lg: "8xl" }} fontWeight="500" className="blue-gradient-text" fontFamily={'-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu'} lineHeight="1">
-                  Purpose in Results.
+                Hathaway.
                 </Text>
               </Box>
               
               <Text 
-                fontSize={{ base: "md", md: "2xl", lg: "3xl" }} 
+                fontSize={{ base: "md", md: "xl", lg: "2xl" }} 
                 mb={{md:10,base:20}} 
                 mt={6}
                 color="rgb(110 110 115 / var(--tw-text-opacity, 1))"
@@ -65,9 +65,7 @@ export default function Hero() {
                 lineHeight={'1.4'}
                 className="text-xl md:text-2xl text-[#6E6E73] mb-12 max-w-5xl mx-auto leading-relaxed font-light"
               >
-                At Hushh Technologies, we leverage advanced math, AI, and
-                statistics to generate sustainable alpha in a dynamic market. Invest
-                in the future of wealth with us.
+                Hushh Technologies is pioneering a new era of investment. We uniquely combine advanced AI and profound human expertise to build a modern conglomerate of exceptional, cash-flow rich businesses for long-term value creation.
               </Text>
               
               <Flex justifyContent={{md:"center",base:"flex-end"}} gap={4} flexDirection={{ base: 'column', sm: 'row' }} >
