@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import {
   Box,
   Container,
@@ -33,6 +33,14 @@ import axios from "axios";
 import config from "../../resources/config/config";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+// @ts-ignore
+import countryList from "react-select-country-list";
+
+// Country option type definition
+interface CountryOption {
+  label: string;
+  value: string;
+}
 
 const KYCFormPage = () => {
   const toast = useToast();
@@ -110,12 +118,36 @@ const KYCFormPage = () => {
     { id: "decl12", text: "By submitting this form, I/we acknowledge that I/we have read, understood, and agree to the terms outlined in the Hushh Renaissance Aloha & Alpha Fund, LP's AML/KYC Documentation." },
   ];
 
+  // Country list options
+  const countryOptions = useMemo(() => countryList().getData(), []);
+
   const handleInputChange = (field: string, value: any) => {
     setFormData((prev: any) => ({ ...prev, [field]: value }));
     // Clear error for the field being changed
     if (formErrors[field]) {
       setFormErrors((prevErrors: any) => ({ ...prevErrors, [field]: null }));
     }
+  };
+
+  // Handle country select changes
+  const handleCountrySelectChange = (field: string, event: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = event.target.value;
+    setFormData((prev: any) => ({ ...prev, [field]: value }));
+    // Clear error for the field being changed
+    if (formErrors[field]) {
+      setFormErrors((prevErrors: any) => ({ ...prevErrors, [field]: null }));
+    }
+  };
+
+  const handleBeneficialOwnerCountryChange = (index: number, field: string, event: React.ChangeEvent<HTMLSelectElement>) => {
+    const updatedOwners = [...beneficialOwners];
+    // Parse the nested field
+    const [parent, childField] = field.split('.');
+    updatedOwners[index][parent] = {
+      ...updatedOwners[index][parent],
+      [childField]: event.target.value
+    };
+    setBeneficialOwners(updatedOwners);
   };
 
   const handleNestedInputChange = (parent: string, field: string, value: any) => {
@@ -687,11 +719,17 @@ const KYCFormPage = () => {
 
               <FormControl isRequired isInvalid={!!formErrors.identificationIssuingCountry}>
                 <FormLabel>Issuing Country</FormLabel>
-                <Input 
+                <Select 
+                  placeholder="Select issuing country"
                   value={formData.identificationIssuingCountry || ''} 
-                  onChange={(e) => handleInputChange('identificationIssuingCountry', e.target.value)}
-                  placeholder="Country that issued your ID"
-                />
+                  onChange={(e) => handleCountrySelectChange('identificationIssuingCountry', e)}
+                >
+                  {countryOptions.map((option: CountryOption) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </Select>
                 {formErrors.identificationIssuingCountry && <FormErrorMessage>{formErrors.identificationIssuingCountry}</FormErrorMessage>}
               </FormControl>
             </SimpleGrid>
@@ -765,11 +803,17 @@ const KYCFormPage = () => {
 
             <FormControl isRequired isInvalid={!!formErrors.country}>
               <FormLabel>Country</FormLabel>
-              <Input 
+              <Select 
+                placeholder="Select country"
                 value={formData.country || ''} 
-                onChange={(e) => handleInputChange('country', e.target.value)}
-                placeholder="Country"
-              />
+                onChange={(e) => handleCountrySelectChange('country', e)}
+              >
+                {countryOptions.map((option: CountryOption) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </Select>
               {formErrors.country && <FormErrorMessage>{formErrors.country}</FormErrorMessage>}
             </FormControl>
 
@@ -779,11 +823,17 @@ const KYCFormPage = () => {
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
               <FormControl isRequired isInvalid={!!formErrors.taxCountry}>
                 <FormLabel>Tax Residence Country</FormLabel>
-                <Input 
+                <Select 
+                  placeholder="Select tax residence country"
                   value={formData.taxCountry || ''} 
-                  onChange={(e) => handleInputChange('taxCountry', e.target.value)}
-                  placeholder="Country of tax residence"
-                />
+                  onChange={(e) => handleCountrySelectChange('taxCountry', e)}
+                >
+                  {countryOptions.map((option: CountryOption) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </Select>
                 {formErrors.taxCountry && <FormErrorMessage>{formErrors.taxCountry}</FormErrorMessage>}
               </FormControl>
 
@@ -859,11 +909,17 @@ const KYCFormPage = () => {
 
               <FormControl isRequired isInvalid={!!formErrors.jurisdiction}>
                 <FormLabel>Jurisdiction of Incorporation</FormLabel>
-                <Input 
+                <Select 
+                  placeholder="Select jurisdiction"
                   value={formData.jurisdiction || ''} 
-                  onChange={(e) => handleInputChange('jurisdiction', e.target.value)}
-                  placeholder="Country/state of incorporation"
-                />
+                  onChange={(e) => handleCountrySelectChange('jurisdiction', e)}
+                >
+                  {countryOptions.map((option: CountryOption) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </Select>
                 {formErrors.jurisdiction && <FormErrorMessage>{formErrors.jurisdiction}</FormErrorMessage>}
               </FormControl>
             </SimpleGrid>
@@ -925,11 +981,17 @@ const KYCFormPage = () => {
 
             <FormControl isRequired isInvalid={!!formErrors.regCountry}>
               <FormLabel>Country</FormLabel>
-              <Input 
+              <Select 
+                placeholder="Select country"
                 value={formData.regCountry || ''} 
-                onChange={(e) => handleInputChange('regCountry', e.target.value)}
-                placeholder="Country"
-              />
+                onChange={(e) => handleCountrySelectChange('regCountry', e)}
+              >
+                {countryOptions.map((option: CountryOption) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </Select>
               {formErrors.regCountry && <FormErrorMessage>{formErrors.regCountry}</FormErrorMessage>}
             </FormControl>
 
@@ -980,11 +1042,17 @@ const KYCFormPage = () => {
 
             <FormControl isInvalid={!!formErrors.businessCountry}>
               <FormLabel>Country</FormLabel>
-              <Input 
+              <Select 
+                placeholder="Select country"
                 value={formData.businessCountry || ''} 
-                onChange={(e) => handleInputChange('businessCountry', e.target.value)}
-                placeholder="Country"
-              />
+                onChange={(e) => handleCountrySelectChange('businessCountry', e)}
+              >
+                {countryOptions.map((option: CountryOption) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </Select>
               {formErrors.businessCountry && <FormErrorMessage>{formErrors.businessCountry}</FormErrorMessage>}
             </FormControl>
 
@@ -1160,11 +1228,17 @@ const KYCFormPage = () => {
 
                 <FormControl isRequired mb={4}>
                   <FormLabel>Country</FormLabel>
-                  <Input 
-                    value={owner.residentialAddress.country} 
-                    onChange={(e) => handleBeneficialOwnerChange(index, 'residentialAddress.country', e.target.value)}
-                    placeholder="Country"
-                  />
+                  <Select 
+                    placeholder="Select country"
+                    value={owner.residentialAddress.country || ''} 
+                    onChange={(e) => handleBeneficialOwnerCountryChange(index, 'residentialAddress.country', e)}
+                  >
+                    {countryOptions.map((option: CountryOption) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </Select>
                 </FormControl>
 
                 <FormControl isRequired>
