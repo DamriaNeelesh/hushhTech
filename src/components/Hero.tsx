@@ -110,11 +110,77 @@ export default function Hero() {
       
       <WhyChooseSection />
       
-      {/* Ready to Transform Section - with white background */}
+      {/* Fund A Section */}
       <Box 
         py={16} 
         px={4} 
         bg="white"
+        textAlign="center"
+      >
+        <Container maxW="container.xl">
+          <Box>
+            <Text 
+              as="h2" 
+              fontSize={{ base: "3xl", md: "5xl" }}               
+              fontWeight="300" 
+              mb={4} 
+              color="#1D1D1F"
+              lineHeight="1.2"
+              fontFamily="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif"
+            >
+              Fund A: The Genesis of Our Vision.
+            </Text>
+            
+            <Text 
+              fontSize={{ base: "md", md: "lg", lg: "xl" }} 
+              color="#1D1D1F" 
+              maxW="5xl" 
+              mx="auto" 
+              mb={4}
+              lineHeight="1.6"
+              fontFamily="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif"
+              fontWeight="400"
+            >
+              Launched in 2024, Fund A is our inaugural AI-first investment vehicle. It demonstrates our systematic 
+              approach to income investing and value creation, targeting a 69% net IRR* through our proprietary "Sell 
+              the Wall" options framework.
+            </Text>
+
+            <Text
+              fontSize={{ base: "sm", md: "md" }}
+              color="#6E6E73"
+              fontStyle="italic"
+              maxW="4xl"
+              mx="auto"
+              mb={10}
+              fontFamily="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif"
+            >
+              *Inspired by natural equilibrium and proven quantitative strategies.
+            </Text>
+            
+            <Button
+              onClick={() => navigate("/discover-fund-a")}
+              background="linear-gradient(to right, #00A9E0, #6DD3EF)"
+              color="white"
+              rounded="full"
+              _hover={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)" }}
+              px={8}
+              py={6}
+              fontSize="md"
+              fontWeight="semibold"
+              minW="250px"
+            >
+              Learn More About Fund A
+            </Button>
+          </Box>
+        </Container>
+      </Box>
+      
+      {/* Ready to Transform Section - with white background */}
+      <Box 
+        py={16} 
+        px={4} 
+        bg="rgb(249, 250, 251)"
       >
         <Container maxW="container.xl">
           <Box textAlign="center">
