@@ -153,6 +153,7 @@ import Dmu21apr from '../content/posts/market/dmu21apr';
 import Dmu23apr from '../content/posts/market/dmu23apr';
 import Dmu24apr from '../content/posts/market/dmu24apr';
 import dmu30may from '../content/posts/market/dmu30may';
+import PatternOfAlpha from '../content/posts/general/patternOfAlpha';
 
 export interface PostData {
   slug: string;
@@ -448,7 +449,7 @@ export const posts: PostData[] = [
   // {
   //   count:21,
   //   slug: 'general/sell-the-wall-context',
-  //   title: '“Sell the Wall” Explained in the Context of Jim Simons' Quantitative Precision',
+  //   title: '"Sell the Wall" Explained in the Context of Jim Simons' Quantitative Precision',
   //   publishedAt: '2025-02-15',
   //   description: 'An in-depth exploration of the "Sell the Wall" strategy through the lens of Jim Simons' quantitative precision.',
   //   category: 'general',
@@ -1511,6 +1512,17 @@ export const posts: PostData[] = [
   category: 'general',
   Component: aiInfrastructure,
   image: DailyMarketUpdateImg2, // Use an appropriate image from your imports
+  accessLevel: 'Public',
+},
+{
+  count: 162, // Make sure this is higher than your current highest count
+  slug: "general/pattern-of-alpha",
+  title: "Hushh Technologies and the Pattern of Alpha",
+  publishedAt: '2025-06-12', // You can adjust this date as needed
+  description: "The most valuable companies are always weird at the beginning. This is a story about one of those companies, and how Hushh Technologies is building the next great holding company.",
+  category: 'general',
+  Component: PatternOfAlpha,
+  image: HushhAiLogoImg, // Using your logo image
   accessLevel: 'Public',
 },
 ];
