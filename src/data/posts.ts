@@ -163,8 +163,9 @@ export interface PostData {
   description: string;
   category: string;
   Component: React.ComponentType;
-  image:string;
-  accessLevel: string; 
+  image: string;
+  accessLevel: string;
+  pdfUrl?: string; // Optional PDF URL
 }
 
 export const posts: PostData[] = [
@@ -1524,6 +1525,18 @@ export const posts: PostData[] = [
   Component: PatternOfAlpha,
   image: HushhAiLogoImg, // Using your logo image
   accessLevel: 'Public',
+},
+{
+  count: 163, // Make sure this is higher than your current highest count
+  slug: "general/apple-share-holders-new-letter",
+  title: "Apple - An Opportunity to be more open",
+  publishedAt: '2025-06-13', // You can adjust this date as needed
+  description: "Provide More Value Creation for Everyone Using AI",
+  category: 'general',
+  Component: PatternOfAlpha, // This will be ignored when using pdfUrl
+  image: HushhAiLogoImg, // Using your logo image
+  accessLevel: 'Public',
+  pdfUrl: '/Apple_file.pdf', // Path to the PDF file in the public directory
 },
 ];
 

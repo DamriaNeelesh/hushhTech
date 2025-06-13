@@ -109,6 +109,13 @@ const CommunityPost: React.FC = () => {
       // If all checks pass, set the post and stop loading.
       setPost(foundPost);
       setLoading(false);
+
+      // If the post has a PDF URL, open it in a new tab and redirect back to community
+      if (foundPost.pdfUrl) {
+        window.open(foundPost.pdfUrl, '_blank');
+        navigate("/community");
+        return;
+      }
     };
 
     loadPost();
@@ -123,6 +130,14 @@ const CommunityPost: React.FC = () => {
   }
 
   if (!post) return null;
+
+  // If we get here and the post has a PDF URL, it means the PDF didn't open
+  // Let's try once more and then redirect
+  if (post.pdfUrl) {
+    window.open(post.pdfUrl, '_blank');
+    navigate("/community");
+    return null;
+  }
 
   const PostComponent = post.Component;
   const toTitleCase = (str: string) => {
