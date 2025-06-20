@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
+import { FiMenu, FiX, FiChevronDown, FiUser } from "react-icons/fi";
 import config from "../resources/config/config";
 import { Image, useToast, Avatar, useBreakpointValue } from "@chakra-ui/react";
 import hushhLogo from "../components/images/Hushhogo.png";
@@ -10,10 +10,12 @@ export default function Navbar() {
   const [toastShown, setToastShown] = useState(false);
   const [careerDropdownOpen, setCareerDropdownOpen] = useState(false);
   const [mobileCareerDropdownOpen, setMobileCareerDropdownOpen] = useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const drawerRef = useRef(null);
   const careerDropdownRef = useRef(null);
+  const profileDropdownRef = useRef(null);
   const toast = useToast();
   const isMobile = useBreakpointValue({ base: true, lg: false });
 
@@ -158,13 +160,37 @@ export default function Navbar() {
                 >
                   Log Out
                 </button>
-                <Avatar
-  src={session?.user?.user_metadata?.avatar_url}
-  name={session?.user?.email}
-  className="w-8 h-8 rounded-full ml-4"
-  // display={{ base: "none", lg: "block" }} 
-/>
-
+                {/* User Profile Dropdown */}
+                <div 
+                  className="relative"
+                  onMouseEnter={() => setProfileDropdownOpen(true)}
+                  onMouseLeave={() => setProfileDropdownOpen(false)}
+                  ref={profileDropdownRef}
+                >
+                  <button className="flex items-center focus:outline-none">
+                    <Avatar
+                      src={session?.user?.user_metadata?.avatar_url}
+                      name={session?.user?.email}
+                      className="w-8 h-8 rounded-full cursor-pointer"
+                    />
+                  </button>
+                  
+                  <div 
+                    className={`absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 transition-opacity duration-300 ${
+                      profileDropdownOpen ? "opacity-100" : "opacity-0 invisible"
+                    }`}
+                  >
+                    <Link
+                      to="/user-registration"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      <div className="flex items-center">
+                        <FiUser className="mr-2" />
+                        Edit Profile
+                      </div>
+                    </Link>
+                  </div>
+                </div>
               </>
             )}
           </div>
@@ -250,30 +276,37 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {!session ? (
-                <button
-                  onClick={() => handleLinkClick("/Login")}
-                  className="bg-black text-white px-4 py-2 rounded"
+              {/* Add profile link in mobile menu for logged-in users */}
+              {session && (
+                <Link
+                  to="/user-registration"
+                  onClick={() => handleLinkClick("/user-registration")}
+                  className="block text-lg text-gray-700 hover:text-gray-900"
                 >
-                  Log In
-                </button>
-              ) : (
-                <>
+                  <div className="flex items-center">
+                    <FiUser className="mr-2" />
+                    Edit Profile
+                  </div>
+                </Link>
+              )}
+
+              <div className="pt-6">
+                {!session ? (
+                  <button
+                    onClick={() => handleLinkClick("/Login")}
+                    className="w-full bg-black text-white px-4 py-2 rounded text-lg"
+                  >
+                    Log In
+                  </button>
+                ) : (
                   <button
                     onClick={handleLogout}
-                    className="bg-black text-white px-4 py-2 rounded"
+                    className="w-full bg-black text-white px-4 py-2 rounded text-lg"
                   >
                     Log Out
                   </button>
-                  {/* <div className="flex items-center mt-4">
-                    <Avatar
-                      src={session?.user?.user_metadata?.avatar_url}
-                      name={session?.user?.email}
-                      className="w-8 h-8 rounded-full"
-                    />
-                  </div> */}
-                </>
-              )}
+                )}
+              </div>
             </div>
           </div>
         </div>

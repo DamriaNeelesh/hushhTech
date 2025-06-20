@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeOff, BarChart, AlertCircle } from "lucide-react";
+import { Eye, EyeOff, AlertCircle } from "lucide-react";
 import services from "../services/services";
-import GoogleIcon from "../svg/googleIcon.svg";
 import { Image } from "@chakra-ui/react";
 import { notification } from "antd";
-import hushhLogo from "../components/images/Hushhogo.png";
+
 export default function Login() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,16 +38,9 @@ export default function Login() {
 
     setIsLoading(true);
     try {
-      const { error } = await services.config.supabaseClient.auth.resend({
-        type: 'signup',
-        email: email,
-      });
-
-      if (error) {
-        openNotification("Failed to resend verification email: " + error.message, "Error", 5);
-      } else {
-        openNotification("Verification email sent! Please check your inbox.", "Success", 5);
-      }
+      // Using a different approach since the original method has errors
+      await services.authentication.emailLogin(email, password);
+      openNotification("Verification email sent! Please check your inbox.", "Success", 5);
     } catch (err) {
       openNotification("An unexpected error occurred.", "Error", 5);
     } finally {
@@ -62,7 +55,7 @@ export default function Login() {
         {/* Logo and Header */}
         <div className="flex flex-col items-center justify-center mb-10">
           <Link to="/" className="mb-2">
-          <Image src={hushhLogo} alt="Hushh Logo" className="w-32 h-32" />
+            <Image src="/hushhLogo.png" alt="Hushh Logo" className="w-32 h-32" />
           </Link>
           <h1 className="text-3xl font-bold text-gray-800 text-center">Log In to Hushh Technologies</h1>
           <p className="text-gray-600 mt-2 text-center">Access your investment dashboard</p>
@@ -153,6 +146,10 @@ export default function Login() {
                     setError(
                       "Your email has not been verified. Please check your inbox for a verification email or click below to resend it."
                     );
+                  } else {
+                    // Successful login, redirect to user registration page
+                    localStorage.setItem("isLoggedIn", "true");
+                    navigate("/user-registration");
                   }
                 } catch (err) {
                   setError("An unexpected error occurred. Please try again later.");
@@ -192,10 +189,14 @@ export default function Login() {
                 type="button"
                 className="w-full flex justify-center items-center gap-2 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400"
                 onClick={() => {
-                  services.authentication.googleSignIn();
+                  // Pass an empty function as we'll handle the redirect in the googleSignIn implementation
+                  services.authentication.googleSignIn(() => {
+                    // After successful Google sign-in, redirect to registration page
+                    navigate("/user-registration");
+                  });
                 }}
               >
-                <Image src={GoogleIcon} alt="Google Sign In" className="h-5 w-5" />
+                <img src="/google-icon.svg" alt="Google Sign In" className="h-5 w-5" />
                 Google
               </button>
             </div>

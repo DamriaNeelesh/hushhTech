@@ -33,6 +33,7 @@ import UserProfilePage from './pages/user-profile/page';
 import KYCFormPage from './pages/kyc-form/page';
 import { Session } from '@supabase/supabase-js';
 import DiscoverFundA from './pages/discover-fund-a';
+import UserRegistration from './pages/UserRegistration';
 
 // Google Analytics configuration
 const GA_TRACKING_ID = 'G-R58S9WWPM0';
@@ -42,9 +43,10 @@ const ContentWrapper = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
   const isHomePage = location.pathname === '/' || location.pathname === '/signUp' || location.pathname === '/solutions';
   const isAuthCallback = location.pathname.startsWith('/auth/callback');
+  const isUserRegistration = location.pathname === '/user-registration';
   
   return (
-    <div className={`${isHomePage || isAuthCallback ? '' : 'mt-20'}`}>
+    <div className={`${isHomePage || isAuthCallback || isUserRegistration ? '' : 'mt-20'}`}>
       {children}
     </div>
   );
@@ -132,6 +134,7 @@ function App() {
               <Route path='/kyc-verification' element={<KYCVerificationPage/>}/>
               <Route path='/kyc-form' element={<KYCFormPage/>}/>
               <Route path='/discover-fund-a' element={<DiscoverFundA/>}/>
+              <Route path='/user-registration' element={<UserRegistration />}/>
               <Route path='/nda-form' element={<InvestorProfilePage 
                 session={session} 
                 onSubmit={(result) => {
