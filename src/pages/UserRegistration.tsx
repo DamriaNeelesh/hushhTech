@@ -208,7 +208,7 @@ export default function UserRegistration() {
       {contextHolder}
       <div className="container max-w-lg mx-auto px-6 py-8">
         {/* Header */}
-        <div className="flex flex-col items-center justify-center mb-10">
+        <div className="flex flex-col items-center justify-center mt-10 mb-10">
           <h1 className="text-3xl font-bold text-gray-800 text-center">
             {isUpdateMode ? "Update Your Profile" : "Complete Your Profile"}
           </h1>
