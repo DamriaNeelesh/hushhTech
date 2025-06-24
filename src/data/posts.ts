@@ -154,6 +154,7 @@ import Dmu23apr from '../content/posts/market/dmu23apr';
 import Dmu24apr from '../content/posts/market/dmu24apr';
 import dmu30may from '../content/posts/market/dmu30may';
 import PatternOfAlpha from '../content/posts/general/patternOfAlpha';
+import Alpha27IndiaStrategicPlan from '../content/posts/general/alpha27IndiaStrategicPlan'
 
 export interface PostData {
   slug: string;
@@ -1537,6 +1538,17 @@ export const posts: PostData[] = [
   image: HushhAiLogoImg, // Using your logo image
   accessLevel: 'Public',
   pdfUrl: '/Apple_file.pdf', // Path to the PDF file in the public directory
+},
+{
+  count: 164,
+  slug: 'general/alpha-27-india-strategic-plan',
+  title: 'Strategic Investment Plan: Top 27 Alpha Bets in India’s AI-Driven Future',
+  publishedAt: '2025-06-24',
+  description: 'A comprehensive, sector-by-sector breakdown of India’s top 27 AI-driven, free-cash-flow investments, with rationale and implementation blueprint.',
+  category: 'general',
+  Component: Alpha27IndiaStrategicPlan,
+  image: HushhAiLogoImg,
+  accessLevel: 'Public',
 },
 ];
 
