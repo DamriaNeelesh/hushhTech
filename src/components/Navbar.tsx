@@ -65,6 +65,24 @@ export default function Navbar() {
 
   const isActive = (path) => location.pathname === path;
 
+  useEffect(() => {
+    // Handle click outside to close profile dropdown
+    const handleClickOutside = (event) => {
+      if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target)) {
+        setProfileDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const toggleProfileDropdown = () => {
+    setProfileDropdownOpen((prev) => !prev);
+  };
+
   return (
     <nav className="bg-white shadow-lg fixed w-full z-[999]">
       <div className="max-w-7xl mx-auto px-4">
@@ -163,11 +181,12 @@ export default function Navbar() {
                 {/* User Profile Dropdown */}
                 <div 
                   className="relative"
-                  onMouseEnter={() => setProfileDropdownOpen(true)}
-                  onMouseLeave={() => setProfileDropdownOpen(false)}
                   ref={profileDropdownRef}
                 >
-                  <button className="flex items-center focus:outline-none">
+                  <button 
+                    onClick={toggleProfileDropdown}
+                    className="flex items-center focus:outline-none"
+                  >
                     <Avatar
                       src={session?.user?.user_metadata?.avatar_url}
                       name={session?.user?.email}
@@ -183,6 +202,7 @@ export default function Navbar() {
                     <Link
                       to="/user-registration"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => setProfileDropdownOpen(false)}
                     >
                       <div className="flex items-center">
                         <FiUser className="mr-2" />
