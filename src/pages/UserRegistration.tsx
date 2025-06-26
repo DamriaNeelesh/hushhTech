@@ -43,6 +43,7 @@ export default function UserRegistration() {
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [userCoins, setUserCoins] = useState<number>(0);
+  const [investorType, setInvestorType] = useState("");
   
   // Form fields - Read-only for display purposes in update mode
   const [gender, setGender] = useState("");
@@ -98,6 +99,7 @@ export default function UserRegistration() {
         setLastName(userData.last_name || "");
         setPhoneNumber(userData.phone_number || "");
         setUserCoins(userData.user_coins || 0);
+        setInvestorType(userData.investor_type || "");
         
         // Store read-only fields for display purposes
         setGender(userData.gender || "");
@@ -232,6 +234,24 @@ export default function UserRegistration() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Investor Type Field - At the top */}
+            <div>
+              <label htmlFor="investorType" className="block text-sm font-medium text-gray-700 mb-1">
+                What type of investor are you?
+              </label>
+              <select
+                id="investorType"
+                value={investorType}
+                onChange={(e) => setInvestorType(e.target.value)}
+                className="block w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
+                required
+              >
+                <option value="">Select investor type</option>
+                <option value="individual">Individual Investor</option>
+                <option value="institutional">Institutional / Corporate Investor</option>
+              </select>
+            </div>
+
             {/* Updatable fields */}
             <div className="grid grid-cols-2 gap-4">
               <div>
