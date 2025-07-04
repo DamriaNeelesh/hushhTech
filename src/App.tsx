@@ -35,6 +35,7 @@ import { Session } from '@supabase/supabase-js';
 import DiscoverFundA from './pages/discover-fund-a';
 import UserRegistration from './pages/UserRegistration';
 import ProtectedRoute from './components/ProtectedRoute';
+import YourProfilePage from './pages/your-profile';
 
 // Google Analytics configuration
 const GA_TRACKING_ID = 'G-R58S9WWPM0';
@@ -186,6 +187,11 @@ function App() {
               <Route path='/user-profile' element={
                 <ProtectedRoute>
                   <UserProfilePage/>
+                </ProtectedRoute>
+              }/>
+              <Route path='/your-profile' element={
+                <ProtectedRoute requiresRegistration={false}>
+                  <YourProfilePage/>
                 </ProtectedRoute>
               }/>
             </Routes>

@@ -2,11 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import { Country, City } from 'country-state-city';
 
-const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJwbXp5a294cW5ib3pnZG9xYnBjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE5Mjc5NzEsImV4cCI6MjAxNzUwMzk3MX0.3GwG8YQKwZSWfGgTBEEA47YZAZ-Nr4HiirYPWiZtpZ0";
-const API_BASE_URL = "https://rpmzykoxqnbozgdoqbpc.supabase.co/rest/v1";
+const API_ENDPOINT = "https://hushh-api-53407187172.us-central1.run.app/api/hushhtech-wrapper";
 const API_HEADERS = {
-  'apikey': API_KEY,
-  'Authorization': `Bearer ${API_KEY}`,
   'Content-Type': 'application/json'
 };
 
@@ -28,74 +25,70 @@ const APITestButton: React.FC = () => {
         console.log('🗽 Sample US cities:', usCities.slice(0, 5).map(c => c.name));
       }
       
-      // Test 3: Create test user with real country/city data
+      // Test 3: Create test user with real country/city data matching new API format
       const testUserData = {
         first_name: "API Test",
         last_name: "User",
         email: `test.country.city.${Date.now()}@example.com`,
         phone_number: "+1234567890",
-        investor_type: "Individual Investor",
         gender: "male",
-        country: "United States", // Full country name
-        city: "New York",
-        address: "123 Test Street",
+        country: "india", // lowercase country name
+        city: "Pune",
         dob: "1990-01-15",
-        selected_reason_for_using_hushh: "Testing country-state-city library",
-        user_coins: 0,
-        is_hushh_app_user: true,
-        private_mode: false,
-        onboard_status: "authenticated",
-        accountCreation: new Date().toISOString()
+        reason_for_using: "Testing API integration",
+        investor_type: "Individual Investor"
       };
       
       console.log('📤 Creating test user:', testUserData);
       
-      // Test 4: API Create User
+      // Test 4: API Create User using new endpoint
       const createResponse = await axios.post(
-        `${API_BASE_URL}/users`,
+        API_ENDPOINT,
         testUserData,
         { headers: API_HEADERS }
       );
       
       console.log('✅ User created successfully!', createResponse.status);
+      console.log('📥 Response data:', createResponse.data);
       
-      // Test 5: API Search User
-      const searchResponse = await axios.get(
-        `${API_BASE_URL}/users?or=(email.ilike.*${testUserData.email}*)`,
-        { headers: API_HEADERS }
-      );
-      
-      console.log('🔍 User found:', searchResponse.data.length > 0);
-      
-      if (searchResponse.data.length > 0) {
-        const foundUser = searchResponse.data[0];
-        console.log('👤 Found user data:', foundUser);
+      // Extract and store user profile data from response
+      if (createResponse.data && createResponse.data.user) {
+        const userProfile = {
+          hushh_id: createResponse.data.user.hushh_id,
+          name: createResponse.data.user.name || `${createResponse.data.user.first_name} ${createResponse.data.user.last_name}`,
+          city: createResponse.data.user.city,
+          country: createResponse.data.user.country,
+          email: createResponse.data.user.email,
+          zipcode: createResponse.data.user.zipcode,
+          user_coins: createResponse.data.user.user_coins,
+          dob: createResponse.data.user.dob,
+          phone_number: createResponse.data.user.phone_number,
+          investor_type: createResponse.data.user.investor_type,
+          reason_for_using_hushhTech: createResponse.data.user.reason_for_using_hushhTech,
+          accountCreation: createResponse.data.user.accountCreation,
+          onboard_status: createResponse.data.user.onboard_status
+        };
         
-        // Test 6: API Update User
-        if (foundUser.hushh_id) {
-          const updateData = {
-            first_name: "Updated API Test",
-            country: "Canada",
-            city: "Toronto",
-            investor_type: "Institutional / Corporate Investor"
-          };
-          
-          const updateResponse = await axios.patch(
-            `${API_BASE_URL}/users?hushh_id=eq.${foundUser.hushh_id}`,
-            updateData,
-            { headers: API_HEADERS }
-          );
-          
-          console.log('✏️ User updated successfully!', updateResponse.status);
-        }
+        // Store user profile data in localStorage
+        localStorage.setItem('hushhUserProfile', JSON.stringify(userProfile));
+        
+        console.log('💾 Test user profile stored:', userProfile);
       }
       
       console.log('🎉 All API tests passed!');
-      alert('✅ API Test Successful! Check console for details.');
+      alert('✅ API Test Successful! Check console for details. Profile data has been stored and you can view it at /your-profile');
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('❌ API Test failed:', error);
-      alert('❌ API Test failed! Check console for errors.');
+      
+      if (error.response) {
+        console.error('Error response:', error.response.data);
+        alert(`❌ API Test failed! Status: ${error.response.status}\nError: ${error.response.data?.message || error.response.statusText}`);
+      } else if (error.request) {
+        alert('❌ API Test failed! Network error - check your connection.');
+      } else {
+        alert('❌ API Test failed! Check console for errors.');
+      }
     }
   };
 
@@ -105,7 +98,7 @@ const APITestButton: React.FC = () => {
       onClick={testCountryCityAPI}
       className="mb-4 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
     >
-      🧪 Test Country-City API
+      🧪 Test New API
     </button>
   );
 };
