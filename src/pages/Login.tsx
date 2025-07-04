@@ -147,9 +147,9 @@ export default function Login() {
                       "Your email has not been verified. Please check your inbox for a verification email or click below to resend it."
                     );
                   } else {
-                    // Successful login, redirect to user registration page
+                    // Successful login - emailLogin function will handle registration check and redirect
                     localStorage.setItem("isLoggedIn", "true");
-                    navigate("/user-registration");
+                    // Don't navigate here, let emailLogin handle the redirect based on registration status
                   }
                 } catch (err) {
                   setError("An unexpected error occurred. Please try again later.");

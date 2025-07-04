@@ -6,6 +6,8 @@ import isLoggedIn from "./isLoggedIn";
 import getFullName from "./getFullName";
 import getSession from "./getSession";
 import emailLogin from "./emailLogin";
+import checkRegistrationStatus from "./checkRegistrationStatus";
+
 const authentication = {
   googleSignIn: googleSignIn,
   getUserDetails: getUserDetails,
@@ -14,6 +16,7 @@ const authentication = {
   isLoggedIn: isLoggedIn,
   getFullName: getFullName,
   getSession: getSession,
-  emailLogin: emailLogin
+  emailLogin: emailLogin,
+  checkRegistrationStatus: checkRegistrationStatus
 };
 export default authentication;

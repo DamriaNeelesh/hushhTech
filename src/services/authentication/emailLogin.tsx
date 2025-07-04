@@ -1,8 +1,15 @@
 import resources from "../../resources/resources";
+import checkRegistrationStatus from "./checkRegistrationStatus";
+
 export default async function emailLogin(email: string, password: string) {
   const supabase = resources.config.supabaseClient;
   
   try {
+    if (!supabase) {
+      console.error("Supabase client is not initialized");
+      return "error";
+    }
+
     // Attempt to sign in with email and password
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
@@ -23,6 +30,24 @@ export default async function emailLogin(email: string, password: string) {
     
     // If everything is successful, log the user in
     localStorage.setItem("isLoggedIn", "true"); // Set login state
+    
+    // Check if user has completed profile registration
+    try {
+      const registrationStatus = await checkRegistrationStatus(email);
+      
+      if (!registrationStatus.isRegistered) {
+        // User needs to complete registration
+        window.location.href = "/user-registration";
+        return data;
+      }
+    } catch (regError) {
+      console.error("Error checking registration status:", regError);
+      // If registration check fails, redirect to registration page to be safe
+      window.location.href = "/user-registration";
+      return data;
+    }
+    
+    // User is fully registered, redirect to home
     window.location.href = resources.config.redirect_url;
     return data;
   } catch (error) {
