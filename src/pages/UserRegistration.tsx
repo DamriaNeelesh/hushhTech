@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { AlertCircle } from "lucide-react";
 import resources from "../resources/resources";
 import { notification } from "antd";
 import axios from "axios";
+import Select from "react-select";
+import { Country, City } from "country-state-city";
+import APITestButton from "../components/APITestButton";
 
 // API configuration
 const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJwbXp5a294cW5ib3pnZG9xYnBjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE5Mjc5NzEsImV4cCI6MjAxNzUwMzk3MX0.3GwG8YQKwZSWfGgTBEEA47YZAZ-Nr4HiirYPWiZtpZ0";
@@ -23,9 +26,15 @@ interface UserData {
   gender?: string;
   country?: string;
   city?: string;
+  address?: string;
   dob?: string;
-  reason_for_using?: string;
+  selected_reason_for_using_hushh?: string;
   user_coins?: number;
+  investor_type?: string;
+  is_hushh_app_user?: boolean;
+  private_mode?: boolean;
+  onboard_status?: string;
+  accountCreation?: string;
 }
 
 export default function UserRegistration() {
@@ -49,8 +58,41 @@ export default function UserRegistration() {
   const [gender, setGender] = useState("");
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
+  const [address, setAddress] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [reasonForUsingHushh, setReasonForUsingHushh] = useState("");
+
+  // Country and City dropdown options using country-state-city library
+  const countryOptions = useMemo(() => {
+    return Country.getAllCountries().map((country) => ({
+      value: country.isoCode,
+      label: country.name,
+      flag: country.flag
+    }));
+  }, []);
+  
+  // Cities based on selected country
+  const cityOptions = useMemo(() => {
+    if (!country) return [];
+    
+    const cities = City.getCitiesOfCountry(country);
+    return cities ? cities.map((city) => ({
+      value: city.name,
+      label: city.name
+    })) : [];
+  }, [country]);
+
+  // Helper function to get country label from value
+  const getCountryLabel = (countryValue: string) => {
+    const country = countryOptions.find(option => option.value === countryValue);
+    return country ? country.label : countryValue;
+  };
+
+  // Helper function to get country code from name (for reverse mapping when loading existing data)
+  const getCountryCode = (countryName: string) => {
+    const country = countryOptions.find(option => option.label === countryName);
+    return country ? country.value : countryName;
+  };
 
   useEffect(() => {
     // Get user email from Supabase session
@@ -103,10 +145,11 @@ export default function UserRegistration() {
         
         // Store read-only fields for display purposes
         setGender(userData.gender || "");
-        setCountry(userData.country || "");
+        setCountry(getCountryCode(userData.country || "")); // Convert country name back to ISO code for form
         setCity(userData.city || "");
+        setAddress(userData.address || "");
         setDateOfBirth(userData.dob || "");
-        setReasonForUsingHushh(userData.reason_for_using || "");
+        setReasonForUsingHushh(userData.selected_reason_for_using_hushh || "");
       }
     } catch (error) {
       console.error("Error checking existing user:", error);
@@ -138,7 +181,14 @@ export default function UserRegistration() {
         last_name: lastName,
         email: userEmail,
         phone_number: phoneNumber,
+        investor_type: investorType,
       };
+
+      // For update mode, also send country and city if they exist
+      if (isUpdateMode && country) {
+        userData.country = getCountryLabel(country);
+        userData.city = city;
+      }
 
       // If updating, include user_coins
       if (isUpdateMode) {
@@ -146,10 +196,16 @@ export default function UserRegistration() {
       } else {
         // For new users, include all required fields
         userData.gender = gender;
-        userData.country = country;
+        userData.country = getCountryLabel(country); // Send country name instead of code
         userData.city = city;
+        userData.address = address;
         userData.dob = dateOfBirth;
-        userData.reason_for_using = reasonForUsingHushh;
+        userData.selected_reason_for_using_hushh = reasonForUsingHushh;
+        userData.user_coins = 0;
+        userData.is_hushh_app_user = true;
+        userData.private_mode = false;
+        userData.onboard_status = "authenticated";
+        userData.accountCreation = new Date().toISOString();
       }
 
       let response;
@@ -223,6 +279,9 @@ export default function UserRegistration() {
 
         {/* Registration/Update Form */}
         <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+          {/* Test Button - Remove in production */}
+          <APITestButton />
+          
           {error && (
             <div className="mb-6 p-4 rounded-md bg-red-50 border border-red-100 text-red-700">
               <div className="flex items-center gap-2 mb-1">
@@ -247,8 +306,8 @@ export default function UserRegistration() {
                 required
               >
                 <option value="">Select investor type</option>
-                <option value="individual">Individual Investor</option>
-                <option value="institutional">Institutional / Corporate Investor</option>
+                <option value="Individual Investor">Individual Investor</option>
+                <option value="Institutional / Corporate Investor">Institutional / Corporate Investor</option>
               </select>
             </div>
 
@@ -354,13 +413,18 @@ export default function UserRegistration() {
                 <div className="grid grid-cols-2 gap-4 mt-3">
                   <div>
                     <label className="block text-sm font-medium text-gray-500 mb-1">Country</label>
-                    <p className="text-gray-800">{country || "Not provided"}</p>
+                    <p className="text-gray-800">{country ? getCountryLabel(country) : "Not provided"}</p>
                   </div>
                   
                   <div>
                     <label className="block text-sm font-medium text-gray-500 mb-1">City</label>
                     <p className="text-gray-800">{city || "Not provided"}</p>
                   </div>
+                </div>
+                
+                <div className="mt-3">
+                  <label className="block text-sm font-medium text-gray-500 mb-1">Address</label>
+                  <p className="text-gray-800">{address || "Not provided"}</p>
                 </div>
                 
                 <div className="mt-3">
@@ -397,30 +461,82 @@ export default function UserRegistration() {
                     <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">
                       Country
                     </label>
-                    <input
-                      type="text"
-                      id="country"
-                      value={country}
-                      onChange={(e) => setCountry(e.target.value)}
-                      placeholder="Country"
-                      className="block w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
-                      required
+                    <Select
+                      options={countryOptions}
+                      value={countryOptions.find(option => option.value === country)}
+                      onChange={(selectedOption) => {
+                        setCountry(selectedOption?.value || "");
+                        setCity(""); // Reset city when country changes
+                      }}
+                      placeholder="Select Country"
+                      isSearchable
+                      className="react-select-container"
+                      classNamePrefix="react-select"
+                      styles={{
+                        control: (provided) => ({
+                          ...provided,
+                          minHeight: '48px',
+                          border: '1px solid #d1d5db',
+                          borderRadius: '6px',
+                          fontSize: '16px',
+                          '&:hover': {
+                            borderColor: '#06b6d4'
+                          },
+                          '&:focus-within': {
+                            borderColor: '#06b6d4',
+                            boxShadow: '0 0 0 1px #06b6d4'
+                          }
+                        })
+                      }}
                     />
                   </div>
                   <div>
                     <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
                       City
                     </label>
-                    <input
-                      type="text"
-                      id="city"
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      placeholder="City"
-                      className="block w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
-                      required
+                    <Select
+                      options={cityOptions}
+                      value={cityOptions.find(option => option.value === city)}
+                      onChange={(selectedOption) => setCity(selectedOption?.value || "")}
+                      placeholder={country ? "Select City" : "Select country first"}
+                      isSearchable
+                      isDisabled={!country}
+                      className="react-select-container"
+                      classNamePrefix="react-select"
+                      styles={{
+                        control: (provided, state) => ({
+                          ...provided,
+                          minHeight: '48px',
+                          border: '1px solid #d1d5db',
+                          borderRadius: '6px',
+                          fontSize: '16px',
+                          backgroundColor: state.isDisabled ? '#f9fafb' : 'white',
+                          '&:hover': {
+                            borderColor: state.isDisabled ? '#d1d5db' : '#06b6d4'
+                          },
+                          '&:focus-within': {
+                            borderColor: state.isDisabled ? '#d1d5db' : '#06b6d4',
+                            boxShadow: state.isDisabled ? 'none' : '0 0 0 1px #06b6d4'
+                          }
+                        })
+                      }}
                     />
                   </div>
+                </div>
+
+                <div>
+                  <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
+                    Address
+                  </label>
+                  <input
+                    type="text"
+                    id="address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder="Street Address"
+                    className="block w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
+                    required
+                  />
                 </div>
 
                 <div>
