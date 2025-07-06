@@ -30,6 +30,7 @@ import KYCVerificationPage from './pages/kyc-verification/page';
 import NDARequestModal from './components/NdaForm';
 import InvestorProfilePage from './components/NDARequestModal';
 import UserProfilePage from './pages/user-profile/page';
+import YourProfilePage from './pages/your-profile/page';
 import KYCFormPage from './pages/kyc-form/page';
 import { Session } from '@supabase/supabase-js';
 import DiscoverFundA from './pages/discover-fund-a';
@@ -147,6 +148,7 @@ function App() {
                 }} 
               />} />
               <Route path='/user-profile' element={<UserProfilePage/>}/>
+              <Route path='/your-profile' element={<YourProfilePage/>}/>
             </Routes>
           </ContentWrapper>
           <Footer />

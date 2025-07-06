@@ -147,9 +147,9 @@ export default function Login() {
                       "Your email has not been verified. Please check your inbox for a verification email or click below to resend it."
                     );
                   } else {
-                    // Successful login, redirect to user registration page
+                    // Successful login, redirect to landing page for user check
                     localStorage.setItem("isLoggedIn", "true");
-                    navigate("/user-registration");
+                    navigate("/");
                   }
                 } catch (err) {
                   setError("An unexpected error occurred. Please try again later.");
@@ -191,8 +191,8 @@ export default function Login() {
                 onClick={() => {
                   // Pass an empty function as we'll handle the redirect in the googleSignIn implementation
                   services.authentication.googleSignIn(() => {
-                    // After successful Google sign-in, redirect to registration page
-                    navigate("/user-registration");
+                    // After successful Google sign-in, redirect to landing page for user check
+                    navigate("/");
                   });
                 }}
               >
