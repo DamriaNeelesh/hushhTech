@@ -52,11 +52,11 @@ const HushhVentures = () => {
           
           <VStack spacing={4}>
             <HStack spacing={2} justify="center">
-              <Text fontSize="lg" fontWeight="semibold">📍 San Francisco.</Text>
-              <Text fontSize="lg" color="gray.600">The engine of frontier innovation.</Text>
+              <Text fontSize="lg" fontWeight="semibold" color={'black'}>📍 San Francisco.</Text>
+              <Text fontSize="lg" color="gray.600" >The engine of frontier innovation.</Text>
             </HStack>
             <HStack spacing={2} justify="center">
-              <Text fontSize="lg" fontWeight="semibold">📍 Abu Dhabi.</Text>
+              <Text fontSize="lg" fontWeight="semibold" color={'black'}>📍 Abu Dhabi.</Text>
               <Text fontSize="lg" color="gray.600">The bridge to emerging global capital.</Text>
             </HStack>
           </VStack>
