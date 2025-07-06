@@ -51,6 +51,32 @@ const AuthCallback: React.FC = () => {
           
           // Email verification successful
           setVerificationStatus('success');
+          
+          // After successful auth, check registration status
+          setTimeout(async () => {
+            try {
+              const { data: { user } } = await config.supabaseClient?.auth.getUser();
+              if (user?.email) {
+                // Import the service to check registration status
+                const { default: checkRegistrationStatus } = await import('../services/authentication/checkRegistrationStatus');
+                const registrationStatus = await checkRegistrationStatus(user.email);
+                
+                if (!registrationStatus.isRegistered) {
+                  // User needs to complete registration
+                  navigate('/user-registration');
+                } else {
+                  // User is fully registered
+                  navigate('/');
+                }
+              } else {
+                navigate('/login');
+              }
+            } catch (error) {
+              console.error('Error checking registration after auth:', error);
+              // Default to registration page if check fails
+              navigate('/user-registration');
+            }
+          }, 1500);
         } else {
           // Handle other auth types if needed
           setVerificationStatus('success');

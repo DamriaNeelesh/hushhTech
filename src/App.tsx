@@ -34,6 +34,8 @@ import KYCFormPage from './pages/kyc-form/page';
 import { Session } from '@supabase/supabase-js';
 import DiscoverFundA from './pages/discover-fund-a';
 import UserRegistration from './pages/UserRegistration';
+import ProtectedRoute from './components/ProtectedRoute';
+import YourProfilePage from './pages/your-profile';
 
 // Google Analytics configuration
 const GA_TRACKING_ID = 'G-R58S9WWPM0';
@@ -119,34 +121,79 @@ function App() {
               <Route path='/services/business' element={<Business/>}/>
               <Route path='/Signup' element={<Signup/>}/>
               <Route path='/faq' element={<Faq/>}/>
-              <Route path='/profile' element={<Profile/>} />
+              <Route path='/profile' element={
+                <ProtectedRoute>
+                  <Profile/>
+                </ProtectedRoute>
+              } />
               <Route path="/career" element={<Career/>} />
               <Route path="/career/*" element={<Career />} />
               <Route path='/privacy-policy' element={<PrivacyPolicy/>}/>
               <Route path='/carrer-privacy-policy' element={<CareersPrivacyPolicy/>}/>
-              <Route path="/community" element={<CommunityList/>} />
+              <Route path="/community" element={
+                <ProtectedRoute>
+                  <CommunityList/>
+                </ProtectedRoute>
+              } />
               <Route path='/california-privacy-policy' element={<CaliforniaPrivacyPolicy/>}/>
               <Route path='/eu-uk-jobs-privacy-policy' element={<EUUKPrivacyPolicy/>}/>
-              <Route path="/community/*" element={<CommunityPost />} />
-              <Route path="/reports/:id" element={<ReportDetailPage />} />
+              <Route path="/community/*" element={
+                <ProtectedRoute>
+                  <CommunityPost />
+                </ProtectedRoute>
+              } />
+              <Route path="/reports/:id" element={
+                <ProtectedRoute>
+                  <ReportDetailPage />
+                </ProtectedRoute>
+              } />
               <Route path="/auth/callback" element={<AuthCallback />} />
               {/* <Route path="/solutions" element={<SolutionsPage />} /> */}
-              <Route path='/kyc-verification' element={<KYCVerificationPage/>}/>
-              <Route path='/kyc-form' element={<KYCFormPage/>}/>
-              <Route path='/discover-fund-a' element={<DiscoverFundA/>}/>
-              <Route path='/user-registration' element={<UserRegistration />}/>
-              <Route path='/nda-form' element={<InvestorProfilePage 
-                session={session} 
-                onSubmit={(result) => {
-                  console.log("NDA submission result:", result);
-                  // Handle post-submission actions here
-                  if (result === "Approved" || result === "Pending" || result === "Requested permission") {
-                    // Redirect to appropriate page on success
-                    window.location.href = "/";
-                  }
-                }} 
-              />} />
-              <Route path='/user-profile' element={<UserProfilePage/>}/>
+              <Route path='/kyc-verification' element={
+                <ProtectedRoute>
+                  <KYCVerificationPage/>
+                </ProtectedRoute>
+              }/>
+              <Route path='/kyc-form' element={
+                <ProtectedRoute>
+                  <KYCFormPage/>
+                </ProtectedRoute>
+              }/>
+              <Route path='/discover-fund-a' element={
+                <ProtectedRoute>
+                  <DiscoverFundA/>
+                </ProtectedRoute>
+              }/>
+              <Route path='/user-registration' element={
+                <ProtectedRoute requiresRegistration={false}>
+                  <UserRegistration />
+                </ProtectedRoute>
+              }/>
+              <Route path='/nda-form' element={
+                <ProtectedRoute>
+                  <InvestorProfilePage 
+                    session={session} 
+                    onSubmit={(result) => {
+                      console.log("NDA submission result:", result);
+                      // Handle post-submission actions here
+                      if (result === "Approved" || result === "Pending" || result === "Requested permission") {
+                        // Redirect to appropriate page on success
+                        window.location.href = "/";
+                      }
+                    }} 
+                  />
+                </ProtectedRoute>
+              } />
+              <Route path='/user-profile' element={
+                <ProtectedRoute>
+                  <UserProfilePage/>
+                </ProtectedRoute>
+              }/>
+              <Route path='/your-profile' element={
+                <ProtectedRoute requiresRegistration={false}>
+                  <YourProfilePage/>
+                </ProtectedRoute>
+              }/>
             </Routes>
           </ContentWrapper>
           <Footer />
