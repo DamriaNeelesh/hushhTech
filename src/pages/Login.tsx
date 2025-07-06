@@ -55,7 +55,7 @@ export default function Login() {
         {/* Logo and Header */}
         <div className="flex flex-col items-center justify-center mb-10">
           <Link to="/" className="mb-2">
-            <Image src="/hushhLogo.png" alt="Hushh Logo" className="w-32 h-32" />
+            <Image src="/HushhLogo.png" alt="Hushh Logo" className="w-32 h-32" />
           </Link>
           <h1 className="text-3xl font-bold text-gray-800 text-center">Log In to Hushh Technologies</h1>
           <p className="text-gray-600 mt-2 text-center">Access your investment dashboard</p>
