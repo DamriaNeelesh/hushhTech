@@ -6,7 +6,6 @@ import { notification } from "antd";
 import axios from "axios";
 import Select from "react-select";
 import { Country, City } from "country-state-city";
-// import APITestButton from "../components/APITestButton";
 
 // API configuration
 const API_ENDPOINT = "https://hushh-api-53407187172.us-central1.run.app/api/hushhtech-wrapper";
