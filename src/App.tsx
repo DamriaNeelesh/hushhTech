@@ -122,47 +122,43 @@ function App() {
               <Route path='/Signup' element={<Signup/>}/>
               <Route path='/faq' element={<Faq/>}/>
               <Route path='/profile' element={
-                <ProtectedRoute>
-                  <Profile/>
-                </ProtectedRoute>
+                  <Profile/>                
               } />
               <Route path="/career" element={<Career/>} />
               <Route path="/career/*" element={<Career />} />
               <Route path='/privacy-policy' element={<PrivacyPolicy/>}/>
               <Route path='/carrer-privacy-policy' element={<CareersPrivacyPolicy/>}/>
               <Route path="/community" element={
-                <ProtectedRoute>
                   <CommunityList/>
-                </ProtectedRoute>
               } />
               <Route path='/california-privacy-policy' element={<CaliforniaPrivacyPolicy/>}/>
               <Route path='/eu-uk-jobs-privacy-policy' element={<EUUKPrivacyPolicy/>}/>
               <Route path="/community/*" element={
-                <ProtectedRoute>
+              
                   <CommunityPost />
-                </ProtectedRoute>
+                
               } />
               <Route path="/reports/:id" element={
-                <ProtectedRoute>
+                
                   <ReportDetailPage />
-                </ProtectedRoute>
+                
               } />
               <Route path="/auth/callback" element={<AuthCallback />} />
               {/* <Route path="/solutions" element={<SolutionsPage />} /> */}
               <Route path='/kyc-verification' element={
-                <ProtectedRoute>
+                
                   <KYCVerificationPage/>
-                </ProtectedRoute>
+                
               }/>
               <Route path='/kyc-form' element={
-                <ProtectedRoute>
+                
                   <KYCFormPage/>
-                </ProtectedRoute>
+                
               }/>
               <Route path='/discover-fund-a' element={
-                <ProtectedRoute>
+                
                   <DiscoverFundA/>
-                </ProtectedRoute>
+                
               }/>
               <Route path='/user-registration' element={
                 <ProtectedRoute requiresRegistration={false}>
@@ -170,7 +166,7 @@ function App() {
                 </ProtectedRoute>
               }/>
               <Route path='/nda-form' element={
-                <ProtectedRoute>
+                
                   <InvestorProfilePage 
                     session={session} 
                     onSubmit={(result) => {
@@ -182,17 +178,17 @@ function App() {
                       }
                     }} 
                   />
-                </ProtectedRoute>
+                
               } />
               <Route path='/user-profile' element={
-                <ProtectedRoute>
+                  
                   <UserProfilePage/>
-                </ProtectedRoute>
+                
               }/>
               <Route path='/your-profile' element={
-                <ProtectedRoute requiresRegistration={false}>
+                
                   <YourProfilePage/>
-                </ProtectedRoute>
+                
               }/>
             </Routes>
           </ContentWrapper>
