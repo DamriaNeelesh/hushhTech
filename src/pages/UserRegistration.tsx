@@ -1,17 +1,15 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AlertCircle } from "lucide-react";
 import resources from "../resources/resources";
 import { notification } from "antd";
 import axios from "axios";
-import Select from "react-select";
-// import { Country, City } from "country-state-city";
-import APITestButton from "../components/APITestButton";
 
 // API configuration
-const API_ENDPOINT = "https://hushh-api-53407187172.us-central1.run.app/api/hushhtech-wrapper";
+const API_ENDPOINT = "/api/hushhtech-wrapper";
 const API_HEADERS = {
-  'Content-Type': 'application/json'
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
 };
 
 interface UserData {
@@ -44,31 +42,6 @@ export default function UserRegistration() {
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [reasonForUsingHushh, setReasonForUsingHushh] = useState("");
   const [investorType, setInvestorType] = useState("");
-
-  // Country and City dropdown options using country-state-city library
-  // const countryOptions = useMemo(() => {
-  //   return Country.getAllCountries().map((country) => ({
-  //     value: country.name.toLowerCase(), 
-  //     label: country.name,
-  //     flag: country.flag
-  //   }));
-  // }, []);
-  
-  // const cityOptions = useMemo(() => {
-  //   if (!country) return [];
-    
-  //   const selectedCountry = Country.getAllCountries().find(
-  //     c => c.name.toLowerCase() === country.toLowerCase()
-  //   );
-    
-  //   if (!selectedCountry) return [];
-    
-  //   const cities = City.getCitiesOfCountry(selectedCountry.isoCode);
-  //   return cities ? cities.map((city) => ({
-  //     value: city.name,
-  //     label: city.name
-  //   })) : [];
-  // }, [country]);
 
   useEffect(() => {
     // Get user email from Supabase session
@@ -127,15 +100,31 @@ export default function UserRegistration() {
         investor_type: investorType,
       };
 
-      console.log("Sending data:", userData);
+      console.log("=== API Request Debug Info ===");
+      console.log("API Endpoint:", API_ENDPOINT);
+      console.log("Request Headers:", API_HEADERS);
+      console.log("Request Payload:", JSON.stringify(userData, null, 2));
 
-      const response = await axios.post(
-        API_ENDPOINT,
-        userData,
-        { headers: API_HEADERS }
-      );
+      // Create axios instance with explicit config
+      const axiosConfig = {
+        method: 'POST',
+        url: API_ENDPOINT,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        data: userData,
+        timeout: 30000,
+      };
+
+      console.log("Axios config:", axiosConfig);
+
+      const response = await axios(axiosConfig);
       
-      console.log("API Response:", response.data);
+      console.log("=== API Response Debug Info ===");
+      console.log("Response Status:", response.status);
+      console.log("Response Headers:", response.headers);
+      console.log("Response Data:", response.data);
       
       // Extract and store user profile data from response
       if (response.data && response.data.user) {
@@ -168,20 +157,50 @@ export default function UserRegistration() {
         navigate("/your-profile");
       }, 2000);
     } catch (err: any) {
-      console.error("Registration error:", err);
+      console.error("=== API Error Debug Info ===");
+      console.error("Full error object:", err);
       
       // More detailed error handling
       let errorMessage = "An unexpected error occurred. Please try again later.";
       
       if (err.response) {
         // Server responded with error status
-        console.error("Error response:", err.response.data);
-        errorMessage = `Registration failed: ${err.response.data?.message || err.response.statusText}`;
+        console.error("Error response status:", err.response.status);
+        console.error("Error response headers:", err.response.headers);
+        console.error("Error response data:", err.response.data);
+        
+        errorMessage = `Registration failed (${err.response.status}): ${
+          err.response.data?.message || 
+          err.response.data?.error || 
+          err.response.statusText ||
+          'Server error'
+        }`;
       } else if (err.request) {
         // Request was made but no response
-        errorMessage = "Network error. Please check your connection and try again.";
+        console.error("No response received:", err.request);
+        console.error("Request details:", {
+          url: err.config?.url,
+          method: err.config?.method,
+          headers: err.config?.headers,
+          data: err.config?.data
+        });
+        
+        if (err.code === 'ECONNABORTED') {
+          errorMessage = "Request timeout. Please check your internet connection and try again.";
+        } else if (err.code === 'ERR_NETWORK') {
+          errorMessage = "Network error. Please check your internet connection or try again later.";
+        } else if (err.message?.includes('CORS')) {
+          errorMessage = "CORS error. The server may not be configured to accept requests from this domain.";
+        } else {
+          errorMessage = "Network error. Please check your connection and try again.";
+        }
+      } else {
+        // Something else happened
+        console.error("Request setup error:", err.message);
+        errorMessage = `Request error: ${err.message}`;
       }
       
+      console.error("Final error message:", errorMessage);
       setError(errorMessage);
     } finally {
       setIsLoading(false);
@@ -204,8 +223,6 @@ export default function UserRegistration() {
 
         {/* Registration Form */}
         <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
-          {/* Test Button - Remove in production */}
-          {/* <APITestButton /> */}
           
           {error && (
             <div className="mb-6 p-4 rounded-md bg-red-50 border border-red-100 text-red-700">
@@ -316,73 +333,36 @@ export default function UserRegistration() {
               </select>
             </div>
 
-            {/* <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4">
               <div>
                 <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">
                   Country
                 </label>
-                <Select
-                  options={countryOptions}
-                  value={countryOptions.find(option => option.value === country)}
-                  onChange={(selectedOption) => {
-                    setCountry(selectedOption?.value || "");
-                    setCity(""); // Reset city when country changes
-                  }}
-                  placeholder="Select Country"
-                  isSearchable
-                  className="react-select-container"
-                  classNamePrefix="react-select"
-                  styles={{
-                    control: (provided) => ({
-                      ...provided,
-                      minHeight: '48px',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '6px',
-                      fontSize: '16px',
-                      '&:hover': {
-                        borderColor: '#06b6d4'
-                      },
-                      '&:focus-within': {
-                        borderColor: '#06b6d4',
-                        boxShadow: '0 0 0 1px #06b6d4'
-                      }
-                    })
-                  }}
+                <input
+                  type="text"
+                  id="country"
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  placeholder="Enter your country"
+                  className="block w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
+                  required
                 />
               </div>
               <div>
                 <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
                   City
                 </label>
-                <Select
-                  options={cityOptions}
-                  value={cityOptions.find(option => option.value === city)}
-                  onChange={(selectedOption) => setCity(selectedOption?.value || "")}
-                  placeholder={country ? "Select City" : "Select country first"}
-                  isSearchable
-                  isDisabled={!country}
-                  className="react-select-container"
-                  classNamePrefix="react-select"
-                  styles={{
-                    control: (provided, state) => ({
-                      ...provided,
-                      minHeight: '48px',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '6px',
-                      fontSize: '16px',
-                      backgroundColor: state.isDisabled ? '#f9fafb' : 'white',
-                      '&:hover': {
-                        borderColor: state.isDisabled ? '#d1d5db' : '#06b6d4'
-                      },
-                      '&:focus-within': {
-                        borderColor: state.isDisabled ? '#d1d5db' : '#06b6d4',
-                        boxShadow: state.isDisabled ? 'none' : '0 0 0 1px #06b6d4'
-                      }
-                    })
-                  }}
+                <input
+                  type="text"
+                  id="city"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  placeholder="Enter your city"
+                  className="block w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
+                  required
                 />
               </div>
-            </div> */}
+            </div>
 
             <div>
               <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-700 mb-1">
