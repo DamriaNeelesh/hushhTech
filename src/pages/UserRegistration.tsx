@@ -5,7 +5,7 @@ import resources from "../resources/resources";
 import { notification } from "antd";
 import axios from "axios";
 import Select from "react-select";
-import { Country, City } from "country-state-city";
+// import { Country, City } from "country-state-city";
 import APITestButton from "../components/APITestButton";
 
 // API configuration
@@ -46,31 +46,29 @@ export default function UserRegistration() {
   const [investorType, setInvestorType] = useState("");
 
   // Country and City dropdown options using country-state-city library
-  const countryOptions = useMemo(() => {
-    return Country.getAllCountries().map((country) => ({
-      value: country.name.toLowerCase(), // Use lowercase country name to match API
-      label: country.name,
-      flag: country.flag
-    }));
-  }, []);
+  // const countryOptions = useMemo(() => {
+  //   return Country.getAllCountries().map((country) => ({
+  //     value: country.name.toLowerCase(), 
+  //     label: country.name,
+  //     flag: country.flag
+  //   }));
+  // }, []);
   
-  // Cities based on selected country
-  const cityOptions = useMemo(() => {
-    if (!country) return [];
+  // const cityOptions = useMemo(() => {
+  //   if (!country) return [];
     
-    // Find the country by name (case insensitive)
-    const selectedCountry = Country.getAllCountries().find(
-      c => c.name.toLowerCase() === country.toLowerCase()
-    );
+  //   const selectedCountry = Country.getAllCountries().find(
+  //     c => c.name.toLowerCase() === country.toLowerCase()
+  //   );
     
-    if (!selectedCountry) return [];
+  //   if (!selectedCountry) return [];
     
-    const cities = City.getCitiesOfCountry(selectedCountry.isoCode);
-    return cities ? cities.map((city) => ({
-      value: city.name,
-      label: city.name
-    })) : [];
-  }, [country]);
+  //   const cities = City.getCitiesOfCountry(selectedCountry.isoCode);
+  //   return cities ? cities.map((city) => ({
+  //     value: city.name,
+  //     label: city.name
+  //   })) : [];
+  // }, [country]);
 
   useEffect(() => {
     // Get user email from Supabase session
@@ -207,7 +205,7 @@ export default function UserRegistration() {
         {/* Registration Form */}
         <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
           {/* Test Button - Remove in production */}
-          <APITestButton />
+          {/* <APITestButton /> */}
           
           {error && (
             <div className="mb-6 p-4 rounded-md bg-red-50 border border-red-100 text-red-700">
@@ -318,7 +316,7 @@ export default function UserRegistration() {
               </select>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            {/* <div className="grid grid-cols-2 gap-4">
               <div>
                 <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">
                   Country
@@ -384,7 +382,7 @@ export default function UserRegistration() {
                   }}
                 />
               </div>
-            </div>
+            </div> */}
 
             <div>
               <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-700 mb-1">
