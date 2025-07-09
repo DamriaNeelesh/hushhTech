@@ -1,34 +1,102 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Button, Flex, Text, Box, Container } from "@chakra-ui/react";
+import { Button, Flex, Text, Box, Container, Spinner } from "@chakra-ui/react";
 import config from "../resources/config/config";
 import ProfilePage from "./profile/profilePage";
 import WhyChooseSection from "./WhyChooseSection";
 import { Session } from "@supabase/supabase-js";
+import axios from "axios";
 
 export default function Hero() {
   const navigate = useNavigate();
   const [session, setSession] = useState<Session | null>(null);
+  const [isCheckingUser, setIsCheckingUser] = useState(false);
   
   useEffect(() => {
     // Fetch the current session
     if (config.supabaseClient) {
       config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
         setSession(session);
+        if (session?.user?.email) {
+          checkUserExistence(session.user.email);
+        }
       });
 
       // Listen for auth state changes
       const { data: { subscription } } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
         setSession(session);
+        if (session?.user?.email) {
+          checkUserExistence(session.user.email);
+        }
       });
 
       return () => subscription?.unsubscribe();
     }
   }, []);
 
+  const checkUserExistence = async (email: string) => {
+    try {
+      setIsCheckingUser(true);
+      console.log('🔍 Checking user existence for:', email);
+      
+      const response = await axios.get(
+        `https://hushh-api-53407187172.us-central1.run.app/api/check-user?email=${encodeURIComponent(email)}`,
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      
+      console.log('📥 API Response:', response.data);
+      
+      if (response.data && response.data.message === "User exists") {
+        console.log('✅ User exists, redirecting to profile');
+        navigate('/');
+      } else if (response.data && response.data.message === "User does not exist") {
+        console.log('❌ User not found, redirecting to registration');
+        navigate('/user-registration');
+      }
+    } catch (error: any) {
+      console.error('❌ Error checking user existence:', error);
+      
+      // If it's a 404 or the response says user doesn't exist, redirect to registration
+      if (error.response?.status === 404 || 
+          (error.response?.data && error.response.data.message === "User does not exist")) {
+        console.log('❌ User not found (404 or not found message), redirecting to registration');
+        navigate('/user-registration');
+      } else {
+        console.log('❌ API error occurred, user stays on landing page');
+        // On other errors, let them stay on the landing page
+      }
+    } finally {
+      setIsCheckingUser(false);
+    }
+  };
+
   return (
     <>
-      {!session ? (
+      {isCheckingUser ? (
+        <Box
+          bg="white"
+          minH="100vh"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          px={4}
+          py={12}
+        >
+          <Container maxW="md" textAlign="center">
+            <Spinner size="xl" color="#0AADBC" thickness="4px" speed="0.65s" mb={6} />
+            <Text fontSize="lg" color="#1D1D1F" fontWeight="medium">
+              Checking your registration status...
+            </Text>
+            <Text fontSize="md" color="#6E6E73" mt={2}>
+              Please wait while we verify your account.
+            </Text>
+          </Container>
+        </Box>
+      ) : !session ? (
         <Box
           bg="white"
           color="white"

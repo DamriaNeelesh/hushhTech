@@ -38,22 +38,32 @@ const AuthCallback: React.FC = () => {
           }
           
           // Set the session with Supabase
-          const { error } = await config.supabaseClient?.auth.setSession({
+          const response = await config.supabaseClient?.auth.setSession({
             access_token: accessToken,
             refresh_token: refreshToken
           });
           
-          if (error) {
+          if (response?.error) {
             setVerificationStatus('error');
-            setErrorMessage(error.message);
+            setErrorMessage(response.error.message);
             return;
           }
           
           // Email verification successful
           setVerificationStatus('success');
+          
+          // Auto-redirect to profile page after successful verification
+          setTimeout(() => {
+            navigate('/your-profile');
+          }, 2000);
         } else {
           // Handle other auth types if needed
           setVerificationStatus('success');
+          
+          // Auto-redirect to profile page
+          setTimeout(() => {
+            navigate('/your-profile');
+          }, 2000);
         }
       } catch (err) {
         console.error('Verification error:', err);
@@ -65,8 +75,8 @@ const AuthCallback: React.FC = () => {
     handleEmailVerification();
   }, [searchParams]);
   
-  const redirectToLogin = () => {
-    navigate('/login');
+  const redirectToProfile = () => {
+    navigate('/your-profile');
   };
   
   const redirectToHome = () => {
@@ -102,9 +112,9 @@ const AuthCallback: React.FC = () => {
               <Button 
                 colorScheme="green" 
                 size="lg" 
-                onClick={redirectToLogin}
+                onClick={redirectToProfile}
               >
-                Log In Now
+                Go to Profile
               </Button>
               <Button 
                 variant="outline" 
@@ -129,9 +139,9 @@ const AuthCallback: React.FC = () => {
               <Button 
                 colorScheme="blue" 
                 size="lg" 
-                onClick={redirectToLogin}
+                onClick={redirectToProfile}
               >
-                Try Logging In
+                Go to Profile
               </Button>
               <Button 
                 variant="outline" 
