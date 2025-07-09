@@ -200,13 +200,13 @@ export default function Navbar() {
                     }`}
                   >
                     <Link
-                      to="/user-registration"
+                      to="/your-profile"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={() => setProfileDropdownOpen(false)}
                     >
                       <div className="flex items-center">
                         <FiUser className="mr-2" />
-                        Edit Profile
+                        View Profile
                       </div>
                     </Link>
                   </div>

@@ -3,7 +3,8 @@ import resources from '../../resources/resources';
 export default async function googleSignIn(callback?: () => void) {
   try {
     console.log('Starting Google Sign-In process...');
-    const redirectTo = window.location.origin + '/user-registration';
+    // Redirect to auth callback which will handle registration check
+    const redirectTo = window.location.origin + '/auth/callback';
     
     if (!resources.config.supabaseClient) {
       console.error('Supabase client is not initialized');
