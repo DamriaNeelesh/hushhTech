@@ -5,12 +5,11 @@ import resources from "../resources/resources";
 import { notification } from "antd";
 import axios from "axios";
 
-// API configuration
-const API_ENDPOINT = "/api/hushhtech-wrapper";
-const API_HEADERS = {
-  'Content-Type': 'application/json',
-  'Accept': 'application/json',
-};
+// API configuration - Production API endpoint
+const API_ENDPOINT = "https://hushh-api-53407187172.us-central1.run.app/api/hushhtech-wrapper";
+
+console.log("=== API Configuration ===");
+console.log("API Endpoint:", API_ENDPOINT);
 
 interface UserData {
   first_name: string;
@@ -86,14 +85,14 @@ export default function UserRegistration() {
     setError(null);
 
     try {
-      // Create user data object matching the new API structure
+      // Create user data object matching the API structure
       const userData: UserData = {
         first_name: firstName,
         last_name: lastName,
         email: userEmail,
         phone_number: phoneNumber,
         gender: gender,
-        country: country.toLowerCase(), // Send lowercase country name
+        country: country.toLowerCase(),
         city: city,
         dob: dateOfBirth,
         reason_for_using: reasonForUsingHushh,
@@ -101,12 +100,13 @@ export default function UserRegistration() {
       };
 
       console.log("=== API Request Debug Info ===");
-      console.log("API Endpoint:", API_ENDPOINT);
-      console.log("Request Headers:", API_HEADERS);
+      console.log("Final API Endpoint:", API_ENDPOINT);
+      console.log("Request Method: POST");
       console.log("Request Payload:", JSON.stringify(userData, null, 2));
+      console.log("Current URL:", window.location.href);
 
-      // Create axios instance with explicit config
-      const axiosConfig = {
+      // Make the API request with explicit configuration
+      const response = await axios({
         method: 'POST',
         url: API_ENDPOINT,
         headers: {
@@ -115,11 +115,9 @@ export default function UserRegistration() {
         },
         data: userData,
         timeout: 30000,
-      };
-
-      console.log("Axios config:", axiosConfig);
-
-      const response = await axios(axiosConfig);
+        // Explicitly disable proxy
+        proxy: false,
+      });
       
       console.log("=== API Response Debug Info ===");
       console.log("Response Status:", response.status);
@@ -158,7 +156,7 @@ export default function UserRegistration() {
       }, 2000);
     } catch (err: any) {
       console.error("=== API Error Debug Info ===");
-      console.error("Full error object:", err);
+
       
       // More detailed error handling
       let errorMessage = "An unexpected error occurred. Please try again later.";
@@ -168,6 +166,7 @@ export default function UserRegistration() {
         console.error("Error response status:", err.response.status);
         console.error("Error response headers:", err.response.headers);
         console.error("Error response data:", err.response.data);
+        console.error("Actual request URL:", err.response.config?.url);
         
         errorMessage = `Registration failed (${err.response.status}): ${
           err.response.data?.message || 
@@ -178,12 +177,9 @@ export default function UserRegistration() {
       } else if (err.request) {
         // Request was made but no response
         console.error("No response received:", err.request);
-        console.error("Request details:", {
-          url: err.config?.url,
-          method: err.config?.method,
-          headers: err.config?.headers,
-          data: err.config?.data
-        });
+        console.error("Request URL that was attempted:", err.config?.url);
+        console.error("Request method:", err.config?.method);
+        console.error("Request headers:", err.config?.headers);
         
         if (err.code === 'ECONNABORTED') {
           errorMessage = "Request timeout. Please check your internet connection and try again.";
