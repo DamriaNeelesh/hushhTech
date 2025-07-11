@@ -120,24 +120,24 @@ const AuthCallback: React.FC = () => {
         {verificationStatus === 'success' && (
           <Flex direction="column" align="center" py={6}>
             <Icon as={CheckCircle} w={16} h={16} color="green.500" mb={6} />
-            <Heading size="lg" mb={4}>Email Verified Successfully!</Heading>
+            <Heading size="lg" mb={4}>Welcome to HushhTech!</Heading>
             <Text color="gray.600" mb={8}>
-              Your email has been successfully verified. You can now log in to your account.
+              Your email has been successfully verified. You can now set up your profile and start exploring the community.
             </Text>
             <Flex gap={4}>
               <Button 
                 colorScheme="green" 
                 size="lg" 
-                onClick={redirectToLogin}
+                onClick={() => navigate('/user-registration')}
               >
-                Log In Now
+                Set us your profile
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
-                onClick={redirectToHome}
+                onClick={() => navigate('/community')}
               >
-                Go to Home
+                Checkout communnity posts
               </Button>
             </Flex>
           </Flex>
