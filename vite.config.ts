@@ -18,6 +18,11 @@ export default defineConfig({
     emptyOutDir: false, 
   },
   
+  // Removed proxy configuration as it conflicts with direct API calls
+  server: {
+    // No proxy needed since we're using full URLs
+  },
+  
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.mdx'],
   },

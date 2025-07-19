@@ -4,6 +4,8 @@ import { Eye, EyeOff, AlertCircle } from "lucide-react";
 import services from "../services/services";
 import { Image } from "@chakra-ui/react";
 import { notification } from "antd";
+import HushhLogo from "../components/images/Hushhogo.png"
+import GoolgleIcon from "../svg/googleIcon.svg"
 
 export default function Login() {
   const navigate = useNavigate();
@@ -55,7 +57,7 @@ export default function Login() {
         {/* Logo and Header */}
         <div className="flex flex-col items-center justify-center mb-10">
           <Link to="/" className="mb-2">
-            <Image src="/hushhLogo.png" alt="Hushh Logo" className="w-32 h-32" />
+            <Image src={HushhLogo} alt="Hushh Logo" className="w-32 h-32" />
           </Link>
           <h1 className="text-3xl font-bold text-gray-800 text-center">Log In to Hushh Technologies</h1>
           <p className="text-gray-600 mt-2 text-center">Access your investment dashboard</p>
@@ -147,9 +149,9 @@ export default function Login() {
                       "Your email has not been verified. Please check your inbox for a verification email or click below to resend it."
                     );
                   } else {
-                    // Successful login, redirect to user registration page
+                    // Successful login - emailLogin function will handle registration check and redirect
                     localStorage.setItem("isLoggedIn", "true");
-                    navigate("/user-registration");
+                    // Don't navigate here, let emailLogin handle the redirect based on registration status
                   }
                 } catch (err) {
                   setError("An unexpected error occurred. Please try again later.");
@@ -196,7 +198,7 @@ export default function Login() {
                   });
                 }}
               >
-                <img src="/google-icon.svg" alt="Google Sign In" className="h-5 w-5" />
+                <img src={GoolgleIcon} alt="Google Sign In" className="h-5 w-5" />
                 Google
               </button>
             </div>

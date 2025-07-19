@@ -155,6 +155,7 @@ import Dmu24apr from '../content/posts/market/dmu24apr';
 import dmu30may from '../content/posts/market/dmu30may';
 import PatternOfAlpha from '../content/posts/general/patternOfAlpha';
 import Alpha27IndiaStrategicPlan from '../content/posts/general/alpha27IndiaStrategicPlan'
+import HushhVentures from '../content/posts/general/hushhVentures';
 
 export interface PostData {
   slug: string;
@@ -1542,11 +1543,22 @@ export const posts: PostData[] = [
 {
   count: 164,
   slug: 'general/alpha-27-india-strategic-plan',
-  title: 'Strategic Investment Plan: Top 27 Alpha Bets in India’s AI-Driven Future',
+  title: 'Strategic Investment Plan: Top 27 Alpha Bets in India\'s AI-Driven Future',
   publishedAt: '2025-06-24',
-  description: 'A comprehensive, sector-by-sector breakdown of India’s top 27 AI-driven, free-cash-flow investments, with rationale and implementation blueprint.',
+  description: 'A comprehensive, sector-by-sector breakdown of India\'s top 27 AI-driven, free-cash-flow investments, with rationale and implementation blueprint.',
   category: 'general',
   Component: Alpha27IndiaStrategicPlan,
+  image: HushhAiLogoImg,
+  accessLevel: 'Public',
+},
+{
+  count: 165,
+  slug: 'ventures/hushh-ventures-announcement',
+  title: '🤫 Hushh Ventures LLC: The Future, Early',
+  publishedAt: '2025-07-06',
+  description: 'The dedicated innovation arm of Fund A Ultra27 portfolio, allocating 10% of assets to back the world\'s most valuable emerging technologies, teams, and trends — before they become essential.',
+  category: 'investor relations & strategies',
+  Component: HushhVentures,
   image: HushhAiLogoImg,
   accessLevel: 'Public',
 },

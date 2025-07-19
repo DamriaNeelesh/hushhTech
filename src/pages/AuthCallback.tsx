@@ -51,6 +51,32 @@ const AuthCallback: React.FC = () => {
           
           // Email verification successful
           setVerificationStatus('success');
+          
+          // After successful auth, check registration status
+          setTimeout(async () => {
+            try {
+              const { data: { user } } = await config.supabaseClient?.auth.getUser();
+              if (user?.email) {
+                // Import the service to check registration status
+                const { default: checkRegistrationStatus } = await import('../services/authentication/checkRegistrationStatus');
+                const registrationStatus = await checkRegistrationStatus(user.email);
+                
+                if (!registrationStatus.isRegistered) {
+                  // User needs to complete registration
+                  navigate('/user-registration');
+                } else {
+                  // User is fully registered
+                  navigate('/');
+                }
+              } else {
+                navigate('/login');
+              }
+            } catch (error) {
+              console.error('Error checking registration after auth:', error);
+              // Default to registration page if check fails
+              navigate('/user-registration');
+            }
+          }, 1500);
         } else {
           // Handle other auth types if needed
           setVerificationStatus('success');
@@ -94,24 +120,24 @@ const AuthCallback: React.FC = () => {
         {verificationStatus === 'success' && (
           <Flex direction="column" align="center" py={6}>
             <Icon as={CheckCircle} w={16} h={16} color="green.500" mb={6} />
-            <Heading size="lg" mb={4}>Email Verified Successfully!</Heading>
+            <Heading size="lg" mb={4}>Welcome to HushhTech!</Heading>
             <Text color="gray.600" mb={8}>
-              Your email has been successfully verified. You can now log in to your account.
+              Your email has been successfully verified. You can now set up your profile and start exploring the community.
             </Text>
             <Flex gap={4}>
               <Button 
                 colorScheme="green" 
                 size="lg" 
-                onClick={redirectToLogin}
+                onClick={() => navigate('/user-registration')}
               >
-                Log In Now
+                Set us your profile
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
-                onClick={redirectToHome}
+                onClick={() => navigate('/community')}
               >
-                Go to Home
+                Checkout communnity posts
               </Button>
             </Flex>
           </Flex>
