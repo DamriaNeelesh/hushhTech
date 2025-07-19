@@ -338,7 +338,7 @@ export default function Contact() {
                 <Icon as={Phone} color="red.400" boxSize={5} mt={1} />
                 <Box>
                   <Text fontWeight="medium">Phone</Text>
-                  <Text color="gray.600">+14252969050</Text>
+                  <Text color="gray.600">(888) 462-1726</Text>
                 </Box>
               </HStack>
               
