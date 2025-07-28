@@ -157,6 +157,7 @@ import PatternOfAlpha from '../content/posts/general/patternOfAlpha';
 import Alpha27IndiaStrategicPlan from '../content/posts/general/alpha27IndiaStrategicPlan'
 import HushhVentures from '../content/posts/general/hushhVentures';
 import MarketOutlookMid2025 from '../content/posts/market/marketOutlookMid2025';
+import FcfAcesOfAcesPortfolioUpdate from '../content/posts/general/fcfAcesOfAcesPortfolioUpdate';
 
 export interface PostData {
   slug: string;
@@ -173,6 +174,17 @@ export interface PostData {
 
 export const posts: PostData[] = [
   // Add the new market updates at the top of the array for newest first
+  {
+    count: 167,
+    slug: 'fcf-aces-of-aces-portfolio-update',
+    title: '2025 "Free Cash Flow Aces of Aces" Portfolio Update',
+    publishedAt: '21/07/2025',
+    description: 'An executive summary and update for the 2025 "Free Cash Flow Aces of Aces" portfolio.',
+    category: 'general',
+    Component: FcfAcesOfAcesPortfolioUpdate,
+    image: DailyMarketUpdateImg1,
+    accessLevel: 'Public',
+  },
   {
     count: 166,
     slug: 'market-outlook-mid-2025',
