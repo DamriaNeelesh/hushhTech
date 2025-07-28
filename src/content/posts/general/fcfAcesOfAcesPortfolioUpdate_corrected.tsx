@@ -2,7 +2,7 @@ import React from 'react';
 
 const FcfAcesOfAcesPortfolioUpdate: React.FC = () => {
   return (
-    <div className="prose">
+    <div className="prose" style={{ color: 'black' }}>
       <h1>2025 "Free Cash Flow Aces of Aces" Portfolio Update</h1>
       <h2>Executive Summary</h2>
       <p><strong>Objective:</strong> Identify 27–30 global companies that excel in generating large, durable, and growing free cash flow (FCF) with strong GAAP-to-FCF conversion, while expanding competitive moats via innovation (AI, data, ecosystems), and that can absorb institutional-scale capital ($1T–$10T portfolios) due to their market depth and global relevance. The updated 2025 list reflects Q2 2025 financials and strategic developments, ensuring alignment with long-term macro, tech, and policy tailwinds.</p>
