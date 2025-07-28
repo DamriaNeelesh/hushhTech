@@ -1,7 +1,6 @@
 import FundPerformance from '../content/posts/funds/FundPerformance';
 import Manifesto from '../content/posts/general/Manifesto';
 import RenaissanceTech from '../content/posts/product/renaissanceTech';
-import AISkillsTesting from '../content/posts/general/AiSkillTesting';
 import ProductUpdates from '../content/posts/product/productsUpdate';
 import InvestorFAQ from '../content/posts/investors-faq/Investors';
 import SellTheWall from '../content/posts/general/selleWall';
@@ -9,7 +8,6 @@ import FundAtHushh from '../content/posts/funds/hushhFunds';
 import SellTheWallMasterclass from '../content/posts/general/sellTheWalleMasterClass';
 import FundAHushh from '../content/posts/funds/fundAHushh';
 import CompensationReport from '../content/posts/general/compensationReport';
-import AIEcommerceBudget from '../content/posts/general/EcomDesertBlue';
 import HushhAlphaFund from '../content/posts/investors-faq/sharedClassExplanation';
 import SubscriptionAgreementA from '../content/posts/investors-faq/subscriptionAgreementA';
 import SubscriptionAgreementB from '../content/posts/investors-faq/subscriptionAgreementB';
@@ -40,16 +38,13 @@ import DailyMarketUpdateImg4 from '../components/images/3_Daily Market Update.jp
 
 // import ManifestoImg from '../components/images/0_Manifesto.jpg'
 import ManifestoImg from '../components/images/1_Manifesto.jpg'
-import SkillTesting from '../components/images/2_Manifesto.jpg'
 
 import ProductUpdate1 from '../components/images/0_Product Updates.png'
 import ProductUpdate2 from '../components/images/product-update.webp'
-import ProductUpdate3 from '../components/images/stocks.png'
 import HushhWalletImg from '../components/images/hushhWallet.png';
 import LimitedPartneshipImg from '../components/images/Limited-Partnership-Agreement.jpg'
 
 import InvestorsFaQImg from '../components/images/inve.jpg'
-import HushhAlphFundImg from '../components/images/blog2o.png'
 import SubscriptionAgreementAImg from  '../components/images/subscriptionAgreement1.webp'
 import SubscriptionAgreementBImg from '../components/images/subscriptionAgreement2.jpg'
 import SubscriptionAgreementCImg from '../components/images/subscriptionAgreement3.webp'
@@ -111,7 +106,6 @@ import SubscriptionAgreementCShares from '../content/posts/investors-faq/subscri
 import InvestorPowerOfAttorney from '../content/posts/nda/investorsPower';
 import dmu24Feb from '../content/posts/market/dmu24feb';
 import dmu25feb from '../content/posts/market/dmu25feb';
-import HeadOfQuants from '../content/posts/general/headOfQuants';
 import Dmu27Feb from '../content/posts/market/dmu27feb';
 import Dmu26Feb from '../content/posts/market/dmu26feb';
 import InvestorUpdate from '../content/posts/investors-faq/investorUpdate';
@@ -133,7 +127,6 @@ import dmu26mar from '../content/posts/market/dmu26mar';
 import dmu25mar from '../content/posts/market/dmu25mar';
 import dmu24mar from '../content/posts/market/dmu24mar';
 import dmu21mar from '../content/posts/market/dmu21mar';
-import dmu5apr from '../content/posts/market/dmu5apr';
 import dmu4apr from '../content/posts/market/dmu4apr';
 import Dmu3apr from '../content/posts/market/dmu3apr';
 import Dmu2apr from '../content/posts/market/dmu2apr';
@@ -149,16 +142,12 @@ import Dmu11apr from '../content/posts/market/dmu11apr';
 import Dmu15apr from '../content/posts/market/dmu15apr';
 import Dmu16apr from '../content/posts/market/dmu16apr';
 import Dmu17apr from '../content/posts/market/dmu17apr';
-import Dmu21apr from '../content/posts/market/dmu21apr';
-import Dmu23apr from '../content/posts/market/dmu23apr';
-import Dmu24apr from '../content/posts/market/dmu24apr';
 import dmu30may from '../content/posts/market/dmu30may';
 import PatternOfAlpha from '../content/posts/general/patternOfAlpha';
 import Alpha27IndiaStrategicPlan from '../content/posts/general/alpha27IndiaStrategicPlan'
 import HushhVentures from '../content/posts/general/hushhVentures';
 import MarketOutlookMid2025 from '../content/posts/market/marketOutlookMid2025';
-import FcfAcesOfAcesPortfolioUpdate from '../content/posts/general/fcfAcesOfAcesPortfolioUpdate';
-
+import FcfAcesOfAcesPortfolioUpdate from '../content/posts/general/fcfAcesOfAcesPortfolioUpdate_corrected';
 export interface PostData {
   slug: string;
   title: string;
