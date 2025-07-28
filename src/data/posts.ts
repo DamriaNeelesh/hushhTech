@@ -156,6 +156,7 @@ import dmu30may from '../content/posts/market/dmu30may';
 import PatternOfAlpha from '../content/posts/general/patternOfAlpha';
 import Alpha27IndiaStrategicPlan from '../content/posts/general/alpha27IndiaStrategicPlan'
 import HushhVentures from '../content/posts/general/hushhVentures';
+import MarketOutlookMid2025 from '../content/posts/market/marketOutlookMid2025';
 
 export interface PostData {
   slug: string;
@@ -172,6 +173,17 @@ export interface PostData {
 
 export const posts: PostData[] = [
   // Add the new market updates at the top of the array for newest first
+  {
+    count: 166,
+    slug: 'market-outlook-mid-2025',
+    title: 'Market Outlook for Top 27 "FCF Aces of Aces" (Mid-2025)',
+    publishedAt: '15/07/2025',
+    description: 'Market Outlook for Top 27 "FCF Aces of Aces" (Mid-2025) as part of Hushh Fund A',
+    category: 'market updates',
+    Component: MarketOutlookMid2025,
+    image: DailyMarketUpdateImg1,
+    accessLevel: 'Public',
+  },
   {
     count: 142,
     slug: 'daily-market-update/17-apr-2025',
