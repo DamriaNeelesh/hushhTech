@@ -1542,6 +1542,18 @@ export const posts: PostData[] = [
   accessLevel: 'Public',
 },
 {
+  count: 168, // Make sure this is higher than your current highest count
+  slug: "general/apple-share-holders-new-letter",
+  title: "Alphabets27 Portfolio: Target Allocations and Strategy (Aug 9, 2025)",
+  publishedAt: '2025-08-19', // You can adjust this date as needed
+  description: "Focus on Free Cash Flow and Valuation",
+  category: 'general',
+  Component: PatternOfAlpha, // This will be ignored when using pdfUrl
+  image: HushhAiLogoImg, // Using your logo image
+  accessLevel: 'Public',
+  pdfUrl: '/alphabets27.pdf', // Path to the PDF file in the public directory
+},
+{
   count: 163, // Make sure this is higher than your current highest count
   slug: "general/apple-share-holders-new-letter",
   title: "Apple - An Opportunity to be more open",
