@@ -1,3 +1,5 @@
+import { google } from 'googleapis';
+
 // Vercel Serverless Function for Career Application Excel Integration
 // This endpoint receives application data and saves it to Google Sheets
 
@@ -8,23 +10,35 @@ export default async function handler(request, response) {
   }
 
   try {
-    const applicationData = request.body;
+    const applicationData = typeof request.body === 'string' ? JSON.parse(request.body) : request.body;
+
+    if (!process.env.GOOGLE_SHEETS_CREDENTIALS) {
+      throw new Error('Missing Google Sheets credentials');
+    }
+
+    if (!process.env.GOOGLE_SHEET_ID) {
+      throw new Error('Missing Google Sheet ID');
+    }
 
     // Validate required fields
     if (!applicationData.firstName || !applicationData.lastName || !applicationData.email) {
       return response.status(400).json({ error: 'Missing required fields' });
     }
 
-    // Option 1: Google Sheets Integration (Recommended for Excel-like functionality)
-    // Uncomment and configure if you want to use Google Sheets
-    const { google } = require('googleapis');
-    
+    // Google Sheets integration using service account credentials
+    const credentials = JSON.parse(process.env.GOOGLE_SHEETS_CREDENTIALS);
+
+    if (credentials.private_key) {
+      credentials.private_key = credentials.private_key.replace(/\\n/g, '\n');
+    }
+
     const auth = new google.auth.GoogleAuth({
-      credentials: JSON.parse(process.env.GOOGLE_SHEETS_CREDENTIALS)
+      credentials,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets']
     });
-    
+
     const sheets = google.sheets({ version: 'v4', auth });
-    
+
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
       range: 'Sheet1!A:K',
@@ -75,11 +89,8 @@ export default async function handler(request, response) {
     }
     */
 
-    // For now, log the data (you should implement one of the options above)
+    // Log the submission for traceability
     console.log('Application received:', JSON.stringify(applicationData, null, 2));
-
-    // TODO: Uncomment and configure one of the integration options above
-    // Then you can export Supabase data to Excel or use Google Sheets directly
 
     return response.status(200).json({
       success: true,
@@ -123,7 +134,7 @@ Option 1: Google Sheets (Recommended for Excel-like functionality)
    - GOOGLE_SHEETS_CREDENTIALS: Paste the entire JSON content as a string
    - GOOGLE_SHEET_ID: Your Google Sheet ID (from the URL: https://docs.google.com/spreadsheets/d/SHEET_ID/edit)
 
-5. Uncomment the Google Sheets code in this file
+5. Ensure the Google Sheets integration in this file remains enabled
 
 6. Create headers row in your Google Sheet (first row):
    Submitted At | First Name | Last Name | Email | College Email | Official Email | Phone | College | Job Title | Job Location | Resume Link

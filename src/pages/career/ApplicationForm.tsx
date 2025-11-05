@@ -22,22 +22,34 @@ import {
 
 interface ApplicationFormProps {
   jobTitle: string;
-  jobLocation: string,
+  jobLocation: string;
   onClose: () => void;
 }
 
+interface ApplicationFormState {
+  firstName: string;
+  lastName: string;
+  email: string;
+  collegeEmail: string;
+  officialEmail: string;
+  phone: string;
+  resumeLink: string;
+  college: string;
+}
+
+const createInitialFormState = (): ApplicationFormState => ({
+  firstName: '',
+  lastName: '',
+  email: '',
+  collegeEmail: '',
+  officialEmail: '',
+  phone: '',
+  resumeLink: '',
+  college: ''
+});
+
 const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProps) => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    collegeEmail: '',
-    officialEmail: '',
-    phone: '',
-    resumeLink: '',
-    college: '',
-    otherCollege: ''
-  });
+  const [formData, setFormData] = useState<ApplicationFormState>(createInitialFormState);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
 
@@ -56,12 +68,8 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
         throw new Error('Please select a college');
       }
 
-      if (formData.college === 'other' && !formData.otherCollege.trim()) {
-        throw new Error('Please enter your college name');
-      }
-
       const fullName = `${formData.firstName} ${formData.lastName}`;
-      const collegeName = formData.college === 'other' ? formData.otherCollege : formData.college;
+      const collegeName = formData.college;
 
       // Prepare data for both EmailJS and Excel
       const applicationData = {
@@ -96,7 +104,7 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
           official_email: formData.officialEmail,
           college: collegeName
         },
-        'DtG13YmoZDccI-GgA' 
+        'DtG13YmoZDccI-GgA'
       );
 
       // Send data to Excel API endpoint
@@ -104,13 +112,17 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
       const excelApiUrl = (import.meta as any).env?.VITE_EXCEL_API_URL || '/api/career-application';
       
       try {
-        await fetch(excelApiUrl, {
+        const excelResponse = await fetch(excelApiUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(applicationData),
         });
+        if (!excelResponse.ok) {
+          const errorText = await excelResponse.text();
+          throw new Error(errorText || 'Failed to save application to Google Sheets');
+        }
       } catch (excelError) {
         // Log Excel error but don't fail the form submission
         console.error('Excel API error:', excelError);
@@ -130,6 +142,7 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
         duration: 5000,
         isClosable: true,
       });
+      setFormData(createInitialFormState());
       onClose();
     } catch (error) {
       console.error('Error:', error);
@@ -169,7 +182,7 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
                 <Input
                   type="text"
                   value={formData.firstName}
-                  onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, firstName: e.target.value }))}
                   placeholder="Enter your first name"
                   focusBorderColor="cyan.400"
                 />
@@ -180,7 +193,7 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
                 <Input
                   type="text"
                   value={formData.lastName}
-                  onChange={(e) => setFormData({...formData, lastName: e.target.value})}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, lastName: e.target.value }))}
                   placeholder="Enter your last name"
                   focusBorderColor="cyan.400"
                 />
@@ -191,7 +204,7 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
                 <Input
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
                   placeholder="Enter your email address"
                   focusBorderColor="cyan.400"
                 />
@@ -202,7 +215,7 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
                 <Input
                   type="email"
                   value={formData.collegeEmail}
-                  onChange={(e) => setFormData({...formData, collegeEmail: e.target.value})}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, collegeEmail: e.target.value }))}
                   placeholder="Enter your college email address"
                   focusBorderColor="cyan.400"
                 />
@@ -213,7 +226,7 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
                 <Input
                   type="email"
                   value={formData.officialEmail}
-                  onChange={(e) => setFormData({...formData, officialEmail: e.target.value})}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, officialEmail: e.target.value }))}
                   placeholder="Enter your official email address"
                   focusBorderColor="cyan.400"
                 />
@@ -225,7 +238,7 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
                   <PhoneInput
                     country={'us'}
                     value={formData.phone}
-                    onChange={(phone) => setFormData({...formData, phone})}
+                    onChange={(phone) => setFormData((prev) => ({ ...prev, phone }))}
                     inputStyle={{
                       width: '100%',
                       border: 'none',
@@ -244,33 +257,20 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
                 <Select
                   placeholder="Select your college"
                   value={formData.college}
-                  onChange={(e) => setFormData({...formData, college: e.target.value, otherCollege: ''})}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, college: e.target.value }))}
                   focusBorderColor="cyan.400"
                 >
                   <option value="LPU">LPU</option>
-                  <option value="other">Other</option>
+                  <option value="MIT">MIT</option>
                 </Select>
               </FormControl>
-
-              {formData.college === 'other' && (
-                <FormControl isRequired>
-                  <FormLabel>College Name</FormLabel>
-                  <Input
-                    type="text"
-                    value={formData.otherCollege}
-                    onChange={(e) => setFormData({...formData, otherCollege: e.target.value})}
-                    placeholder="Enter your college name"
-                    focusBorderColor="cyan.400"
-                  />
-                </FormControl>
-              )}
 
               <FormControl isRequired>
                 <FormLabel>Resume Link</FormLabel>
                 <Input
                   type="url"
                   value={formData.resumeLink}
-                  onChange={(e) => setFormData({...formData, resumeLink: e.target.value})}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, resumeLink: e.target.value }))}
                   placeholder="https://drive.google.com/your-resume-link"
                   focusBorderColor="cyan.400"
                 />
