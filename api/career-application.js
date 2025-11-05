@@ -11,184 +11,141 @@ const REQUIRED_FIELDS = [
   'college',
 ];
 
-const RESPONSE_MESSAGES = {
-  methodNotAllowed: 'Method not allowed',
-  missingCredentials: 'Missing Google Sheets credentials',
-  missingSheetId: 'Missing Google Sheet ID',
-  missingFields: 'Missing required fields',
-  invalidCredentials: 'Invalid Google Sheets credentials',
-};
+const SHEETS_SCOPE = ['https://www.googleapis.com/auth/spreadsheets'];
+const ALLOWED_COLLEGES = new Set(['LPU', 'MIT']);
 
-const parseRequestBody = (request) =>
-  typeof request.body === 'string' ? JSON.parse(request.body) : request.body || {};
+const sanitizeString = (value) => (typeof value === 'string' ? value.trim() : '');
 
-const normaliseCredentials = (rawCredentials) => {
-  try {
-    const credentials = typeof rawCredentials === 'string' ? JSON.parse(rawCredentials) : rawCredentials;
-    if (credentials?.private_key) {
-      credentials.private_key = credentials.private_key
-        .replace(/\r\n/g, '\n')
-        .replace(/\\n/g, '\n');
+const parseRequestBody = (body) => {
+  if (!body) {
+    return {};
+  }
+
+  if (typeof body === 'string') {
+    try {
+      return JSON.parse(body);
+    } catch (error) {
+      throw new Error('Invalid JSON payload');
     }
-    return credentials;
+  }
+
+  return body;
+};
+
+const normalizeCredentials = (rawCredentials) => {
+  if (!rawCredentials) {
+    throw new Error('Missing GOOGLE_SHEETS_CREDENTIALS');
+  }
+
+  let parsed;
+  try {
+    parsed = JSON.parse(rawCredentials);
   } catch (error) {
-    throw new Error(RESPONSE_MESSAGES.invalidCredentials);
+    throw new Error('GOOGLE_SHEETS_CREDENTIALS must be valid JSON');
   }
+
+  if (parsed.private_key) {
+    parsed.private_key = parsed.private_key.replace(/\\n/g, '\n');
+  }
+
+  return parsed;
 };
 
-const normaliseCell = (value) => {
-  if (typeof value === 'string') {
-    return value.trim();
+const isValidUrl = (value) => {
+  try {
+    const parsed = new URL(value);
+    return Boolean(parsed.protocol && parsed.host);
+  } catch (error) {
+    return false;
   }
-
-  if (value === undefined || value === null) {
-    return '';
-  }
-
-  return value;
 };
-
-const buildSpreadsheetRow = (applicationData) => [
-  normaliseCell(applicationData.submittedAt) || new Date().toISOString(),
-  normaliseCell(applicationData.firstName),
-  normaliseCell(applicationData.lastName),
-  normaliseCell(applicationData.email),
-  normaliseCell(applicationData.collegeEmail),
-  normaliseCell(applicationData.officialEmail),
-  normaliseCell(applicationData.phone),
-  normaliseCell(applicationData.college),
-  normaliseCell(applicationData.jobTitle),
-  normaliseCell(applicationData.jobLocation),
-  normaliseCell(applicationData.resumeLink),
-];
 
 export default async function handler(request, response) {
   if (request.method !== 'POST') {
-    return response.status(405).json({ error: RESPONSE_MESSAGES.methodNotAllowed });
+    return response.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    if (!process.env.GOOGLE_SHEETS_CREDENTIALS) {
-      throw new Error(RESPONSE_MESSAGES.missingCredentials);
+    const payload = parseRequestBody(request.body);
+    const sanitized = {
+      firstName: sanitizeString(payload.firstName),
+      lastName: sanitizeString(payload.lastName),
+      email: sanitizeString(payload.email),
+      collegeEmail: sanitizeString(payload.collegeEmail),
+      officialEmail: sanitizeString(payload.officialEmail),
+      phone: sanitizeString(payload.phone),
+      resumeLink: sanitizeString(payload.resumeLink),
+      college: sanitizeString(payload.college),
+      collegeValue: sanitizeString(payload.collegeValue || payload.college),
+      jobTitle: sanitizeString(payload.jobTitle),
+      jobLocation: sanitizeString(payload.jobLocation),
+      submittedAt: sanitizeString(payload.submittedAt),
+    };
+
+    const missingField = REQUIRED_FIELDS.find((field) => !sanitized[field]);
+    if (missingField) {
+      return response.status(400).json({ error: `Missing required field: ${missingField}` });
     }
 
-    if (!process.env.GOOGLE_SHEET_ID) {
-      throw new Error(RESPONSE_MESSAGES.missingSheetId);
+    if (!ALLOWED_COLLEGES.has(sanitized.collegeValue)) {
+      return response.status(400).json({ error: 'Invalid college selection' });
     }
 
-    const applicationData = parseRequestBody(request);
-
-    const hasMissingField = REQUIRED_FIELDS.some((field) => {
-      const value = applicationData?.[field];
-      return typeof value === 'string' ? value.trim().length === 0 : !value;
-    });
-
-    if (hasMissingField) {
-      return response.status(400).json({ error: RESPONSE_MESSAGES.missingFields });
+    if (!isValidUrl(sanitized.resumeLink)) {
+      return response.status(400).json({ error: 'Invalid resume link' });
     }
 
-    const credentials = normaliseCredentials(process.env.GOOGLE_SHEETS_CREDENTIALS);
+    const credentials = normalizeCredentials(process.env.GOOGLE_SHEETS_CREDENTIALS);
+    const sheetId = sanitizeString(process.env.GOOGLE_SHEET_ID);
+
+    if (!sheetId) {
+      throw new Error('Missing GOOGLE_SHEET_ID');
+    }
 
     const auth = new google.auth.GoogleAuth({
       credentials,
-      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+      scopes: SHEETS_SCOPE,
     });
 
     const sheets = google.sheets({ version: 'v4', auth });
 
+    const submittedAt = sanitized.submittedAt || new Date().toISOString();
+
     await sheets.spreadsheets.values.append({
-      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      spreadsheetId: sheetId,
       range: 'Sheet1!A:K',
-      valueInputOption: 'RAW',
+      valueInputOption: 'USER_ENTERED',
       requestBody: {
-        values: [buildSpreadsheetRow(applicationData)],
+        values: [[
+          submittedAt,
+          sanitized.firstName,
+          sanitized.lastName,
+          sanitized.email,
+          sanitized.collegeEmail,
+          sanitized.officialEmail,
+          sanitized.phone,
+          sanitized.college,
+          sanitized.jobTitle,
+          sanitized.jobLocation,
+          sanitized.resumeLink,
+        ]],
       },
     });
-
-    console.log('Application received:', JSON.stringify(applicationData, null, 2));
 
     return response.status(200).json({
       success: true,
       message: 'Application received and saved',
+      data: {
+        ...sanitized,
+        submittedAt,
+      },
     });
   } catch (error) {
     console.error('Error processing application:', error);
+    const message = error instanceof Error ? error.message : 'Unknown error';
     return response.status(500).json({
       error: 'Internal server error',
-      message: error?.message || 'Unknown error',
+      message,
     });
   }
 }
-
-/*
-SETUP INSTRUCTIONS:
-
-===================
-Option 1: Google Sheets (Recommended for Excel-like functionality)
-===================
-1. Install dependencies:
-   npm install googleapis
-
-2. Set up Google Cloud Console:
-   - Go to https://console.cloud.google.com/
-   - Create a new project or select existing
-   - Enable "Google Sheets API"
-   - Go to "Credentials" → "Create Credentials" → "Service Account"
-   - Create service account and download JSON key file
-   - Open the JSON file and copy its contents
-
-3. Share your Google Sheet with the service account email:
-   - Open your Google Sheet
-   - Click "Share" button
-   - Add the service account email (from the JSON file)
-   - Give it "Editor" permissions
-
-4. Set environment variables in Vercel:
-   - GOOGLE_SHEETS_CREDENTIALS: Paste the entire JSON content as a string
-   - GOOGLE_SHEET_ID: Your Google Sheet ID (from the URL: https://docs.google.com/spreadsheets/d/SHEET_ID/edit)
-
-5. Ensure the Google Sheets integration in this file remains enabled
-
-6. Create headers row in your Google Sheet (first row):
-   Submitted At | First Name | Last Name | Email | College Email | Official Email | Phone | College | Job Title | Job Location | Resume Link
-
-===================
-Option 2: Supabase (Already in your dependencies)
-===================
-1. Create a table in Supabase:
-   CREATE TABLE career_applications (
-     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-     first_name TEXT NOT NULL,
-     last_name TEXT NOT NULL,
-     email TEXT NOT NULL,
-     college_email TEXT,
-     official_email TEXT,
-     phone TEXT,
-     resume_link TEXT NOT NULL,
-     college TEXT,
-     job_title TEXT,
-     job_location TEXT,
-     submitted_at TIMESTAMP DEFAULT NOW()
-   );
-
-2. Set environment variables in Vercel:
-   - SUPABASE_URL: Your Supabase project URL
-   - SUPABASE_ANON_KEY: Your Supabase anon key
-
-3. Uncomment the Supabase code in this file
-
-4. Export to Excel: You can export Supabase data to Excel using:
-   - Supabase dashboard → Table → Export
-   - Or use a scheduled job to export periodically
-
-===================
-Option 3: Webhook (Zapier, Make.com, etc.)
-===================
-1. Create a webhook in Zapier/Make.com
-2. Set environment variable in Vercel:
-   - WEBHOOK_URL: Your webhook URL
-3. Uncomment the webhook code in this file
-4. Configure Zapier/Make.com to save to Google Sheets or Excel
-
-*/
-
