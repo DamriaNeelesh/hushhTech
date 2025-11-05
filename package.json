@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "preinstall": "npm config set legacy-peer-deps true",
     "dev": "vite",
     "build": "vite build && node scripts/generate-sitemap.js && node scripts/generate-robots.js",
     "preview": "vite preview"

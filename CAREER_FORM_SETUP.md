@@ -32,7 +32,7 @@ Follow these exact steps, which line up with the screenshot the team provided:
 
 1. **Framework Preset** – Choose **Vite**.
 2. **Build Command** – `npm run build`.
-3. **Install Command** – `npm install --legacy-peer-deps` (this avoids the npm peer-dependency conflict Vercel reported with `vite-plugin-mdx`).
+3. **Install Command** – `npm install --legacy-peer-deps` (this avoids the npm peer-dependency conflict Vercel reported with `vite-plugin-mdx`). The repository now ships with an `npm` `preinstall` script that sets the same flag automatically, so even if Vercel falls back to `npm install` the resolver still succeeds.
 4. **Output Directory** – `dist`.
 5. **Development Command** – `vite` (Vercel ignores this during production builds but it matches the local setup).
 6. **Environment Variables** – Add the Google Sheets credentials and sheet ID listed above (plus any EmailJS keys if you move them out of the component).
