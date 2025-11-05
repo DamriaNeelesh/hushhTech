@@ -27,6 +27,7 @@
     "framer-motion": "^11.11.11",
     "fs": "^0.0.1-security",
     "github-slugger": "^2.0.0",
+    "googleapis": "^164.1.0",
     "gray-matter": "^4.0.3",
     "libphonenumber-js": "^1.11.19",
     "lucide-react": "^0.454.0",

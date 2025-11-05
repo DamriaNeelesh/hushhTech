@@ -16,7 +16,8 @@ import {
   VStack,
   Text,
   useToast,
-  Box
+  Box,
+  Select
 } from '@chakra-ui/react';
 
 interface ApplicationFormProps {
@@ -27,11 +28,15 @@ interface ApplicationFormProps {
 
 const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProps) => {
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
+    collegeEmail: '',
+    officialEmail: '',
     phone: '',
     resumeLink: '',
-    coverLetterLink: ''
+    college: '',
+    otherCollege: ''
   });
   const [loading, setLoading] = useState(false);
   const toast = useToast();
@@ -46,26 +51,78 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
         throw new Error('Please enter a valid resume link');
       }
 
-      if (formData.coverLetterLink && !isValidUrl(formData.coverLetterLink)) {
-        throw new Error('Please enter a valid cover letter link');
+      // Validate college field
+      if (!formData.college) {
+        throw new Error('Please select a college');
       }
 
-      // Send email with links
+      if (formData.college === 'other' && !formData.otherCollege.trim()) {
+        throw new Error('Please enter your college name');
+      }
+
+      const fullName = `${formData.firstName} ${formData.lastName}`;
+      const collegeName = formData.college === 'other' ? formData.otherCollege : formData.college;
+
+      // Prepare data for both EmailJS and Excel
+      const applicationData = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        collegeEmail: formData.collegeEmail,
+        officialEmail: formData.officialEmail,
+        phone: formData.phone,
+        resumeLink: formData.resumeLink,
+        college: collegeName,
+        jobTitle,
+        jobLocation,
+        submittedAt: new Date().toISOString()
+      };
+
+      // Send email with EmailJS
       await emailjs.send(
         'service_tsuapx9', 
         'template_fx7ipta',
         {
           to_name: 'Hiring Manager',
-          from_name: formData.name,
+          from_name: fullName,
           from_email: formData.email,
           phone: formData.phone,
           position: jobTitle,
           location: jobLocation,
           resume_link: formData.resumeLink,
-          cover_letter_link: formData.coverLetterLink || 'Not provided'
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          college_email: formData.collegeEmail,
+          official_email: formData.officialEmail,
+          college: collegeName
         },
         'DtG13YmoZDccI-GgA' 
       );
+
+      // Send data to Excel API endpoint
+      // Use env override for local dev to hit deployed function
+      const excelApiUrl = (import.meta as any).env?.VITE_EXCEL_API_URL || '/api/career-application';
+      
+      try {
+        await fetch(excelApiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(applicationData),
+        });
+      } catch (excelError) {
+        // Log Excel error but don't fail the form submission
+        console.error('Excel API error:', excelError);
+        // Optionally show a warning toast
+        toast({
+          title: 'Application submitted',
+          description: 'Email sent successfully, but there was an issue saving to Excel. Please contact support.',
+          status: 'warning',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
 
       toast({
         title: 'Application submitted successfully!',
@@ -108,12 +165,23 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
           <form onSubmit={handleSubmit}>
             <VStack spacing={4} align="stretch">
               <FormControl isRequired>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>First Name</FormLabel>
                 <Input
                   type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  placeholder="Enter your full name"
+                  value={formData.firstName}
+                  onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                  placeholder="Enter your first name"
+                  focusBorderColor="cyan.400"
+                />
+              </FormControl>
+
+              <FormControl isRequired>
+                <FormLabel>Last Name</FormLabel>
+                <Input
+                  type="text"
+                  value={formData.lastName}
+                  onChange={(e) => setFormData({...formData, lastName: e.target.value})}
+                  placeholder="Enter your last name"
                   focusBorderColor="cyan.400"
                 />
               </FormControl>
@@ -125,6 +193,28 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
                   placeholder="Enter your email address"
+                  focusBorderColor="cyan.400"
+                />
+              </FormControl>
+
+              <FormControl isRequired>
+                <FormLabel>College Email</FormLabel>
+                <Input
+                  type="email"
+                  value={formData.collegeEmail}
+                  onChange={(e) => setFormData({...formData, collegeEmail: e.target.value})}
+                  placeholder="Enter your college email address"
+                  focusBorderColor="cyan.400"
+                />
+              </FormControl>
+
+              <FormControl isRequired>
+                <FormLabel>Official Email</FormLabel>
+                <Input
+                  type="email"
+                  value={formData.officialEmail}
+                  onChange={(e) => setFormData({...formData, officialEmail: e.target.value})}
+                  placeholder="Enter your official email address"
                   focusBorderColor="cyan.400"
                 />
               </FormControl>
@@ -150,6 +240,32 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
               </FormControl>
 
               <FormControl isRequired>
+                <FormLabel>College</FormLabel>
+                <Select
+                  placeholder="Select your college"
+                  value={formData.college}
+                  onChange={(e) => setFormData({...formData, college: e.target.value, otherCollege: ''})}
+                  focusBorderColor="cyan.400"
+                >
+                  <option value="LPU">LPU</option>
+                  <option value="other">Other</option>
+                </Select>
+              </FormControl>
+
+              {formData.college === 'other' && (
+                <FormControl isRequired>
+                  <FormLabel>College Name</FormLabel>
+                  <Input
+                    type="text"
+                    value={formData.otherCollege}
+                    onChange={(e) => setFormData({...formData, otherCollege: e.target.value})}
+                    placeholder="Enter your college name"
+                    focusBorderColor="cyan.400"
+                  />
+                </FormControl>
+              )}
+
+              <FormControl isRequired>
                 <FormLabel>Resume Link</FormLabel>
                 <Input
                   type="url"
@@ -160,20 +276,6 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
                 />
                 <Text fontSize="sm" color="gray.500" mt={1}>
                   Please provide a public link to your resume
-                </Text>
-              </FormControl>
-
-              <FormControl>
-                <FormLabel>Cover Letter Link (Optional)</FormLabel>
-                <Input
-                  type="url"
-                  value={formData.coverLetterLink}
-                  onChange={(e) => setFormData({...formData, coverLetterLink: e.target.value})}
-                  placeholder="https://drive.google.com/your-cover-letter-link"
-                  focusBorderColor="cyan.400"
-                />
-                <Text fontSize="sm" color="gray.500" mt={1}>
-                  Optional: Provide a public link to your cover letter
                 </Text>
               </FormControl>
 
