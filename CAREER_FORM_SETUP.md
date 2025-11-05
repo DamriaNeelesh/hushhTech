@@ -1,179 +1,52 @@
 # Career Application Form - Setup Guide
 
-## ✅ What's Been Updated
+## ✅ Form Fields & Validation
+The application modal located at `src/pages/career/ApplicationForm.tsx` collects the following required fields before it will submit:
 
-### Form Fields
-The application form now includes the following fields:
-- ✅ First Name (required)
-- ✅ Last Name (required)
-- ✅ Email (required)
-- ✅ College Email (required)
-- ✅ Official Email (required)
-- ✅ Phone Number (required)
-- ✅ College Dropdown (required)
-  - LPU option
-  - Other option (shows text input when selected)
-- ✅ Resume Link (required)
+- First Name
+- Last Name
+- Personal Email
+- College Email
+- Official Email
+- Phone Number (international format)
+- College selector (`LPU` or `MIT` only)
+- Resume Link (must be a valid, shareable URL)
 
-### Integration Methods
-1. **EmailJS Integration** ✅ (Already working)
-   - Sends email notification with all form data
-   - Uses existing EmailJS service configuration
+The form blocks submission until every field is populated, the resume link is a valid URL, and either LPU or MIT is selected. After a successful submission the form resets and closes automatically.
 
-2. **Excel/Google Sheets Integration** ✅ (Needs setup)
-   - API endpoint created at `/api/career-application`
-   - Ready for Google Sheets, Supabase, or Webhook integration
+## ✉️ EmailJS Workflow (Frontend)
+The UI keeps the existing EmailJS configuration. When a submission is accepted it sends the data with the template `template_fx7ipta` under the service `service_tsuapx9` using the public key `DtG13YmoZDccI-GgA`. No additional setup is required on Vercel beyond ensuring the EmailJS credentials remain active.
 
-## 📋 Setup Instructions
+## 📊 Google Sheets Workflow (Serverless API)
+The API route at `api/career-application.js` appends each submission to Google Sheets. Make sure the following environment variables are configured in Vercel (Project Settings → Environment Variables) before deploying:
 
-### Step 1: Choose Your Excel Integration Method
+- `GOOGLE_SHEETS_CREDENTIALS` – Paste the full JSON for the Google service account (all newlines escaped with `\n`).
+- `GOOGLE_SHEET_ID` – The target spreadsheet ID (the characters between `/d/` and `/edit` in the sheet URL).
 
-You have three options:
+The service account **must** have Editor access to the spreadsheet. Share the sheet with `hushh-tech-career@hushh-tech-career-page-form.iam.gserviceaccount.com` (or the email inside your JSON credentials).
 
-#### Option 1: Google Sheets (Recommended for Excel-like functionality)
-This is the most straightforward option for Excel-like functionality.
+The handler already normalizes credentials, validates every field, and appends data to `Sheet1!A:K`. If you need a different tab or header order, adjust the `range` and `values` inside the `sheets.spreadsheets.values.append` call.
 
-1. **Install dependencies:**
-   ```bash
-   npm install googleapis
-   ```
+## 🚀 Deploying to Vercel (Step-by-Step)
+Follow these exact steps, which line up with the screenshot the team provided:
 
-2. **Set up Google Cloud Console:**
-   - Go to https://console.cloud.google.com/
-   - Create a new project or select existing
-   - Enable "Google Sheets API"
-   - Go to "Credentials" → "Create Credentials" → "Service Account"
-   - Create service account and download JSON key file
-   - Open the JSON file and copy its contents
+1. **Framework Preset** – Choose **Vite**.
+2. **Build Command** – `npm run build`.
+3. **Install Command** – `npm install --legacy-peer-deps` (this avoids the npm peer-dependency conflict Vercel reported with `vite-plugin-mdx`).
+4. **Output Directory** – `dist`.
+5. **Development Command** – `vite` (Vercel ignores this during production builds but it matches the local setup).
+6. **Environment Variables** – Add the Google Sheets credentials and sheet ID listed above (plus any EmailJS keys if you move them out of the component).
+7. **Save & Redeploy** – Trigger a new deployment after the configuration is saved.
 
-3. **Create a Google Sheet:**
-   - Create a new Google Sheet
-   - Add headers in the first row:
-     ```
-     Submitted At | First Name | Last Name | Email | College Email | Official Email | Phone | College | Job Title | Job Location | Resume Link
-     ```
-   - Copy the Sheet ID from the URL:
-     `https://docs.google.com/spreadsheets/d/1xxgHh13mAuPsdIBgCtbrYvQr_dd-7y6dFIqb5qdUSw8/edit`
-   - Open the JSON key file you downloaded for your Google service account.  
-   - Locate the `"client_email"` field in the JSON (it will look something like `your-service-account-name@your-project-id.iam.gserviceaccount.com`).  
-   - Go to your Google Sheet and click the "Share" button in the upper-right corner.
-   - In the "Add people and groups" field, paste the service account email you copied from the JSON file.
-   - Set the permission level to "Editor" (so the API can write to your sheet).
-   - Click "Send" or "Share" to confirm.  
-   - This step is essential, as your app backend (running as the service account) will only be able to access and write data to your sheet if you share it with the exact service account email with Editor permissions.
+The repository also contains a `vercel.json` file that mirrors the settings above. Vercel will respect the JSON file in addition to the dashboard settings, so keeping them aligned prevents configuration drift. The file now pins the install command to `npm install --legacy-peer-deps`, runs `npm run build`, sets the Node runtime for the API routes to 18.x, and rewrites all SPA routes back to `index.html` so direct navigation works after deployment.
 
-4. **Set environment variables in Vercel:**
-   - `GOOGLE_SHEETS_CREDENTIALS`: Paste the entire JSON content as a string
-   - `GOOGLE_SHEET_ID`: Your Google Sheet ID
+## 🧪 Testing Checklist
+After deploying, run through this quick smoke test:
 
-5. **Update the API file:**
-   - Open `api/career-application.js`
-   - Uncomment the Google Sheets code (lines 20-49)
-   - Comment out or remove the console.log placeholder
+1. Open the career page and submit the form with test data.
+2. Confirm you see the success toast and the modal closes.
+3. Verify the EmailJS dashboard shows a delivered email.
+4. Open the Google Sheet and confirm a new row was appended with the submission details.
+5. Review the Vercel function logs for `/api/career-application` to ensure no warnings were logged.
 
-#### Option 2: Supabase (Already in your dependencies)
-Great if you want to store data in a database and export to Excel later.
-
-1. **Create a table in Supabase:**
-   ```sql
-   CREATE TABLE career_applications (
-     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-     first_name TEXT NOT NULL,
-     last_name TEXT NOT NULL,
-     email TEXT NOT NULL,
-     college_email TEXT,
-     official_email TEXT,
-     phone TEXT,
-     resume_link TEXT NOT NULL,
-     college TEXT,
-     job_title TEXT,
-     job_location TEXT,
-     submitted_at TIMESTAMP DEFAULT NOW()
-   );
-   ```
-
-2. **Set environment variables in Vercel:**
-   - `SUPABASE_URL`: Your Supabase project URL
-   - `SUPABASE_ANON_KEY`: Your Supabase anon key
-
-3. **Update the API file:**
-   - Open `api/career-application.js`
-   - Uncomment the Supabase code (lines 51-65)
-   - Comment out or remove the console.log placeholder
-
-4. **Export to Excel:**
-   - Use Supabase dashboard → Table → Export
-   - Or set up a scheduled job to export periodically
-
-#### Option 3: Webhook (Zapier, Make.com, etc.)
-Useful if you want to use automation tools.
-
-1. **Create a webhook in Zapier/Make.com**
-2. **Set environment variable in Vercel:**
-   - `WEBHOOK_URL`: Your webhook URL
-3. **Update the API file:**
-   - Open `api/career-application.js`
-   - Uncomment the webhook code (lines 67-77)
-   - Comment out or remove the console.log placeholder
-4. **Configure Zapier/Make.com** to save to Google Sheets or Excel
-
-### Step 2: Deploy to Vercel
-
-1. **Commit your changes:**
-   ```bash
-   git add .
-   git commit -m "Update career application form with new fields and Excel integration"
-   git push
-   ```
-
-2. **Set environment variables in Vercel:**
-   - Go to your Vercel project settings
-   - Navigate to "Environment Variables"
-   - Add the required variables based on your chosen integration method
-
-3. **Deploy:**
-   - Vercel will automatically deploy on push
-   - Or manually trigger a deployment
-
-### Step 3: Test the Integration
-
-1. **Fill out the form** on your career page
-2. **Submit the application**
-3. **Check:**
-   - Email notification (EmailJS)
-   - Excel/Google Sheets entry (your chosen method)
-   - Vercel function logs (if using Google Sheets/Supabase)
-
-## 📝 Notes
-
-- The form currently sends data to both EmailJS and the Excel API endpoint
-- If the Excel API fails, it won't block the form submission (EmailJS will still work)
-- The API endpoint is located at `/api/career-application`
-- All form fields are validated before submission
-- The college dropdown shows a text input when "Other" is selected
-
-## 🔧 Troubleshooting
-
-### API endpoint not working?
-- Check Vercel function logs
-- Verify environment variables are set correctly
-- Ensure the API endpoint code is uncommented and configured
-
-### Google Sheets not updating?
-- Verify the service account email has access to the sheet
-- Check that `GOOGLE_SHEET_ID` is correct
-- Verify `GOOGLE_SHEETS_CREDENTIALS` is a valid JSON string
-
-### Supabase not saving?
-- Check that the table exists with the correct schema
-- Verify `SUPABASE_URL` and `SUPABASE_ANON_KEY` are correct
-- Check Supabase RLS (Row Level Security) policies
-
-## 📞 Support
-
-If you encounter any issues, check:
-1. Browser console for frontend errors
-2. Vercel function logs for backend errors
-3. EmailJS dashboard for email delivery status
-4. Google Sheets/Supabase for data entry confirmation
-
+If any step fails, inspect the browser console (frontend) or Vercel logs (backend) for detailed error messages.

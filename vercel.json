@@ -13,7 +13,7 @@
     }
   ],
   "buildCommand": "npm run build",
-  "installCommand": "npm install",
+  "installCommand": "npm install --legacy-peer-deps",
   "functions": {
     "api/**/*": {
       "runtime": "nodejs18.x"
@@ -24,4 +24,3 @@
     { "source": "/(.*)", "destination": "/" }
   ]
 }
-  
