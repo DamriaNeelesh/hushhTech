@@ -36,9 +36,10 @@ Follow these exact steps, which line up with the screenshot the team provided:
 4. **Output Directory** – `dist`.
 5. **Development Command** – `vite` (Vercel ignores this during production builds but it matches the local setup).
 6. **Environment Variables** – Add the Google Sheets credentials and sheet ID listed above (plus any EmailJS keys if you move them out of the component).
-7. **Save & Redeploy** – Trigger a new deployment after the configuration is saved.
+7. **Clear the build cache** – From the Vercel dashboard, open **Deployments → Redeploy** and pick **Clear build cache and redeploy** so the old dependency tree (`vite-plugin-mdx@3.6.1`) is discarded before the next build runs.
+8. **Save & Redeploy** – Trigger a new deployment after the configuration is saved.
 
-The repository also contains a `vercel.json` file that mirrors the settings above. Vercel will respect the JSON file in addition to the dashboard settings, so keeping them aligned prevents configuration drift. The file now pins the install command to `npm install --legacy-peer-deps`, runs `npm run build`, sets the Node runtime for the API routes to 18.x, and rewrites all SPA routes back to `index.html` so direct navigation works after deployment.
+The repository also contains a `vercel.json` file that mirrors the settings above. Vercel will respect the JSON file in addition to the dashboard settings, so keeping them aligned prevents configuration drift. The file now pins the install command to `npm install --legacy-peer-deps`, exposes the build-time environment variable `NPM_CONFIG_LEGACY_PEER_DEPS=true` (so even a plain `npm install` behaves correctly), runs `npm run build`, sets the Node runtime for the API routes to 18.x, and rewrites all SPA routes back to `index.html` so direct navigation works after deployment.
 
 ## 🧪 Testing Checklist
 After deploying, run through this quick smoke test:
