@@ -35,7 +35,8 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
     officialEmail: '',
     phone: '',
     resumeLink: '',
-    college: ''
+    college: '',
+    otherCollege: ''
   });
   const [loading, setLoading] = useState(false);
   const toast = useToast();
@@ -50,9 +51,17 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
         throw new Error('Please enter a valid resume link');
       }
 
-      if (!formData.college) throw new Error('Please select a college');
+      // Validate college field
+      if (!formData.college) {
+        throw new Error('Please select a college');
+      }
+
+      if (formData.college === 'other' && !formData.otherCollege.trim()) {
+        throw new Error('Please enter your college name');
+      }
 
       const fullName = `${formData.firstName} ${formData.lastName}`;
+      const collegeName = formData.college === 'other' ? formData.otherCollege : formData.college;
 
       // Prepare data for both EmailJS and Excel
       const applicationData = {
@@ -63,7 +72,9 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
         officialEmail: formData.officialEmail,
         phone: formData.phone,
         resumeLink: formData.resumeLink,
-        college: formData.college,
+        college: collegeName,
+        jobTitle,
+        jobLocation,
         submittedAt: new Date().toISOString()
       };
 
@@ -83,7 +94,7 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
           last_name: formData.lastName,
           college_email: formData.collegeEmail,
           official_email: formData.officialEmail,
-          college: formData.college
+          college: collegeName
         },
         'DtG13YmoZDccI-GgA' 
       );
@@ -233,13 +244,26 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
                 <Select
                   placeholder="Select your college"
                   value={formData.college}
-                onChange={(e) => setFormData({...formData, college: e.target.value})}
+                  onChange={(e) => setFormData({...formData, college: e.target.value, otherCollege: ''})}
                   focusBorderColor="cyan.400"
                 >
                   <option value="LPU">LPU</option>
                   <option value="other">Other</option>
                 </Select>
               </FormControl>
+
+              {formData.college === 'other' && (
+                <FormControl isRequired>
+                  <FormLabel>College Name</FormLabel>
+                  <Input
+                    type="text"
+                    value={formData.otherCollege}
+                    onChange={(e) => setFormData({...formData, otherCollege: e.target.value})}
+                    placeholder="Enter your college name"
+                    focusBorderColor="cyan.400"
+                  />
+                </FormControl>
+              )}
 
               <FormControl isRequired>
                 <FormLabel>Resume Link</FormLabel>
