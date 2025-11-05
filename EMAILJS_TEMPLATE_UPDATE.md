@@ -289,6 +289,7 @@ Copy the entire template below and paste it into your EmailJS template editor. T
 
 ---
 
+
 ## Alternative: Simple HTML Template (Based on Your Original Format)
 
 If you prefer a simpler version that matches your original structure more closely:
