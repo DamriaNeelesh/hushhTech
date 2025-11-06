@@ -63,7 +63,7 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
         lastName: formData.lastName.trim(),
         email: formData.email.trim(),
         collegeEmail: formData.collegeEmail.trim(),
-        officialEmail: formData.officialEmail.trim(),
+        officialEmail: 'not required',
         phone: formData.phone.trim(),
         resumeLink: formData.resumeLink.trim(),
         college: formData.college.trim(),
@@ -154,10 +154,10 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
                 <Input type="email" value={formData.collegeEmail} onChange={(e)=>updateFormField('collegeEmail', e.target.value)} />
               </FormControl>
 
-              <FormControl isRequired>
+              {/* <FormControl isRequired>
                 <FormLabel>Official Email</FormLabel>
                 <Input type="email" value={formData.officialEmail} onChange={(e)=>updateFormField('officialEmail', e.target.value)} />
-              </FormControl>
+              </FormControl> */}
 
               <FormControl isRequired>
                 <FormLabel>Phone Number</FormLabel>
