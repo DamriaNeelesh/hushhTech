@@ -148,17 +148,18 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
       //   'DtG13YmoZDccI-GgA'
       // );
 
-      // Send data to Excel API endpoint
-      // Use env override for local dev to hit deployed function
-      const excelApiUrl = (import.meta as any).env?.VITE_EXCEL_API_URL || '/api/career-application';
       
+      const appsScriptUrl = (import.meta as any).env.VITE_APPS_SCRIPT_URL;
+      const token = (import.meta as any).env.VITE_FORM_TOKEN;
+
       try {
-        await fetch(excelApiUrl, {
+        await fetch(appsScriptUrl, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(applicationData),
+          headers: { 'Content-Type': 'text/plain' },
+  body: JSON.stringify({
+    ...applicationData,
+    token
+  }),
         });
       } catch (excelError) {
         // Log Excel error but don't fail the form submission
