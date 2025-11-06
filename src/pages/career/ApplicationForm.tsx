@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
@@ -16,56 +16,163 @@ import {
   VStack,
   Text,
   useToast,
-  Box
+  Box,
+  Select
 } from '@chakra-ui/react';
 
 interface ApplicationFormProps {
   jobTitle: string;
-  jobLocation: string,
+  jobLocation: string;
   onClose: () => void;
 }
 
+type ApplicationFormState = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  collegeEmail: string;
+  officialEmail: string;
+  phone: string;
+  resumeLink: string;
+  college: string;
+};
+
+const ALLOWED_COLLEGES = [
+  { value: 'LPU', label: 'Lovely Professional University (LPU)' },
+  { value: 'MIT', label: 'Manipal Institute of Technology (MIT)' },
+];
+
+const initialState: ApplicationFormState = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  collegeEmail: '',
+  officialEmail: '',
+  phone: '',
+  resumeLink: '',
+  college: '',
+};
+
 const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProps) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    resumeLink: '',
-    coverLetterLink: ''
-  });
+  const [formData, setFormData] = useState<ApplicationFormState>(() => initialState);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
+
+  const allowedCollegeValues = useMemo(
+    () => new Set(ALLOWED_COLLEGES.map(({ value }) => value)),
+    []
+  );
+
+  const updateFormField = useCallback(
+    <K extends keyof ApplicationFormState>(field: K, value: ApplicationFormState[K]) => {
+      setFormData((prev) => ({
+        ...prev,
+        [field]: value,
+      }));
+    },
+    []
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      // Validate URLs
-      if (!isValidUrl(formData.resumeLink)) {
+      // Validate form inputs
+      const sanitizedData: ApplicationFormState = {
+        firstName: formData.firstName.trim(),
+        lastName: formData.lastName.trim(),
+        email: formData.email.trim(),
+        collegeEmail: formData.collegeEmail.trim(),
+        officialEmail: formData.officialEmail.trim(),
+        phone: formData.phone.trim(),
+        resumeLink: formData.resumeLink.trim(),
+        college: formData.college.trim(),
+      };
+
+      const requiredFields: (keyof ApplicationFormState)[] = [
+        'firstName',
+        'lastName',
+        'email',
+        'collegeEmail',
+        'officialEmail',
+        'phone',
+        'resumeLink',
+        'college',
+      ];
+
+      const missingField = requiredFields.find((field) => !sanitizedData[field]);
+      if (missingField) {
+        throw new Error('Please complete all required fields before submitting');
+      }
+
+      if (!allowedCollegeValues.has(sanitizedData.college)) {
+        throw new Error('Please select a valid college option');
+      }
+
+      if (!isValidUrl(sanitizedData.resumeLink)) {
         throw new Error('Please enter a valid resume link');
       }
 
-      if (formData.coverLetterLink && !isValidUrl(formData.coverLetterLink)) {
-        throw new Error('Please enter a valid cover letter link');
-      }
+      const fullName = `${sanitizedData.firstName} ${sanitizedData.lastName}`;
+      const selectedCollege = ALLOWED_COLLEGES.find(({ value }) => value === sanitizedData.college)?.label ?? sanitizedData.college;
 
-      // Send email with links
-      await emailjs.send(
-        'service_tsuapx9', 
-        'template_fx7ipta',
-        {
-          to_name: 'Hiring Manager',
-          from_name: formData.name,
-          from_email: formData.email,
-          phone: formData.phone,
-          position: jobTitle,
-          location: jobLocation,
-          resume_link: formData.resumeLink,
-          cover_letter_link: formData.coverLetterLink || 'Not provided'
-        },
-        'DtG13YmoZDccI-GgA' 
-      );
+      // Prepare data for both EmailJS and Excel
+      const applicationData = {
+        ...sanitizedData,
+        college: selectedCollege,
+        collegeValue: sanitizedData.college,
+        jobTitle,
+        jobLocation,
+        submittedAt: new Date().toISOString()
+      };
+
+      // Send email with EmailJS
+      // await emailjs.send(
+      //   'service_tsuapx9', 
+      //   'template_fx7ipta',
+      //   {
+      //     to_name: 'Hiring Manager',
+      //     from_name: fullName,
+      //     from_email: sanitizedData.email,
+      //     phone: sanitizedData.phone,
+      //     position: jobTitle,
+      //     location: jobLocation,
+      //     resume_link: sanitizedData.resumeLink,
+      //     first_name: sanitizedData.firstName,
+      //     last_name: sanitizedData.lastName,
+      //     college_email: sanitizedData.collegeEmail,
+      //     official_email: sanitizedData.officialEmail,
+      //     college: selectedCollege
+      //   },
+      //   'DtG13YmoZDccI-GgA'
+      // );
+
+      
+      const appsScriptUrl = (import.meta as any).env.VITE_APPS_SCRIPT_URL;
+      const token = (import.meta as any).env.VITE_FORM_TOKEN;
+
+      try {
+        await fetch(appsScriptUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+  body: JSON.stringify({
+    ...applicationData,
+    token
+  }),
+        });
+      } catch (excelError) {
+        // Log Excel error but don't fail the form submission
+        console.error('Excel API error:', excelError);
+        // Optionally show a warning toast
+        toast({
+          title: 'Application submitted',
+          description: 'Email sent successfully, but there was an issue saving to Excel. Please contact support.',
+          status: 'warning',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
 
       toast({
         title: 'Application submitted successfully!',
@@ -73,6 +180,7 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
         duration: 5000,
         isClosable: true,
       });
+      setFormData(() => ({ ...initialState }));
       onClose();
     } catch (error) {
       console.error('Error:', error);
@@ -108,12 +216,23 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
           <form onSubmit={handleSubmit}>
             <VStack spacing={4} align="stretch">
               <FormControl isRequired>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>First Name</FormLabel>
                 <Input
                   type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  placeholder="Enter your full name"
+                  value={formData.firstName}
+                  onChange={(e) => updateFormField('firstName', e.target.value)}
+                  placeholder="Enter your first name"
+                  focusBorderColor="cyan.400"
+                />
+              </FormControl>
+
+              <FormControl isRequired>
+                <FormLabel>Last Name</FormLabel>
+                <Input
+                  type="text"
+                  value={formData.lastName}
+                  onChange={(e) => updateFormField('lastName', e.target.value)}
+                  placeholder="Enter your last name"
                   focusBorderColor="cyan.400"
                 />
               </FormControl>
@@ -123,8 +242,30 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
                 <Input
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  onChange={(e) => updateFormField('email', e.target.value)}
                   placeholder="Enter your email address"
+                  focusBorderColor="cyan.400"
+                />
+              </FormControl>
+
+              <FormControl isRequired>
+                <FormLabel>College Email</FormLabel>
+                <Input
+                  type="email"
+                  value={formData.collegeEmail}
+                  onChange={(e) => updateFormField('collegeEmail', e.target.value)}
+                  placeholder="Enter your college email address"
+                  focusBorderColor="cyan.400"
+                />
+              </FormControl>
+
+              <FormControl isRequired>
+                <FormLabel>Official Email</FormLabel>
+                <Input
+                  type="email"
+                  value={formData.officialEmail}
+                  onChange={(e) => updateFormField('officialEmail', e.target.value)}
+                  placeholder="Enter your official email address"
                   focusBorderColor="cyan.400"
                 />
               </FormControl>
@@ -135,7 +276,7 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
                   <PhoneInput
                     country={'us'}
                     value={formData.phone}
-                    onChange={(phone) => setFormData({...formData, phone})}
+                    onChange={(phone) => updateFormField('phone', phone)}
                     inputStyle={{
                       width: '100%',
                       border: 'none',
@@ -150,30 +291,32 @@ const ApplicationForm = ({ jobTitle, jobLocation, onClose }: ApplicationFormProp
               </FormControl>
 
               <FormControl isRequired>
+                <FormLabel>College</FormLabel>
+                <Select
+                  placeholder="Select your college"
+                  value={formData.college}
+                  onChange={(e) => updateFormField('college', e.target.value)}
+                  focusBorderColor="cyan.400"
+                >
+                  {ALLOWED_COLLEGES.map(({ value, label }) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
+                </Select>
+              </FormControl>
+
+              <FormControl isRequired>
                 <FormLabel>Resume Link</FormLabel>
                 <Input
                   type="url"
                   value={formData.resumeLink}
-                  onChange={(e) => setFormData({...formData, resumeLink: e.target.value})}
+                  onChange={(e) => updateFormField('resumeLink', e.target.value)}
                   placeholder="https://drive.google.com/your-resume-link"
                   focusBorderColor="cyan.400"
                 />
                 <Text fontSize="sm" color="gray.500" mt={1}>
                   Please provide a public link to your resume
-                </Text>
-              </FormControl>
-
-              <FormControl>
-                <FormLabel>Cover Letter Link (Optional)</FormLabel>
-                <Input
-                  type="url"
-                  value={formData.coverLetterLink}
-                  onChange={(e) => setFormData({...formData, coverLetterLink: e.target.value})}
-                  placeholder="https://drive.google.com/your-cover-letter-link"
-                  focusBorderColor="cyan.400"
-                />
-                <Text fontSize="sm" color="gray.500" mt={1}>
-                  Optional: Provide a public link to your cover letter
                 </Text>
               </FormControl>
 
