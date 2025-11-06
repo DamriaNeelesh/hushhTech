@@ -1,5 +1,3 @@
-import { google } from 'googleapis';
-
 const REQUIRED_FIELDS = [
   'firstName',
   'lastName',
@@ -11,7 +9,6 @@ const REQUIRED_FIELDS = [
   'college',
 ];
 
-const SHEETS_SCOPE = ['https://www.googleapis.com/auth/spreadsheets'];
 const ALLOWED_COLLEGES = new Set(['LPU', 'MIT']);
 
 const sanitizeString = (value) => (typeof value === 'string' ? value.trim() : '');
@@ -30,25 +27,6 @@ const parseRequestBody = (body) => {
   }
 
   return body;
-};
-
-const normalizeCredentials = (rawCredentials) => {
-  if (!rawCredentials) {
-    throw new Error('Missing GOOGLE_SHEETS_CREDENTIALS');
-  }
-
-  let parsed;
-  try {
-    parsed = JSON.parse(rawCredentials);
-  } catch (error) {
-    throw new Error('GOOGLE_SHEETS_CREDENTIALS must be valid JSON');
-  }
-
-  if (parsed.private_key) {
-    parsed.private_key = parsed.private_key.replace(/\\n/g, '\n');
-  }
-
-  return parsed;
 };
 
 const isValidUrl = (value) => {
@@ -95,42 +73,44 @@ export default async function handler(request, response) {
       return response.status(400).json({ error: 'Invalid resume link' });
     }
 
-    const credentials = normalizeCredentials(process.env.GOOGLE_SHEETS_CREDENTIALS);
-    const sheetId = sanitizeString(process.env.GOOGLE_SHEET_ID);
-
-    if (!sheetId) {
-      throw new Error('Missing GOOGLE_SHEET_ID');
-    }
-
-    const auth = new google.auth.GoogleAuth({
-      credentials,
-      scopes: SHEETS_SCOPE,
-    });
-
-    const sheets = google.sheets({ version: 'v4', auth });
-
     const submittedAt = sanitized.submittedAt || new Date().toISOString();
 
-    await sheets.spreadsheets.values.append({
-      spreadsheetId: sheetId,
-      range: 'Sheet1!A:K',
-      valueInputOption: 'USER_ENTERED',
-      requestBody: {
-        values: [[
-          submittedAt,
-          sanitized.firstName,
-          sanitized.lastName,
-          sanitized.email,
-          sanitized.collegeEmail,
-          sanitized.officialEmail,
-          sanitized.phone,
-          sanitized.college,
-          sanitized.jobTitle,
-          sanitized.jobLocation,
-          sanitized.resumeLink,
-        ]],
+    const appsScriptUrl = sanitizeString(process.env.GOOGLE_APPS_SCRIPT_URL);
+
+    if (!appsScriptUrl) {
+      throw new Error('Missing GOOGLE_APPS_SCRIPT_URL');
+    }
+
+    const scriptResponse = await fetch(appsScriptUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
+      body: JSON.stringify({
+        ...sanitized,
+        submittedAt,
+      }),
     });
+
+    const responseText = await scriptResponse.text();
+    let scriptResult;
+
+    try {
+      scriptResult = responseText ? JSON.parse(responseText) : null;
+    } catch (parseError) {
+      console.warn('Unable to parse Apps Script response as JSON:', parseError);
+    }
+
+    const scriptSucceeded = scriptResponse.ok && (scriptResult?.success ?? true);
+
+    if (!scriptSucceeded) {
+      const message =
+        scriptResult?.error ||
+        scriptResult?.message ||
+        (!scriptResponse.ok ? responseText : '') ||
+        'Apps Script request failed';
+      throw new Error(message);
+    }
 
     return response.status(200).json({
       success: true,
@@ -138,6 +118,7 @@ export default async function handler(request, response) {
       data: {
         ...sanitized,
         submittedAt,
+        appsScript: scriptResult,
       },
     });
   } catch (error) {
