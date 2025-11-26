@@ -1,7 +1,6 @@
 import FundPerformance from '../content/posts/funds/FundPerformance';
 import Manifesto from '../content/posts/general/Manifesto';
 import RenaissanceTech from '../content/posts/product/renaissanceTech';
-import AISkillsTesting from '../content/posts/general/AiSkillTesting';
 import ProductUpdates from '../content/posts/product/productsUpdate';
 import InvestorFAQ from '../content/posts/investors-faq/Investors';
 import SellTheWall from '../content/posts/general/selleWall';
@@ -9,7 +8,6 @@ import FundAtHushh from '../content/posts/funds/hushhFunds';
 import SellTheWallMasterclass from '../content/posts/general/sellTheWalleMasterClass';
 import FundAHushh from '../content/posts/funds/fundAHushh';
 import CompensationReport from '../content/posts/general/compensationReport';
-import AIEcommerceBudget from '../content/posts/general/EcomDesertBlue';
 import HushhAlphaFund from '../content/posts/investors-faq/sharedClassExplanation';
 import SubscriptionAgreementA from '../content/posts/investors-faq/subscriptionAgreementA';
 import SubscriptionAgreementB from '../content/posts/investors-faq/subscriptionAgreementB';
@@ -40,16 +38,13 @@ import DailyMarketUpdateImg4 from '../components/images/3_Daily Market Update.jp
 
 // import ManifestoImg from '../components/images/0_Manifesto.jpg'
 import ManifestoImg from '../components/images/1_Manifesto.jpg'
-import SkillTesting from '../components/images/2_Manifesto.jpg'
 
 import ProductUpdate1 from '../components/images/0_Product Updates.png'
 import ProductUpdate2 from '../components/images/product-update.webp'
-import ProductUpdate3 from '../components/images/stocks.png'
 import HushhWalletImg from '../components/images/hushhWallet.png';
 import LimitedPartneshipImg from '../components/images/Limited-Partnership-Agreement.jpg'
 
 import InvestorsFaQImg from '../components/images/inve.jpg'
-import HushhAlphFundImg from '../components/images/blog2o.png'
 import SubscriptionAgreementAImg from  '../components/images/subscriptionAgreement1.webp'
 import SubscriptionAgreementBImg from '../components/images/subscriptionAgreement2.jpg'
 import SubscriptionAgreementCImg from '../components/images/subscriptionAgreement3.webp'
@@ -111,7 +106,6 @@ import SubscriptionAgreementCShares from '../content/posts/investors-faq/subscri
 import InvestorPowerOfAttorney from '../content/posts/nda/investorsPower';
 import dmu24Feb from '../content/posts/market/dmu24feb';
 import dmu25feb from '../content/posts/market/dmu25feb';
-import HeadOfQuants from '../content/posts/general/headOfQuants';
 import Dmu27Feb from '../content/posts/market/dmu27feb';
 import Dmu26Feb from '../content/posts/market/dmu26feb';
 import InvestorUpdate from '../content/posts/investors-faq/investorUpdate';
@@ -133,7 +127,6 @@ import dmu26mar from '../content/posts/market/dmu26mar';
 import dmu25mar from '../content/posts/market/dmu25mar';
 import dmu24mar from '../content/posts/market/dmu24mar';
 import dmu21mar from '../content/posts/market/dmu21mar';
-import dmu5apr from '../content/posts/market/dmu5apr';
 import dmu4apr from '../content/posts/market/dmu4apr';
 import Dmu3apr from '../content/posts/market/dmu3apr';
 import Dmu2apr from '../content/posts/market/dmu2apr';
@@ -149,14 +142,12 @@ import Dmu11apr from '../content/posts/market/dmu11apr';
 import Dmu15apr from '../content/posts/market/dmu15apr';
 import Dmu16apr from '../content/posts/market/dmu16apr';
 import Dmu17apr from '../content/posts/market/dmu17apr';
-import Dmu21apr from '../content/posts/market/dmu21apr';
-import Dmu23apr from '../content/posts/market/dmu23apr';
-import Dmu24apr from '../content/posts/market/dmu24apr';
 import dmu30may from '../content/posts/market/dmu30may';
 import PatternOfAlpha from '../content/posts/general/patternOfAlpha';
 import Alpha27IndiaStrategicPlan from '../content/posts/general/alpha27IndiaStrategicPlan'
 import HushhVentures from '../content/posts/general/hushhVentures';
-
+import MarketOutlookMid2025 from '../content/posts/market/marketOutlookMid2025';
+import FcfAcesOfAcesPortfolioUpdate from '../content/posts/general/fcfAcesOfAcesPortfolioUpdate_corrected';
 export interface PostData {
   slug: string;
   title: string;
@@ -172,6 +163,28 @@ export interface PostData {
 
 export const posts: PostData[] = [
   // Add the new market updates at the top of the array for newest first
+  {
+    count: 167,
+    slug: 'fcf-aces-of-aces-portfolio-update',
+    title: '2025 "Free Cash Flow Aces of Aces" Portfolio Update',
+    publishedAt: '21/07/2025',
+    description: 'An executive summary and update for the 2025 "Free Cash Flow Aces of Aces" portfolio.',
+    category: 'general',
+    Component: FcfAcesOfAcesPortfolioUpdate,
+    image: DailyMarketUpdateImg1,
+    accessLevel: 'Public',
+  },
+  {
+    count: 166,
+    slug: 'market-outlook-mid-2025',
+    title: 'Market Outlook for Top 27 "FCF Aces of Aces" (Mid-2025)',
+    publishedAt: '15/07/2025',
+    description: 'Market Outlook for Top 27 "FCF Aces of Aces" (Mid-2025) as part of Hushh Fund A',
+    category: 'market updates',
+    Component: MarketOutlookMid2025,
+    image: DailyMarketUpdateImg1,
+    accessLevel: 'Public',
+  },
   {
     count: 142,
     slug: 'daily-market-update/17-apr-2025',
@@ -1527,6 +1540,30 @@ export const posts: PostData[] = [
   Component: PatternOfAlpha,
   image: HushhAiLogoImg, // Using your logo image
   accessLevel: 'Public',
+},
+{
+  count: 168, // Make sure this is higher than your current highest count
+  slug: "general/alphabets27-portfolio-target-allocations-and-strategy",
+  title: "Alphabets27 Portfolio: Target Allocations and Strategy (Aug 9, 2025)",
+  publishedAt: '2025-08-19', // You can adjust this date as needed
+  description: "Focus on Free Cash Flow and Valuation",
+  category: 'general',
+  Component: PatternOfAlpha, // This will be ignored when using pdfUrl
+  image: HushhAiLogoImg, // Using your logo image
+  accessLevel: 'Public',
+  pdfUrl: '/alphabets27.pdf', // Path to the PDF file in the public directory
+},
+{
+  count: 169, // Make sure this is higher than your current highest count
+  slug: "general/ssh-fund-a-class-a-b-c-portfolio-allocation",
+  title: "SSH Fund A – Class A, B & C Portfolio Allocation (Aug 1, 2025) ",
+  publishedAt: '2025-08-19', // You can adjust this date as needed
+  description: "Model Portfolios for SSH Fund A (Classes A, B, C)",
+  category: 'general',
+  Component: PatternOfAlpha, // This will be ignored when using pdfUrl
+  image: HushhAiLogoImg, // Using your logo image
+  accessLevel: 'Public',
+  pdfUrl: '/Hushh Fund A - 27FCF.pdf', // Path to the PDF file in the public directory
 },
 {
   count: 163, // Make sure this is higher than your current highest count

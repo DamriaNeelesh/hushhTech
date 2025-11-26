@@ -102,7 +102,7 @@ const CaliforniaPrivacyPolicy = () => {
             </Text>
             <Box pl={4}>
               <Text>• Email: ir@hushhtech.com</Text>
-              <Text>• Phone: (425) 296-9050</Text>
+              <Text>• Phone: (888) 462-1726</Text>
             </Box>
           </Box>
           <Divider />

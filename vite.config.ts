@@ -1,29 +1,29 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-// import mdx from '@mdx-js/rollup';
-// import remarkFrontmatter from 'remark-frontmatter';
-// import remarkGfm from 'remark-gfm';
-// import rehypeSlug from 'rehype-slug';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import mdx from '@mdx-js/rollup'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkGfm from 'remark-gfm'
+import rehypeSlug from 'rehype-slug'
 
 export default defineConfig({
   plugins: [
     react(),
-    // mdx({
-    //   remarkPlugins: [remarkFrontmatter, remarkGfm],
-    //   rehypePlugins: [rehypeSlug],
-    // }),
+    mdx({
+      // ensure MDX compiles to React JSX
+      jsxImportSource: 'react',
+      providerImportSource: '@mdx-js/react',
+      remarkPlugins: [remarkFrontmatter, remarkGfm],
+      rehypePlugins: [rehypeSlug],
+      // optional: treat .md files as MDX too
+      // format: 'detect'
+    }),
   ],
   build: {
-    outDir: "dist",
-    emptyOutDir: false, 
+    outDir: 'dist',
+    // strongly recommend cleaning to avoid stale assets on Vercel
+    emptyOutDir: true,
   },
-  
-  // Removed proxy configuration as it conflicts with direct API calls
-  server: {
-    // No proxy needed since we're using full URLs
-  },
-  
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.mdx'],
   },
-});
+})
