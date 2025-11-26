@@ -48,7 +48,7 @@ export default async function emailLogin(email: string, password: string) {
     }
     
     // User is fully registered, redirect to home
-    window.location.href = resources.config.redirect_url;
+    window.location.href = "/";
     return data;
   } catch (error) {
     console.error("Login error:", error);

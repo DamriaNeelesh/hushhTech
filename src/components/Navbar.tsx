@@ -4,9 +4,12 @@ import { FiMenu, FiX, FiChevronDown, FiUser } from "react-icons/fi";
 import config from "../resources/config/config";
 import { Image, useToast, Avatar, useBreakpointValue } from "@chakra-ui/react";
 import hushhLogo from "../components/images/Hushhogo.png";
+import { firebaseAuth } from "../resources/config/firebaseConfig";
+import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState<any>(null);
+  const [firebaseUser, setFirebaseUser] = useState<FirebaseUser | null>(null);
   const [toastShown, setToastShown] = useState(false);
   const [careerDropdownOpen, setCareerDropdownOpen] = useState(false);
   const [mobileCareerDropdownOpen, setMobileCareerDropdownOpen] = useState(false);
@@ -31,7 +34,16 @@ export default function Navbar() {
     });
     
 
-    return () => subscription?.unsubscribe();
+    const cleanup = () => subscription?.unsubscribe();
+    return cleanup;
+  }, []);
+
+  useEffect(() => {
+    if (!firebaseAuth) return;
+    const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
+      setFirebaseUser(user);
+    });
+    return () => unsubscribe();
   }, []);
 
 
@@ -40,8 +52,19 @@ export default function Navbar() {
       await config.supabaseClient.auth.signOut();
       setSession(null); // Ensure session is set to null after logout
     } catch (error) {
-      console.error("Error logging out:", error);
+      console.error("Error logging out of Supabase:", error);
     }
+
+    if (firebaseAuth) {
+      try {
+        await firebaseAuth.signOut();
+        setFirebaseUser(null);
+      } catch (error) {
+        console.error("Error logging out of Firebase:", error);
+      }
+    }
+
+    localStorage.removeItem("isLoggedIn");
   };
   // Show welcome toast when a user is signed in (only once)
   useEffect(() => {
@@ -56,6 +79,8 @@ export default function Navbar() {
       setToastShown(true);
     }
   }, [session, toastShown, toast]);
+
+  const isAuthenticated = !!session || !!firebaseUser;
 
   const toggleDrawer = () => setIsOpen((prev) => !prev);
   const handleLinkClick = (path) => {
@@ -163,7 +188,7 @@ export default function Navbar() {
               </div>
             </div>
 
-            {!session ? (
+            {!isAuthenticated ? (
               <button
                 onClick={() => navigate("/Login")}
                 className="bg-black text-white px-4 py-2 rounded"
@@ -188,8 +213,8 @@ export default function Navbar() {
                     className="flex items-center focus:outline-none"
                   >
                     <Avatar
-                      src={session?.user?.user_metadata?.avatar_url}
-                      name={session?.user?.email}
+                      src={session?.user?.user_metadata?.avatar_url || firebaseUser?.photoURL || undefined}
+                      name={session?.user?.email || firebaseUser?.email || ""}
                       className="w-8 h-8 rounded-full cursor-pointer"
                     />
                   </button>
@@ -297,7 +322,7 @@ export default function Navbar() {
               </div>
 
               {/* Add profile link in mobile menu for logged-in users */}
-              {session && (
+              {isAuthenticated && (
                 <Link
                   to="/user-registration"
                   onClick={() => handleLinkClick("/user-registration")}
@@ -311,7 +336,7 @@ export default function Navbar() {
               )}
 
               <div className="pt-6">
-                {!session ? (
+                {!isAuthenticated ? (
                   <button
                     onClick={() => handleLinkClick("/Login")}
                     className="w-full bg-black text-white px-4 py-2 rounded text-lg"

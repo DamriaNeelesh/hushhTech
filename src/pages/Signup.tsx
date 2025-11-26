@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import resources from "../resources/resources";
 import services from "../services/services";
 import { Image } from "@chakra-ui/react";
-import GoogleIcon from "../svg/googleIcon.svg";
-import { BarChart, Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import HushhLogo from "../components/images/Hushhogo.png";
 import config from "../resources/config/config";
+import GoogleIcon from "../svg/googleIcon.svg";
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -75,6 +74,7 @@ export default function Signup() {
       setIsLoading(false);
     }
   };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -237,8 +237,6 @@ export default function Signup() {
                 <Image src={GoogleIcon} alt="Google Sign In" className="h-5 w-5" />
                 Google
               </button>
-              
-             
             </div>
           </form>
 

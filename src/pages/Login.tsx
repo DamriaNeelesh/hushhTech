@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, AlertCircle } from "lucide-react";
 import services from "../services/services";
@@ -6,6 +6,7 @@ import { Image } from "@chakra-ui/react";
 import { notification } from "antd";
 import HushhLogo from "../components/images/Hushhogo.png"
 import GoolgleIcon from "../svg/googleIcon.svg"
+import config from "../resources/config/config";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -16,10 +17,33 @@ export default function Login() {
   const [error, setError] = useState<string | null>(null);
   const [api, contextHolder] = notification.useNotification();
 
+  useEffect(() => {
+    if (!config.supabaseClient) {
+      return;
+    }
+
+    config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        navigate("/");
+      }
+    });
+
+    const {
+      data: { subscription },
+    } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        navigate("/");
+      }
+    });
+
+    return () => subscription?.unsubscribe();
+  }, [navigate]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle login logic here
   };
+
   const openNotification = (
     description: string,
     message: string,
@@ -191,11 +215,7 @@ export default function Login() {
                 type="button"
                 className="w-full flex justify-center items-center gap-2 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400"
                 onClick={() => {
-                  // Pass an empty function as we'll handle the redirect in the googleSignIn implementation
-                  services.authentication.googleSignIn(() => {
-                    // After successful Google sign-in, redirect to registration page
-                    navigate("/user-registration");
-                  });
+                  services.authentication.googleSignIn();
                 }}
               >
                 <img src={GoolgleIcon} alt="Google Sign In" className="h-5 w-5" />
