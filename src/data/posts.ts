@@ -1599,6 +1599,18 @@ export const posts: PostData[] = [
   image: HushhAiLogoImg,
   accessLevel: 'Public',
 },
+{
+  count: 170, // Make sure this is higher than your current highest count
+  slug: "general/cash-free-manifesto",
+  title: "Cash-Free Manifesto",
+  publishedAt: '2025-11-29', // You can adjust this date as needed
+  description: "The Future of Systematic AI-Driven Income Investing",
+  category: 'general',
+  Component: 'CashFreeManifesto', // This will be ignored when using pdfUrl
+  image: HushhAiLogoImg, // Using your logo image
+  accessLevel: 'Public',
+  pdfUrl: '/cash-free-manifesto.pdf', 
+},
 ];
 
 export function getPosts(): PostData[] {
