@@ -7,9 +7,11 @@ import getFullName from "./getFullName";
 import getSession from "./getSession";
 import emailLogin from "./emailLogin";
 import checkRegistrationStatus from "./checkRegistrationStatus";
+import appleSignIn from "./appleSignIn";
 
 const authentication = {
   googleSignIn: googleSignIn,
+  appleSignIn: appleSignIn,
   getUserDetails: getUserDetails,
   signOut: signOut,
   getAccessToken: getAccessToken,
