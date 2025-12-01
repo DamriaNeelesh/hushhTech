@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { UserPreferenceProfile } from "../../types/preferences";
-import services from "../../services/services";
 
 type UserDetails = {
+  id?: string | null;
   name: string;
   email: string;
   age: number;
@@ -47,31 +47,36 @@ const ViewPreferencesPage: React.FC = () => {
 
   const [preferences, setPreferences] = useState<UserPreferenceProfile | null>(state.preferences || null);
   const [user, setUser] = useState<UserDetails | null>(state.user || null);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   useEffect(() => {
     const hydrate = async () => {
       if (routeUserId) {
         try {
-          const record = await services.preferences.fetchPreferencesWithSeed(routeUserId);
-          if (record?.preferences) {
-            setPreferences(record.preferences);
-            localStorage.setItem("hushhUserPreferences", JSON.stringify(record.preferences));
+          const res = await fetch(`/api/public-profile/${routeUserId}`);
+          if (!res.ok) {
+            const text = await res.text();
+            throw new Error(text || "Failed to load profile");
           }
-          if (record?.user_seed) {
-            const seededUser: UserDetails = {
-              id: routeUserId,
-              name: record.user_seed.name,
-              email: record.user_seed.email,
-              age: record.user_seed.age,
-              phoneCountryCode: record.user_seed.phone_country_code,
-              phoneNumber: record.user_seed.phone_number,
-              organisation: record.user_seed.organisation,
-            };
-            setUser(seededUser);
-            localStorage.setItem("hushhUserDetails", JSON.stringify(seededUser));
+          const json = await res.json();
+          if (json?.user?.profile) {
+            setPreferences(json.user.profile as UserPreferenceProfile);
+            localStorage.setItem("hushhUserPreferences", JSON.stringify(json.user.profile));
           }
+          const seededUser: UserDetails = {
+            id: routeUserId,
+            name: json.user.name || "",
+            email: json.user.email || "",
+            age: json.user.age || 0,
+            phoneCountryCode: json.user.phone_country_code || "",
+            phoneNumber: json.user.phone_number || "",
+            organisation: json.user.organisation || null,
+          };
+          setUser(seededUser);
+          localStorage.setItem("hushhUserDetails", JSON.stringify(seededUser));
         } catch (error) {
           console.error("Failed to load preferences by user id:", error);
+          setLoadError(error instanceof Error ? error.message : "Unable to load profile");
         }
       }
 
@@ -151,8 +156,8 @@ const ViewPreferencesPage: React.FC = () => {
           format: "PKBarcodeFormatQR",
         },
       };
-      // https://hushh-wallet.vercel.app/api/passes/universal/create
-      const res = await fetch("https://hushh-wallet.vercel.app/api/wallet-pass", {
+      // Server proxy to avoid CORS
+      const res = await fetch(" https://hushh-wallet.vercel.app/api/wallet-pass", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(passPayload),
@@ -182,6 +187,11 @@ const ViewPreferencesPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-[#f8fcff] py-12">
       <div className="max-w-7xl mx-auto px-4 lg:px-6 space-y-8">
+        {loadError && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+            {loadError}
+          </div>
+        )}
         {/* Hero */}
         <div className="bg-gradient-to-r from-cyan-600 via-sky-500 to-cyan-500 text-white rounded-3xl p-8 shadow-xl">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
