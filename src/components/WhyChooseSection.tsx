@@ -8,13 +8,14 @@ const WhyChooseSection = () => {
   
   return (
     <Box 
-      py={16} 
+      pt={{ base: 2, md: 6 }}
+      pb={{ base: 8, md: 12 }}
       px={4} 
       bg="rgb(249, 250, 251)"
       style={{ '--tw-bg-opacity': 1 } as React.CSSProperties}
     >
       <Container maxW="container.xl">
-        <Box textAlign="center" mb={12}>
+        <Box textAlign="center" mb={{ base: 4, md: 8 }}>
           <Heading as="h2" fontSize={{ base: "3xl", md: "5xl" }}  fontWeight="300" mb={4} color="gray.800">
           The Hushh Advantage
           </Heading>

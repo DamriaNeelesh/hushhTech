@@ -88,13 +88,9 @@ const ProfilePage: React.FC = () => {
       }
     } catch (error) {
       metadataFetchedRef.current = false;
-      toast({
-        title: "API Error",
-        description: "Failed to check NDA access status.",
-        status: "error",
-        duration: 4000,
-        isClosable: true,
-      });
+      // Silently fail NDA status check to avoid noisy user-facing toasts
+      // This can be logged for debugging if needed:
+      console.warn("Failed to check NDA access status", error);
     }
   }, [session, toast]);
 
@@ -326,16 +322,31 @@ const ProfilePage: React.FC = () => {
   }, [session?.user?.email]);
 
   return (
-    <Box bg="#FAFAFA" width="100%" minH="100vh">
-      <Center pt={{ base: 10, md: 20 }} pb={10}>
-        <VStack maxW="1200px" w="full" px={4} spacing={8}>
-          <VStack spacing={2} mb={8} mt={{base: 10, md: 0}} w="full">
-            <Text fontSize={{ base: "3xl", md: "4xl" }} className="text-5xl font-[300] text-[#1D1D1F] mb-3 tracking-tight" mt={8}>
+    <Box bg="#FAFAFA" width="100%" pt={{ base: 16, md: 20 }}>
+      <Center>
+        <VStack maxW="1200px" w="full" px={4} spacing={2}>
+          <VStack spacing={1} mb={{ base: 2, md: 4 }} mt={{ base: 2, md: 0 }} w="full">
+            <Text fontSize={{ base: "3xl", md: "4xl" }} className="text-5xl font-[300] text-[#1D1D1F] tracking-tight" mt={{ base: 2, md: 4 }}>
               Hello {session?.user?.user_metadata?.full_name || "User"},
             </Text>
             <Text className="text-xl text-[#6E6E73] font-light">
               Please complete the required processes below to access investment information.
             </Text>
+            <Button
+              mt={{ base: 3, md: 4 }}
+              onClick={() => navigate("/hushh-user-profile")}
+              background="linear-gradient(to right, #00A9E0, #6DD3EF)"
+              color="white"
+              borderRadius="full"
+              _hover={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)" }}
+              px={8}
+              py={6}
+              fontSize="md"
+              fontWeight="semibold"
+              minW="250px"
+            >
+              Get your Hushh ID
+            </Button>
           </VStack>
 
           {/* Legacy NDA/KYC cards hidden in new flow */}

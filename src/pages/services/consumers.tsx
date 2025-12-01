@@ -11,11 +11,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
-import TypingGif from "../../../public/gif/typing.gif";
-import CardImage from "../../../public/images/fendiCards.png";
-import DressImage from "../../../public/images/dressImage.png";
-import Mobile from "../../../public/images/mobile.png";
-import QRImage from "../../../public/images/QRWallet.png";
 import Companion from "../../svg/companion.svg";
 import {
   Accordion,
@@ -24,7 +19,6 @@ import {
   AccordionPanel,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "lucide-react";
-import BroswerCompanionImg from "../../../public/images/browserCompanion.png";
 
 const Consumers = () => {
   return (
@@ -83,7 +77,7 @@ const Consumers = () => {
             textAlign="center"
           >
             <Image
-              src={TypingGif}
+              src="/gif/typing.gif"
               alt="Hushh Companion Hushh Browser Companion"
               width={"340px"}
               height={"220px"}
@@ -117,7 +111,7 @@ const Consumers = () => {
             textAlign="center"
           >
             <Image
-              src={CardImage}
+              src="/images/fendiCards.png"
               alt="Hushh Wallet"
               width={"460px"}
               height={"370px"}
@@ -147,7 +141,7 @@ const Consumers = () => {
             textAlign="center"
           >
             <Image
-              src={DressImage}
+              src="/images/dressImage.png"
               alt="Vibe Search"
               width={"340px"}
               height={"220px"}
@@ -262,7 +256,7 @@ const Consumers = () => {
           Take control of your digital identity and unlock a world of
           personalized experiences and rewards.
         </Text>
-        <Image src={Mobile} alt="Hushh Wallet App" />
+        <Image src="/images/mobile.png" alt="Hushh Wallet App" />
         <Text
           color={"#434343"}
           fontWeight={"400"}
@@ -567,7 +561,7 @@ const Consumers = () => {
             Download and unlock the true power of your personal data.
           </Text>
           <Image
-            src={QRImage}
+            src="/images/QRWallet.png"
             alt="Hushh Wallet QR Code"
             boxSize={{ md: "16rem", base: "100px" }}
           />
@@ -813,7 +807,7 @@ const Consumers = () => {
           referrerpolicy="strict-origin-when-cross-origin"
           allowfullscreen
         ></iframe>
-        <Image src={BroswerCompanionImg} alt="Hushh Broswer Companion" />
+        <Image src="/images/browserCompanion.png" alt="Hushh Broswer Companion" />
       </HStack>
 
       <VStack
