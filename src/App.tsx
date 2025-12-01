@@ -156,6 +156,7 @@ function App() {
                   <ViewPreferencesPage />
                 </ProtectedRoute>
               } />
+              <Route path="/profile/:id" element={<ViewPreferencesPage />} />
               {/* <Route path="/solutions" element={<SolutionsPage />} /> */}
               <Route path='/kyc-verification' element={
                 

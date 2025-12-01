@@ -1,9 +1,21 @@
 import resources from "../../resources/resources";
-import { UserPreferenceProfile } from "../../types/preferences";
+import { PreferenceSeedInput, UserPreferenceProfile } from "../../types/preferences";
+
+export interface UserPreferencesRecord {
+  preferences: UserPreferenceProfile;
+  user_seed: PreferenceSeedInput | null;
+}
 
 export default async function fetchPreferences(
   userId: string
 ): Promise<UserPreferenceProfile | null> {
+  const record = await fetchPreferencesWithSeed(userId);
+  return record?.preferences || null;
+}
+
+export async function fetchPreferencesWithSeed(
+  userId: string
+): Promise<UserPreferencesRecord | null> {
   const supabase = resources.config.supabaseClient;
   if (!supabase) {
     console.error("Supabase client is not initialized");
@@ -11,9 +23,11 @@ export default async function fetchPreferences(
   }
 
   const { data, error } = await supabase
-    .from("user_preferences")
-    .select("preferences")
-    .eq("user_id", userId)
+    .from("members")
+    .select(
+      "profile, name, email, age, phone_country_code, phone_number, organisation"
+    )
+    .eq("id", userId)
     .maybeSingle();
 
   if (error) {
@@ -21,5 +35,20 @@ export default async function fetchPreferences(
     return null;
   }
 
-  return (data?.preferences as UserPreferenceProfile) || null;
+  if (!data?.profile) return null;
+
+  const preferences = data.profile as UserPreferenceProfile;
+  const user_seed: PreferenceSeedInput = {
+    name: (data.name as string) || "",
+    email: (data.email as string) || "",
+    age: (data.age as number) || 0,
+    phone_country_code: (data.phone_country_code as string) || "",
+    phone_number: (data.phone_number as string) || "",
+    organisation: (data.organisation as string) || null,
+  };
+
+  return {
+    preferences,
+    user_seed,
+  };
 }

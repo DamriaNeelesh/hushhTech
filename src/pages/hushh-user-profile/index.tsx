@@ -96,6 +96,22 @@ const HushhUserProfilePage: React.FC = () => {
 
     setLoading(true);
     try {
+      let ensuredUserId = userId;
+      if (!ensuredUserId) {
+        const supabase = resources.config.supabaseClient;
+        if (supabase) {
+          const { data: { user } } = await supabase.auth.getUser();
+          ensuredUserId = user?.id || null;
+          if (user?.id) {
+            setUserId(user.id);
+          }
+        }
+      }
+
+       if (!ensuredUserId) {
+         throw new Error("Missing authenticated user id; please re-login with Google.");
+       }
+
       const seed = {
         name: form.name,
         email: form.email,
@@ -109,6 +125,7 @@ const HushhUserProfilePage: React.FC = () => {
       setPreferences(result);
       localStorage.setItem("hushhUserPreferences", JSON.stringify(result));
       const userDetails = {
+        id: ensuredUserId,
         name: seed.name,
         email: seed.email,
         age: seed.age,
@@ -118,14 +135,15 @@ const HushhUserProfilePage: React.FC = () => {
       };
       localStorage.setItem("hushhUserDetails", JSON.stringify(userDetails));
       setStatus("Preferences enriched successfully.");
-      if (userId) {
+      if (ensuredUserId) {
         try {
-          await services.preferences.savePreferencesToSupabase(userId, result, seed);
+          await services.preferences.savePreferencesToSupabase(ensuredUserId, result, seed);
         } catch (supabaseError) {
           console.error("Failed to save preferences to Supabase:", supabaseError);
+          setStatus("Saved locally, but Supabase insert failed");
         }
       }
-      navigate("/hushh-user-profile/view", { state: { preferences: result, user: userDetails } });
+      navigate(`/profile/${ensuredUserId}`, { state: { preferences: result, user: userDetails } });
     } catch (prefError) {
       console.error("Enrichment failed:", prefError);
       setError(prefError instanceof Error ? prefError.message : "Failed to enrich preferences");

@@ -1,12 +1,13 @@
 import enrichPreferences from "./enrichPreferences";
-import fetchPreferences from "./fetchPreferences";
+import fetchPreferences, { fetchPreferencesWithSeed } from "./fetchPreferences";
 import savePreferencesToSupabase from "./savePreferences";
 
 const preferencesService = {
   enrichPreferences,
   fetchPreferences,
+  fetchPreferencesWithSeed,
   savePreferencesToSupabase,
 };
 
 export default preferencesService;
-export { enrichPreferences, fetchPreferences, savePreferencesToSupabase };
+export { enrichPreferences, fetchPreferences, fetchPreferencesWithSeed, savePreferencesToSupabase };

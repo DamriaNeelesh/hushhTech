@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { UserPreferenceProfile } from "../../types/preferences";
+import services from "../../services/services";
 
 type UserDetails = {
   name: string;
@@ -15,6 +16,9 @@ type LocationState = {
   preferences?: UserPreferenceProfile;
   user?: UserDetails;
 };
+
+const fallbackOrigin =
+  typeof window !== "undefined" ? window.location.origin : "https://www.hushhtech.com";
 
 const PreferenceCard = ({ title, items }: { title: string; items: { label: string; value: string }[] }) => {
   return (
@@ -39,38 +43,68 @@ const ViewPreferencesPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const state = (location.state || {}) as LocationState;
+  const { id: routeUserId } = useParams();
 
-  const preferences: UserPreferenceProfile | null = useMemo(() => {
-    if (state.preferences) return state.preferences;
-    const cached = localStorage.getItem("hushhUserPreferences");
-    if (cached) {
-      try {
-        return JSON.parse(cached) as UserPreferenceProfile;
-      } catch {
-        return null;
-      }
-    }
-    return null;
-  }, [state.preferences]);
-
-  const user: UserDetails | null = useMemo(() => {
-    if (state.user) return state.user;
-    const cached = localStorage.getItem("hushhUserDetails");
-    if (cached) {
-      try {
-        return JSON.parse(cached) as UserDetails;
-      } catch {
-        return null;
-      }
-    }
-    return null;
-  }, [state.user]);
+  const [preferences, setPreferences] = useState<UserPreferenceProfile | null>(state.preferences || null);
+  const [user, setUser] = useState<UserDetails | null>(state.user || null);
 
   useEffect(() => {
-    if (!preferences) {
+    const hydrate = async () => {
+      if (routeUserId) {
+        try {
+          const record = await services.preferences.fetchPreferencesWithSeed(routeUserId);
+          if (record?.preferences) {
+            setPreferences(record.preferences);
+            localStorage.setItem("hushhUserPreferences", JSON.stringify(record.preferences));
+          }
+          if (record?.user_seed) {
+            const seededUser: UserDetails = {
+              id: routeUserId,
+              name: record.user_seed.name,
+              email: record.user_seed.email,
+              age: record.user_seed.age,
+              phoneCountryCode: record.user_seed.phone_country_code,
+              phoneNumber: record.user_seed.phone_number,
+              organisation: record.user_seed.organisation,
+            };
+            setUser(seededUser);
+            localStorage.setItem("hushhUserDetails", JSON.stringify(seededUser));
+          }
+        } catch (error) {
+          console.error("Failed to load preferences by user id:", error);
+        }
+      }
+
+      if (!state.preferences && !preferences) {
+        const cached = localStorage.getItem("hushhUserPreferences");
+        if (cached) {
+          try {
+            setPreferences(JSON.parse(cached) as UserPreferenceProfile);
+          } catch {
+            /* ignore */
+          }
+        }
+      }
+      if (!state.user && !user) {
+        const cachedUser = localStorage.getItem("hushhUserDetails");
+        if (cachedUser) {
+          try {
+            setUser(JSON.parse(cachedUser) as UserDetails);
+          } catch {
+            /* ignore */
+          }
+        }
+      }
+    };
+
+    hydrate();
+  }, [routeUserId, state.preferences, state.user]);
+
+  useEffect(() => {
+    if (!preferences && !routeUserId) {
       navigate("/hushh-user-profile");
     }
-  }, [navigate, preferences]);
+  }, [navigate, preferences, routeUserId]);
 
   if (!preferences) return null;
 
@@ -84,6 +118,7 @@ const ViewPreferencesPage: React.FC = () => {
 
   const [isGeneratingPass, setIsGeneratingPass] = useState(false);
   const [passError, setPassError] = useState<string | null>(null);
+  const profileLink = `${fallbackOrigin}/profile/${routeUserId || user?.id || ""}`;
 
   const handleGeneratePass = async () => {
     if (!user || !preferences) return;
@@ -112,12 +147,12 @@ const ViewPreferencesPage: React.FC = () => {
           { key: "drink", label: "Drink", value: preferences.drink.alcoholPreference },
         ],
         barcode: {
-          message: `https://www.hushh.ai/user/${(user.email || "profile")}`,
+          message: profileLink,
           format: "PKBarcodeFormatQR",
         },
       };
-
-      const res = await fetch("https://hushh-wallet.vercel.app/api/passes/universal/create", {
+      // https://hushh-wallet.vercel.app/api/passes/universal/create
+      const res = await fetch("https://hushh-wallet.vercel.app/api/wallet-pass", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(passPayload),
