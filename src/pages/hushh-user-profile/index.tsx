@@ -25,6 +25,7 @@ const defaultFormState: FormState = {
 const HushhUserProfilePage: React.FC = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState<FormState>(defaultFormState);
+  const [userId, setUserId] = useState<string | null>(null);
   const [preferences, setPreferences] = useState<UserPreferenceProfile | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -45,6 +46,7 @@ const HushhUserProfilePage: React.FC = () => {
           navigate("/login");
           return;
         }
+        setUserId(user.id);
 
         const fullName =
           (user.user_metadata?.full_name as string) ||
@@ -116,6 +118,13 @@ const HushhUserProfilePage: React.FC = () => {
       };
       localStorage.setItem("hushhUserDetails", JSON.stringify(userDetails));
       setStatus("Preferences enriched successfully.");
+      if (userId) {
+        try {
+          await services.preferences.savePreferencesToSupabase(userId, result, seed);
+        } catch (supabaseError) {
+          console.error("Failed to save preferences to Supabase:", supabaseError);
+        }
+      }
       navigate("/hushh-user-profile/view", { state: { preferences: result, user: userDetails } });
     } catch (prefError) {
       console.error("Enrichment failed:", prefError);

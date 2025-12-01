@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { UserPreferenceProfile } from "../../types/preferences";
 
@@ -82,6 +82,68 @@ const ViewPreferencesPage: React.FC = () => {
     return `${budget.currency} ${min} - ${max}`;
   };
 
+  const [isGeneratingPass, setIsGeneratingPass] = useState(false);
+  const [passError, setPassError] = useState<string | null>(null);
+
+  const handleGeneratePass = async () => {
+    if (!user || !preferences) return;
+    setIsGeneratingPass(true);
+    setPassError(null);
+
+    try {
+      const passPayload = {
+        passType: "generic",
+        description: "Hushh Lifestyle Profile",
+        organizationName: "Hushh Technologies",
+        logoText: "HUSHH",
+        backgroundColor: "rgb(26, 26, 46)",
+        foregroundColor: "rgb(255, 255, 255)",
+        primaryFields: [
+          { key: "name", label: "Name", value: user.name || "Hushh User" },
+        ],
+        secondaryFields: [
+          { key: "diet", label: "Diet", value: preferences.food.dietType },
+          { key: "style", label: "Style", value: preferences.brand.fashionStyle },
+          { key: "tech", label: "Tech", value: preferences.brand.techEcosystem },
+        ],
+        auxiliaryFields: [
+          { key: "hotel", label: "Hotel", value: formatBudget(preferences.hotel.budgetPerNight) },
+          { key: "coffee", label: "Coffee", value: preferences.coffee.coffeeConsumerType },
+          { key: "drink", label: "Drink", value: preferences.drink.alcoholPreference },
+        ],
+        barcode: {
+          message: `https://www.hushh.ai/user/${encodeURIComponent(user.email || "profile")}`,
+          format: "PKBarcodeFormatQR",
+        },
+      };
+
+      const res = await fetch("https://hushh-wallet.vercel.app/api/passes/universal/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(passPayload),
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text || "Wallet pass generation failed");
+      }
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "hushh-profile.pkpass";
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode?.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (err: any) {
+      setPassError(err?.message || "Unable to generate pass right now.");
+    } finally {
+      setIsGeneratingPass(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-[#f8fcff] py-12">
       <div className="max-w-7xl mx-auto px-4 lg:px-6 space-y-8">
@@ -107,7 +169,33 @@ const ViewPreferencesPage: React.FC = () => {
                 Updated {new Date(preferences.lastEnrichedAt).toLocaleString()}
               </span>
             </div>
+            <div className="flex flex-wrap gap-2 text-sm">
+              <button
+                onClick={() => navigate("/hushh-user-profile")}
+                className="px-4 py-2 bg-white/10 border border-white/20 text-white rounded-lg shadow-sm hover:bg-white/15 transition"
+              >
+                Edit details
+              </button>
+              <button
+                onClick={handleGeneratePass}
+                disabled={isGeneratingPass}
+                className="px-4 py-2 bg-white text-cyan-700 rounded-lg shadow-sm hover:bg-gray-50 transition disabled:opacity-70"
+              >
+                {isGeneratingPass ? "Generating Wallet Pass..." : "Add to Apple Wallet"}
+              </button>
+              <button
+                onClick={() => navigate("/")}
+                className="px-4 py-2 bg-white/10 border border-white/20 text-white rounded-lg shadow-sm hover:bg-white/15 transition"
+              >
+                Back to home
+              </button>
+            </div>
           </div>
+          {passError && (
+            <div className="mt-3 text-sm bg-white/15 border border-white/25 text-white px-4 py-2 rounded-lg">
+              {passError}
+            </div>
+          )}
         </div>
 
         {/* Overview */}
@@ -189,20 +277,6 @@ const ViewPreferencesPage: React.FC = () => {
           />
         </div>
 
-        <div className="flex flex-wrap gap-3 pt-2">
-          <button
-            onClick={() => navigate("/hushh-user-profile")}
-            className="px-5 py-3 bg-white border border-gray-200 text-gray-800 rounded-lg shadow-sm hover:bg-gray-50"
-          >
-            Edit details
-          </button>
-          <button
-            onClick={() => navigate("/")}
-            className="px-5 py-3 bg-gradient-to-r from-cyan-500 to-sky-500 text-white rounded-lg shadow-md hover:from-cyan-600 hover:to-sky-600"
-          >
-            Back to home
-          </button>
-        </div>
       </div>
     </div>
   );

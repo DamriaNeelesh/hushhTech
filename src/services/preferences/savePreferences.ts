@@ -1,5 +1,5 @@
 import resources from "../../resources/resources";
-import { UserPreferenceProfile } from "../../types/preferences";
+import { PreferenceSeedInput, UserPreferenceProfile } from "../../types/preferences";
 
 export interface SavePreferencesResult {
   success: boolean;
@@ -8,7 +8,8 @@ export interface SavePreferencesResult {
 
 export default async function savePreferencesToSupabase(
   userId: string,
-  preferences: UserPreferenceProfile
+  preferences: UserPreferenceProfile,
+  seed?: PreferenceSeedInput
 ): Promise<SavePreferencesResult> {
   const supabase = resources.config.supabaseClient;
   if (!supabase) {
@@ -21,6 +22,7 @@ export default async function savePreferencesToSupabase(
       {
         user_id: userId,
         preferences,
+        user_seed: seed ?? null,
         last_enriched_at: preferences.lastEnrichedAt,
         updated_at: new Date().toISOString(),
       },
