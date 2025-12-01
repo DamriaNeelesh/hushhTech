@@ -7,7 +7,7 @@
 # --- 1. CONFIGURATION (ENTER YOUR DETAILS HERE) ---
 # Update these 4 lines with your specific details:
 TEAM_ID="WVDK9JW99C"                   # Your Team ID
-KEY_ID="LK53NZBH4L"                    # The Key ID from Apple
+KEY_ID="2822NMDJU5"                    # The Key ID from Apple
 CLIENT_ID="WVDK9JW99C.all-hushh-web-login"           # Your Service ID (e.g. com.hushh.webapp)
 KEY_FILE_PATH="./AuthKey_LK53NZBH4L.p8" # Exact filename of your .p8 file in this folder
 

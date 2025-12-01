@@ -55,6 +55,7 @@ export default function UserRegistration() {
         const { data: { user } } = await resources.config.supabaseClient.auth.getUser();
         if (user?.email) {
           setUserEmail(user.email);
+          setUserId(user.id);
         } else {
           navigate("/login");
         }
@@ -147,7 +148,7 @@ export default function UserRegistration() {
         
         console.log("User profile stored:", userProfile);
       }
-      
+
       openNotification("Your profile has been created successfully!", "Success", 3);
       
       // Redirect to profile page after successful registration

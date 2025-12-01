@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { User, Mail, Phone, MapPin, Globe, Calendar, Coins, FileText, Settings, Edit3 } from 'lucide-react';
 import axios from 'axios';
 import resources from '../../resources/resources';
+import services from '../../services/services';
+import { UserPreferenceProfile } from '../../types/preferences';
 
 interface UserProfile {
   hushh_id: string;
@@ -26,6 +28,49 @@ const ProfilePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string>("");
+  const [userId, setUserId] = useState<string | null>(null);
+  const [preferences, setPreferences] = useState<UserPreferenceProfile | null>(null);
+
+  const formatList = (items?: string[]) => (items && items.length > 0 ? items.join(", ") : "unknown");
+
+  const formatBudget = (budget?: { currency: string; min: number | null; max: number | null }) => {
+    if (!budget) return "unknown";
+    const min = budget.min !== null && budget.min !== undefined ? budget.min : "0";
+    const max = budget.max !== null && budget.max !== undefined ? budget.max : "0";
+    return `${budget.currency} ${min} - ${max}`;
+  };
+
+  const formatDateTime = (value?: string) => {
+    if (!value) return "Not available";
+    try {
+      return new Date(value).toLocaleString();
+    } catch {
+      return value;
+    }
+  };
+
+  const loadPreferences = async (supabaseUserId: string) => {
+    try {
+      const dbPreferences = await services.preferences.fetchPreferences(supabaseUserId);
+      if (dbPreferences) {
+        setPreferences(dbPreferences);
+        localStorage.setItem("hushhUserPreferences", JSON.stringify(dbPreferences));
+        return;
+      }
+    } catch (prefError) {
+      console.error("Error loading preferences from Supabase:", prefError);
+    }
+
+    const stored = localStorage.getItem("hushhUserPreferences");
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored) as UserPreferenceProfile;
+        setPreferences(parsed);
+      } catch (parseError) {
+        console.error("Failed to parse stored preferences:", parseError);
+      }
+    }
+  };
 
   useEffect(() => {
     // Get user email from Supabase session and fetch profile
@@ -50,6 +95,9 @@ const ProfilePage = () => {
         
         console.log('✅ User email found:', user.email);
         setUserEmail(user.email);
+        setUserId(user.id);
+
+        await loadPreferences(user.id);
         
         // Check if user exists in database using the API
         await checkUserInDatabase(user.email);
@@ -446,6 +494,73 @@ const ProfilePage = () => {
             </p>
           </div>
         </div>
+
+        {preferences && (
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mt-6">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
+              <h3 className="text-lg font-semibold text-gray-800">AI-inferred lifestyle preferences</h3>
+              <p className="text-sm text-gray-500">
+                Last enriched {formatDateTime(preferences.lastEnrichedAt)}
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h4 className="text-base font-semibold text-gray-800 mb-2">Food</h4>
+                <ul className="text-sm text-gray-700 space-y-1">
+                  <li><span className="font-medium text-gray-600">Diet:</span> {preferences.food.dietType}</li>
+                  <li><span className="font-medium text-gray-600">Spice:</span> {preferences.food.spiceLevel}</li>
+                  <li><span className="font-medium text-gray-600">Budget:</span> {preferences.food.budgetLevel}</li>
+                  <li><span className="font-medium text-gray-600">Eats out:</span> {preferences.food.eatingOutFrequency}</li>
+                  <li><span className="font-medium text-gray-600">Cuisines:</span> {formatList(preferences.food.favoriteCuisines)}</li>
+                </ul>
+              </div>
+
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h4 className="text-base font-semibold text-gray-800 mb-2">Drink</h4>
+                <ul className="text-sm text-gray-700 space-y-1">
+                  <li><span className="font-medium text-gray-600">Alcohol:</span> {preferences.drink.alcoholPreference}</li>
+                  <li><span className="font-medium text-gray-600">Alcohol types:</span> {formatList(preferences.drink.favoriteAlcoholTypes)}</li>
+                  <li><span className="font-medium text-gray-600">Non-alcoholic:</span> {formatList(preferences.drink.favoriteNonAlcoholicTypes)}</li>
+                  <li><span className="font-medium text-gray-600">Sugar:</span> {preferences.drink.sugarLevel}</li>
+                  <li><span className="font-medium text-gray-600">Caffeine tolerance:</span> {preferences.drink.caffeineTolerance}</li>
+                </ul>
+              </div>
+
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h4 className="text-base font-semibold text-gray-800 mb-2">Hotel</h4>
+                <ul className="text-sm text-gray-700 space-y-1">
+                  <li><span className="font-medium text-gray-600">Budget/night:</span> {formatBudget(preferences.hotel.budgetPerNight)}</li>
+                  <li><span className="font-medium text-gray-600">Class:</span> {preferences.hotel.hotelClass}</li>
+                  <li><span className="font-medium text-gray-600">Location:</span> {preferences.hotel.locationPreference}</li>
+                  <li><span className="font-medium text-gray-600">Room:</span> {preferences.hotel.roomType}</li>
+                  <li><span className="font-medium text-gray-600">Amenities:</span> {formatList(preferences.hotel.amenitiesPriority)}</li>
+                </ul>
+              </div>
+
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h4 className="text-base font-semibold text-gray-800 mb-2">Coffee</h4>
+                <ul className="text-sm text-gray-700 space-y-1">
+                  <li><span className="font-medium text-gray-600">Consumer type:</span> {preferences.coffee.coffeeConsumerType}</li>
+                  <li><span className="font-medium text-gray-600">Styles:</span> {formatList(preferences.coffee.coffeeStyle)}</li>
+                  <li><span className="font-medium text-gray-600">Milk:</span> {preferences.coffee.milkPreference}</li>
+                  <li><span className="font-medium text-gray-600">Sweetness:</span> {preferences.coffee.sweetnessLevel}</li>
+                  <li><span className="font-medium text-gray-600">Ambience:</span> {preferences.coffee.cafeAmbiencePreference}</li>
+                </ul>
+              </div>
+
+              <div className="bg-gray-50 rounded-lg p-4 md:col-span-2">
+                <h4 className="text-base font-semibold text-gray-800 mb-2">Brands & shopping</h4>
+                <ul className="text-sm text-gray-700 space-y-1">
+                  <li><span className="font-medium text-gray-600">Style:</span> {preferences.brand.fashionStyle}</li>
+                  <li><span className="font-medium text-gray-600">Tech ecosystem:</span> {preferences.brand.techEcosystem}</li>
+                  <li><span className="font-medium text-gray-600">Shopping:</span> {formatList(preferences.brand.shoppingChannels)}</li>
+                  <li><span className="font-medium text-gray-600">Price point:</span> {preferences.brand.priceSensitivity}</li>
+                  <li><span className="font-medium text-gray-600">Values:</span> {formatList(preferences.brand.brandValues)}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Action Buttons */}
         <div className="mt-8 flex flex-wrap gap-4 justify-center">

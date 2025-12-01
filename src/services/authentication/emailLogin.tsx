@@ -1,5 +1,4 @@
 import resources from "../../resources/resources";
-import checkRegistrationStatus from "./checkRegistrationStatus";
 
 export default async function emailLogin(email: string, password: string) {
   const supabase = resources.config.supabaseClient;
@@ -30,25 +29,9 @@ export default async function emailLogin(email: string, password: string) {
     
     // If everything is successful, log the user in
     localStorage.setItem("isLoggedIn", "true"); // Set login state
-    
-    // Check if user has completed profile registration
-    try {
-      const registrationStatus = await checkRegistrationStatus(email);
-      
-      if (!registrationStatus.isRegistered) {
-        // User needs to complete registration
-        window.location.href = "/user-registration";
-        return data;
-      }
-    } catch (regError) {
-      console.error("Error checking registration status:", regError);
-      // If registration check fails, redirect to registration page to be safe
-      window.location.href = "/user-registration";
-      return data;
-    }
-    
-    // User is fully registered, redirect to home
-    window.location.href = "/";
+
+    // Redirect directly to the new profile enrichment flow
+    window.location.href = "/hushh-user-profile";
     return data;
   } catch (error) {
     console.error("Login error:", error);

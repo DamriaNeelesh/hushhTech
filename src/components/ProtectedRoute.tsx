@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import config from '../resources/config/config';
-import services from '../services/services';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  requiresRegistration?: boolean;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ 
-  children, 
-  requiresRegistration = true 
+  children
 }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -34,20 +31,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
           return;
         }
 
-        if (requiresRegistration) {
-          // Check if user has completed registration
-          const registrationStatus = await services.authentication.checkRegistrationStatus(user.email);
-          
-          if (!registrationStatus.isRegistered) {
-            // User is authenticated but hasn't completed registration
-            // Only redirect if current path is not already user-registration
-            if (window.location.pathname !== '/user-registration') {
-              navigate("/user-registration");
-              return;
-            }
-          }
-        }
-
         // User is authenticated and (if required) has completed registration
         setIsAuthorized(true);
       } catch (error) {
@@ -59,7 +42,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     };
 
     checkAuthAndRegistration();
-  }, [navigate, requiresRegistration]);
+  }, [navigate]);
 
   if (isLoading) {
     return (

@@ -36,6 +36,7 @@ import DiscoverFundA from './pages/discover-fund-a';
 import UserRegistration from './pages/UserRegistration';
 import ProtectedRoute from './components/ProtectedRoute';
 import YourProfilePage from './pages/your-profile';
+import HushhUserProfilePage from './pages/hushh-user-profile';
 
 // Google Analytics configuration
 const GA_TRACKING_ID = 'G-R58S9WWPM0';
@@ -144,6 +145,11 @@ function App() {
                 
               } />
               <Route path="/auth/callback" element={<AuthCallback />} />
+              <Route path="/hushh-user-profile" element={
+                <ProtectedRoute>
+                  <HushhUserProfilePage />
+                </ProtectedRoute>
+              } />
               {/* <Route path="/solutions" element={<SolutionsPage />} /> */}
               <Route path='/kyc-verification' element={
                 
@@ -161,7 +167,7 @@ function App() {
                 
               }/>
               <Route path='/user-registration' element={
-                <ProtectedRoute requiresRegistration={false}>
+                <ProtectedRoute>
                   <UserRegistration />
                 </ProtectedRoute>
               }/>

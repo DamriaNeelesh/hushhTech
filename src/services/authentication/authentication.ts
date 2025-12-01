@@ -6,7 +6,6 @@ import isLoggedIn from "./isLoggedIn";
 import getFullName from "./getFullName";
 import getSession from "./getSession";
 import emailLogin from "./emailLogin";
-import checkRegistrationStatus from "./checkRegistrationStatus";
 import appleSignIn from "./appleSignIn";
 
 const authentication = {
@@ -19,6 +18,5 @@ const authentication = {
   getFullName: getFullName,
   getSession: getSession,
   emailLogin: emailLogin,
-  checkRegistrationStatus: checkRegistrationStatus
 };
 export default authentication;

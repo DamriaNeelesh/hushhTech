@@ -5,12 +5,10 @@ import config from "../resources/config/config";
 import ProfilePage from "./profile/profilePage";
 import WhyChooseSection from "./WhyChooseSection";
 import { Session } from "@supabase/supabase-js";
-import services from "../services/services";
 
 export default function Hero() {
   const navigate = useNavigate();
   const [session, setSession] = useState<Session | null>(null);
-  const [registrationChecked, setRegistrationChecked] = useState(false);
   
   useEffect(() => {
     // Fetch the current session
@@ -22,34 +20,11 @@ export default function Hero() {
       // Listen for auth state changes
       const { data: { subscription } } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
         setSession(session);
-        setRegistrationChecked(false); // Reset check when session changes
       });
 
       return () => subscription?.unsubscribe();
     }
   }, []);
-
-  // Check registration status when session is available
-  useEffect(() => {
-    const checkRegistrationStatus = async () => {
-      if (session?.user?.email && !registrationChecked) {
-        try {
-          const registrationStatus = await services.authentication.checkRegistrationStatus(session.user.email);
-          
-          if (!registrationStatus.isRegistered) {
-            // User is authenticated but hasn't completed registration
-            navigate('/user-registration');
-          }
-          setRegistrationChecked(true);
-        } catch (error) {
-          console.error('Error checking registration status in Hero:', error);
-          setRegistrationChecked(true);
-        }
-      }
-    };
-
-    checkRegistrationStatus();
-  }, [session, registrationChecked, navigate]);
 
   return (
     <>

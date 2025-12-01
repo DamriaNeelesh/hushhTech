@@ -24,7 +24,7 @@ export default function Login() {
 
     config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
       if (session) {
-        navigate("/");
+        navigate("/hushh-user-profile");
       }
     });
 
@@ -32,7 +32,7 @@ export default function Login() {
       data: { subscription },
     } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
       if (session) {
-        navigate("/");
+        navigate("/hushh-user-profile");
       }
     });
 
