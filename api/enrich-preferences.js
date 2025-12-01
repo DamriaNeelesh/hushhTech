@@ -16,20 +16,14 @@ async function deriveGeoHints(phone_country_code, phone_number) {
     const parsed = parsePhoneNumberFromString(`${phone_country_code}${phone_number}`);
     const iso2 = parsed?.country || DEFAULT_COUNTRY;
 
-    try {
-      const res = await fetch(`https://restcountries.com/v3.1/alpha/${iso2}`);
-      const json = await res.json();
-      const currencyCode =
-        json && Array.isArray(json) && json[0] && json[0].currencies
-          ? Object.keys(json[0].currencies)[0] || DEFAULT_CURRENCY
-          : DEFAULT_CURRENCY;
-      return { iso2, currencyCode };
-    } catch (error) {
-      console.warn("Currency lookup failed, using defaults", error);
-      return { iso2, currencyCode: DEFAULT_CURRENCY };
-    }
-  } catch (error) {
-    console.warn("Phone parsing failed, using defaults", error);
+    const res = await fetch(`https://restcountries.com/v3.1/alpha/${iso2}`);
+    const json = await res.json();
+    const currencyCode =
+      json && Array.isArray(json) && json[0] && json[0].currencies
+        ? Object.keys(json[0].currencies)[0] || DEFAULT_CURRENCY
+        : DEFAULT_CURRENCY;
+    return { iso2, currencyCode };
+  } catch {
     return { iso2: DEFAULT_COUNTRY, currencyCode: DEFAULT_CURRENCY };
   }
 }
@@ -86,8 +80,8 @@ function buildSchema() {
               required: ["currency", "min", "max"],
               properties: {
                 currency: { type: "string", pattern: "^[A-Z]{3}$" },
-                min: { type: ["number", "null"], minimum: 0 },
-                max: { type: ["number", "null"], minimum: 0 },
+                min: { type: "number", minimum: 0 },
+                max: { type: "number", minimum: 0 },
               },
             },
             hotelClass: { type: "string", enum: ["hostel", "budget", "3_star", "4_star", "5_star", "unknown"] },
@@ -150,6 +144,17 @@ function validatePayload(payload) {
   return null;
 }
 
+function normalizeBudget(budgetPerNight) {
+  if (!budgetPerNight) return budgetPerNight;
+  const min = typeof budgetPerNight.min === "number" ? budgetPerNight.min : 0;
+  const max = typeof budgetPerNight.max === "number" ? budgetPerNight.max : min;
+  return {
+    ...budgetPerNight,
+    min: Math.min(min, max),
+    max: Math.max(min, max),
+  };
+}
+
 export default async function handler(request, response) {
   if (request.method !== "POST") {
     return response.status(405).json({ error: "Method not allowed" });
@@ -182,7 +187,7 @@ Rules:
     const schema = buildSchema();
 
     const completionPayload = {
-      model: "gpt-4o",
+      model: "gpt-4o-mini",
       temperature: 0.4,
       response_format: { type: "json_schema", json_schema: schema },
       messages: [
@@ -231,6 +236,12 @@ Rules:
     let parsed;
     try {
       parsed = JSON.parse(content);
+      if (parsed?.hotel?.budgetPerNight) {
+        parsed.hotel.budgetPerNight = normalizeBudget(parsed.hotel.budgetPerNight);
+      }
+      if (!parsed.lastEnrichedAt) {
+        parsed.lastEnrichedAt = new Date().toISOString();
+      }
     } catch (error) {
       console.error("Failed to parse OpenAI JSON:", error, content);
       return response.status(502).json({ error: "Invalid JSON from OpenAI" });

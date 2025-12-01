@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import services from "../../services/services";
 import resources from "../../resources/resources";
@@ -29,8 +29,6 @@ const HushhUserProfilePage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [status, setStatus] = useState<string | null>(null);
-  const [showResults, setShowResults] = useState(false);
-  const resultRef = useRef<HTMLDivElement | null>(null);
 
   // Prefill with Supabase user session
   useEffect(() => {
@@ -108,11 +106,17 @@ const HushhUserProfilePage: React.FC = () => {
       const result = await services.preferences.enrichPreferences(seed);
       setPreferences(result);
       localStorage.setItem("hushhUserPreferences", JSON.stringify(result));
+      const userDetails = {
+        name: seed.name,
+        email: seed.email,
+        age: seed.age,
+        phoneCountryCode: seed.phone_country_code,
+        phoneNumber: seed.phone_number,
+        organisation: seed.organisation,
+      };
+      localStorage.setItem("hushhUserDetails", JSON.stringify(userDetails));
       setStatus("Preferences enriched successfully.");
-      setShowResults(true);
-      setTimeout(() => {
-        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 100);
+      navigate("/hushh-user-profile/view", { state: { preferences: result, user: userDetails } });
     } catch (prefError) {
       console.error("Enrichment failed:", prefError);
       setError(prefError instanceof Error ? prefError.message : "Failed to enrich preferences");
@@ -258,8 +262,8 @@ const HushhUserProfilePage: React.FC = () => {
           <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-7">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-xl font-semibold text-gray-900">AI-inferred profile</h2>
-                <p className="text-sm text-gray-500">Food, drink, hotel, coffee, and brand defaults</p>
+                <h2 className="text-xl font-semibold text-gray-900">AI preview</h2>
+                <p className="text-sm text-gray-500">Quick peek before redirecting to the full view</p>
               </div>
               {preferences?.lastEnrichedAt && (
                 <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
@@ -280,141 +284,23 @@ const HushhUserProfilePage: React.FC = () => {
             )}
 
             {preferences && (
-              <div className="space-y-4">
-                <PreferenceCard
-                  title="Food"
-                  items={[
-                    { label: "Diet", value: preferences.food.dietType },
-                    { label: "Spice", value: preferences.food.spiceLevel },
-                    { label: "Budget", value: preferences.food.budgetLevel },
-                    { label: "Eats out", value: preferences.food.eatingOutFrequency },
-                    { label: "Cuisines", value: formatList(preferences.food.favoriteCuisines) },
-                  ]}
-                />
-                <PreferenceCard
-                  title="Drink"
-                  items={[
-                    { label: "Alcohol", value: preferences.drink.alcoholPreference },
-                    { label: "Alcohol types", value: formatList(preferences.drink.favoriteAlcoholTypes) },
-                    { label: "Non-alcoholic", value: formatList(preferences.drink.favoriteNonAlcoholicTypes) },
-                    { label: "Sugar", value: preferences.drink.sugarLevel },
-                    { label: "Caffeine tolerance", value: preferences.drink.caffeineTolerance },
-                  ]}
-                />
-                <PreferenceCard
-                  title="Hotel"
-                  items={[
-                    { label: "Budget/night", value: formatBudget(preferences.hotel.budgetPerNight) },
-                    { label: "Class", value: preferences.hotel.hotelClass },
-                    { label: "Location", value: preferences.hotel.locationPreference },
-                    { label: "Room", value: preferences.hotel.roomType },
-                    { label: "Amenities", value: formatList(preferences.hotel.amenitiesPriority) },
-                  ]}
-                />
-                <PreferenceCard
-                  title="Coffee"
-                  items={[
-                    { label: "Consumer type", value: preferences.coffee.coffeeConsumerType },
-                    { label: "Styles", value: formatList(preferences.coffee.coffeeStyle) },
-                    { label: "Milk", value: preferences.coffee.milkPreference },
-                    { label: "Sweetness", value: preferences.coffee.sweetnessLevel },
-                    { label: "Ambience", value: preferences.coffee.cafeAmbiencePreference },
-                  ]}
-                />
-                <PreferenceCard
-                  title="Brands & shopping"
-                  items={[
-                    { label: "Style", value: preferences.brand.fashionStyle },
-                    { label: "Tech ecosystem", value: preferences.brand.techEcosystem },
-                    { label: "Shopping channels", value: formatList(preferences.brand.shoppingChannels) },
-                    { label: "Price point", value: preferences.brand.priceSensitivity },
-                    { label: "Values", value: formatList(preferences.brand.brandValues) },
-                  ]}
-                />
+              <div className="space-y-3 text-sm text-gray-800">
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-3 py-1 rounded-full bg-cyan-50 text-cyan-700">{form.name}</span>
+                  <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-700">{form.email}</span>
+                  <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-700">
+                    Age {form.age || "NA"}
+                  </span>
+                </div>
+                <p className="text-gray-600">
+                  We’ll redirect you to the full experience after enrichment. You can also edit anytime.
+                </p>
               </div>
             )}
           </div>
         </div>
 
-        {/* Results page style block */}
-        {preferences && showResults && (
-          <div ref={resultRef} className="mt-10">
-            <div className="bg-gradient-to-r from-cyan-600 to-sky-500 text-white rounded-2xl p-6 shadow-lg">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-                <div>
-                  <p className="text-sm uppercase tracking-wide font-semibold opacity-90">Your AI profile</p>
-                  <h3 className="text-2xl md:text-3xl font-bold mt-1">{form.name || "Hushh User"}</h3>
-                  <p className="text-sm mt-1 opacity-90">{form.email}</p>
-                </div>
-                <div className="flex flex-wrap gap-2 text-sm">
-                  <span className="bg-white/15 px-3 py-1 rounded-full">Age {form.age || "NA"}</span>
-                  <span className="bg-white/15 px-3 py-1 rounded-full">
-                    {form.phoneCountryCode} {form.phoneNumber}
-                  </span>
-                  {form.organisation && (
-                    <span className="bg-white/15 px-3 py-1 rounded-full">Org: {form.organisation}</span>
-                  )}
-                  <span className="bg-white/15 px-3 py-1 rounded-full">
-                    Updated {new Date(preferences.lastEnrichedAt).toLocaleString()}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              <PreferenceCard
-                title="Food"
-                items={[
-                  { label: "Diet", value: preferences.food.dietType },
-                  { label: "Spice", value: preferences.food.spiceLevel },
-                  { label: "Budget", value: preferences.food.budgetLevel },
-                  { label: "Eats out", value: preferences.food.eatingOutFrequency },
-                  { label: "Cuisines", value: formatList(preferences.food.favoriteCuisines) },
-                ]}
-              />
-              <PreferenceCard
-                title="Drink"
-                items={[
-                  { label: "Alcohol", value: preferences.drink.alcoholPreference },
-                  { label: "Alcohol types", value: formatList(preferences.drink.favoriteAlcoholTypes) },
-                  { label: "Non-alcoholic", value: formatList(preferences.drink.favoriteNonAlcoholicTypes) },
-                  { label: "Sugar", value: preferences.drink.sugarLevel },
-                  { label: "Caffeine tolerance", value: preferences.drink.caffeineTolerance },
-                ]}
-              />
-              <PreferenceCard
-                title="Hotel"
-                items={[
-                  { label: "Budget/night", value: formatBudget(preferences.hotel.budgetPerNight) },
-                  { label: "Class", value: preferences.hotel.hotelClass },
-                  { label: "Location", value: preferences.hotel.locationPreference },
-                  { label: "Room", value: preferences.hotel.roomType },
-                  { label: "Amenities", value: formatList(preferences.hotel.amenitiesPriority) },
-                ]}
-              />
-              <PreferenceCard
-                title="Coffee"
-                items={[
-                  { label: "Consumer type", value: preferences.coffee.coffeeConsumerType },
-                  { label: "Styles", value: formatList(preferences.coffee.coffeeStyle) },
-                  { label: "Milk", value: preferences.coffee.milkPreference },
-                  { label: "Sweetness", value: preferences.coffee.sweetnessLevel },
-                  { label: "Ambience", value: preferences.coffee.cafeAmbiencePreference },
-                ]}
-              />
-              <PreferenceCard
-                title="Brands & shopping"
-                items={[
-                  { label: "Style", value: preferences.brand.fashionStyle },
-                  { label: "Tech ecosystem", value: preferences.brand.techEcosystem },
-                  { label: "Shopping channels", value: formatList(preferences.brand.shoppingChannels) },
-                  { label: "Price point", value: preferences.brand.priceSensitivity },
-                  { label: "Values", value: formatList(preferences.brand.brandValues) },
-                ]}
-              />
-            </div>
-          </div>
-        )}
+        {/* Inline preview only; full view is a dedicated page */}
       </div>
     </div>
   );

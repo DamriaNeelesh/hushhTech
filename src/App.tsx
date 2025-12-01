@@ -37,6 +37,7 @@ import UserRegistration from './pages/UserRegistration';
 import ProtectedRoute from './components/ProtectedRoute';
 import YourProfilePage from './pages/your-profile';
 import HushhUserProfilePage from './pages/hushh-user-profile';
+import ViewPreferencesPage from './pages/hushh-user-profile/view';
 
 // Google Analytics configuration
 const GA_TRACKING_ID = 'G-R58S9WWPM0';
@@ -148,6 +149,11 @@ function App() {
               <Route path="/hushh-user-profile" element={
                 <ProtectedRoute>
                   <HushhUserProfilePage />
+                </ProtectedRoute>
+              } />
+              <Route path="/hushh-user-profile/view" element={
+                <ProtectedRoute>
+                  <ViewPreferencesPage />
                 </ProtectedRoute>
               } />
               {/* <Route path="/solutions" element={<SolutionsPage />} /> */}
