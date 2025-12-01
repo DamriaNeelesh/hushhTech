@@ -55,6 +55,7 @@ const HushhUserProfilePage: React.FC = () => {
             .join(" ") ||
           "";
 
+        // Start with basic auth metadata
         setForm((prev) => ({
           ...prev,
           name: fullName || prev.name,
@@ -62,7 +63,29 @@ const HushhUserProfilePage: React.FC = () => {
           organisation: (user.user_metadata?.company as string) || prev.organisation,
         }));
 
-        // If we already stored preferences locally, show them
+        // If a full Hushh ID already exists in Supabase, hydrate from there
+        const existingRecord = await services.preferences.fetchPreferencesWithSeed(user.id);
+        if (existingRecord) {
+          const { preferences: existingPreferences, user_seed: existingSeed } = existingRecord;
+          setPreferences(existingPreferences);
+
+          if (existingSeed) {
+            setForm((prev) => ({
+              ...prev,
+              name: existingSeed.name || prev.name,
+              email: existingSeed.email || prev.email,
+              age: existingSeed.age || prev.age,
+              phoneCountryCode: existingSeed.phone_country_code || prev.phoneCountryCode,
+              phoneNumber: existingSeed.phone_number || prev.phoneNumber,
+              organisation: existingSeed.organisation || prev.organisation,
+            }));
+          }
+
+          setStatus("Your Hushh ID is ready. You can review or update below.");
+          return;
+        }
+
+        // Fallback: If we already stored preferences locally, show them
         const stored = localStorage.getItem("hushhUserPreferences");
         if (stored) {
           try {
@@ -108,9 +131,9 @@ const HushhUserProfilePage: React.FC = () => {
         }
       }
 
-       if (!ensuredUserId) {
-         throw new Error("Missing authenticated user id; please re-login with Google.");
-       }
+      if (!ensuredUserId) {
+        throw new Error("Missing authenticated user id; please re-login with Google.");
+      }
 
       const seed = {
         name: form.name,
@@ -135,14 +158,21 @@ const HushhUserProfilePage: React.FC = () => {
       };
       localStorage.setItem("hushhUserDetails", JSON.stringify(userDetails));
       setStatus("Preferences enriched successfully.");
+
       if (ensuredUserId) {
-        try {
-          await services.preferences.savePreferencesToSupabase(ensuredUserId, result, seed);
-        } catch (supabaseError) {
-          console.error("Failed to save preferences to Supabase:", supabaseError);
-          setStatus("Saved locally, but Supabase insert failed");
-        }
+        // Save to Supabase in the background so the user is not blocked
+        services.preferences
+          .savePreferencesToSupabase(ensuredUserId, result, seed)
+          .then((saveResult) => {
+            if (!saveResult?.success) {
+              console.error("Failed to save preferences to Supabase:", saveResult?.error);
+            }
+          })
+          .catch((supabaseError) => {
+            console.error("Failed to save preferences to Supabase:", supabaseError);
+          });
       }
+
       navigate(`/profile/${ensuredUserId}`, { state: { preferences: result, user: userDetails } });
     } catch (prefError) {
       console.error("Enrichment failed:", prefError);
@@ -160,6 +190,58 @@ const HushhUserProfilePage: React.FC = () => {
     return `${budget.currency} ${min} - ${max}`;
   };
 
+  const hasPreferences = Boolean(preferences);
+
+  const foodItems: PreferenceItem[] = preferences
+    ? [
+        { label: "Diet type", value: preferences.food.dietType },
+        { label: "Spice level", value: preferences.food.spiceLevel },
+        { label: "Favorite cuisines", value: formatList(preferences.food.favoriteCuisines) },
+        { label: "Budget level", value: preferences.food.budgetLevel },
+        { label: "Eating out", value: preferences.food.eatingOutFrequency },
+      ]
+    : [];
+
+  const drinkItems: PreferenceItem[] = preferences
+    ? [
+        { label: "Alcohol preference", value: preferences.drink.alcoholPreference },
+        { label: "Alcohol types", value: formatList(preferences.drink.favoriteAlcoholTypes) },
+        { label: "Non‑alcoholic", value: formatList(preferences.drink.favoriteNonAlcoholicTypes) },
+        { label: "Sugar level", value: preferences.drink.sugarLevel },
+        { label: "Caffeine tolerance", value: preferences.drink.caffeineTolerance },
+      ]
+    : [];
+
+  const hotelItems: PreferenceItem[] = preferences
+    ? [
+        { label: "Hotel class", value: preferences.hotel.hotelClass },
+        { label: "Room type", value: preferences.hotel.roomType },
+        { label: "Location", value: preferences.hotel.locationPreference },
+        { label: "Budget / night", value: formatBudget(preferences.hotel.budgetPerNight) },
+        { label: "Amenities", value: formatList(preferences.hotel.amenitiesPriority) },
+      ]
+    : [];
+
+  const coffeeItems: PreferenceItem[] = preferences
+    ? [
+        { label: "Consumer type", value: preferences.coffee.coffeeConsumerType },
+        { label: "Coffee styles", value: formatList(preferences.coffee.coffeeStyle) },
+        { label: "Milk preference", value: preferences.coffee.milkPreference },
+        { label: "Sweetness", value: preferences.coffee.sweetnessLevel },
+        { label: "Cafe ambience", value: preferences.coffee.cafeAmbiencePreference },
+      ]
+    : [];
+
+  const brandItems: PreferenceItem[] = preferences
+    ? [
+        { label: "Fashion style", value: preferences.brand.fashionStyle },
+        { label: "Tech ecosystem", value: preferences.brand.techEcosystem },
+        { label: "Shopping channels", value: formatList(preferences.brand.shoppingChannels) },
+        { label: "Price sensitivity", value: preferences.brand.priceSensitivity },
+        { label: "Brand values", value: formatList(preferences.brand.brandValues) },
+      ]
+    : [];
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-[#f3fbff] py-10">
       <div className="max-w-6xl mx-auto px-4">
@@ -168,10 +250,10 @@ const HushhUserProfilePage: React.FC = () => {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <p className="text-sm uppercase tracking-wide text-cyan-600 font-semibold">Hushh Profile</p>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">Personalize with AI</h1>
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">Set up your Hushh ID with Kai & Nav</h1>
               <p className="text-gray-600 mt-2 max-w-2xl">
-                Provide your basic details and we’ll generate lifestyle defaults across food, drink, hotel, coffee, and brands.
-                Edit anytime—this is just a smart starting point.
+                Share a few details once. Kai, your explainable investing copilot, and Nav, your lifestyle agent, use this profile to keep your money decisions and everyday life in sync.
+                You stay in controledit or update it whenever you like.
               </p>
             </div>
             <div className="flex items-center gap-3 bg-gradient-to-r from-cyan-500 to-sky-500 text-white px-4 py-3 rounded-xl shadow-lg">
@@ -280,7 +362,13 @@ const HushhUserProfilePage: React.FC = () => {
                 disabled={loading}
                 className="w-full bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-600 hover:to-sky-600 text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-70 shadow-md"
               >
-                {loading ? "Generating preferences..." : "Generate preferences"}
+                {loading
+                  ? hasPreferences
+                    ? "Updating preferences..."
+                    : "Generating preferences..."
+                  : hasPreferences
+                    ? "Update preferences"
+                    : "Generate preferences"}
               </button>
             </form>
           </div>
@@ -311,7 +399,7 @@ const HushhUserProfilePage: React.FC = () => {
             )}
 
             {preferences && (
-              <div className="space-y-3 text-sm text-gray-800">
+              <div className="space-y-4 text-sm text-gray-800">
                 <div className="flex flex-wrap gap-2">
                   <span className="px-3 py-1 rounded-full bg-cyan-50 text-cyan-700">{form.name}</span>
                   <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-700">{form.email}</span>
@@ -320,8 +408,16 @@ const HushhUserProfilePage: React.FC = () => {
                   </span>
                 </div>
                 <p className="text-gray-600">
-                  We’ll redirect you to the full experience after enrichment. You can also edit anytime.
+                  This is your current Hushh profile snapshot. Update your details above and click "Update preferences" to refresh it.
                 </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                  <PreferenceCard title="Food" items={foodItems} />
+                  <PreferenceCard title="Drink" items={drinkItems} />
+                  <PreferenceCard title="Hotel" items={hotelItems} />
+                  <PreferenceCard title="Coffee" items={coffeeItems} />
+                  <PreferenceCard title="Brands" items={brandItems} />
+                </div>
               </div>
             )}
           </div>

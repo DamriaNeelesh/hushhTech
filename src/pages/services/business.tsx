@@ -12,11 +12,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
-import TypingGif from "../../../public/gif/typing.gif";
-import CardImage from "../../../public/images/fendiCards.png";
-import DressImage from "../../../public/images/dressImage.png";
-import Mobile from "../../../public/images/mobile.png";
-import QRImage from "../../../public/images/QRWallet.png";
 import Companion from "../../svg/companion.svg";
 import MultiUserIcon from "../../svg/multiUser.svg";
 import LockIcon from "../../svg/lockIcon.svg";
@@ -28,9 +23,6 @@ import {
   AccordionPanel,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "lucide-react";
-import BroswerCompanionImg from "../../../public/images/browserCompanion.png";
-import EcoImg from "../../../public/images/media.png";
-import MultiUser from "../../../public/images/multiUser.svg";
 
 const Business = () => {
   return (
@@ -99,7 +91,7 @@ const Business = () => {
         <Image
           width={"474"}
           height={"440"}
-          src={EcoImg}
+          src="/images/media.png"
           alt="Hushh Eco System"
         />
         <VStack
