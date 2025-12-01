@@ -9,10 +9,13 @@ export default async function googleSignIn() {
       return;
     }
 
+    const redirectTo =
+      resources.config.redirect_url || `${window.location.origin}/auth/callback`;
+
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo,
         queryParams: { access_type: "offline", prompt: "consent" },
       },
     });

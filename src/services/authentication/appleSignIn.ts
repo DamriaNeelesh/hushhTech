@@ -9,10 +9,13 @@ export default async function appleSignIn() {
       return;
     }
 
+    const redirectTo =
+      resources.config.redirect_url || `${window.location.origin}/auth/callback`;
+
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "apple",
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo,
       },
     });
 

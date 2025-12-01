@@ -112,7 +112,7 @@ const ViewPreferencesPage: React.FC = () => {
           { key: "drink", label: "Drink", value: preferences.drink.alcoholPreference },
         ],
         barcode: {
-          message: `https://www.hushh.ai/user/${encodeURIComponent(user.email || "profile")}`,
+          message: `https://www.hushh.ai/user/${(user.email || "profile")}`,
           format: "PKBarcodeFormatQR",
         },
       };

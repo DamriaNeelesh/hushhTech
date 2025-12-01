@@ -13,7 +13,9 @@ const config: Config = {
   SUPABASE_ANON_KEY:
     import.meta.env.VITE_SUPABASE_ANON_KEY ||
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlic2lzZm5qeGVvd3ZkdHZnemZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ1NTk1NzgsImV4cCI6MjA4MDEzNTU3OH0.K16sO1R9L2WZGPueDP0mArs2eDYZc-TnIk2LApDw_fs",
-  redirect_url: import.meta.env.VITE_SUPABASE_REDIRECT_URL || "https://www.hushhtech.com/",
+  redirect_url:
+    import.meta.env.VITE_SUPABASE_REDIRECT_URL ||
+    (typeof window !== "undefined" ? `${window.location.origin}/auth/callback` : "https://www.hushhtech.com/auth/callback"),
 };
 
 function createSupabaseClient() {
