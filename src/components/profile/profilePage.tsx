@@ -338,174 +338,16 @@ const ProfilePage: React.FC = () => {
             </Text>
           </VStack>
 
-          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} w="full">
-            <Box className="bg-white p-10 rounded-2xl">
-              <Text className="text-2xl font-medium text-[#1D1D1F] mb-6">
-                Documents
-              </Text>
-              <Text className="text-[#6E6E73] mb-8 font-light leading-relaxed">
-                Access private investment documents and reports
-              </Text>
-              
-              <Button 
-                w="full" 
-                background={'linear-gradient(to right, #00A9E0, #6DD3EF)'}
-                mb={4} 
-                _hover={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)" }}
-                color={'white'}
-                onClick={handleViewPublicDocs}
-                className="mb-4"
-              >
-                View Public Documents
-              </Button>
-              
-              <Button 
-                w="full" 
-                color={ndaStatus === "Approved" ? "white" : "gray.400"}
-                background={ndaStatus === "Approved" ? "linear-gradient(to right, #00A9E0, #6DD3EF)" : "gray"}
-                isDisabled={ndaStatus !== "Approved"}
-                _hover={{ background: ndaStatus === "Approved" ? "linear-gradient(to right, #00A9E0, #6DD3EF)" : "gray" }}
-                onClick={handleViewPrivateDocs}
-                mb={4}
-              >
-                View Private Documents
-              </Button>
-              
-              <Box className="w-full p-4 bg-gray-100 rounded-xl text-center text-[#6E6E73] font-light">
-                {ndaStatus === "Approved" ? "NDA approved" : "NDA and KYC approval required for access"}
-              </Box>
-            </Box>
-
-            <Box className="bg-white p-10 rounded-2xl">
-              <Text className="text-2xl font-medium text-[#1D1D1F] mb-6 ">
-                NDA Process
-                <Box as="span" ml={2} mb={2} display="inline-block" verticalAlign="middle">
-                  {ndaStatus === "Approved" && (
-                    <Image src={ApprovedGif} alt="Approved" boxSize="14px" display="inline" />
-                  )}
-                  {(ndaStatus === "Pending: Waiting for NDA Process" ||
-                    ndaStatus === "Pending" ||
-                    ndaStatus === "Requested permission for the sensitive file.") && (
-                    <Image src={PendingGif} alt="Pending" boxSize="14px" display="inline" />
-                  )}
-                  {ndaStatus === "Rejected" && (
-                    <Image src={RejectedGif} alt="Rejected" boxSize="14px" display="inline" />
-                  )}
-                  {ndaStatus === "Not Applied" && (
-                    <Image src={NotappliedGif} alt="Not Applied" boxSize="14px" display="inline" />
-                  )}
-                </Box>
-                </Text>
-              
-              <Box mb={3}>
-                <Badge 
-                  colorScheme={ndaStatus === "Approved" ? "green" : "orange"}
-                  px={2}
-                  py={0.5}
-                  borderRadius="full"
-                  fontSize="xs"
-                >
-                  {ndaStatus}
-                </Badge>
-              </Box>
-              
-              <Text className="text-[#6E6E73] mb-8 font-light leading-relaxed">
-                {ndaStatus === "Pending: Waiting for NDA Process" 
-                  ? "Please sign the NDA document to complete the process."
-                  : "Complete NDA to access sensitive documents"
-                }
-              </Text>
-              
-              <Button
-                w="full"
-                background={ndaButtonDisabled ? "" : "linear-gradient(to right, #00A9E0, #6DD3EF)"}
-                onClick={handleStartNdaProcess}
-                color={ndaButtonDisabled ? "gray.400" : "white"}
-                isDisabled={ndaButtonDisabled}
-                _hover={{ background: "linear-gradient(to right, #0AADBC, #1CADBC)" }}
-                mb={4}
-              >
-                {ndaButtonText}
-              </Button>
-              
-              <Box className="w-full p-4 bg-gray-100 rounded-xl text-center text-[#6E6E73] font-light">
-                {ndaStatus === "Approved" 
-                  ? "Your NDA has been approved" 
-                  : ndaStatus === "Pending: Waiting for NDA Process"
-                    ? "NDA signing in progress"
-                    : "NDA process required for document access"
-                }
-              </Box>
-            </Box>
-
-            <Box className="bg-white p-10 rounded-2xl">
-              <Text className="text-2xl font-medium text-[#1D1D1F] mb-6">
-                KYC Verification
-                <Box as="span" ml={2} mb={2} display="inline-block" verticalAlign="middle">
-                  {kycStatus === "Approved" && (
-                    <Image src={ApprovedGif} alt="Approved" boxSize="14px" display="inline" />
-                  )}
-                  {(kycStatus === "Pending" || kycStatus === "In Review") && (
-                    <Image src={PendingGif} alt="Pending" boxSize="14px" display="inline" />
-                  )}
-                  {kycStatus === "Rejected" && (
-                    <Image src={RejectedGif} alt="Rejected" boxSize="14px" display="inline" />
-                  )}
-                  {kycStatus === "Not Applied" && (
-                    <Image src={NotappliedGif} alt="Not Applied" boxSize="14px" display="inline" />
-                  )}
-                </Box>
-              </Text>
-              <Box mb={3}>
-                <Badge 
-                  colorScheme={kycStatus === "Approved" ? "green" : "orange"}
-                  px={2}
-                  py={0.5}
-                  borderRadius="full"
-                  fontSize="xs"
-                >
-                  {kycStatus}
-                </Badge>
-              </Box>
-              <Text className="text-[#6E6E73] mb-8 font-light leading-relaxed">
-                {kycStatus === "Pending" || kycStatus === "In Review"
-                  ? "Your KYC is under review. Please wait for approval."
-                  : kycStatus === "Approved"
-                    ? "Your KYC has been approved."
-                    : kycStatus === "Rejected"
-                      ? "Your KYC was rejected. Please re-apply."
-                      : "Complete KYC to access investment opportunities."
-                }
-              </Text>
-              <Button
-                w="full"
-                bg="linear-gradient(to right, #00A9E0, #6DD3EF)"
-                color="white"
-                onClick={() => navigate("/kyc-verification")}
-                _hover={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)" }}
-                mb={4}
-              >
-                KYC Verification Requirements
-              </Button>
-              <Button
-                w="full"
-                bg="linear-gradient(to right, #00A9E0, #6DD3EF)"
-                color="white"
-                onClick={() => navigate("/kyc-form")}
-                _hover={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)" }}
-              >
-                Start KYC Verification
-              </Button>
-
-              <Box className="w-full p-4 bg-gray-100 mt-2 rounded-xl text-center text-[#6E6E73] font-light">
-                {kycStatusMessage || "Complete KYC to access investment opportunities."}
-              </Box>
-            </Box>
-          </SimpleGrid>
+          {/* Legacy NDA/KYC cards hidden in new flow */}
+          {false && (
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} w="full">
+              {/* content removed */}
+            </SimpleGrid>
+          )}
         </VStack>
       </Center>
 
-      {showNdaModal && session && (
+      {false && showNdaModal && session && (
         <NDARequestModal
           isOpen={showNdaModal}
           onClose={() => setShowNdaModal(false)}
@@ -521,7 +363,7 @@ const ProfilePage: React.FC = () => {
         />
       )}
       
-      {showNdaDocModal && ndaMetadata && session && (
+      {false && showNdaDocModal && ndaMetadata && session && (
         <NDADocumentModal
           isOpen={showNdaDocModal}
           onClose={() => {
