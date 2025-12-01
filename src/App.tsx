@@ -38,6 +38,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import YourProfilePage from './pages/your-profile';
 import HushhUserProfilePage from './pages/hushh-user-profile';
 import ViewPreferencesPage from './pages/hushh-user-profile/view';
+import PublicHushhProfilePage from './pages/hushhid';
 
 // Google Analytics configuration
 const GA_TRACKING_ID = 'G-R58S9WWPM0';
@@ -157,6 +158,7 @@ function App() {
                 </ProtectedRoute>
               } />
               <Route path="/profile/:id" element={<ViewPreferencesPage />} />
+              <Route path="/hushhid/:id" element={<PublicHushhProfilePage />} />
               {/* <Route path="/solutions" element={<SolutionsPage />} /> */}
               <Route path='/kyc-verification' element={
                 
