@@ -4,12 +4,9 @@ import { FiMenu, FiX, FiChevronDown, FiUser } from "react-icons/fi";
 import config from "../resources/config/config";
 import { Image, useToast, Avatar, useBreakpointValue } from "@chakra-ui/react";
 import hushhLogo from "../components/images/Hushhogo.png";
-import { firebaseAuth } from "../resources/config/firebaseConfig";
-import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [session, setSession] = useState<any>(null);
-  const [firebaseUser, setFirebaseUser] = useState<FirebaseUser | null>(null);
   const [toastShown, setToastShown] = useState(false);
   const [careerDropdownOpen, setCareerDropdownOpen] = useState(false);
   const [mobileCareerDropdownOpen, setMobileCareerDropdownOpen] = useState(false);
@@ -38,14 +35,6 @@ export default function Navbar() {
     return cleanup;
   }, []);
 
-  useEffect(() => {
-    if (!firebaseAuth) return;
-    const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
-      setFirebaseUser(user);
-    });
-    return () => unsubscribe();
-  }, []);
-
 
   const handleLogout = async () => {
     try {
@@ -53,15 +42,6 @@ export default function Navbar() {
       setSession(null); // Ensure session is set to null after logout
     } catch (error) {
       console.error("Error logging out of Supabase:", error);
-    }
-
-    if (firebaseAuth) {
-      try {
-        await firebaseAuth.signOut();
-        setFirebaseUser(null);
-      } catch (error) {
-        console.error("Error logging out of Firebase:", error);
-      }
     }
 
     localStorage.removeItem("isLoggedIn");
@@ -80,7 +60,7 @@ export default function Navbar() {
     }
   }, [session, toastShown, toast]);
 
-  const isAuthenticated = !!session || !!firebaseUser;
+  const isAuthenticated = !!session;
 
   const toggleDrawer = () => setIsOpen((prev) => !prev);
   const handleLinkClick = (path) => {
