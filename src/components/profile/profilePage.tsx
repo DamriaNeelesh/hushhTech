@@ -329,8 +329,8 @@ const ProfilePage: React.FC = () => {
             <Text fontSize={{ base: "3xl", md: "4xl" }} className="text-5xl font-[300] text-[#1D1D1F] tracking-tight" mt={{ base: 2, md: 4 }}>
               Hello {session?.user?.user_metadata?.full_name || "User"},
             </Text>
-            <Text className="text-xl text-[#6E6E73] font-light">
-              Please complete the required processes below to access investment information.
+            <Text className="text-xl text-[#6E6E73] font-light" maxW="800px" textAlign="center">
+              Create your personalized Hushh ID to unlock exclusive investment insights, portfolio recommendations, and AI-powered financial guidance tailored just for you.
             </Text>
             <Button
               mt={{ base: 3, md: 4 }}
@@ -338,14 +338,17 @@ const ProfilePage: React.FC = () => {
               background="linear-gradient(to right, #00A9E0, #6DD3EF)"
               color="white"
               borderRadius="full"
-              _hover={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)" }}
+              _hover={{ background: "linear-gradient(to right, #0095C8, #5BC3E0)", transform: "translateY(-2px)", boxShadow: "lg" }}
+              _active={{ transform: "translateY(0px)" }}
+              transition="all 0.2s"
               px={8}
               py={6}
               fontSize="md"
               fontWeight="semibold"
               minW="250px"
+              boxShadow="md"
             >
-              Get your Hushh ID
+              Create Your Hushh ID →
             </Button>
           </VStack>
 
