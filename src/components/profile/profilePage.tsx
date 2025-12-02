@@ -330,7 +330,7 @@ const ProfilePage: React.FC = () => {
               Hello {session?.user?.user_metadata?.full_name || "User"},
             </Text>
             <Text className="text-xl text-[#6E6E73] font-light" maxW="800px" textAlign="center">
-              Create your personalized Hushh ID to unlock exclusive investment insights, portfolio recommendations, and AI-powered financial guidance tailored just for you.
+              Complete the process below to create your investor Hushh ID and access exclusive content.
             </Text>
             <Button
               mt={{ base: 3, md: 4 }}
