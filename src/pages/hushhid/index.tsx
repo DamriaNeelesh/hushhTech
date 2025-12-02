@@ -16,23 +16,33 @@ interface LocationPreferencesProps {
 const PreferenceCard = ({
   title,
   items,
+  icon,
 }: {
   title: string;
   items: LocationPreferencesProps[];
+  icon?: string;
 }) => {
   return (
-    <div className="border border-gray-200 rounded-2xl p-4 bg-white shadow-sm">
-      <div className="flex items-center justify-between mb-3">
-        <h3 className="font-semibold text-gray-900">{title}</h3>
-        <span className="h-2 w-2 rounded-full bg-cyan-500 inline-block"></span>
-      </div>
-      <div className="space-y-2 text-sm text-gray-800">
-        {items.map((item) => (
-          <div key={item.label} className="flex items-baseline justify-between gap-4">
-            <span className="text-gray-500 whitespace-nowrap">{item.label}</span>
-            <span className="font-semibold text-gray-900 text-right flex-1 truncate">{item.value}</span>
-          </div>
-        ))}
+    <div className="relative overflow-hidden border border-gray-200 rounded-2xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-cyan-50 to-transparent rounded-full -mr-16 -mt-16 opacity-50"></div>
+      <div className="relative">
+        <div className="flex items-center gap-3 mb-4">
+          {icon && <span className="text-2xl">{icon}</span>}
+          <h3 className="font-bold text-lg text-gray-900">{title}</h3>
+          <span className="ml-auto h-2 w-2 rounded-full bg-gradient-to-r from-cyan-500 to-sky-500 inline-block"></span>
+        </div>
+        <div className="space-y-3">
+          {items.map((item, index) => (
+            <div key={item.label} className="group">
+              <div className="flex items-baseline justify-between gap-4 py-2 border-b border-gray-100 last:border-0">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">{item.label}</span>
+                <span className="font-semibold text-sm text-gray-900 text-right flex-1 truncate group-hover:text-cyan-600 transition-colors">
+                  {item.value}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -124,117 +134,183 @@ function PublicHushhProfilePage() {
     : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-[#f8fcff] py-12">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 py-10 md:py-16">
       <div className="max-w-7xl mx-auto px-4 lg:px-6 space-y-8">
-        {/* Hero */}
-        <div className="bg-white rounded-3xl border border-gray-200 p-6 md:p-8 shadow-sm">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            <div className="space-y-2">
-              <p className="text-xs uppercase tracking-[0.2em] font-semibold text-cyan-600">Hushh ID</p>
-              <h1 className="text-2xl md:text-3xl font-semibold text-gray-900">
-                Hushh profile for {user?.name || "Hushh User"}
-              </h1>
-              {user?.organisation && (
-                <p className="text-sm text-gray-600">Organisation: {user.organisation}</p>
-              )}
-              <p className="text-sm text-gray-600 max-w-xl">
-                This is a shared snapshot of how Kai, the explainable investing copilot, and Nav, the lifestyle agent,
-                understand this profile today.
+        {/* Hero Section - Professional Dashboard Style */}
+        <div className="relative overflow-hidden bg-gradient-to-br from-white to-gray-50 rounded-3xl border border-gray-200 p-8 md:p-10 shadow-xl">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-cyan-100/40 to-transparent rounded-full -mr-32 -mt-32"></div>
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-sky-100/40 to-transparent rounded-full -ml-24 -mb-24"></div>
+          
+          <div className="relative flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+            <div className="space-y-4 flex-1">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-cyan-500 to-sky-500 text-white text-xs font-bold uppercase tracking-wider shadow-md">
+                <span>🔐</span>
+                <span>Verified Hushh ID</span>
+              </div>
+              
+              <div>
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                  {user?.name || "Hushh User"}
+                </h1>
+                {user?.organisation && (
+                  <div className="flex items-center gap-2 text-gray-600 mb-3">
+                    <span className="text-lg">🏢</span>
+                    <p className="text-base font-medium">{user.organisation}</p>
+                  </div>
+                )}
+              </div>
+              
+              <p className="text-sm md:text-base text-gray-600 max-w-2xl leading-relaxed">
+                This is a comprehensive preference profile powered by <span className="font-semibold text-cyan-600">Kai</span> (investing copilot) and <span className="font-semibold text-sky-600">Nav</span> (lifestyle agent). All preferences are AI-generated based on user data and updated in real-time.
               </p>
             </div>
-            <div className="flex flex-wrap gap-2 text-xs md:text-sm text-gray-600">
+            
+            <div className="flex flex-col gap-3 items-start lg:items-end">
               {lastUpdated && (
-                <span className="px-3 py-1 rounded-full bg-cyan-50 text-cyan-700 border border-cyan-100">
-                  Last updated {lastUpdated}
-                </span>
+                <div className="flex flex-col gap-1 bg-white/80 backdrop-blur-sm px-4 py-3 rounded-xl border border-gray-200 shadow-sm">
+                  <span className="text-xs text-gray-500 font-medium uppercase tracking-wide">Last Synced</span>
+                  <span className="text-sm font-semibold text-gray-900">{lastUpdated}</span>
+                </div>
               )}
+              <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full border border-green-200">
+                <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
+                <span className="text-xs font-semibold text-green-700">Profile Active</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Overview cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
-            <p className="text-xs uppercase tracking-wide text-gray-500">Food</p>
-            <p className="text-lg font-semibold text-gray-900 mt-1 truncate">
-              {formatList(preferences.food.favoriteCuisines)}
-            </p>
-            <p className="text-sm text-gray-500">
-              Diet: {preferences.food.dietType} • Spice: {preferences.food.spiceLevel}
-            </p>
+        {/* Quick Stats - Overview cards with icons and gradients */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="relative overflow-hidden bg-gradient-to-br from-orange-50 to-white rounded-2xl border border-orange-100 p-5 shadow-md hover:shadow-lg transition-all duration-200 group">
+            <div className="absolute top-0 right-0 text-6xl opacity-10 group-hover:opacity-20 transition-opacity">🍽️</div>
+            <div className="relative">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-2xl">🍽️</span>
+                <p className="text-xs uppercase tracking-wide text-orange-600 font-bold">Food Preferences</p>
+              </div>
+              <p className="text-xl font-bold text-gray-900 mt-2 mb-1 truncate">
+                {formatList(preferences.food.favoriteCuisines)}
+              </p>
+              <p className="text-xs text-gray-600 flex items-center gap-2">
+                <span className="px-2 py-0.5 bg-orange-100 rounded text-orange-700 font-medium">{preferences.food.dietType}</span>
+                <span className="px-2 py-0.5 bg-orange-100 rounded text-orange-700 font-medium">Spice: {preferences.food.spiceLevel}</span>
+              </p>
+            </div>
           </div>
-          <div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
-            <p className="text-xs uppercase tracking-wide text-gray-500">Hotel</p>
-            <p className="text-lg font-semibold text-gray-900 mt-1 truncate">
-              {formatBudget(preferences.hotel.budgetPerNight)}
-            </p>
-            <p className="text-sm text-gray-500">
-              Class: {preferences.hotel.hotelClass} • Location: {preferences.hotel.locationPreference}
-            </p>
+
+          <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-white rounded-2xl border border-blue-100 p-5 shadow-md hover:shadow-lg transition-all duration-200 group">
+            <div className="absolute top-0 right-0 text-6xl opacity-10 group-hover:opacity-20 transition-opacity">🏨</div>
+            <div className="relative">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-2xl">🏨</span>
+                <p className="text-xs uppercase tracking-wide text-blue-600 font-bold">Hotel Preferences</p>
+              </div>
+              <p className="text-xl font-bold text-gray-900 mt-2 mb-1 truncate">
+                {formatBudget(preferences.hotel.budgetPerNight)}
+              </p>
+              <p className="text-xs text-gray-600 flex items-center gap-2">
+                <span className="px-2 py-0.5 bg-blue-100 rounded text-blue-700 font-medium">{preferences.hotel.hotelClass}</span>
+                <span className="px-2 py-0.5 bg-blue-100 rounded text-blue-700 font-medium">{preferences.hotel.locationPreference}</span>
+              </p>
+            </div>
           </div>
-          <div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
-            <p className="text-xs uppercase tracking-wide text-gray-500">Brands</p>
-            <p className="text-lg font-semibold text-gray-900 mt-1 truncate">
-              {preferences.brand.fashionStyle}
-            </p>
-            <p className="text-sm text-gray-500">
-              Tech: {preferences.brand.techEcosystem} • Price: {preferences.brand.priceSensitivity}
-            </p>
+
+          <div className="relative overflow-hidden bg-gradient-to-br from-purple-50 to-white rounded-2xl border border-purple-100 p-5 shadow-md hover:shadow-lg transition-all duration-200 group">
+            <div className="absolute top-0 right-0 text-6xl opacity-10 group-hover:opacity-20 transition-opacity">🛍️</div>
+            <div className="relative">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-2xl">🛍️</span>
+                <p className="text-xs uppercase tracking-wide text-purple-600 font-bold">Brand Preferences</p>
+              </div>
+              <p className="text-xl font-bold text-gray-900 mt-2 mb-1 truncate">
+                {preferences.brand.fashionStyle}
+              </p>
+              <p className="text-xs text-gray-600 flex items-center gap-2">
+                <span className="px-2 py-0.5 bg-purple-100 rounded text-purple-700 font-medium">{preferences.brand.techEcosystem}</span>
+                <span className="px-2 py-0.5 bg-purple-100 rounded text-purple-700 font-medium">{preferences.brand.priceSensitivity}</span>
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Detailed cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          <PreferenceCard
-            title="Food"
-            items={[
-              { label: "Diet", value: preferences.food.dietType },
-              { label: "Spice", value: preferences.food.spiceLevel },
-              { label: "Budget", value: preferences.food.budgetLevel },
-              { label: "Eats out", value: preferences.food.eatingOutFrequency },
-              { label: "Cuisines", value: formatList(preferences.food.favoriteCuisines) },
-            ]}
-          />
-          <PreferenceCard
-            title="Drink"
-            items={[
-              { label: "Alcohol", value: preferences.drink.alcoholPreference },
-              { label: "Alcohol types", value: formatList(preferences.drink.favoriteAlcoholTypes) },
-              { label: "Non-alcoholic", value: formatList(preferences.drink.favoriteNonAlcoholicTypes) },
-              { label: "Sugar", value: preferences.drink.sugarLevel },
-              { label: "Caffeine tolerance", value: preferences.drink.caffeineTolerance },
-            ]}
-          />
-          <PreferenceCard
-            title="Hotel"
-            items={[
-              { label: "Budget/night", value: formatBudget(preferences.hotel.budgetPerNight) },
-              { label: "Class", value: preferences.hotel.hotelClass },
-              { label: "Location", value: preferences.hotel.locationPreference },
-              { label: "Room", value: preferences.hotel.roomType },
-              { label: "Amenities", value: formatList(preferences.hotel.amenitiesPriority) },
-            ]}
-          />
-          <PreferenceCard
-            title="Coffee"
-            items={[
-              { label: "Consumer type", value: preferences.coffee.coffeeConsumerType },
-              { label: "Styles", value: formatList(preferences.coffee.coffeeStyle) },
-              { label: "Milk", value: preferences.coffee.milkPreference },
-              { label: "Sweetness", value: preferences.coffee.sweetnessLevel },
-              { label: "Ambience", value: preferences.coffee.cafeAmbiencePreference },
-            ]}
-          />
-          <PreferenceCard
-            title="Brands & shopping"
-            items={[
-              { label: "Style", value: preferences.brand.fashionStyle },
-              { label: "Tech ecosystem", value: preferences.brand.techEcosystem },
-              { label: "Shopping channels", value: formatList(preferences.brand.shoppingChannels) },
-              { label: "Price point", value: preferences.brand.priceSensitivity },
-              { label: "Values", value: formatList(preferences.brand.brandValues) },
-            ]}
-          />
+        {/* Detailed Preference Cards Section */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-gray-900">Complete Preference Breakdown</h2>
+            <div className="flex items-center gap-2 text-xs text-gray-500">
+              <span className="h-1.5 w-1.5 rounded-full bg-cyan-500"></span>
+              <span>AI-Powered Insights</span>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <PreferenceCard
+              title="Food Preferences"
+              icon="🍽️"
+              items={[
+                { label: "Diet Type", value: preferences.food.dietType },
+                { label: "Spice Level", value: preferences.food.spiceLevel },
+                { label: "Budget Level", value: preferences.food.budgetLevel },
+                { label: "Dining Out", value: preferences.food.eatingOutFrequency },
+                { label: "Favorite Cuisines", value: formatList(preferences.food.favoriteCuisines) },
+              ]}
+            />
+            <PreferenceCard
+              title="Beverage Preferences"
+              icon="🍹"
+              items={[
+                { label: "Alcohol", value: preferences.drink.alcoholPreference },
+                { label: "Alcohol Types", value: formatList(preferences.drink.favoriteAlcoholTypes) },
+                { label: "Non-Alcoholic", value: formatList(preferences.drink.favoriteNonAlcoholicTypes) },
+                { label: "Sugar Level", value: preferences.drink.sugarLevel },
+                { label: "Caffeine", value: preferences.drink.caffeineTolerance },
+              ]}
+            />
+            <PreferenceCard
+              title="Accommodation"
+              icon="🏨"
+              items={[
+                { label: "Budget/Night", value: formatBudget(preferences.hotel.budgetPerNight) },
+                { label: "Hotel Class", value: preferences.hotel.hotelClass },
+                { label: "Location", value: preferences.hotel.locationPreference },
+                { label: "Room Type", value: preferences.hotel.roomType },
+                { label: "Amenities", value: formatList(preferences.hotel.amenitiesPriority) },
+              ]}
+            />
+            <PreferenceCard
+              title="Coffee Culture"
+              icon="☕"
+              items={[
+                { label: "Consumer Type", value: preferences.coffee.coffeeConsumerType },
+                { label: "Coffee Styles", value: formatList(preferences.coffee.coffeeStyle) },
+                { label: "Milk Choice", value: preferences.coffee.milkPreference },
+                { label: "Sweetness", value: preferences.coffee.sweetnessLevel },
+                { label: "Cafe Vibe", value: preferences.coffee.cafeAmbiencePreference },
+              ]}
+            />
+            <PreferenceCard
+              title="Brand & Shopping"
+              icon="🛍️"
+              items={[
+                { label: "Fashion Style", value: preferences.brand.fashionStyle },
+                { label: "Tech Ecosystem", value: preferences.brand.techEcosystem },
+                { label: "Shopping", value: formatList(preferences.brand.shoppingChannels) },
+                { label: "Price Sensitivity", value: preferences.brand.priceSensitivity },
+                { label: "Brand Values", value: formatList(preferences.brand.brandValues) },
+              ]}
+            />
+          </div>
+        </div>
+
+        {/* Footer Section */}
+        <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200 p-6 text-center">
+          <p className="text-sm text-gray-600 mb-2">
+            This profile is powered by Hushh's AI agents and reflects real-time user preferences.
+          </p>
+          <p className="text-xs text-gray-500">
+            Built with <span className="text-red-500">❤️</span> by <a href="https://www.hushh.ai" target="_blank" rel="noopener noreferrer" className="font-semibold text-cyan-600 hover:text-cyan-700 underline">Hushh Technologies</a>
+          </p>
         </div>
       </div>
     </div>
