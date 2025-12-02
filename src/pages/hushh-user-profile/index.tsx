@@ -533,7 +533,7 @@ const HushhUserProfilePage: React.FC = () => {
               <p className="text-sm uppercase tracking-wide text-cyan-600 font-semibold">Investor Profile</p>
               <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">Create Your Investor Hushh ID</h1>
               <p className="text-gray-600 mt-2 max-w-2xl">
-                Create once, save to your wallet, share anywhere.
+                Create your investor profile once. Save to wallet. Share anywhere. No more repetitive forms.
               </p>
             </div>
             <div className="flex flex-col items-stretch md:items-end gap-3 bg-gradient-to-r from-cyan-500 to-sky-500 text-white px-4 py-3 rounded-xl shadow-lg">
