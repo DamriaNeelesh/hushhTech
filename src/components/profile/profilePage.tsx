@@ -330,7 +330,7 @@ const ProfilePage: React.FC = () => {
               Hello {session?.user?.user_metadata?.full_name || "User"},
             </Text>
             <Text className="text-xl text-[#6E6E73] font-light" maxW="800px" textAlign="center">
-              Create once, save to your wallet, share anywhere.
+              Create your investor profile once. Save to wallet. Share anywhere. No more repetitive forms.
             </Text>
             <Button
               mt={{ base: 3, md: 4 }}
