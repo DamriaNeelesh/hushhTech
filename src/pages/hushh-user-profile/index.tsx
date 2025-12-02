@@ -530,11 +530,10 @@ const HushhUserProfilePage: React.FC = () => {
         <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-8 mb-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <p className="text-sm uppercase tracking-wide text-cyan-600 font-semibold">Hushh Profile</p>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">Set up your Hushh ID with Kai & Nav</h1>
+              <p className="text-sm uppercase tracking-wide text-cyan-600 font-semibold">Investor Profile</p>
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">Create Your Investor Hushh ID</h1>
               <p className="text-gray-600 mt-2 max-w-2xl">
-                Share a few details once. Kai, your explainable investing copilot, and Nav, your lifestyle agent, use this profile to keep your money decisions and everyday life in sync.
-                You stay in controledit or update it whenever you like.
+                Create your investor profile once, save it to your Apple Wallet, and share it anywhere—no more filling repetitive forms.
               </p>
             </div>
             <div className="flex flex-col items-stretch md:items-end gap-3 bg-gradient-to-r from-cyan-500 to-sky-500 text-white px-4 py-3 rounded-xl shadow-lg">
