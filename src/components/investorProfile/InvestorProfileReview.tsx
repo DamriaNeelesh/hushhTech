@@ -221,73 +221,120 @@ export function InvestorProfileReview({
   };
 
   return (
-    <Box maxW="900px" mx="auto" p={8}>
-      <VStack spacing={6} align="stretch">
+    <Box bg="#F5F5F7" minH="100vh" px={{ base: 4, md: 6 }} py={{ base: 8, md: 12 }}>
+      <VStack spacing={6} align="stretch" maxW="900px" mx="auto">
         {/* Header */}
         <Box textAlign="center">
-          <Heading size="lg" mb={2}>
+          <Heading fontSize={{ base: "28px", md: "30px" }} fontWeight="700" mb={2} lineHeight="1.25" color="#0f172a">
             Review Your AI-Generated Investor Profile
           </Heading>
-          <Text color="gray.600">
+          <Text fontSize="17px" color="#6E6E73" lineHeight="1.4" maxW="720px" mx="auto">
             We've analyzed your information and created a personalized profile. Review and edit any
             fields before confirming.
           </Text>
         </Box>
+        <Divider borderColor="#E5E5EA" />
 
         {/* Basic Info Summary */}
-        <Box bg="gray.50" p={4} borderRadius="md">
-          <Heading size="sm" mb={3}>
+        <VStack align="stretch" spacing={3} px={{ base: 0, md: 1 }}>
+          <Text fontSize="15px" fontWeight="600" color="#111827">
             Your Information
-          </Heading>
-          <VStack align="stretch" spacing={2}>
-            <HStack justify="space-between">
-              <Text fontWeight="medium">Name:</Text>
-              <Text>{profile.name}</Text>
-            </HStack>
-            <HStack justify="space-between">
-              <Text fontWeight="medium">Email:</Text>
-              <Text>{profile.email}</Text>
-            </HStack>
-            <HStack justify="space-between">
-              <Text fontWeight="medium">Age:</Text>
-              <Text>{profile.age}</Text>
-            </HStack>
-            <HStack justify="space-between">
-              <Text fontWeight="medium">Phone:</Text>
-              <Text>
-                {profile.phone_country_code} {profile.phone_number}
-              </Text>
-            </HStack>
-            {profile.organisation && (
-              <HStack justify="space-between">
-                <Text fontWeight="medium">Organisation:</Text>
-                <Text>{profile.organisation}</Text>
-              </HStack>
-            )}
+          </Text>
+          <VStack align="stretch" spacing={3}>
+            {[
+              { label: "Name:", value: profile.name },
+              { label: "Email:", value: profile.email },
+              { label: "Age:", value: profile.age },
+              { label: "Phone:", value: `${profile.phone_country_code} ${profile.phone_number}` },
+              ...(profile.organisation ? [{ label: "Organisation:", value: profile.organisation }] : []),
+            ].map((row, idx, arr) => (
+              <Box key={row.label}>
+                <HStack align="baseline" justify="space-between" spacing={4}>
+                  <Text fontSize="15px" fontWeight="600" color="#6E6E73">
+                    {row.label}
+                  </Text>
+                  <Text fontSize="17px" color="#111827" maxW="65%" textAlign="right">
+                    {row.value}
+                  </Text>
+                </HStack>
+                {idx < arr.length - 1 && <Box mt={2} borderBottom="1px solid #E5E5EA" />}
+              </Box>
+            ))}
           </VStack>
-        </Box>
+        </VStack>
 
         {/* Derived Context */}
-        <Box bg="blue.50" p={4} borderRadius="md">
-          <Heading size="sm" mb={3}>
+        <VStack align="stretch" spacing={3} mt={4}>
+          <Text fontSize="15px" fontWeight="600" color="#111827">
             Detected Context
-          </Heading>
+          </Text>
           <Flex wrap="wrap" gap={2}>
-            <Badge colorScheme="blue">
+            <Badge
+              px={3}
+              py={1.5}
+              borderRadius="full"
+              border="1px solid rgba(0,169,224,0.4)"
+              bg="rgba(0,169,224,0.12)"
+              color="#0A84FF"
+              fontSize="13px"
+              letterSpacing="0.04em"
+            >
               {profile.derived_context.country} ({profile.derived_context.currency})
             </Badge>
-            <Badge colorScheme="purple">{profile.derived_context.region}</Badge>
-            <Badge colorScheme="green">{profile.derived_context.life_stage}</Badge>
+            <Badge
+              px={3}
+              py={1.5}
+              borderRadius="full"
+              border="1px solid rgba(88,86,214,0.4)"
+              bg="rgba(88,86,214,0.12)"
+              color="#5856D6"
+              fontSize="13px"
+              letterSpacing="0.04em"
+            >
+              {profile.derived_context.region}
+            </Badge>
+            <Badge
+              px={3}
+              py={1.5}
+              borderRadius="full"
+              border="1px solid rgba(52,199,89,0.4)"
+              bg="rgba(52,199,89,0.12)"
+              color="#34C759"
+              fontSize="13px"
+              letterSpacing="0.04em"
+            >
+              {profile.derived_context.life_stage}
+            </Badge>
             {profile.derived_context.email_type && (
-              <Badge colorScheme="orange">
+              <Badge
+                px={3}
+                py={1.5}
+                borderRadius="full"
+                border="1px solid rgba(255,149,0,0.5)"
+                bg="rgba(255,149,0,0.15)"
+                color="#FF9500"
+                fontSize="13px"
+                letterSpacing="0.04em"
+              >
                 {profile.derived_context.email_type === "corporate" ? "Corporate Email" : "Personal Email"}
               </Badge>
             )}
             {profile.derived_context.org_type && (
-              <Badge colorScheme="teal">{profile.derived_context.org_type}</Badge>
+              <Badge
+                px={3}
+                py={1.5}
+                borderRadius="full"
+                border="1px solid rgba(90,200,250,0.45)"
+                bg="rgba(90,200,250,0.15)"
+                color="#00C7BE"
+                fontSize="13px"
+                letterSpacing="0.04em"
+              >
+                {profile.derived_context.org_type}
+              </Badge>
             )}
           </Flex>
-        </Box>
+        </VStack>
 
         <Divider />
 
