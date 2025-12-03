@@ -193,15 +193,52 @@ export async function generateInvestorProfile(
   input: InvestorProfileInput,
   context: DerivedContext
 ): Promise<InvestorProfile> {
-  const apiKey =
+  const directApiKey =
     (import.meta as any).env.VITE_OPENAI_API_KEY ||
     (typeof window !== "undefined" ? (window as any).__OPENAI_API_KEY__ : undefined);
 
-  if (!apiKey || (typeof apiKey === "string" && apiKey.trim().length === 0)) {
+  // First try serverless endpoint (recommended for prod)
+  try {
+    const apiBase =
+      (import.meta as any).env.VITE_API_BASE_URL ||
+      (typeof window !== "undefined" ? window.location.origin : "");
+    const apiUrl = `${apiBase}/api/generate-investor-profile`;
+
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        input,
+        context,
+      }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+
+      if (!data.success || !data.profile) {
+        throw new Error("Invalid response from API");
+      }
+
+      return ensureProfileComplete(data.profile as Partial<InvestorProfile>);
+    }
+
+    // If serverless returns error and a direct key exists, fall back to direct call below
+  } catch (err) {
+    // Swallow here; we’ll try direct if available
+    if (!directApiKey) {
+      throw err instanceof Error ? err : new Error("Serverless investor profile generation failed");
+    }
+  }
+
+  // Fallback: direct OpenAI call if key is provided
+  if (!directApiKey || (typeof directApiKey === "string" && directApiKey.trim().length === 0)) {
     throw new Error(
-      "OpenAI API key is missing. Provide VITE_OPENAI_API_KEY in your .env.local or window.__OPENAI_API_KEY__ at runtime."
+      "OpenAI API key is missing. Provide VITE_OPENAI_API_KEY (for direct call) or ensure the serverless endpoint is reachable."
     );
   }
 
-  return await callOpenAIDirect(input, context, apiKey.trim());
+  return await callOpenAIDirect(input, context, directApiKey.trim());
 }
