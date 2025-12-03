@@ -22,6 +22,7 @@ function InvestorProfilePage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [profile, setProfile] = useState<InvestorProfileRecord | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [userData, setUserData] = useState<{ name: string; email: string } | null>(null);
   const navigate = useNavigate();
 
   // Check if user is authenticated and if profile already exists
@@ -41,6 +42,15 @@ function InvestorProfilePage() {
           navigate("/login");
           return;
         }
+
+        // Extract user data from OAuth (Google, etc.)
+        const userName = user.user_metadata?.full_name || user.user_metadata?.name || "";
+        const userEmail = user.email || "";
+        
+        setUserData({
+          name: userName,
+          email: userEmail,
+        });
 
         // Check if profile exists
         const existingProfile = await fetchInvestorProfile();
@@ -173,6 +183,7 @@ function InvestorProfilePage() {
           <InvestorProfileForm
             onSubmit={handleFormSubmit}
             isLoading={isProcessing}
+            initialData={userData}
           />
         )}
 
