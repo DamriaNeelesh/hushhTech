@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Button, Flex, Text, Box, Container, VStack, HStack, usePrefersReducedMotion } from "@chakra-ui/react";
+import { Button, Flex, Text, Box, Container, VStack, HStack, usePrefersReducedMotion, Divider } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
 import config from "../resources/config/config";
 import ProfilePage from "./profile/profilePage";
@@ -125,23 +125,25 @@ export default function Hero() {
       <WhyChooseSection />
       
       {/* Fund A Section */}
-      <Box py={{ md: 20, base: 12 }} px={4} bg="white">
-        <Container maxW="container.xl">
+      <Box py={{ md: 20, base: 14 }} px={4} bg="#F5F5F7">
+        <Container maxW="700px">
           <Box textAlign="center" mb={{ base: 6, md: 8 }} animation={prefersReducedMotion ? undefined : `${textEntry} 0.2s ease-out`}>
             <Text
               as="h2"
-              fontSize={{ base: "26px", md: "30px" }}
+              fontSize={{ base: "28px", md: "30px" }}
               fontWeight="700"
               color="#111827"
               lineHeight="1.2"
+              maxW="90%"
+              mx="auto"
               fontFamily="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif"
             >
               Fund A: The Genesis of Our Vision.
             </Text>
             <Text
-              fontSize={{ base: "16px", md: "17px" }}
+              fontSize={{ base: "17px", md: "17px" }}
               color="#6E6E73"
-              maxW="4xl"
+              maxW="90%"
               mx="auto"
               mt={2}
               lineHeight="1.35"
@@ -150,15 +152,15 @@ export default function Hero() {
               What you reliably get with every Hushh investor profile.
             </Text>
           </Box>
-          <Box borderTop="1px solid #E5E5EA" />
+          <Divider borderColor="#E5E5EA" />
 
           <Flex justify="center" mt={6}>
             <Box
-              w="100%"
+              w="92%"
               maxW="900px"
-              bg="#F9FAFB"
+              bg="#FFFFFF"
               borderRadius="24px"
-              boxShadow="0 20px 44px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.85)"
+              boxShadow="0 22px 45px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.85)"
               px={{ base: 5, md: 8 }}
               py={{ base: 6, md: 8 }}
               animation={prefersReducedMotion ? undefined : `${cardEntry} 0.26s ease-out`}
@@ -174,7 +176,7 @@ export default function Hero() {
                 Investor Profile
               </Text>
               <Text
-                fontSize={{ base: "28px", md: "30px" }}
+                fontSize={{ base: "26px", md: "26px" }}
                 fontWeight="600"
                 color="#111827"
                 lineHeight="1.25"
@@ -189,43 +191,49 @@ export default function Hero() {
                   Launched in 2024, Fund A is our inaugural AI-first investment vehicle. It demonstrates our systematic approach to income investing and value creation.
                 </Text>
                 <Text fontSize="16px" lineHeight="1.5" color="#111827">
-                  Targeting a <Text as="span" fontWeight="700" animation={prefersReducedMotion ? undefined : `${pulse} 0.18s ease-out`}>69% net IRR</Text>* through our proprietary “Sell the Wall” options framework.
+                  Targeting a{" "}
+                  <Text as="span" fontWeight="700" animation={prefersReducedMotion ? undefined : `${pulse} 0.18s ease-out`}>
+                    69% net IRR
+                  </Text>
+                  * through our proprietary “Sell the Wall” options framework.
                 </Text>
               </VStack>
 
-              <HStack
-                mt={4}
-                spacing={6}
-                align="center"
+              <Box
+                mt={5}
                 border="1px solid #E5E5EA"
-                borderRadius="14px"
-                p={3}
+                borderRadius="18px"
+                p={4}
                 bg="rgba(255,255,255,0.7)"
               >
-                <VStack align="start" spacing={0}>
-                  <Text fontSize="13px" color="#6E6E73" textTransform="uppercase" letterSpacing="0.04em">
-                    Target net IRR
-                  </Text>
-                  <Text fontSize="17px" fontWeight="700" color="#111827">
-                    69%
-                  </Text>
-                </VStack>
-                <VStack align="start" spacing={0}>
-                  <Text fontSize="13px" color="#6E6E73" textTransform="uppercase" letterSpacing="0.04em">
-                    Inception
-                  </Text>
-                  <Text fontSize="17px" fontWeight="700" color="#111827">
-                    2024
-                  </Text>
-                </VStack>
-              </HStack>
+                <HStack spacing={4} align="stretch">
+                  <VStack align="center" flex="1" spacing={1}>
+                    <Text fontSize="13px" color="#6E6E73" textTransform="uppercase" letterSpacing="0.04em">
+                      Target net IRR
+                    </Text>
+                    <Text fontSize="22px" fontWeight="700" color="#111827">
+                      69%
+                    </Text>
+                  </VStack>
+                  <Divider orientation="vertical" borderColor="#E5E5EA" />
+                  <VStack align="center" flex="1" spacing={1}>
+                    <Text fontSize="13px" color="#6E6E73" textTransform="uppercase" letterSpacing="0.04em">
+                      Inception
+                    </Text>
+                    <Text fontSize="22px" fontWeight="700" color="#111827">
+                      2024
+                    </Text>
+                  </VStack>
+                </HStack>
+              </Box>
 
               <Text
                 fontSize="13px"
                 color="#6E6E73"
                 fontStyle="italic"
                 mt={3}
-                mb={4}
+                mb={5}
+                textAlign="left"
               >
                 *Inspired by natural equilibrium and proven quantitative strategies.
               </Text>
@@ -241,13 +249,13 @@ export default function Hero() {
                 fontSize="17px"
                 fontWeight="600"
                 w="full"
-                boxShadow="0 14px 30px rgba(0,169,224,0.35)"
+                boxShadow="0 16px 34px rgba(0,169,224,0.35)"
               >
                 Learn More About Fund A
               </Button>
             </Box>
           </Flex>
-          <Box borderBottom="1px solid #E5E5EA" mt={6} />
+          <Divider borderColor="#E5E5EA" mt={8} />
         </Container>
       </Box>
       
