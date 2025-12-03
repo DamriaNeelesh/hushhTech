@@ -540,84 +540,107 @@ const HushhUserProfilePage: React.FC = () => {
         py={{ base: 6, md: 10 }}
         bg="white"
       >
-        <Box pt={{ base: 6, md: 8 }} pb={{ base: 6, md: 8 }} animation={heroAnimation}>
-          <Text
-            fontSize="13px"
-            letterSpacing="0.12em"
-            fontWeight="700"
-            color="#8E8E93"
-            textTransform="uppercase"
+        <Box
+          pt={{ base: 6, md: 8 }}
+          pb={{ base: 6, md: 8 }}
+          display="flex"
+          justifyContent="center"
+          animation={heroAnimation}
+        >
+          <Box
+            w="100%"
+            maxW="880px"
+            bg="#F9FAFB"
+            borderRadius="24px"
+            boxShadow="0 20px 44px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.85)"
+            px={{ base: 5, md: 8 }}
+            py={{ base: 6, md: 8 }}
+            transformOrigin="center"
           >
-            Investor Profile
-          </Text>
-          <Box mt={2}>
-            <Text fontSize={{ base: "26px", md: "28px" }} fontWeight="600" color="#111827">
-              Hello, {form.name || "there"}
+            <Text
+              fontSize="13px"
+              letterSpacing="0.12em"
+              fontWeight="700"
+              color="#8E8E93"
+              textTransform="uppercase"
+            >
+              Investor Profile
             </Text>
-            <Box position="relative" display="inline-block">
-              {nameShimmer && !prefersReducedMotion && (
+            <Box mt={2}>
+              <Text fontSize={{ base: "28px", md: "30px" }} fontWeight="600" color="#111827" lineHeight="1.25">
+                Hello, {form.name || "there"}
+              </Text>
+              <Box position="relative" display="inline-block">
+                {nameShimmer && !prefersReducedMotion && (
+                  <Box
+                    position="absolute"
+                    inset={0}
+                    bgGradient="linear(to-r, rgba(255,255,255,0), rgba(255,255,255,0.7), rgba(255,255,255,0))"
+                    animation={`${shimmerSweep} 0.7s ease-out`}
+                    pointerEvents="none"
+                  />
+                )}
+              </Box>
+            </Box>
+
+            <VStack align="stretch" spacing={3} mt={5} w="full">
+              {[
+                "Create your investor profile once.",
+                "Save it to Wallet and share anywhere.",
+                "No more repetitive forms.",
+              ].map((line, idx) => (
+                <Box key={line}>
+                  <HStack spacing={3} align="center">
+                    <Box w="8px" h="8px" borderRadius="full" bg="#0A84FF" />
+                    <Text fontSize="17px" lineHeight="1.4" color="#111827">
+                      {line}
+                    </Text>
+                  </HStack>
+                  {idx < 2 && <Box mt={2} borderBottom="1px solid #E5E5EA" />}
+                </Box>
+              ))}
+            </VStack>
+
+            <HStack spacing={2} mt={5} overflowX="auto" pb={1}>
+              {["No Logins", "Apple Wallet Ready", "Alias-only"].map((chip) => (
                 <Box
-                  position="absolute"
-                  inset={0}
-                  bgGradient="linear(to-r, rgba(255,255,255,0), rgba(255,255,255,0.7), rgba(255,255,255,0))"
-                  animation={`${shimmerSweep} 0.7s ease-out`}
-                  pointerEvents="none"
-                />
-              )}
+                  key={chip}
+                  px={3}
+                  py={1}
+                  borderRadius="full"
+                  border="1px solid #E5E5EA"
+                  color="#6E6E73"
+                  fontSize="11px"
+                  letterSpacing="0.06em"
+                  whiteSpace="nowrap"
+                >
+                  {chip.toUpperCase()}
+                </Box>
+              ))}
+            </HStack>
+
+            <Box mt={6}>
+              <Button
+                type="button"
+                w="full"
+                size="lg"
+                {...primaryCtaStyles}
+                _active={ctaActiveState}
+                onClick={() => firstFieldRef.current?.focus()}
+                fontSize="17px"
+                fontWeight="600"
+                py={6}
+                boxShadow="0 12px 28px rgba(0,169,224,0.35)"
+              >
+                Create Your Hushh ID →
+              </Button>
+              <Text mt={2} fontSize="13px" color="#6E6E73" textAlign="center">
+                Takes under a minute. Your details stay private.
+              </Text>
             </Box>
           </Box>
-          <VStack align="start" spacing={3} mt={4} w="full">
-            {[
-              "Create your investor profile once.",
-              "Save it to Wallet and share anywhere.",
-              "No more repetitive forms.",
-            ].map((line, idx) => (
-              <VStack key={line} align="start" spacing={2} w="full">
-                <Text fontSize="17px" lineHeight="1.35" color="#111827">
-                  • {line}
-                </Text>
-                {idx < 2 && <Box w="full" h="1px" bg="#E5E5EA" />}
-              </VStack>
-            ))}
-          </VStack>
-
-          <HStack spacing={2} mt={4} overflowX="auto" pb={1}>
-            {["No Logins", "Apple Wallet Ready", "Alias-only"].map((chip) => (
-              <Box
-                key={chip}
-                px={3}
-                py={1}
-                borderRadius="full"
-                border="1px solid #E5E5EA"
-                color="#6E6E73"
-                fontSize="11px"
-                letterSpacing="0.06em"
-                whiteSpace="nowrap"
-              >
-                {chip.toUpperCase()}
-              </Box>
-            ))}
-          </HStack>
-
-          <Box mt={5}>
-            <Button
-              type="button"
-              w="full"
-              size="lg"
-              {...primaryCtaStyles}
-              _active={ctaActiveState}
-              onClick={() => firstFieldRef.current?.focus()}
-              fontSize="17px"
-              fontWeight="600"
-              py={6}
-            >
-              Create Your Hushh ID →
-            </Button>
-            <Text mt={2} fontSize="13px" color="#6E6E73" textAlign="center">
-              It takes under a minute. Your details stay private.
-            </Text>
-          </Box>
         </Box>
+        <Box borderBottom="1px solid #E5E5EA" mb={4} />
 
         <Box animation={headingAnimation}>
           <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="700" color="#1c1c1c" mt={{ base: 4, md: 5 }}>
