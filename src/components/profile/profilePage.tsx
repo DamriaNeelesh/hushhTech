@@ -323,35 +323,75 @@ const ProfilePage: React.FC = () => {
   }, [session?.user?.email]);
 
   return (
-    <Box bg="#FAFAFA" width="100%" pt={{ base: 16, md: 20 }}>
+    <Box bg="#F5F5F7" width="100%" pt={{ base: 12, md: 16 }} pb={{ base: 12, md: 16 }}>
       <Center>
-        <VStack maxW="1200px" w="full" px={4} spacing={2}>
-          <VStack spacing={1} mb={{ base: 2, md: 4 }} mt={{ base: 2, md: 0 }} w="full">
-            <Text fontSize={{ base: "3xl", md: "4xl" }} className="text-5xl font-[300] text-[#1D1D1F] tracking-tight" mt={{ base: 2, md: 4 }}>
-              Hello {session?.user?.user_metadata?.full_name || "User"},
-            </Text>
-            <Text className="text-xl text-[#6E6E73] font-light" maxW="800px" textAlign="center">
-              Create your investor profile once. Save to wallet. Share anywhere. No more repetitive forms.
-            </Text>
-            <PrimaryCtaButton
-              mt={{ base: 3, md: 4 }}
-              onClick={() => navigate("/investor-profile")}
-              px={8}
-              py={6}
-              fontSize="md"
-              fontWeight="semibold"
-              minW="250px"
+        <VStack maxW="1200px" w="full" px={4} spacing={6}>
+          <Box borderTop="1px solid #E5E5EA" w="full" />
+          <Center w="full">
+            <Box
+              w="92%"
+              maxW="900px"
+              bg="white"
+              borderRadius="24px"
+              boxShadow="0 22px 45px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.85)"
+              px={{ base: 5, md: 8 }}
+              py={{ base: 6, md: 8 }}
             >
-              Create Your Hushh ID →
-            </PrimaryCtaButton>
-          </VStack>
+              <Text
+                fontSize="13px"
+                letterSpacing="0.12em"
+                fontWeight="700"
+                color="#8E8E93"
+                textTransform="uppercase"
+              >
+                Investor Profile
+              </Text>
+              <Text
+                fontSize={{ base: "30px", md: "32px" }}
+                fontWeight="600"
+                color="#1D1D1F"
+                lineHeight="1.2"
+                mt={2}
+              >
+                Hello {session?.user?.user_metadata?.full_name || "there"},
+              </Text>
 
-          {/* Legacy NDA/KYC cards hidden in new flow */}
-          {false && (
-            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} w="full">
-              {/* content removed */}
-            </SimpleGrid>
-          )}
+              <VStack align="stretch" spacing={3} mt={4}>
+                {[
+                  "Create your investor profile once.",
+                  "Save to wallet. Share anywhere.",
+                  "No more repetitive forms.",
+                ].map((line, idx) => (
+                  <Box key={line}>
+                    <HStack spacing={3} align="flex-start">
+                      <Box w="8px" h="8px" borderRadius="full" bg="#0A84FF" mt="6px" />
+                      <Text fontSize="17px" lineHeight="1.45" color="#111827">
+                        {line}
+                      </Text>
+                    </HStack>
+                    {idx < 2 && <Box mt={2} borderBottom="1px solid #E5E5EA" />}
+                  </Box>
+                ))}
+              </VStack>
+
+              <Box mt={5}>
+                <PrimaryCtaButton
+                  onClick={() => navigate("/investor-profile")}
+                  width="100%"
+                  fontSize="17px"
+                  fontWeight="600"
+                  py={6}
+                  boxShadow="0 16px 34px rgba(0,169,224,0.35)"
+                >
+                  Create Your Hushh ID →
+                </PrimaryCtaButton>
+                <Text mt={2} fontSize="13px" color="#6E6E73" textAlign="center">
+                  Takes under a minute. Your details stay private.
+                </Text>
+              </Box>
+            </Box>
+          </Center>
+          <Box borderBottom="1px solid #E5E5EA" w="full" />
         </VStack>
       </Center>
 
