@@ -13,6 +13,7 @@ import {
   SimpleGrid,
   Flex,
   Center,
+  HStack,
 } from "@chakra-ui/react";
 import { PrimaryCtaButton } from "../PrimaryCtaButton";
 import { FaFileAlt, FaUserShield } from "react-icons/fa";
