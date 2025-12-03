@@ -1,9 +1,10 @@
 /**
- * Client service to call the investor profile API
+ * Client service to call the Supabase Edge Function for investor profile generation
  */
 
 import { InvestorProfileInput, DerivedContext, InvestorProfile } from "../../types/investorProfile";
 import { enrichContext } from "./enrichContext";
+import resources from "../../resources/resources";
 
 export interface GenerateProfileResponse {
   success: boolean;
@@ -12,22 +13,46 @@ export interface GenerateProfileResponse {
 }
 
 /**
- * Calls the serverless function to generate investor profile using OpenAI
+ * Calls the Supabase Edge Function to generate investor profile using OpenAI GPT-4o
  */
 export async function generateInvestorProfile(
   input: InvestorProfileInput
 ): Promise<GenerateProfileResponse> {
   try {
-    // First, enrich the context from the input
+    const supabase = resources.config.supabaseClient;
+    
+    if (!supabase) {
+      throw new Error("Supabase client not initialized");
+    }
+
+    // 1. Get authenticated user session for Authorization header
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    
+    if (sessionError) {
+      throw new Error(`Auth session error: ${sessionError.message}`);
+    }
+    
+    if (!session?.access_token) {
+      throw new Error("User not logged in. Please sign in to generate investor profile.");
+    }
+
+    // 2. Enrich the context from the input
     const context = await enrichContext(input);
 
-    // Call the API (Vite env variables)
-    const apiUrl = (import.meta as any).env?.VITE_INVESTOR_PROFILE_API_URL || '/api/generate-investor-profile';
+    // 3. Determine Edge Function URL (dev vs production)
+    const supabaseUrl = (import.meta as any).env.VITE_SUPABASE_URL;
+    const isDev = (import.meta as any).env.DEV;
     
-    const response = await fetch(apiUrl, {
+    const edgeFunctionUrl = isDev
+      ? 'http://localhost:54321/functions/v1/generate-investor-profile'
+      : `${supabaseUrl}/functions/v1/generate-investor-profile`;
+
+    // 4. Call the Supabase Edge Function
+    const response = await fetch(edgeFunctionUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${session.access_token}`,
       },
       body: JSON.stringify({
         input,
@@ -35,15 +60,15 @@ export async function generateInvestorProfile(
       }),
     });
 
+    const data = await response.json().catch(() => ({}));
+
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || 'Failed to generate investor profile');
+      const errorMessage = data.error || `Edge function failed with status ${response.status}`;
+      throw new Error(errorMessage);
     }
 
-    const data = await response.json();
-
     if (!data.success || !data.profile) {
-      throw new Error('Invalid response from API');
+      throw new Error('Invalid response from Edge Function');
     }
 
     return {
