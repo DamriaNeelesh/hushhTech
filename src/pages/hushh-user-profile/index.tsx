@@ -28,7 +28,20 @@ import {
   usePrefersReducedMotion,
   Collapse,
 } from "@chakra-ui/react";
-import { Copy, Check, ExternalLink } from "lucide-react";
+import {
+  Copy,
+  Check,
+  ExternalLink,
+  Target,
+  Droplets,
+  Gauge,
+  Activity,
+  Briefcase,
+  Layers,
+  Zap,
+  Clock3,
+  Circle,
+} from "lucide-react";
 import { CheckIcon, LinkIcon } from "@chakra-ui/icons";
 import { keyframes } from "@emotion/react";
 import resources from "../../resources/resources";
@@ -115,9 +128,11 @@ const HushhUserProfilePage: React.FC = () => {
   const [showPreview, setShowPreview] = useState(false);
   const [copiedFlash, setCopiedFlash] = useState(false);
   const [shimmerActive, setShimmerActive] = useState(false);
+  const [nameShimmer, setNameShimmer] = useState(true);
   const prefersReducedMotion = usePrefersReducedMotion();
   const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const firstFieldRef = useRef<HTMLInputElement | null>(null);
 
   const profileUrl = profileSlug ? `https://hushhtech.com/investor/${profileSlug}` : "";
   const { hasCopied, onCopy } = useClipboard(profileUrl);
@@ -153,6 +168,28 @@ const HushhUserProfilePage: React.FC = () => {
   const ctaActiveState = prefersReducedMotion
     ? { boxShadow: "0 6px 18px rgba(0, 120, 170, 0.45)" }
     : { transform: "scale(0.97)", boxShadow: "0 6px 18px rgba(0, 120, 170, 0.45)" };
+  const confidenceWidths = {
+    HIGH: "100%",
+    MEDIUM: "60%",
+    LOW: "35%",
+  } as const;
+  const getFieldIcon = (fieldName: string) => {
+    const map: Record<string, any> = {
+      primary_goal: Target,
+      liquidity_need: Droplets,
+      risk_tolerance: Gauge,
+      engagement_style: Activity,
+      experience_level: Briefcase,
+      asset_class_preference: Layers,
+      investment_horizon_years: Clock3,
+      typical_ticket_size: Zap,
+      annual_investing_capacity: Zap,
+      sector_preferences: Layers,
+      volatility_reaction: Gauge,
+      sustainability_preference: Activity,
+    };
+    return map[fieldName] || Circle;
+  };
   const renderCheckmark = (value: string | number | "") =>
     value !== "" ? (
       <InputRightElement pointerEvents="none">
@@ -253,6 +290,11 @@ const HushhUserProfilePage: React.FC = () => {
       clearTimeout(stopSecond);
     };
   }, [profileUrl]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setNameShimmer(false), 900);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleChange = (key: keyof FormState, value: string) => {
     setForm((prev) => ({ ...prev, [key]: key === "age" ? Number(value) || "" : value }));
@@ -498,28 +540,84 @@ const HushhUserProfilePage: React.FC = () => {
         py={{ base: 6, md: 10 }}
         bg="white"
       >
-        <Box pt={{ base: 6, md: 8 }} pb={{ base: 4, md: 6 }} animation={heroAnimation}>
+        <Box pt={{ base: 6, md: 8 }} pb={{ base: 5, md: 7 }} animation={heroAnimation}>
           <Text
-            fontSize="xs"
+            fontSize="11px"
             letterSpacing="0.12em"
             fontWeight="700"
-            color="rgba(61,61,145,1)"
+            color="#8E8E93"
             textTransform="uppercase"
           >
             Investor Profile
           </Text>
-          <Heading
-            as="h1"
-            fontSize={{ base: "24px", md: "32px" }}
-            fontWeight="700"
-            color="#111827"
-            mt={1}
-          >
-            Create Your Investor Hushh ID
-          </Heading>
-          <Text fontSize={{ base: "sm", md: "md" }} color="#475467" mt={2} maxW="42rem">
-            Fill in your basic details below. Our AI will generate an intelligent investor profile tailored to you.
-          </Text>
+          <Box mt={2}>
+            <Text fontSize={{ base: "22px", md: "26px" }} fontWeight="400" color="#111827">
+              Hello,
+            </Text>
+            <Box position="relative" display="inline-block">
+              <Text
+                fontSize={{ base: "22px", md: "26px" }}
+                fontWeight="700"
+                color="#111827"
+              >
+                {form.name || "there"}
+              </Text>
+              {nameShimmer && !prefersReducedMotion && (
+                <Box
+                  position="absolute"
+                  inset={0}
+                  bgGradient="linear(to-r, rgba(255,255,255,0), rgba(255,255,255,0.7), rgba(255,255,255,0))"
+                  animation={`${shimmerSweep} 0.7s ease-out`}
+                  pointerEvents="none"
+                />
+              )}
+            </Box>
+          </Box>
+          <VStack align="start" spacing={1} mt={2}>
+            <Text fontSize="14px" color="#6E6E73">
+              Create your investor profile once.
+            </Text>
+            <Text fontSize="14px" color="#6E6E73">
+              Save it to Wallet. Share anywhere.
+            </Text>
+            <Text fontSize="14px" color="#6E6E73">
+              No more repetitive forms.
+            </Text>
+          </VStack>
+
+          <HStack spacing={2} mt={4} overflowX="auto" pb={1}>
+            {["No Logins", "Apple Wallet Ready", "Alias-only"].map((chip) => (
+              <Box
+                key={chip}
+                px={3}
+                py={1}
+                borderRadius="full"
+                border="1px solid #E5E5EA"
+                color="#6E6E73"
+                fontSize="11px"
+                letterSpacing="0.06em"
+                whiteSpace="nowrap"
+              >
+                {chip.toUpperCase()}
+              </Box>
+            ))}
+          </HStack>
+
+          <Box mt={4}>
+            <Button
+              type="button"
+              w="full"
+              size="lg"
+              {...primaryCtaStyles}
+              _active={ctaActiveState}
+              onClick={() => firstFieldRef.current?.focus()}
+            >
+              Create Your Hushh ID →
+            </Button>
+            <Text mt={2} fontSize="12px" color="#6E6E73" textAlign="center">
+              It takes under a minute. Your details stay private.
+            </Text>
+          </Box>
         </Box>
 
         <Box animation={headingAnimation}>
@@ -529,19 +627,20 @@ const HushhUserProfilePage: React.FC = () => {
         </Box>
 
         <VStack align="stretch" spacing={5} mt={3}>
-          <FormControl isRequired sx={focusLabelStyles}>
-            <FormLabel {...labelBaseStyles}>
-              Full Name <Text as="span" color="#ef4444" ml={1}>*</Text>
-            </FormLabel>
-            <InputGroup>
-              <Input
-                {...inputBaseStyles}
-                value={form.name}
-                onChange={(e) => handleChange("name", e.target.value)}
-                placeholder="Enter your full name"
-              />
-              {renderCheckmark(form.name)}
-            </InputGroup>
+                <FormControl isRequired sx={focusLabelStyles}>
+                  <FormLabel {...labelBaseStyles}>
+                    Full Name <Text as="span" color="#ef4444" ml={1}>*</Text>
+                  </FormLabel>
+                  <InputGroup>
+                    <Input
+                      {...inputBaseStyles}
+                      ref={firstFieldRef}
+                      value={form.name}
+                      onChange={(e) => handleChange("name", e.target.value)}
+                      placeholder="Enter your full name"
+                    />
+                    {renderCheckmark(form.name)}
+                  </InputGroup>
           </FormControl>
 
           <FormControl isRequired sx={focusLabelStyles}>
@@ -628,6 +727,7 @@ const HushhUserProfilePage: React.FC = () => {
 
         {investorProfile && (
           <Box mt={6}>
+            <Box borderTop="1px solid #E5E5EA" mb={4} />
             <HStack justify="space-between" align="center" mb={2}>
               <Text fontSize="sm" fontWeight="700" color="#111827">
                 Preview generated profile
@@ -776,97 +876,173 @@ const HushhUserProfilePage: React.FC = () => {
                   }
                 }}
               >
-                {Object.entries(investorProfile).map(([fieldName, fieldData]: [string, any], idx) => (
-                  <AccordionItem
-                    key={fieldName}
-                    border="none"
-                    borderBottom="1px solid #F2F4F7"
-                    py={1}
-                    _last={{ borderBottom: "none" }}
-                  >
-                    <AccordionButton
-                      role="group"
-                      px={0}
-                      py={3}
-                      minH="56px"
-                      alignItems="center"
-                      _hover={{ bg: "#F5F5F7" }}
-                      _active={{ bg: "#EDEEF0" }}
-                      _expanded={{
-                        bg: "#F9FAFB",
-                      }}
-                      transition="background-color 0.15s ease"
+                {Object.entries(investorProfile).map(([fieldName, fieldData]: [string, any], idx) => {
+                  const label = FIELD_LABELS[fieldName as keyof typeof FIELD_LABELS] || fieldName;
+                  const valueText = Array.isArray(fieldData.value)
+                    ? fieldData.value.map((v: string) => VALUE_LABELS[v as keyof typeof VALUE_LABELS] || v).join(", ")
+                    : VALUE_LABELS[fieldData.value as keyof typeof VALUE_LABELS] || fieldData.value;
+                  const isOpen = openIndex === idx;
+                  const confidenceLabel = fieldData.confidence >= 0.7 ? "HIGH" : fieldData.confidence >= 0.4 ? "MEDIUM" : "LOW";
+                  return (
+                    <AccordionItem
+                      key={fieldName}
+                      border="none"
+                      borderBottom="1px solid #F2F4F7"
+                      py={isOpen ? 2 : 1}
+                      _last={{ borderBottom: "none" }}
                     >
-                      <HStack justify="space-between" w="full" align="center" spacing={3}>
-                        <VStack align="start" spacing={0}>
-                          <Text fontWeight="600" fontSize="15px" color="#000">
-                            {FIELD_LABELS[fieldName as keyof typeof FIELD_LABELS] || fieldName}
-                          </Text>
-                          <Text fontSize="13px" color="#6E6E73" noOfLines={1}>
-                            {Array.isArray(fieldData.value)
-                              ? fieldData.value.map((v: string) => VALUE_LABELS[v as keyof typeof VALUE_LABELS] || v).join(", ")
-                              : VALUE_LABELS[fieldData.value as keyof typeof VALUE_LABELS] || fieldData.value}
-                          </Text>
-                        </VStack>
-                        <HStack spacing={2} align="center">
-                          {getConfidenceChip(fieldData.confidence)}
-                          <AccordionIcon
-                            transition={prefersReducedMotion ? "none" : "transform 0.18s ease"}
-                            color="#6E6E73"
-                            _groupHover={{ color: "#000" }}
-                          />
-                        </HStack>
-                      </HStack>
-                    </AccordionButton>
-
-                    <AccordionPanel px={0} pt={1} pb={4}>
-                      <Box
-                        pl={2}
-                        pr={1}
-                        maxH="45vh"
-                        overflowY="auto"
-                        animation={
-                          prefersReducedMotion
-                            ? undefined
-                            : `${fadeUp} 0.2s ease-out ${idx * 0.01}s`
-                        }
+                      <AccordionButton
+                        role="group"
+                        px={0}
+                        py={3}
+                        minH="64px"
+                        alignItems="center"
+                        position="relative"
+                        _hover={{ bg: "rgba(120,120,128,0.06)" }}
+                        _active={{ bg: "rgba(120,120,128,0.1)" }}
+                        _expanded={{
+                          bg: "rgba(120,120,128,0.06)",
+                        }}
+                        transition="background-color 0.15s ease"
                       >
-                        <VStack align="stretch" spacing={2}>
-                          <Text fontSize="13px" fontWeight="600" color="#000" letterSpacing="0.02em">
-                            AI Rationale:
-                          </Text>
-                          <Text fontSize="13px" color="#6E6E73" lineHeight="1.6">
-                            {fieldData.rationale}
-                          </Text>
-                          <HStack justify="flex-end" pt={1}>
-                            {editingField === fieldName ? (
-                              <HStack spacing={2}>
-                                {renderFieldEditor(fieldName, fieldData)}
-                                <Button
-                                  size="xs"
-                                  variant="ghost"
-                                  onClick={() => setEditingField(null)}
-                                >
-                                  Cancel
-                                </Button>
-                              </HStack>
-                            ) : (
-                              <Button
-                                size="sm"
-                                variant="ghost"
-                                fontWeight="700"
-                                color="#0A84FF"
-                                onClick={() => setEditingField(fieldName)}
-                              >
-                                Edit Value
-                              </Button>
-                            )}
+                        {isOpen && (
+                          <Box
+                            position="absolute"
+                            left={-2}
+                            top={2}
+                            bottom={2}
+                            w="2px"
+                            borderRadius="full"
+                            bg={
+                              confidenceLabel === "HIGH"
+                                ? "rgba(52,199,89,0.9)"
+                                : confidenceLabel === "MEDIUM"
+                                ? "rgba(255,214,10,0.9)"
+                                : "rgba(142,142,147,0.9)"
+                            }
+                          />
+                        )}
+                        <HStack justify="space-between" w="full" align="center" spacing={3}>
+                          <HStack spacing={3} align="flex-start">
+                            <Icon
+                              as={getFieldIcon(fieldName)}
+                              boxSize={5}
+                              color="#0A84FF"
+                              opacity={isOpen ? 1 : 0.8}
+                              transition="transform 0.18s ease, opacity 0.18s ease"
+                              transform={isOpen && !prefersReducedMotion ? "scale(1.05)" : "scale(1)"}
+                            />
+                            <VStack align="start" spacing={0}>
+                              <Text fontWeight="600" fontSize="15px" color="#000">
+                                {label}
+                              </Text>
+                              <Text fontSize="13px" color="#6E6E73" noOfLines={1}>
+                                {valueText}
+                              </Text>
+                              {isOpen && (
+                                <Box pt={2} w="full">
+                                  <Box
+                                    h="4px"
+                                    bg="rgba(142,142,147,0.25)"
+                                    borderRadius="full"
+                                    overflow="hidden"
+                                  >
+                                    <Box
+                                      h="100%"
+                                      w={
+                                        confidenceLabel === "HIGH"
+                                          ? confidenceWidths.HIGH
+                                          : confidenceLabel === "MEDIUM"
+                                          ? confidenceWidths.MEDIUM
+                                          : confidenceWidths.LOW
+                                      }
+                                      bg={
+                                        confidenceLabel === "HIGH"
+                                          ? "rgba(52,199,89,0.9)"
+                                          : confidenceLabel === "MEDIUM"
+                                          ? "rgba(255,214,10,0.9)"
+                                          : "rgba(142,142,147,0.9)"
+                                      }
+                                      borderRadius="full"
+                                      transition={prefersReducedMotion ? "none" : "width 0.2s ease"}
+                                      position="relative"
+                                    >
+                                      <Box
+                                        position="absolute"
+                                        right="-3px"
+                                        top="-2px"
+                                        w="8px"
+                                        h="8px"
+                                        borderRadius="full"
+                                        bg="white"
+                                        border="2px solid rgba(0,0,0,0.08)"
+                                      />
+                                    </Box>
+                                  </Box>
+                                </Box>
+                              )}
+                            </VStack>
                           </HStack>
-                        </VStack>
-                      </Box>
-                    </AccordionPanel>
-                  </AccordionItem>
-                ))}
+                          <HStack spacing={2} align="center">
+                            {getConfidenceChip(fieldData.confidence)}
+                            <AccordionIcon
+                              transition={prefersReducedMotion ? "none" : "transform 0.18s ease"}
+                              color="#6E6E73"
+                              _groupHover={{ color: "#000" }}
+                            />
+                          </HStack>
+                        </HStack>
+                      </AccordionButton>
+
+                      <AccordionPanel px={0} pt={1} pb={4}>
+                        <Box
+                          pl={6}
+                          pr={1}
+                          maxH="45vh"
+                          overflowY="auto"
+                          animation={
+                            prefersReducedMotion
+                              ? undefined
+                              : `${fadeUp} 0.2s ease-out ${idx * 0.01}s`
+                          }
+                        >
+                          <VStack align="stretch" spacing={2}>
+                            <Text fontSize="13px" fontWeight="600" color="#000" letterSpacing="0.02em">
+                              AI Rationale:
+                            </Text>
+                            <Text fontSize="13px" color="#6E6E73" lineHeight="1.6">
+                              {fieldData.rationale}
+                            </Text>
+                            <HStack justify="flex-end" pt={1}>
+                              {editingField === fieldName ? (
+                                <HStack spacing={2}>
+                                  {renderFieldEditor(fieldName, fieldData)}
+                                  <Button
+                                    size="xs"
+                                    variant="ghost"
+                                    onClick={() => setEditingField(null)}
+                                  >
+                                    Cancel
+                                  </Button>
+                                </HStack>
+                              ) : (
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
+                                  fontWeight="700"
+                                  color="#0A84FF"
+                                  onClick={() => setEditingField(fieldName)}
+                                >
+                                  Edit Value
+                                </Button>
+                              )}
+                            </HStack>
+                          </VStack>
+                        </Box>
+                      </AccordionPanel>
+                    </AccordionItem>
+                  );
+                })}
               </Accordion>
             </Collapse>
           </Box>
