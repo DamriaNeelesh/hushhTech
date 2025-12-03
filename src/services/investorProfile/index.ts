@@ -35,11 +35,15 @@ export async function createInvestorProfile(
   }
   
   // 2. Check if profile already exists
-  const { data: existingProfile } = await supabase
+  const { data: existingProfile, error: existingProfileError } = await supabase
     .from("investor_profiles")
     .select("id")
     .eq("user_id", user.id)
-    .single();
+    .maybeSingle();
+
+  if (existingProfileError && existingProfileError.code !== "PGRST116") {
+    throw new Error(`Failed to check existing profile: ${existingProfileError.message}`);
+  }
   
   if (existingProfile) {
     throw new Error("Investor profile already exists for this user. Use updateInvestorProfile instead.");
