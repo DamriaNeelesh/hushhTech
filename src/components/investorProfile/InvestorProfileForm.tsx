@@ -6,12 +6,13 @@ import { PrimaryCtaButton } from "../PrimaryCtaButton";
 interface InvestorProfileFormProps {
   onSubmit: (data: InvestorProfileInput) => Promise<void>;
   isLoading?: boolean;
+  initialData?: { name: string; email: string } | null;
 }
 
-export function InvestorProfileForm({ onSubmit, isLoading = false }: InvestorProfileFormProps) {
+export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }: InvestorProfileFormProps) {
   const [formData, setFormData] = useState<InvestorProfileInput>({
-    name: "",
-    email: "",
+    name: initialData?.name || "",
+    email: initialData?.email || "",
     age: 25,
     phone_country_code: "+1",
     phone_number: "",
