@@ -1,319 +1,253 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { UserPreferenceProfile } from "../../types/preferences";
-import services from "../../services/services";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  Box,
+  Heading,
+  Text,
+  VStack,
+  HStack,
+  Button,
+  Badge,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  useToast,
+} from "@chakra-ui/react";
+import resources from "../../resources/resources";
+import { InvestorProfile, FIELD_LABELS, VALUE_LABELS } from "../../types/investorProfile";
 
-type UserDetails = {
+interface InvestorProfileData {
+  user_id: string;
   name: string;
   email: string;
   age: number;
-  phoneCountryCode: string;
-  phoneNumber: string;
+  phone_country_code: string;
+  phone_number: string;
   organisation: string | null;
-};
-
-type LocationState = {
-  preferences?: UserPreferenceProfile;
-  user?: UserDetails;
-};
-
-const fallbackOrigin =
-  typeof window !== "undefined" ? window.location.origin : "https://www.hushhtech.com";
-
-const PreferenceCard = ({ title, items }: { title: string; items: { label: string; value: string }[] }) => {
-  return (
-    <div className="border border-gray-200 rounded-2xl p-4 bg-white shadow-sm">
-      <div className="flex items-center justify-between mb-3">
-        <h3 className="font-semibold text-gray-900">{title}</h3>
-        <span className="h-2 w-2 rounded-full bg-cyan-500 inline-block"></span>
-      </div>
-      <div className="space-y-2 text-sm text-gray-800">
-        {items.map((item) => (
-          <div key={item.label} className="flex items-baseline justify-between gap-4">
-            <span className="text-gray-500 whitespace-nowrap">{item.label}</span>
-            <span className="font-semibold text-gray-900 text-right flex-1 truncate">{item.value}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
+  investor_profile: InvestorProfile;
+  confirmed_at: string;
+}
 
 const ViewPreferencesPage: React.FC = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const state = (location.state || {}) as LocationState;
+  const toast = useToast();
   const { id: routeUserId } = useParams();
-
-  const [preferences, setPreferences] = useState<UserPreferenceProfile | null>(state.preferences || null);
-  const [user, setUser] = useState<UserDetails | null>(state.user || null);
+  const [profileData, setProfileData] = useState<InvestorProfileData | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const hydrate = async () => {
-      if (routeUserId) {
-        try {
-          const record = await services.preferences.fetchPreferencesWithSeed(routeUserId);
-          if (record?.preferences) {
-            setPreferences(record.preferences);
-            localStorage.setItem("hushhUserPreferences", JSON.stringify(record.preferences));
-          }
-          if (record?.user_seed) {
-            const seededUser: UserDetails = {
-              id: routeUserId,
-              name: record.user_seed.name,
-              email: record.user_seed.email,
-              age: record.user_seed.age,
-              phoneCountryCode: record.user_seed.phone_country_code,
-              phoneNumber: record.user_seed.phone_number,
-              organisation: record.user_seed.organisation,
-            };
-            setUser(seededUser);
-            localStorage.setItem("hushhUserDetails", JSON.stringify(seededUser));
-          }
-        } catch (error) {
-          console.error("Failed to load preferences by user id:", error);
+    const fetchProfile = async () => {
+      try {
+        const supabase = resources.config.supabaseClient;
+        if (!supabase) {
+          throw new Error("Supabase client not available");
         }
-      }
 
-      if (!state.preferences && !preferences) {
-        const cached = localStorage.getItem("hushhUserPreferences");
-        if (cached) {
-          try {
-            setPreferences(JSON.parse(cached) as UserPreferenceProfile);
-          } catch {
-            /* ignore */
-          }
+        // Get current user
+        const { data: { user } } = await supabase.auth.getUser();
+        
+        // Use routeUserId if provided, otherwise use current user's id
+        const userIdToFetch = routeUserId || user?.id;
+        
+        if (!userIdToFetch) {
+          navigate("/login");
+          return;
         }
-      }
-      if (!state.user && !user) {
-        const cachedUser = localStorage.getItem("hushhUserDetails");
-        if (cachedUser) {
-          try {
-            setUser(JSON.parse(cachedUser) as UserDetails);
-          } catch {
-            /* ignore */
-          }
+
+        // Fetch investor profile from Supabase
+        const { data, error } = await supabase
+          .from("investor_profiles")
+          .select("*")
+          .eq("user_id", userIdToFetch)
+          .single();
+
+        if (error) {
+          throw error;
         }
+
+        if (!data) {
+          toast({
+            title: "No Profile Found",
+            description: "Create your investor profile first",
+            status: "info",
+            duration: 4000,
+          });
+          navigate("/hushh-user-profile");
+          return;
+        }
+
+        setProfileData(data);
+      } catch (error: any) {
+        console.error("Error fetching profile:", error);
+        toast({
+          title: "Error",
+          description: error.message || "Failed to load profile",
+          status: "error",
+          duration: 5000,
+        });
+        // Redirect to profile creation if no profile exists
+        navigate("/hushh-user-profile");
+      } finally {
+        setLoading(false);
       }
     };
 
-    hydrate();
-  }, [routeUserId, state.preferences, state.user]);
+    fetchProfile();
+  }, [routeUserId, navigate, toast]);
 
-  useEffect(() => {
-    if (!preferences && !routeUserId) {
-      navigate("/hushh-user-profile");
-    }
-  }, [navigate, preferences, routeUserId]);
-
-  if (!preferences) return null;
-
-  const formatList = (items?: string[]) => (items && items.length > 0 ? items.join(", ") : "unknown");
-  const formatBudget = (budget?: { currency: string; min: number | null; max: number | null }) => {
-    if (!budget) return "unknown";
-    const min = budget.min ?? 0;
-    const max = budget.max ?? 0;
-    return `${budget.currency} ${min} - ${max}`;
+  const getConfidenceBadge = (confidence: number) => {
+    if (confidence >= 0.7) return <Badge colorScheme="green">High</Badge>;
+    if (confidence >= 0.4) return <Badge colorScheme="yellow">Medium</Badge>;
+    return <Badge colorScheme="red">Low</Badge>;
   };
 
-  const [isGeneratingPass, setIsGeneratingPass] = useState(false);
-  const [passError, setPassError] = useState<string | null>(null);
-  const profileLink = `${fallbackOrigin}/profile/${routeUserId || user?.id || ""}`;
+  if (loading) {
+    return (
+      <Box minH="100vh" bg="#F5F7F9" display="flex" alignItems="center" justifyContent="center">
+        <Text>Loading profile...</Text>
+      </Box>
+    );
+  }
 
-  const handleGeneratePass = async () => {
-    if (!user || !preferences) return;
-    setIsGeneratingPass(true);
-    setPassError(null);
+  if (!profileData) {
+    return (
+      <Box minH="100vh" bg="#F5F7F9" display="flex" alignItems="center" justifyContent="center">
+        <VStack spacing={4}>
+          <Text fontSize="xl" color="#434343">No profile found</Text>
+          <Button
+            bg="rgba(153, 40, 112, 1)"
+            color="white"
+            _hover={{ bg: "black" }}
+            onClick={() => navigate("/hushh-user-profile")}
+          >
+            Create Profile
+          </Button>
+        </VStack>
+      </Box>
+    );
+  }
 
-    try {
-      const passPayload = {
-        passType: "generic",
-        description: "Hushh Lifestyle Profile",
-        organizationName: "Hushh Technologies",
-        logoText: "HUSHH",
-        backgroundColor: "rgb(26, 26, 46)",
-        foregroundColor: "rgb(255, 255, 255)",
-        primaryFields: [
-          { key: "name", label: "Name", value: user.name || "Hushh User" },
-        ],
-        secondaryFields: [
-          { key: "diet", label: "Diet", value: preferences.food.dietType },
-          { key: "style", label: "Style", value: preferences.brand.fashionStyle },
-          { key: "tech", label: "Tech", value: preferences.brand.techEcosystem },
-        ],
-        auxiliaryFields: [
-          { key: "hotel", label: "Hotel", value: formatBudget(preferences.hotel.budgetPerNight) },
-          { key: "coffee", label: "Coffee", value: preferences.coffee.coffeeConsumerType },
-          { key: "drink", label: "Drink", value: preferences.drink.alcoholPreference },
-        ],
-        barcode: {
-          message: profileLink,
-          format: "PKBarcodeFormatQR",
-        },
-      };
-      // https://hushh-wallet.vercel.app/api/passes/universal/create
-      const res = await fetch("https://hushh-wallet.vercel.app/api/wallet-pass", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(passPayload),
-      });
-
-      if (!res.ok) {
-        const text = await res.text();
-        throw new Error(text || "Wallet pass generation failed");
-      }
-
-      const blob = await res.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "hushh-profile.pkpass";
-      document.body.appendChild(link);
-      link.click();
-      link.parentNode?.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    } catch (err: any) {
-      setPassError(err?.message || "Unable to generate pass right now.");
-    } finally {
-      setIsGeneratingPass(false);
-    }
-  };
+  const investorProfile = profileData.investor_profile;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-[#f8fcff] py-12">
-      <div className="max-w-7xl mx-auto px-4 lg:px-6 space-y-8">
-        {/* Hero */}
-        <div className="bg-gradient-to-r from-cyan-600 via-sky-500 to-cyan-500 text-white rounded-3xl p-8 shadow-xl">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            <div className="space-y-2">
-              <p className="text-xs uppercase tracking-[0.2em] font-semibold opacity-90">AI lifestyle profile</p>
-              <h1 className="text-3xl lg:text-4xl font-bold">{user?.name || "Hushh User"}</h1>
-              <p className="text-sm opacity-90">{user?.email}</p>
-              {user?.organisation && (
-                <p className="text-sm opacity-90">Organisation: {user.organisation}</p>
-              )}
-            </div>
-            <div className="flex flex-wrap gap-2 text-sm">
-              <span className="bg-white/15 px-3 py-1 rounded-full">Age {user?.age ?? "NA"}</span>
-              {user?.phoneCountryCode && user?.phoneNumber && (
-                <span className="bg-white/15 px-3 py-1 rounded-full">
-                  {user.phoneCountryCode} {user.phoneNumber}
-                </span>
-              )}
-              <span className="bg-white/15 px-3 py-1 rounded-full">
-                Updated {new Date(preferences.lastEnrichedAt).toLocaleString()}
-              </span>
-            </div>
-            <div className="flex flex-wrap gap-2 text-sm">
-              <button
+    <Box minH="100vh" bg="#F5F7F9" py={10}>
+      <Box maxW="1200px" mx="auto" px={4}>
+        {/* Header Card */}
+        <Box bg="white" rounded="xl" shadow="sm" p={8} mb={6}>
+          <VStack align="start" spacing={4}>
+            <HStack justify="space-between" w="full">
+              <VStack align="start" spacing={1}>
+                <Text fontSize="sm" fontWeight="700" color="rgba(61,61,145,1)" textTransform="uppercase">
+                  Investor Profile
+                </Text>
+                <Heading as="h1" fontSize={{ base: "2xl", md: "3xl" }} fontWeight="700" color="#1c1c1c">
+                  {profileData.name}
+                </Heading>
+              </VStack>
+              <Button
+                size="sm"
+                bg="rgba(153, 40, 112, 1)"
+                color="white"
+                _hover={{ bg: "black" }}
                 onClick={() => navigate("/hushh-user-profile")}
-                className="px-4 py-2 bg-white/10 border border-white/20 text-white rounded-lg shadow-sm hover:bg-white/15 transition"
               >
-                Edit details
-              </button>
-              <button
-                onClick={handleGeneratePass}
-                disabled={isGeneratingPass}
-                className="px-4 py-2 bg-white text-cyan-700 rounded-lg shadow-sm hover:bg-gray-50 transition disabled:opacity-70"
-              >
-                {isGeneratingPass ? "Generating Wallet Pass..." : "Add to Apple Wallet"}
-              </button>
-              <button
-                onClick={() => navigate("/")}
-                className="px-4 py-2 bg-white/10 border border-white/20 text-white rounded-lg shadow-sm hover:bg-white/15 transition"
-              >
-                Back to home
-              </button>
-            </div>
-          </div>
-          {passError && (
-            <div className="mt-3 text-sm bg-white/15 border border-white/25 text-white px-4 py-2 rounded-lg">
-              {passError}
-            </div>
-          )}
-        </div>
+                Edit Profile
+              </Button>
+            </HStack>
 
-        {/* Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
-            <p className="text-xs uppercase tracking-wide text-gray-500">Food</p>
-            <p className="text-lg font-semibold text-gray-900 mt-1 truncate">
-              {formatList(preferences.food.favoriteCuisines)}
-            </p>
-            <p className="text-sm text-gray-500">Diet: {preferences.food.dietType} • Spice: {preferences.food.spiceLevel}</p>
-          </div>
-          <div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
-            <p className="text-xs uppercase tracking-wide text-gray-500">Hotel</p>
-            <p className="text-lg font-semibold text-gray-900 mt-1 truncate">
-              {formatBudget(preferences.hotel.budgetPerNight)}
-            </p>
-            <p className="text-sm text-gray-500">Class: {preferences.hotel.hotelClass} • Location: {preferences.hotel.locationPreference}</p>
-          </div>
-          <div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
-            <p className="text-xs uppercase tracking-wide text-gray-500">Brands</p>
-            <p className="text-lg font-semibold text-gray-900 mt-1 truncate">{preferences.brand.fashionStyle}</p>
-            <p className="text-sm text-gray-500">
-              Tech: {preferences.brand.techEcosystem} • Price: {preferences.brand.priceSensitivity}
-            </p>
-          </div>
-        </div>
+            <HStack spacing={4} flexWrap="wrap">
+              <Badge px={3} py={1} colorScheme="blue">{profileData.email}</Badge>
+              <Badge px={3} py={1} colorScheme="purple">Age {profileData.age}</Badge>
+              <Badge px={3} py={1} colorScheme="green">
+                {profileData.phone_country_code} {profileData.phone_number}
+              </Badge>
+              {profileData.organisation && (
+                <Badge px={3} py={1} colorScheme="orange">{profileData.organisation}</Badge>
+              )}
+            </HStack>
 
-        {/* Detailed cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          <PreferenceCard
-            title="Food"
-            items={[
-              { label: "Diet", value: preferences.food.dietType },
-              { label: "Spice", value: preferences.food.spiceLevel },
-              { label: "Budget", value: preferences.food.budgetLevel },
-              { label: "Eats out", value: preferences.food.eatingOutFrequency },
-              { label: "Cuisines", value: formatList(preferences.food.favoriteCuisines) },
-            ]}
-          />
-          <PreferenceCard
-            title="Drink"
-            items={[
-              { label: "Alcohol", value: preferences.drink.alcoholPreference },
-              { label: "Alcohol types", value: formatList(preferences.drink.favoriteAlcoholTypes) },
-              { label: "Non-alcoholic", value: formatList(preferences.drink.favoriteNonAlcoholicTypes) },
-              { label: "Sugar", value: preferences.drink.sugarLevel },
-              { label: "Caffeine tolerance", value: preferences.drink.caffeineTolerance },
-            ]}
-          />
-          <PreferenceCard
-            title="Hotel"
-            items={[
-              { label: "Budget/night", value: formatBudget(preferences.hotel.budgetPerNight) },
-              { label: "Class", value: preferences.hotel.hotelClass },
-              { label: "Location", value: preferences.hotel.locationPreference },
-              { label: "Room", value: preferences.hotel.roomType },
-              { label: "Amenities", value: formatList(preferences.hotel.amenitiesPriority) },
-            ]}
-          />
-          <PreferenceCard
-            title="Coffee"
-            items={[
-              { label: "Consumer type", value: preferences.coffee.coffeeConsumerType },
-              { label: "Styles", value: formatList(preferences.coffee.coffeeStyle) },
-              { label: "Milk", value: preferences.coffee.milkPreference },
-              { label: "Sweetness", value: preferences.coffee.sweetnessLevel },
-              { label: "Ambience", value: preferences.coffee.cafeAmbiencePreference },
-            ]}
-          />
-          <PreferenceCard
-            title="Brands & shopping"
-            items={[
-              { label: "Style", value: preferences.brand.fashionStyle },
-              { label: "Tech ecosystem", value: preferences.brand.techEcosystem },
-              { label: "Shopping channels", value: formatList(preferences.brand.shoppingChannels) },
-              { label: "Price point", value: preferences.brand.priceSensitivity },
-              { label: "Values", value: formatList(preferences.brand.brandValues) },
-            ]}
-          />
-        </div>
+            <Text fontSize="sm" color="#434343">
+              Profile created on {new Date(profileData.confirmed_at).toLocaleDateString()}
+            </Text>
+          </VStack>
+        </Box>
 
-      </div>
-    </div>
+        {/* Investor Profile Fields */}
+        <Box bg="white" rounded="xl" shadow="sm" p={6}>
+          <Heading as="h2" fontSize="xl" fontWeight="600" color="#1c1c1c" mb={4}>
+            Investment Profile Details
+          </Heading>
+
+          <Accordion allowMultiple>
+            {Object.entries(investorProfile).map(([fieldName, fieldData]: [string, any]) => (
+              <AccordionItem key={fieldName} border="none" mb={2}>
+                <AccordionButton
+                  bg="#E6F4FF"
+                  _hover={{ bg: "#d0e7ff" }}
+                  rounded="md"
+                  px={4}
+                  py={3}
+                >
+                  <Box flex="1" textAlign="left">
+                    <HStack justify="space-between" w="full">
+                      <Text fontWeight="600" color="#1c1c1c" fontSize="sm">
+                        {FIELD_LABELS[fieldName as keyof typeof FIELD_LABELS] || fieldName}
+                      </Text>
+                      {getConfidenceBadge(fieldData.confidence)}
+                    </HStack>
+                    <Text fontSize="xs" color="#434343" mt={1}>
+                      {Array.isArray(fieldData.value)
+                        ? fieldData.value.map((v: string) => VALUE_LABELS[v as keyof typeof VALUE_LABELS] || v).join(", ")
+                        : VALUE_LABELS[fieldData.value as keyof typeof VALUE_LABELS] || fieldData.value}
+                    </Text>
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+
+                <AccordionPanel pb={4} pt={3} px={4} bg="white">
+                  <VStack align="stretch" spacing={2}>
+                    <Box>
+                      <Text fontSize="xs" fontWeight="600" color="#434343" mb={1}>
+                        AI Rationale:
+                      </Text>
+                      <Text fontSize="xs" color="#434343">
+                        {fieldData.rationale}
+                      </Text>
+                    </Box>
+                    <Box>
+                      <Text fontSize="xs" fontWeight="600" color="#434343">
+                        Confidence: {Math.round(fieldData.confidence * 100)}%
+                      </Text>
+                    </Box>
+                  </VStack>
+                </AccordionPanel>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </Box>
+
+        {/* Action Buttons */}
+        <HStack justify="center" mt={8} spacing={4}>
+          <Button
+            onClick={() => navigate("/")}
+            variant="outline"
+            colorScheme="gray"
+          >
+            Back to Home
+          </Button>
+          <Button
+            bg="rgba(153, 40, 112, 1)"
+            color="white"
+            _hover={{ bg: "black" }}
+            onClick={() => navigate("/hushh-user-profile")}
+          >
+            Update Profile
+          </Button>
+        </HStack>
+      </Box>
+    </Box>
   );
 };
 
