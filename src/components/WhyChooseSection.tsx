@@ -85,69 +85,85 @@ const WhyChooseSection = () => {
         <VStack spacing={2} textAlign="center" mb={{ base: 6, md: 8 }} animation={`${fadeUp} 0.2s ease-out`}>
           <Heading
             as="h2"
-            fontSize={{ base: "22px", md: "28px" }}
+            fontSize={{ base: "26px", md: "30px" }}
             fontWeight="700"
             color={tokens.label}
+            lineHeight="1.2"
           >
             The Hushh Advantage
           </Heading>
-          <Text fontSize="14px" color={tokens.secondary}>
+          <Text fontSize={{ base: "16px", md: "17px" }} color={tokens.secondary} lineHeight="1.35">
             What you reliably get with every Hushh investor profile.
           </Text>
         </VStack>
 
-        <Box borderTop={`1px solid ${tokens.separator}`} />
+        <Box borderTop={`1px solid ${tokens.separator}`} mt={3} />
 
-        <VStack align="stretch" spacing={0} mt={4}>
+        <VStack align="stretch" spacing={5} mt={4}>
           {advantages.map((item, idx) => {
             const isActive = idx === activeIndex;
             const railColor = isActive ? tokens.blue : tokens.separator;
             const textColor = tokens.label;
             const bodyColor = isActive ? tokens.secondary : tokens.tertiary;
             return (
-              <Box
-                key={item.title}
-                data-idx={idx}
-                ref={(el) => (itemRefs.current[idx] = el)}
-                py={4}
-                animation={`${fadeUp} 0.25s ease-out ${idx * 0.05}s`}
-              >
-                <HStack align="flex-start" spacing={4}>
-                  <Flex align="stretch">
-                    <Box
-                      w="4px"
-                      borderRadius="full"
-                      bg={railColor}
-                      mt={1}
-                      mb={1}
-                    />
-                    <Flex
-                      ml={3}
-                      w="28px"
-                      h="28px"
-                      borderRadius="full"
-                      align="center"
-                      justify="center"
-                      bg={`${item.color}1A`}
-                      color={item.color}
-                      transition="transform 0.18s ease, opacity 0.18s ease"
-                      transform={isActive ? "scale(1)" : "scale(0.96)"}
-                      opacity={isActive ? 1 : 0.7}
-                    >
-                      <Icon as={item.icon} boxSize={4} />
+              <Box key={item.title}>
+                <Box
+                  data-idx={idx}
+                  ref={(el) => (itemRefs.current[idx] = el)}
+                  position="relative"
+                  p={5}
+                  borderRadius="22px"
+                  bg="#F9FAFB"
+                  boxShadow={
+                    isActive
+                      ? "0 16px 32px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.9)"
+                      : "0 10px 24px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9)"
+                  }
+                  transform={isActive ? "scale(1.01)" : "scale(1)"}
+                  transition="all 0.2s ease"
+                  animation={`${fadeUp} 0.25s ease-out ${idx * 0.06}s`}
+                >
+                  <HStack align="flex-start" spacing={4}>
+                    <Flex align="stretch">
+                      <Box
+                        w="3px"
+                        borderRadius="full"
+                        bg={railColor}
+                        mt={1}
+                        mb={1}
+                        opacity={isActive ? 1 : 0.6}
+                      />
+                      <Flex
+                        ml={3}
+                        w="32px"
+                        h="32px"
+                        borderRadius="full"
+                        align="center"
+                        justify="center"
+                        bg={`${item.color}1A`}
+                        color={item.color}
+                        transition="transform 0.18s ease, opacity 0.18s ease"
+                        transform={isActive ? "scale(1)" : "scale(0.96)"}
+                        opacity={isActive ? 1 : 0.75}
+                        boxShadow="inset 0 1px 0 rgba(255,255,255,0.85)"
+                      >
+                        <Icon as={item.icon} boxSize={5} />
+                      </Flex>
                     </Flex>
-                  </Flex>
 
-                  <VStack align="start" spacing={1} flex="1">
-                    <Text fontSize="16px" fontWeight="600" color={textColor}>
-                      {item.title}
-                    </Text>
-                    <Text fontSize="14px" color={bodyColor} lineHeight="1.6">
-                      {item.body}
-                    </Text>
-                  </VStack>
-                </HStack>
-                <Box mt={4} borderBottom={`1px solid ${tokens.separator}`} />
+                    <VStack align="start" spacing={1} flex="1">
+                      <Text fontSize="18px" fontWeight="600" color={textColor} lineHeight="1.35">
+                        {item.title}
+                      </Text>
+                      <Text fontSize="16px" color={bodyColor} lineHeight="1.55">
+                        {item.body}
+                      </Text>
+                    </VStack>
+                  </HStack>
+                </Box>
+                {idx < advantages.length - 1 && (
+                  <Box mt={4} borderBottom={`1px solid ${tokens.separator}`} />
+                )}
               </Box>
             );
           })}
