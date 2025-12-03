@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Button, Flex, Text, Box, Container } from "@chakra-ui/react";
+import { Button, Flex, Text, Box, Container, usePrefersReducedMotion } from "@chakra-ui/react";
+import { keyframes } from "@emotion/react";
 import config from "../resources/config/config";
 import ProfilePage from "./profile/profilePage";
 import WhyChooseSection from "./WhyChooseSection";
@@ -9,6 +10,19 @@ import { Session } from "@supabase/supabase-js";
 export default function Hero() {
   const navigate = useNavigate();
   const [session, setSession] = useState<Session | null>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const cardEntry = keyframes`
+    from { opacity: 0; transform: translateY(20px) scale(0.96); box-shadow: 0 0 0 rgba(0,0,0,0); }
+    to { opacity: 1; transform: translateY(0) scale(1); box-shadow: 0 20px 44px rgba(0,0,0,0.12); }
+  `;
+  const textEntry = keyframes`
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  `;
+  const pulse = keyframes`
+    0% { transform: scale(0.98); }
+    100% { transform: scale(1); }
+  `;
   
   useEffect(() => {
     // Fetch the current session
@@ -111,68 +125,129 @@ export default function Hero() {
       <WhyChooseSection />
       
       {/* Fund A Section */}
-      <Box 
-        py={{md:24,base:16}} 
-        px={4} 
-        bg="white"
-        textAlign="center"
-      >
+      <Box py={{ md: 20, base: 12 }} px={4} bg="white">
         <Container maxW="container.xl">
-          <Box>
-            <Text 
-              as="h2" 
-              fontSize={{ base: "3xl", md: "5xl" }}               
-              fontWeight="300" 
-              mb={4} 
-              color="#1D1D1F"
+          <Box textAlign="center" mb={{ base: 6, md: 8 }} animation={prefersReducedMotion ? undefined : `${textEntry} 0.2s ease-out`}>
+            <Text
+              as="h2"
+              fontSize={{ base: "26px", md: "30px" }}
+              fontWeight="700"
+              color="#111827"
               lineHeight="1.2"
               fontFamily="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif"
             >
               Fund A: The Genesis of Our Vision.
             </Text>
-            
-            <Text 
-              fontSize={{ base: "md", md: "lg", lg: "xl" }} 
-              color="#1D1D1F" 
-              maxW="5xl" 
-              mx="auto" 
-              mb={4}
-              lineHeight="1.6"
-              fontFamily="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif"
-              fontWeight="400"
-            >
-              Launched in 2024, Fund A is our inaugural AI-first investment vehicle. It demonstrates our systematic 
-              approach to income investing and value creation, targeting a 69% net IRR* through our proprietary "Sell 
-              the Wall" options framework.
-            </Text>
-
             <Text
-              fontSize={{ base: "sm", md: "md" }}
+              fontSize={{ base: "16px", md: "17px" }}
               color="#6E6E73"
-              fontStyle="italic"
               maxW="4xl"
               mx="auto"
-              mb={10}
+              mt={2}
+              lineHeight="1.35"
               fontFamily="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif"
             >
-              *Inspired by natural equilibrium and proven quantitative strategies.
+              What you reliably get with every Hushh investor profile.
             </Text>
-            
-            <Button
-              onClick={() => navigate("/discover-fund-a")}
-              background="linear-gradient(to right, #00A9E0, #6DD3EF)"
-              color="white"
-              rounded="full"
-              _hover={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)" }}
-              px={8}
-              py={6}
-              fontSize="md"
-              fontWeight="semibold"
-              minW="250px"
-            >
-              Learn More About Fund A
-            </Button>
           </Box>
+          <Box borderTop="1px solid #E5E5EA" />
+
+          <Flex justify="center" mt={6}>
+            <Box
+              w="100%"
+              maxW="900px"
+              bg="#F9FAFB"
+              borderRadius="24px"
+              boxShadow="0 20px 44px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.85)"
+              px={{ base: 5, md: 8 }}
+              py={{ base: 6, md: 8 }}
+              animation={prefersReducedMotion ? undefined : `${cardEntry} 0.26s ease-out`}
+            >
+              <Text
+                fontSize="13px"
+                letterSpacing="0.12em"
+                fontWeight="700"
+                color="#8E8E93"
+                textTransform="uppercase"
+                mb={2}
+              >
+                Investor Profile
+              </Text>
+              <Text
+                fontSize={{ base: "28px", md: "30px" }}
+                fontWeight="600"
+                color="#111827"
+                lineHeight="1.25"
+                textAlign="left"
+                animation={prefersReducedMotion ? undefined : `${textEntry} 0.22s ease-out`}
+              >
+                Fund A: The Genesis of Our Vision.
+              </Text>
+
+              <VStack align="stretch" spacing={3} mt={4}>
+                <Text fontSize="16px" lineHeight="1.5" color="#111827">
+                  Launched in 2024, Fund A is our inaugural AI-first investment vehicle. It demonstrates our systematic approach to income investing and value creation.
+                </Text>
+                <Text fontSize="16px" lineHeight="1.5" color="#111827">
+                  Targeting a <Text as="span" fontWeight="700" animation={prefersReducedMotion ? undefined : `${pulse} 0.18s ease-out`}>69% net IRR</Text>* through our proprietary “Sell the Wall” options framework.
+                </Text>
+              </VStack>
+
+              <HStack
+                mt={4}
+                spacing={6}
+                align="center"
+                border="1px solid #E5E5EA"
+                borderRadius="14px"
+                p={3}
+                bg="rgba(255,255,255,0.7)"
+              >
+                <VStack align="start" spacing={0}>
+                  <Text fontSize="13px" color="#6E6E73" textTransform="uppercase" letterSpacing="0.04em">
+                    Target net IRR
+                  </Text>
+                  <Text fontSize="17px" fontWeight="700" color="#111827">
+                    69%
+                  </Text>
+                </VStack>
+                <VStack align="start" spacing={0}>
+                  <Text fontSize="13px" color="#6E6E73" textTransform="uppercase" letterSpacing="0.04em">
+                    Inception
+                  </Text>
+                  <Text fontSize="17px" fontWeight="700" color="#111827">
+                    2024
+                  </Text>
+                </VStack>
+              </HStack>
+
+              <Text
+                fontSize="13px"
+                color="#6E6E73"
+                fontStyle="italic"
+                mt={3}
+                mb={4}
+              >
+                *Inspired by natural equilibrium and proven quantitative strategies.
+              </Text>
+
+              <Button
+                onClick={() => navigate("/discover-fund-a")}
+                background="linear-gradient(to right, #00A9E0, #6DD3EF)"
+                color="white"
+                rounded="full"
+                _hover={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)" }}
+                px={8}
+                py={6}
+                fontSize="17px"
+                fontWeight="600"
+                w="full"
+                boxShadow="0 14px 30px rgba(0,169,224,0.35)"
+              >
+                Learn More About Fund A
+              </Button>
+            </Box>
+          </Flex>
+          <Box borderBottom="1px solid #E5E5EA" mt={6} />
         </Container>
       </Box>
       
