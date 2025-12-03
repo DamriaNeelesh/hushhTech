@@ -8,8 +8,8 @@ import {
   Flex,
   VStack,
   HStack,
-  keyframes,
 } from "@chakra-ui/react";
+import { keyframes } from "@emotion/react";
 import { FaRocket, FaChartBar, FaBrain, FaSearch } from "react-icons/fa";
 
 const fadeUp = keyframes`

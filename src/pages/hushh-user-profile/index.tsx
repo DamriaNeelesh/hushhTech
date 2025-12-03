@@ -128,11 +128,9 @@ const HushhUserProfilePage: React.FC = () => {
   const [showPreview, setShowPreview] = useState(false);
   const [copiedFlash, setCopiedFlash] = useState(false);
   const [shimmerActive, setShimmerActive] = useState(false);
-  const [nameShimmer, setNameShimmer] = useState(true);
   const prefersReducedMotion = usePrefersReducedMotion();
   const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const firstFieldRef = useRef<HTMLInputElement | null>(null);
 
   const profileUrl = profileSlug ? `https://hushhtech.com/investor/${profileSlug}` : "";
   const { hasCopied, onCopy } = useClipboard(profileUrl);
@@ -290,11 +288,6 @@ const HushhUserProfilePage: React.FC = () => {
       clearTimeout(stopSecond);
     };
   }, [profileUrl]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setNameShimmer(false), 900);
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleChange = (key: keyof FormState, value: string) => {
     setForm((prev) => ({ ...prev, [key]: key === "age" ? Number(value) || "" : value }));
@@ -540,84 +533,28 @@ const HushhUserProfilePage: React.FC = () => {
         py={{ base: 6, md: 10 }}
         bg="white"
       >
-        <Box pt={{ base: 6, md: 8 }} pb={{ base: 5, md: 7 }} animation={heroAnimation}>
+        <Box pt={{ base: 6, md: 8 }} pb={{ base: 4, md: 6 }} animation={heroAnimation}>
           <Text
-            fontSize="11px"
+            fontSize="xs"
             letterSpacing="0.12em"
             fontWeight="700"
-            color="#8E8E93"
+            color="rgba(61,61,145,1)"
             textTransform="uppercase"
           >
             Investor Profile
           </Text>
-          <Box mt={2}>
-            <Text fontSize={{ base: "22px", md: "26px" }} fontWeight="400" color="#111827">
-              Hello,
-            </Text>
-            <Box position="relative" display="inline-block">
-              <Text
-                fontSize={{ base: "22px", md: "26px" }}
-                fontWeight="700"
-                color="#111827"
-              >
-                {form.name || "there"}
-              </Text>
-              {nameShimmer && !prefersReducedMotion && (
-                <Box
-                  position="absolute"
-                  inset={0}
-                  bgGradient="linear(to-r, rgba(255,255,255,0), rgba(255,255,255,0.7), rgba(255,255,255,0))"
-                  animation={`${shimmerSweep} 0.7s ease-out`}
-                  pointerEvents="none"
-                />
-              )}
-            </Box>
-          </Box>
-          <VStack align="start" spacing={1} mt={2}>
-            <Text fontSize="14px" color="#6E6E73">
-              Create your investor profile once.
-            </Text>
-            <Text fontSize="14px" color="#6E6E73">
-              Save it to Wallet. Share anywhere.
-            </Text>
-            <Text fontSize="14px" color="#6E6E73">
-              No more repetitive forms.
-            </Text>
-          </VStack>
-
-          <HStack spacing={2} mt={4} overflowX="auto" pb={1}>
-            {["No Logins", "Apple Wallet Ready", "Alias-only"].map((chip) => (
-              <Box
-                key={chip}
-                px={3}
-                py={1}
-                borderRadius="full"
-                border="1px solid #E5E5EA"
-                color="#6E6E73"
-                fontSize="11px"
-                letterSpacing="0.06em"
-                whiteSpace="nowrap"
-              >
-                {chip.toUpperCase()}
-              </Box>
-            ))}
-          </HStack>
-
-          <Box mt={4}>
-            <Button
-              type="button"
-              w="full"
-              size="lg"
-              {...primaryCtaStyles}
-              _active={ctaActiveState}
-              onClick={() => firstFieldRef.current?.focus()}
-            >
-              Create Your Hushh ID →
-            </Button>
-            <Text mt={2} fontSize="12px" color="#6E6E73" textAlign="center">
-              It takes under a minute. Your details stay private.
-            </Text>
-          </Box>
+          <Heading
+            as="h1"
+            fontSize={{ base: "24px", md: "32px" }}
+            fontWeight="700"
+            color="#111827"
+            mt={1}
+          >
+            Create Your Investor Hushh ID
+          </Heading>
+          <Text fontSize={{ base: "sm", md: "md" }} color="#475467" mt={2} maxW="42rem">
+            Fill in your basic details below. Our AI will generate an intelligent investor profile tailored to you.
+          </Text>
         </Box>
 
         <Box animation={headingAnimation}>
@@ -627,20 +564,19 @@ const HushhUserProfilePage: React.FC = () => {
         </Box>
 
         <VStack align="stretch" spacing={5} mt={3}>
-                <FormControl isRequired sx={focusLabelStyles}>
-                  <FormLabel {...labelBaseStyles}>
-                    Full Name <Text as="span" color="#ef4444" ml={1}>*</Text>
-                  </FormLabel>
-                  <InputGroup>
-                    <Input
-                      {...inputBaseStyles}
-                      ref={firstFieldRef}
-                      value={form.name}
-                      onChange={(e) => handleChange("name", e.target.value)}
-                      placeholder="Enter your full name"
-                    />
-                    {renderCheckmark(form.name)}
-                  </InputGroup>
+          <FormControl isRequired sx={focusLabelStyles}>
+            <FormLabel {...labelBaseStyles}>
+              Full Name <Text as="span" color="#ef4444" ml={1}>*</Text>
+            </FormLabel>
+            <InputGroup>
+              <Input
+                {...inputBaseStyles}
+                value={form.name}
+                onChange={(e) => handleChange("name", e.target.value)}
+                placeholder="Enter your full name"
+              />
+              {renderCheckmark(form.name)}
+            </InputGroup>
           </FormControl>
 
           <FormControl isRequired sx={focusLabelStyles}>
