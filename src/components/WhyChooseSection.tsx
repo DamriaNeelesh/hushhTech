@@ -85,18 +85,19 @@ const WhyChooseSection = () => {
         <VStack spacing={2} textAlign="center" mb={{ base: 6, md: 8 }} animation={`${fadeUp} 0.2s ease-out`}>
           <Heading
             as="h2"
-            fontSize={{ base: "22px", md: "28px" }}
+            fontSize={{ base: "26px", md: "30px" }}
             fontWeight="700"
             color={tokens.label}
+            lineHeight="1.2"
           >
             The Hushh Advantage
           </Heading>
-          <Text fontSize="14px" color={tokens.secondary}>
+          <Text fontSize={{ base: "16px", md: "17px" }} color={tokens.secondary} lineHeight="1.35">
             What you reliably get with every Hushh investor profile.
           </Text>
         </VStack>
 
-        <Box borderTop={`1px solid ${tokens.separator}`} />
+        <Box borderTop={`1px solid ${tokens.separator}`} mt={3} />
 
         <VStack align="stretch" spacing={0} mt={4}>
           {advantages.map((item, idx) => {
@@ -109,7 +110,7 @@ const WhyChooseSection = () => {
                 key={item.title}
                 data-idx={idx}
                 ref={(el) => (itemRefs.current[idx] = el)}
-                py={4}
+                py={5}
                 animation={`${fadeUp} 0.25s ease-out ${idx * 0.05}s`}
               >
                 <HStack align="flex-start" spacing={4}>
@@ -139,10 +140,10 @@ const WhyChooseSection = () => {
                   </Flex>
 
                   <VStack align="start" spacing={1} flex="1">
-                    <Text fontSize="16px" fontWeight="600" color={textColor}>
+                    <Text fontSize="17px" fontWeight="600" color={textColor} lineHeight="1.3">
                       {item.title}
                     </Text>
-                    <Text fontSize="14px" color={bodyColor} lineHeight="1.6">
+                    <Text fontSize="15px" color={bodyColor} lineHeight="1.6">
                       {item.body}
                     </Text>
                   </VStack>
