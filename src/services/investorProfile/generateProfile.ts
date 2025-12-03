@@ -90,10 +90,10 @@ export async function generateInvestorProfile(
   input: InvestorProfileInput,
   context: DerivedContext
 ): Promise<InvestorProfile> {
-  const apiKey = (import.meta as any).env.VITE_OPENAI_API_KEY;
+  const apiKey = (import.meta as any).env.VITE_ANTHROPIC_API_KEY;
   
   if (!apiKey) {
-    throw new Error("OpenAI API key not configured. Please add VITE_OPENAI_API_KEY to .env.local");
+    throw new Error("Anthropic API key not configured. Please add VITE_ANTHROPIC_API_KEY to .env.local");
   }
   
   const userPrompt = JSON.stringify({
@@ -110,18 +110,19 @@ export async function generateInvestorProfile(
   }, null, 2);
   
   try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${apiKey}`
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01"
       },
       body: JSON.stringify({
-        model: "gpt-4o",  // Using GPT-4o for better accuracy
+        model: "claude-3-5-sonnet-20241022",  // Using Claude 3.5 Sonnet for better accuracy
+        max_tokens: 4096,
         temperature: 0.3,  // Lower for consistency
-        response_format: { type: "json_object" },
+        system: SYSTEM_PROMPT,
         messages: [
-          { role: "system", content: SYSTEM_PROMPT },
           { role: "user", content: userPrompt }
         ]
       })
@@ -129,14 +130,14 @@ export async function generateInvestorProfile(
     
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`OpenAI API failed (${response.status}): ${errorText}`);
+      throw new Error(`Anthropic API failed (${response.status}): ${errorText}`);
     }
     
     const data = await response.json();
-    const content = data?.choices?.[0]?.message?.content;
+    const content = data?.content?.[0]?.text;
     
     if (!content) {
-      throw new Error("Empty response from OpenAI");
+      throw new Error("Empty response from Anthropic Claude");
     }
     
     const parsed = JSON.parse(content);

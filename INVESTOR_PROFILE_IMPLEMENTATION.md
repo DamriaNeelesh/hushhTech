@@ -8,7 +8,7 @@ This document describes the complete implementation of the AI-powered Investor P
 ### Flow
 1. **User Input (5 fields)** → Form Component
 2. **Context Enrichment** → Phone → Country/Currency, Email → Type, Age → Life Stage
-3. **AI Profile Generation** → OpenAI GPT-4o generates 12 fields with confidence scores
+3. **AI Profile Generation** → Claude 3.5 Sonnet generates 12 fields with confidence scores
 4. **Review & Edit** → User reviews AI suggestions and can edit any field
 5. **Confirmation** → Profile saved to Supabase with user confirmation
 
@@ -44,11 +44,11 @@ This document describes the complete implementation of the AI-powered Investor P
 
 #### AI Profile Generation Service
 **File:** `src/services/investorProfile/generateProfile.ts`
-- Uses OpenAI GPT-4o model (temperature 0.3 for consistency)
+- Uses Anthropic Claude 3.5 Sonnet model (temperature 0.3 for consistency)
 - Comprehensive system prompt with all 12 field schemas
 - Validates all required fields in AI response
 - Returns structured InvestorProfile with confidence scores
-- **Status:** ✅ Complete
+- **Status:** ✅ Complete (Updated to Claude API)
 
 #### Main Service Functions
 **File:** `src/services/investorProfile/index.ts`
