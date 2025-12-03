@@ -1,142 +1,157 @@
-import React from 'react';
-import { Box, Container, Heading, Text, SimpleGrid, Icon, Flex, Image, Button } from '@chakra-ui/react';
-import { FaRocket, FaChartBar, FaBrain, FaSearch } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  Icon,
+  Flex,
+  VStack,
+  HStack,
+  keyframes,
+} from "@chakra-ui/react";
+import { FaRocket, FaChartBar, FaBrain, FaSearch } from "react-icons/fa";
+
+const fadeUp = keyframes`
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
+
+const tokens = {
+  label: "#000000",
+  secondary: "#6E6E73",
+  tertiary: "#8E8E93",
+  separator: "#E5E5EA",
+  blue: "#0A84FF",
+  teal: "#30B0C7",
+  indigo: "#5856D6",
+  mint: "#00C7BE",
+};
+
+const advantages = [
+  {
+    title: "AI-Driven Alpha",
+    body: "Proprietary AI algorithms systematically extract alpha and adapt to market changes.",
+    icon: FaRocket,
+    color: tokens.blue,
+  },
+  {
+    title: "Systematic Risk Management",
+    body: "Rigorous quantitative analysis and AI meticulously control risk every day.",
+    icon: FaChartBar,
+    color: tokens.teal,
+  },
+  {
+    title: "Hushh Enterprise x AI Synergy",
+    body: "AI provides speed and scale; human insight delivers deep understanding and strategic oversight.",
+    icon: FaBrain,
+    color: tokens.indigo,
+  },
+  {
+    title: "Transparency You Trust",
+    body: "Clear reporting and ethical practices you can depend on.",
+    icon: FaSearch,
+    color: tokens.mint,
+  },
+];
 
 const WhyChooseSection = () => {
-  const navigate = useNavigate();
-  
+  const [activeIndex, setActiveIndex] = useState(0);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idx = Number(entry.target.getAttribute("data-idx"));
+            if (!Number.isNaN(idx)) setActiveIndex(idx);
+          }
+        });
+      },
+      { threshold: 0.5, rootMargin: "-10% 0px -10% 0px" }
+    );
+
+    itemRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <Box 
-      pt={{ base: 2, md: 6 }}
-      pb={{ base: 8, md: 12 }}
-      px={4} 
-      bg="rgb(249, 250, 251)"
-      style={{ '--tw-bg-opacity': 1 } as React.CSSProperties}
-    >
+    <Box pt={{ base: 8, md: 10 }} pb={{ base: 10, md: 14 }} px={4} bg="white">
       <Container maxW="container.xl">
-        <Box textAlign="center" mb={{ base: 4, md: 8 }}>
-          <Heading as="h2" fontSize={{ base: "3xl", md: "5xl" }}  fontWeight="300" mb={4} color="gray.800">
-          The Hushh Advantage
+        <VStack spacing={2} textAlign="center" mb={{ base: 6, md: 8 }} animation={`${fadeUp} 0.2s ease-out`}>
+          <Heading
+            as="h2"
+            fontSize={{ base: "22px", md: "28px" }}
+            fontWeight="700"
+            color={tokens.label}
+          >
+            The Hushh Advantage
           </Heading>
-          {/* <Text fontSize={{ base: "lg", md: "xl" }} color="rgb(110 110 115)" className='text-xl text-[#6E6E73] max-w-3xl mx-auto font-light'  mx="auto">
-            Our unique approach combines cutting-edge technology with proven investment strategies
-          </Text> */}
+          <Text fontSize="14px" color={tokens.secondary}>
+            What you reliably get with every Hushh investor profile.
+          </Text>
+        </VStack>
+
+        <Box borderTop={`1px solid ${tokens.separator}`} />
+
+        <VStack align="stretch" spacing={0} mt={4}>
+          {advantages.map((item, idx) => {
+            const isActive = idx === activeIndex;
+            const railColor = isActive ? tokens.blue : tokens.separator;
+            const textColor = tokens.label;
+            const bodyColor = isActive ? tokens.secondary : tokens.tertiary;
+            return (
+              <Box
+                key={item.title}
+                data-idx={idx}
+                ref={(el) => (itemRefs.current[idx] = el)}
+                py={4}
+                animation={`${fadeUp} 0.25s ease-out ${idx * 0.05}s`}
+              >
+                <HStack align="flex-start" spacing={4}>
+                  <Flex align="stretch">
+                    <Box
+                      w="4px"
+                      borderRadius="full"
+                      bg={railColor}
+                      mt={1}
+                      mb={1}
+                    />
+                    <Flex
+                      ml={3}
+                      w="28px"
+                      h="28px"
+                      borderRadius="full"
+                      align="center"
+                      justify="center"
+                      bg={`${item.color}1A`}
+                      color={item.color}
+                      transition="transform 0.18s ease, opacity 0.18s ease"
+                      transform={isActive ? "scale(1)" : "scale(0.96)"}
+                      opacity={isActive ? 1 : 0.7}
+                    >
+                      <Icon as={item.icon} boxSize={4} />
+                    </Flex>
+                  </Flex>
+
+                  <VStack align="start" spacing={1} flex="1">
+                    <Text fontSize="16px" fontWeight="600" color={textColor}>
+                      {item.title}
+                    </Text>
+                    <Text fontSize="14px" color={bodyColor} lineHeight="1.6">
+                      {item.body}
+                    </Text>
+                  </VStack>
+                </HStack>
+                <Box mt={4} borderBottom={`1px solid ${tokens.separator}`} />
+              </Box>
+            );
+          })}
         </Box>
-
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={8}>
-          {/* Feature 1 */}
-          <Box 
-            p={9} 
-            borderRadius="2xl" 
-            bg="white"
-            // boxShadow="sm"
-            transition="all 0.3s"
-            _hover={{ boxShadow: "md", transform: "translateY(-5px)" }}
-          >
-            <Flex 
-              w={12} 
-              h={12} 
-              bg="red.50" 
-              borderRadius="full" 
-              justify="center" 
-              align="center" 
-              mb={4}
-            >
-              <Icon as={FaRocket} color="red.400" boxSize={6} />
-            </Flex>
-            <Heading as="h3" fontSize="xl" mb={3} fontWeight="500" color="gray.800">
-              AI-Driven {window.innerWidth >= 768 ? <br /> : ' '}Alpha
-            </Heading>
-            <Text className='text-[#6E6E73] leading-relaxed font-light'>
-            Proprietary AI algorithms systematically extract alpha and adapt to market changes
-            </Text>
-          </Box>
-
-          {/* Feature 2 */}
-          <Box 
-            p={9} 
-            borderRadius="lg" 
-            bg="white"
-            // boxShadow="sm"
-            transition="all 0.3s"
-            _hover={{ boxShadow: "md", transform: "translateY(-5px)" }}
-          >
-            <Flex 
-              w={12} 
-              h={12} 
-              bg="blue.50" 
-              borderRadius="full" 
-              justify="center" 
-              align="center" 
-              mb={4}
-            >
-              <Icon as={FaChartBar} color="blue.400" boxSize={6} />
-            </Flex>
-            <Heading as="h3" fontSize="xl" mb={3} fontWeight="500" color="gray.800">
-             Systematic Risk {window.innerWidth >= 768 ? <br /> : ' '} Management
-            </Heading>
-            <Text className='text-[#6E6E73] leading-relaxed font-light'>
-            Rigorous quantitative analysis and AI meticulously control risk, every second, every day
-            </Text>
-          </Box>
-
-          {/* Feature 3 */}
-          <Box 
-            p={9} 
-            borderRadius="lg" 
-            bg="white"
-            // boxShadow="sm"
-            transition="all 0.3s"
-            _hover={{ boxShadow: "md", transform: "translateY(-5px)" }}
-          >
-            <Flex 
-              w={12} 
-              h={12} 
-              bg="pink.50" 
-              borderRadius="full" 
-              justify="center" 
-              align="center" 
-              mb={4}
-            >   
-              <Icon as={FaBrain} color="pink.400" boxSize={6} />
-            </Flex>
-            <Heading as="h3" fontSize="xl" mb={3} fontWeight="500" color="gray.800">
-              Hushh Enterprise {window.innerWidth >= 768 ? <br /> : ' '} x AI Synergy
-            </Heading>
-            <Text className='text-[#6E6E73] leading-relaxed font-light'>
-            AI provides speed and scale; human insight delivers deep understanding and strategic oversight            </Text>
-          </Box>
-
-          {/* Feature 4 */}
-          <Box 
-            p={9} 
-            borderRadius="lg" 
-            bg="white"
-            transition="all 0.3s"
-            _hover={{ boxShadow: "md", transform: "translateY(-5px)" }}
-          >
-            <Flex 
-              w={12} 
-              h={12} 
-              bg="cyan.50" 
-              borderRadius="full" 
-              justify="center" 
-              align="center" 
-              mb={4}
-            >
-              <Icon as={FaSearch} color="#0AADBC" boxSize={6} />
-            </Flex>
-            <Heading as="h3" fontSize="xl" mb={3} fontWeight="500" color="gray.800">
-              Transparency You {window.innerWidth >= 768 ? <br /> : ' '}Trust
-            </Heading>
-            <Text className='text-[#6E6E73] leading-relaxed font-light'>
-            Clear reporting and ethical practices you can depend on
-            </Text>
-          </Box>
-        </SimpleGrid>
-        
-       
       </Container>
     </Box>
   );
