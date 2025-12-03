@@ -823,19 +823,20 @@ const HushhUserProfilePage: React.FC = () => {
                     <AccordionItem
                       key={fieldName}
                       border="none"
-                      borderBottom="1px solid #F2F4F7"
-                      py={isOpen ? 2 : 1}
+                      borderBottom="1px solid #E5E5EA"
+                      py={isOpen ? 3 : 2}
                       _last={{ borderBottom: "none" }}
                     >
                       <AccordionButton
                         role="group"
                         px={0}
-                        py={3}
-                        minH="64px"
+                        py={isOpen ? 4 : 3}
+                        minH="60px"
                         alignItems="center"
                         position="relative"
-                        _hover={{ bg: "rgba(120,120,128,0.06)" }}
-                        _active={{ bg: "rgba(120,120,128,0.1)" }}
+                        bg={isOpen ? "rgba(120,120,128,0.06)" : "transparent"}
+                        _hover={{ bg: "rgba(120,120,128,0.04)" }}
+                        _active={{ bg: "rgba(120,120,128,0.08)" }}
                         _expanded={{
                           bg: "rgba(120,120,128,0.06)",
                         }}
@@ -863,7 +864,7 @@ const HushhUserProfilePage: React.FC = () => {
                             <Icon
                               as={getFieldIcon(fieldName)}
                               boxSize={5}
-                              color="#0A84FF"
+                              color={isOpen ? "#0A84FF" : "rgba(10,132,255,0.7)"}
                               opacity={isOpen ? 1 : 0.8}
                               transition="transform 0.18s ease, opacity 0.18s ease"
                               transform={isOpen && !prefersReducedMotion ? "scale(1.05)" : "scale(1)"}
