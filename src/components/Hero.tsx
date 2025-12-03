@@ -44,77 +44,95 @@ export default function Hero() {
     <>
       {!session ? (
         <Box
-          bg="white"
-          color="white"
+          bg="#FFFFFF"
           minH="100vh"
           display="flex"
           alignItems="center"
           justifyContent="center"
-          px={4}
-          py={12}
-          fontFamily={'-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif'}
+          px={6}
+          pt={{ base: "100px", md: "120px" }}
+          pb={{ base: "120px", md: "140px" }}
         >
-          <Container maxW="7xl" textAlign="center">
-            <Flex direction="column" align="center" mb={{md:8,base:4}}>
-              <Box className="pt-20" display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} gap={{md:0,base:4}}>
-                <Text fontSize={{ base: "3xl", md: "7xl", lg: "8xl" }} color={'rgb(29,29,29)'} fontWeight="300" fontFamily={'-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu'} lineHeight="1">
-                  Investing in the Future.
-                </Text>
-                <Text fontSize={{ base: "4xl", md: "7xl", lg: "8xl" }} className="blue-gradient-text" fontFamily={'-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu'} fontWeight="500" lineHeight="1">
-                The AI-Powered Berkshire
-                </Text>
-                <Text fontSize={{ base: "4xl", md: "7xl", lg: "8xl" }} fontWeight="500" className="blue-gradient-text" fontFamily={'-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu'} lineHeight="1">
-                Hathaway.
-                </Text>
-              </Box>
-              
+          <Container maxW="1200px" textAlign="center">
+            {/* Hero Headline */}
+            <Box mb={{ base: "32px", md: "40px" }}>
               <Text 
-                fontSize={{ base: "md", md: "xl", lg: "2xl" }} 
-                mb={{md:10,base:20}} 
-                mt={6}
-                color="rgb(110 110 115 / var(--tw-text-opacity, 1))"
-                sx={{
-                  "--tw-text-opacity": "1"
-                }}
-                lineHeight={'1.4'}
-                className="text-xl md:text-2xl text-[#6E6E73] mb-12 max-w-5xl mx-auto leading-relaxed font-light"
+                fontSize={{ base: "40px", md: "56px", lg: "64px" }} 
+                color="#1D1D1F"
+                fontWeight="300" 
+                fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif"
+                lineHeight="1.1"
+                letterSpacing="-0.01em"
+                mb="8px"
               >
-                Hushh Technologies is pioneering a new era of investment. We uniquely combine advanced AI and profound human expertise to build a modern conglomerate of exceptional, cash-flow rich businesses for long-term value creation.
+                Investing in the Future.
               </Text>
-              
-              <Flex justifyContent={{md:"center",base:"flex-end"}} gap={4} flexDirection={{ base: 'column', sm: 'row' }} >
-                <Button
-                  onClick={() => navigate("/discover-fund-a")}
-                  background="linear-gradient(to right, #00A9E0, #6DD3EF)"
-                  color="white"
-                  rounded="full"
-                  _hover={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)" }}
-                  px={{md:8,base:4}}
-                  py={{md:4,base:2}}
-                  fontSize="md"
-                  fontWeight="semibold"
-                  minW={{md:"200px",base:"100px"}}
-                  // h="auto"
-                >
-                  Discover Fund A
-                </Button>
-                <Button
-                  onClick={() => navigate("/Signup")}
-                  bg="transparent"
-                  border="1px solid #1D293D"
-                  color="#1D293D"
-                  rounded="full"
-                  // _hover={{ bg: "#fef08a" }}
-                  px={4}
-                  py={4}
-                  fontSize="md"
-                  fontWeight="semibold"
-                  minW="200px"
-                  // h="auto"
-                >
-                  Become an Investor
-                </Button>
-              </Flex>
+              <Text 
+                fontSize={{ base: "40px", md: "56px", lg: "64px" }} 
+                color="#1D1D1F"
+                fontWeight="500" 
+                fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif"
+                lineHeight="1.1"
+                letterSpacing="-0.01em"
+              >
+                The AI-Powered Berkshire Hathaway.
+              </Text>
+            </Box>
+            
+            {/* Simplified Description */}
+            <Text 
+              fontSize={{ base: "17px", md: "21px" }} 
+              color="#6E6E73"
+              fontWeight="400"
+              fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
+              lineHeight="1.5"
+              maxW="800px"
+              mx="auto"
+              mb={{ base: "48px", md: "56px" }}
+            >
+              We combine AI and human expertise to build exceptional businesses for long-term value creation.
+            </Text>
+            
+            {/* CTA Buttons */}
+            <Flex 
+              justifyContent="center" 
+              gap={4} 
+              flexDirection={{ base: 'column', sm: 'row' }}
+              alignItems="center"
+            >
+              <Button
+                onClick={() => navigate("/discover-fund-a")}
+                background="linear-gradient(to right, #00A9E0, #6DD3EF)"
+                color="white"
+                rounded="full"
+                _hover={{ background: "linear-gradient(to right, #0099CC, #5CC3E5)" }}
+                px={8}
+                py={6}
+                fontSize="17px"
+                fontWeight="600"
+                minW="200px"
+                height="auto"
+                fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
+              >
+                Discover Fund A
+              </Button>
+              <Button
+                onClick={() => navigate("/Signup")}
+                bg="transparent"
+                border="2px solid #1D1D1F"
+                color="#1D1D1F"
+                rounded="full"
+                _hover={{ bg: "#F5F5F7" }}
+                px={8}
+                py={6}
+                fontSize="17px"
+                fontWeight="600"
+                minW="200px"
+                height="auto"
+                fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
+              >
+                Become an Investor
+              </Button>
             </Flex>
           </Container>
         </Box>
@@ -259,34 +277,38 @@ export default function Hero() {
         </Container>
       </Box>
       
-      {/* Ready to Transform Section - with white background */}
+      {/* Ready to Transform Section */}
       <Box 
-        py={16} 
-        px={4} 
-        bg="rgb(249, 250, 251)"
+        py={{ base: "80px", md: "100px" }}
+        px={6} 
+        bg="#FFFFFF"
       >
-        <Container maxW="container.xl">
+        <Container maxW="1000px">
           <Box textAlign="center">
             <Text 
               as="h2" 
-              fontSize={{ base: "3xl", md: "5xl" }} 
-              // fontWeight="bold" 
-              mb={4} 
-              // color="gray.800"
-              className="font-light text-[#1D1D1F] mb-8 tracking-tight"
+              fontSize={{ base: "36px", md: "48px" }} 
+              fontWeight="500"
+              mb={6}
+              color="#1D1D1F"
+              fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif"
+              lineHeight="1.1"
+              letterSpacing="-0.01em"
             >
               Ready to Transform Your Investment Strategy?
             </Text>
             
             <Text 
-              fontSize={{ base: "lg", md: "xl" }} 
-              color="gray.600" 
-              maxW="3xl" 
-              mx="auto" 
+              fontSize={{ base: "17px", md: "21px" }}
+              color="#6E6E73"
+              maxW="700px"
+              mx="auto"
               mb={10}
-              className=" text-[#6E6E73] leading-relaxed font-light"
+              fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
+              lineHeight="1.5"
+              fontWeight="400"
             >
-              Join forward-thinking investors who are already benefiting from our advanced approach to wealth creation.
+              Join forward-thinking investors building wealth with our AI-powered approach.
             </Text>
             
             <Flex 
@@ -299,14 +321,15 @@ export default function Hero() {
                 onClick={() => navigate("/about")}
                 background="linear-gradient(to right, #00A9E0, #6DD3EF)"
                 color="white"
-                size="lg"
                 minW="200px"
-                // h="auto"
-                _hover={{background:"linear-gradient(to right, #00A9E0, #6DD3EF)"}}
-                py={4}
-                fontSize="md"
-                fontWeight="semibold"
+                _hover={{ background:"linear-gradient(to right, #0099CC, #5CC3E5)" }}
+                px={8}
+                py={6}
+                fontSize="17px"
+                fontWeight="600"
                 borderRadius="full"
+                height="auto"
+                fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
               >
                 Learn About Our Mission
               </Button>
@@ -314,16 +337,17 @@ export default function Hero() {
               <Button
                 onClick={() => navigate("/contact")}
                 bg="transparent"
-                border="1px solid #1D293D"
-                color="#1D293D"
-                size="lg"
+                border="2px solid #1D1D1F"
+                color="#1D1D1F"
                 minW="200px"
-                // h="auto"
-                py={4}
-                fontSize="md"
-                fontWeight="semibold"
-                // _hover={{ bg: "#fef08a" }}
+                _hover={{ bg: "#F5F5F7" }}
+                px={8}
+                py={6}
+                fontSize="17px"
+                fontWeight="600"
                 borderRadius="full"
+                height="auto"
+                fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
               >
                 Contact Us Today
               </Button>
