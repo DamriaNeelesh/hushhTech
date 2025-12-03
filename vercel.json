@@ -1,9 +1,5 @@
 {
-    "rewrites": [
-      { "source": "/(.*)", "destination": "/" },
-      { "source": "/api/(.*)", "destination": "/api/$1" }
-    ],
-    "builds": [
+  "builds": [
     {
       "src": "package.json",
       "use": "@vercel/static-build",
