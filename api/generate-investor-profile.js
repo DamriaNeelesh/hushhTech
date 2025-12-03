@@ -119,10 +119,7 @@ export default async function handler(req, res) {
     }
 
     // Get OpenAI API key from environment
-    // Hardcoded OpenAI key for now (requested)
-    const apiKey =
-      process.env.OPENAI_API_KEY ||
-      "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";
+    const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
       console.error('OPENAI_API_KEY not configured');
       return res.status(500).json({ error: 'OpenAI API key not configured on server' });

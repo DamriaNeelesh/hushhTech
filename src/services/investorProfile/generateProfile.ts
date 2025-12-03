@@ -1,8 +1,5 @@
 import { InvestorProfile, InvestorProfileInput, DerivedContext } from "../../types/investorProfile";
 
-// Hardcoded OpenAI API key for direct calls (requested to inline for now)
-const OPENAI_API_KEY = "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";
-
 const SYSTEM_PROMPT = `You are an assistant that PRE-FILLS an INVESTOR PROFILE from minimal information.
 
 You are given:
@@ -196,6 +193,15 @@ export async function generateInvestorProfile(
   input: InvestorProfileInput,
   context: DerivedContext
 ): Promise<InvestorProfile> {
-  // Direct OpenAI call only (as requested)
-  return await callOpenAIDirect(input, context, OPENAI_API_KEY);
+  const apiKey =
+    (import.meta as any).env.VITE_OPENAI_API_KEY ||
+    (typeof window !== "undefined" ? (window as any).__OPENAI_API_KEY__ : undefined);
+
+  if (!apiKey || (typeof apiKey === "string" && apiKey.trim().length === 0)) {
+    throw new Error(
+      "OpenAI API key is missing. Provide VITE_OPENAI_API_KEY in your .env.local or window.__OPENAI_API_KEY__ at runtime."
+    );
+  }
+
+  return await callOpenAIDirect(input, context, apiKey.trim());
 }
