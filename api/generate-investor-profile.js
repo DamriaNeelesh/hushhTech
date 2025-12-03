@@ -1,5 +1,5 @@
 /**
- * Serverless function to generate investor profile using Anthropic Claude API
+ * Serverless function to generate investor profile using OpenAI GPT-4o API
  * This runs server-side to avoid CORS issues and keep API keys secure
  */
 
@@ -118,14 +118,14 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Missing required fields: input and context' });
     }
 
-    // Get Anthropic API key from environment
-    const apiKey = process.env.ANTHROPIC_API_KEY;
+    // Get OpenAI API key from environment
+    const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
-      console.error('ANTHROPIC_API_KEY not configured');
-      return res.status(500).json({ error: 'Anthropic API key not configured on server' });
+      console.error('OPENAI_API_KEY not configured');
+      return res.status(500).json({ error: 'OpenAI API key not configured on server' });
     }
 
-    // Prepare prompt for Claude
+    // Prepare prompt for GPT-4o
     const userPrompt = JSON.stringify({
       raw_input: {
         name: input.name,
@@ -139,20 +139,19 @@ export default async function handler(req, res) {
       profile_schema: PROFILE_SCHEMA
     }, null, 2);
 
-    // Call Anthropic API
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    // Call OpenAI API
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01'
+        'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: 'claude-3-5-sonnet-20241022',
+        model: 'gpt-4o',
         max_tokens: 4096,
         temperature: 0.3,
-        system: SYSTEM_PROMPT,
         messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
           { role: 'user', content: userPrompt }
         ]
       })
@@ -160,18 +159,18 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Anthropic API error:', response.status, errorText);
+      console.error('OpenAI API error:', response.status, errorText);
       return res.status(response.status).json({ 
-        error: `Anthropic API failed: ${errorText}` 
+        error: `OpenAI API failed: ${errorText}` 
       });
     }
 
     const data = await response.json();
-    const content = data?.content?.[0]?.text;
+    const content = data?.choices?.[0]?.message?.content;
 
     if (!content) {
-      console.error('Empty response from Claude');
-      return res.status(500).json({ error: 'Empty response from Anthropic Claude' });
+      console.error('Empty response from GPT-4o');
+      return res.status(500).json({ error: 'Empty response from OpenAI GPT-4o' });
     }
 
     // Parse and validate response
