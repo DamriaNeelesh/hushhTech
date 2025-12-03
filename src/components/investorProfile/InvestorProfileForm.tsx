@@ -101,13 +101,22 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
   };
   
   return (
-    <Box maxW="600px" mx="auto" p={8}>
+    <Box maxW="600px" mx="auto" p={8} bg="#F5F5F7" minH="100vh">
       <VStack spacing={6} align="stretch">
         <Box textAlign="center">
-          <Heading size="lg" mb={2}>
+          <Heading 
+            size="lg" 
+            mb={2}
+            color="#1D1D1F"
+            fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif"
+          >
             Create Your Investor Hushh ID
           </Heading>
-          <Text color="gray.600">
+          <Text 
+            color="#6E6E73"
+            fontSize="15px"
+            fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
+          >
             Just 5 simple inputs, and we'll create your personalized investor profile using AI
           </Text>
         </Box>
@@ -116,16 +125,47 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
           <VStack spacing={4} align="stretch">
             {/* Name */}
             <FormControl isRequired isInvalid={!!errors.name}>
-              <FormLabel>Full Name</FormLabel>
+              <FormLabel 
+                fontSize="15px" 
+                fontWeight="600" 
+                color="#1D1D1F"
+                mb="8px"
+              >
+                Full Name
+              </FormLabel>
               <Input
                 type="text"
                 value={formData.name}
                 onChange={(e) => handleChange("name", e.target.value)}
                 placeholder="John Doe"
                 disabled={isLoading}
+                height="52px"
+                fontSize="17px"
+                borderWidth="2px"
+                borderRadius="16px"
+                borderColor={errors.name ? "#FF3B30" : "#D1D1D6"}
+                bg="white"
+                color="#1D1D1F"
+                px="16px"
+                py="14px"
+                fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
+                transition="border-color 0.2s ease"
+                _hover={{ borderColor: errors.name ? "#FF3B30" : "#B0B0B5" }}
+                _focus={{ 
+                  borderColor: errors.name ? "#FF3B30" : "#007AFF",
+                  boxShadow: "none"
+                }}
+                _placeholder={{ color: "#86868B" }}
+                _disabled={{
+                  borderColor: "#E5E5EA",
+                  bg: "#F5F5F7",
+                  color: "#86868B",
+                  cursor: "not-allowed",
+                  opacity: 0.6
+                }}
               />
               {errors.name && (
-                <Text color="red.500" fontSize="sm" mt={1}>
+                <Text color="#FF3B30" fontSize="13px" mt="6px">
                   {errors.name}
                 </Text>
               )}
@@ -133,16 +173,47 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
             
             {/* Email */}
             <FormControl isRequired isInvalid={!!errors.email}>
-              <FormLabel>Email Address</FormLabel>
+              <FormLabel 
+                fontSize="15px" 
+                fontWeight="600" 
+                color="#1D1D1F"
+                mb="8px"
+              >
+                Email Address
+              </FormLabel>
               <Input
                 type="email"
                 value={formData.email}
                 onChange={(e) => handleChange("email", e.target.value)}
                 placeholder="john@example.com"
                 disabled={isLoading}
+                height="52px"
+                fontSize="17px"
+                borderWidth="2px"
+                borderRadius="16px"
+                borderColor={errors.email ? "#FF3B30" : "#D1D1D6"}
+                bg="white"
+                color="#1D1D1F"
+                px="16px"
+                py="14px"
+                fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
+                transition="border-color 0.2s ease"
+                _hover={{ borderColor: errors.email ? "#FF3B30" : "#B0B0B5" }}
+                _focus={{ 
+                  borderColor: errors.email ? "#FF3B30" : "#007AFF",
+                  boxShadow: "none"
+                }}
+                _placeholder={{ color: "#86868B" }}
+                _disabled={{
+                  borderColor: "#E5E5EA",
+                  bg: "#F5F5F7",
+                  color: "#86868B",
+                  cursor: "not-allowed",
+                  opacity: 0.6
+                }}
               />
               {errors.email && (
-                <Text color="red.500" fontSize="sm" mt={1}>
+                <Text color="#FF3B30" fontSize="13px" mt="6px">
                   {errors.email}
                 </Text>
               )}
@@ -150,7 +221,14 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
             
             {/* Age */}
             <FormControl isRequired isInvalid={!!errors.age}>
-              <FormLabel>Age</FormLabel>
+              <FormLabel 
+                fontSize="15px" 
+                fontWeight="600" 
+                color="#1D1D1F"
+                mb="8px"
+              >
+                Age
+              </FormLabel>
               <Input
                 type="number"
                 value={formData.age}
@@ -159,9 +237,40 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 min={18}
                 max={120}
                 disabled={isLoading}
+                height="52px"
+                fontSize="17px"
+                borderWidth="2px"
+                borderRadius="16px"
+                borderColor={errors.age ? "#FF3B30" : "#D1D1D6"}
+                bg="white"
+                color="#1D1D1F"
+                px="16px"
+                py="14px"
+                fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
+                transition="border-color 0.2s ease"
+                _hover={{ borderColor: errors.age ? "#FF3B30" : "#B0B0B5" }}
+                _focus={{ 
+                  borderColor: errors.age ? "#FF3B30" : "#007AFF",
+                  boxShadow: "none"
+                }}
+                _placeholder={{ color: "#86868B" }}
+                _disabled={{
+                  borderColor: "#E5E5EA",
+                  bg: "#F5F5F7",
+                  color: "#86868B",
+                  cursor: "not-allowed",
+                  opacity: 0.6
+                }}
+                sx={{
+                  // Remove number input spinners
+                  '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': {
+                    display: 'none',
+                  },
+                  MozAppearance: 'textfield',
+                }}
               />
               {errors.age && (
-                <Text color="red.500" fontSize="sm" mt={1}>
+                <Text color="#FF3B30" fontSize="13px" mt="6px">
                   {errors.age}
                 </Text>
               )}
@@ -169,7 +278,14 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
             
             {/* Phone */}
             <Box>
-              <FormLabel>Phone Number</FormLabel>
+              <FormLabel 
+                fontSize="15px" 
+                fontWeight="600" 
+                color="#1D1D1F"
+                mb="8px"
+              >
+                Phone Number
+              </FormLabel>
               <Box display="flex" gap={2}>
                 <FormControl isRequired isInvalid={!!errors.phone_country_code} flex="0 0 120px">
                   <Input
@@ -178,9 +294,34 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                     onChange={(e) => handleChange("phone_country_code", e.target.value)}
                     placeholder="+1"
                     disabled={isLoading}
+                    height="52px"
+                    fontSize="17px"
+                    borderWidth="2px"
+                    borderRadius="16px"
+                    borderColor={errors.phone_country_code ? "#FF3B30" : "#D1D1D6"}
+                    bg="white"
+                    color="#1D1D1F"
+                    px="12px"
+                    py="14px"
+                    textAlign="center"
+                    fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
+                    transition="border-color 0.2s ease"
+                    _hover={{ borderColor: errors.phone_country_code ? "#FF3B30" : "#B0B0B5" }}
+                    _focus={{ 
+                      borderColor: errors.phone_country_code ? "#FF3B30" : "#007AFF",
+                      boxShadow: "none"
+                    }}
+                    _placeholder={{ color: "#86868B" }}
+                    _disabled={{
+                      borderColor: "#E5E5EA",
+                      bg: "#F5F5F7",
+                      color: "#86868B",
+                      cursor: "not-allowed",
+                      opacity: 0.6
+                    }}
                   />
                   {errors.phone_country_code && (
-                    <Text color="red.500" fontSize="sm" mt={1}>
+                    <Text color="#FF3B30" fontSize="13px" mt="6px">
                       {errors.phone_country_code}
                     </Text>
                   )}
@@ -193,9 +334,33 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                     onChange={(e) => handleChange("phone_number", e.target.value)}
                     placeholder="1234567890"
                     disabled={isLoading}
+                    height="52px"
+                    fontSize="17px"
+                    borderWidth="2px"
+                    borderRadius="16px"
+                    borderColor={errors.phone_number ? "#FF3B30" : "#D1D1D6"}
+                    bg="white"
+                    color="#1D1D1F"
+                    px="16px"
+                    py="14px"
+                    fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
+                    transition="border-color 0.2s ease"
+                    _hover={{ borderColor: errors.phone_number ? "#FF3B30" : "#B0B0B5" }}
+                    _focus={{ 
+                      borderColor: errors.phone_number ? "#FF3B30" : "#007AFF",
+                      boxShadow: "none"
+                    }}
+                    _placeholder={{ color: "#86868B" }}
+                    _disabled={{
+                      borderColor: "#E5E5EA",
+                      bg: "#F5F5F7",
+                      color: "#86868B",
+                      cursor: "not-allowed",
+                      opacity: 0.6
+                    }}
                   />
                   {errors.phone_number && (
-                    <Text color="red.500" fontSize="sm" mt={1}>
+                    <Text color="#FF3B30" fontSize="13px" mt="6px">
                       {errors.phone_number}
                     </Text>
                   )}
@@ -205,8 +370,13 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
             
             {/* Organisation (Optional) */}
             <FormControl>
-              <FormLabel>
-                Organisation <Text as="span" color="gray.500" fontSize="sm">(Optional)</Text>
+              <FormLabel 
+                fontSize="15px" 
+                fontWeight="600" 
+                color="#1D1D1F"
+                mb="8px"
+              >
+                Organisation <Text as="span" color="#86868B" fontSize="13px" fontWeight="400">(Optional)</Text>
               </FormLabel>
               <Input
                 type="text"
@@ -214,6 +384,30 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 onChange={(e) => handleChange("organisation", e.target.value)}
                 placeholder="Company or University"
                 disabled={isLoading}
+                height="52px"
+                fontSize="17px"
+                borderWidth="2px"
+                borderRadius="16px"
+                borderColor="#D1D1D6"
+                bg="white"
+                color="#1D1D1F"
+                px="16px"
+                py="14px"
+                fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
+                transition="border-color 0.2s ease"
+                _hover={{ borderColor: "#B0B0B5" }}
+                _focus={{ 
+                  borderColor: "#007AFF",
+                  boxShadow: "none"
+                }}
+                _placeholder={{ color: "#86868B" }}
+                _disabled={{
+                  borderColor: "#E5E5EA",
+                  bg: "#F5F5F7",
+                  color: "#86868B",
+                  cursor: "not-allowed",
+                  opacity: 0.6
+                }}
               />
             </FormControl>
             
@@ -236,7 +430,12 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
               )}
             </PrimaryCtaButton>
             
-            <Text fontSize="sm" color="gray.500" textAlign="center">
+            <Text 
+              fontSize="13px" 
+              color="#6E6E73" 
+              textAlign="center"
+              fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
+            >
               We'll use AI to intelligently prefill your investor profile based on your information
             </Text>
           </VStack>
