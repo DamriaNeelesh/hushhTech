@@ -42,6 +42,7 @@ import HushhUserProfilePage from './pages/hushh-user-profile';
 import ViewPreferencesPage from './pages/hushh-user-profile/view';
 import PublicHushhProfilePage from './pages/hushhid';
 import PublicInvestorProfilePage from './pages/investor/PublicInvestorProfile';
+import HushhIDHeroDemo from './pages/hushhid-hero-demo';
 
 // Google Analytics configuration
 const GA_TRACKING_ID = 'G-R58S9WWPM0';
@@ -162,6 +163,7 @@ function App() {
               } />
               <Route path="/profile/:id" element={<ViewPreferencesPage />} />
               <Route path="/hushhid/:id" element={<PublicHushhProfilePage />} />
+              <Route path="/hushhid-hero-demo" element={<HushhIDHeroDemo />} />
               {/* <Route path="/solutions" element={<SolutionsPage />} /> */}
               <Route path='/kyc-verification' element={
                 
