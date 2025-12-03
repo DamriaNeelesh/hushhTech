@@ -1,4 +1,7 @@
-import { InvestorProfile, InvestorProfileInput, DerivedContext } from "../../types/investorProfile";
+/**
+ * Serverless function to generate investor profile using Anthropic Claude API
+ * This runs server-side to avoid CORS issues and keep API keys secure
+ */
 
 const SYSTEM_PROMPT = `You are an assistant that PRE-FILLS an INVESTOR PROFILE from minimal information.
 
@@ -86,54 +89,116 @@ const PROFILE_SCHEMA = {
   }
 };
 
-export async function generateInvestorProfile(
-  input: InvestorProfileInput,
-  context: DerivedContext
-): Promise<InvestorProfile> {
+export default async function handler(req, res) {
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization'
+  );
+
+  // Handle preflight request
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
+  // Only allow POST requests
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed. Use POST.' });
+  }
+
   try {
-    // Call serverless API endpoint instead of Anthropic directly
-    // This avoids CORS issues and keeps API keys secure on the server
-    const apiUrl = (import.meta as any).env.DEV 
-      ? 'http://localhost:5173/api/generate-investor-profile'
-      : '/api/generate-investor-profile';
-    
-    const response = await fetch(apiUrl, {
-      method: "POST",
+    const { input, context } = req.body;
+
+    // Validate input
+    if (!input || !context) {
+      return res.status(400).json({ error: 'Missing required fields: input and context' });
+    }
+
+    // Get Anthropic API key from environment
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    if (!apiKey) {
+      console.error('ANTHROPIC_API_KEY not configured');
+      return res.status(500).json({ error: 'Anthropic API key not configured on server' });
+    }
+
+    // Prepare prompt for Claude
+    const userPrompt = JSON.stringify({
+      raw_input: {
+        name: input.name,
+        email: input.email,
+        age: input.age,
+        phone_country_code: input.phone_country_code,
+        phone_number: input.phone_number,
+        organisation: input.organisation || null
+      },
+      derived_context: context,
+      profile_schema: PROFILE_SCHEMA
+    }, null, 2);
+
+    // Call Anthropic API
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        input,
-        context
+        model: 'claude-3-5-sonnet-20241022',
+        max_tokens: 4096,
+        temperature: 0.3,
+        system: SYSTEM_PROMPT,
+        messages: [
+          { role: 'user', content: userPrompt }
+        ]
       })
     });
-    
+
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
-      throw new Error(`API failed (${response.status}): ${errorData.error || 'Unknown error'}`);
+      const errorText = await response.text();
+      console.error('Anthropic API error:', response.status, errorText);
+      return res.status(response.status).json({ 
+        error: `Anthropic API failed: ${errorText}` 
+      });
     }
-    
+
     const data = await response.json();
-    
-    if (!data.success || !data.profile) {
-      throw new Error("Invalid response from API");
+    const content = data?.content?.[0]?.text;
+
+    if (!content) {
+      console.error('Empty response from Claude');
+      return res.status(500).json({ error: 'Empty response from Anthropic Claude' });
     }
-    
-    const profile = data.profile;
-    
-    // Validate that all required fields are present
+
+    // Parse and validate response
+    const parsed = JSON.parse(content);
+    const profile = parsed.investor_profile || parsed;
+
+    // Validate all required fields are present
     const requiredFields = Object.keys(PROFILE_SCHEMA);
     const missingFields = requiredFields.filter(field => !profile[field]);
-    
+
     if (missingFields.length > 0) {
-      throw new Error(`Missing required fields in AI response: ${missingFields.join(", ")}`);
+      console.error('Missing fields in AI response:', missingFields);
+      return res.status(500).json({ 
+        error: `Missing required fields in AI response: ${missingFields.join(', ')}` 
+      });
     }
-    
-    return profile as InvestorProfile;
+
+    // Return successful response
+    return res.status(200).json({ 
+      success: true,
+      profile 
+    });
+
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Failed to generate investor profile: ${error.message}`);
-    }
-    throw new Error("Failed to generate investor profile: Unknown error");
+    console.error('Error generating investor profile:', error);
+    return res.status(500).json({ 
+      error: error.message || 'Failed to generate investor profile' 
+    });
   }
 }
