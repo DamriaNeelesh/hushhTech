@@ -23,6 +23,15 @@ export default defineConfig({
     // strongly recommend cleaning to avoid stale assets on Vercel
     emptyOutDir: true,
   },
+  server: {
+    proxy: {
+      // Forward API calls to the serverless host in dev (vercel dev runs on 3000 by default)
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+    },
+  },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.mdx'],
   },

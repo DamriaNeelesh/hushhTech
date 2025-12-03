@@ -86,54 +86,122 @@ const PROFILE_SCHEMA = {
   }
 };
 
+function ensureProfileComplete(profile: Partial<InvestorProfile>): InvestorProfile {
+  // Helper to pick a fallback value from schema options
+  const pick = (field: keyof typeof PROFILE_SCHEMA) => {
+    const options = PROFILE_SCHEMA[field].options as any[];
+    return Array.isArray(options) ? options[0] : null;
+  };
+
+  const withDefault = <T extends keyof InvestorProfile>(
+    field: T,
+    isArray = false
+  ): InvestorProfile[T] => {
+    const existing = profile[field] as any;
+    if (existing && existing.value && (isArray ? existing.value.length > 0 : true)) {
+      return existing;
+    }
+    const fallback = pick(field as any);
+    const value = isArray ? [fallback, (PROFILE_SCHEMA as any)[field].options?.[1]].filter(Boolean) : fallback;
+    return {
+      value,
+      confidence: 0.4,
+      rationale: "Filled by fallback due to missing value",
+    } as any;
+  };
+
+  return {
+    primary_goal: withDefault("primary_goal"),
+    investment_horizon_years: withDefault("investment_horizon_years"),
+    risk_tolerance: withDefault("risk_tolerance"),
+    liquidity_need: withDefault("liquidity_need"),
+    experience_level: withDefault("experience_level"),
+    typical_ticket_size: withDefault("typical_ticket_size"),
+    annual_investing_capacity: withDefault("annual_investing_capacity"),
+    asset_class_preference: withDefault("asset_class_preference", true),
+    sector_preferences: withDefault("sector_preferences", true),
+    volatility_reaction: withDefault("volatility_reaction"),
+    sustainability_preference: withDefault("sustainability_preference"),
+    engagement_style: withDefault("engagement_style"),
+  };
+}
+
+async function callOpenAIDirect(
+  input: InvestorProfileInput,
+  context: DerivedContext,
+  apiKey: string
+): Promise<InvestorProfile> {
+  const userPrompt = JSON.stringify(
+    {
+      raw_input: {
+        name: input.name,
+        email: input.email,
+        age: input.age,
+        phone_country_code: input.phone_country_code,
+        phone_number: input.phone_number,
+        organisation: input.organisation || null,
+      },
+      derived_context: context,
+      profile_schema: PROFILE_SCHEMA,
+    },
+    null,
+    2
+  );
+
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model: "gpt-4o",
+      max_tokens: 4096,
+      temperature: 0.3,
+      messages: [
+        { role: "system", content: SYSTEM_PROMPT },
+        { role: "user", content: userPrompt },
+      ],
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`OpenAI direct call failed (${response.status}): ${errorText || "Unknown error"}`);
+  }
+
+  const data = await response.json();
+  const content = data?.choices?.[0]?.message?.content;
+  if (!content) {
+    throw new Error("Empty response from OpenAI");
+  }
+
+  // Strip markdown fences if present
+  const cleaned = content
+    .replace(/^```json/i, "")
+    .replace(/^```/i, "")
+    .replace(/```$/, "")
+    .trim();
+
+  const parsed = JSON.parse(cleaned);
+  const profile = parsed.investor_profile || parsed;
+
+  return ensureProfileComplete(profile as Partial<InvestorProfile>);
+}
+
 export async function generateInvestorProfile(
   input: InvestorProfileInput,
   context: DerivedContext
 ): Promise<InvestorProfile> {
-  try {
-    // Call serverless API endpoint instead of Anthropic directly
-    // This avoids CORS issues and keeps API keys secure on the server
-    const apiUrl = (import.meta as any).env.DEV 
-      ? 'http://localhost:5173/api/generate-investor-profile'
-      : '/api/generate-investor-profile';
-    
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        input,
-        context
-      })
-    });
-    
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
-      throw new Error(`API failed (${response.status}): ${errorData.error || 'Unknown error'}`);
-    }
-    
-    const data = await response.json();
-    
-    if (!data.success || !data.profile) {
-      throw new Error("Invalid response from API");
-    }
-    
-    const profile = data.profile;
-    
-    // Validate that all required fields are present
-    const requiredFields = Object.keys(PROFILE_SCHEMA);
-    const missingFields = requiredFields.filter(field => !profile[field]);
-    
-    if (missingFields.length > 0) {
-      throw new Error(`Missing required fields in AI response: ${missingFields.join(", ")}`);
-    }
-    
-    return profile as InvestorProfile;
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Failed to generate investor profile: ${error.message}`);
-    }
-    throw new Error("Failed to generate investor profile: Unknown error");
+  const apiKey =
+    (import.meta as any).env.VITE_OPENAI_API_KEY ||
+    (typeof window !== "undefined" ? (window as any).__OPENAI_API_KEY__ : undefined);
+
+  if (!apiKey || (typeof apiKey === "string" && apiKey.trim().length === 0)) {
+    throw new Error(
+      "OpenAI API key is missing. Provide VITE_OPENAI_API_KEY in your .env.local or window.__OPENAI_API_KEY__ at runtime."
+    );
   }
+
+  return await callOpenAIDirect(input, context, apiKey.trim());
 }
