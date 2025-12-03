@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -11,8 +11,6 @@ import {
   FormControl,
   FormLabel,
   useToast,
-  Divider,
-  Badge,
   Accordion,
   AccordionItem,
   AccordionButton,
@@ -25,8 +23,14 @@ import {
   Icon,
   IconButton,
   useClipboard,
+  InputGroup,
+  InputRightElement,
+  usePrefersReducedMotion,
+  Collapse,
 } from "@chakra-ui/react";
-import { Share2, Copy, Check, ExternalLink } from "lucide-react";
+import { Copy, Check, ExternalLink } from "lucide-react";
+import { CheckIcon, LinkIcon } from "@chakra-ui/icons";
+import { keyframes } from "@emotion/react";
 import resources from "../../resources/resources";
 import { generateInvestorProfile } from "../../services/investorProfile/apiClient";
 import { InvestorProfile, FIELD_LABELS, VALUE_LABELS } from "../../types/investorProfile";
@@ -77,6 +81,28 @@ const primaryCtaStyles = {
   },
 };
 
+const fadeUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const shimmerSweep = keyframes`
+  0% { transform: translateX(-120%); opacity: 0; }
+  20% { opacity: 0.4; }
+  100% { transform: translateX(120%); opacity: 0; }
+`;
+
+const pulse = keyframes`
+  0% { transform: scale(0.98); box-shadow: 0 8px 20px rgba(15,23,42,0.12); }
+  100% { transform: scale(1); box-shadow: 0 10px 24px rgba(15,23,42,0.14); }
+`;
+
 const HushhUserProfilePage: React.FC = () => {
   const navigate = useNavigate();
   const toast = useToast();
@@ -86,9 +112,53 @@ const HushhUserProfilePage: React.FC = () => {
   const [profileSlug, setProfileSlug] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [editingField, setEditingField] = useState<string | null>(null);
-  
+  const [showPreview, setShowPreview] = useState(false);
+  const [copiedFlash, setCopiedFlash] = useState(false);
+  const [shimmerActive, setShimmerActive] = useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
   const profileUrl = profileSlug ? `https://hushhtech.com/investor/${profileSlug}` : "";
   const { hasCopied, onCopy } = useClipboard(profileUrl);
+  const heroAnimation = prefersReducedMotion ? undefined : `${fadeUp} 0.35s ease-out`;
+  const headingAnimation = prefersReducedMotion ? undefined : `${fadeUp} 0.35s ease-out 0.05s both`;
+  const inputBaseStyles = {
+    h: "52px",
+    borderRadius: "lg",
+    bg: "white",
+    borderColor: "#E4E7EC",
+    _hover: { borderColor: "#CBD5E1" },
+    _focus: {
+      borderColor: "rgb(0, 169, 224)",
+      boxShadow: "0 0 0 1px rgba(0, 169, 224, 0.35)",
+      transform: prefersReducedMotion ? undefined : "translateY(-1px)",
+    },
+    transition: "all 0.18s ease",
+    fontSize: "sm",
+  } as const;
+  const labelBaseStyles = {
+    fontSize: "sm",
+    fontWeight: 600,
+    color: "#1f2937",
+    mb: 1,
+  } as const;
+  const focusLabelStyles = {
+    "&:focus-within label": {
+      color: "#0f172a",
+      transform: prefersReducedMotion ? undefined : "translateY(-1px)",
+      transition: "transform 0.15s ease, color 0.15s ease",
+    },
+  } as const;
+  const ctaActiveState = prefersReducedMotion
+    ? { boxShadow: "0 6px 18px rgba(0, 120, 170, 0.45)" }
+    : { transform: "scale(0.97)", boxShadow: "0 6px 18px rgba(0, 120, 170, 0.45)" };
+  const renderCheckmark = (value: string | number | "") =>
+    value !== "" ? (
+      <InputRightElement pointerEvents="none">
+        <CheckIcon color="#00A9E0" boxSize={3.5} />
+      </InputRightElement>
+    ) : null;
 
   // Check authentication on mount
   useEffect(() => {
@@ -160,6 +230,29 @@ const HushhUserProfilePage: React.FC = () => {
 
     checkAuth();
   }, [navigate, toast]);
+
+  useEffect(() => {
+    setShowPreview(!!investorProfile);
+  }, [investorProfile]);
+
+  useEffect(() => {
+    return () => {
+      if (longPressTimer.current) clearTimeout(longPressTimer.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!profileUrl) return;
+    setShimmerActive(true);
+    const stopFirst = setTimeout(() => setShimmerActive(false), 1000);
+    const restart = setTimeout(() => setShimmerActive(true), 4200);
+    const stopSecond = setTimeout(() => setShimmerActive(false), 5200);
+    return () => {
+      clearTimeout(stopFirst);
+      clearTimeout(restart);
+      clearTimeout(stopSecond);
+    };
+  }, [profileUrl]);
 
   const handleChange = (key: keyof FormState, value: string) => {
     setForm((prev) => ({ ...prev, [key]: key === "age" ? Number(value) || "" : value }));
@@ -277,10 +370,34 @@ const HushhUserProfilePage: React.FC = () => {
     });
   };
 
-  const getConfidenceBadge = (confidence: number) => {
-    if (confidence >= 0.7) return <Badge colorScheme="green">High</Badge>;
-    if (confidence >= 0.4) return <Badge colorScheme="yellow">Medium</Badge>;
-    return <Badge colorScheme="red">Low</Badge>;
+  const getConfidenceChip = (confidence: number) => {
+    const label = confidence >= 0.7 ? "HIGH" : confidence >= 0.4 ? "MEDIUM" : "LOW";
+    const tone =
+      label === "HIGH" ? "#34C759" : label === "MEDIUM" ? "#FFD60A" : "#8E8E93";
+    const surface =
+      label === "HIGH" ? "rgba(52, 199, 89, 0.08)" : label === "MEDIUM" ? "rgba(255, 214, 10, 0.12)" : "rgba(142, 142, 147, 0.12)";
+    const border =
+      label === "HIGH" ? "rgba(52, 199, 89, 0.6)" : label === "MEDIUM" ? "rgba(255, 214, 10, 0.65)" : "rgba(142, 142, 147, 0.55)";
+    return (
+      <Box
+        px={3.5}
+        py={1.5}
+        border={`1px solid ${border}`}
+        borderRadius="full"
+        fontSize="xs"
+        fontWeight="700"
+        letterSpacing="0.08em"
+        color={tone}
+        bg={surface}
+        minH="28px"
+        display="inline-flex"
+        alignItems="center"
+        _groupHover={{ borderColor: border }}
+        _groupActive={{ bg: surface, borderColor: border }}
+      >
+        {label}
+      </Box>
+    );
   };
 
   const renderFieldEditor = (fieldName: string, field: any) => {
@@ -334,231 +451,458 @@ const HushhUserProfilePage: React.FC = () => {
     );
   };
 
+  const triggerCopy = () => {
+    if (!profileUrl) return;
+    onCopy();
+    setCopiedFlash(true);
+    setTimeout(() => setCopiedFlash(false), 1200);
+  };
+
+  const handleOpenProfile = () => {
+    if (!profileUrl) return;
+    window.open(profileUrl, "_blank");
+  };
+
+  const handleShare = () => {
+    if (navigator.share && profileUrl) {
+      navigator.share({ title: "Hushh Investor Profile", url: profileUrl }).catch(() => {
+        /* ignore cancellation */
+      });
+    } else {
+      triggerCopy();
+    }
+  };
+
+  const handleLongPressStart = () => {
+    if (longPressTimer.current) clearTimeout(longPressTimer.current);
+    longPressTimer.current = setTimeout(() => {
+      handleShare();
+    }, 550);
+  };
+
+  const handleLongPressEnd = () => {
+    if (longPressTimer.current) clearTimeout(longPressTimer.current);
+  };
+
   return (
-    <Box minH="100vh" bg="#F5F7F9" py={10}>
-      <Box maxW="1400px" mx="auto" px={4}>
-        {/* Header */}
-        <VStack spacing={3} mb={8} textAlign="center">
-          <Text fontSize="sm" fontWeight="700" color="rgba(61,61,145,1)" textTransform="uppercase">
+    <Box minH="100vh" bg="white">
+      <Box
+        as="form"
+        onSubmit={handleSubmit}
+        display="flex"
+        flexDirection="column"
+        minH="100vh"
+        maxW="960px"
+        mx="auto"
+        px={{ base: 4, md: 8 }}
+        py={{ base: 6, md: 10 }}
+        bg="white"
+      >
+        <Box pt={{ base: 6, md: 8 }} pb={{ base: 4, md: 6 }} animation={heroAnimation}>
+          <Text
+            fontSize="xs"
+            letterSpacing="0.12em"
+            fontWeight="700"
+            color="rgba(61,61,145,1)"
+            textTransform="uppercase"
+          >
             Investor Profile
           </Text>
-          <Heading as="h1" fontSize={{ base: "2xl", md: "4xl" }} fontWeight="700" color="#1c1c1c">
+          <Heading
+            as="h1"
+            fontSize={{ base: "24px", md: "32px" }}
+            fontWeight="700"
+            color="#111827"
+            mt={1}
+          >
             Create Your Investor Hushh ID
           </Heading>
-          <Text fontSize={{ base: "sm", md: "md" }} color="#434343" maxW="2xl">
+          <Text fontSize={{ base: "sm", md: "md" }} color="#475467" mt={2} maxW="42rem">
             Fill in your basic details below. Our AI will generate an intelligent investor profile tailored to you.
           </Text>
-        </VStack>
+        </Box>
 
-        <Box
-          display="grid"
-          gridTemplateColumns={{ base: "1fr", lg: "1fr 1fr" }}
-          gap={6}
-        >
-          {/* Left: Basic Info Form */}
-          <Box bg="white" rounded="xl" shadow="sm" p={6}>
-            <Heading as="h2" fontSize="xl" fontWeight="600" color="#1c1c1c" mb={4}>
-              Basic Information
-            </Heading>
-            <form onSubmit={handleSubmit}>
-              <VStack spacing={4} align="stretch">
-                <FormControl isRequired>
-                  <FormLabel fontSize="sm" color="#434343">Full Name</FormLabel>
+        <Box animation={headingAnimation}>
+          <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="700" color="#1c1c1c" mt={{ base: 4, md: 5 }}>
+            Basic Information
+          </Text>
+        </Box>
+
+        <VStack align="stretch" spacing={5} mt={3}>
+          <FormControl isRequired sx={focusLabelStyles}>
+            <FormLabel {...labelBaseStyles}>
+              Full Name <Text as="span" color="#ef4444" ml={1}>*</Text>
+            </FormLabel>
+            <InputGroup>
+              <Input
+                {...inputBaseStyles}
+                value={form.name}
+                onChange={(e) => handleChange("name", e.target.value)}
+                placeholder="Enter your full name"
+              />
+              {renderCheckmark(form.name)}
+            </InputGroup>
+          </FormControl>
+
+          <FormControl isRequired sx={focusLabelStyles}>
+            <FormLabel {...labelBaseStyles}>
+              Email <Text as="span" color="#ef4444" ml={1}>*</Text>
+            </FormLabel>
+            <InputGroup>
+              <Input
+                type="email"
+                {...inputBaseStyles}
+                value={form.email}
+                onChange={(e) => handleChange("email", e.target.value)}
+                placeholder="your.email@company.com"
+              />
+              {renderCheckmark(form.email)}
+            </InputGroup>
+          </FormControl>
+
+          <FormControl isRequired sx={focusLabelStyles}>
+            <FormLabel {...labelBaseStyles}>
+              Age <Text as="span" color="#ef4444" ml={1}>*</Text>
+            </FormLabel>
+            <InputGroup>
+              <Input
+                type="number"
+                {...inputBaseStyles}
+                value={form.age}
+                onChange={(e) => handleChange("age", e.target.value)}
+                placeholder="24"
+              />
+              {renderCheckmark(form.age)}
+            </InputGroup>
+          </FormControl>
+
+          <Box>
+            <HStack spacing={4} align="flex-end">
+              <FormControl isRequired flex={0.32} sx={focusLabelStyles}>
+                <FormLabel {...labelBaseStyles}>
+                  Country Code <Text as="span" color="#ef4444" ml={1}>*</Text>
+                </FormLabel>
+                <InputGroup>
                   <Input
-                    value={form.name}
-                    onChange={(e) => handleChange("name", e.target.value)}
-                    placeholder="Enter your full name"
+                    {...inputBaseStyles}
+                    value={form.phoneCountryCode}
+                    onChange={(e) => handleChange("phoneCountryCode", e.target.value)}
+                    placeholder="+1"
                   />
-                </FormControl>
+                  {renderCheckmark(form.phoneCountryCode)}
+                </InputGroup>
+              </FormControl>
 
-                <FormControl isRequired>
-                  <FormLabel fontSize="sm" color="#434343">Email</FormLabel>
+              <FormControl isRequired flex={1} sx={focusLabelStyles}>
+                <FormLabel {...labelBaseStyles}>
+                  Phone Number <Text as="span" color="#ef4444" ml={1}>*</Text>
+                </FormLabel>
+                <InputGroup>
                   <Input
-                    type="email"
-                    value={form.email}
-                    onChange={(e) => handleChange("email", e.target.value)}
-                    placeholder="your.email@company.com"
+                    {...inputBaseStyles}
+                    value={form.phoneNumber}
+                    onChange={(e) => handleChange("phoneNumber", e.target.value)}
+                    placeholder="1234567890"
                   />
-                </FormControl>
-
-                <FormControl isRequired>
-                  <FormLabel fontSize="sm" color="#434343">Age</FormLabel>
-                  <Input
-                    type="number"
-                    value={form.age}
-                    onChange={(e) => handleChange("age", e.target.value)}
-                    placeholder="24"
-                  />
-                </FormControl>
-
-                <HStack>
-                  <FormControl isRequired flex={1}>
-                    <FormLabel fontSize="sm" color="#434343">Country Code</FormLabel>
-                    <Input
-                      value={form.phoneCountryCode}
-                      onChange={(e) => handleChange("phoneCountryCode", e.target.value)}
-                      placeholder="+1"
-                    />
-                  </FormControl>
-
-                  <FormControl isRequired flex={2}>
-                    <FormLabel fontSize="sm" color="#434343">Phone Number</FormLabel>
-                    <Input
-                      value={form.phoneNumber}
-                      onChange={(e) => handleChange("phoneNumber", e.target.value)}
-                      placeholder="1234567890"
-                    />
-                  </FormControl>
-                </HStack>
-
-                <FormControl>
-                  <FormLabel fontSize="sm" color="#434343">Organisation (Optional)</FormLabel>
-                  <Input
-                    value={form.organisation}
-                    onChange={(e) => handleChange("organisation", e.target.value)}
-                    placeholder="Company name"
-                  />
-                </FormControl>
-
-                <Button
-                  type="submit"
-                  isLoading={loading}
-                  loadingText="Generating..."
-                  size="lg"
-                  w="full"
-                  mt={4}
-                  {...primaryCtaStyles}
-                >
-                  {investorProfile ? "Update Profile" : "Generate Investor Profile"}
-                </Button>
-              </VStack>
-            </form>
+                  {renderCheckmark(form.phoneNumber)}
+                </InputGroup>
+              </FormControl>
+            </HStack>
           </Box>
 
-          {/* Right: Investor Profile Display */}
-          <Box bg="white" rounded="xl" shadow="sm" p={6}>
-            <Heading as="h2" fontSize="xl" fontWeight="600" color="#1c1c1c" mb={4}>
-              AI-Generated Investor Profile
-            </Heading>
+          <FormControl sx={focusLabelStyles}>
+            <FormLabel {...labelBaseStyles}>
+              Organisation <Text as="span" color="#6b7280" fontWeight="500" ml={1}>(Optional)</Text>
+            </FormLabel>
+            <InputGroup>
+              <Input
+                {...inputBaseStyles}
+                value={form.organisation}
+                onChange={(e) => handleChange("organisation", e.target.value)}
+                placeholder="Company name"
+              />
+              {renderCheckmark(form.organisation)}
+            </InputGroup>
+          </FormControl>
+        </VStack>
 
-            {/* Public Profile Share Section */}
-            {profileSlug && profileUrl && (
-              <Box bg="linear-gradient(135deg, #667eea 0%, #764ba2 100%)" rounded="lg" p={4} mb={4}>
-                <VStack spacing={3} align="stretch">
-                  <HStack justify="space-between" align="center">
-                    <VStack align="start" spacing={0}>
-                      <Text fontSize="xs" color="white" fontWeight="600">
-                        🔗 Your Public Profile
-                      </Text>
-                      <Text fontSize="xs" color="whiteAlpha.800">
-                        Share this link anywhere
-                      </Text>
-                    </VStack>
-                    <HStack spacing={2}>
-                      <IconButton
-                        aria-label="Copy link"
-                        icon={hasCopied ? <Icon as={Check} /> : <Icon as={Copy} />}
-                        onClick={onCopy}
-                        size="sm"
-                        colorScheme={hasCopied ? "green" : "whiteAlpha"}
-                        variant={hasCopied ? "solid" : "outline"}
-                      />
-                      <IconButton
-                        aria-label="Open profile"
-                        icon={<Icon as={ExternalLink} />}
-                        onClick={() => window.open(profileUrl, '_blank')}
-                        size="sm"
-                        colorScheme="whiteAlpha"
-                        variant="outline"
-                      />
+        {investorProfile && (
+          <Box mt={6}>
+            <HStack justify="space-between" align="center" mb={2}>
+              <Text fontSize="sm" fontWeight="700" color="#111827">
+                Preview generated profile
+              </Text>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setShowPreview((prev) => !prev)}
+              >
+                {showPreview ? "Hide" : "Show"} preview
+              </Button>
+            </HStack>
+            <Collapse in={showPreview} animateOpacity={!prefersReducedMotion}>
+              {profileSlug && profileUrl && (
+                <Box
+                  mt={2}
+                  animation={prefersReducedMotion ? undefined : `${fadeUp} 0.2s ease-out`}
+                >
+                  <VStack align="stretch" spacing={1.5}>
+                    <Text fontSize="sm" fontWeight="700" color="#0f172a">
+                      Your Public Profile
+                    </Text>
+                    <Text fontSize="sm" color="#475467">
+                      Share this link anywhere
+                    </Text>
+                  </VStack>
+
+                  <Box
+                    mt={3}
+                    position="relative"
+                    borderRadius="full"
+                    border="1px solid #E2E8F0"
+                    bg="#F8FAFC"
+                    boxShadow="0 10px 22px rgba(15,23,42,0.10), inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -1px 0 rgba(15,23,42,0.04)"
+                    overflow="hidden"
+                    onClick={triggerCopy}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") triggerCopy();
+                    }}
+                    onPointerDown={(e) => {
+                      handleLongPressStart();
+                      if (!prefersReducedMotion) e.currentTarget.style.transform = "scale(0.985)";
+                    }}
+                    onPointerUp={(e) => {
+                      handleLongPressEnd();
+                      if (!prefersReducedMotion) e.currentTarget.style.transform = "scale(1)";
+                    }}
+                    onPointerLeave={(e) => {
+                      handleLongPressEnd();
+                      if (!prefersReducedMotion) e.currentTarget.style.transform = "scale(1)";
+                    }}
+                    transition="transform 0.12s ease, box-shadow 0.2s ease, background-color 0.2s ease"
+                    animation={
+                      copiedFlash && !prefersReducedMotion
+                        ? `${pulse} 0.18s ease-out`
+                        : undefined
+                    }
+                  >
+                    {shimmerActive && !prefersReducedMotion && (
+                      <Box
+                        position="absolute"
+                        inset={0}
+                        pointerEvents="none"
+                        overflow="hidden"
+                      >
+                        <Box
+                          position="absolute"
+                          top={0}
+                          left={0}
+                          h="100%"
+                          w="40%"
+                          bgGradient="linear(to-r, rgba(255,255,255,0), rgba(255,255,255,0.5), rgba(255,255,255,0))"
+                          transform="translateX(-120%) rotate(12deg)"
+                          animation={`${shimmerSweep} 0.8s ease-out`}
+                        />
+                      </Box>
+                    )}
+                    <HStack spacing={3} justify="space-between" align="center" px={4} py={3}>
+                      <HStack spacing={2} flex="1" minW={0}>
+                        <Icon as={LinkIcon} color="#111827" boxSize={4} />
+                        <Text
+                          flex="1"
+                          fontSize="sm"
+                          color="#0f172a"
+                          noOfLines={1}
+                          title={profileUrl}
+                          fontWeight="600"
+                        >
+                          {profileUrl}
+                        </Text>
+                        {copiedFlash && (
+                          <Text fontSize="xs" color="#00A9E0" fontWeight="700">
+                            Copied
+                          </Text>
+                        )}
+                      </HStack>
+                      <HStack spacing={2}>
+                        <IconButton
+                          aria-label="Copy link"
+                          icon={<Icon as={hasCopied || copiedFlash ? Check : Copy} />}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            triggerCopy();
+                          }}
+                          variant="outline"
+                          size="sm"
+                          colorScheme="gray"
+                          borderColor="#E2E8F0"
+                          bg="white"
+                          _hover={{ bg: "#F8FAFC" }}
+                          _active={{ transform: prefersReducedMotion ? undefined : "scale(0.95)" }}
+                          transition="transform 0.12s ease"
+                        />
+                        <IconButton
+                          aria-label="Open profile"
+                          icon={<Icon as={ExternalLink} />}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleOpenProfile();
+                          }}
+                          variant="outline"
+                          size="sm"
+                          colorScheme="gray"
+                          borderColor="#E2E8F0"
+                          bg="white"
+                          _hover={{ bg: "#F8FAFC" }}
+                          _active={{ transform: prefersReducedMotion ? undefined : "translate(2px, -1px)" }}
+                          transition="transform 0.12s ease"
+                        />
+                      </HStack>
                     </HStack>
-                  </HStack>
-                  <Input
-                    value={profileUrl}
-                    isReadOnly
-                    size="sm"
-                    bg="whiteAlpha.300"
-                    color="white"
-                    border="none"
-                    _focus={{ bg: "whiteAlpha.400" }}
-                  />
-                </VStack>
-              </Box>
-            )}
+                  </Box>
+                </Box>
+              )}
 
-            {!investorProfile ? (
-              <Box bg="#E6F4FF" rounded="lg" p={6} textAlign="center">
-                <Text color="#434343">
-                  Submit the form to generate your personalized investor profile
-                </Text>
-              </Box>
-            ) : (
-              <Accordion allowMultiple>
-                {Object.entries(investorProfile).map(([fieldName, fieldData]: [string, any]) => (
-                  <AccordionItem key={fieldName} border="none" mb={2}>
+              <Accordion
+                allowToggle
+                index={openIndex === null ? undefined : openIndex}
+                onChange={(idx) => {
+                  if (Array.isArray(idx)) {
+                    setOpenIndex(typeof idx[0] === "number" ? idx[0] : null);
+                  } else {
+                    setOpenIndex(typeof idx === "number" && idx >= 0 ? idx : null);
+                  }
+                }}
+              >
+                {Object.entries(investorProfile).map(([fieldName, fieldData]: [string, any], idx) => (
+                  <AccordionItem
+                    key={fieldName}
+                    border="none"
+                    borderBottom="1px solid #F2F4F7"
+                    py={1}
+                    _last={{ borderBottom: "none" }}
+                  >
                     <AccordionButton
-                      bg="#E6F4FF"
-                      _hover={{ bg: "#d0e7ff" }}
-                      rounded="md"
-                      px={4}
+                      role="group"
+                      px={0}
                       py={3}
+                      minH="56px"
+                      alignItems="center"
+                      _hover={{ bg: "#F5F5F7" }}
+                      _active={{ bg: "#EDEEF0" }}
+                      _expanded={{
+                        bg: "#F9FAFB",
+                      }}
+                      transition="background-color 0.15s ease"
                     >
-                      <Box flex="1" textAlign="left">
-                        <HStack justify="space-between" w="full">
-                          <Text fontWeight="600" color="#1c1c1c" fontSize="sm">
+                      <HStack justify="space-between" w="full" align="center" spacing={3}>
+                        <VStack align="start" spacing={0}>
+                          <Text fontWeight="600" fontSize="15px" color="#000">
                             {FIELD_LABELS[fieldName as keyof typeof FIELD_LABELS] || fieldName}
                           </Text>
-                          {getConfidenceBadge(fieldData.confidence)}
+                          <Text fontSize="13px" color="#6E6E73" noOfLines={1}>
+                            {Array.isArray(fieldData.value)
+                              ? fieldData.value.map((v: string) => VALUE_LABELS[v as keyof typeof VALUE_LABELS] || v).join(", ")
+                              : VALUE_LABELS[fieldData.value as keyof typeof VALUE_LABELS] || fieldData.value}
+                          </Text>
+                        </VStack>
+                        <HStack spacing={2} align="center">
+                          {getConfidenceChip(fieldData.confidence)}
+                          <AccordionIcon
+                            transition={prefersReducedMotion ? "none" : "transform 0.18s ease"}
+                            color="#6E6E73"
+                            _groupHover={{ color: "#000" }}
+                          />
                         </HStack>
-                        <Text fontSize="xs" color="#434343" mt={1}>
-                          {Array.isArray(fieldData.value)
-                            ? fieldData.value.map((v: string) => VALUE_LABELS[v as keyof typeof VALUE_LABELS] || v).join(", ")
-                            : VALUE_LABELS[fieldData.value as keyof typeof VALUE_LABELS] || fieldData.value}
-                        </Text>
-                      </Box>
-                      <AccordionIcon />
+                      </HStack>
                     </AccordionButton>
 
-                    <AccordionPanel pb={4} pt={3} px={4}>
-                      <VStack align="stretch" spacing={3}>
-                        <Box>
-                          <Text fontSize="xs" fontWeight="600" color="#434343" mb={1}>
+                    <AccordionPanel px={0} pt={1} pb={4}>
+                      <Box
+                        pl={2}
+                        pr={1}
+                        maxH="45vh"
+                        overflowY="auto"
+                        animation={
+                          prefersReducedMotion
+                            ? undefined
+                            : `${fadeUp} 0.2s ease-out ${idx * 0.01}s`
+                        }
+                      >
+                        <VStack align="stretch" spacing={2}>
+                          <Text fontSize="13px" fontWeight="600" color="#000" letterSpacing="0.02em">
                             AI Rationale:
                           </Text>
-                          <Text fontSize="xs" color="#434343">
+                          <Text fontSize="13px" color="#6E6E73" lineHeight="1.6">
                             {fieldData.rationale}
                           </Text>
-                        </Box>
-
-                        <Divider />
-
-                        {editingField === fieldName ? (
-                          <Box>
-                            {renderFieldEditor(fieldName, fieldData)}
-                            <Button
-                              size="xs"
-                              mt={2}
-                              onClick={() => setEditingField(null)}
-                            >
-                              Cancel
-                            </Button>
-                          </Box>
-                        ) : (
-                          <Button
-                            size="sm"
-                            {...primaryCtaStyles}
-                            onClick={() => setEditingField(fieldName)}
-                          >
-                            Edit Value
-                          </Button>
-                        )}
-                      </VStack>
+                          <HStack justify="flex-end" pt={1}>
+                            {editingField === fieldName ? (
+                              <HStack spacing={2}>
+                                {renderFieldEditor(fieldName, fieldData)}
+                                <Button
+                                  size="xs"
+                                  variant="ghost"
+                                  onClick={() => setEditingField(null)}
+                                >
+                                  Cancel
+                                </Button>
+                              </HStack>
+                            ) : (
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                fontWeight="700"
+                                color="#0A84FF"
+                                onClick={() => setEditingField(fieldName)}
+                              >
+                                Edit Value
+                              </Button>
+                            )}
+                          </HStack>
+                        </VStack>
+                      </Box>
                     </AccordionPanel>
                   </AccordionItem>
                 ))}
               </Accordion>
-            )}
+            </Collapse>
           </Box>
+        )}
+
+        <Box
+          mt={{ base: 6, md: 8 }}
+          borderTop="1px solid #F2F4F7"
+          pt={{ base: 5, md: 6 }}
+          pb={{ base: 7, md: 8 }}
+        >
+          <Button
+            type="submit"
+            isLoading={loading}
+            loadingText="Generating..."
+            size="lg"
+            w="full"
+            {...primaryCtaStyles}
+            _active={ctaActiveState}
+            transition="transform 0.12s ease-out, box-shadow 0.2s ease"
+          >
+            {investorProfile ? "Update Profile" : "Generate Investor Profile"}
+          </Button>
+          <Text mt={2} fontSize="sm" color="#475467" textAlign="center">
+            These details personalise your investor profile.
+          </Text>
+          <HStack justify="center" spacing={3} mt={3} color="#111827">
+            <Text fontSize="xs" letterSpacing="0.14em" fontWeight="700">
+              ◀ SWIPE TO SKIM ▶
+            </Text>
+            <HStack spacing={1}>
+              <Box w="6px" h="6px" borderRadius="full" bg="#111827" />
+              <Box w="6px" h="6px" borderRadius="full" bg="#E5E7EB" />
+              <Box w="6px" h="6px" borderRadius="full" bg="#E5E7EB" />
+            </HStack>
+          </HStack>
         </Box>
       </Box>
     </Box>
