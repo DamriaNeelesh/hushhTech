@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { InvestorProfileInput } from "../../types/investorProfile";
-import { Box, FormControl, FormLabel, Input, VStack, Heading, Text, useToast, Spinner } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Input, VStack, Heading, Text, useToast, Spinner, Divider } from "@chakra-ui/react";
 import { PrimaryCtaButton } from "../PrimaryCtaButton";
 
 interface InvestorProfileFormProps {
@@ -101,11 +101,12 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
   };
   
   return (
-    <Box maxW="600px" mx="auto" p={8} bg="#F5F5F7" minH="100vh">
-      <VStack spacing={6} align="stretch">
-        <Box textAlign="center">
+    <Box bg="white" minH="100vh" px={{ base: 4, md: 6 }} py={{ base: 10, md: 12 }}>
+      <VStack spacing={6} align="stretch" maxW="720px" mx="auto">
+        <Box textAlign="left">
           <Heading 
-            size="lg" 
+            fontSize={{ base: "30px", md: "32px" }}
+            fontWeight="700"
             mb={2}
             color="#1D1D1F"
             fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif"
@@ -114,22 +115,25 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
           </Heading>
           <Text 
             color="#6E6E73"
-            fontSize="15px"
+            fontSize="17px"
             fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
+            lineHeight="1.4"
+            maxW="640px"
+            mt={1}
           >
-            Just 5 simple inputs, and we'll create your personalized investor profile using AI
+            Just 5 simple inputs, and we'll create your personalized investor profile using AI.
           </Text>
         </Box>
         
         <form onSubmit={handleSubmit}>
-          <VStack spacing={4} align="stretch">
+          <VStack spacing={6} align="stretch">
             {/* Name */}
             <FormControl isRequired isInvalid={!!errors.name}>
               <FormLabel 
                 fontSize="15px" 
                 fontWeight="600" 
                 color="#1D1D1F"
-                mb="8px"
+                mb="6px"
               >
                 Full Name
               </FormLabel>
@@ -141,8 +145,8 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 disabled={isLoading}
                 height="52px"
                 fontSize="17px"
-                borderWidth="2px"
-                borderRadius="16px"
+                borderWidth="1px"
+                borderRadius="12px"
                 borderColor={errors.name ? "#FF3B30" : "#D1D1D6"}
                 bg="white"
                 color="#1D1D1F"
@@ -170,6 +174,7 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 </Text>
               )}
             </FormControl>
+            <Divider borderColor="#E5E5EA" />
             
             {/* Email */}
             <FormControl isRequired isInvalid={!!errors.email}>
@@ -177,7 +182,7 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 fontSize="15px" 
                 fontWeight="600" 
                 color="#1D1D1F"
-                mb="8px"
+                mb="6px"
               >
                 Email Address
               </FormLabel>
@@ -189,8 +194,8 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 disabled={isLoading}
                 height="52px"
                 fontSize="17px"
-                borderWidth="2px"
-                borderRadius="16px"
+                borderWidth="1px"
+                borderRadius="12px"
                 borderColor={errors.email ? "#FF3B30" : "#D1D1D6"}
                 bg="white"
                 color="#1D1D1F"
@@ -218,6 +223,7 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 </Text>
               )}
             </FormControl>
+            <Divider borderColor="#E5E5EA" />
             
             {/* Age */}
             <FormControl isRequired isInvalid={!!errors.age}>
@@ -225,7 +231,7 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 fontSize="15px" 
                 fontWeight="600" 
                 color="#1D1D1F"
-                mb="8px"
+                mb="6px"
               >
                 Age
               </FormLabel>
@@ -239,8 +245,8 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 disabled={isLoading}
                 height="52px"
                 fontSize="17px"
-                borderWidth="2px"
-                borderRadius="16px"
+                borderWidth="1px"
+                borderRadius="12px"
                 borderColor={errors.age ? "#FF3B30" : "#D1D1D6"}
                 bg="white"
                 color="#1D1D1F"
@@ -275,6 +281,7 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 </Text>
               )}
             </FormControl>
+            <Divider borderColor="#E5E5EA" />
             
             {/* Phone */}
             <Box>
@@ -282,7 +289,7 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 fontSize="15px" 
                 fontWeight="600" 
                 color="#1D1D1F"
-                mb="8px"
+                mb="6px"
               >
                 Phone Number
               </FormLabel>
@@ -296,8 +303,8 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                     disabled={isLoading}
                     height="52px"
                     fontSize="17px"
-                    borderWidth="2px"
-                    borderRadius="16px"
+                    borderWidth="1px"
+                    borderRadius="12px"
                     borderColor={errors.phone_country_code ? "#FF3B30" : "#D1D1D6"}
                     bg="white"
                     color="#1D1D1F"
@@ -336,8 +343,8 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                     disabled={isLoading}
                     height="52px"
                     fontSize="17px"
-                    borderWidth="2px"
-                    borderRadius="16px"
+                    borderWidth="1px"
+                    borderRadius="12px"
                     borderColor={errors.phone_number ? "#FF3B30" : "#D1D1D6"}
                     bg="white"
                     color="#1D1D1F"
@@ -367,6 +374,7 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 </FormControl>
               </Box>
             </Box>
+            <Divider borderColor="#E5E5EA" />
             
             {/* Organisation (Optional) */}
             <FormControl>
@@ -374,7 +382,7 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 fontSize="15px" 
                 fontWeight="600" 
                 color="#1D1D1F"
-                mb="8px"
+                mb="6px"
               >
                 Organisation <Text as="span" color="#86868B" fontSize="13px" fontWeight="400">(Optional)</Text>
               </FormLabel>
@@ -386,8 +394,8 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 disabled={isLoading}
                 height="52px"
                 fontSize="17px"
-                borderWidth="2px"
-                borderRadius="16px"
+                borderWidth="1px"
+                borderRadius="12px"
                 borderColor="#D1D1D6"
                 bg="white"
                 color="#1D1D1F"
@@ -410,12 +418,13 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 }}
               />
             </FormControl>
+            <Divider borderColor="#E5E5EA" />
             
             {/* Submit Button - uses shared PrimaryCtaButton for consistent CTA styling */}
             <PrimaryCtaButton
               type="submit"
               width="100%"
-              mt={4}
+              mt={2}
               isLoading={isLoading}
               loadingText="Creating your profile..."
               disabled={isLoading}
@@ -434,6 +443,7 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
               fontSize="13px" 
               color="#6E6E73" 
               textAlign="center"
+              mt={2}
               fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
             >
               We'll use AI to intelligently prefill your investor profile based on your information
