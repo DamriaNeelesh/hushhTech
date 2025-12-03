@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Button, Flex, Text, Box, Container, usePrefersReducedMotion, keyframes } from "@chakra-ui/react";
+import { Button, Flex, Text, Box, Container, usePrefersReducedMotion } from "@chakra-ui/react";
+import { keyframes } from "@emotion/react";
 import config from "../resources/config/config";
 import ProfilePage from "./profile/profilePage";
 import WhyChooseSection from "./WhyChooseSection";
