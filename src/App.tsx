@@ -28,8 +28,9 @@ import Profile from './pages/profile';
 import AuthCallback from './pages/AuthCallback';
 import KYCVerificationPage from './pages/kyc-verification/page';
 import NDARequestModal from './components/NdaForm';
-import InvestorProfilePage from './components/NDARequestModal';
+import NDARequestModalComponent from './components/NDARequestModal';
 import UserProfilePage from './pages/user-profile/page';
+import InvestorProfilePage from './pages/investor-profile';
 import KYCFormPage from './pages/kyc-form/page';
 import { Session } from '@supabase/supabase-js';
 import DiscoverFundA from './pages/discover-fund-a';
@@ -182,9 +183,9 @@ function App() {
               }/>
               <Route path='/nda-form' element={
                 
-                  <InvestorProfilePage 
+                  <NDARequestModalComponent 
                     session={session} 
-                    onSubmit={(result) => {
+                    onSubmit={(result: string) => {
                       console.log("NDA submission result:", result);
                       // Handle post-submission actions here
                       if (result === "Approved" || result === "Pending" || result === "Requested permission") {
@@ -194,6 +195,11 @@ function App() {
                     }} 
                   />
                 
+              } />
+              <Route path='/investor-profile' element={
+                <ProtectedRoute>
+                  <InvestorProfilePage />
+                </ProtectedRoute>
               } />
               <Route path='/user-profile' element={
                   
