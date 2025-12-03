@@ -334,7 +334,7 @@ const ProfilePage: React.FC = () => {
             </Text>
             <Button
               mt={{ base: 3, md: 4 }}
-              onClick={() => navigate("/hushh-user-profile")}
+              onClick={() => navigate("/investor-profile")}
               background="linear-gradient(to right, #00A9E0, #6DD3EF)"
               color="white"
               borderRadius="full"
