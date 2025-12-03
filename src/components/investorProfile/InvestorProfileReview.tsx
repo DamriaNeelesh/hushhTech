@@ -122,47 +122,97 @@ export function InvestorProfileReview({
   ) => {
     const fieldData = editedProfile[field] as { value: T; confidence: number; rationale: string };
     
+    const chipStyles = (confidence: number) => {
+      const isHigh = getConfidenceColor(confidence) === "green";
+      return {
+        color: isHigh ? "#2EBD6B" : "#B08900",
+        bg: isHigh ? "rgba(52,199,89,0.15)" : "rgba(255,214,10,0.2)",
+        border: isHigh ? "rgba(52,199,89,0.45)" : "rgba(255,214,10,0.5)",
+      };
+    };
+
+    const chip = chipStyles(fieldData.confidence);
+    
     return (
-      <AccordionItem key={field}>
-        <h2>
-          <AccordionButton>
-            <Box flex="1" textAlign="left">
-              <HStack spacing={3}>
-                <Text fontWeight="semibold">{FIELD_LABELS[field]}</Text>
-                <Badge colorScheme={getConfidenceColor(fieldData.confidence)}>
-                  {getConfidenceLabel(fieldData.confidence)}
-                </Badge>
-              </HStack>
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
-        </h2>
-        <AccordionPanel pb={4}>
-          <VStack align="stretch" spacing={3}>
-            <Box>
-              <Text fontSize="sm" color="gray.600" mb={2}>
-                AI Rationale: {fieldData.rationale}
-              </Text>
-            </Box>
-            
-            <Select
-              value={fieldData.value}
-              onChange={(e) =>
-                handleSingleFieldChange(field, e.target.value as T)
-              }
-            >
-              {options.map((option) => (
-                <option key={option} value={option}>
-                  {VALUE_LABELS[option] || option}
-                </option>
-              ))}
-            </Select>
-            
-            <Text fontSize="xs" color="gray.500">
-              Current: <strong>{VALUE_LABELS[fieldData.value] || fieldData.value}</strong>
-            </Text>
-          </VStack>
-        </AccordionPanel>
+      <AccordionItem key={field} border="none">
+        {({ isExpanded }) => (
+          <>
+            <h2>
+              <AccordionButton
+                px={0}
+                py={3}
+                bg={isExpanded ? "rgba(120,120,128,0.06)" : "transparent"}
+                _hover={{ bg: "rgba(120,120,128,0.04)" }}
+                _expanded={{ bg: "rgba(120,120,128,0.08)" }}
+                position="relative"
+              >
+                {isExpanded && (
+                  <Box position="absolute" left={-2} top={2} bottom={2} w="2px" bg={chip.color} borderRadius="full" />
+                )}
+                <Box flex="1" textAlign="left">
+                  <VStack align="start" spacing={1}>
+                    <HStack spacing={3}>
+                      <Text fontSize="16px" fontWeight="600" color="#111827">
+                        {FIELD_LABELS[field]}
+                      </Text>
+                      <Badge
+                        px={3}
+                        py={1}
+                        borderRadius="full"
+                        textTransform="uppercase"
+                        letterSpacing="0.08em"
+                        fontSize="11px"
+                        color={chip.color}
+                        bg={chip.bg}
+                        border={`1px solid ${chip.border}`}
+                      >
+                        {getConfidenceLabel(fieldData.confidence)}
+                      </Badge>
+                    </HStack>
+                    {!isExpanded && (
+                      <Text fontSize="14px" color="#6E6E73">
+                        {VALUE_LABELS[fieldData.value] || fieldData.value}
+                      </Text>
+                    )}
+                  </VStack>
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </h2>
+            <AccordionPanel px={0} pb={4}>
+              <VStack align="stretch" spacing={3}>
+                <Box>
+                  <Text fontSize="15px" fontWeight="600" color="#111827" mb={1}>
+                    AI Rationale:
+                  </Text>
+                  <Text fontSize="14px" color="#6E6E73" lineHeight="1.6">
+                    {fieldData.rationale}
+                  </Text>
+                </Box>
+                
+                <Select
+                  value={fieldData.value}
+                  onChange={(e) =>
+                    handleSingleFieldChange(field, e.target.value as T)
+                  }
+                  height="44px"
+                  borderRadius="12px"
+                >
+                  {options.map((option) => (
+                    <option key={option} value={option}>
+                      {VALUE_LABELS[option] || option}
+                    </option>
+                  ))}
+                </Select>
+                
+                <Text fontSize="13px" color="#6E6E73">
+                  Current: <Text as="span" fontWeight="700">{VALUE_LABELS[fieldData.value] || fieldData.value}</Text>
+                </Text>
+              </VStack>
+            </AccordionPanel>
+            <Box borderBottom="1px solid #E5E5EA" />
+          </>
+        )}
       </AccordionItem>
     );
   };
@@ -172,50 +222,96 @@ export function InvestorProfileReview({
     options: readonly T[]
   ) => {
     const fieldData = editedProfile[field] as { value: T[]; confidence: number; rationale: string };
+    const chipStyles = (confidence: number) => {
+      const isHigh = getConfidenceColor(confidence) === "green";
+      return {
+        color: isHigh ? "#2EBD6B" : "#B08900",
+        bg: isHigh ? "rgba(52,199,89,0.15)" : "rgba(255,214,10,0.2)",
+        border: isHigh ? "rgba(52,199,89,0.45)" : "rgba(255,214,10,0.5)",
+      };
+    };
+    const chip = chipStyles(fieldData.confidence);
     
     return (
-      <AccordionItem key={field}>
-        <h2>
-          <AccordionButton>
-            <Box flex="1" textAlign="left">
-              <HStack spacing={3}>
-                <Text fontWeight="semibold">{FIELD_LABELS[field]}</Text>
-                <Badge colorScheme={getConfidenceColor(fieldData.confidence)}>
-                  {getConfidenceLabel(fieldData.confidence)}
-                </Badge>
-              </HStack>
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
-        </h2>
-        <AccordionPanel pb={4}>
-          <VStack align="stretch" spacing={3}>
-            <Box>
-              <Text fontSize="sm" color="gray.600" mb={2}>
-                AI Rationale: {fieldData.rationale}
-              </Text>
-            </Box>
-            
-            <CheckboxGroup
-              value={fieldData.value}
-              onChange={(values) =>
-                handleMultiFieldChange(field, values as string[])
-              }
-            >
-              <Stack spacing={2}>
-                {options.map((option) => (
-                  <Checkbox key={option} value={option}>
-                    {VALUE_LABELS[option] || option}
-                  </Checkbox>
-                ))}
-              </Stack>
-            </CheckboxGroup>
-            
-            <Text fontSize="xs" color="gray.500">
-              Selected: <strong>{fieldData.value.length} items</strong>
-            </Text>
-          </VStack>
-        </AccordionPanel>
+      <AccordionItem key={field} border="none">
+        {({ isExpanded }) => (
+          <>
+            <h2>
+              <AccordionButton
+                px={0}
+                py={3}
+                bg={isExpanded ? "rgba(120,120,128,0.06)" : "transparent"}
+                _hover={{ bg: "rgba(120,120,128,0.04)" }}
+                _expanded={{ bg: "rgba(120,120,128,0.08)" }}
+                position="relative"
+              >
+                {isExpanded && (
+                  <Box position="absolute" left={-2} top={2} bottom={2} w="2px" bg={chip.color} borderRadius="full" />
+                )}
+                <Box flex="1" textAlign="left">
+                  <VStack align="start" spacing={1}>
+                    <HStack spacing={3}>
+                      <Text fontSize="16px" fontWeight="600" color="#111827">
+                        {FIELD_LABELS[field]}
+                      </Text>
+                      <Badge
+                        px={3}
+                        py={1}
+                        borderRadius="full"
+                        textTransform="uppercase"
+                        letterSpacing="0.08em"
+                        fontSize="11px"
+                        color={chip.color}
+                        bg={chip.bg}
+                        border={`1px solid ${chip.border}`}
+                      >
+                        {getConfidenceLabel(fieldData.confidence)}
+                      </Badge>
+                    </HStack>
+                    {!isExpanded && (
+                      <Text fontSize="14px" color="#6E6E73">
+                        {fieldData.value.map((v) => VALUE_LABELS[v] || v).join(", ")}
+                      </Text>
+                    )}
+                  </VStack>
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </h2>
+            <AccordionPanel px={0} pb={4}>
+              <VStack align="stretch" spacing={3}>
+                <Box>
+                  <Text fontSize="15px" fontWeight="600" color="#111827" mb={1}>
+                    AI Rationale:
+                  </Text>
+                  <Text fontSize="14px" color="#6E6E73" lineHeight="1.6">
+                    {fieldData.rationale}
+                  </Text>
+                </Box>
+                
+                <CheckboxGroup
+                  value={fieldData.value}
+                  onChange={(values) =>
+                    handleMultiFieldChange(field, values as string[])
+                  }
+                >
+                  <Stack spacing={2}>
+                    {options.map((option) => (
+                      <Checkbox key={option} value={option}>
+                        {VALUE_LABELS[option] || option}
+                      </Checkbox>
+                    ))}
+                  </Stack>
+                </CheckboxGroup>
+                
+                <Text fontSize="13px" color="#6E6E73">
+                  Selected: <Text as="span" fontWeight="700">{fieldData.value.length} items</Text>
+                </Text>
+              </VStack>
+            </AccordionPanel>
+            <Box borderBottom="1px solid #E5E5EA" />
+          </>
+        )}
       </AccordionItem>
     );
   };
