@@ -40,6 +40,7 @@ import YourProfilePage from './pages/your-profile';
 import HushhUserProfilePage from './pages/hushh-user-profile';
 import ViewPreferencesPage from './pages/hushh-user-profile/view';
 import PublicHushhProfilePage from './pages/hushhid';
+import PublicInvestorProfilePage from './pages/investor/PublicInvestorProfile';
 
 // Google Analytics configuration
 const GA_TRACKING_ID = 'G-R58S9WWPM0';
@@ -201,6 +202,7 @@ function App() {
                   <InvestorProfilePage />
                 </ProtectedRoute>
               } />
+              <Route path='/investor/:slug' element={<PublicInvestorProfilePage />} />
               <Route path='/user-profile' element={
                   
                   <UserProfilePage/>

@@ -239,3 +239,89 @@ export async function deleteInvestorProfile(): Promise<void> {
     throw new Error(`Failed to delete investor profile: ${deleteError.message}`);
   }
 }
+
+/**
+ * Fetch a public investor profile by slug (no authentication required)
+ * Used for public profile pages
+ */
+export async function fetchPublicInvestorProfileBySlug(slug: string): Promise<InvestorProfileRecord> {
+  const supabase = resources.config.supabaseClient;
+  
+  if (!supabase) {
+    throw new Error("Supabase client not initialized");
+  }
+
+  const { data, error } = await supabase
+    .from('investor_profiles')
+    .select('*')
+    .eq('slug', slug)
+    .eq('is_public', true)
+    .eq('user_confirmed', true)
+    .single();
+
+  if (error) {
+    throw new Error(`Public profile not found: ${error.message}`);
+  }
+
+  return data as InvestorProfileRecord;
+}
+
+/**
+ * Regenerate the slug for the authenticated user's profile
+ * Useful if user wants to change their public URL for privacy
+ */
+export async function regenerateProfileSlug(): Promise<string> {
+  const supabase = resources.config.supabaseClient;
+  
+  if (!supabase) {
+    throw new Error("Supabase client not initialized");
+  }
+
+  // Get authenticated user
+  const { data: { user }, error: authError } = await supabase.auth.getUser();
+  
+  if (authError || !user) {
+    throw new Error("User must be authenticated to regenerate slug");
+  }
+
+  // Setting slug to empty will trigger auto-generation via database trigger
+  const { data, error } = await supabase
+    .from('investor_profiles')
+    .update({ slug: '' })
+    .eq('user_id', user.id)
+    .select('slug')
+    .single();
+
+  if (error) {
+    throw new Error(`Failed to regenerate slug: ${error.message}`);
+  }
+
+  return data.slug;
+}
+
+/**
+ * Toggle the public visibility of the authenticated user's profile
+ */
+export async function toggleProfileVisibility(isPublic: boolean): Promise<void> {
+  const supabase = resources.config.supabaseClient;
+  
+  if (!supabase) {
+    throw new Error("Supabase client not initialized");
+  }
+
+  // Get authenticated user
+  const { data: { user }, error: authError } = await supabase.auth.getUser();
+  
+  if (authError || !user) {
+    throw new Error("User must be authenticated to toggle visibility");
+  }
+
+  const { error } = await supabase
+    .from('investor_profiles')
+    .update({ is_public: isPublic })
+    .eq('user_id', user.id);
+
+  if (error) {
+    throw new Error(`Failed to update visibility: ${error.message}`);
+  }
+}
