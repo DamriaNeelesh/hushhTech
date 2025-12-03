@@ -129,8 +129,10 @@ const HushhUserProfilePage: React.FC = () => {
   const [copiedFlash, setCopiedFlash] = useState(false);
   const [shimmerActive, setShimmerActive] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
+  const [nameShimmer, setNameShimmer] = useState(true);
   const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const firstFieldRef = useRef<HTMLInputElement | null>(null);
 
   const profileUrl = profileSlug ? `https://hushhtech.com/investor/${profileSlug}` : "";
   const { hasCopied, onCopy } = useClipboard(profileUrl);
@@ -148,7 +150,7 @@ const HushhUserProfilePage: React.FC = () => {
       transform: prefersReducedMotion ? undefined : "translateY(-1px)",
     },
     transition: "all 0.18s ease",
-    fontSize: "sm",
+    fontSize: "15px",
   } as const;
   const labelBaseStyles = {
     fontSize: "sm",
@@ -288,6 +290,11 @@ const HushhUserProfilePage: React.FC = () => {
       clearTimeout(stopSecond);
     };
   }, [profileUrl]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setNameShimmer(false), 900);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleChange = (key: keyof FormState, value: string) => {
     setForm((prev) => ({ ...prev, [key]: key === "age" ? Number(value) || "" : value }));
@@ -533,28 +540,83 @@ const HushhUserProfilePage: React.FC = () => {
         py={{ base: 6, md: 10 }}
         bg="white"
       >
-        <Box pt={{ base: 6, md: 8 }} pb={{ base: 4, md: 6 }} animation={heroAnimation}>
+        <Box pt={{ base: 6, md: 8 }} pb={{ base: 6, md: 8 }} animation={heroAnimation}>
           <Text
-            fontSize="xs"
+            fontSize="13px"
             letterSpacing="0.12em"
             fontWeight="700"
-            color="rgba(61,61,145,1)"
+            color="#8E8E93"
             textTransform="uppercase"
           >
             Investor Profile
           </Text>
-          <Heading
-            as="h1"
-            fontSize={{ base: "24px", md: "32px" }}
-            fontWeight="700"
-            color="#111827"
-            mt={1}
-          >
-            Create Your Investor Hushh ID
-          </Heading>
-          <Text fontSize={{ base: "sm", md: "md" }} color="#475467" mt={2} maxW="42rem">
-            Fill in your basic details below. Our AI will generate an intelligent investor profile tailored to you.
-          </Text>
+          <Box mt={2}>
+            <Text fontSize={{ base: "26px", md: "28px" }} fontWeight="600" color="#111827">
+              Hello, {form.name || "there"}
+            </Text>
+            <Box position="relative" display="inline-block">
+              {nameShimmer && !prefersReducedMotion && (
+                <Box
+                  position="absolute"
+                  inset={0}
+                  bgGradient="linear(to-r, rgba(255,255,255,0), rgba(255,255,255,0.7), rgba(255,255,255,0))"
+                  animation={`${shimmerSweep} 0.7s ease-out`}
+                  pointerEvents="none"
+                />
+              )}
+            </Box>
+          </Box>
+          <VStack align="start" spacing={3} mt={4} w="full">
+            {[
+              "Create your investor profile once.",
+              "Save it to Wallet and share anywhere.",
+              "No more repetitive forms.",
+            ].map((line, idx) => (
+              <VStack key={line} align="start" spacing={2} w="full">
+                <Text fontSize="17px" lineHeight="1.35" color="#111827">
+                  • {line}
+                </Text>
+                {idx < 2 && <Box w="full" h="1px" bg="#E5E5EA" />}
+              </VStack>
+            ))}
+          </VStack>
+
+          <HStack spacing={2} mt={4} overflowX="auto" pb={1}>
+            {["No Logins", "Apple Wallet Ready", "Alias-only"].map((chip) => (
+              <Box
+                key={chip}
+                px={3}
+                py={1}
+                borderRadius="full"
+                border="1px solid #E5E5EA"
+                color="#6E6E73"
+                fontSize="11px"
+                letterSpacing="0.06em"
+                whiteSpace="nowrap"
+              >
+                {chip.toUpperCase()}
+              </Box>
+            ))}
+          </HStack>
+
+          <Box mt={5}>
+            <Button
+              type="button"
+              w="full"
+              size="lg"
+              {...primaryCtaStyles}
+              _active={ctaActiveState}
+              onClick={() => firstFieldRef.current?.focus()}
+              fontSize="17px"
+              fontWeight="600"
+              py={6}
+            >
+              Create Your Hushh ID →
+            </Button>
+            <Text mt={2} fontSize="13px" color="#6E6E73" textAlign="center">
+              It takes under a minute. Your details stay private.
+            </Text>
+          </Box>
         </Box>
 
         <Box animation={headingAnimation}>
@@ -571,6 +633,7 @@ const HushhUserProfilePage: React.FC = () => {
             <InputGroup>
               <Input
                 {...inputBaseStyles}
+                ref={firstFieldRef}
                 value={form.name}
                 onChange={(e) => handleChange("name", e.target.value)}
                 placeholder="Enter your full name"
