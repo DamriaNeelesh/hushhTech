@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Login from './pages/Login'
 import Contact from './pages/Contact';
 import { ChakraProvider } from '@chakra-ui/react';
+import theme from './theme';
 import Consumers from './pages/services/consumers';
 import Business from './pages/services/business';
 import Signup from './pages/Signup';
@@ -109,7 +110,7 @@ function App() {
   }, []);
   
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Router>
         <div className="min-h-screen flex flex-col">
           <Navbar />
