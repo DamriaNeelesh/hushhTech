@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import {
-  Box, Heading, Text, VStack, HStack, Badge,
+  Box, Heading, Text, VStack, HStack,
   Accordion, AccordionItem, AccordionButton,
-  AccordionPanel, AccordionIcon, Button, useToast,
+  AccordionPanel, AccordionIcon, useToast,
   Icon, IconButton, useClipboard, Spinner,
 } from "@chakra-ui/react";
 import { Share2, Copy, Check } from "lucide-react";
@@ -50,24 +50,6 @@ const PublicInvestorProfilePage: React.FC = () => {
     fetchProfile();
   }, [slug, navigate, toast]);
 
-  if (loading) {
-    return (
-      <Box minH="100vh" bg="#F5F7F9" display="flex" alignItems="center" justifyContent="center">
-        <VStack spacing={4}>
-          <Spinner size="xl" color="#00A9E0" thickness="4px" />
-          <Text color="#6b7280">Loading investor profile...</Text>
-        </VStack>
-      </Box>
-    );
-  }
-
-  if (!profileData) {
-    return null;
-  }
-
-  const maskedData = maskProfileData(profileData);
-  const investorProfile: InvestorProfile = profileData.investor_profile;
-
   const handleShare = async () => {
     if (navigator.share) {
       try {
@@ -90,14 +72,64 @@ const PublicInvestorProfilePage: React.FC = () => {
     }
   };
 
-  const getConfidenceBadge = (confidence: number) => {
-    if (confidence >= 0.7) return <Badge colorScheme="green">High Confidence</Badge>;
-    if (confidence >= 0.4) return <Badge colorScheme="yellow">Medium Confidence</Badge>;
-    return <Badge colorScheme="red">Low Confidence</Badge>;
+  const tokens = {
+    label: "#000000",
+    secondary: "#6E6E73",
+    tertiary: "#8E8E93",
+    separator: "#E5E5EA",
+    blue: "#0A84FF",
+    green: "#34C759",
+    yellow: "#FFD60A",
+    gray: "#8E8E93",
+  };
+
+  const getConfidenceChip = (confidence: number) => {
+    const label = confidence >= 0.7 ? "HIGH" : confidence >= 0.4 ? "MEDIUM" : "LOW";
+    const tone = label === "HIGH" ? tokens.green : label === "MEDIUM" ? tokens.yellow : tokens.gray;
+    const surface =
+      label === "HIGH" ? "rgba(52,199,89,0.12)" : label === "MEDIUM" ? "rgba(255,214,10,0.16)" : "rgba(142,142,147,0.14)";
+    const border =
+      label === "HIGH" ? "rgba(52,199,89,0.5)" : label === "MEDIUM" ? "rgba(255,214,10,0.55)" : "rgba(142,142,147,0.6)";
+    return (
+      <Box
+        px={3.5}
+        py={1.5}
+        borderRadius="full"
+        border={`1px solid ${border}`}
+        bg={surface}
+        color={tone}
+        fontSize="11px"
+        fontWeight="700"
+        letterSpacing="0.08em"
+        minH="26px"
+        display="inline-flex"
+        alignItems="center"
+      >
+        {label}
+      </Box>
+    );
   };
 
   // Get OG image URL
   const ogImageUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/investor-og-image?slug=${slug}`;
+
+  if (loading) {
+    return (
+      <Box minH="100vh" bg="white" display="flex" alignItems="center" justifyContent="center">
+        <VStack spacing={4}>
+          <Spinner size="xl" color={tokens.blue} thickness="4px" />
+          <Text color={tokens.secondary}>Loading investor profile...</Text>
+        </VStack>
+      </Box>
+    );
+  }
+
+  if (!profileData) {
+    return null;
+  }
+
+  const maskedData = maskProfileData(profileData);
+  const investorProfile: InvestorProfile = profileData.investor_profile;
 
   return (
     <>
@@ -119,123 +151,187 @@ const PublicInvestorProfilePage: React.FC = () => {
         <meta name="twitter:image" content={ogImageUrl} />
       </Helmet>
 
-      <Box minH="100vh" bg="linear-gradient(to bottom, #F5F7F9, #E6F4FF)" py={10}>
-        <Box maxW="1200px" mx="auto" px={4}>
-          {/* Header Card with Share */}
-          <Box bg="white" rounded="xl" shadow="lg" p={8} mb={6}>
-            <VStack align="start" spacing={4}>
-              <HStack justify="space-between" w="full" flexWrap="wrap">
-                <VStack align="start" spacing={1}>
-                  <Badge colorScheme="blue" px={3} py={1} fontSize="xs">
-                    🏆 Verified Investor Profile
-                  </Badge>
-                  <Heading as="h1" fontSize={{ base: "2xl", md: "3xl" }} fontWeight="700" color="#1c1c1c">
-                    {maskedData.name}
-                  </Heading>
-                </VStack>
-                
-                <HStack spacing={2}>
-                  <IconButton
-                    aria-label="Share profile"
-                    icon={<Icon as={Share2} />}
-                    onClick={handleShare}
-                    colorScheme="blue"
-                    variant="outline"
-                    size="md"
-                  />
-                  <IconButton
-                    aria-label="Copy link"
-                    icon={hasCopied ? <Icon as={Check} /> : <Icon as={Copy} />}
-                    onClick={onCopy}
-                    colorScheme={hasCopied ? "green" : "gray"}
-                    variant="outline"
-                    size="md"
-                  />
-                </HStack>
+      <Box minH="100vh" bg="white" py={{ base: 8, md: 12 }}>
+        <Box maxW="960px" mx="auto" px={{ base: 4, md: 6 }}>
+          {/* Header */}
+          <VStack align="stretch" spacing={3} mb={8}>
+            <HStack justify="space-between" align="center">
+              <Box
+                px={3}
+                py={1.5}
+                borderRadius="full"
+                border={`1px solid ${tokens.blue}`}
+                bg="rgba(10,132,255,0.08)"
+                color={tokens.blue}
+                fontSize="11px"
+                letterSpacing="0.08em"
+                fontWeight="700"
+                display="inline-flex"
+                alignItems="center"
+                gap={1.5}
+              >
+                <span role="img" aria-label="trophy">🏆</span> VERIFIED INVESTOR
+              </Box>
+              <HStack spacing={2}>
+                <IconButton
+                  aria-label="Share profile"
+                  icon={<Icon as={Share2} />}
+                  onClick={handleShare}
+                  variant="outline"
+                  size="sm"
+                  borderColor={tokens.separator}
+                  color={tokens.blue}
+                  _hover={{ bg: "rgba(10,132,255,0.08)" }}
+                  _active={{ bg: "rgba(10,132,255,0.12)" }}
+                />
+                <IconButton
+                  aria-label="Copy link"
+                  icon={hasCopied ? <Icon as={Check} /> : <Icon as={Copy} />}
+                  onClick={onCopy}
+                  variant="outline"
+                  size="sm"
+                  borderColor={tokens.separator}
+                  color={tokens.blue}
+                  _hover={{ bg: "rgba(10,132,255,0.08)" }}
+                  _active={{ bg: "rgba(10,132,255,0.12)" }}
+                />
               </HStack>
+            </HStack>
 
-              <HStack spacing={4} flexWrap="wrap">
-                <Badge px={3} py={1} colorScheme="purple">{maskedData.email}</Badge>
-                <Badge px={3} py={1} colorScheme="orange">Age {maskedData.age}</Badge>
-                <Badge px={3} py={1} colorScheme="green">{maskedData.phone}</Badge>
-                {maskedData.organisation && (
-                  <Badge px={3} py={1} colorScheme="cyan">{maskedData.organisation}</Badge>
-                )}
-              </HStack>
-
-              <Text fontSize="sm" color="#6b7280">
-                This is a public investor profile. Contact details are masked for privacy.
-              </Text>
-            </VStack>
-          </Box>
-
-          {/* Investment Profile Details */}
-          <Box bg="white" rounded="xl" shadow="lg" p={6}>
-            <Heading as="h2" fontSize="xl" fontWeight="600" color="#1c1c1c" mb={4}>
-              📊 Investment Profile
+            <Heading as="h1" fontSize={{ base: "24px", md: "28px" }} fontWeight="700" color={tokens.label}>
+              {maskedData.name}
             </Heading>
 
-            <Accordion allowMultiple>
+            <HStack spacing={3} flexWrap="wrap">
+              <Box
+                px={3}
+                py={1.5}
+                borderRadius="full"
+                border={`1px solid ${tokens.separator}`}
+                bg="rgba(118,118,128,0.12)"
+                color={tokens.secondary}
+                fontSize="13px"
+                fontWeight="600"
+              >
+                {maskedData.email}
+              </Box>
+              <Box
+                px={3}
+                py={1.5}
+                borderRadius="full"
+                border={`1px solid ${tokens.separator}`}
+                bg="rgba(118,118,128,0.12)"
+                color={tokens.secondary}
+                fontSize="13px"
+                fontWeight="600"
+              >
+                Age {maskedData.age}
+              </Box>
+              <Box
+                px={3}
+                py={1.5}
+                borderRadius="full"
+                border={`1px solid ${tokens.separator}`}
+                bg="rgba(118,118,128,0.12)"
+                color={tokens.secondary}
+                fontSize="13px"
+                fontWeight="600"
+              >
+                {maskedData.phone}
+              </Box>
+              {maskedData.organisation && (
+                <Box
+                  px={3}
+                  py={1.5}
+                  borderRadius="full"
+                  border={`1px solid ${tokens.separator}`}
+                  bg="rgba(118,118,128,0.12)"
+                  color={tokens.secondary}
+                  fontSize="13px"
+                  fontWeight="600"
+                >
+                  {maskedData.organisation}
+                </Box>
+              )}
+            </HStack>
+
+            <Text fontSize="13px" color={tokens.secondary}>
+              This is a public investor profile. Contact details are masked for privacy.
+            </Text>
+          </VStack>
+
+          {/* Investment Profile Details */}
+          <Box>
+            <HStack spacing={2} align="center" mb={3}>
+              <Text fontSize="15px" fontWeight="700" color={tokens.label}>Investment Profile</Text>
+            </HStack>
+
+            <Accordion allowToggle>
               {Object.entries(investorProfile).map(([fieldName, fieldData]: [string, any]) => (
-                <AccordionItem key={fieldName} border="none" mb={2}>
+                <AccordionItem
+                  key={fieldName}
+                  border="none"
+                  borderBottom={`1px solid ${tokens.separator}`}
+                  _last={{ borderBottom: "none" }}
+                >
                   <AccordionButton
-                    bg="#E6F4FF"
-                    _hover={{ bg: "#d0e7ff" }}
-                    rounded="md"
-                    px={4}
+                    px={0}
                     py={3}
+                    _hover={{ bg: "rgba(120,120,128,0.06)" }}
+                    _expanded={{ bg: "rgba(120,120,128,0.06)" }}
+                    transition="background-color 0.16s ease"
                   >
-                    <Box flex="1" textAlign="left">
-                      <HStack justify="space-between" w="full" flexWrap="wrap">
-                        <Text fontWeight="600" color="#1c1c1c" fontSize="sm">
+                    <HStack justify="space-between" w="full" align="center" spacing={3}>
+                      <VStack align="start" spacing={0}>
+                        <Text fontWeight="600" fontSize="15px" color={tokens.label}>
                           {FIELD_LABELS[fieldName as keyof typeof FIELD_LABELS] || fieldName}
                         </Text>
-                        {getConfidenceBadge(fieldData.confidence)}
+                        <Text fontSize="13px" color={tokens.secondary} noOfLines={1}>
+                          {Array.isArray(fieldData.value)
+                            ? fieldData.value.map((v: string) => VALUE_LABELS[v as keyof typeof VALUE_LABELS] || v).join(", ")
+                            : VALUE_LABELS[fieldData.value as keyof typeof VALUE_LABELS] || fieldData.value}
+                        </Text>
+                      </VStack>
+                      <HStack spacing={2} align="center">
+                        {getConfidenceChip(fieldData.confidence)}
+                        <AccordionIcon transition="transform 0.18s ease" color={tokens.secondary} />
                       </HStack>
-                      <Text fontSize="xs" color="#434343" mt={1}>
-                        {Array.isArray(fieldData.value)
-                          ? fieldData.value.map((v: string) => VALUE_LABELS[v as keyof typeof VALUE_LABELS] || v).join(", ")
-                          : VALUE_LABELS[fieldData.value as keyof typeof VALUE_LABELS] || fieldData.value}
-                      </Text>
-                    </Box>
-                    <AccordionIcon />
+                    </HStack>
                   </AccordionButton>
 
-                  <AccordionPanel pb={4} pt={3} px={4} bg="white">
-                    <VStack align="stretch" spacing={2}>
-                      <Box>
-                        <Text fontSize="xs" fontWeight="600" color="#434343" mb={1}>
-                          AI Analysis:
+                  <AccordionPanel px={0} pb={4} pt={1}>
+                    <Box pl={2} pr={1}>
+                      <VStack align="stretch" spacing={2}>
+                        <Text fontSize="13px" fontWeight="600" color={tokens.label}>
+                          AI Rationale:
                         </Text>
-                        <Text fontSize="xs" color="#434343">
+                        <Text fontSize="13px" color={tokens.secondary} lineHeight="1.6">
                           {fieldData.rationale}
                         </Text>
-                      </Box>
-                    </VStack>
+                      </VStack>
+                    </Box>
                   </AccordionPanel>
                 </AccordionItem>
               ))}
             </Accordion>
           </Box>
 
-          {/* Call to Action */}
-          <Box 
-            bgGradient="linear(to-r, cyan.50, blue.50)" 
-            rounded="xl" 
-            p={8} 
-            mt={6} 
-            textAlign="center"
-            border="1px solid"
-            borderColor="blue.100"
+          {/* CTA to create own profile */}
+          <Box
+            mt={8}
+            border={`1px solid ${tokens.separator}`}
+            borderRadius="16px"
+            p={{ base: 5, md: 6 }}
+            bg="rgba(120,120,128,0.06)"
           >
-            <VStack spacing={4}>
-              <Heading as="h3" fontSize="xl" color="#1c1c1c">
+            <VStack spacing={3} textAlign="center">
+              <Heading as="h3" fontSize="18px" color={tokens.label} fontWeight="700">
                 Want your own investor profile?
               </Heading>
-              <Text color="#6b7280">
+              <Text fontSize="14px" color={tokens.secondary}>
                 Create your AI-powered investor profile in minutes and share it anywhere.
               </Text>
-              <PrimaryCtaButton onClick={() => navigate('/investor-profile')}>
+              <PrimaryCtaButton onClick={() => navigate("/investor-profile")} width="100%">
                 Create Your Hushh ID →
               </PrimaryCtaButton>
             </VStack>
