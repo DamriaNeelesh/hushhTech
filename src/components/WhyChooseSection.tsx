@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Box,
   Container,
@@ -80,29 +80,30 @@ const WhyChooseSection = () => {
   }, []);
 
   return (
-    <Box pt={{ base: 8, md: 10 }} pb={{ base: 10, md: 14 }} px={4} bg="white">
-      <Container maxW="container.xl">
+    <Box pt={{ base: 10, md: 12 }} pb={{ base: 14, md: 16 }} px={4} bg="#F5F5F7">
+      <Container maxW="700px">
         <VStack spacing={2} textAlign="center" mb={{ base: 6, md: 8 }} animation={`${fadeUp} 0.2s ease-out`}>
           <Heading
             as="h2"
-            fontSize={{ base: "26px", md: "30px" }}
+            fontSize={{ base: "28px", md: "30px" }}
             fontWeight="700"
             color={tokens.label}
             lineHeight="1.2"
+            maxW="90%"
           >
             The Hushh Advantage
           </Heading>
-          <Text fontSize={{ base: "16px", md: "17px" }} color={tokens.secondary} lineHeight="1.35">
+          <Text fontSize={{ base: "17px", md: "17px" }} color={tokens.secondary} lineHeight="1.35" maxW="90%">
             What you reliably get with every Hushh investor profile.
           </Text>
         </VStack>
 
-        <Box borderTop={`1px solid ${tokens.separator}`} mt={3} />
+        <Box borderTop={`1px solid ${tokens.separator}`} mt={4} />
 
-        <VStack align="stretch" spacing={5} mt={4}>
+        <VStack align="stretch" spacing={6} mt={6}>
           {advantages.map((item, idx) => {
             const isActive = idx === activeIndex;
-            const railColor = isActive ? tokens.blue : tokens.separator;
+            const railColor = isActive ? item.color : tokens.separator;
             const textColor = tokens.label;
             const bodyColor = isActive ? tokens.secondary : tokens.tertiary;
             return (
@@ -111,26 +112,28 @@ const WhyChooseSection = () => {
                   data-idx={idx}
                   ref={(el) => (itemRefs.current[idx] = el)}
                   position="relative"
-                  p={5}
+                  px={5}
+                  py={5}
                   borderRadius="22px"
-                  bg="#F9FAFB"
+                  bg="#FFFFFF"
                   boxShadow={
                     isActive
-                      ? "0 16px 32px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.9)"
-                      : "0 10px 24px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9)"
+                      ? "0 22px 45px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.9)"
+                      : "0 16px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9)"
                   }
                   transform={isActive ? "scale(1.01)" : "scale(1)"}
                   transition="all 0.2s ease"
                   animation={`${fadeUp} 0.25s ease-out ${idx * 0.06}s`}
                 >
                   <HStack align="flex-start" spacing={4}>
-                    <Flex align="stretch">
+                    <Flex align="stretch" minW="56px">
                       <Box
                         w="3px"
                         borderRadius="full"
                         bg={railColor}
-                        mt={1}
-                        mb={1}
+                        mt={2}
+                        mb={2}
+                        height="70%"
                         opacity={isActive ? 1 : 0.6}
                       />
                       <Flex
@@ -162,7 +165,7 @@ const WhyChooseSection = () => {
                   </HStack>
                 </Box>
                 {idx < advantages.length - 1 && (
-                  <Box mt={4} borderBottom={`1px solid ${tokens.separator}`} />
+                  <Box mt={6} borderBottom={`1px solid ${tokens.separator}`} />
                 )}
               </Box>
             );
