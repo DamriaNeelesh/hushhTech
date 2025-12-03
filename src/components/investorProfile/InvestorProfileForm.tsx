@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { InvestorProfileInput } from "../../types/investorProfile";
-import { Box, Button, FormControl, FormLabel, Input, VStack, Heading, Text, useToast, Spinner } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Input, VStack, Heading, Text, useToast, Spinner } from "@chakra-ui/react";
+import { PrimaryCtaButton } from "../PrimaryCtaButton";
 
 interface InvestorProfileFormProps {
   onSubmit: (data: InvestorProfileInput) => Promise<void>;
@@ -215,11 +216,9 @@ export function InvestorProfileForm({ onSubmit, isLoading = false }: InvestorPro
               />
             </FormControl>
             
-            {/* Submit Button */}
-            <Button
+            {/* Submit Button - uses shared PrimaryCtaButton for consistent CTA styling */}
+            <PrimaryCtaButton
               type="submit"
-              colorScheme="blue"
-              size="lg"
               width="100%"
               mt={4}
               isLoading={isLoading}
@@ -232,9 +231,9 @@ export function InvestorProfileForm({ onSubmit, isLoading = false }: InvestorPro
                   Generating AI Profile...
                 </>
               ) : (
-                "Create My Investor Hushh ID"
+                "Create Your Hushh ID →"
               )}
-            </Button>
+            </PrimaryCtaButton>
             
             <Text fontSize="sm" color="gray.500" textAlign="center">
               We'll use AI to intelligently prefill your investor profile based on your information

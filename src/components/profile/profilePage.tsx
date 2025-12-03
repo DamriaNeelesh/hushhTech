@@ -14,6 +14,7 @@ import {
   Flex,
   Center,
 } from "@chakra-ui/react";
+import { PrimaryCtaButton } from "../PrimaryCtaButton";
 import { FaFileAlt, FaUserShield } from "react-icons/fa";
 import { CheckCircleIcon, InfoIcon } from "lucide-react";
 import HushhLogo from "../images/Hushhogo.png";
@@ -332,24 +333,17 @@ const ProfilePage: React.FC = () => {
             <Text className="text-xl text-[#6E6E73] font-light" maxW="800px" textAlign="center">
               Create your investor profile once. Save to wallet. Share anywhere. No more repetitive forms.
             </Text>
-            <Button
+            <PrimaryCtaButton
               mt={{ base: 3, md: 4 }}
               onClick={() => navigate("/investor-profile")}
-              background="linear-gradient(to right, #00A9E0, #6DD3EF)"
-              color="white"
-              borderRadius="full"
-              _hover={{ background: "linear-gradient(to right, #0095C8, #5BC3E0)", transform: "translateY(-2px)", boxShadow: "lg" }}
-              _active={{ transform: "translateY(0px)" }}
-              transition="all 0.2s"
               px={8}
               py={6}
               fontSize="md"
               fontWeight="semibold"
               minW="250px"
-              boxShadow="md"
             >
               Create Your Hushh ID →
-            </Button>
+            </PrimaryCtaButton>
           </VStack>
 
           {/* Legacy NDA/KYC cards hidden in new flow */}
