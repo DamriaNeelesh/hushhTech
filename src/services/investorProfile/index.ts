@@ -115,9 +115,13 @@ export async function updateInvestorProfile(
     .from("investor_profiles")
     .select("*")
     .eq("user_id", user.id)
-    .single();
+    .maybeSingle();
   
-  if (fetchError || !existingProfile) {
+  if (fetchError) {
+    throw new Error(`Failed to fetch investor profile: ${fetchError.message}`);
+  }
+  
+  if (!existingProfile) {
     throw new Error("Investor profile not found. Please create one first.");
   }
   
@@ -199,14 +203,15 @@ export async function fetchInvestorProfile(): Promise<InvestorProfileRecord | nu
     .from("investor_profiles")
     .select("*")
     .eq("user_id", user.id)
-    .single();
+    .maybeSingle();
   
   if (fetchError) {
-    // Profile doesn't exist yet
-    if (fetchError.code === "PGRST116") {
-      return null;
-    }
     throw new Error(`Failed to fetch investor profile: ${fetchError.message}`);
+  }
+  
+  // Profile doesn't exist yet - this is OK for first-time users
+  if (!profile) {
+    return null;
   }
   
   return profile as InvestorProfileRecord;
