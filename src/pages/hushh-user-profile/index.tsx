@@ -22,7 +22,11 @@ import {
   Checkbox,
   CheckboxGroup,
   Stack,
+  Icon,
+  IconButton,
+  useClipboard,
 } from "@chakra-ui/react";
+import { Share2, Copy, Check, ExternalLink } from "lucide-react";
 import resources from "../../resources/resources";
 import { generateInvestorProfile } from "../../services/investorProfile/apiClient";
 import { InvestorProfile, FIELD_LABELS, VALUE_LABELS } from "../../types/investorProfile";
@@ -45,14 +49,46 @@ const defaultFormState: FormState = {
   organisation: "",
 };
 
+const primaryCtaStyles = {
+  borderRadius: "full",
+  fontWeight: "bold",
+  bgGradient: "linear(to-r, rgb(0, 169, 224), rgb(109, 211, 239))",
+  color: "white",
+  boxShadow: "0 10px 25px rgba(0, 169, 224, 0.35)",
+  _disabled: {
+    bgGradient: "linear(to-r, rgb(0, 169, 224), rgb(109, 211, 239))",
+    boxShadow: "0 10px 25px rgba(0, 169, 224, 0.35)",
+  },
+  _hover: {
+    bgGradient: "linear(to-r, rgb(0, 150, 200), rgb(90, 195, 230))",
+    boxShadow: "0 12px 30px rgba(0, 150, 200, 0.45)",
+    _disabled: {
+      bgGradient: "linear(to-r, rgb(0, 169, 224), rgb(109, 211, 239))",
+      boxShadow: "0 10px 25px rgba(0, 169, 224, 0.35)",
+    },
+  },
+  _active: {
+    transform: "scale(0.98)",
+    boxShadow: "0 6px 18px rgba(0, 120, 170, 0.45)",
+  },
+  _focusVisible: {
+    outline: "2px solid rgba(0, 169, 224, 0.9)",
+    outlineOffset: "2px",
+  },
+};
+
 const HushhUserProfilePage: React.FC = () => {
   const navigate = useNavigate();
   const toast = useToast();
   const [form, setForm] = useState<FormState>(defaultFormState);
   const [userId, setUserId] = useState<string | null>(null);
   const [investorProfile, setInvestorProfile] = useState<InvestorProfile | null>(null);
+  const [profileSlug, setProfileSlug] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [editingField, setEditingField] = useState<string | null>(null);
+  
+  const profileUrl = profileSlug ? `https://hushhtech.com/investor/${profileSlug}` : "";
+  const { hasCopied, onCopy } = useClipboard(profileUrl);
 
   // Check authentication on mount
   useEffect(() => {
@@ -101,6 +137,7 @@ const HushhUserProfilePage: React.FC = () => {
 
         if (existingProfile && existingProfile.investor_profile) {
           setInvestorProfile(existingProfile.investor_profile);
+          setProfileSlug(existingProfile.slug || null);
           setForm({
             name: existingProfile.name || fullName,
             email: existingProfile.email || user.email || "",
@@ -164,7 +201,7 @@ const HushhUserProfilePage: React.FC = () => {
       if (userId) {
         const supabase = resources.config.supabaseClient;
         if (supabase) {
-          const { error: saveError } = await supabase
+          const { data: savedProfile, error: saveError } = await supabase
             .from("investor_profiles")
             .upsert({
               user_id: userId,
@@ -175,11 +212,17 @@ const HushhUserProfilePage: React.FC = () => {
               phone_number: form.phoneNumber,
               organisation: form.organisation || null,
               investor_profile: result.profile,
+              user_confirmed: true,
               confirmed_at: new Date().toISOString(),
-            });
+            })
+            .select('slug')
+            .single();
 
           if (saveError) {
             console.error("Error saving to Supabase:", saveError);
+          } else if (savedProfile) {
+            // Update slug state so share section appears immediately
+            setProfileSlug(savedProfile.slug || null);
           }
         }
       }
@@ -381,12 +424,10 @@ const HushhUserProfilePage: React.FC = () => {
                   type="submit"
                   isLoading={loading}
                   loadingText="Generating..."
-                  bg="rgba(153, 40, 112, 1)"
-                  color="white"
                   size="lg"
                   w="full"
                   mt={4}
-                  _hover={{ bg: "black" }}
+                  {...primaryCtaStyles}
                 >
                   {investorProfile ? "Update Profile" : "Generate Investor Profile"}
                 </Button>
@@ -399,6 +440,51 @@ const HushhUserProfilePage: React.FC = () => {
             <Heading as="h2" fontSize="xl" fontWeight="600" color="#1c1c1c" mb={4}>
               AI-Generated Investor Profile
             </Heading>
+
+            {/* Public Profile Share Section */}
+            {profileSlug && profileUrl && (
+              <Box bg="linear-gradient(135deg, #667eea 0%, #764ba2 100%)" rounded="lg" p={4} mb={4}>
+                <VStack spacing={3} align="stretch">
+                  <HStack justify="space-between" align="center">
+                    <VStack align="start" spacing={0}>
+                      <Text fontSize="xs" color="white" fontWeight="600">
+                        🔗 Your Public Profile
+                      </Text>
+                      <Text fontSize="xs" color="whiteAlpha.800">
+                        Share this link anywhere
+                      </Text>
+                    </VStack>
+                    <HStack spacing={2}>
+                      <IconButton
+                        aria-label="Copy link"
+                        icon={hasCopied ? <Icon as={Check} /> : <Icon as={Copy} />}
+                        onClick={onCopy}
+                        size="sm"
+                        colorScheme={hasCopied ? "green" : "whiteAlpha"}
+                        variant={hasCopied ? "solid" : "outline"}
+                      />
+                      <IconButton
+                        aria-label="Open profile"
+                        icon={<Icon as={ExternalLink} />}
+                        onClick={() => window.open(profileUrl, '_blank')}
+                        size="sm"
+                        colorScheme="whiteAlpha"
+                        variant="outline"
+                      />
+                    </HStack>
+                  </HStack>
+                  <Input
+                    value={profileUrl}
+                    isReadOnly
+                    size="sm"
+                    bg="whiteAlpha.300"
+                    color="white"
+                    border="none"
+                    _focus={{ bg: "whiteAlpha.400" }}
+                  />
+                </VStack>
+              </Box>
+            )}
 
             {!investorProfile ? (
               <Box bg="#E6F4FF" rounded="lg" p={6} textAlign="center">
@@ -459,8 +545,8 @@ const HushhUserProfilePage: React.FC = () => {
                           </Box>
                         ) : (
                           <Button
-                            size="xs"
-                            colorScheme="purple"
+                            size="sm"
+                            {...primaryCtaStyles}
                             onClick={() => setEditingField(fieldName)}
                           >
                             Edit Value

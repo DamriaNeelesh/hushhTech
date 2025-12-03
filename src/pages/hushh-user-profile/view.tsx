@@ -30,6 +30,34 @@ interface InvestorProfileData {
   confirmed_at: string;
 }
 
+const primaryCtaStyles = {
+  borderRadius: "full",
+  fontWeight: "bold",
+  bgGradient: "linear(to-r, rgb(0, 169, 224), rgb(109, 211, 239))",
+  color: "white",
+  boxShadow: "0 10px 25px rgba(0, 169, 224, 0.35)",
+  _disabled: {
+    bgGradient: "linear(to-r, rgb(0, 169, 224), rgb(109, 211, 239))",
+    boxShadow: "0 10px 25px rgba(0, 169, 224, 0.35)",
+  },
+  _hover: {
+    bgGradient: "linear(to-r, rgb(0, 150, 200), rgb(90, 195, 230))",
+    boxShadow: "0 12px 30px rgba(0, 150, 200, 0.45)",
+    _disabled: {
+      bgGradient: "linear(to-r, rgb(0, 169, 224), rgb(109, 211, 239))",
+      boxShadow: "0 10px 25px rgba(0, 169, 224, 0.35)",
+    },
+  },
+  _active: {
+    transform: "scale(0.98)",
+    boxShadow: "0 6px 18px rgba(0, 120, 170, 0.45)",
+  },
+  _focusVisible: {
+    outline: "2px solid rgba(0, 169, 224, 0.9)",
+    outlineOffset: "2px",
+  },
+};
+
 const ViewPreferencesPage: React.FC = () => {
   const navigate = useNavigate();
   const toast = useToast();
@@ -117,9 +145,8 @@ const ViewPreferencesPage: React.FC = () => {
         <VStack spacing={4}>
           <Text fontSize="xl" color="#434343">No profile found</Text>
           <Button
-            bg="rgba(153, 40, 112, 1)"
-            color="white"
-            _hover={{ bg: "black" }}
+            size="md"
+            {...primaryCtaStyles}
             onClick={() => navigate("/hushh-user-profile")}
           >
             Create Profile
@@ -147,10 +174,8 @@ const ViewPreferencesPage: React.FC = () => {
                 </Heading>
               </VStack>
               <Button
-                size="sm"
-                bg="rgba(153, 40, 112, 1)"
-                color="white"
-                _hover={{ bg: "black" }}
+                size="md"
+                {...primaryCtaStyles}
                 onClick={() => navigate("/hushh-user-profile")}
               >
                 Edit Profile
@@ -238,9 +263,8 @@ const ViewPreferencesPage: React.FC = () => {
             Back to Home
           </Button>
           <Button
-            bg="rgba(153, 40, 112, 1)"
-            color="white"
-            _hover={{ bg: "black" }}
+            size="lg"
+            {...primaryCtaStyles}
             onClick={() => navigate("/hushh-user-profile")}
           >
             Update Profile
