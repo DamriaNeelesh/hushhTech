@@ -540,6 +540,7 @@ const HushhUserProfilePage: React.FC = () => {
         py={{ base: 6, md: 10 }}
         bg="white"
       >
+        <Box borderTop="1px solid #E5E5EA" />
         <Box
           pt={{ base: 6, md: 8 }}
           pb={{ base: 6, md: 8 }}
@@ -548,8 +549,8 @@ const HushhUserProfilePage: React.FC = () => {
           animation={heroAnimation}
         >
           <Box
-            w="100%"
-            maxW="880px"
+            w="92%"
+            maxW="900px"
             bg="#F9FAFB"
             borderRadius="24px"
             boxShadow="0 20px 44px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.85)"
