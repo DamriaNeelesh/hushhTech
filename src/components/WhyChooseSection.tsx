@@ -151,7 +151,7 @@ const WhyChooseSection = () => {
               </Box>
             );
           })}
-        </Box>
+        </VStack>
       </Container>
     </Box>
   );
