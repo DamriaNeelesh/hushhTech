@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { Share2, Copy, Check } from "lucide-react";
 import { PrimaryCtaButton } from "../../components/PrimaryCtaButton";
+import { InvestorChatWidget } from "../../components/InvestorChatWidget";
 import { fetchPublicInvestorProfileBySlug } from "../../services/investorProfile";
 import { maskProfileData } from "../../utils/maskSensitiveData";
 import { InvestorProfile, FIELD_LABELS, VALUE_LABELS } from "../../types/investorProfile";
@@ -314,6 +315,11 @@ const PublicInvestorProfilePage: React.FC = () => {
                 </AccordionItem>
               ))}
             </Accordion>
+          </Box>
+
+          {/* Chat Widget */}
+          <Box mt={8}>
+            <InvestorChatWidget slug={slug!} investorName={maskedData.name} />
           </Box>
 
           {/* CTA to create own profile */}
