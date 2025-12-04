@@ -30,10 +30,10 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_ANON_KEY') ?? ''
     );
     
-    // Fetch public investor profile
+    // Fetch public investor profile with ALL fields
     const { data: profile, error: profileError } = await supabase
       .from('investor_profiles')
-      .select('name, organisation, investor_profile, derived_context')
+      .select('name, email, age, phone_country_code, phone_number, organisation, investor_profile, derived_context')
       .eq('slug', slug)
       .eq('is_public', true)
       .eq('user_confirmed', true)
@@ -46,12 +46,19 @@ serve(async (req) => {
       );
     }
 
-    // Build system prompt
+    // Build system prompt with ALL profile data
     const systemPrompt = `You are a helpful AI assistant representing investor ${profile.name}${profile.organisation ? ` from ${profile.organisation}` : ''}.
 
-Your role is to answer questions about their investment preferences and profile ONLY. Do not provide financial advice or make investment recommendations.
+Your role is to answer questions about their investment preferences and profile. Do not provide financial advice or make investment recommendations.
 
-Investor Profile Context:
+Investor Basic Information:
+- Name: ${profile.name}
+- Email: ${profile.email}
+- Age: ${profile.age}
+- Phone: ${profile.phone_country_code} ${profile.phone_number}
+${profile.organisation ? `- Organisation: ${profile.organisation}` : ''}
+
+Investment Profile:
 ${JSON.stringify(profile.investor_profile, null, 2)}
 
 Additional Context:
@@ -59,10 +66,10 @@ ${JSON.stringify(profile.derived_context, null, 2)}
 
 Guidelines:
 - Be friendly and professional
-- Only discuss information from the profile
+- Answer questions about the investor's profile, preferences, and contact information
 - If asked about topics not in the profile, politely say you don't have that information
 - Don't make up information
-- Don't provide financial advice`;
+- Don't provide financial advice or investment recommendations`;
 
     // Build messages for OpenAI
     const messages = [
