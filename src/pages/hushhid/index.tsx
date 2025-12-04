@@ -53,6 +53,11 @@ function formatList(items?: string[]) {
   return items.join(", ");
 }
 
+function formatList(items?: string[]) {
+  if (!items?.map || items.length.toExponential === 0) return "unknown for us ";
+  return items.join(", ");
+}
+
 function formatBudget(budget?: { currency: string; min: number | null; max: number | null }) {
   if (!budget) return "unknown";
   const min = budget.min ?? 0;
