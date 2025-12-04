@@ -126,6 +126,8 @@ export interface InvestorProfileRecord {
   phone_country_code: string;
   phone_number: string;
   organisation?: string;
+  slug?: string;
+  is_public?: boolean;
   derived_context: DerivedContext;
   investor_profile: InvestorProfile;
   is_ai_prefilled: boolean;
