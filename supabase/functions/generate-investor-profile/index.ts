@@ -1,13 +1,16 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+// supabase/functions/generate-investor-profile/index.ts
+
+/// <reference lib="deno.unstable" />
+
+import OpenAI from "npm:openai@4.72.0";
+import { createClient } from "jsr:@supabase/supabase-js@2";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  "Access-Control-Allow-Origin": "*", // tighten to https://www.hushhtech.com later if needed
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
-
-const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
 
 const SYSTEM_PROMPT = `You are an assistant that PRE-FILLS an INVESTOR PROFILE from minimal information.
 
@@ -44,200 +47,269 @@ OUTPUT REQUIREMENTS:
 
 const PROFILE_SCHEMA = {
   primary_goal: {
-    options: ["capital_preservation", "steady_income", "long_term_growth", "aggressive_growth", "speculation"],
-    description: "Main investment objective"
+    options: [
+      "capital_preservation",
+      "steady_income",
+      "long_term_growth",
+      "aggressive_growth",
+      "speculation",
+    ],
   },
   investment_horizon_years: {
     options: ["<3_years", "3_5_years", "5_10_years", ">10_years"],
-    description: "Expected investment timeframe"
   },
   risk_tolerance: {
     options: ["very_low", "low", "moderate", "high", "very_high"],
-    description: "Comfort level with portfolio volatility"
   },
   liquidity_need: {
     options: ["low", "medium", "high"],
-    description: "Need for quick access to invested money"
   },
   experience_level: {
     options: ["beginner", "intermediate", "advanced"],
-    description: "Investing knowledge and experience"
   },
   typical_ticket_size: {
     options: ["micro_<1k", "small_1k_10k", "medium_10k_50k", "large_>50k"],
-    description: "Typical amount per investment (adjust for currency)"
   },
   annual_investing_capacity: {
     options: ["<5k", "5k_20k", "20k_100k", ">100k"],
-    description: "Annual new investment capacity (adjust for currency)"
   },
   asset_class_preference: {
-    options: ["public_equities", "mutual_funds_etfs", "fixed_income", "real_estate", "startups_private_equity", "crypto_digital_assets", "cash_equivalents"],
-    description: "Preferred asset classes (multi-select, 2-4 items)",
-    type: "array"
+    options: [
+      "public_equities",
+      "mutual_funds_etfs",
+      "fixed_income",
+      "real_estate",
+      "startups_private_equity",
+      "crypto_digital_assets",
+      "cash_equivalents",
+    ],
   },
   sector_preferences: {
-    options: ["technology", "consumer_internet", "fintech", "healthcare", "real_estate", "energy_climate", "industrial", "other"],
-    description: "Preferred investment sectors (multi-select, 2-4 items)",
-    type: "array"
+    options: [
+      "technology",
+      "consumer_internet",
+      "fintech",
+      "healthcare",
+      "real_estate",
+      "energy_climate",
+      "industrial",
+      "other",
+    ],
   },
   volatility_reaction: {
-    options: ["sell_to_avoid_more_loss", "hold_and_wait", "buy_more_at_lower_prices"],
-    description: "Behavior during 20% portfolio decline"
+    options: [
+      "sell_to_avoid_more_loss",
+      "hold_and_wait",
+      "buy_more_at_lower_prices",
+    ],
   },
   sustainability_preference: {
     options: ["not_important", "nice_to_have", "important", "very_important"],
-    description: "Importance of ESG/sustainability factors"
   },
   engagement_style: {
-    options: ["very_passive_just_updates", "collaborative_discuss_key_decisions", "hands_on_active_trader"],
-    description: "Desired level of involvement in investment decisions"
-  }
+    options: [
+      "very_passive_just_updates",
+      "collaborative_discuss_key_decisions",
+      "hands_on_active_trader",
+    ],
+  },
 };
 
-serve(async (req) => {
-  // Handle CORS preflight
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders });
+Deno.serve(async (req: Request) => {
+  // CORS preflight
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { status: 200, headers: corsHeaders });
+  }
+
+  if (req.method !== "POST") {
+    return new Response(
+      JSON.stringify({ success: false, error: "Method not allowed" }),
+      {
+        status: 405,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
+    );
   }
 
   try {
-    // 1. Verify authentication
-    const authHeader = req.headers.get('Authorization');
+    // 1) Auth header
+    const authHeader = req.headers.get("Authorization");
     if (!authHeader) {
       return new Response(
-        JSON.stringify({ success: false, error: 'Missing authorization header' }),
-        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        JSON.stringify({
+          success: false,
+          error: "Missing authorization header",
+        }),
+        {
+          status: 401,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
       );
     }
 
-    // 2. Verify user with Supabase
+    const token = authHeader.replace("Bearer ", "");
+
+    // 2) Supabase client with auth context (RLS)
     const supabase = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
-      { global: { headers: { Authorization: authHeader } } }
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+      {
+        global: {
+          headers: { Authorization: authHeader },
+        },
+      },
     );
 
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser(token);
+
     if (authError || !user) {
+      console.error("Auth error:", authError);
       return new Response(
-        JSON.stringify({ success: false, error: 'Unauthorized - invalid token' }),
-        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        JSON.stringify({
+          success: false,
+          error: "Unauthorized - invalid token",
+        }),
+        {
+          status: 401,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
       );
     }
 
-    // 3. Check OpenAI API Key
-    if (!OPENAI_API_KEY) {
-      console.error('OPENAI_API_KEY is not set in Supabase secrets');
+    // 3) OpenAI key
+    const apiKey = Deno.env.get("OPENAI_API_KEY");
+    if (!apiKey) {
+      console.error("OPENAI_API_KEY not set");
       return new Response(
-        JSON.stringify({ success: false, error: 'OpenAI API key not configured' }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        JSON.stringify({
+          success: false,
+          error: "OpenAI API key not configured",
+        }),
+        {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
       );
     }
 
-    // 4. Parse request
+    // 4) Parse input
     const { input, context } = await req.json();
 
     if (!input || !context) {
       return new Response(
-        JSON.stringify({ success: false, error: 'Missing input or context' }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
-
-    // 5. Build user prompt
-    const userPrompt = JSON.stringify({
-      raw_input: {
-        name: input.name,
-        email: input.email,
-        age: input.age,
-        phone_country_code: input.phone_country_code,
-        phone_number: input.phone_number,
-        organisation: input.organisation || null,
-      },
-      derived_context: context,
-      profile_schema: PROFILE_SCHEMA,
-    }, null, 2);
-
-    // 6. Call OpenAI (SERVER-SIDE - API key secure)
-    const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o',
-        max_tokens: 4096,
-        temperature: 0.3,
-        messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
-          { role: 'user', content: userPrompt }
-        ]
-      })
-    });
-
-    if (!openaiResponse.ok) {
-      const errorText = await openaiResponse.text();
-      console.error('OpenAI API Error:', errorText);
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          error: `OpenAI API failed: ${openaiResponse.status}` 
+        JSON.stringify({
+          success: false,
+          error: "Missing input or context",
         }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
       );
     }
 
-    const openaiData = await openaiResponse.json();
-    const content = openaiData?.choices?.[0]?.message?.content;
-
-    if (!content) {
-      return new Response(
-        JSON.stringify({ success: false, error: 'Empty response from OpenAI' }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
-
-    // 7. Parse and clean response
-    const cleaned = content
-      .replace(/^```json/i, '')
-      .replace(/^```/i, '')
-      .replace(/```$/, '')
-      .trim();
-
-    let profile;
-    try {
-      const parsed = JSON.parse(cleaned);
-      profile = parsed.investor_profile || parsed;
-    } catch (parseError) {
-      console.error('Failed to parse OpenAI response:', parseError);
-      return new Response(
-        JSON.stringify({ success: false, error: 'Invalid JSON from OpenAI' }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
-
-    // 8. Return success
-    return new Response(
-      JSON.stringify({ 
-        success: true, 
-        profile 
-      }),
-      { 
-        status: 200, 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-      }
+    const userPrompt = JSON.stringify(
+      {
+        raw_input: {
+          name: input.name,
+          email: input.email,
+          age: input.age,
+          phone_country_code: input.phone_country_code,
+          phone_number: input.phone_number,
+          organisation: input.organisation || null,
+        },
+        derived_context: context,
+        profile_schema: PROFILE_SCHEMA,
+      },
+      null,
+      2,
     );
 
-  } catch (error) {
-    console.error('Edge function error:', error);
+    // 5) Call OpenAI via official SDK
+    const openai = new OpenAI({ apiKey });
+
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4o-mini", // Using gpt-4o-mini for faster + cheaper responses
+      temperature: 0.3,
+      response_format: { type: "json_object" },
+      messages: [
+        { role: "system", content: SYSTEM_PROMPT },
+        { role: "user", content: userPrompt },
+      ],
+    });
+
+    const content = completion.choices[0]?.message?.content;
+    if (!content) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: "Empty response from OpenAI",
+        }),
+        {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
+      );
+    }
+
+    let parsed: any;
+    try {
+      parsed = JSON.parse(content);
+    } catch (e) {
+      console.error("JSON parse error:", e, "raw content:", content);
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: "Invalid JSON from OpenAI",
+        }),
+        {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
+      );
+    }
+
+    const profile = parsed.investor_profile ?? parsed;
+
+    const required = Object.keys(PROFILE_SCHEMA);
+    const missing = required.filter((f) => !profile[f]);
+    if (missing.length > 0) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: `Missing fields in profile: ${missing.join(", ")}`,
+        }),
+        {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
+      );
+    }
+
     return new Response(
-      JSON.stringify({ 
-        success: false, 
-        error: error instanceof Error ? error.message : 'Unknown error' 
+      JSON.stringify({
+        success: true,
+        profile,
       }),
-      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
+    );
+  } catch (error: any) {
+    console.error("Edge function error:", error);
+    return new Response(
+      JSON.stringify({
+        success: false,
+        error: error?.message ?? "Unknown error",
+      }),
+      {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
     );
   }
 });
