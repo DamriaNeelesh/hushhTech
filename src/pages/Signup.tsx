@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import services from "../services/services";
 import { Image } from "@chakra-ui/react";
 import { Eye, EyeOff } from "lucide-react";
+import services from "../services/services";
 import HushhLogo from "../components/images/Hushhogo.png";
 import config from "../resources/config/config";
 import GoogleIcon from "../svg/googleIcon.svg";
+
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,13 +22,13 @@ export default function Signup() {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       setIsLoading(false);
       return;
     }
-    
+
     if (!agreedToTerms) {
       setError("You must agree to the Terms of Service and Privacy Policy");
       setIsLoading(false);
@@ -35,24 +36,21 @@ export default function Signup() {
     }
 
     try {
-      // Sign up with email confirmation enabled
       const { data, error } = await config.supabaseClient.auth.signUp({
         email,
         password,
         options: {
           data: {
-            full_name: fullName
+            full_name: fullName,
           },
-          // This ensures the user needs to confirm their email
-          emailRedirectTo: `${window.location.origin}/auth/callback`
-        }
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        },
       });
 
       if (error) {
         setError(error.message);
         setSuccess(null);
       } else {
-        // Check if email confirmation is sent
         if (data?.user?.identities?.length === 0) {
           setError("This email is already registered. Please log in instead.");
         } else {
@@ -67,7 +65,7 @@ export default function Signup() {
         }
         setError(null);
       }
-    } catch (err) {
+    } catch (_err) {
       setError("An unexpected error occurred.");
       setSuccess(null);
     } finally {
@@ -75,24 +73,38 @@ export default function Signup() {
     }
   };
 
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="container max-w-lg mx-auto px-6 py-8">
+    <div
+      className="min-h-screen bg-white"
+      style={{ fontFamily: 'Inter, -apple-system, system-ui, "SF Pro Text", sans-serif' }}
+    >
+      <div className="max-w-[420px] mx-auto px-6 pt-10 pb-8">
         {/* Logo and Header */}
-        <div className="flex flex-col items-center justify-center my-10">
-          <Image src={HushhLogo} alt="Hushh Logo" className="h-14 w-14" />
-          <h1 className="text-3xl font-bold text-gray-800 text-center">Create Your Hushh Account</h1>
-          <p className="text-gray-600 mt-2 text-center">Join the future of intelligent investing</p>
+        <div className="flex flex-col items-start gap-4 mb-6">
+          <Image src={HushhLogo} alt="Hushh Logo" className="h-11 w-11" />
+          <div className="space-y-3">
+            <h1 className="text-[36px] font-[700] leading-[1.10] text-[#0B1120]">
+              Create Your Hushh Account
+            </h1>
+            <p className="text-[18px] leading-[1.65] text-[#475569] max-w-[32ch]">
+              Join the future of intelligent investing.
+            </p>
+          </div>
+          <div className="relative h-px w-full bg-[#E5E7EB]">
+            <span
+              aria-hidden
+              className="absolute left-0 top-1/2 h-[2px] w-4 -translate-y-1/2 bg-[#00A9E0]"
+            />
+          </div>
         </div>
 
         {/* Signup Form */}
-        <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
-          <form onSubmit={handleSignup} className="space-y-6">
-            <div>
+        <div className="bg-white border border-[#E5E7EB] rounded-[20px] p-5">
+          <form onSubmit={handleSignup} className="space-y-5">
+            <div className="space-y-2.5">
               <label
                 htmlFor="fullName"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-[14px] font-semibold text-[#111827]"
               >
                 Full Name
               </label>
@@ -102,15 +114,15 @@ export default function Signup() {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="Enter your full name"
-                className="block w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
+                className="block w-full h-[52px] rounded-[14px] border border-[#D1D5DB] bg-white px-4 text-[16px] text-[#0B1120] placeholder:text-[#9CA3AF] focus:outline-none focus:border-[#00A9E0] focus:ring-2 focus:ring-[rgba(0,169,224,0.18)] transition-colors duration-150"
                 required
               />
             </div>
 
-            <div>
+            <div className="space-y-2.5">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-[14px] font-semibold text-[#111827]"
               >
                 Email address
               </label>
@@ -120,15 +132,15 @@ export default function Signup() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="block w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
+                className="block w-full h-[52px] rounded-[14px] border border-[#D1D5DB] bg-white px-4 text-[16px] text-[#0B1120] placeholder:text-[#9CA3AF] focus:outline-none focus:border-[#00A9E0] focus:ring-2 focus:ring-[rgba(0,169,224,0.18)] transition-colors duration-150"
                 required
               />
             </div>
 
-            <div>
+            <div className="space-y-2.5">
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-[14px] font-semibold text-[#111827]"
               >
                 Password
               </label>
@@ -139,13 +151,14 @@ export default function Signup() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Create a password"
-                  className="block w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
+                  className="block w-full h-[52px] rounded-[14px] border border-[#D1D5DB] bg-white px-4 pr-12 text-[16px] text-[#0B1120] placeholder:text-[#9CA3AF] focus:outline-none focus:border-[#00A9E0] focus:ring-2 focus:ring-[rgba(0,169,224,0.18)] transition-colors duration-150"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#6B7280] hover:text-[#475569] transition-colors duration-150"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
                     <EyeOff className="h-5 w-5" />
@@ -156,10 +169,10 @@ export default function Signup() {
               </div>
             </div>
 
-            <div>
+            <div className="space-y-2.5">
               <label
                 htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-[14px] font-semibold text-[#111827]"
               >
                 Confirm Password
               </label>
@@ -170,13 +183,14 @@ export default function Signup() {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Confirm your password"
-                  className="block w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
+                  className="block w-full h-[52px] rounded-[14px] border border-[#D1D5DB] bg-white px-4 pr-12 text-[16px] text-[#0B1120] placeholder:text-[#9CA3AF] focus:outline-none focus:border-[#00A9E0] focus:ring-2 focus:ring-[rgba(0,169,224,0.18)] transition-colors duration-150"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#6B7280] hover:text-[#475569] transition-colors duration-150"
+                  aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
                 >
                   {showConfirmPassword ? (
                     <EyeOff className="h-5 w-5" />
@@ -187,73 +201,82 @@ export default function Signup() {
               </div>
             </div>
 
-            <div className="flex items-center">
+            <div className="flex items-center gap-3 pt-1">
               <input
                 id="terms"
                 type="checkbox"
                 checked={agreedToTerms}
                 onChange={(e) => setAgreedToTerms(e.target.checked)}
-                className="h-4 w-4 text-cyan-400 focus:ring-cyan-400 border-gray-300 rounded"
+                className="h-[18px] w-[18px] rounded-[4px] border border-[#D1D5DB] text-[#00A9E0] focus:ring-1 focus:ring-[#00A9E0]"
               />
-              <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">
-                I agree to the {' '}
-                <a href="/terms" className="text-cyan-400 hover:text-cyan-500">
+              <label htmlFor="terms" className="text-[14px] leading-[1.45] text-[#475569]">
+                I agree to the{" "}
+                <a href="/terms" className="text-[#00A9E0] underline-offset-2 hover:underline">
                   Terms of Service
-                </a> and {' '}
-                <a href="/privacy" className="text-cyan-400 hover:text-cyan-500">
+                </a>{" "}
+                and{" "}
+                <a href="/privacy" className="text-[#00A9E0] underline-offset-2 hover:underline">
                   Privacy Policy
                 </a>
               </label>
             </div>
 
-            {error && <p className="text-red-600 text-sm">{error}</p>}
-            {success && <p className="text-green-600 text-sm">{success}</p>}
+            {error && <p className="text-sm text-red-600">{error}</p>}
+            {success && <p className="text-sm text-green-600">{success}</p>}
 
-            <button
-              type="submit"
-              className="w-full py-3 px-4 border border-transparent rounded-md text-base font-medium text-white bg-cyan-400 hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400 transition-colors disabled:opacity-70"
-              disabled={isLoading}
-            >
-              {isLoading ? "Signing Up..." : "Sign Up"}
-            </button>
-
-            <div className="relative py-3">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
+            <div className="pt-2 space-y-4">
+              <div className="relative h-px w-full bg-[#E5E7EB]">
+                <span
+                  aria-hidden
+                  className="absolute left-0 top-1/2 h-[2px] w-4 -translate-y-1/2 bg-[#00A9E0]"
+                />
               </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-3 bg-white text-gray-500">Or sign up with</span>
-              </div>
+              <button
+                type="submit"
+                className="w-full h-[54px] rounded-[16px] text-[17px] font-semibold tracking-[0.01em] text-[#0B1120] transition-[transform,filter] duration-150 active:scale-[0.985] active:brightness-[0.94] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00A9E0] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                style={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)", fontWeight: 650 }}
+                disabled={isLoading}
+              >
+                {isLoading ? "Signing Up..." : "Sign Up"}
+              </button>
             </div>
 
-            <div className="grid gap-3">
-              <button
-                type="button"
-                className="w-full flex justify-center items-center gap-2 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400"
-                onClick={() => {
-                  services.authentication.googleSignIn();
-                }}
-              >
-                <Image src={GoogleIcon} alt="Google Sign In" className="h-5 w-5" />
-                Google
-              </button>
-              <button
-                type="button"
-                className="w-full flex justify-center items-center gap-2 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400"
-                onClick={() => {
-                  services.authentication.appleSignIn();
-                }}
-              >
-                <span role="img" aria-label="apple"></span>
-                Apple
-              </button>
+            <div className="pt-4">
+              <div className="flex items-center gap-3">
+                <div className="flex-1 h-px bg-[#E5E7EB]" />
+                <span className="text-[14px] text-[#6B7280]">Or sign up with</span>
+                <div className="flex-1 h-px bg-[#E5E7EB]" />
+              </div>
+
+              <div className="mt-4 space-y-3">
+                <button
+                  type="button"
+                  className="w-full h-[52px] rounded-[16px] border border-[#E5E7EB] bg-white flex items-center justify-center gap-3 text-[16px] font-semibold text-[#0B1120] transition-colors duration-150 active:bg-[#F9FAFB]"
+                  onClick={() => {
+                    services.authentication.googleSignIn();
+                  }}
+                >
+                  <Image src={GoogleIcon} alt="Google Sign In" className="h-5 w-5" />
+                  Google
+                </button>
+                <button
+                  type="button"
+                  className="w-full h-[52px] rounded-[16px] border border-[#E5E7EB] bg-white flex items-center justify-center gap-3 text-[16px] font-semibold text-[#0B1120] transition-colors duration-150 active:bg-[#F9FAFB]"
+                  onClick={() => {
+                    services.authentication.appleSignIn();
+                  }}
+                >
+                  <span role="img" aria-label="apple" className="text-[18px] leading-none"></span>
+                  Apple
+                </button>
+              </div>
             </div>
           </form>
 
-          <div className="text-center mt-6">
-            <p className="text-sm text-gray-600">
-              Already have an account? {' '}
-              <Link to="/login" className="text-cyan-400 hover:text-cyan-500 font-medium">
+          <div className="text-left mt-6">
+            <p className="text-[14px] text-[#6B7280]">
+              Already have an account?{" "}
+              <Link to="/login" className="text-[#00A9E0] underline-offset-2 hover:underline font-semibold">
                 Log In
               </Link>
             </p>
