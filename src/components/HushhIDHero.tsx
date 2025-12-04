@@ -1,215 +1,104 @@
-import React, { useEffect, useState } from 'react';
-import { ChevronRight } from 'lucide-react';
+import React from 'react';
 
 interface HushhIDHeroProps {
   userName?: string;
   onCreateClick: () => void;
 }
 
-export const HushhIDHero: React.FC<HushhIDHeroProps> = ({ 
-  userName = "there", 
-  onCreateClick 
+/**
+ * Mobile-first investor profile hero rebuilt with a WorldQuant-inspired,
+ * white-on-white editorial layout, hairline micro-accents, and subtle tactile states.
+ */
+export const HushhIDHero: React.FC<HushhIDHeroProps> = ({
+  userName = 'there',
+  onCreateClick,
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [nameVisible, setNameVisible] = useState(false);
-  const [bulletVisible, setBulletVisible] = useState([false, false, false]);
-
-  useEffect(() => {
-    // Card entrance animation
-    const timer = setTimeout(() => setIsVisible(true), 100);
-    
-    // Name reveal animation
-    const nameTimer = setTimeout(() => setNameVisible(true), 400);
-    
-    // Staggered bullet animations
-    const bullet1 = setTimeout(() => {
-      setBulletVisible(prev => [true, prev[1], prev[2]]);
-    }, 600);
-    
-    const bullet2 = setTimeout(() => {
-      setBulletVisible(prev => [prev[0], true, prev[2]]);
-    }, 660);
-    
-    const bullet3 = setTimeout(() => {
-      setBulletVisible(prev => [prev[0], prev[1], true]);
-    }, 720);
-
-    return () => {
-      clearTimeout(timer);
-      clearTimeout(nameTimer);
-      clearTimeout(bullet1);
-      clearTimeout(bullet2);
-      clearTimeout(bullet3);
-    };
-  }, []);
-
   const benefits = [
-    "Create your investor profile once.",
-    "Save to wallet. Share anywhere.",
-    "No more repetitive forms."
+    'Create your investor profile once.',
+    'Save to wallet. Share anywhere.',
+    'No more repetitive forms.',
   ];
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12" 
-         style={{ backgroundColor: '#F5F5F7' }}>
-      
-      {/* Hero Card */}
-      <div 
-        className={`
-          w-full max-w-[680px] bg-white rounded-[24px] 
-          transition-all duration-250 ease-out
-          ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-[0.96]'}
-        `}
+    <section className="bg-white">
+      <div
+        className="mx-auto max-w-[520px] px-6 pt-[56px] pb-[48px] sm:px-8"
         style={{
-          boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.02)',
+          fontFamily:
+            '"Inter", "SF Pro Display", "Segoe UI", system-ui, -apple-system, sans-serif',
         }}
       >
-        {/* Top Highlight */}
-        <div 
-          className="h-px w-full rounded-t-[24px]" 
-          style={{
-            background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%)'
-          }}
-        />
-        
-        <div className="px-6 py-6 sm:px-8 sm:py-7">
-          {/* Meta Label */}
-          <div 
-            className={`
-              text-[13px] font-semibold tracking-[0.08em] mb-2
-              transition-all duration-200
-              ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}
-            `}
-            style={{ 
-              color: '#86868B',
-              letterSpacing: '0.08em'
-            }}
+        {/* Header block */}
+        <div className="text-left">
+          <p
+            className="text-[12px] font-semibold tracking-[0.18em] uppercase text-[#6B7280] mb-4"
+            style={{ letterSpacing: '0.18em' }}
           >
-            INVESTOR PROFILE
+            Investor Profile
+          </p>
+          <h1 className="text-[40px] font-[700] leading-[1.10] text-[#0B1120] mb-4">
+            Hello {userName},
+          </h1>
+          <p className="text-[18px] leading-[1.65] text-[#475569] max-w-[90%] mb-8">
+            Create your verified investor identity once and carry it everywhere—secure, shareable, and ready when you are.
+          </p>
+          <div className="relative h-px w-full bg-[#E5E7EB]">
+            <span
+              aria-hidden
+              className="absolute left-0 top-1/2 h-[2px] w-4 -translate-y-1/2 bg-[#00A9E0]"
+            />
           </div>
+        </div>
 
-          {/* Headline with Name Animation */}
-          <h2 
-            className={`
-              text-[28px] sm:text-[30px] font-semibold leading-[1.15] mb-4
-              transition-all duration-200
-              ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}
-            `}
-            style={{ 
-              color: '#1D1D1F',
-              fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif'
-            }}
-          >
-            Hello{' '}
-            <span 
-              className={`
-                inline-block transition-all duration-400
-                ${nameVisible ? 'opacity-100' : 'opacity-0'}
-              `}
-              style={{
-                background: 'linear-gradient(90deg, #007AFF 0%, #00C7FF 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              {userName}
-            </span>
-            ,
-          </h2>
-
-          {/* Benefits with Dividers */}
-          <div className="space-y-0 mb-5">
-            {benefits.map((benefit, index) => (
-              <div key={index}>
-                {/* Divider */}
-                <div 
-                  className="h-px w-full my-3"
-                  style={{ backgroundColor: '#E5E5E7' }}
-                />
-                
-                {/* Benefit Row */}
-                <div 
-                  className={`
-                    flex items-start gap-3 py-1
-                    transition-all duration-200
-                    ${bulletVisible[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}
-                  `}
-                  style={{ 
-                    transitionDelay: `${index * 60}ms` 
-                  }}
-                >
-                  {/* Blue Bullet */}
-                  <div 
-                    className="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-[9px]"
-                    style={{ backgroundColor: '#007AFF' }}
-                  />
-                  
-                  {/* Benefit Text */}
-                  <p 
-                    className="text-[16px] sm:text-[17px] leading-[1.35]"
-                    style={{ 
-                      color: '#6E6E73',
-                      fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif'
-                    }}
+        {/* Benefit panel */}
+        <div className="mt-6">
+          <div className="rounded-[18px] border border-[#E5E7EB] divide-y divide-[#E5E7EB] overflow-hidden">
+            {benefits.map((benefit) => (
+              <div
+                key={benefit}
+                className="flex items-center gap-4 px-4 py-4 min-h-[64px] text-left transition-colors duration-150 active:bg-[#F9FAFB]"
+              >
+                <div className="w-9 h-9 rounded-full border border-[#E5E7EB] bg-white flex items-center justify-center flex-shrink-0">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    {benefit}
-                  </p>
+                    <path
+                      d="M6 10.5L8.8 13l5.2-6"
+                      stroke="#0B1120"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </div>
+                <p className="text-[18px] font-semibold leading-[1.55] text-[#111827]">{benefit}</p>
               </div>
             ))}
-            
-            {/* Final Divider */}
-            <div 
-              className="h-px w-full mt-3"
-              style={{ backgroundColor: '#E5E5E7', opacity: 0.5 }}
-            />
           </div>
+        </div>
 
-          {/* CTA Link Row */}
+        {/* CTA area */}
+        <div className="mt-6 space-y-3">
           <button
             onClick={onCreateClick}
-            className="
-              group w-full flex items-center justify-between 
-              px-4 py-3 -mx-4
-              rounded-xl
-              transition-all duration-150 ease-out
-              hover:bg-[#F5F5F7]
-              active:scale-[0.98]
-            "
+            className="w-full h-[54px] rounded-[16px] text-[#0B1120] text-[17px] font-semibold tracking-[0.01em] transition-[transform,filter] duration-150 active:scale-[0.985] active:brightness-[0.94] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0B1120] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            style={{
+              background: 'linear-gradient(to right, #00A9E0, #6DD3EF)',
+              fontWeight: 650,
+            }}
           >
-            <span 
-              className="text-[17px] font-medium"
-              style={{ 
-                color: '#007AFF',
-                fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif'
-              }}
-            >
-              Create Your Hushh ID
-            </span>
-            
-            <ChevronRight 
-              className="
-                w-[14px] h-[14px] 
-                transition-transform duration-150 ease-out
-                group-hover:translate-x-0.5
-                group-active:translate-x-1
-              "
-              style={{ color: '#007AFF' }}
-              strokeWidth={2.5}
-            />
+            Create Your Hushh ID →
           </button>
-
-          {/* Helper Text */}
-          <p 
-            className="text-[13px] leading-[1.4] mt-4 text-center"
-            style={{ color: '#86868B' }}
-          >
+          <p className="text-[13px] leading-[1.45] text-[#6B7280]">
             Takes under a minute. Your details stay private.
           </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

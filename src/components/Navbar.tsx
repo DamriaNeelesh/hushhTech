@@ -223,110 +223,149 @@ export default function Navbar() {
       </div>
 
       {isOpen && (
-        <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-75 lg:hidden">
+        <div
+          className="fixed inset-0 z-50 lg:hidden"
+          style={{ background: "rgba(11, 17, 32, 0.30)" }}
+          onClick={toggleDrawer}
+        >
           <div
             ref={drawerRef}
-            className="fixed top-0 left-0 w-3/4 max-w-xs bg-white h-full shadow-lg p-6"
+            className="fixed top-0 left-0 h-full bg-white"
+            style={{ width: "min(88vw, 360px)" }}
+            onClick={(e) => e.stopPropagation()}
           >
-            <button
-              onClick={toggleDrawer}
-              className="mb-6 text-gray-700 hover:text-gray-900"
-            >
-              <FiX size={24} />
-            </button>
-
-            <div className="space-y-6">
-              {[
-                { path: "/", label: "Home" },
-                // { path: "/solutions", label: "Solutions" },
-                { path: "/about/leadership", label: "Our Philosophy" },
-                { path: "/community", label: "Community" },
-                { path: "/contact", label: "Contact" },
-                { path: "/faq", label: "FAQ" },
-              ].map(({ path, label }) => (
-                <Link
-                  key={path}
-                  to={path}
-                  onClick={() => handleLinkClick(path)}
-                  className={`block text-lg ${
-                    isActive(path)
-                      ? "font-[700] text-[#0AADBC]"
-                      : "text-gray-700 hover:text-gray-900"
-                  }`}
+            <div className="flex flex-col h-full px-6 pt-5 pb-4">
+              <div className="flex items-center justify-between h-14">
+                <button
+                  onClick={toggleDrawer}
+                  className="w-11 h-11 flex items-center justify-center text-[#0B1120] focus:outline-none"
                 >
-                  {label}
-                </Link>
-              ))}
-              
-              {/* Career section in mobile */}
-              <div className="space-y-2">
-                <div className="relative">
-                  <button 
-                    onClick={() => setMobileCareerDropdownOpen(!mobileCareerDropdownOpen)}
-                    className={`flex items-center text-lg focus:outline-none ${
-                      isActive("/career") || isActive("/benefits")
-                        ? "font-[700] text-[#0AADBC]"
-                        : "text-gray-700 hover:text-gray-900"
-                    }`}
-                  >
-                    Join Us
-                    <FiChevronDown className={`ml-1 transition-transform duration-200 ${mobileCareerDropdownOpen ? 'transform rotate-180' : ''}`} />
-                  </button>
-                  <div className={`mt-2 pl-2 transition-all duration-300 overflow-hidden ${
-                    mobileCareerDropdownOpen ? 'max-h-24 opacity-100' : 'max-h-0 opacity-0'
-                  }`}>
-                    <Link
-                      to="/career"
-                      onClick={() => handleLinkClick("/career")}
-                      className={`block py-2 text-lg ${
-                        isActive("/career")
-                          ? "font-[700] text-[#0AADBC]"
-                          : "text-gray-700 hover:text-gray-900"
+                  <FiX size={22} />
+                </button>
+              </div>
+
+              <div className="flex-1 overflow-y-auto">
+                <div className="space-y-3">
+                  {[
+                    { path: "/", label: "Home" },
+                    { path: "/about/leadership", label: "Our Philosophy" },
+                    { path: "/community", label: "Community" },
+                  ].map(({ path, label }) => {
+                    const active = isActive(path);
+                    return (
+                      <button
+                        key={path}
+                        onClick={() => handleLinkClick(path)}
+                        className="relative w-full text-left"
+                      >
+                        <div className="flex items-center h-14 text-[22px] leading-[1.2] text-[#0B1120] font-[500] active:bg-[rgba(0,169,224,0.06)] transition-colors duration-150 px-0">
+                          {active && (
+                            <span className="absolute left-[-12px] h-[18px] w-[2px] bg-[#00A9E0] rounded-full top-1/2 -translate-y-1/2" />
+                          )}
+                          <span className={active ? "font-[650]" : ""}>{label}</span>
+                        </div>
+                      </button>
+                    );
+                  })}
+
+                  <div className="my-4 h-px bg-[#E5E7EB]" />
+
+                  {[
+                    { path: "/contact", label: "Contact" },
+                    { path: "/faq", label: "FAQ" },
+                  ].map(({ path, label }) => {
+                    const active = isActive(path);
+                    return (
+                      <button
+                        key={path}
+                        onClick={() => handleLinkClick(path)}
+                        className="relative w-full text-left"
+                      >
+                        <div className="flex items-center h-14 text-[22px] leading-[1.2] text-[#0B1120] font-[500] active:bg-[rgba(0,169,224,0.06)] transition-colors duration-150 px-0">
+                          {active && (
+                            <span className="absolute left-[-12px] h-[18px] w-[2px] bg-[#00A9E0] rounded-full top-1/2 -translate-y-1/2" />
+                          )}
+                          <span className={active ? "font-[650]" : ""}>{label}</span>
+                        </div>
+                      </button>
+                    );
+                  })}
+
+                  <div className="relative w-full text-left">
+                    <button
+                      onClick={() => setMobileCareerDropdownOpen(!mobileCareerDropdownOpen)}
+                      className="flex items-center h-14 text-[22px] leading-[1.2] text-[#0B1120] font-[500] active:bg-[rgba(0,169,224,0.06)] transition-colors duration-150 w-full text-left"
+                    >
+                      <span className={(isActive("/career") || isActive("/benefits")) ? "font-[650]" : ""}>
+                        Join Us
+                      </span>
+                      <FiChevronDown
+                        className={`ml-2 text-[#6B7280] transition-transform duration-200 ${
+                          mobileCareerDropdownOpen ? "rotate-180" : ""
+                        }`}
+                        size={18}
+                      />
+                    </button>
+                    <div
+                      className={`pl-4 transition-all duration-200 overflow-hidden ${
+                        mobileCareerDropdownOpen ? "max-h-28 opacity-100" : "max-h-0 opacity-0"
                       }`}
                     >
-                      Careers
-                    </Link>
-                    <Link
-                      to="/benefits"
-                      onClick={() => handleLinkClick("/benefits")}
-                      className={`block py-2 text-lg ${
-                        isActive("/benefits")
-                          ? "font-[700] text-[#0AADBC]"
-                          : "text-gray-700 hover:text-gray-900"
-                      }`}
-                    >
-                      Benefits
-                    </Link>
+                      <div className="border-t border-[#E5E7EB] pt-3 space-y-2">
+                        {[
+                          { path: "/career", label: "Careers" },
+                          { path: "/benefits", label: "Benefits" },
+                        ].map(({ path, label }) => {
+                          const active = isActive(path);
+                          return (
+                            <button
+                              key={path}
+                              onClick={() => handleLinkClick(path)}
+                              className="w-full text-left"
+                            >
+                              <div className="flex items-center h-12 text-[18px] text-[#475569] font-[500] active:bg-[rgba(0,169,224,0.06)] rounded-md px-1">
+                                <span className={active ? "font-[650] text-[#0B1120]" : ""}>{label}</span>
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
+
+                  {isAuthenticated && (
+                    <button
+                      onClick={() => handleLinkClick("/user-registration")}
+                      className="w-full text-left"
+                    >
+                      <div className="flex items-center h-14 text-[22px] leading-[1.2] text-[#0B1120] font-[500] active:bg-[rgba(0,169,224,0.06)] transition-colors duration-150 px-0">
+                        <FiUser className="mr-2" />
+                        Edit Profile
+                      </div>
+                    </button>
+                  )}
                 </div>
               </div>
 
-              {/* Add profile link in mobile menu for logged-in users */}
-              {isAuthenticated && (
-                <Link
-                  to="/user-registration"
-                  onClick={() => handleLinkClick("/user-registration")}
-                  className="block text-lg text-gray-700 hover:text-gray-900"
-                >
-                  <div className="flex items-center">
-                    <FiUser className="mr-2" />
-                    Edit Profile
-                  </div>
-                </Link>
-              )}
-
-              <div className="pt-6">
+              <div className="mt-4 -mx-6 px-6 pt-3 pb-4 bg-white sticky bottom-0">
+                <div className="relative h-px w-full bg-[#E5E7EB] mb-4">
+                  <span
+                    aria-hidden
+                    className="absolute left-0 top-1/2 h-[2px] w-4 -translate-y-1/2 bg-[#00A9E0]"
+                  />
+                </div>
                 {!isAuthenticated ? (
                   <button
                     onClick={() => handleLinkClick("/Login")}
-                    className="w-full bg-black text-white px-4 py-2 rounded text-lg"
+                    className="w-full h-[54px] rounded-[16px] text-[17px] font-semibold tracking-[0.01em] text-[#0B1120] transition-[transform,filter] duration-150 active:scale-[0.985] active:brightness-[0.94] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00A9E0] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                    style={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)", fontWeight: 650 }}
                   >
                     Log In
                   </button>
                 ) : (
                   <button
                     onClick={handleLogout}
-                    className="w-full bg-black text-white px-4 py-2 rounded text-lg"
+                    className="w-full h-[54px] rounded-[16px] text-[17px] font-semibold tracking-[0.01em] text-[#0B1120] border border-[#E5E7EB] bg-white transition-colors duration-150 active:bg-[#F9FAFB]"
                   >
                     Log Out
                   </button>

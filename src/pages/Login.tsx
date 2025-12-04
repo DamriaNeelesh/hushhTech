@@ -39,11 +39,6 @@ export default function Login() {
     return () => subscription?.unsubscribe();
   }, [navigate]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle login logic here
-  };
-
   const openNotification = (
     description: string,
     message: string,
@@ -74,36 +69,75 @@ export default function Login() {
     }
   };
 
+  const handleLogin = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await services.authentication.emailLogin(email, password);
+
+      if (response === "error") {
+        setError("Invalid email or password. Please try again.");
+      } else if (response === "email_not_verified") {
+        setError(
+          "Your email has not been verified. Please check your inbox for a verification email or click below to resend it."
+        );
+      } else {
+        localStorage.setItem("isLoggedIn", "true");
+      }
+    } catch (_err) {
+      setError("An unexpected error occurred. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div
+      className="min-h-screen bg-white"
+      style={{ fontFamily: 'Inter, -apple-system, system-ui, "SF Pro Text", sans-serif' }}
+    >
       {contextHolder}
-      <div className="container max-w-lg mx-auto px-6 py-8">
+      <div className="max-w-[420px] mx-auto px-6 pt-10 pb-8">
         {/* Logo and Header */}
-        <div className="flex flex-col items-center justify-center mb-10">
-          <Link to="/" className="mb-2">
-            <Image src={HushhLogo} alt="Hushh Logo" className="w-32 h-32" />
+        <div className="flex flex-col items-start gap-4 mb-6">
+          <Link to="/">
+            <Image src={HushhLogo} alt="Hushh Logo" className="h-12 w-12" />
           </Link>
-          <h1 className="text-3xl font-bold text-gray-800 text-center">Log In to Hushh Technologies</h1>
-          <p className="text-gray-600 mt-2 text-center">Access your investment dashboard</p>
+          <div className="space-y-3">
+            <h1 className="text-[34px] font-[700] leading-[1.10] text-[#0B1120]">
+              Log In to Hushh Technologies
+            </h1>
+            <p className="text-[18px] leading-[1.6] text-[#475569]">
+              Access your investment dashboard
+            </p>
+          </div>
+          <div className="relative h-px w-full bg-[#E5E7EB]">
+            <span
+              aria-hidden
+              className="absolute left-0 top-1/2 h-[2px] w-4 -translate-y-1/2 bg-[#00A9E0]"
+            />
+          </div>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+        <div className="bg-white border border-[#E5E7EB] rounded-[20px] p-5">
           {error && (
-            <div className="mb-6 p-4 rounded-md bg-red-50 border border-red-100 text-red-700">
+            <div className="mb-5 p-4 rounded-[12px] border border-red-100 bg-red-50 text-red-700">
               <div className="flex items-center gap-2 mb-1">
                 <AlertCircle className="h-5 w-5" />
-                <span className="font-medium">Error</span>
+                <span className="font-semibold text-[14px]">Error</span>
               </div>
-              <p className="text-sm">{error}</p>
+              <p className="text-[14px] leading-[1.5]">{error}</p>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
+          <form onSubmit={handleLogin} className="space-y-5">
+            <div className="space-y-2.5">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-[14px] font-semibold text-[#111827]"
               >
                 Email address
               </label>
@@ -116,15 +150,15 @@ export default function Login() {
                   setError(null);
                 }}
                 placeholder="Enter your email"
-                className="block w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
+                className="block w-full h-[52px] rounded-[14px] border border-[#D1D5DB] bg-white px-4 text-[16px] text-[#0B1120] placeholder:text-[#9CA3AF] focus:outline-none focus:border-[#00A9E0] focus:ring-2 focus:ring-[rgba(0,169,224,0.18)] transition-colors duration-150"
                 required
               />
             </div>
 
-            <div>
+            <div className="space-y-2.5">
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-[14px] font-semibold text-[#111827]"
               >
                 Password
               </label>
@@ -138,13 +172,14 @@ export default function Login() {
                     setError(null);
                   }}
                   placeholder="Enter your password"
-                  className="block w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
+                  className="block w-full h-[52px] rounded-[14px] border border-[#D1D5DB] bg-white px-4 pr-12 text-[16px] text-[#0B1120] placeholder:text-[#9CA3AF] focus:outline-none focus:border-[#00A9E0] focus:ring-2 focus:ring-[rgba(0,169,224,0.18)] transition-colors duration-150"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#6B7280] hover:text-[#475569] transition-colors duration-150"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
                     <EyeOff className="h-5 w-5" />
@@ -157,32 +192,8 @@ export default function Login() {
 
             <button
               type="submit"
-              className="w-full py-3 px-4 border border-transparent rounded-md text-base font-medium text-white bg-cyan-400 hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400 transition-colors disabled:opacity-70"
-              onClick={async (e) => {
-                e.preventDefault();
-                setIsLoading(true);
-                setError(null);
-                
-                try {
-                  let response = await services.authentication.emailLogin(email, password);
-                  
-                  if (response === "error") {
-                    setError("Invalid email or password. Please try again.");
-                  } else if (response === "email_not_verified") {
-                    setError(
-                      "Your email has not been verified. Please check your inbox for a verification email or click below to resend it."
-                    );
-                  } else {
-                    // Successful login - emailLogin function will handle registration check and redirect
-                    localStorage.setItem("isLoggedIn", "true");
-                    // Don't navigate here, let emailLogin handle the redirect based on registration status
-                  }
-                } catch (err) {
-                  setError("An unexpected error occurred. Please try again later.");
-                } finally {
-                  setIsLoading(false);
-                }
-              }}
+              className="w-full h-[54px] rounded-[16px] text-[17px] font-semibold tracking-[0.01em] text-[#0B1120] transition-[transform,filter] duration-150 active:scale-[0.985] active:brightness-[0.94] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00A9E0] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+              style={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)", fontWeight: 650 }}
               disabled={isLoading}
             >
               {isLoading ? "Logging in..." : "Log in"}
@@ -193,7 +204,7 @@ export default function Login() {
                 <button
                   type="button"
                   onClick={handleResendVerification}
-                  className="text-sm text-cyan-500 hover:text-cyan-600 font-medium"
+                  className="text-[14px] text-[#00A9E0] hover:underline font-semibold"
                   disabled={isLoading}
                 >
                   Resend verification email
@@ -201,19 +212,18 @@ export default function Login() {
               </div>
             )}
 
-            <div className="relative py-3">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-3 bg-white text-gray-500">Or sign in with</span>
+            <div className="pt-3">
+              <div className="flex items-center gap-3">
+                <div className="flex-1 h-px bg-[#E5E7EB]" />
+                <span className="text-[14px] text-[#6B7280]">Or sign in with</span>
+                <div className="flex-1 h-px bg-[#E5E7EB]" />
               </div>
             </div>
 
-            <div className="grid gap-3">
+            <div className="grid gap-3 pt-4">
               <button
                 type="button"
-                className="w-full flex justify-center items-center gap-2 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400"
+                className="w-full h-[52px] flex justify-center items-center gap-3 px-4 border border-[#E5E7EB] rounded-[16px] text-[16px] font-semibold text-[#0B1120] bg-white transition-colors duration-150 active:bg-[#F9FAFB]"
                 onClick={() => {
                   services.authentication.googleSignIn();
                 }}
@@ -221,21 +231,14 @@ export default function Login() {
                 <img src={GoolgleIcon} alt="Google Sign In" className="h-5 w-5" />
                 Google
               </button>
-              {/* <button
-                type="button"
-                className="w-full flex justify-center items-center gap-2 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400"
-                onClick={() => {
-                  services.authentication.appleSignIn();
-                }}
-              >
-                <span role="img" aria-label="apple"></span>
-                Apple
-              </button> */}
             </div>
 
-            <div className="text-center mt-4">
-              <p className="text-sm text-black">
-                Don't have an account? <Link to="/signUp" className="text-cyan-400 hover:text-cyan-500">Sign up</Link>
+            <div className="text-left mt-5">
+              <p className="text-[14px] text-[#111827]">
+                Don't have an account?{" "}
+                <Link to="/signUp" className="text-[#00A9E0] hover:underline font-semibold">
+                  Sign up
+                </Link>
               </p>
             </div>
           </form>
