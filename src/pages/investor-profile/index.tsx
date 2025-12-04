@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { Box, Container, Spinner, Center, Text, VStack } from "@chakra-ui/react";
+import { Box, Container, Spinner, Center, Text, VStack, HStack, IconButton, useToast, Button, Icon } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { CheckCircleIcon, CopyIcon } from "@chakra-ui/icons";
+import { Share2 } from "lucide-react";
 import { InvestorProfileForm } from "../../components/investorProfile/InvestorProfileForm";
 import { InvestorProfileReview } from "../../components/investorProfile/InvestorProfileReview";
 import { 
@@ -24,6 +26,7 @@ function InvestorProfilePage() {
   const [error, setError] = useState<string | null>(null);
   const [userData, setUserData] = useState<{ name: string; email: string } | null>(null);
   const navigate = useNavigate();
+  const toast = useToast();
 
   // Check if user is authenticated and if profile already exists
   useEffect(() => {
@@ -140,17 +143,114 @@ function InvestorProfilePage() {
 
   // Complete state
   if (step === "complete") {
+    const profileUrl = `https://hushhtech.com/investor/${profile?.slug}`;
+    
+    const handleCopyURL = () => {
+      navigator.clipboard.writeText(profileUrl);
+      toast({
+        title: "Link copied!",
+        description: "Share it with anyone",
+        status: "success",
+        duration: 2000,
+      });
+    };
+
+    const handleShare = async () => {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: `${profile?.name}'s Investor Profile`,
+            text: "Check out my investor profile on Hushh",
+            url: profileUrl,
+          });
+        } catch (err) {
+          // User cancelled or share failed
+          handleCopyURL();
+        }
+      } else {
+        handleCopyURL();
+      }
+    };
+
     return (
-      <Container maxW="container.xl" py={20}>
+      <Container maxW="container.md" py={12}>
         <Center>
-          <VStack spacing={4}>
-            <Text fontSize="2xl" fontWeight="bold" color="green.500">
+          <VStack spacing={6} w="full">
+            <CheckCircleIcon boxSize={16} color="green.500" />
+            
+            <Text fontSize="2xl" fontWeight="bold" color="green.500" textAlign="center">
               ✓ Profile Created Successfully!
             </Text>
-            <Text color="gray.600">
-              Redirecting to your dashboard...
+            
+            <Text fontSize="md" color="gray.600" textAlign="center">
+              Your public profile is now live and ready to share!
             </Text>
-            <Spinner size="lg" color="blue.500" />
+
+            {/* URL Display Box */}
+            <Box
+              w="full"
+              bg="gray.50"
+              border="1px solid"
+              borderColor="gray.200"
+              borderRadius="lg"
+              p={6}
+            >
+              <Text fontSize="sm" color="gray.600" mb={2} fontWeight="medium">
+                📍 Your Public Profile URL:
+              </Text>
+              
+              <HStack
+                bg="white"
+                p={3}
+                borderRadius="md"
+                border="1px solid"
+                borderColor="gray.300"
+                spacing={2}
+              >
+                <Text
+                  fontSize="sm"
+                  color="blue.600"
+                  fontWeight="medium"
+                  flex={1}
+                  isTruncated
+                >
+                  {profileUrl}
+                </Text>
+                <IconButton
+                  icon={<CopyIcon />}
+                  onClick={handleCopyURL}
+                  size="sm"
+                  colorScheme="blue"
+                  variant="ghost"
+                  aria-label="Copy URL"
+                />
+              </HStack>
+
+              <HStack mt={4} spacing={2}>
+                <Button
+                  leftIcon={<Icon as={Share2} />}
+                  onClick={handleShare}
+                  colorScheme="blue"
+                  size="sm"
+                  flex={1}
+                >
+                  Share Profile
+                </Button>
+                <Button
+                  onClick={handleCopyURL}
+                  variant="outline"
+                  size="sm"
+                  flex={1}
+                >
+                  Copy Link
+                </Button>
+              </HStack>
+            </Box>
+
+            <HStack spacing={2} color="gray.500">
+              <Spinner size="sm" />
+              <Text fontSize="sm">Redirecting to your dashboard...</Text>
+            </HStack>
           </VStack>
         </Center>
       </Container>

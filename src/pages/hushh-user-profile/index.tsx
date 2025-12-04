@@ -41,12 +41,17 @@ import {
   Zap,
   Clock3,
   Circle,
+  Share2,
+  Mail,
+  MessageCircle,
 } from "lucide-react";
+import { FaWhatsapp, FaTwitter } from "react-icons/fa";
 import { CheckIcon, LinkIcon } from "@chakra-ui/icons";
 import { keyframes } from "@emotion/react";
 import resources from "../../resources/resources";
 import { generateInvestorProfile } from "../../services/investorProfile/apiClient";
 import { InvestorProfile, FIELD_LABELS, VALUE_LABELS } from "../../types/investorProfile";
+import DeveloperSettings from "../../components/DeveloperSettings";
 
 interface FormState {
   name: string;
@@ -671,6 +676,171 @@ const HushhUserProfilePage: React.FC = () => {
           </Box>
         </Box>
 
+        {/* Profile URL Share Card - Shows when profile is created */}
+        {profileSlug && profileUrl && (
+          <Box 
+            px={{ base: 0, md: 2 }} 
+            mt={6}
+            animation={prefersReducedMotion ? undefined : `${fadeUp} 0.3s ease-out 0.1s both`}
+          >
+            <Box
+              bg="linear-gradient(135deg, #00A9E0 0%, #6DD3EF 100%)"
+              borderRadius="20px"
+              p={{ base: 5, md: 6 }}
+              boxShadow="0 10px 40px rgba(0, 169, 224, 0.25)"
+              position="relative"
+              overflow="hidden"
+            >
+              {/* Background Pattern */}
+              <Box
+                position="absolute"
+                top={0}
+                right={0}
+                bottom={0}
+                left={0}
+                opacity={0.1}
+                bgImage="radial-gradient(circle at 20px 20px, white 2px, transparent 0)"
+                bgSize="40px 40px"
+                pointerEvents="none"
+              />
+
+              <VStack align="stretch" spacing={4} position="relative">
+                <HStack justify="space-between" align="flex-start">
+                  <VStack align="flex-start" spacing={1}>
+                    <HStack spacing={2}>
+                      <Icon as={Share2} color="white" boxSize={5} />
+                      <Text
+                        fontSize="18px"
+                        fontWeight="700"
+                        color="white"
+                        letterSpacing="-0.01em"
+                      >
+                        Your Investor Profile
+                      </Text>
+                    </HStack>
+                    <Text fontSize="14px" color="rgba(255,255,255,0.9)">
+                      Share this link to let others view your profile
+                    </Text>
+                  </VStack>
+                  <IconButton
+                    aria-label="Open profile in new tab"
+                    icon={<Icon as={ExternalLink} />}
+                    onClick={handleOpenProfile}
+                    size="sm"
+                    bg="rgba(255,255,255,0.2)"
+                    color="white"
+                    _hover={{ bg: "rgba(255,255,255,0.3)" }}
+                    _active={{ transform: "scale(0.95)" }}
+                    borderRadius="10px"
+                  />
+                </HStack>
+
+                {/* URL Display Box */}
+                <Box
+                  bg="white"
+                  borderRadius="14px"
+                  p={4}
+                  boxShadow="0 4px 12px rgba(0,0,0,0.08)"
+                >
+                  <HStack spacing={3} justify="space-between">
+                    <HStack spacing={2} flex={1} minW={0}>
+                      <Icon as={LinkIcon} color="#00A9E0" boxSize={4} />
+                      <Text
+                        fontSize="14px"
+                        fontWeight="600"
+                        color="#0B1120"
+                        noOfLines={1}
+                        flex={1}
+                      >
+                        {profileUrl}
+                      </Text>
+                    </HStack>
+                    <IconButton
+                      aria-label="Copy link"
+                      icon={<Icon as={hasCopied ? Check : Copy} boxSize={4} />}
+                      onClick={triggerCopy}
+                      size="sm"
+                      colorScheme={hasCopied ? "green" : "gray"}
+                      bg={hasCopied ? "#34C759" : "#F3F4F6"}
+                      color={hasCopied ? "white" : "#111827"}
+                      _hover={{ bg: hasCopied ? "#34C759" : "#E5E7EB" }}
+                      _active={{ transform: "scale(0.95)" }}
+                      borderRadius="10px"
+                      transition="all 0.2s ease"
+                    />
+                  </HStack>
+                </Box>
+
+                {/* Share Buttons */}
+                <VStack align="stretch" spacing={2}>
+                  <Text fontSize="13px" fontWeight="600" color="white">
+                    Share via
+                  </Text>
+                  <HStack spacing={2} flexWrap="wrap">
+                    <Button
+                      leftIcon={<Icon as={FaWhatsapp} boxSize={5} />}
+                      onClick={() => {
+                        const text = encodeURIComponent("Check out my Hushh Investor Profile");
+                        const url = encodeURIComponent(profileUrl);
+                        window.open(`https://wa.me/?text=${text}%20${url}`, "_blank");
+                      }}
+                      size="md"
+                      bg="rgba(255,255,255,0.2)"
+                      color="white"
+                      _hover={{ bg: "rgba(255,255,255,0.3)" }}
+                      _active={{ transform: "scale(0.98)" }}
+                      borderRadius="12px"
+                      fontWeight="600"
+                      flex={{ base: "1", md: "0" }}
+                      minW="140px"
+                    >
+                      WhatsApp
+                    </Button>
+                    <Button
+                      leftIcon={<Icon as={FaTwitter} boxSize={5} />}
+                      onClick={() => {
+                        const text = encodeURIComponent("Check out my Hushh Investor Profile");
+                        const url = encodeURIComponent(profileUrl);
+                        window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, "_blank");
+                      }}
+                      size="md"
+                      bg="rgba(255,255,255,0.2)"
+                      color="white"
+                      _hover={{ bg: "rgba(255,255,255,0.3)" }}
+                      _active={{ transform: "scale(0.98)" }}
+                      borderRadius="12px"
+                      fontWeight="600"
+                      flex={{ base: "1", md: "0" }}
+                      minW="140px"
+                    >
+                      Twitter
+                    </Button>
+                    <Button
+                      leftIcon={<Icon as={Mail} boxSize={5} />}
+                      onClick={() => {
+                        const subject = encodeURIComponent("My Hushh Investor Profile");
+                        const body = encodeURIComponent(`Check out my investor profile: ${profileUrl}`);
+                        window.location.href = `mailto:?subject=${subject}&body=${body}`;
+                      }}
+                      size="md"
+                      bg="rgba(255,255,255,0.2)"
+                      color="white"
+                      _hover={{ bg: "rgba(255,255,255,0.3)" }}
+                      _active={{ transform: "scale(0.98)" }}
+                      borderRadius="12px"
+                      fontWeight="600"
+                      flex={{ base: "1", md: "0" }}
+                      minW="140px"
+                    >
+                      Email
+                    </Button>
+                  </HStack>
+                </VStack>
+              </VStack>
+            </Box>
+          </Box>
+        )}
+
         <Box animation={headingAnimation} px={{ base: 1, md: 2 }} mt={2}>
           <Heading fontSize="24px" fontWeight="700" lineHeight="1.2" color="#0B1120" mb={4}>
             Basic Information
@@ -1145,6 +1315,17 @@ const HushhUserProfilePage: React.FC = () => {
             </HStack>
           </HStack>
         </Box>
+
+        {/* Developer Settings - Shows MCP endpoints when profile is created */}
+        {profileSlug && (
+          <Box 
+            px={{ base: 0, md: 2 }} 
+            mt={6}
+            animation={prefersReducedMotion ? undefined : `${fadeUp} 0.35s ease-out 0.15s both`}
+          >
+            <DeveloperSettings investorSlug={profileSlug} />
+          </Box>
+        )}
       </Box>
     </Box>
   );
