@@ -30,34 +30,6 @@ interface InvestorProfileData {
   confirmed_at: string;
 }
 
-const primaryCtaStyles = {
-  borderRadius: "full",
-  fontWeight: "bold",
-  bgGradient: "linear(to-r, rgb(0, 169, 224), rgb(109, 211, 239))",
-  color: "white",
-  boxShadow: "0 10px 25px rgba(0, 169, 224, 0.35)",
-  _disabled: {
-    bgGradient: "linear(to-r, rgb(0, 169, 224), rgb(109, 211, 239))",
-    boxShadow: "0 10px 25px rgba(0, 169, 224, 0.35)",
-  },
-  _hover: {
-    bgGradient: "linear(to-r, rgb(0, 150, 200), rgb(90, 195, 230))",
-    boxShadow: "0 12px 30px rgba(0, 150, 200, 0.45)",
-    _disabled: {
-      bgGradient: "linear(to-r, rgb(0, 169, 224), rgb(109, 211, 239))",
-      boxShadow: "0 10px 25px rgba(0, 169, 224, 0.35)",
-    },
-  },
-  _active: {
-    transform: "scale(0.98)",
-    boxShadow: "0 6px 18px rgba(0, 120, 170, 0.45)",
-  },
-  _focusVisible: {
-    outline: "2px solid rgba(0, 169, 224, 0.9)",
-    outlineOffset: "2px",
-  },
-};
-
 const ViewPreferencesPage: React.FC = () => {
   const navigate = useNavigate();
   const toast = useToast();
@@ -125,15 +97,9 @@ const ViewPreferencesPage: React.FC = () => {
     fetchProfile();
   }, [routeUserId, navigate, toast]);
 
-  const getConfidenceBadge = (confidence: number) => {
-    if (confidence >= 0.7) return <Badge colorScheme="green">High</Badge>;
-    if (confidence >= 0.4) return <Badge colorScheme="yellow">Medium</Badge>;
-    return <Badge colorScheme="red">Low</Badge>;
-  };
-
   if (loading) {
     return (
-      <Box minH="100vh" bg="#F5F7F9" display="flex" alignItems="center" justifyContent="center">
+      <Box minH="100vh" bg="#FFFFFF" display="flex" alignItems="center" justifyContent="center">
         <Text>Loading profile...</Text>
       </Box>
     );
@@ -141,12 +107,20 @@ const ViewPreferencesPage: React.FC = () => {
 
   if (!profileData) {
     return (
-      <Box minH="100vh" bg="#F5F7F9" display="flex" alignItems="center" justifyContent="center">
+      <Box minH="100vh" bg="#FFFFFF" display="flex" alignItems="center" justifyContent="center">
         <VStack spacing={4}>
           <Text fontSize="xl" color="#434343">No profile found</Text>
           <Button
             size="md"
-            {...primaryCtaStyles}
+            h="54px"
+            borderRadius="16px"
+            fontSize="17px"
+            fontWeight="650"
+            color="#0B1120"
+            bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
+            transition="transform 120ms ease-out, filter 120ms ease-out"
+            _active={{ transform: "scale(0.985)", filter: "brightness(0.94)" }}
+            _hover={{ bgGradient: "linear(to-r, #00A9E0, #6DD3EF)" }}
             onClick={() => navigate("/hushh-user-profile")}
           >
             Create Profile
@@ -157,120 +131,214 @@ const ViewPreferencesPage: React.FC = () => {
   }
 
   const investorProfile = profileData.investor_profile;
+  const profileUrl = `https://hushhtech.com/investor/${profileData.user_id}`;
 
   return (
-    <Box minH="100vh" bg="#F5F7F9" py={10}>
-      <Box maxW="1200px" mx="auto" px={4}>
-        {/* Header Card */}
-        <Box bg="white" rounded="xl" shadow="sm" p={8} mb={6}>
-          <VStack align="start" spacing={4}>
-            <HStack justify="space-between" w="full">
-              <VStack align="start" spacing={1}>
-                <Text fontSize="sm" fontWeight="700" color="rgba(61,61,145,1)" textTransform="uppercase">
-                  Investor Profile
-                </Text>
-                <Heading as="h1" fontSize={{ base: "2xl", md: "3xl" }} fontWeight="700" color="#1c1c1c">
-                  {profileData.name}
-                </Heading>
-              </VStack>
-              <Button
-                size="md"
-                {...primaryCtaStyles}
-                onClick={() => navigate("/hushh-user-profile")}
-              >
-                Edit Profile
-              </Button>
-            </HStack>
-
-            <HStack spacing={4} flexWrap="wrap">
-              <Badge px={3} py={1} colorScheme="blue">{profileData.email}</Badge>
-              <Badge px={3} py={1} colorScheme="purple">Age {profileData.age}</Badge>
-              <Badge px={3} py={1} colorScheme="green">
-                {profileData.phone_country_code} {profileData.phone_number}
-              </Badge>
-              {profileData.organisation && (
-                <Badge px={3} py={1} colorScheme="orange">{profileData.organisation}</Badge>
-              )}
-            </HStack>
-
-            <Text fontSize="sm" color="#434343">
-              Profile created on {new Date(profileData.confirmed_at).toLocaleDateString()}
-            </Text>
-          </VStack>
-        </Box>
-
-        {/* Investor Profile Fields */}
-        <Box bg="white" rounded="xl" shadow="sm" p={6}>
-          <Heading as="h2" fontSize="xl" fontWeight="600" color="#1c1c1c" mb={4}>
-            Investment Profile Details
-          </Heading>
-
-          <Accordion allowMultiple>
-            {Object.entries(investorProfile).map(([fieldName, fieldData]: [string, any]) => (
-              <AccordionItem key={fieldName} border="none" mb={2}>
-                <AccordionButton
-                  bg="#E6F4FF"
-                  _hover={{ bg: "#d0e7ff" }}
-                  rounded="md"
-                  px={4}
-                  py={3}
-                >
-                  <Box flex="1" textAlign="left">
-                    <HStack justify="space-between" w="full">
-                      <Text fontWeight="600" color="#1c1c1c" fontSize="sm">
-                        {FIELD_LABELS[fieldName as keyof typeof FIELD_LABELS] || fieldName}
-                      </Text>
-                      {getConfidenceBadge(fieldData.confidence)}
-                    </HStack>
-                    <Text fontSize="xs" color="#434343" mt={1}>
-                      {Array.isArray(fieldData.value)
-                        ? fieldData.value.map((v: string) => VALUE_LABELS[v as keyof typeof VALUE_LABELS] || v).join(", ")
-                        : VALUE_LABELS[fieldData.value as keyof typeof VALUE_LABELS] || fieldData.value}
-                    </Text>
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-
-                <AccordionPanel pb={4} pt={3} px={4} bg="white">
-                  <VStack align="stretch" spacing={2}>
-                    <Box>
-                      <Text fontSize="xs" fontWeight="600" color="#434343" mb={1}>
-                        AI Rationale:
-                      </Text>
-                      <Text fontSize="xs" color="#434343">
-                        {fieldData.rationale}
-                      </Text>
-                    </Box>
-                    <Box>
-                      <Text fontSize="xs" fontWeight="600" color="#434343">
-                        Confidence: {Math.round(fieldData.confidence * 100)}%
-                      </Text>
-                    </Box>
-                  </VStack>
-                </AccordionPanel>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </Box>
-
-        {/* Action Buttons */}
-        <HStack justify="center" mt={8} spacing={4}>
-          <Button
-            onClick={() => navigate("/")}
-            variant="outline"
-            colorScheme="gray"
+    <Box minH="100vh" bg="#FFFFFF" py={{ base: 6, md: 8 }} px={{ base: 6, md: 8 }}>
+      <VStack spacing={8} align="stretch" maxW="760px" mx="auto">
+        {/* Top row */}
+        <HStack justify="space-between" align="center" spacing={3}>
+          <Badge
+            px={3}
+            py={1.5}
+            h="32px"
+            borderRadius="999px"
+            border="1px solid rgba(0,169,224,0.55)"
+            bg="#FFFFFF"
+            color="#00A9E0"
+            fontSize="12px"
+            fontWeight="700"
+            letterSpacing="0.14em"
+            textTransform="uppercase"
+            display="inline-flex"
+            alignItems="center"
+            gap={2}
           >
-            Back to Home
-          </Button>
-          <Button
-            size="lg"
-            {...primaryCtaStyles}
-            onClick={() => navigate("/hushh-user-profile")}
-          >
-            Update Profile
-          </Button>
+            <Trophy size={16} strokeWidth={1.5} color="#EAB308" />
+            Verified Investor
+          </Badge>
+          <HStack spacing={2}>
+            <IconButton
+              aria-label="Share profile"
+              icon={<ExternalLink size={18} color="#475569" />}
+              borderRadius="12px"
+              border="1px solid #E5E7EB"
+              bg="#FFFFFF"
+              minW="44px"
+              h="44px"
+              _hover={{ bg: "#F9FAFB" }}
+              onClick={() => window.open(profileUrl, "_blank")}
+            />
+            <IconButton
+              aria-label="Copy link"
+              icon={<CopyIcon size={18} color="#475569" />}
+              borderRadius="12px"
+              border="1px solid #E5E7EB"
+              bg="#FFFFFF"
+              minW="44px"
+              h="44px"
+              _hover={{ bg: "#F9FAFB" }}
+              onClick={() => {
+                navigator.clipboard.writeText(profileUrl);
+                toast({ title: "Copied", status: "success", duration: 1200, isClosable: false });
+              }}
+            />
+          </HStack>
         </HStack>
-      </Box>
+
+        {/* Identity */}
+        <VStack align="stretch" spacing={3}>
+          <Heading fontSize="34px" fontWeight="700" lineHeight="1.1" color="#0B1120">
+            {profileData.name}
+          </Heading>
+          <HStack spacing={2.5} flexWrap="wrap">
+            {[
+              maskEmail(profileData.email),
+              `Age ${profileData.age}`,
+              maskPhone(profileData.phone_country_code, profileData.phone_number),
+            ].map((chip) => (
+              <Box
+                key={chip}
+                h="34px"
+                px={3}
+                borderRadius="999px"
+                border="1px solid #E5E7EB"
+                bg="#F9FAFB"
+                fontSize="14px"
+                fontWeight="600"
+                color="#475569"
+                display="inline-flex"
+                alignItems="center"
+              >
+                {chip}
+              </Box>
+            ))}
+          </HStack>
+          <Text fontSize="16px" lineHeight="1.6" color="#6B7280" mt={1}>
+            This is a public investor profile. Contact details are masked for privacy.
+          </Text>
+          <Box position="relative" w="100%" h="1px" bg="#E5E7EB" mt={3}>
+            <Box
+              position="absolute"
+              left={0}
+              top="50%"
+              transform="translateY(-50%)"
+              w="16px"
+              h="2px"
+              bg="#00A9E0"
+            />
+          </Box>
+        </VStack>
+
+        {/* Investment Profile */}
+        <Box>
+          <Text fontSize="20px" fontWeight="700" color="#0B1120" mb={3}>
+            Investment Profile
+          </Text>
+          <Box border="1px solid #E5E7EB" borderRadius="18px" bg="#FFFFFF" overflow="hidden">
+            <Accordion allowToggle>
+              {Object.entries(investorProfile).map(([fieldName, fieldData]: [string, any], idx) => {
+                const label = FIELD_LABELS[fieldName as keyof typeof FIELD_LABELS] || fieldName;
+                const valueText = Array.isArray(fieldData.value)
+                  ? fieldData.value.map((v: string) => VALUE_LABELS[v as keyof typeof VALUE_LABELS] || v).join(", ")
+                  : VALUE_LABELS[fieldData.value as keyof typeof VALUE_LABELS] || fieldData.value;
+                const pill = pillForConfidence(fieldData.confidence);
+                return (
+                  <AccordionItem
+                    key={fieldName}
+                    border="none"
+                    borderBottom={idx < Object.keys(investorProfile).length - 1 ? "1px solid #E5E7EB" : "none"}
+                  >
+                    {({ isExpanded }) => (
+                      <>
+                        <AccordionButton
+                          px={4}
+                          py={4}
+                          minH="76px"
+                          bg={isExpanded ? "#FAFAFB" : "transparent"}
+                          _hover={{ bg: "rgba(0,0,0,0.02)" }}
+                          position="relative"
+                        >
+                          {isExpanded && (
+                            <Box
+                              position="absolute"
+                              left={0}
+                              top="50%"
+                              transform="translateY(-50%)"
+                              h="28px"
+                              w="2px"
+                              bg="#00A9E0"
+                              borderRadius="full"
+                            />
+                          )}
+                          <HStack w="full" align="flex-start" spacing={3} justify="space-between">
+                            <VStack align="start" spacing={1} flex="1" pr={3}>
+                              <Text fontSize="18px" fontWeight="650" color="#0B1120" lineHeight="1.25">
+                                {label}
+                              </Text>
+                              <Text fontSize="16px" fontWeight="500" color="#6B7280" noOfLines={2}>
+                                {valueText}
+                              </Text>
+                            </VStack>
+                            <HStack spacing={3} align="center">
+                              <Badge
+                                px={3}
+                                py={1}
+                                h="28px"
+                                borderRadius="999px"
+                                textTransform="uppercase"
+                                letterSpacing="0.12em"
+                                fontSize="12px"
+                                fontWeight="800"
+                                color={pill.color}
+                                bg={pill.bg}
+                                border={`1px solid ${pill.border}`}
+                              >
+                                {pill.label}
+                              </Badge>
+                              <AccordionIcon color="#6B7280" />
+                            </HStack>
+                          </HStack>
+                        </AccordionButton>
+                        <AccordionPanel px={4} pt={0} pb={4} bg="#FAFAFB">
+                          <VStack align="stretch" spacing={3}>
+                            <Text fontSize="14px" fontWeight="650" color="#0B1120">
+                              AI Rationale:
+                            </Text>
+                            <Text fontSize="15px" color="#475569" lineHeight="1.6">
+                              {fieldData.rationale}
+                            </Text>
+                          </VStack>
+                        </AccordionPanel>
+                      </>
+                    )}
+                  </AccordionItem>
+                );
+              })}
+            </Accordion>
+          </Box>
+        </Box>
+
+        {/* Action */}
+        <Button
+          w="full"
+          h="54px"
+          borderRadius="16px"
+          fontSize="17px"
+          fontWeight="650"
+          color="#0B1120"
+          bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
+          transition="transform 120ms ease-out, filter 120ms ease-out"
+          _active={{ transform: "scale(0.985)", filter: "brightness(0.94)" }}
+          _hover={{ bgGradient: "linear(to-r, #00A9E0, #6DD3EF)" }}
+          onClick={() => navigate("/hushh-user-profile")}
+        >
+          Update Profile
+        </Button>
+        <Text fontSize="14px" color="#6B7280" textAlign="center">
+          These details personalise your investor profile.
+        </Text>
+      </VStack>
     </Box>
   );
 };

@@ -140,23 +140,26 @@ const HushhUserProfilePage: React.FC = () => {
   const headingAnimation = prefersReducedMotion ? undefined : `${fadeUp} 0.35s ease-out 0.05s both`;
   const inputBaseStyles = {
     h: "52px",
-    borderRadius: "lg",
+    borderRadius: "14px",
     bg: "white",
-    borderColor: "#E4E7EC",
+    borderColor: "#D1D5DB",
+    px: 4,
+    fontSize: "16px",
+    fontWeight: 500,
+    color: "#0B1120",
     _hover: { borderColor: "#CBD5E1" },
     _focus: {
-      borderColor: "rgb(0, 169, 224)",
-      boxShadow: "0 0 0 1px rgba(0, 169, 224, 0.35)",
-      transform: prefersReducedMotion ? undefined : "translateY(-1px)",
+      borderColor: "#00A9E0",
+      boxShadow: "0 0 0 2px rgba(0,169,224,0.18)",
     },
-    transition: "all 0.18s ease",
-    fontSize: "15px",
+    _placeholder: { color: "#9CA3AF" },
+    transition: "border-color 0.16s ease, box-shadow 0.16s ease",
   } as const;
   const labelBaseStyles = {
-    fontSize: "sm",
+    fontSize: "14px",
     fontWeight: 600,
-    color: "#1f2937",
-    mb: 1,
+    color: "#111827",
+    mb: "8px",
   } as const;
   const focusLabelStyles = {
     "&:focus-within label": {
@@ -540,213 +543,251 @@ const HushhUserProfilePage: React.FC = () => {
         py={{ base: 6, md: 10 }}
         bg="white"
       >
-        <Box borderTop="1px solid #E5E5EA" />
-        <Box
-          pt={{ base: 6, md: 8 }}
-          pb={{ base: 6, md: 8 }}
-          display="flex"
-          justifyContent="center"
-          animation={heroAnimation}
-        >
+        <Box pt={{ base: 8, md: 10 }} pb={{ base: 6, md: 8 }} px={{ base: 0, md: 2 }} animation={heroAnimation}>
           <Box
-            w="92%"
-            maxW="900px"
-            bg="#F9FAFB"
-            borderRadius="24px"
-            boxShadow="0 20px 44px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.85)"
-            px={{ base: 5, md: 8 }}
-            py={{ base: 6, md: 8 }}
-            transformOrigin="center"
+            bg="#FFFFFF"
+            border="1px solid #E5E7EB"
+            borderRadius="20px"
+            px={{ base: 5, md: 7 }}
+            py={{ base: 6, md: 7 }}
+            maxW="720px"
+            mx="auto"
           >
             <Text
-              fontSize="13px"
-              letterSpacing="0.12em"
-              fontWeight="700"
-              color="#8E8E93"
+              fontSize="12px"
+              letterSpacing="0.18em"
+              fontWeight="600"
+              color="#6B7280"
               textTransform="uppercase"
+              mb={4}
             >
               Investor Profile
             </Text>
+            <Text fontSize={{ base: "34px", md: "36px" }} fontWeight="700" color="#0B1120" lineHeight="1.1" mb={5}>
+              Hello, {form.name || "there"}
+            </Text>
+            <Box position="relative" w="100%" h="1px" bg="#E5E7EB" mb={4}>
+              <Box
+                position="absolute"
+                left={0}
+                top="50%"
+                transform="translateY(-50%)"
+                w="16px"
+                h="2px"
+                bg="#00A9E0"
+              />
+            </Box>
+
             <Box mt={2}>
-              <Text fontSize={{ base: "28px", md: "30px" }} fontWeight="600" color="#111827" lineHeight="1.25">
-                Hello, {form.name || "there"}
-              </Text>
-              <Box position="relative" display="inline-block">
-                {nameShimmer && !prefersReducedMotion && (
+              <Box border="1px solid #E5E7EB" borderRadius="16px" overflow="hidden" bg="#FFFFFF">
+                {[
+                  "Create your investor profile once.",
+                  "Save it to Wallet and share anywhere.",
+                  "No more repetitive forms.",
+                ].map((line, idx, arr) => (
                   <Box
-                    position="absolute"
-                    inset={0}
-                    bgGradient="linear(to-r, rgba(255,255,255,0), rgba(255,255,255,0.7), rgba(255,255,255,0))"
-                    animation={`${shimmerSweep} 0.7s ease-out`}
-                    pointerEvents="none"
-                  />
-                )}
+                    key={line}
+                    px={4}
+                    py={4}
+                    minH="56px"
+                    display="flex"
+                    alignItems="center"
+                    gap={4}
+                    borderBottom={idx < arr.length - 1 ? "1px solid #E5E7EB" : undefined}
+                    transition="background 150ms ease"
+                    _active={{ bg: "#F9FAFB" }}
+                  >
+                    <Box w="8px" h="8px" borderRadius="full" bg="#00A9E0" mt="2px" />
+                    <Text fontSize="18px" fontWeight="500" lineHeight="1.45" color="#111827">
+                      {line}
+                    </Text>
+                  </Box>
+                ))}
               </Box>
             </Box>
 
-            <VStack align="stretch" spacing={3} mt={5} w="full">
-              {[
-                "Create your investor profile once.",
-                "Save it to Wallet and share anywhere.",
-                "No more repetitive forms.",
-              ].map((line, idx) => (
-                <Box key={line}>
-                  <HStack spacing={3} align="center">
-                    <Box w="8px" h="8px" borderRadius="full" bg="#0A84FF" />
-                    <Text fontSize="17px" lineHeight="1.4" color="#111827">
-                      {line}
-                    </Text>
-                  </HStack>
-                  {idx < 2 && <Box mt={2} borderBottom="1px solid #E5E5EA" />}
-                </Box>
-              ))}
-            </VStack>
+            <Box mt={4} position="relative">
+              <HStack spacing={2.5} overflowX="auto" pb={1} css={{ scrollbarWidth: "none" }}>
+                {["No Logins", "Apple Wallet Ready", "Alias-only"].map((chip) => (
+                  <Box
+                    key={chip}
+                    px={3}
+                    py={1}
+                    h="32px"
+                    borderRadius="999px"
+                    border="1px solid #E5E7EB"
+                    bg="#FFFFFF"
+                    color="#6B7280"
+                    fontSize="12px"
+                    fontWeight="700"
+                    letterSpacing="0.12em"
+                    whiteSpace="nowrap"
+                  >
+                    {chip.toUpperCase()}
+                  </Box>
+                ))}
+              </HStack>
+              <Box
+                position="absolute"
+                left={0}
+                top={0}
+                bottom={0}
+                w="24px"
+                pointerEvents="none"
+                bgGradient="linear(to-r, #FFFFFF 60%, rgba(255,255,255,0))"
+              />
+              <Box
+                position="absolute"
+                right={0}
+                top={0}
+                bottom={0}
+                w="24px"
+                pointerEvents="none"
+                bgGradient="linear(to-l, #FFFFFF 60%, rgba(255,255,255,0))"
+              />
+            </Box>
 
-            <HStack spacing={2} mt={5} overflowX="auto" pb={1}>
-              {["No Logins", "Apple Wallet Ready", "Alias-only"].map((chip) => (
-                <Box
-                  key={chip}
-                  px={3}
-                  py={1}
-                  borderRadius="full"
-                  border="1px solid #E5E5EA"
-                  color="#6E6E73"
-                  fontSize="11px"
-                  letterSpacing="0.06em"
-                  whiteSpace="nowrap"
-                >
-                  {chip.toUpperCase()}
-                </Box>
-              ))}
-            </HStack>
-
-            <Box mt={6}>
+            <Box mt={5}>
               <Button
                 type="button"
                 w="full"
-                size="lg"
-                {...primaryCtaStyles}
-                _active={ctaActiveState}
-                onClick={() => firstFieldRef.current?.focus()}
+                h="54px"
+                borderRadius="16px"
                 fontSize="17px"
-                fontWeight="600"
-                py={6}
-                boxShadow="0 12px 28px rgba(0,169,224,0.35)"
+                fontWeight="650"
+                color="#0B1120"
+                bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
+                transition="transform 120ms ease-out, filter 120ms ease-out"
+                _active={{ transform: "scale(0.985)", filter: "brightness(0.94)" }}
+                _hover={{ bgGradient: "linear(to-r, #00A9E0, #6DD3EF)" }}
+                onClick={() => firstFieldRef.current?.focus()}
               >
                 Create Your Hushh ID →
               </Button>
-              <Text mt={2} fontSize="13px" color="#6E6E73" textAlign="center">
+              <Text mt={3} fontSize="13px" color="#6B7280" textAlign="left">
                 Takes under a minute. Your details stay private.
               </Text>
             </Box>
           </Box>
         </Box>
-        <Box borderBottom="1px solid #E5E5EA" mb={4} />
 
-        <Box animation={headingAnimation}>
-          <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="700" color="#1c1c1c" mt={{ base: 4, md: 5 }}>
+        <Box animation={headingAnimation} px={{ base: 1, md: 2 }} mt={2}>
+          <Heading fontSize="24px" fontWeight="700" lineHeight="1.2" color="#0B1120" mb={4}>
             Basic Information
-          </Text>
-        </Box>
-
-        <VStack align="stretch" spacing={5} mt={3}>
-          <FormControl isRequired sx={focusLabelStyles}>
-            <FormLabel {...labelBaseStyles}>
-              Full Name <Text as="span" color="#ef4444" ml={1}>*</Text>
-            </FormLabel>
-            <InputGroup>
-              <Input
-                {...inputBaseStyles}
-                ref={firstFieldRef}
-                value={form.name}
-                onChange={(e) => handleChange("name", e.target.value)}
-                placeholder="Enter your full name"
-              />
-              {renderCheckmark(form.name)}
-            </InputGroup>
-          </FormControl>
-
-          <FormControl isRequired sx={focusLabelStyles}>
-            <FormLabel {...labelBaseStyles}>
-              Email <Text as="span" color="#ef4444" ml={1}>*</Text>
-            </FormLabel>
-            <InputGroup>
-              <Input
-                type="email"
-                {...inputBaseStyles}
-                value={form.email}
-                onChange={(e) => handleChange("email", e.target.value)}
-                placeholder="your.email@company.com"
-              />
-              {renderCheckmark(form.email)}
-            </InputGroup>
-          </FormControl>
-
-          <FormControl isRequired sx={focusLabelStyles}>
-            <FormLabel {...labelBaseStyles}>
-              Age <Text as="span" color="#ef4444" ml={1}>*</Text>
-            </FormLabel>
-            <InputGroup>
-              <Input
-                type="number"
-                {...inputBaseStyles}
-                value={form.age}
-                onChange={(e) => handleChange("age", e.target.value)}
-                placeholder="24"
-              />
-              {renderCheckmark(form.age)}
-            </InputGroup>
-          </FormControl>
-
-          <Box>
-            <HStack spacing={4} align="flex-end">
-              <FormControl isRequired flex={0.32} sx={focusLabelStyles}>
-                <FormLabel {...labelBaseStyles}>
-                  Country Code <Text as="span" color="#ef4444" ml={1}>*</Text>
-                </FormLabel>
-                <InputGroup>
-                  <Input
-                    {...inputBaseStyles}
-                    value={form.phoneCountryCode}
-                    onChange={(e) => handleChange("phoneCountryCode", e.target.value)}
-                    placeholder="+1"
-                  />
-                  {renderCheckmark(form.phoneCountryCode)}
-                </InputGroup>
-              </FormControl>
-
-              <FormControl isRequired flex={1} sx={focusLabelStyles}>
-                <FormLabel {...labelBaseStyles}>
-                  Phone Number <Text as="span" color="#ef4444" ml={1}>*</Text>
-                </FormLabel>
-                <InputGroup>
-                  <Input
-                    {...inputBaseStyles}
-                    value={form.phoneNumber}
-                    onChange={(e) => handleChange("phoneNumber", e.target.value)}
-                    placeholder="1234567890"
-                  />
-                  {renderCheckmark(form.phoneNumber)}
-                </InputGroup>
-              </FormControl>
-            </HStack>
+          </Heading>
+          <Box position="relative" w="100%" h="1px" bg="#E5E7EB" mb={4}>
+            <Box
+              position="absolute"
+              left={0}
+              top="50%"
+              transform="translateY(-50%)"
+              w="16px"
+              h="2px"
+              bg="#00A9E0"
+            />
           </Box>
 
-          <FormControl sx={focusLabelStyles}>
-            <FormLabel {...labelBaseStyles}>
-              Organisation <Text as="span" color="#6b7280" fontWeight="500" ml={1}>(Optional)</Text>
-            </FormLabel>
-            <InputGroup>
-              <Input
-                {...inputBaseStyles}
-                value={form.organisation}
-                onChange={(e) => handleChange("organisation", e.target.value)}
-                placeholder="Company name"
-              />
-              {renderCheckmark(form.organisation)}
-            </InputGroup>
-          </FormControl>
-        </VStack>
+          <VStack align="stretch" spacing={5}>
+            <FormControl isRequired sx={focusLabelStyles}>
+              <FormLabel {...labelBaseStyles}>
+                Full Name <Text as="span" color="#B91C1C" fontSize="12px" ml={1}>*</Text>
+              </FormLabel>
+              <InputGroup>
+                <Input
+                  {...inputBaseStyles}
+                  ref={firstFieldRef}
+                  value={form.name}
+                  onChange={(e) => handleChange("name", e.target.value)}
+                  placeholder="Enter your full name"
+                />
+                {renderCheckmark(form.name)}
+              </InputGroup>
+            </FormControl>
+
+            <FormControl isRequired sx={focusLabelStyles}>
+              <FormLabel {...labelBaseStyles}>
+                Email <Text as="span" color="#B91C1C" fontSize="12px" ml={1}>*</Text>
+              </FormLabel>
+              <InputGroup>
+                <Input
+                  type="email"
+                  {...inputBaseStyles}
+                  value={form.email}
+                  onChange={(e) => handleChange("email", e.target.value)}
+                  placeholder="your.email@company.com"
+                />
+                {renderCheckmark(form.email)}
+              </InputGroup>
+            </FormControl>
+
+            <FormControl isRequired sx={focusLabelStyles}>
+              <FormLabel {...labelBaseStyles}>
+                Age <Text as="span" color="#B91C1C" fontSize="12px" ml={1}>*</Text>
+              </FormLabel>
+              <InputGroup>
+                <Input
+                  type="number"
+                  {...inputBaseStyles}
+                  value={form.age}
+                  onChange={(e) => handleChange("age", e.target.value)}
+                  placeholder="24"
+                />
+                {renderCheckmark(form.age)}
+              </InputGroup>
+            </FormControl>
+
+            <Box>
+              <HStack spacing={3} align="flex-end">
+                <FormControl isRequired flex="0 0 96px" sx={focusLabelStyles}>
+                  <FormLabel {...labelBaseStyles}>
+                    Country Code <Text as="span" color="#B91C1C" fontSize="12px" ml={1}>*</Text>
+                  </FormLabel>
+                  <InputGroup>
+                    <Input
+                      {...inputBaseStyles}
+                      value={form.phoneCountryCode}
+                      onChange={(e) => handleChange("phoneCountryCode", e.target.value)}
+                      placeholder="+1"
+                    />
+                    {renderCheckmark(form.phoneCountryCode)}
+                  </InputGroup>
+                </FormControl>
+
+                <FormControl isRequired flex={1} sx={focusLabelStyles}>
+                  <FormLabel {...labelBaseStyles}>
+                    Phone Number <Text as="span" color="#B91C1C" fontSize="12px" ml={1}>*</Text>
+                  </FormLabel>
+                  <InputGroup>
+                    <Input
+                      {...inputBaseStyles}
+                      value={form.phoneNumber}
+                      onChange={(e) => handleChange("phoneNumber", e.target.value)}
+                      placeholder="1234567890"
+                    />
+                    {renderCheckmark(form.phoneNumber)}
+                  </InputGroup>
+                </FormControl>
+              </HStack>
+            </Box>
+
+            <FormControl sx={focusLabelStyles}>
+              <FormLabel {...labelBaseStyles}>
+                Organisation <Text as="span" color="#6B7280" fontWeight="500" ml={1}>(Optional)</Text>
+              </FormLabel>
+              <InputGroup>
+                <Input
+                  {...inputBaseStyles}
+                  value={form.organisation}
+                  onChange={(e) => handleChange("organisation", e.target.value)}
+                  placeholder="Company name"
+                />
+                {renderCheckmark(form.organisation)}
+              </InputGroup>
+            </FormControl>
+          </VStack>
+
+          <Box borderBottom="1px solid #E5E7EB" mt={6} />
+        </Box>
 
         {investorProfile && (
           <Box mt={6}>
