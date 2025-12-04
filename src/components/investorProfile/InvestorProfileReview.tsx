@@ -317,51 +317,79 @@ export function InvestorProfileReview({
   };
 
   return (
-    <Box bg="#F5F5F7" minH="100vh" px={{ base: 4, md: 6 }} py={{ base: 8, md: 12 }}>
-      <VStack spacing={6} align="stretch" maxW="900px" mx="auto">
+    <Box bg="#FFFFFF" minH="100vh" px={{ base: 6, md: 6 }} py={{ base: 12, md: 12 }}>
+      <VStack spacing={8} align="stretch" maxW="760px" mx="auto">
         {/* Header */}
-        <Box textAlign="center">
-          <Heading fontSize={{ base: "28px", md: "30px" }} fontWeight="700" mb={2} lineHeight="1.25" color="#0f172a">
+        <Box textAlign="left">
+          <Heading fontSize={{ base: "34px", md: "36px" }} fontWeight="700" lineHeight="1.1" color="#0B1120" mb={3}>
             Review Your AI-Generated Investor Profile
           </Heading>
-          <Text fontSize="17px" color="#6E6E73" lineHeight="1.4" maxW="720px" mx="auto">
-            We've analyzed your information and created a personalized profile. Review and edit any
-            fields before confirming.
+          <Text fontSize="18px" color="#475569" lineHeight="1.65" maxW="95%" mb={6}>
+            We've analyzed your information and created a personalized profile. Review and edit any fields before confirming.
           </Text>
+          <Box position="relative" w="100%" h="1px" bg="#E5E7EB" mb={6}>
+            <Box
+              position="absolute"
+              left="0"
+              top="50%"
+              transform="translateY(-50%)"
+              w="16px"
+              h="2px"
+              bg="#00A9E0"
+            />
+          </Box>
         </Box>
-        <Divider borderColor="#E5E5EA" />
 
         {/* Basic Info Summary */}
-        <VStack align="stretch" spacing={3} px={{ base: 0, md: 1 }}>
-          <Text fontSize="15px" fontWeight="600" color="#111827">
+        <VStack align="stretch" spacing={3}>
+          <Text fontSize="18px" fontWeight="650" color="#0B1120" mb={2}>
             Your Information
           </Text>
-          <VStack align="stretch" spacing={3}>
+          <Box border="1px solid #E5E7EB" borderRadius="16px" bg="#FFFFFF" overflow="hidden">
             {[
-              { label: "Name:", value: profile.name },
-              { label: "Email:", value: profile.email },
-              { label: "Age:", value: profile.age },
-              { label: "Phone:", value: `${profile.phone_country_code} ${profile.phone_number}` },
-              ...(profile.organisation ? [{ label: "Organisation:", value: profile.organisation }] : []),
-            ].map((row, idx, arr) => (
-              <Box key={row.label}>
-                <HStack align="baseline" justify="space-between" spacing={4}>
-                  <Text fontSize="15px" fontWeight="600" color="#6E6E73">
-                    {row.label}
-                  </Text>
-                  <Text fontSize="17px" color="#111827" maxW="65%" textAlign="right">
-                    {row.value}
-                  </Text>
-                </HStack>
-                {idx < arr.length - 1 && <Box mt={2} borderBottom="1px solid #E5E5EA" />}
-              </Box>
-            ))}
-          </VStack>
+              { label: "Name", value: profile.name },
+              { label: "Email", value: profile.email },
+              { label: "Age", value: profile.age },
+              { label: "Phone", value: `${profile.phone_country_code} ${profile.phone_number}` },
+              ...(profile.organisation ? [{ label: "Organisation", value: profile.organisation }] : []),
+            ].map((row, idx, arr) => {
+              const stringValue = String(row.value);
+              const shouldStack = stringValue.length > 24 || stringValue.includes("@");
+              return (
+                <Box
+                  key={row.label}
+                  px={4}
+                  py={4}
+                  borderBottom={idx < arr.length - 1 ? "1px solid #E5E7EB" : undefined}
+                >
+                  {shouldStack ? (
+                    <VStack align="stretch" spacing={1}>
+                      <Text fontSize="16px" fontWeight="600" color="#6B7280">
+                        {row.label}
+                      </Text>
+                      <Text fontSize="17px" fontWeight="500" color="#111827">
+                        {row.value}
+                      </Text>
+                    </VStack>
+                  ) : (
+                    <HStack justify="space-between" align="center" spacing={3}>
+                      <Text fontSize="16px" fontWeight="600" color="#6B7280">
+                        {row.label}
+                      </Text>
+                      <Text fontSize="17px" fontWeight="500" color="#111827" textAlign="right">
+                        {row.value}
+                      </Text>
+                    </HStack>
+                  )}
+                </Box>
+              );
+            })}
+          </Box>
         </VStack>
 
         {/* Derived Context */}
-        <VStack align="stretch" spacing={3} mt={4}>
-          <Text fontSize="15px" fontWeight="600" color="#111827">
+        <VStack align="stretch" spacing={3} mt={2}>
+          <Text fontSize="18px" fontWeight="650" color="#0B1120" mb={1}>
             Detected Context
           </Text>
           <Flex wrap="wrap" gap={2}>
@@ -369,11 +397,12 @@ export function InvestorProfileReview({
               px={3}
               py={1.5}
               borderRadius="full"
-              border="1px solid rgba(0,169,224,0.4)"
-              bg="rgba(0,169,224,0.12)"
-              color="#0A84FF"
+              border="1px solid #7DD3FC"
+              bg="#E0F2FE"
+              color="#0284C7"
               fontSize="13px"
-              letterSpacing="0.04em"
+              fontWeight="600"
+              letterSpacing="0.06em"
             >
               {profile.derived_context.country} ({profile.derived_context.currency})
             </Badge>
@@ -381,11 +410,12 @@ export function InvestorProfileReview({
               px={3}
               py={1.5}
               borderRadius="full"
-              border="1px solid rgba(88,86,214,0.4)"
-              bg="rgba(88,86,214,0.12)"
-              color="#5856D6"
+              border="1px solid #C7D2FE"
+              bg="#EEF2FF"
+              color="#4F46E5"
               fontSize="13px"
-              letterSpacing="0.04em"
+              fontWeight="600"
+              letterSpacing="0.06em"
             >
               {profile.derived_context.region}
             </Badge>
@@ -393,11 +423,12 @@ export function InvestorProfileReview({
               px={3}
               py={1.5}
               borderRadius="full"
-              border="1px solid rgba(52,199,89,0.4)"
-              bg="rgba(52,199,89,0.12)"
-              color="#34C759"
+              border="1px solid #86EFAC"
+              bg="#DCFCE7"
+              color="#16A34A"
               fontSize="13px"
-              letterSpacing="0.04em"
+              fontWeight="600"
+              letterSpacing="0.06em"
             >
               {profile.derived_context.life_stage}
             </Badge>
@@ -406,11 +437,12 @@ export function InvestorProfileReview({
                 px={3}
                 py={1.5}
                 borderRadius="full"
-                border="1px solid rgba(255,149,0,0.5)"
-                bg="rgba(255,149,0,0.15)"
-                color="#FF9500"
+                border="1px solid #FDBA74"
+                bg="#FFEDD5"
+                color="#EA580C"
                 fontSize="13px"
-                letterSpacing="0.04em"
+                fontWeight="600"
+                letterSpacing="0.06em"
               >
                 {profile.derived_context.email_type === "corporate" ? "Corporate Email" : "Personal Email"}
               </Badge>
@@ -420,11 +452,12 @@ export function InvestorProfileReview({
                 px={3}
                 py={1.5}
                 borderRadius="full"
-                border="1px solid rgba(90,200,250,0.45)"
-                bg="rgba(90,200,250,0.15)"
-                color="#00C7BE"
+                border="1px solid #7DD3FC"
+                bg="#E0F2FE"
+                color="#0284C7"
                 fontSize="13px"
-                letterSpacing="0.04em"
+                fontWeight="600"
+                letterSpacing="0.06em"
               >
                 {profile.derived_context.org_type}
               </Badge>
@@ -432,7 +465,7 @@ export function InvestorProfileReview({
           </Flex>
         </VStack>
 
-        <Divider />
+        <Box borderTop="1px solid #E5E7EB" />
 
         {/* Profile Fields */}
         <Box>
@@ -532,21 +565,30 @@ export function InvestorProfileReview({
         </Box>
 
         {/* Confirm Button */}
-        <Button
-          colorScheme="green"
-          size="lg"
-          leftIcon={<CheckCircleIcon />}
-          onClick={handleConfirm}
-          isLoading={isLoading}
-          loadingText="Saving..."
-          disabled={isLoading}
-        >
-          Confirm & Save Profile
-        </Button>
+        <VStack spacing={3} align="stretch">
+          <Button
+            onClick={handleConfirm}
+            isLoading={isLoading}
+            loadingText="Saving..."
+            disabled={isLoading}
+            h="54px"
+            borderRadius="16px"
+            fontSize="17px"
+            fontWeight="650"
+            color="#0B1120"
+            bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
+            transition="transform 120ms ease-out, filter 120ms ease-out"
+            _active={{ transform: "scale(0.985)", filter: "brightness(0.94)" }}
+            _hover={{ bgGradient: "linear(to-r, #00A9E0, #6DD3EF)" }}
+            leftIcon={<CheckCircleIcon />}
+          >
+            Confirm & Save Profile
+          </Button>
 
-        <Text fontSize="sm" color="gray.500" textAlign="center">
-          You can always edit your profile later from your dashboard
-        </Text>
+          <Text fontSize="14px" color="#6B7280" textAlign="left" lineHeight="1.45">
+            You can always edit your profile later from your dashboard
+          </Text>
+        </VStack>
       </VStack>
     </Box>
   );
