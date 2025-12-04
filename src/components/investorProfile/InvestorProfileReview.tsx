@@ -57,16 +57,31 @@ export function InvestorProfileReview({
   );
   const toast = useToast();
 
-  const getConfidenceColor = (confidence: number): string => {
-    if (confidence >= 0.7) return "green";
-    if (confidence >= 0.4) return "yellow";
-    return "red";
-  };
-
-  const getConfidenceLabel = (confidence: number): string => {
-    if (confidence >= 0.7) return "High Confidence";
-    if (confidence >= 0.4) return "Medium Confidence";
-    return "Low Confidence";
+  const getConfidencePill = (confidence: number) => {
+    const high = confidence >= 0.7;
+    const medium = confidence >= 0.4;
+    if (high) {
+      return {
+        label: "HIGH CONFIDENCE",
+        bg: "#DCFCE7",
+        border: "#86EFAC",
+        color: "#16A34A",
+      };
+    }
+    if (medium) {
+      return {
+        label: "MEDIUM CONFIDENCE",
+        bg: "#FEF3C7",
+        border: "#FCD34D",
+        color: "#B45309",
+      };
+    }
+    return {
+      label: "LOW CONFIDENCE",
+      bg: "#FEE2E2",
+      border: "#FCA5A5",
+      color: "#B91C1C",
+    };
   };
 
   const handleSingleFieldChange = (field: keyof InvestorProfile, value: any) => {
@@ -121,17 +136,7 @@ export function InvestorProfileReview({
     options: readonly T[]
   ) => {
     const fieldData = editedProfile[field] as { value: T; confidence: number; rationale: string };
-    
-    const chipStyles = (confidence: number) => {
-      const isHigh = getConfidenceColor(confidence) === "green";
-      return {
-        color: isHigh ? "#2EBD6B" : "#B08900",
-        bg: isHigh ? "rgba(52,199,89,0.15)" : "rgba(255,214,10,0.2)",
-        border: isHigh ? "rgba(52,199,89,0.45)" : "rgba(255,214,10,0.5)",
-      };
-    };
-
-    const chip = chipStyles(fieldData.confidence);
+    const pill = getConfidencePill(fieldData.confidence);
     
     return (
       <AccordionItem key={field} border="none">
@@ -139,53 +144,56 @@ export function InvestorProfileReview({
           <>
             <h2>
               <AccordionButton
-                px={0}
-                py={3}
-                bg={isExpanded ? "rgba(120,120,128,0.06)" : "transparent"}
-                _hover={{ bg: "rgba(120,120,128,0.04)" }}
-                _expanded={{ bg: "rgba(120,120,128,0.08)" }}
+                px={4}
+                py={4}
+                minH="76px"
+                bg={isExpanded ? "#FAFAFB" : "transparent"}
+                _hover={{ bg: "rgba(0,0,0,0.02)" }}
+                _expanded={{ bg: "#FAFAFB" }}
                 position="relative"
               >
                 {isExpanded && (
-                  <Box position="absolute" left={-2} top={2} bottom={2} w="2px" bg={chip.color} borderRadius="full" />
+                  <Box position="absolute" left={0} top="50%" transform="translateY(-50%)" h="28px" w="2px" bg="#00A9E0" borderRadius="full" />
                 )}
                 <Box flex="1" textAlign="left">
                   <VStack align="start" spacing={1}>
-                    <HStack spacing={3}>
-                      <Text fontSize="16px" fontWeight="600" color="#111827">
+                    <HStack spacing={3} align="center">
+                      <Text fontSize="18px" fontWeight="650" color="#0B1120" lineHeight="1.25">
                         {FIELD_LABELS[field]}
                       </Text>
                       <Badge
                         px={3}
                         py={1}
+                        h="28px"
                         borderRadius="full"
                         textTransform="uppercase"
                         letterSpacing="0.08em"
-                        fontSize="11px"
-                        color={chip.color}
-                        bg={chip.bg}
-                        border={`1px solid ${chip.border}`}
+                        fontSize="12px"
+                        fontWeight="700"
+                        color={pill.color}
+                        bg={pill.bg}
+                        border={`1px solid ${pill.border}`}
                       >
-                        {getConfidenceLabel(fieldData.confidence)}
+                        {pill.label}
                       </Badge>
                     </HStack>
                     {!isExpanded && (
-                      <Text fontSize="14px" color="#6E6E73">
+                      <Text fontSize="16px" fontWeight="500" color="#6B7280" mt="6px">
                         {VALUE_LABELS[fieldData.value] || fieldData.value}
                       </Text>
                     )}
                   </VStack>
                 </Box>
-                <AccordionIcon />
+                <AccordionIcon color="#6B7280" />
               </AccordionButton>
             </h2>
-            <AccordionPanel px={0} pb={4}>
+            <AccordionPanel px={4} pb={4} pt={0}>
               <VStack align="stretch" spacing={3}>
                 <Box>
-                  <Text fontSize="15px" fontWeight="600" color="#111827" mb={1}>
+                  <Text fontSize="14px" fontWeight="650" color="#0B1120" mb={1}>
                     AI Rationale:
                   </Text>
-                  <Text fontSize="14px" color="#6E6E73" lineHeight="1.6">
+                  <Text fontSize="15px" color="#475569" lineHeight="1.6">
                     {fieldData.rationale}
                   </Text>
                 </Box>
@@ -195,8 +203,16 @@ export function InvestorProfileReview({
                   onChange={(e) =>
                     handleSingleFieldChange(field, e.target.value as T)
                   }
-                  height="44px"
-                  borderRadius="12px"
+                  height="52px"
+                  borderRadius="14px"
+                  borderColor="#D1D5DB"
+                  fontSize="16px"
+                  color="#0B1120"
+                  px={4}
+                  _focus={{
+                    borderColor: "#00A9E0",
+                    boxShadow: "0 0 0 2px rgba(0,169,224,0.18)",
+                  }}
                 >
                   {options.map((option) => (
                     <option key={option} value={option}>
@@ -205,12 +221,14 @@ export function InvestorProfileReview({
                   ))}
                 </Select>
                 
-                <Text fontSize="13px" color="#6E6E73">
-                  Current: <Text as="span" fontWeight="700">{VALUE_LABELS[fieldData.value] || fieldData.value}</Text>
+                <Text fontSize="14px" color="#6B7280">
+                  <Text as="span" fontWeight="600">Current:</Text>{" "}
+                  <Text as="span" fontWeight="500">
+                    {VALUE_LABELS[fieldData.value] || fieldData.value}
+                  </Text>
                 </Text>
               </VStack>
             </AccordionPanel>
-            <Box borderBottom="1px solid #E5E5EA" />
           </>
         )}
       </AccordionItem>
@@ -222,15 +240,7 @@ export function InvestorProfileReview({
     options: readonly T[]
   ) => {
     const fieldData = editedProfile[field] as { value: T[]; confidence: number; rationale: string };
-    const chipStyles = (confidence: number) => {
-      const isHigh = getConfidenceColor(confidence) === "green";
-      return {
-        color: isHigh ? "#2EBD6B" : "#B08900",
-        bg: isHigh ? "rgba(52,199,89,0.15)" : "rgba(255,214,10,0.2)",
-        border: isHigh ? "rgba(52,199,89,0.45)" : "rgba(255,214,10,0.5)",
-      };
-    };
-    const chip = chipStyles(fieldData.confidence);
+    const pill = getConfidencePill(fieldData.confidence);
     
     return (
       <AccordionItem key={field} border="none">
@@ -238,53 +248,56 @@ export function InvestorProfileReview({
           <>
             <h2>
               <AccordionButton
-                px={0}
-                py={3}
-                bg={isExpanded ? "rgba(120,120,128,0.06)" : "transparent"}
-                _hover={{ bg: "rgba(120,120,128,0.04)" }}
-                _expanded={{ bg: "rgba(120,120,128,0.08)" }}
+                px={4}
+                py={4}
+                minH="76px"
+                bg={isExpanded ? "#FAFAFB" : "transparent"}
+                _hover={{ bg: "rgba(0,0,0,0.02)" }}
+                _expanded={{ bg: "#FAFAFB" }}
                 position="relative"
               >
                 {isExpanded && (
-                  <Box position="absolute" left={-2} top={2} bottom={2} w="2px" bg={chip.color} borderRadius="full" />
+                  <Box position="absolute" left={0} top="50%" transform="translateY(-50%)" h="28px" w="2px" bg="#00A9E0" borderRadius="full" />
                 )}
                 <Box flex="1" textAlign="left">
                   <VStack align="start" spacing={1}>
-                    <HStack spacing={3}>
-                      <Text fontSize="16px" fontWeight="600" color="#111827">
+                    <HStack spacing={3} align="center">
+                      <Text fontSize="18px" fontWeight="650" color="#0B1120" lineHeight="1.25">
                         {FIELD_LABELS[field]}
                       </Text>
                       <Badge
                         px={3}
                         py={1}
+                        h="28px"
                         borderRadius="full"
                         textTransform="uppercase"
                         letterSpacing="0.08em"
-                        fontSize="11px"
-                        color={chip.color}
-                        bg={chip.bg}
-                        border={`1px solid ${chip.border}`}
+                        fontSize="12px"
+                        fontWeight="700"
+                        color={pill.color}
+                        bg={pill.bg}
+                        border={`1px solid ${pill.border}`}
                       >
-                        {getConfidenceLabel(fieldData.confidence)}
+                        {pill.label}
                       </Badge>
                     </HStack>
                     {!isExpanded && (
-                      <Text fontSize="14px" color="#6E6E73">
+                      <Text fontSize="16px" fontWeight="500" color="#6B7280" mt="6px">
                         {fieldData.value.map((v) => VALUE_LABELS[v] || v).join(", ")}
                       </Text>
                     )}
                   </VStack>
                 </Box>
-                <AccordionIcon />
+                <AccordionIcon color="#6B7280" />
               </AccordionButton>
             </h2>
-            <AccordionPanel px={0} pb={4}>
+            <AccordionPanel px={4} pb={4} pt={0}>
               <VStack align="stretch" spacing={3}>
                 <Box>
-                  <Text fontSize="15px" fontWeight="600" color="#111827" mb={1}>
+                  <Text fontSize="14px" fontWeight="650" color="#0B1120" mb={1}>
                     AI Rationale:
                   </Text>
-                  <Text fontSize="14px" color="#6E6E73" lineHeight="1.6">
+                  <Text fontSize="15px" color="#475569" lineHeight="1.6">
                     {fieldData.rationale}
                   </Text>
                 </Box>
@@ -297,19 +310,21 @@ export function InvestorProfileReview({
                 >
                   <Stack spacing={2}>
                     {options.map((option) => (
-                      <Checkbox key={option} value={option}>
+                      <Checkbox key={option} value={option} colorScheme="teal">
                         {VALUE_LABELS[option] || option}
                       </Checkbox>
                     ))}
                   </Stack>
                 </CheckboxGroup>
                 
-                <Text fontSize="13px" color="#6E6E73">
-                  Selected: <Text as="span" fontWeight="700">{fieldData.value.length} items</Text>
+                <Text fontSize="14px" color="#6B7280">
+                  <Text as="span" fontWeight="600">Current:</Text>{" "}
+                  <Text as="span" fontWeight="500">
+                    {fieldData.value.map((v) => VALUE_LABELS[v] || v).join(", ")}
+                  </Text>
                 </Text>
               </VStack>
             </AccordionPanel>
-            <Box borderBottom="1px solid #E5E5EA" />
           </>
         )}
       </AccordionItem>
@@ -469,126 +484,133 @@ export function InvestorProfileReview({
 
         {/* Profile Fields */}
         <Box>
-          <Heading size="md" mb={4}>
+          <Heading fontSize="28px" fontWeight="700" color="#0B1120" mb={4} lineHeight="1.15">
             Investor Profile (12 Fields)
           </Heading>
-          <Accordion allowMultiple>
-            {renderSingleSelectField<PrimaryGoal>("primary_goal", [
-              "capital_preservation",
-              "steady_income",
-              "long_term_growth",
-              "aggressive_growth",
-              "speculation",
-            ])}
-            
-            {renderSingleSelectField<InvestmentHorizon>("investment_horizon_years", [
-              "<3_years",
-              "3_5_years",
-              "5_10_years",
-              ">10_years",
-            ])}
-            
-            {renderSingleSelectField<RiskTolerance>("risk_tolerance", [
-              "very_low",
-              "low",
-              "moderate",
-              "high",
-              "very_high",
-            ])}
-            
-            {renderSingleSelectField<LiquidityNeed>("liquidity_need", [
-              "low",
-              "medium",
-              "high",
-            ])}
-            
-            {renderSingleSelectField<ExperienceLevel>("experience_level", [
-              "beginner",
-              "intermediate",
-              "advanced",
-            ])}
-            
-            {renderSingleSelectField<TicketSize>("typical_ticket_size", [
-              "micro_<1k",
-              "small_1k_10k",
-              "medium_10k_50k",
-              "large_>50k",
-            ])}
-            
-            {renderSingleSelectField<AnnualCapacity>("annual_investing_capacity", [
-              "<5k",
-              "5k_20k",
-              "20k_100k",
-              ">100k",
-            ])}
-            
-            {renderMultiSelectField<AssetClass>("asset_class_preference", [
-              "public_equities",
-              "mutual_funds_etfs",
-              "fixed_income",
-              "real_estate",
-              "startups_private_equity",
-              "crypto_digital_assets",
-              "cash_equivalents",
-            ])}
-            
-            {renderMultiSelectField<Sector>("sector_preferences", [
-              "technology",
-              "consumer_internet",
-              "fintech",
-              "healthcare",
-              "real_estate",
-              "energy_climate",
-              "industrial",
-              "other",
-            ])}
-            
-            {renderSingleSelectField<VolatilityReaction>("volatility_reaction", [
-              "sell_to_avoid_more_loss",
-              "hold_and_wait",
-              "buy_more_at_lower_prices",
-            ])}
-            
-            {renderSingleSelectField<SustainabilityPreference>("sustainability_preference", [
-              "not_important",
-              "nice_to_have",
-              "important",
-              "very_important",
-            ])}
-            
-            {renderSingleSelectField<EngagementStyle>("engagement_style", [
-              "very_passive_just_updates",
-              "collaborative_discuss_key_decisions",
-              "hands_on_active_trader",
-            ])}
-          </Accordion>
+          <Box border="1px solid #E5E7EB" borderRadius="18px" bg="#FFFFFF" overflow="hidden">
+            <Accordion allowMultiple>
+              {[
+                renderSingleSelectField<PrimaryGoal>("primary_goal", [
+                  "capital_preservation",
+                  "steady_income",
+                  "long_term_growth",
+                  "aggressive_growth",
+                  "speculation",
+                ]),
+                renderSingleSelectField<InvestmentHorizon>("investment_horizon_years", [
+                  "<3_years",
+                  "3_5_years",
+                  "5_10_years",
+                  ">10_years",
+                ]),
+                renderSingleSelectField<RiskTolerance>("risk_tolerance", [
+                  "very_low",
+                  "low",
+                  "moderate",
+                  "high",
+                  "very_high",
+                ]),
+                renderSingleSelectField<LiquidityNeed>("liquidity_need", [
+                  "low",
+                  "medium",
+                  "high",
+                ]),
+                renderSingleSelectField<ExperienceLevel>("experience_level", [
+                  "beginner",
+                  "intermediate",
+                  "advanced",
+                ]),
+                renderSingleSelectField<TicketSize>("typical_ticket_size", [
+                  "micro_<1k",
+                  "small_1k_10k",
+                  "medium_10k_50k",
+                  "large_>50k",
+                ]),
+                renderSingleSelectField<AnnualCapacity>("annual_investing_capacity", [
+                  "<5k",
+                  "5k_20k",
+                  "20k_100k",
+                  ">100k",
+                ]),
+                renderMultiSelectField<AssetClass>("asset_class_preference", [
+                  "public_equities",
+                  "mutual_funds_etfs",
+                  "fixed_income",
+                  "real_estate",
+                  "startups_private_equity",
+                  "crypto_digital_assets",
+                  "cash_equivalents",
+                ]),
+                renderMultiSelectField<Sector>("sector_preferences", [
+                  "technology",
+                  "consumer_internet",
+                  "fintech",
+                  "healthcare",
+                  "real_estate",
+                  "energy_climate",
+                  "industrial",
+                  "other",
+                ]),
+                renderSingleSelectField<VolatilityReaction>("volatility_reaction", [
+                  "sell_to_avoid_more_loss",
+                  "hold_and_wait",
+                  "buy_more_at_lower_prices",
+                ]),
+                renderSingleSelectField<SustainabilityPreference>("sustainability_preference", [
+                  "not_important",
+                  "nice_to_have",
+                  "important",
+                  "very_important",
+                ]),
+                renderSingleSelectField<EngagementStyle>("engagement_style", [
+                  "very_passive_just_updates",
+                  "collaborative_discuss_key_decisions",
+                  "hands_on_active_trader",
+                ]),
+              ].map((node, idx, arr) => (
+                <Box key={idx} borderBottom={idx < arr.length - 1 ? "1px solid #E5E7EB" : undefined}>
+                  {node}
+                </Box>
+              ))}
+            </Accordion>
+          </Box>
         </Box>
 
         {/* Confirm Button */}
-        <VStack spacing={3} align="stretch">
-          <Button
-            onClick={handleConfirm}
-            isLoading={isLoading}
-            loadingText="Saving..."
-            disabled={isLoading}
-            h="54px"
-            borderRadius="16px"
-            fontSize="17px"
-            fontWeight="650"
-            color="#0B1120"
-            bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
-            transition="transform 120ms ease-out, filter 120ms ease-out"
-            _active={{ transform: "scale(0.985)", filter: "brightness(0.94)" }}
-            _hover={{ bgGradient: "linear(to-r, #00A9E0, #6DD3EF)" }}
-            leftIcon={<CheckCircleIcon />}
-          >
-            Confirm & Save Profile
-          </Button>
+        <Box
+          position="sticky"
+          bottom="0"
+          bg="#FFFFFF"
+          borderTop="1px solid #E5E7EB"
+          px={0}
+          pt={4}
+          pb={4}
+        >
+          <VStack spacing={3} align="stretch">
+            <Button
+              onClick={handleConfirm}
+              isLoading={isLoading}
+              loadingText="Saving..."
+              disabled={isLoading}
+              h="54px"
+              borderRadius="16px"
+              fontSize="17px"
+              fontWeight="650"
+              color="#0B1120"
+              bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
+              transition="transform 120ms ease-out, filter 120ms ease-out"
+              _active={{ transform: "scale(0.985)", filter: "brightness(0.94)" }}
+              _hover={{ bgGradient: "linear(to-r, #00A9E0, #6DD3EF)" }}
+              leftIcon={<CheckCircleIcon color="#0B1120" />}
+            >
+              Confirm & Save Profile
+            </Button>
 
-          <Text fontSize="14px" color="#6B7280" textAlign="left" lineHeight="1.45">
-            You can always edit your profile later from your dashboard
-          </Text>
-        </VStack>
+            <Text fontSize="14px" color="#6B7280" textAlign="center" lineHeight="1.45">
+              You can always edit your profile later from your dashboard
+            </Text>
+          </VStack>
+        </Box>
       </VStack>
     </Box>
   );
