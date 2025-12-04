@@ -1,7 +1,17 @@
 import { useState } from "react";
 import { InvestorProfileInput } from "../../types/investorProfile";
-import { Box, FormControl, FormLabel, Input, VStack, Heading, Text, useToast, Spinner, Divider } from "@chakra-ui/react";
-import { PrimaryCtaButton } from "../PrimaryCtaButton";
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  VStack,
+  Heading,
+  Text,
+  useToast,
+  Spinner,
+  Button,
+} from "@chakra-ui/react";
 
 interface InvestorProfileFormProps {
   onSubmit: (data: InvestorProfileInput) => Promise<void>;
@@ -101,41 +111,51 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
   };
   
   return (
-    <Box bg="white" minH="100vh" px={{ base: 4, md: 6 }} py={{ base: 10, md: 12 }}>
-      <VStack spacing={6} align="stretch" maxW="720px" mx="auto">
+    <Box
+      bg="white"
+      minH="100vh"
+      px={{ base: 6, md: 6 }}
+      py={{ base: 12, md: 12 }}
+      style={{ fontFamily: 'Inter, -apple-system, system-ui, "SF Pro Text", sans-serif' }}
+    >
+      <VStack spacing={8} align="stretch" maxW="640px" mx="auto">
         <Box textAlign="left">
-          <Heading 
-            fontSize={{ base: "30px", md: "32px" }}
+          <Heading
+            fontSize={{ base: "36px", md: "38px" }}
             fontWeight="700"
-            mb={2}
-            color="#1D1D1F"
-            fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif"
+            lineHeight="1.1"
+            color="#0B1120"
+            mb={3}
           >
             Create Your Investor Hushh ID
           </Heading>
-          <Text 
-            color="#6E6E73"
-            fontSize="17px"
-            fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-            lineHeight="1.4"
-            maxW="640px"
-            mt={1}
+          <Text
+            color="#475569"
+            fontSize="18px"
+            lineHeight="1.65"
+            maxW="90%"
+            mb={6}
           >
             Just 5 simple inputs, and we'll create your personalized investor profile using AI.
           </Text>
+          <Box position="relative" w="100%" h="1px" bg="#E5E7EB" mb={6}>
+            <Box
+              position="absolute"
+              left="0"
+              top="50%"
+              transform="translateY(-50%)"
+              w="16px"
+              h="2px"
+              bg="#00A9E0"
+            />
+          </Box>
         </Box>
-        
+
         <form onSubmit={handleSubmit}>
-          <VStack spacing={6} align="stretch">
-            {/* Name */}
+          <VStack spacing={5} align="stretch">
             <FormControl isRequired isInvalid={!!errors.name}>
-              <FormLabel 
-                fontSize="15px" 
-                fontWeight="600" 
-                color="#1D1D1F"
-                mb="6px"
-              >
-                Full Name
+              <FormLabel fontSize="14px" fontWeight="600" color="#111827" mb="8px">
+                Full Name <Text as="span" color="#EF4444">*</Text>
               </FormLabel>
               <Input
                 type="text"
@@ -144,47 +164,28 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 placeholder="John Doe"
                 disabled={isLoading}
                 height="52px"
-                fontSize="17px"
-                borderWidth="1px"
-                borderRadius="12px"
-                borderColor={errors.name ? "#FF3B30" : "#D1D1D6"}
+                fontSize="16px"
+                borderRadius="14px"
+                borderColor={errors.name ? "#EF4444" : "#D1D5DB"}
                 bg="white"
-                color="#1D1D1F"
+                color="#0B1120"
                 px="16px"
-                py="14px"
-                fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                transition="border-color 0.2s ease"
-                _hover={{ borderColor: errors.name ? "#FF3B30" : "#B0B0B5" }}
-                _focus={{ 
-                  borderColor: errors.name ? "#FF3B30" : "#007AFF",
-                  boxShadow: "none"
+                _focus={{
+                  borderColor: errors.name ? "#EF4444" : "#00A9E0",
+                  boxShadow: errors.name ? "none" : "0 0 0 2px rgba(0,169,224,0.18)",
                 }}
-                _placeholder={{ color: "#86868B" }}
-                _disabled={{
-                  borderColor: "#E5E5EA",
-                  bg: "#F5F5F7",
-                  color: "#86868B",
-                  cursor: "not-allowed",
-                  opacity: 0.6
-                }}
+                _placeholder={{ color: "#9CA3AF" }}
               />
               {errors.name && (
-                <Text color="#FF3B30" fontSize="13px" mt="6px">
+                <Text color="#B91C1C" fontSize="13px" mt="6px">
                   {errors.name}
                 </Text>
               )}
             </FormControl>
-            <Divider borderColor="#E5E5EA" />
-            
-            {/* Email */}
+
             <FormControl isRequired isInvalid={!!errors.email}>
-              <FormLabel 
-                fontSize="15px" 
-                fontWeight="600" 
-                color="#1D1D1F"
-                mb="6px"
-              >
-                Email Address
+              <FormLabel fontSize="14px" fontWeight="600" color="#111827" mb="8px">
+                Email Address <Text as="span" color="#EF4444">*</Text>
               </FormLabel>
               <Input
                 type="email"
@@ -193,47 +194,28 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 placeholder="john@example.com"
                 disabled={isLoading}
                 height="52px"
-                fontSize="17px"
-                borderWidth="1px"
-                borderRadius="12px"
-                borderColor={errors.email ? "#FF3B30" : "#D1D1D6"}
+                fontSize="16px"
+                borderRadius="14px"
+                borderColor={errors.email ? "#EF4444" : "#D1D5DB"}
                 bg="white"
-                color="#1D1D1F"
+                color="#0B1120"
                 px="16px"
-                py="14px"
-                fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                transition="border-color 0.2s ease"
-                _hover={{ borderColor: errors.email ? "#FF3B30" : "#B0B0B5" }}
-                _focus={{ 
-                  borderColor: errors.email ? "#FF3B30" : "#007AFF",
-                  boxShadow: "none"
+                _focus={{
+                  borderColor: errors.email ? "#EF4444" : "#00A9E0",
+                  boxShadow: errors.email ? "none" : "0 0 0 2px rgba(0,169,224,0.18)",
                 }}
-                _placeholder={{ color: "#86868B" }}
-                _disabled={{
-                  borderColor: "#E5E5EA",
-                  bg: "#F5F5F7",
-                  color: "#86868B",
-                  cursor: "not-allowed",
-                  opacity: 0.6
-                }}
+                _placeholder={{ color: "#9CA3AF" }}
               />
               {errors.email && (
-                <Text color="#FF3B30" fontSize="13px" mt="6px">
+                <Text color="#B91C1C" fontSize="13px" mt="6px">
                   {errors.email}
                 </Text>
               )}
             </FormControl>
-            <Divider borderColor="#E5E5EA" />
-            
-            {/* Age */}
+
             <FormControl isRequired isInvalid={!!errors.age}>
-              <FormLabel 
-                fontSize="15px" 
-                fontWeight="600" 
-                color="#1D1D1F"
-                mb="6px"
-              >
-                Age
+              <FormLabel fontSize="14px" fontWeight="600" color="#111827" mb="8px">
+                Age <Text as="span" color="#EF4444">*</Text>
               </FormLabel>
               <Input
                 type="number"
@@ -244,31 +226,18 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 max={120}
                 disabled={isLoading}
                 height="52px"
-                fontSize="17px"
-                borderWidth="1px"
-                borderRadius="12px"
-                borderColor={errors.age ? "#FF3B30" : "#D1D1D6"}
+                fontSize="16px"
+                borderRadius="14px"
+                borderColor={errors.age ? "#EF4444" : "#D1D5DB"}
                 bg="white"
-                color="#1D1D1F"
+                color="#0B1120"
                 px="16px"
-                py="14px"
-                fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                transition="border-color 0.2s ease"
-                _hover={{ borderColor: errors.age ? "#FF3B30" : "#B0B0B5" }}
-                _focus={{ 
-                  borderColor: errors.age ? "#FF3B30" : "#007AFF",
-                  boxShadow: "none"
+                _focus={{
+                  borderColor: errors.age ? "#EF4444" : "#00A9E0",
+                  boxShadow: errors.age ? "none" : "0 0 0 2px rgba(0,169,224,0.18)",
                 }}
-                _placeholder={{ color: "#86868B" }}
-                _disabled={{
-                  borderColor: "#E5E5EA",
-                  bg: "#F5F5F7",
-                  color: "#86868B",
-                  cursor: "not-allowed",
-                  opacity: 0.6
-                }}
+                _placeholder={{ color: "#9CA3AF" }}
                 sx={{
-                  // Remove number input spinners
                   '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': {
                     display: 'none',
                   },
@@ -276,25 +245,18 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 }}
               />
               {errors.age && (
-                <Text color="#FF3B30" fontSize="13px" mt="6px">
+                <Text color="#B91C1C" fontSize="13px" mt="6px">
                   {errors.age}
                 </Text>
               )}
             </FormControl>
-            <Divider borderColor="#E5E5EA" />
-            
-            {/* Phone */}
+
             <Box>
-              <FormLabel 
-                fontSize="15px" 
-                fontWeight="600" 
-                color="#1D1D1F"
-                mb="6px"
-              >
-                Phone Number
+              <FormLabel fontSize="14px" fontWeight="600" color="#111827" mb="8px">
+                Phone Number <Text as="span" color="#EF4444">*</Text>
               </FormLabel>
-              <Box display="flex" gap={2}>
-                <FormControl isRequired isInvalid={!!errors.phone_country_code} flex="0 0 120px">
+              <Box display="flex" gap={3}>
+                <FormControl isRequired isInvalid={!!errors.phone_country_code} flex="0 0 96px">
                   <Input
                     type="text"
                     value={formData.phone_country_code}
@@ -302,38 +264,26 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                     placeholder="+1"
                     disabled={isLoading}
                     height="52px"
-                    fontSize="17px"
-                    borderWidth="1px"
-                    borderRadius="12px"
-                    borderColor={errors.phone_country_code ? "#FF3B30" : "#D1D1D6"}
+                    fontSize="16px"
+                    borderRadius="14px"
+                    borderColor={errors.phone_country_code ? "#EF4444" : "#D1D5DB"}
                     bg="white"
-                    color="#1D1D1F"
+                    color="#0B1120"
                     px="12px"
-                    py="14px"
                     textAlign="center"
-                    fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                    transition="border-color 0.2s ease"
-                    _hover={{ borderColor: errors.phone_country_code ? "#FF3B30" : "#B0B0B5" }}
-                    _focus={{ 
-                      borderColor: errors.phone_country_code ? "#FF3B30" : "#007AFF",
-                      boxShadow: "none"
+                    _focus={{
+                      borderColor: errors.phone_country_code ? "#EF4444" : "#00A9E0",
+                      boxShadow: errors.phone_country_code ? "none" : "0 0 0 2px rgba(0,169,224,0.18)",
                     }}
-                    _placeholder={{ color: "#86868B" }}
-                    _disabled={{
-                      borderColor: "#E5E5EA",
-                      bg: "#F5F5F7",
-                      color: "#86868B",
-                      cursor: "not-allowed",
-                      opacity: 0.6
-                    }}
+                    _placeholder={{ color: "#9CA3AF" }}
                   />
                   {errors.phone_country_code && (
-                    <Text color="#FF3B30" fontSize="13px" mt="6px">
+                    <Text color="#B91C1C" fontSize="13px" mt="6px">
                       {errors.phone_country_code}
                     </Text>
                   )}
                 </FormControl>
-                
+
                 <FormControl isRequired isInvalid={!!errors.phone_number} flex="1">
                   <Input
                     type="tel"
@@ -342,49 +292,30 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                     placeholder="1234567890"
                     disabled={isLoading}
                     height="52px"
-                    fontSize="17px"
-                    borderWidth="1px"
-                    borderRadius="12px"
-                    borderColor={errors.phone_number ? "#FF3B30" : "#D1D1D6"}
+                    fontSize="16px"
+                    borderRadius="14px"
+                    borderColor={errors.phone_number ? "#EF4444" : "#D1D5DB"}
                     bg="white"
-                    color="#1D1D1F"
+                    color="#0B1120"
                     px="16px"
-                    py="14px"
-                    fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                    transition="border-color 0.2s ease"
-                    _hover={{ borderColor: errors.phone_number ? "#FF3B30" : "#B0B0B5" }}
-                    _focus={{ 
-                      borderColor: errors.phone_number ? "#FF3B30" : "#007AFF",
-                      boxShadow: "none"
+                    _focus={{
+                      borderColor: errors.phone_number ? "#EF4444" : "#00A9E0",
+                      boxShadow: errors.phone_number ? "none" : "0 0 0 2px rgba(0,169,224,0.18)",
                     }}
-                    _placeholder={{ color: "#86868B" }}
-                    _disabled={{
-                      borderColor: "#E5E5EA",
-                      bg: "#F5F5F7",
-                      color: "#86868B",
-                      cursor: "not-allowed",
-                      opacity: 0.6
-                    }}
+                    _placeholder={{ color: "#9CA3AF" }}
                   />
                   {errors.phone_number && (
-                    <Text color="#FF3B30" fontSize="13px" mt="6px">
+                    <Text color="#B91C1C" fontSize="13px" mt="6px">
                       {errors.phone_number}
                     </Text>
                   )}
                 </FormControl>
               </Box>
             </Box>
-            <Divider borderColor="#E5E5EA" />
-            
-            {/* Organisation (Optional) */}
+
             <FormControl>
-              <FormLabel 
-                fontSize="15px" 
-                fontWeight="600" 
-                color="#1D1D1F"
-                mb="6px"
-              >
-                Organisation <Text as="span" color="#86868B" fontSize="13px" fontWeight="400">(Optional)</Text>
+              <FormLabel fontSize="14px" fontWeight="600" color="#111827" mb="8px">
+                Organisation <Text as="span" color="#6B7280" fontSize="13px" fontWeight="500">(Optional)</Text>
               </FormLabel>
               <Input
                 type="text"
@@ -393,61 +324,48 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 placeholder="Company or University"
                 disabled={isLoading}
                 height="52px"
-                fontSize="17px"
-                borderWidth="1px"
-                borderRadius="12px"
-                borderColor="#D1D1D6"
+                fontSize="16px"
+                borderRadius="14px"
+                borderColor="#D1D5DB"
                 bg="white"
-                color="#1D1D1F"
+                color="#0B1120"
                 px="16px"
-                py="14px"
-                fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                transition="border-color 0.2s ease"
-                _hover={{ borderColor: "#B0B0B5" }}
-                _focus={{ 
-                  borderColor: "#007AFF",
-                  boxShadow: "none"
+                _focus={{
+                  borderColor: "#00A9E0",
+                  boxShadow: "0 0 0 2px rgba(0,169,224,0.18)",
                 }}
-                _placeholder={{ color: "#86868B" }}
-                _disabled={{
-                  borderColor: "#E5E5EA",
-                  bg: "#F5F5F7",
-                  color: "#86868B",
-                  cursor: "not-allowed",
-                  opacity: 0.6
-                }}
+                _placeholder={{ color: "#9CA3AF" }}
               />
             </FormControl>
-            <Divider borderColor="#E5E5EA" />
-            
-            {/* Submit Button - uses shared PrimaryCtaButton for consistent CTA styling */}
-            <PrimaryCtaButton
-              type="submit"
-              width="100%"
-              mt={2}
-              isLoading={isLoading}
-              loadingText="Creating your profile..."
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <>
-                  <Spinner size="sm" mr={2} />
-                  Generating AI Profile...
-                </>
-              ) : (
-                "Create Your Hushh ID →"
-              )}
-            </PrimaryCtaButton>
-            
-            <Text 
-              fontSize="13px" 
-              color="#6E6E73" 
-              textAlign="center"
-              mt={2}
-              fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-            >
-              We'll use AI to intelligently prefill your investor profile based on your information
-            </Text>
+
+            <Box pt={2}>
+              <Button
+                type="submit"
+                w="100%"
+                h="54px"
+                borderRadius="16px"
+                fontSize="17px"
+                fontWeight="650"
+                color="#0B1120"
+                bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
+                transition="transform 120ms ease-out, filter 120ms ease-out"
+                _active={{ transform: "scale(0.985)", filter: "brightness(0.94)" }}
+                _hover={{ bgGradient: "linear(to-r, #00A9E0, #6DD3EF)" }}
+                isDisabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <Spinner size="sm" mr={2} />
+                    Generating AI Profile...
+                  </>
+                ) : (
+                  "Create Your Hushh ID →"
+                )}
+              </Button>
+              <Text fontSize="14px" color="#6B7280" textAlign="left" mt={3} lineHeight="1.45">
+                We'll use AI to intelligently prefill your investor profile based on your information
+              </Text>
+            </Box>
           </VStack>
         </form>
       </VStack>

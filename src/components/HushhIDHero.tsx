@@ -36,7 +36,7 @@ export const HushhIDHero: React.FC<HushhIDHeroProps> = ({
           >
             Investor Profile
           </p>
-          <h1 className="text-[40px] font-[700] leading-[1.10] text-[#0B1120] mb-4">
+          <h1 className="text-[36px] font-[700] leading-[1.10] text-[#0B1120] mb-5">
             Hello {userName},
           </h1>
           <p className="text-[18px] leading-[1.65] text-[#475569] max-w-[90%] mb-8">
@@ -58,24 +58,8 @@ export const HushhIDHero: React.FC<HushhIDHeroProps> = ({
                 key={benefit}
                 className="flex items-center gap-4 px-4 py-4 min-h-[64px] text-left transition-colors duration-150 active:bg-[#F9FAFB]"
               >
-                <div className="w-9 h-9 rounded-full border border-[#E5E7EB] bg-white flex items-center justify-center flex-shrink-0">
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6 10.5L8.8 13l5.2-6"
-                      stroke="#0B1120"
-                      strokeWidth="1.6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-                <p className="text-[18px] font-semibold leading-[1.55] text-[#111827]">{benefit}</p>
+                <span className="w-2 h-2 rounded-full bg-[#00A9E0] flex-shrink-0 mt-[2px]" />
+                <p className="text-[18px] font-semibold leading-[1.45] text-[#111827]">{benefit}</p>
               </div>
             ))}
           </div>
