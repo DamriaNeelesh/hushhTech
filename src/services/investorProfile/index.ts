@@ -6,17 +6,19 @@ import {
   DerivedContext 
 } from "../../types/investorProfile";
 import { enrichContext } from "./enrichContext";
-import { generateInvestorProfile } from "./generateProfile";
+import { generateInvestorProfile as generateInvestorProfileAPI } from "./apiClient";
 
 /**
  * Create a new investor profile for the authenticated user
  * 
  * Flow:
  * 1. Get authenticated user
- * 2. Enrich context from input (phone → country/currency, email → type, etc.)
- * 3. Generate AI-powered investor profile (12 fields with confidence scores)
+ * 2. Check if profile already exists
+ * 3. Call Supabase Edge Function to generate AI-powered investor profile
  * 4. Save to Supabase investor_profiles table
  * 5. Return complete profile record
+ * 
+ * SECURITY: AI generation now happens in Supabase Edge Function with secure API key storage
  */
 export async function createInvestorProfile(
   input: InvestorProfileInput
@@ -49,11 +51,17 @@ export async function createInvestorProfile(
     throw new Error("Investor profile already exists for this user. Use updateInvestorProfile instead.");
   }
   
-  // 3. Enrich context from input
+  // 3. Enrich context from input (done client-side, no sensitive data)
   const derivedContext = await enrichContext(input);
   
-  // 4. Generate AI-powered investor profile
-  const investorProfile = await generateInvestorProfile(input, derivedContext);
+  // 4. Generate AI-powered investor profile using SECURE Edge Function
+  const result = await generateInvestorProfileAPI(input);
+  
+  if (!result.success || !result.profile) {
+    throw new Error(result.error || "Failed to generate investor profile");
+  }
+  
+  const investorProfile = result.profile;
   
   // 5. Save to database
   const { data: profileRecord, error: insertError } = await supabase
