@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Box, Input, Button, VStack, HStack, Text, Avatar, Spinner } from '@chakra-ui/react';
+import ReactMarkdown from 'react-markdown';
 
 type Message = { role: 'user' | 'assistant'; content: string };
 
@@ -50,7 +51,7 @@ export function InvestorChatWidget({ slug, investorName }: { slug: string; inves
     <Box border="1px" borderColor="gray.200" borderRadius="lg" p={4} bg="white" shadow="sm">
       <VStack spacing={4} align="stretch">
         <HStack>
-          <Text fontWeight="bold" fontSize="lg">💬 Chat with AI Assistant</Text>
+          <Text fontWeight="bold" fontSize="lg">💬 Chat with {investorName} Investor Assistant</Text>
         </HStack>
         
         <Box 
@@ -84,7 +85,46 @@ export function InvestorChatWidget({ slug, investorName }: { slug: string; inves
                 borderRadius="lg"
                 boxShadow="sm"
               >
-                <Text fontSize="sm" whiteSpace="pre-wrap">{msg.content}</Text>
+                {msg.role === 'assistant' ? (
+                  <Box
+                    fontSize="sm"
+                    sx={{
+                      '& p': {
+                        marginBottom: '0.5rem',
+                        lineHeight: '1.6',
+                      },
+                      '& p:last-child': {
+                        marginBottom: '0',
+                      },
+                      '& strong': {
+                        fontWeight: '700',
+                        color: 'black',
+                      },
+                      '& em': {
+                        fontStyle: 'italic',
+                      },
+                      '& ul, & ol': {
+                        marginLeft: '1.25rem',
+                        marginTop: '0.25rem',
+                        marginBottom: '0.5rem',
+                      },
+                      '& li': {
+                        marginBottom: '0.25rem',
+                        lineHeight: '1.5',
+                      },
+                      '& ul li': {
+                        listStyleType: 'disc',
+                      },
+                      '& ol li': {
+                        listStyleType: 'decimal',
+                      },
+                    }}
+                  >
+                    <ReactMarkdown>{msg.content}</ReactMarkdown>
+                  </Box>
+                ) : (
+                  <Text fontSize="sm" whiteSpace="pre-wrap">{msg.content}</Text>
+                )}
               </Box>
               {msg.role === 'user' && (
                 <Avatar size="sm" name="You" bg="gray.400" />
