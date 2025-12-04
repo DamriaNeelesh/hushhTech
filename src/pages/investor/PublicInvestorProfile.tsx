@@ -10,6 +10,7 @@ import {
 import { Share2, Copy, Check } from "lucide-react";
 import { PrimaryCtaButton } from "../../components/PrimaryCtaButton";
 import { InvestorChatWidget } from "../../components/InvestorChatWidget";
+import DeveloperSettings from "../../components/DeveloperSettings";
 import { fetchPublicInvestorProfileBySlug } from "../../services/investorProfile";
 import { maskProfileData } from "../../utils/maskSensitiveData";
 import { InvestorProfile, FIELD_LABELS, VALUE_LABELS } from "../../types/investorProfile";
@@ -261,6 +262,11 @@ const PublicInvestorProfilePage: React.FC = () => {
             </Text>
           </VStack>
 
+          {/* Chat Widget - Moved to Top for Better Visibility */}
+          <Box mb={8}>
+            <InvestorChatWidget slug={slug!} investorName={maskedData.name} />
+          </Box>
+
           {/* Investment Profile Details */}
           <Box>
             <HStack spacing={2} align="center" mb={3}>
@@ -317,9 +323,9 @@ const PublicInvestorProfilePage: React.FC = () => {
             </Accordion>
           </Box>
 
-          {/* Chat Widget */}
+          {/* Developer Settings */}
           <Box mt={8}>
-            <InvestorChatWidget slug={slug!} investorName={maskedData.name} />
+            <DeveloperSettings investorSlug={slug!} />
           </Box>
 
           {/* CTA to create own profile */}
