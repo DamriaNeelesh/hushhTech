@@ -140,23 +140,26 @@ const HushhUserProfilePage: React.FC = () => {
   const headingAnimation = prefersReducedMotion ? undefined : `${fadeUp} 0.35s ease-out 0.05s both`;
   const inputBaseStyles = {
     h: "52px",
-    borderRadius: "lg",
+    borderRadius: "14px",
     bg: "white",
-    borderColor: "#E4E7EC",
+    borderColor: "#D1D5DB",
+    px: 4,
+    fontSize: "16px",
+    fontWeight: 500,
+    color: "#0B1120",
     _hover: { borderColor: "#CBD5E1" },
     _focus: {
-      borderColor: "rgb(0, 169, 224)",
-      boxShadow: "0 0 0 1px rgba(0, 169, 224, 0.35)",
-      transform: prefersReducedMotion ? undefined : "translateY(-1px)",
+      borderColor: "#00A9E0",
+      boxShadow: "0 0 0 2px rgba(0,169,224,0.18)",
     },
-    transition: "all 0.18s ease",
-    fontSize: "15px",
+    _placeholder: { color: "#9CA3AF" },
+    transition: "border-color 0.16s ease, box-shadow 0.16s ease",
   } as const;
   const labelBaseStyles = {
-    fontSize: "sm",
+    fontSize: "14px",
     fontWeight: 600,
-    color: "#1f2937",
-    mb: 1,
+    color: "#111827",
+    mb: "8px",
   } as const;
   const focusLabelStyles = {
     "&:focus-within label": {
@@ -668,110 +671,123 @@ const HushhUserProfilePage: React.FC = () => {
           </Box>
         </Box>
 
-        <Box animation={headingAnimation}>
-          <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="700" color="#1c1c1c" mt={{ base: 4, md: 5 }}>
+        <Box animation={headingAnimation} px={{ base: 1, md: 2 }} mt={2}>
+          <Heading fontSize="24px" fontWeight="700" lineHeight="1.2" color="#0B1120" mb={4}>
             Basic Information
-          </Text>
-        </Box>
-
-        <VStack align="stretch" spacing={5} mt={3}>
-          <FormControl isRequired sx={focusLabelStyles}>
-            <FormLabel {...labelBaseStyles}>
-              Full Name <Text as="span" color="#ef4444" ml={1}>*</Text>
-            </FormLabel>
-            <InputGroup>
-              <Input
-                {...inputBaseStyles}
-                ref={firstFieldRef}
-                value={form.name}
-                onChange={(e) => handleChange("name", e.target.value)}
-                placeholder="Enter your full name"
-              />
-              {renderCheckmark(form.name)}
-            </InputGroup>
-          </FormControl>
-
-          <FormControl isRequired sx={focusLabelStyles}>
-            <FormLabel {...labelBaseStyles}>
-              Email <Text as="span" color="#ef4444" ml={1}>*</Text>
-            </FormLabel>
-            <InputGroup>
-              <Input
-                type="email"
-                {...inputBaseStyles}
-                value={form.email}
-                onChange={(e) => handleChange("email", e.target.value)}
-                placeholder="your.email@company.com"
-              />
-              {renderCheckmark(form.email)}
-            </InputGroup>
-          </FormControl>
-
-          <FormControl isRequired sx={focusLabelStyles}>
-            <FormLabel {...labelBaseStyles}>
-              Age <Text as="span" color="#ef4444" ml={1}>*</Text>
-            </FormLabel>
-            <InputGroup>
-              <Input
-                type="number"
-                {...inputBaseStyles}
-                value={form.age}
-                onChange={(e) => handleChange("age", e.target.value)}
-                placeholder="24"
-              />
-              {renderCheckmark(form.age)}
-            </InputGroup>
-          </FormControl>
-
-          <Box>
-            <HStack spacing={4} align="flex-end">
-              <FormControl isRequired flex={0.32} sx={focusLabelStyles}>
-                <FormLabel {...labelBaseStyles}>
-                  Country Code <Text as="span" color="#ef4444" ml={1}>*</Text>
-                </FormLabel>
-                <InputGroup>
-                  <Input
-                    {...inputBaseStyles}
-                    value={form.phoneCountryCode}
-                    onChange={(e) => handleChange("phoneCountryCode", e.target.value)}
-                    placeholder="+1"
-                  />
-                  {renderCheckmark(form.phoneCountryCode)}
-                </InputGroup>
-              </FormControl>
-
-              <FormControl isRequired flex={1} sx={focusLabelStyles}>
-                <FormLabel {...labelBaseStyles}>
-                  Phone Number <Text as="span" color="#ef4444" ml={1}>*</Text>
-                </FormLabel>
-                <InputGroup>
-                  <Input
-                    {...inputBaseStyles}
-                    value={form.phoneNumber}
-                    onChange={(e) => handleChange("phoneNumber", e.target.value)}
-                    placeholder="1234567890"
-                  />
-                  {renderCheckmark(form.phoneNumber)}
-                </InputGroup>
-              </FormControl>
-            </HStack>
+          </Heading>
+          <Box position="relative" w="100%" h="1px" bg="#E5E7EB" mb={4}>
+            <Box
+              position="absolute"
+              left={0}
+              top="50%"
+              transform="translateY(-50%)"
+              w="16px"
+              h="2px"
+              bg="#00A9E0"
+            />
           </Box>
 
-          <FormControl sx={focusLabelStyles}>
-            <FormLabel {...labelBaseStyles}>
-              Organisation <Text as="span" color="#6b7280" fontWeight="500" ml={1}>(Optional)</Text>
-            </FormLabel>
-            <InputGroup>
-              <Input
-                {...inputBaseStyles}
-                value={form.organisation}
-                onChange={(e) => handleChange("organisation", e.target.value)}
-                placeholder="Company name"
-              />
-              {renderCheckmark(form.organisation)}
-            </InputGroup>
-          </FormControl>
-        </VStack>
+          <VStack align="stretch" spacing={5}>
+            <FormControl isRequired sx={focusLabelStyles}>
+              <FormLabel {...labelBaseStyles}>
+                Full Name <Text as="span" color="#B91C1C" fontSize="12px" ml={1}>*</Text>
+              </FormLabel>
+              <InputGroup>
+                <Input
+                  {...inputBaseStyles}
+                  ref={firstFieldRef}
+                  value={form.name}
+                  onChange={(e) => handleChange("name", e.target.value)}
+                  placeholder="Enter your full name"
+                />
+                {renderCheckmark(form.name)}
+              </InputGroup>
+            </FormControl>
+
+            <FormControl isRequired sx={focusLabelStyles}>
+              <FormLabel {...labelBaseStyles}>
+                Email <Text as="span" color="#B91C1C" fontSize="12px" ml={1}>*</Text>
+              </FormLabel>
+              <InputGroup>
+                <Input
+                  type="email"
+                  {...inputBaseStyles}
+                  value={form.email}
+                  onChange={(e) => handleChange("email", e.target.value)}
+                  placeholder="your.email@company.com"
+                />
+                {renderCheckmark(form.email)}
+              </InputGroup>
+            </FormControl>
+
+            <FormControl isRequired sx={focusLabelStyles}>
+              <FormLabel {...labelBaseStyles}>
+                Age <Text as="span" color="#B91C1C" fontSize="12px" ml={1}>*</Text>
+              </FormLabel>
+              <InputGroup>
+                <Input
+                  type="number"
+                  {...inputBaseStyles}
+                  value={form.age}
+                  onChange={(e) => handleChange("age", e.target.value)}
+                  placeholder="24"
+                />
+                {renderCheckmark(form.age)}
+              </InputGroup>
+            </FormControl>
+
+            <Box>
+              <HStack spacing={3} align="flex-end">
+                <FormControl isRequired flex="0 0 96px" sx={focusLabelStyles}>
+                  <FormLabel {...labelBaseStyles}>
+                    Country Code <Text as="span" color="#B91C1C" fontSize="12px" ml={1}>*</Text>
+                  </FormLabel>
+                  <InputGroup>
+                    <Input
+                      {...inputBaseStyles}
+                      value={form.phoneCountryCode}
+                      onChange={(e) => handleChange("phoneCountryCode", e.target.value)}
+                      placeholder="+1"
+                    />
+                    {renderCheckmark(form.phoneCountryCode)}
+                  </InputGroup>
+                </FormControl>
+
+                <FormControl isRequired flex={1} sx={focusLabelStyles}>
+                  <FormLabel {...labelBaseStyles}>
+                    Phone Number <Text as="span" color="#B91C1C" fontSize="12px" ml={1}>*</Text>
+                  </FormLabel>
+                  <InputGroup>
+                    <Input
+                      {...inputBaseStyles}
+                      value={form.phoneNumber}
+                      onChange={(e) => handleChange("phoneNumber", e.target.value)}
+                      placeholder="1234567890"
+                    />
+                    {renderCheckmark(form.phoneNumber)}
+                  </InputGroup>
+                </FormControl>
+              </HStack>
+            </Box>
+
+            <FormControl sx={focusLabelStyles}>
+              <FormLabel {...labelBaseStyles}>
+                Organisation <Text as="span" color="#6B7280" fontWeight="500" ml={1}>(Optional)</Text>
+              </FormLabel>
+              <InputGroup>
+                <Input
+                  {...inputBaseStyles}
+                  value={form.organisation}
+                  onChange={(e) => handleChange("organisation", e.target.value)}
+                  placeholder="Company name"
+                />
+                {renderCheckmark(form.organisation)}
+              </InputGroup>
+            </FormControl>
+          </VStack>
+
+          <Box borderBottom="1px solid #E5E7EB" mt={6} />
+        </Box>
 
         {investorProfile && (
           <Box mt={6}>
