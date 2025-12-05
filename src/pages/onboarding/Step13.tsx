@@ -102,7 +102,7 @@ function OnboardingStep13() {
       <div className="w-full max-w-2xl">
         <div className="mb-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: '#0B1120' }}>
+            <h1 className="text-4xl md:text-5xl mb-6" style={{ color: '#0B1120', fontWeight: 500 }}>
               Initial investment amount
             </h1>
           </div>

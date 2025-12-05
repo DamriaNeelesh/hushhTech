@@ -153,7 +153,7 @@ function OnboardingStep14() {
       <div className="w-full max-w-2xl">
         <div className="mb-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#0B1120' }}>
+            <h1 className="text-4xl md:text-5xl mb-4" style={{ color: '#0B1120', fontWeight: 500 }}>
               Make a recurring investment
             </h1>
             <p className="text-lg text-gray-700 mb-8">
@@ -169,7 +169,7 @@ function OnboardingStep14() {
 
           {/* Frequency */}
           <div className="mb-6">
-            <label className="block text-base font-semibold mb-3" style={{ color: '#0B1120' }}>
+            <label className="block text-base mb-3" style={{ color: '#0B1120', fontWeight: 500 }}>
               Frequency
             </label>
             <div className="flex flex-wrap gap-3">
@@ -197,7 +197,7 @@ function OnboardingStep14() {
 
           {/* Investment days */}
           <div className="mb-6">
-            <label className="block text-base font-semibold mb-3" style={{ color: '#0B1120' }}>
+            <label className="block text-base mb-3" style={{ color: '#0B1120', fontWeight: 500 }}>
               Investment days
             </label>
             <div className="relative">
@@ -226,7 +226,7 @@ function OnboardingStep14() {
 
           {/* Amount */}
           <div className="mb-8">
-            <label className="block text-base font-semibold mb-3" style={{ color: '#0B1120' }}>
+            <label className="block text-base mb-3" style={{ color: '#0B1120', fontWeight: 500 }}>
               Amount
             </label>
             <div className="flex flex-wrap gap-3 mb-3">
