@@ -132,7 +132,7 @@ export default function Hero() {
                       bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
                       color="#0B1120"
                       fontSize="17px"
-                      fontWeight="650"
+                      fontWeight="500"
                       letterSpacing="0.01em"
                       _hover={{ bgGradient: "linear(to-r, #00A9E0, #6DD3EF)" }}
                       _active={{
@@ -155,7 +155,7 @@ export default function Hero() {
                       borderWidth="1.5px"
                       color="#0B1120"
                       fontSize="17px"
-                      fontWeight="650"
+                      fontWeight="500"
                       fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
                       _hover={{ bg: "#FFFFFF" }}
                       _active={{ bg: "#F9FAFB", borderColor: "#0B1120" }}
