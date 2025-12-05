@@ -85,8 +85,12 @@ function OnboardingStep14() {
     const finalAmount = getFinalAmount();
     
     // Convert day string to integer
-    const convertDayToInt = (day: string): number => {
+    const convertDayToInt = (day: string | number): number => {
+      // If already a number, return it
+      if (typeof day === 'number') return day;
+      // If string "Last", return 31
       if (day === 'Last') return 31;
+      // Extract number from string like "1st", "2nd", etc.
       return parseInt(day.replace(/\D/g, ''));
     };
     
