@@ -125,22 +125,16 @@ function OnboardingStep13() {
             <p className="text-red-600 mb-4">{error}</p>
           )}
 
-          {/* Limited time offer box */}
+          {/* Investment requirement notice */}
           <div className="bg-gray-100 rounded-lg p-4 mb-6">
             <div className="flex items-start gap-3">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="mt-1 flex-shrink-0">
-                <path d="M20 12V22H4V12M22 7H2V12H22V7ZM12 22V7M12 7C10.9391 7 9.92172 6.57857 9.17157 5.82843C8.42143 5.07828 8 4.06087 8 3H16C16 4.06087 15.5786 5.07828 14.8284 5.82843C14.0783 6.57857 13.0609 7 12 7Z" stroke="#0B1120" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM11 7H13V9H11V7ZM11 11H13V17H11V11Z" fill="#0B1120"/>
               </svg>
               <div>
-                <p className="font-semibold mb-1" style={{ color: '#0B1120' }}>
-                  Limited time offer: 1% bonus
+                <p className="text-sm text-gray-700">
+                  We are currently accepting investments of $1 million or greater for this fund.
                 </p>
-                <p className="text-sm text-gray-700 mb-2">
-                  Start with $1,000 or more to receive a 1% bonus.
-                </p>
-                <button className="text-sm font-semibold" style={{ color: '#A0522D' }}>
-                  See full terms
-                </button>
               </div>
             </div>
           </div>
