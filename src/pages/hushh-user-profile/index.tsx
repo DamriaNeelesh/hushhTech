@@ -45,13 +45,14 @@ import {
   Mail,
   MessageCircle,
 } from "lucide-react";
-import { FaWhatsapp, FaTwitter } from "react-icons/fa";
+import { SocialIcon } from 'react-social-icons';
 import { CheckIcon, LinkIcon } from "@chakra-ui/icons";
 import { keyframes } from "@emotion/react";
 import resources from "../../resources/resources";
 import { generateInvestorProfile } from "../../services/investorProfile/apiClient";
 import { InvestorProfile, FIELD_LABELS, VALUE_LABELS } from "../../types/investorProfile";
 import DeveloperSettings from "../../components/DeveloperSettings";
+import { OnboardingData } from "../../types/onboarding";
 
 interface FormState {
   name: string;
@@ -60,6 +61,27 @@ interface FormState {
   phoneCountryCode: string;
   phoneNumber: string;
   organisation: string;
+  // Onboarding fields
+  accountType: string;
+  selectedFund: string;
+  referralSource: string;
+  citizenshipCountry: string;
+  residenceCountry: string;
+  accountStructure: string;
+  legalFirstName: string;
+  legalLastName: string;
+  addressLine1: string;
+  addressLine2: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  addressPhoneNumber: string;
+  dateOfBirth: string;
+  initialInvestmentAmount: number | "";
+  recurringInvestmentEnabled: boolean;
+  recurringFrequency: string;
+  recurringAmount: number | "";
+  recurringDayOfMonth: number | "";
 }
 
 const defaultFormState: FormState = {
@@ -69,6 +91,27 @@ const defaultFormState: FormState = {
   phoneCountryCode: "+1",
   phoneNumber: "",
   organisation: "",
+  // Onboarding defaults
+  accountType: "",
+  selectedFund: "",
+  referralSource: "",
+  citizenshipCountry: "",
+  residenceCountry: "",
+  accountStructure: "",
+  legalFirstName: "",
+  legalLastName: "",
+  addressLine1: "",
+  addressLine2: "",
+  city: "",
+  state: "",
+  zipCode: "",
+  addressPhoneNumber: "",
+  dateOfBirth: "",
+  initialInvestmentAmount: "",
+  recurringInvestmentEnabled: false,
+  recurringFrequency: "",
+  recurringAmount: "",
+  recurringDayOfMonth: "",
 };
 
 const primaryCtaStyles = {
@@ -253,14 +296,56 @@ const HushhUserProfilePage: React.FC = () => {
         if (existingProfile && existingProfile.investor_profile) {
           setInvestorProfile(existingProfile.investor_profile);
           setProfileSlug(existingProfile.slug || null);
-          setForm({
+          setForm((prev) => ({
+            ...prev,
             name: existingProfile.name || fullName,
             email: existingProfile.email || user.email || "",
             age: existingProfile.age || "",
             phoneCountryCode: existingProfile.phone_country_code || "+1",
             phoneNumber: existingProfile.phone_number || "",
             organisation: existingProfile.organisation || "",
-          });
+          }));
+        }
+
+        // Load onboarding data
+        const { data: onboardingData } = await supabase
+          .from("onboarding_data")
+          .select("*")
+          .eq("user_id", user.id)
+          .single();
+
+        if (onboardingData) {
+          // Calculate age from date of birth if available
+          const calculatedAge = onboardingData.date_of_birth
+            ? new Date().getFullYear() - new Date(onboardingData.date_of_birth).getFullYear()
+            : "";
+
+          setForm((prev) => ({
+            ...prev,
+            age: calculatedAge || prev.age,
+            phoneCountryCode: onboardingData.phone_country_code || prev.phoneCountryCode,
+            phoneNumber: onboardingData.phone_number || prev.phoneNumber,
+            accountType: onboardingData.account_type || "",
+            selectedFund: onboardingData.selected_fund || "",
+            referralSource: onboardingData.referral_source || "",
+            citizenshipCountry: onboardingData.citizenship_country || "",
+            residenceCountry: onboardingData.residence_country || "",
+            accountStructure: onboardingData.account_structure || "",
+            legalFirstName: onboardingData.legal_first_name || "",
+            legalLastName: onboardingData.legal_last_name || "",
+            addressLine1: onboardingData.address_line_1 || "",
+            addressLine2: onboardingData.address_line_2 || "",
+            city: onboardingData.city || "",
+            state: onboardingData.state || "",
+            zipCode: onboardingData.zip_code || "",
+            addressPhoneNumber: onboardingData.address_phone_number || "",
+            dateOfBirth: onboardingData.date_of_birth || "",
+            initialInvestmentAmount: onboardingData.initial_investment_amount || "",
+            recurringInvestmentEnabled: onboardingData.recurring_investment_enabled || false,
+            recurringFrequency: onboardingData.recurring_frequency || "",
+            recurringAmount: onboardingData.recurring_amount || "",
+            recurringDayOfMonth: onboardingData.recurring_day_of_month || "",
+          }));
         }
       } catch (error) {
         console.error("Authentication check failed:", error);
@@ -568,111 +653,9 @@ const HushhUserProfilePage: React.FC = () => {
             >
               Investor Profile
             </Text>
-            <Text fontSize={{ base: "34px", md: "36px" }} fontWeight="700" color="#0B1120" lineHeight="1.1" mb={5}>
+            <Text fontSize={{ base: "34px", md: "36px" }} fontWeight="700" color="#0B1120" lineHeight="1.1">
               Hello, {form.name || "there"}
             </Text>
-            <Box position="relative" w="100%" h="1px" bg="#E5E7EB" mb={4}>
-              <Box
-                position="absolute"
-                left={0}
-                top="50%"
-                transform="translateY(-50%)"
-                w="16px"
-                h="2px"
-                bg="#00A9E0"
-              />
-            </Box>
-
-            <Box mt={2}>
-              <Box border="1px solid #E5E7EB" borderRadius="16px" overflow="hidden" bg="#FFFFFF">
-                {[
-                  "Create your investor profile once.",
-                  "Save it to Wallet and share anywhere.",
-                  "No more repetitive forms.",
-                ].map((line, idx, arr) => (
-                  <Box
-                    key={line}
-                    px={4}
-                    py={4}
-                    minH="56px"
-                    display="flex"
-                    alignItems="center"
-                    gap={4}
-                    borderBottom={idx < arr.length - 1 ? "1px solid #E5E7EB" : undefined}
-                    transition="background 150ms ease"
-                    _active={{ bg: "#F9FAFB" }}
-                  >
-                    <Box w="8px" h="8px" borderRadius="full" bg="#00A9E0" mt="2px" />
-                    <Text fontSize="18px" fontWeight="500" lineHeight="1.45" color="#111827">
-                      {line}
-                    </Text>
-                  </Box>
-                ))}
-              </Box>
-            </Box>
-
-            <Box mt={4} position="relative">
-              <HStack spacing={2.5} overflowX="auto" pb={1} css={{ scrollbarWidth: "none" }}>
-                {["No Logins", "Apple Wallet Ready", "Alias-only"].map((chip) => (
-                  <Box
-                    key={chip}
-                    px={3}
-                    py={1}
-                    h="32px"
-                    borderRadius="999px"
-                    border="1px solid #E5E7EB"
-                    bg="#FFFFFF"
-                    color="#6B7280"
-                    fontSize="12px"
-                    fontWeight="700"
-                    letterSpacing="0.12em"
-                    whiteSpace="nowrap"
-                  >
-                    {chip.toUpperCase()}
-                  </Box>
-                ))}
-              </HStack>
-              <Box
-                position="absolute"
-                left={0}
-                top={0}
-                bottom={0}
-                w="24px"
-                pointerEvents="none"
-                bgGradient="linear(to-r, #FFFFFF 60%, rgba(255,255,255,0))"
-              />
-              <Box
-                position="absolute"
-                right={0}
-                top={0}
-                bottom={0}
-                w="24px"
-                pointerEvents="none"
-                bgGradient="linear(to-l, #FFFFFF 60%, rgba(255,255,255,0))"
-              />
-            </Box>
-
-            <Box mt={5}>
-              <Button
-                type="button"
-                w="full"
-                h="54px"
-                borderRadius="16px"
-                fontSize="17px"
-                fontWeight="650"
-                color="#0B1120"
-                bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
-                transition="transform 120ms ease-out, filter 120ms ease-out"
-                _active={{ transform: "scale(0.985)", filter: "brightness(0.94)" }}
-                _hover={{ bgGradient: "linear(to-r, #00A9E0, #6DD3EF)" }}
-                onClick={() => firstFieldRef.current?.focus()}
-              >
-                Create Your Hushh ID →
-              </Button>
-              <Text mt={3} fontSize="13px" color="#6B7280" textAlign="left">
-                Takes under a minute. Your details stay private.
-              </Text>
-            </Box>
           </Box>
         </Box>
 
@@ -749,7 +732,7 @@ const HushhUserProfilePage: React.FC = () => {
                         fontSize="14px"
                         fontWeight="600"
                         color="#0B1120"
-                        noOfLines={1}
+                        wordBreak="break-all"
                         flex={1}
                       >
                         {profileUrl}
@@ -776,64 +759,101 @@ const HushhUserProfilePage: React.FC = () => {
                   <Text fontSize="13px" fontWeight="600" color="white">
                     Share via
                   </Text>
-                  <HStack spacing={2} flexWrap="wrap">
-                    <Button
-                      leftIcon={<Icon as={FaWhatsapp} boxSize={5} />}
+                  <HStack spacing={3} justify="center" flexWrap="wrap">
+                    <Box
                       onClick={() => {
                         const text = encodeURIComponent("Check out my Hushh Investor Profile");
                         const url = encodeURIComponent(profileUrl);
                         window.open(`https://wa.me/?text=${text}%20${url}`, "_blank");
                       }}
-                      size="md"
-                      bg="rgba(255,255,255,0.2)"
-                      color="white"
-                      _hover={{ bg: "rgba(255,255,255,0.3)" }}
-                      _active={{ transform: "scale(0.98)" }}
-                      borderRadius="12px"
-                      fontWeight="600"
-                      flex={{ base: "1", md: "0" }}
-                      minW="140px"
+                      cursor="pointer"
+                      transition="transform 0.2s ease"
+                      _hover={{ transform: "scale(1.1)" }}
+                      _active={{ transform: "scale(0.95)" }}
                     >
-                      WhatsApp
-                    </Button>
-                    <Button
-                      leftIcon={<Icon as={FaTwitter} boxSize={5} />}
+                      <SocialIcon 
+                        network="whatsapp" 
+                        style={{ height: 50, width: 50 }}
+                        bgColor="rgba(255,255,255,0.2)"
+                        fgColor="white"
+                      />
+                    </Box>
+                    <Box
                       onClick={() => {
                         const text = encodeURIComponent("Check out my Hushh Investor Profile");
                         const url = encodeURIComponent(profileUrl);
                         window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, "_blank");
                       }}
-                      size="md"
-                      bg="rgba(255,255,255,0.2)"
-                      color="white"
-                      _hover={{ bg: "rgba(255,255,255,0.3)" }}
-                      _active={{ transform: "scale(0.98)" }}
-                      borderRadius="12px"
-                      fontWeight="600"
-                      flex={{ base: "1", md: "0" }}
-                      minW="140px"
+                      cursor="pointer"
+                      transition="transform 0.2s ease"
+                      _hover={{ transform: "scale(1.1)" }}
+                      _active={{ transform: "scale(0.95)" }}
                     >
-                      Twitter
-                    </Button>
-                    <Button
-                      leftIcon={<Icon as={Mail} boxSize={5} />}
+                      <SocialIcon 
+                        network="x" 
+                        style={{ height: 50, width: 50 }}
+                        bgColor="rgba(255,255,255,0.2)"
+                        fgColor="white"
+                      />
+                    </Box>
+                    <Box
                       onClick={() => {
                         const subject = encodeURIComponent("My Hushh Investor Profile");
                         const body = encodeURIComponent(`Check out my investor profile: ${profileUrl}`);
                         window.location.href = `mailto:?subject=${subject}&body=${body}`;
                       }}
-                      size="md"
-                      bg="rgba(255,255,255,0.2)"
-                      color="white"
-                      _hover={{ bg: "rgba(255,255,255,0.3)" }}
-                      _active={{ transform: "scale(0.98)" }}
-                      borderRadius="12px"
-                      fontWeight="600"
-                      flex={{ base: "1", md: "0" }}
-                      minW="140px"
+                      cursor="pointer"
+                      transition="transform 0.2s ease"
+                      _hover={{ transform: "scale(1.1)" }}
+                      _active={{ transform: "scale(0.95)" }}
                     >
-                      Email
-                    </Button>
+                      <SocialIcon 
+                        network="email" 
+                        style={{ height: 50, width: 50 }}
+                        bgColor="rgba(255,255,255,0.2)"
+                        fgColor="white"
+                      />
+                    </Box>
+                    <Box
+                      onClick={() => {
+                        const url = encodeURIComponent(profileUrl);
+                        const title = encodeURIComponent("My Hushh Investor Profile");
+                        const summary = encodeURIComponent("Check out my investor profile on Hushh");
+                        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, "_blank");
+                      }}
+                      cursor="pointer"
+                      transition="transform 0.2s ease"
+                      _hover={{ transform: "scale(1.1)" }}
+                      _active={{ transform: "scale(0.95)" }}
+                    >
+                      <SocialIcon 
+                        network="linkedin" 
+                        style={{ height: 50, width: 50 }}
+                        bgColor="rgba(255,255,255,0.2)"
+                        fgColor="white"
+                      />
+                    </Box>
+                    <Box
+                      onClick={triggerCopy}
+                      cursor="pointer"
+                      transition="transform 0.2s ease"
+                      _hover={{ transform: "scale(1.1)" }}
+                      _active={{ transform: "scale(0.95)" }}
+                      bg="rgba(255,255,255,0.2)"
+                      borderRadius="full"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      w="50px"
+                      h="50px"
+                      border="2px solid rgba(255,255,255,0.3)"
+                    >
+                      <Icon 
+                        as={hasCopied ? Check : Copy} 
+                        boxSize={6} 
+                        color="white"
+                      />
+                    </Box>
                   </HStack>
                 </VStack>
               </VStack>
@@ -843,7 +863,7 @@ const HushhUserProfilePage: React.FC = () => {
 
         <Box animation={headingAnimation} px={{ base: 1, md: 2 }} mt={2}>
           <Heading fontSize="24px" fontWeight="700" lineHeight="1.2" color="#0B1120" mb={4}>
-            Basic Information
+            Your Hushh Profile
           </Heading>
           <Box position="relative" w="100%" h="1px" bg="#E5E7EB" mb={4}>
             <Box
@@ -954,6 +974,149 @@ const HushhUserProfilePage: React.FC = () => {
                 {renderCheckmark(form.organisation)}
               </InputGroup>
             </FormControl>
+
+            {/* Onboarding Data Fields */}
+            {form.accountType && (
+              <FormControl sx={focusLabelStyles}>
+                <FormLabel {...labelBaseStyles}>Account Type</FormLabel>
+                <Input {...inputBaseStyles} value={form.accountType} isReadOnly bg="#F9FAFB" />
+              </FormControl>
+            )}
+
+            {form.selectedFund && (
+              <FormControl sx={focusLabelStyles}>
+                <FormLabel {...labelBaseStyles}>Selected Fund</FormLabel>
+                <Input {...inputBaseStyles} value={form.selectedFund} isReadOnly bg="#F9FAFB" />
+              </FormControl>
+            )}
+
+            {form.referralSource && (
+              <FormControl sx={focusLabelStyles}>
+                <FormLabel {...labelBaseStyles}>Referral Source</FormLabel>
+                <Input {...inputBaseStyles} value={form.referralSource} isReadOnly bg="#F9FAFB" />
+              </FormControl>
+            )}
+
+            {form.citizenshipCountry && (
+              <FormControl sx={focusLabelStyles}>
+                <FormLabel {...labelBaseStyles}>Citizenship Country</FormLabel>
+                <Input {...inputBaseStyles} value={form.citizenshipCountry} isReadOnly bg="#F9FAFB" />
+              </FormControl>
+            )}
+
+            {form.residenceCountry && (
+              <FormControl sx={focusLabelStyles}>
+                <FormLabel {...labelBaseStyles}>Residence Country</FormLabel>
+                <Input {...inputBaseStyles} value={form.residenceCountry} isReadOnly bg="#F9FAFB" />
+              </FormControl>
+            )}
+
+            {form.accountStructure && (
+              <FormControl sx={focusLabelStyles}>
+                <FormLabel {...labelBaseStyles}>Account Structure</FormLabel>
+                <Input {...inputBaseStyles} value={form.accountStructure} isReadOnly bg="#F9FAFB" />
+              </FormControl>
+            )}
+
+            {form.legalFirstName && (
+              <FormControl sx={focusLabelStyles}>
+                <FormLabel {...labelBaseStyles}>Legal First Name</FormLabel>
+                <Input {...inputBaseStyles} value={form.legalFirstName} isReadOnly bg="#F9FAFB" />
+              </FormControl>
+            )}
+
+            {form.legalLastName && (
+              <FormControl sx={focusLabelStyles}>
+                <FormLabel {...labelBaseStyles}>Legal Last Name</FormLabel>
+                <Input {...inputBaseStyles} value={form.legalLastName} isReadOnly bg="#F9FAFB" />
+              </FormControl>
+            )}
+
+            {form.addressLine1 && (
+              <FormControl sx={focusLabelStyles}>
+                <FormLabel {...labelBaseStyles}>Address Line 1</FormLabel>
+                <Input {...inputBaseStyles} value={form.addressLine1} isReadOnly bg="#F9FAFB" />
+              </FormControl>
+            )}
+
+            {form.addressLine2 && (
+              <FormControl sx={focusLabelStyles}>
+                <FormLabel {...labelBaseStyles}>Address Line 2</FormLabel>
+                <Input {...inputBaseStyles} value={form.addressLine2} isReadOnly bg="#F9FAFB" />
+              </FormControl>
+            )}
+
+            {form.city && (
+              <FormControl sx={focusLabelStyles}>
+                <FormLabel {...labelBaseStyles}>City</FormLabel>
+                <Input {...inputBaseStyles} value={form.city} isReadOnly bg="#F9FAFB" />
+              </FormControl>
+            )}
+
+            {form.state && (
+              <FormControl sx={focusLabelStyles}>
+                <FormLabel {...labelBaseStyles}>State</FormLabel>
+                <Input {...inputBaseStyles} value={form.state} isReadOnly bg="#F9FAFB" />
+              </FormControl>
+            )}
+
+            {form.zipCode && (
+              <FormControl sx={focusLabelStyles}>
+                <FormLabel {...labelBaseStyles}>Zip Code</FormLabel>
+                <Input {...inputBaseStyles} value={form.zipCode} isReadOnly bg="#F9FAFB" />
+              </FormControl>
+            )}
+
+            {form.addressPhoneNumber && (
+              <FormControl sx={focusLabelStyles}>
+                <FormLabel {...labelBaseStyles}>Address Phone Number</FormLabel>
+                <Input {...inputBaseStyles} value={form.addressPhoneNumber} isReadOnly bg="#F9FAFB" />
+              </FormControl>
+            )}
+
+            {form.dateOfBirth && (
+              <FormControl sx={focusLabelStyles}>
+                <FormLabel {...labelBaseStyles}>Date of Birth</FormLabel>
+                <Input {...inputBaseStyles} value={form.dateOfBirth} isReadOnly bg="#F9FAFB" />
+              </FormControl>
+            )}
+
+            {form.initialInvestmentAmount !== "" && (
+              <FormControl sx={focusLabelStyles}>
+                <FormLabel {...labelBaseStyles}>Initial Investment Amount</FormLabel>
+                <Input {...inputBaseStyles} value={`$${form.initialInvestmentAmount}`} isReadOnly bg="#F9FAFB" />
+              </FormControl>
+            )}
+
+            {form.recurringInvestmentEnabled && (
+              <>
+                <FormControl sx={focusLabelStyles}>
+                  <FormLabel {...labelBaseStyles}>Recurring Investment</FormLabel>
+                  <Input {...inputBaseStyles} value="Enabled" isReadOnly bg="#F9FAFB" />
+                </FormControl>
+
+                {form.recurringFrequency && (
+                  <FormControl sx={focusLabelStyles}>
+                    <FormLabel {...labelBaseStyles}>Recurring Frequency</FormLabel>
+                    <Input {...inputBaseStyles} value={form.recurringFrequency} isReadOnly bg="#F9FAFB" />
+                  </FormControl>
+                )}
+
+                {form.recurringAmount !== "" && (
+                  <FormControl sx={focusLabelStyles}>
+                    <FormLabel {...labelBaseStyles}>Recurring Amount</FormLabel>
+                    <Input {...inputBaseStyles} value={`$${form.recurringAmount}`} isReadOnly bg="#F9FAFB" />
+                  </FormControl>
+                )}
+
+                {form.recurringDayOfMonth !== "" && (
+                  <FormControl sx={focusLabelStyles}>
+                    <FormLabel {...labelBaseStyles}>Recurring Day of Month</FormLabel>
+                    <Input {...inputBaseStyles} value={form.recurringDayOfMonth} isReadOnly bg="#F9FAFB" />
+                  </FormControl>
+                )}
+              </>
+            )}
           </VStack>
 
           <Box borderBottom="1px solid #E5E7EB" mt={6} />
@@ -1048,8 +1211,7 @@ const HushhUserProfilePage: React.FC = () => {
                           flex="1"
                           fontSize="sm"
                           color="#0f172a"
-                          noOfLines={1}
-                          title={profileUrl}
+                          wordBreak="break-all"
                           fontWeight="600"
                         >
                           {profileUrl}
@@ -1304,16 +1466,6 @@ const HushhUserProfilePage: React.FC = () => {
           <Text mt={2} fontSize="sm" color="#475467" textAlign="center">
             These details personalise your investor profile.
           </Text>
-          <HStack justify="center" spacing={3} mt={3} color="#111827">
-            <Text fontSize="xs" letterSpacing="0.14em" fontWeight="700">
-              ◀ SWIPE TO SKIM ▶
-            </Text>
-            <HStack spacing={1}>
-              <Box w="6px" h="6px" borderRadius="full" bg="#111827" />
-              <Box w="6px" h="6px" borderRadius="full" bg="#E5E7EB" />
-              <Box w="6px" h="6px" borderRadius="full" bg="#E5E7EB" />
-            </HStack>
-          </HStack>
         </Box>
 
         {/* Developer Settings - Shows MCP endpoints when profile is created */}

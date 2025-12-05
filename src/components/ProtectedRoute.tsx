@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import config from '../resources/config/config';
 
 interface ProtectedRouteProps {
@@ -10,11 +10,12 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
-    const checkAuthAndRegistration = async () => {
+    const checkAuthAndOnboarding = async () => {
       try {
         if (!config.supabaseClient) {
           console.error("Supabase client is not initialized");
@@ -31,18 +32,37 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
           return;
         }
 
-        // User is authenticated and (if required) has completed registration
+        // Check if user has completed onboarding
+        const { data: onboardingData } = await config.supabaseClient
+          .from('onboarding_data')
+          .select('is_completed, current_step')
+          .eq('user_id', user.id)
+          .maybeSingle();
+
+        // If user hasn't completed onboarding and is NOT on an onboarding page, redirect to onboarding
+        const isOnOnboardingPage = location.pathname.startsWith('/onboarding/');
+        
+        if (!onboardingData || !onboardingData.is_completed) {
+          // User must complete onboarding first
+          if (!isOnOnboardingPage) {
+            console.log('Redirecting to onboarding - not completed yet');
+            navigate('/onboarding/step-1');
+            return;
+          }
+        }
+
+        // User is authenticated and has completed onboarding (or is on onboarding page)
         setIsAuthorized(true);
       } catch (error) {
-        console.error("Error checking auth and registration:", error);
+        console.error("Error checking auth and onboarding:", error);
         navigate("/login");
       } finally {
         setIsLoading(false);
       }
     };
 
-    checkAuthAndRegistration();
-  }, [navigate]);
+    checkAuthAndOnboarding();
+  }, [navigate, location.pathname]);
 
   if (isLoading) {
     return (
@@ -62,4 +82,4 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   return <>{children}</>;
 };
 
-export default ProtectedRoute; 
+export default ProtectedRoute;

@@ -101,22 +101,22 @@ export default function Login() {
       {contextHolder}
       <div className="max-w-[420px] mx-auto px-6 pt-10 pb-8">
         {/* Logo and Header */}
-        <div className="flex flex-col items-start gap-4 mb-6">
+        <div className="flex flex-col items-center gap-4 mb-6">
           <Link to="/">
             <Image src={HushhLogo} alt="Hushh Logo" className="h-12 w-12" />
           </Link>
           <div className="space-y-3">
-            <h1 className="text-[34px] font-[700] leading-[1.10] text-[#0B1120]">
-              Log In to Hushh Technologies
+            <h1 className="text-[34px] font-[700] leading-[1.10] text-[#0B1120] text-center">
+              Invest in a better alternative
             </h1>
-            <p className="text-[18px] leading-[1.6] text-[#475569]">
-              Access your investment dashboard
+            <p className="text-[18px] leading-[1.6] text-[#475569] text-center">
+              Build a portfolio of private assets like real estate, private credit, and venture capital.
             </p>
           </div>
           <div className="relative h-px w-full bg-[#E5E7EB]">
             <span
               aria-hidden
-              className="absolute left-0 top-1/2 h-[2px] w-4 -translate-y-1/2 bg-[#00A9E0]"
+              className="absolute left-1/2 top-1/2 h-[2px] w-4 -translate-x-1/2 -translate-y-1/2 bg-[#00A9E0]"
             />
           </div>
         </div>
