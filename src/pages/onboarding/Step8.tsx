@@ -56,8 +56,15 @@ export default function OnboardingStep8() {
       return; // Don't update state if exceeds limit
     }
     
-    setPhoneNumber(value);
-    setCountryCode(`+${country.dialCode}`);
+    // Remove country code from phone number to avoid duplication
+    // The library includes country code in the value, but we store it separately
+    const dialCode = country.dialCode;
+    const phoneWithoutCountryCode = value.startsWith(dialCode) 
+      ? value.slice(dialCode.length) 
+      : value;
+    
+    setPhoneNumber(phoneWithoutCountryCode);
+    setCountryCode(`+${dialCode}`);
   };
 
   const handleContinue = async () => {
