@@ -49,6 +49,19 @@ const ProfilePage: React.FC = () => {
   const [kycStatusLoading, setKycStatusLoading] = useState<boolean>(false);
   const [kycStatusMessage, setKycStatusMessage] = useState<string>('');
 
+  // Onboarding status state
+  const [onboardingStatus, setOnboardingStatus] = useState<{
+    hasProfile: boolean;
+    isCompleted: boolean;
+    currentStep: number;
+    loading: boolean;
+  }>({
+    hasProfile: false,
+    isCompleted: false,
+    currentStep: 1,
+    loading: true
+  });
+
   useEffect(() => {
     config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
@@ -63,6 +76,46 @@ const ProfilePage: React.FC = () => {
       }
     };
   }, []);
+
+  // Check user's onboarding status
+  useEffect(() => {
+    async function checkUserStatus() {
+      if (!session?.user?.id || !config.supabaseClient) {
+        setOnboardingStatus(prev => ({ ...prev, loading: false }));
+        return;
+      }
+      
+      try {
+        // Check if investor_profile exists
+        const { data: profile, error: profileError } = await config.supabaseClient
+          .from('investor_profiles')
+          .select('id, user_confirmed')
+          .eq('user_id', session.user.id)
+          .single();
+
+        // Check onboarding_data status
+        const { data: onboarding, error: onboardingError } = await config.supabaseClient
+          .from('onboarding_data')
+          .select('is_completed, current_step')
+          .eq('user_id', session.user.id)
+          .single();
+
+        setOnboardingStatus({
+          hasProfile: !!profile && !profileError,
+          isCompleted: onboarding?.is_completed || false,
+          currentStep: onboarding?.current_step || 1,
+          loading: false
+        });
+      } catch (error) {
+        console.error('Error checking user status:', error);
+        setOnboardingStatus(prev => ({ ...prev, loading: false }));
+      }
+    }
+
+    if (session?.user?.id) {
+      checkUserStatus();
+    }
+  }, [session?.user?.id]);
 
   const checkNdaStatus = useCallback(async () => {
     if (!session) return;
@@ -393,7 +446,20 @@ We combine AI and human expertise to build exceptional businesses for long-term 
 
             {/* CTA Button */}
             <Button
-              onClick={() => navigate("/onboarding/step-1")}
+              onClick={() => {
+                // Smart navigation logic
+                if (onboardingStatus.hasProfile) {
+                  // Profile exists - go to profile page
+                  navigate("/hushh-user-profile");
+                } else if (onboardingStatus.isCompleted) {
+                  // Onboarding completed but no profile - go to profile page
+                  navigate("/hushh-user-profile");
+                } else {
+                  // Resume onboarding at current step
+                  const step = onboardingStatus.currentStep;
+                  navigate(`/onboarding/step-${step}`);
+                }
+              }}
               w="100%"
               h="54px"
               borderRadius="16px"
@@ -402,6 +468,8 @@ We combine AI and human expertise to build exceptional businesses for long-term 
               fontSize="17px"
               fontWeight="500"
               letterSpacing="0.01em"
+              isLoading={onboardingStatus.loading}
+              loadingText="Loading..."
               _hover={{ bgGradient: "linear(to-r, #00A9E0, #6DD3EF)" }}
               _active={{
                 transform: "scale(0.985)",
@@ -410,7 +478,14 @@ We combine AI and human expertise to build exceptional businesses for long-term 
               transition="transform 120ms ease-out, background 120ms ease-out"
               fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
             >
-              Complete your hushh profile
+              {onboardingStatus.loading 
+                ? "Loading..." 
+                : onboardingStatus.hasProfile || onboardingStatus.isCompleted
+                  ? "View Your Profile"
+                  : onboardingStatus.currentStep > 1
+                    ? `Continue Onboarding (Step ${onboardingStatus.currentStep})`
+                    : "Complete your hushh profile"
+              }
             </Button>
           </Box>
         </Box>
