@@ -193,8 +193,8 @@ export default function Navbar() {
                     className="flex items-center focus:outline-none"
                   >
                     <Avatar
-                      src={session?.user?.user_metadata?.avatar_url || firebaseUser?.photoURL || undefined}
-                      name={session?.user?.email || firebaseUser?.email || ""}
+                      src={session?.user?.user_metadata?.avatar_url || undefined}
+                      name={session?.user?.email || session?.user?.user_metadata?.full_name || ""}
                       className="w-8 h-8 rounded-full cursor-pointer"
                     />
                   </button>

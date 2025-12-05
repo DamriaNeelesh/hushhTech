@@ -22,6 +22,10 @@ export default defineConfig({
     outDir: 'dist',
     // strongly recommend cleaning to avoid stale assets on Vercel
     emptyOutDir: true,
+    // Enable sourcemaps for debugging production errors (iOS RangeError, etc.)
+    sourcemap: true,
+    // Target ES2017+ for better iOS Safari compatibility
+    target: 'es2017',
   },
   server: {
     proxy: {
