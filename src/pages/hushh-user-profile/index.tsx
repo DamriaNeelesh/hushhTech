@@ -390,6 +390,14 @@ const HushhUserProfilePage: React.FC = () => {
   }, []);
 
   const handleChange = (key: keyof FormState, value: string) => {
+    // Validate phone number length (E.164 standard: max 15 digits)
+    if (key === "phoneNumber") {
+      const digitsOnly = value.replace(/\D/g, '');
+      if (digitsOnly.length > 15) {
+        return; // Don't update if exceeds limit
+      }
+    }
+    
     setForm((prev) => ({ ...prev, [key]: key === "age" ? Number(value) || "" : value }));
   };
 

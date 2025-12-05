@@ -47,6 +47,15 @@ export default function OnboardingStep8() {
   }, [navigate]);
 
   const handlePhoneChange = (value: string, country: any) => {
+    // E.164 standard: max 15 digits for phone numbers
+    // Remove all non-digit characters to count actual digits
+    const digitsOnly = value.replace(/\D/g, '');
+    
+    // Block input if it exceeds 15 digits
+    if (digitsOnly.length > 15) {
+      return; // Don't update state if exceeds limit
+    }
+    
     setPhoneNumber(value);
     setCountryCode(`+${country.dialCode}`);
   };
