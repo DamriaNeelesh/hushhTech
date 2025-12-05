@@ -239,7 +239,7 @@ export default function Hero() {
               <VStack align="stretch" spacing={5}>
                 <VStack align="stretch" spacing={4}>
                   <Text fontSize="20px" fontWeight="450" color="#0B1120" lineHeight="1.35">
-                    Targeting <Text as="span" fontWeight="500">15-20% net IRR</Text>* with our "Sell the Wall" approach.
+                    Targeting <Text as="span" fontWeight="500">18-23% net IRR</Text>* with our "Sell the Wall" approach.
                   </Text>
                   <Text fontSize="17px" color="#111827" lineHeight="1.6">
                     AI-first, systematic income investing.
@@ -252,7 +252,7 @@ export default function Hero() {
                 <Box borderTop="1px solid #E5E7EB" pt={4}>
                   <VStack align="stretch" spacing={3}>
                     {[
-                      { label: "Target net IRR", value: "15-20%", valueSize: "46px" },
+                      { label: "Target net IRR", value: "18-23%", valueSize: "46px" },
                       { label: "Inception", value: "2024", valueSize: "42px" },
                     ].map((stat) => (
                       <Box
