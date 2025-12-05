@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Country, State, City } from 'country-state-city';
 import config from '../../resources/config/config';
@@ -14,10 +14,10 @@ function OnboardingStep10() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Get countries, states, and cities
-  const countries = Country.getAllCountries();
-  const states = State.getStatesOfCountry(country);
-  const cities = City.getCitiesOfState(country, state);
+  // Get countries, states, and cities - memoized to prevent iOS stack overflow
+  const countries = useMemo(() => Country.getAllCountries(), []);
+  const states = useMemo(() => State.getStatesOfCountry(country), [country]);
+  const cities = useMemo(() => City.getCitiesOfState(country, state), [country, state]);
 
   // Load existing data
   useEffect(() => {
