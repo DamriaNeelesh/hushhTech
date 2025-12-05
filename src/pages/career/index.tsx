@@ -245,7 +245,7 @@ const CareerList = () => {
           px={8}
           py={5}
           fontSize="md"
-          fontWeight="700"
+          fontWeight="500"
           borderRadius="full"
           _hover={{ bgGradient: "linear-gradient(to right, #0098cc, #5BC0DC)" }}
           boxShadow="md"

@@ -350,7 +350,7 @@ const ProfilePage: React.FC = () => {
             {/* Main Heading */}
             <Text
               fontSize={{ base: "36px", md: "44px" }}
-              fontWeight="700"
+              fontWeight="500"
               color="#0B1120"
               lineHeight="1.1"
               textAlign="center"
@@ -398,7 +398,7 @@ const ProfilePage: React.FC = () => {
               bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
               color="#0B1120"
               fontSize="17px"
-              fontWeight="650"
+              fontWeight="500"
               letterSpacing="0.01em"
               _hover={{ bgGradient: "linear(to-r, #00A9E0, #6DD3EF)" }}
               _active={{

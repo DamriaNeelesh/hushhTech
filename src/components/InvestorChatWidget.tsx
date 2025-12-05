@@ -100,7 +100,7 @@ export function InvestorChatWidget({ slug, investorName }: { slug: string; inves
                         marginBottom: '0',
                       },
                       '& strong': {
-                        fontWeight: '700',
+                        fontWeight: '500',
                         color: 'black',
                       },
                       '& em': {

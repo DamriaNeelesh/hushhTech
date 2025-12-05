@@ -205,7 +205,7 @@ const HushhUserProfilePage: React.FC = () => {
   } as const;
   const labelBaseStyles = {
     fontSize: "14px",
-    fontWeight: 600,
+    fontWeight: 500,
     color: "#111827",
     mb: "8px",
   } as const;
@@ -520,7 +520,7 @@ const HushhUserProfilePage: React.FC = () => {
         border={`1px solid ${border}`}
         borderRadius="full"
         fontSize="xs"
-        fontWeight="700"
+        fontWeight="500"
         letterSpacing="0.08em"
         color={tone}
         bg={surface}
@@ -646,14 +646,14 @@ const HushhUserProfilePage: React.FC = () => {
             <Text
               fontSize="12px"
               letterSpacing="0.18em"
-              fontWeight="600"
+              fontWeight="500"
               color="#6B7280"
               textTransform="uppercase"
               mb={4}
             >
               Investor Profile
             </Text>
-            <Text fontSize={{ base: "34px", md: "36px" }} fontWeight="700" color="#0B1120" lineHeight="1.1">
+            <Text fontSize={{ base: "34px", md: "36px" }} fontWeight="500" color="#0B1120" lineHeight="1.1">
               Hello, {form.name || "there"}
             </Text>
           </Box>
@@ -694,7 +694,7 @@ const HushhUserProfilePage: React.FC = () => {
                       <Icon as={Share2} color="white" boxSize={5} />
                       <Text
                         fontSize="18px"
-                        fontWeight="700"
+                        fontWeight="500"
                         color="white"
                         letterSpacing="-0.01em"
                       >
@@ -730,7 +730,7 @@ const HushhUserProfilePage: React.FC = () => {
                       <Icon as={LinkIcon} color="#00A9E0" boxSize={4} />
                       <Text
                         fontSize="14px"
-                        fontWeight="600"
+                        fontWeight="500"
                         color="#0B1120"
                         wordBreak="break-all"
                         flex={1}
@@ -756,7 +756,7 @@ const HushhUserProfilePage: React.FC = () => {
 
                 {/* Share Buttons */}
                 <VStack align="stretch" spacing={2}>
-                  <Text fontSize="13px" fontWeight="600" color="white">
+                  <Text fontSize="13px" fontWeight="500" color="white">
                     Share via
                   </Text>
                   <HStack spacing={3} justify="center" flexWrap="wrap">
@@ -862,7 +862,7 @@ const HushhUserProfilePage: React.FC = () => {
         )}
 
         <Box animation={headingAnimation} px={{ base: 1, md: 2 }} mt={2}>
-          <Heading fontSize="24px" fontWeight="700" lineHeight="1.2" color="#0B1120" mb={4}>
+          <Heading fontSize="24px" fontWeight="500" lineHeight="1.2" color="#0B1120" mb={4}>
             Your Hushh Profile
           </Heading>
           <Box position="relative" w="100%" h="1px" bg="#E5E7EB" mb={4}>
@@ -1126,7 +1126,7 @@ const HushhUserProfilePage: React.FC = () => {
           <Box mt={6}>
             <Box borderTop="1px solid #E5E5EA" mb={4} />
             <HStack justify="space-between" align="center" mb={2}>
-              <Text fontSize="sm" fontWeight="700" color="#111827">
+              <Text fontSize="sm" fontWeight="500" color="#111827">
                 Preview generated profile
               </Text>
               <Button
@@ -1144,7 +1144,7 @@ const HushhUserProfilePage: React.FC = () => {
                   animation={prefersReducedMotion ? undefined : `${fadeUp} 0.2s ease-out`}
                 >
                   <VStack align="stretch" spacing={1.5}>
-                    <Text fontSize="sm" fontWeight="700" color="#0f172a">
+                    <Text fontSize="sm" fontWeight="500" color="#0f172a">
                       Your Public Profile
                     </Text>
                     <Text fontSize="sm" color="#475467">
@@ -1212,12 +1212,12 @@ const HushhUserProfilePage: React.FC = () => {
                           fontSize="sm"
                           color="#0f172a"
                           wordBreak="break-all"
-                          fontWeight="600"
+                          fontWeight="500"
                         >
                           {profileUrl}
                         </Text>
                         {copiedFlash && (
-                          <Text fontSize="xs" color="#00A9E0" fontWeight="700">
+                          <Text fontSize="xs" color="#00A9E0" fontWeight="500">
                             Copied
                           </Text>
                         )}
@@ -1330,7 +1330,7 @@ const HushhUserProfilePage: React.FC = () => {
                               transform={isOpen && !prefersReducedMotion ? "scale(1.05)" : "scale(1)"}
                             />
                             <VStack align="start" spacing={0}>
-                              <Text fontWeight="600" fontSize="15px" color="#000">
+                              <Text fontWeight="500" fontSize="15px" color="#000">
                                 {label}
                               </Text>
                               <Text fontSize="13px" color="#6E6E73" noOfLines={1}>
@@ -1404,7 +1404,7 @@ const HushhUserProfilePage: React.FC = () => {
                           }
                         >
                           <VStack align="stretch" spacing={2}>
-                            <Text fontSize="13px" fontWeight="600" color="#000" letterSpacing="0.02em">
+                            <Text fontSize="13px" fontWeight="500" color="#000" letterSpacing="0.02em">
                               AI Rationale:
                             </Text>
                             <Text fontSize="13px" color="#6E6E73" lineHeight="1.6">
@@ -1426,7 +1426,7 @@ const HushhUserProfilePage: React.FC = () => {
                                 <Button
                                   size="sm"
                                   variant="ghost"
-                                  fontWeight="700"
+                                  fontWeight="500"
                                   color="#0A84FF"
                                   onClick={() => setEditingField(fieldName)}
                                 >

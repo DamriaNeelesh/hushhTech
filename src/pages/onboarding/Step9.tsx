@@ -132,7 +132,7 @@ function OnboardingStep9() {
           style={{
             background: 'linear-gradient(to right, #00A9E0, #6DD3EF)',
             color: '#0B1120',
-            fontWeight: 650,
+            fontWeight: 500,
           }}
         >
           {loading ? 'Saving...' : 'Continue'}

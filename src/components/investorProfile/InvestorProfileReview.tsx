@@ -158,7 +158,7 @@ export function InvestorProfileReview({
                 <Box flex="1" textAlign="left">
                   <VStack align="start" spacing={1}>
                     <HStack spacing={3} align="center">
-                      <Text fontSize="18px" fontWeight="650" color="#0B1120" lineHeight="1.25">
+                      <Text fontSize="18px" fontWeight="500" color="#0B1120" lineHeight="1.25">
                         {FIELD_LABELS[field]}
                       </Text>
                       <Badge
@@ -169,7 +169,7 @@ export function InvestorProfileReview({
                         textTransform="uppercase"
                         letterSpacing="0.08em"
                         fontSize="12px"
-                        fontWeight="700"
+                        fontWeight="500"
                         color={pill.color}
                         bg={pill.bg}
                         border={`1px solid ${pill.border}`}
@@ -190,7 +190,7 @@ export function InvestorProfileReview({
             <AccordionPanel px={4} pb={4} pt={0}>
               <VStack align="stretch" spacing={3}>
                 <Box>
-                  <Text fontSize="14px" fontWeight="650" color="#0B1120" mb={1}>
+                  <Text fontSize="14px" fontWeight="500" color="#0B1120" mb={1}>
                     AI Rationale:
                   </Text>
                   <Text fontSize="15px" color="#475569" lineHeight="1.6">
@@ -222,7 +222,7 @@ export function InvestorProfileReview({
                 </Select>
                 
                 <Text fontSize="14px" color="#6B7280">
-                  <Text as="span" fontWeight="600">Current:</Text>{" "}
+                  <Text as="span" fontWeight="500">Current:</Text>{" "}
                   <Text as="span" fontWeight="500">
                     {VALUE_LABELS[fieldData.value] || fieldData.value}
                   </Text>
@@ -262,7 +262,7 @@ export function InvestorProfileReview({
                 <Box flex="1" textAlign="left">
                   <VStack align="start" spacing={1}>
                     <HStack spacing={3} align="center">
-                      <Text fontSize="18px" fontWeight="650" color="#0B1120" lineHeight="1.25">
+                      <Text fontSize="18px" fontWeight="500" color="#0B1120" lineHeight="1.25">
                         {FIELD_LABELS[field]}
                       </Text>
                       <Badge
@@ -273,7 +273,7 @@ export function InvestorProfileReview({
                         textTransform="uppercase"
                         letterSpacing="0.08em"
                         fontSize="12px"
-                        fontWeight="700"
+                        fontWeight="500"
                         color={pill.color}
                         bg={pill.bg}
                         border={`1px solid ${pill.border}`}
@@ -294,7 +294,7 @@ export function InvestorProfileReview({
             <AccordionPanel px={4} pb={4} pt={0}>
               <VStack align="stretch" spacing={3}>
                 <Box>
-                  <Text fontSize="14px" fontWeight="650" color="#0B1120" mb={1}>
+                  <Text fontSize="14px" fontWeight="500" color="#0B1120" mb={1}>
                     AI Rationale:
                   </Text>
                   <Text fontSize="15px" color="#475569" lineHeight="1.6">
@@ -318,7 +318,7 @@ export function InvestorProfileReview({
                 </CheckboxGroup>
                 
                 <Text fontSize="14px" color="#6B7280">
-                  <Text as="span" fontWeight="600">Current:</Text>{" "}
+                  <Text as="span" fontWeight="500">Current:</Text>{" "}
                   <Text as="span" fontWeight="500">
                     {fieldData.value.map((v) => VALUE_LABELS[v] || v).join(", ")}
                   </Text>
@@ -336,7 +336,7 @@ export function InvestorProfileReview({
       <VStack spacing={8} align="stretch" maxW="760px" mx="auto">
         {/* Header */}
         <Box textAlign="left">
-          <Heading fontSize={{ base: "34px", md: "36px" }} fontWeight="700" lineHeight="1.1" color="#0B1120" mb={3}>
+          <Heading fontSize={{ base: "34px", md: "36px" }} fontWeight="500" lineHeight="1.1" color="#0B1120" mb={3}>
             Review Your AI-Generated Investor Profile
           </Heading>
           <Text fontSize="18px" color="#475569" lineHeight="1.65" maxW="95%" mb={6}>
@@ -357,7 +357,7 @@ export function InvestorProfileReview({
 
         {/* Basic Info Summary */}
         <VStack align="stretch" spacing={3}>
-          <Text fontSize="18px" fontWeight="650" color="#0B1120" mb={2}>
+          <Text fontSize="18px" fontWeight="500" color="#0B1120" mb={2}>
             Your Information
           </Text>
           <Box border="1px solid #E5E7EB" borderRadius="16px" bg="#FFFFFF" overflow="hidden">
@@ -379,7 +379,7 @@ export function InvestorProfileReview({
                 >
                   {shouldStack ? (
                     <VStack align="stretch" spacing={1}>
-                      <Text fontSize="16px" fontWeight="600" color="#6B7280">
+                      <Text fontSize="16px" fontWeight="500" color="#6B7280">
                         {row.label}
                       </Text>
                       <Text fontSize="17px" fontWeight="500" color="#111827">
@@ -388,7 +388,7 @@ export function InvestorProfileReview({
                     </VStack>
                   ) : (
                     <HStack justify="space-between" align="center" spacing={3}>
-                      <Text fontSize="16px" fontWeight="600" color="#6B7280">
+                      <Text fontSize="16px" fontWeight="500" color="#6B7280">
                         {row.label}
                       </Text>
                       <Text fontSize="17px" fontWeight="500" color="#111827" textAlign="right">
@@ -404,7 +404,7 @@ export function InvestorProfileReview({
 
         {/* Derived Context */}
         <VStack align="stretch" spacing={3} mt={2}>
-          <Text fontSize="18px" fontWeight="650" color="#0B1120" mb={1}>
+          <Text fontSize="18px" fontWeight="500" color="#0B1120" mb={1}>
             Detected Context
           </Text>
           <Flex wrap="wrap" gap={2}>
@@ -416,7 +416,7 @@ export function InvestorProfileReview({
               bg="#E0F2FE"
               color="#0284C7"
               fontSize="13px"
-              fontWeight="600"
+              fontWeight="500"
               letterSpacing="0.06em"
             >
               {profile.derived_context.country} ({profile.derived_context.currency})
@@ -429,7 +429,7 @@ export function InvestorProfileReview({
               bg="#EEF2FF"
               color="#4F46E5"
               fontSize="13px"
-              fontWeight="600"
+              fontWeight="500"
               letterSpacing="0.06em"
             >
               {profile.derived_context.region}
@@ -442,7 +442,7 @@ export function InvestorProfileReview({
               bg="#DCFCE7"
               color="#16A34A"
               fontSize="13px"
-              fontWeight="600"
+              fontWeight="500"
               letterSpacing="0.06em"
             >
               {profile.derived_context.life_stage}
@@ -456,7 +456,7 @@ export function InvestorProfileReview({
                 bg="#FFEDD5"
                 color="#EA580C"
                 fontSize="13px"
-                fontWeight="600"
+                fontWeight="500"
                 letterSpacing="0.06em"
               >
                 {profile.derived_context.email_type === "corporate" ? "Corporate Email" : "Personal Email"}
@@ -471,7 +471,7 @@ export function InvestorProfileReview({
                 bg="#E0F2FE"
                 color="#0284C7"
                 fontSize="13px"
-                fontWeight="600"
+                fontWeight="500"
                 letterSpacing="0.06em"
               >
                 {profile.derived_context.org_type}
@@ -484,7 +484,7 @@ export function InvestorProfileReview({
 
         {/* Profile Fields */}
         <Box>
-          <Heading fontSize="28px" fontWeight="700" color="#0B1120" mb={4} lineHeight="1.15">
+          <Heading fontSize="28px" fontWeight="500" color="#0B1120" mb={4} lineHeight="1.15">
             Investor Profile (12 Fields)
           </Heading>
           <Box border="1px solid #E5E7EB" borderRadius="18px" bg="#FFFFFF" overflow="hidden">
@@ -595,7 +595,7 @@ export function InvestorProfileReview({
               h="54px"
               borderRadius="16px"
               fontSize="17px"
-              fontWeight="650"
+              fontWeight="500"
               color="#0B1120"
               bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
               transition="transform 120ms ease-out, filter 120ms ease-out"

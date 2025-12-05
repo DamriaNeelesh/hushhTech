@@ -193,7 +193,7 @@ export default function Login() {
             <button
               type="submit"
               className="w-full h-[54px] rounded-[16px] text-[17px] font-semibold tracking-[0.01em] text-[#0B1120] transition-[transform,filter] duration-150 active:scale-[0.985] active:brightness-[0.94] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00A9E0] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-              style={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)", fontWeight: 650 }}
+              style={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)", fontWeight: 500 }}
               disabled={isLoading}
             >
               {isLoading ? "Logging in..." : "Log in"}
