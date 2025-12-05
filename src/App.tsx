@@ -43,6 +43,20 @@ import ViewPreferencesPage from './pages/hushh-user-profile/view';
 import PublicHushhProfilePage from './pages/hushhid';
 import PublicInvestorProfilePage from './pages/investor/PublicInvestorProfile';
 import HushhIDHeroDemo from './pages/hushhid-hero-demo';
+import OnboardingStep1 from './pages/onboarding/Step1';
+import OnboardingStep2 from './pages/onboarding/Step2';
+import OnboardingStep3 from './pages/onboarding/Step3';
+import OnboardingStep4 from './pages/onboarding/Step4';
+import OnboardingStep5 from './pages/onboarding/Step5';
+import OnboardingStep6 from './pages/onboarding/Step6';
+import OnboardingStep7 from './pages/onboarding/Step7';
+import OnboardingStep8 from './pages/onboarding/Step8';
+import OnboardingStep9 from './pages/onboarding/Step9';
+import OnboardingStep10 from './pages/onboarding/Step10';
+import OnboardingStep11 from './pages/onboarding/Step11';
+import OnboardingStep12 from './pages/onboarding/Step12';
+import OnboardingStep13 from './pages/onboarding/Step13';
+import OnboardingStep14 from './pages/onboarding/Step14';
 
 // Google Analytics configuration
 const GA_TRACKING_ID = 'G-R58S9WWPM0';
@@ -53,9 +67,10 @@ const ContentWrapper = ({ children }: { children: ReactNode }) => {
   const isHomePage = location.pathname === '/' || location.pathname === '/signUp' || location.pathname === '/solutions';
   const isAuthCallback = location.pathname.startsWith('/auth/callback');
   const isUserRegistration = location.pathname === '/user-registration';
+  const isOnboarding = location.pathname.startsWith('/onboarding');
   
   return (
-    <div className={`${isHomePage || isAuthCallback || isUserRegistration ? '' : 'mt-20'}`}>
+    <div className={`${isHomePage || isAuthCallback || isUserRegistration || isOnboarding ? '' : 'mt-20'}`}>
       {children}
     </div>
   );
@@ -151,6 +166,76 @@ function App() {
                 
               } />
               <Route path="/auth/callback" element={<AuthCallback />} />
+              <Route path="/onboarding/step-1" element={
+                <ProtectedRoute>
+                  <OnboardingStep1 />
+                </ProtectedRoute>
+              } />
+              <Route path="/onboarding/step-2" element={
+                <ProtectedRoute>
+                  <OnboardingStep2 />
+                </ProtectedRoute>
+              } />
+              <Route path="/onboarding/step-3" element={
+                <ProtectedRoute>
+                  <OnboardingStep3 />
+                </ProtectedRoute>
+              } />
+              <Route path="/onboarding/step-4" element={
+                <ProtectedRoute>
+                  <OnboardingStep4 />
+                </ProtectedRoute>
+              } />
+              <Route path="/onboarding/step-5" element={
+                <ProtectedRoute>
+                  <OnboardingStep5 />
+                </ProtectedRoute>
+              } />
+              <Route path="/onboarding/step-6" element={
+                <ProtectedRoute>
+                  <OnboardingStep6 />
+                </ProtectedRoute>
+              } />
+              <Route path="/onboarding/step-7" element={
+                <ProtectedRoute>
+                  <OnboardingStep7 />
+                </ProtectedRoute>
+              } />
+              <Route path="/onboarding/step-8" element={
+                <ProtectedRoute>
+                  <OnboardingStep8 />
+                </ProtectedRoute>
+              } />
+              <Route path="/onboarding/step-9" element={
+                <ProtectedRoute>
+                  <OnboardingStep9 />
+                </ProtectedRoute>
+              } />
+              <Route path="/onboarding/step-10" element={
+                <ProtectedRoute>
+                  <OnboardingStep10 />
+                </ProtectedRoute>
+              } />
+              <Route path="/onboarding/step-11" element={
+                <ProtectedRoute>
+                  <OnboardingStep11 />
+                </ProtectedRoute>
+              } />
+              <Route path="/onboarding/step-12" element={
+                <ProtectedRoute>
+                  <OnboardingStep12 />
+                </ProtectedRoute>
+              } />
+              <Route path="/onboarding/step-13" element={
+                <ProtectedRoute>
+                  <OnboardingStep13 />
+                </ProtectedRoute>
+              } />
+              <Route path="/onboarding/step-14" element={
+                <ProtectedRoute>
+                  <OnboardingStep14 />
+                </ProtectedRoute>
+              } />
               <Route path="/hushh-user-profile" element={
                 <ProtectedRoute>
                   <HushhUserProfilePage />

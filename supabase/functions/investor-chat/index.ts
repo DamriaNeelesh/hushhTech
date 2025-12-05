@@ -30,10 +30,10 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_ANON_KEY') ?? ''
     );
     
-    // Fetch public investor profile with ALL fields
+    // Fetch public investor profile with ALL fields including privacy_settings and user_id
     const { data: profile, error: profileError } = await supabase
       .from('investor_profiles')
-      .select('name, email, age, phone_country_code, phone_number, organisation, investor_profile, derived_context')
+      .select('user_id, name, email, age, phone_country_code, phone_number, organisation, investor_profile, derived_context, privacy_settings')
       .eq('slug', slug)
       .eq('is_public', true)
       .eq('user_confirmed', true)
@@ -46,10 +46,37 @@ serve(async (req) => {
       );
     }
 
-    // Build system prompt with ALL profile data
-    const systemPrompt = `You are a helpful AI assistant representing investor ${profile.name}${profile.organisation ? ` from ${profile.organisation}` : ''}.
+    // Fetch onboarding_data for this user
+    const { data: onboardingData, error: onboardingError } = await supabase
+      .from('onboarding_data')
+      .select('*')
+      .eq('user_id', profile.user_id)
+      .maybeSingle();
+    
+    // Filter onboarding data based on privacy settings
+    const privacySettings = profile.privacy_settings || {};
+    const visibleOnboardingData: any = {};
+    
+    if (onboardingData && privacySettings.onboarding_data) {
+      // Only include fields that are marked as visible (true) in privacy settings
+      Object.keys(privacySettings.onboarding_data).forEach(fieldName => {
+        if (privacySettings.onboarding_data[fieldName] === true && onboardingData[fieldName]) {
+          // Mask SSN even if visible
+          if (fieldName === 'ssn_encrypted') {
+            visibleOnboardingData[fieldName] = '***-**-****';
+          } else if (fieldName === 'date_of_birth') {
+            visibleOnboardingData[fieldName] = new Date(onboardingData[fieldName]).toLocaleDateString();
+          } else {
+            visibleOnboardingData[fieldName] = onboardingData[fieldName];
+          }
+        }
+      });
+    }
 
-Your role is to answer questions about their investment preferences and profile. Do not provide financial advice or make investment recommendations.
+    // Build comprehensive system prompt with ALL data
+    let systemPrompt = `You are a helpful AI assistant representing investor ${profile.name}${profile.organisation ? ` from ${profile.organisation}` : ''}.
+
+Your role is to answer questions about their investment preferences, profile, and onboarding information. Do not provide financial advice or make investment recommendations.
 
 Investor Basic Information:
 - Name: ${profile.name}
@@ -62,14 +89,25 @@ Investment Profile:
 ${JSON.stringify(profile.investor_profile, null, 2)}
 
 Additional Context:
-${JSON.stringify(profile.derived_context, null, 2)}
+${JSON.stringify(profile.derived_context, null, 2)}`;
+
+    // Add onboarding data if available
+    if (Object.keys(visibleOnboardingData).length > 0) {
+      systemPrompt += `
+
+Onboarding & Personal Information:
+${JSON.stringify(visibleOnboardingData, null, 2)}`;
+    }
+
+    systemPrompt += `
 
 Guidelines:
 - Be friendly and professional
-- Answer questions about the investor's profile, preferences, and contact information
-- If asked about topics not in the profile, politely say you don't have that information
+- Answer questions about the investor's profile, preferences, onboarding details, and contact information
+- If asked about topics not in the available data, politely say you don't have that information
 - Don't make up information
-- Don't provide financial advice or investment recommendations`;
+- Don't provide financial advice or investment recommendations
+- When asked about onboarding details, use the information provided above`;
 
     // Build messages for OpenAI
     const messages = [

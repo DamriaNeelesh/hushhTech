@@ -14,6 +14,7 @@ import {
   Flex,
   Center,
   HStack,
+  Container,
 } from "@chakra-ui/react";
 import { PrimaryCtaButton } from "../PrimaryCtaButton";
 import { FaFileAlt, FaUserShield } from "react-icons/fa";
@@ -324,77 +325,94 @@ const ProfilePage: React.FC = () => {
   }, [session?.user?.email]);
 
   return (
-    <Box bg="#F5F5F7" width="100%" pt={{ base: 12, md: 16 }} pb={{ base: 12, md: 16 }}>
-      <Center>
-        <VStack maxW="1200px" w="full" px={4} spacing={6}>
-          <Box borderTop="1px solid #E5E5EA" w="full" />
-          <Center w="full">
-            <Box
-              w="92%"
-              maxW="900px"
-              bg="white"
-              borderRadius="24px"
-              boxShadow="0 22px 45px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.85)"
-              px={{ base: 5, md: 8 }}
-              py={{ base: 6, md: 8 }}
-            >
-              <Text
-                fontSize="13px"
-                letterSpacing="0.12em"
-                fontWeight="700"
-                color="#8E8E93"
-                textTransform="uppercase"
-              >
-                Investor Profile
-              </Text>
-              <Text
-                fontSize={{ base: "30px", md: "32px" }}
-                fontWeight="600"
-                color="#1D1D1F"
-                lineHeight="1.2"
-                mt={2}
-              >
-                Hello {session?.user?.user_metadata?.full_name || "there"},
-              </Text>
-
-              <VStack align="stretch" spacing={3} mt={4}>
-                {[
-                  "Create your investor profile once.",
-                  "Save to wallet. Share anywhere.",
-                  "No more repetitive forms.",
-                ].map((line, idx) => (
-                  <Box key={line}>
-                    <HStack spacing={3} align="flex-start">
-                      <Box w="8px" h="8px" borderRadius="full" bg="#0A84FF" mt="6px" />
-                      <Text fontSize="17px" lineHeight="1.45" color="#111827">
-                        {line}
-                      </Text>
-                    </HStack>
-                    {idx < 2 && <Box mt={2} borderBottom="1px solid #E5E5EA" />}
-                  </Box>
-                ))}
-              </VStack>
-
-              <Box mt={5}>
-                <PrimaryCtaButton
-                  onClick={() => navigate("/investor-profile")}
-                  width="100%"
-                  fontSize="17px"
-                  fontWeight="600"
-                  py={6}
-                  boxShadow="0 16px 34px rgba(0,169,224,0.35)"
-                >
-                  Create Your Hushh ID →
-                </PrimaryCtaButton>
-                <Text mt={2} fontSize="13px" color="#6E6E73" textAlign="center">
-                  Takes under a minute. Your details stay private.
-                </Text>
-              </Box>
+    <Box
+      bg="#FFFFFF"
+      px={{ base: 6, sm: 8 }}
+      pt={{ base: "56px", md: "88px" }}
+      pb={{ base: "48px", md: "96px" }}
+      minH={{ base: "100vh", md: "auto" }}
+      display={{ base: "flex", md: "block" }}
+      alignItems={{ base: "center", md: "initial" }}
+    >
+      <Container maxW="640px">
+        <Box>
+          <Box maxW="520px" mx="auto">
+            {/* Hushh Logo */}
+            <Box display="flex" justifyContent="center" mb={{ base: "32px", md: "40px" }}>
+              <Image 
+                src={HushhLogo} 
+                alt="Hushh Logo" 
+                h={{ base: "50px", md: "60px" }}
+                objectFit="contain"
+              />
             </Box>
-          </Center>
-          <Box borderBottom="1px solid #E5E5EA" w="full" />
-        </VStack>
-      </Center>
+
+            {/* Main Heading */}
+            <Text
+              fontSize={{ base: "36px", md: "44px" }}
+              fontWeight="700"
+              color="#0B1120"
+              lineHeight="1.1"
+              textAlign="center"
+              fontFamily="Inter, -apple-system, system-ui, 'SF Pro Display', sans-serif"
+              mb="5"
+              letterSpacing="-0.01em"
+            >
+              Invest in a better alternative
+            </Text>
+
+            {/* Subheading */}
+            <Text
+              fontSize={{ base: "18px", md: "19px" }}
+              color="#475569"
+              fontWeight="400"
+              lineHeight="1.65"
+              maxW="520px"
+              mx="auto"
+              textAlign="center"
+              fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
+              mb="8"
+            >
+              Build a portfolio of private assets like real estate, private credit, and venture capital.
+            </Text>
+
+            {/* Blue Divider Line */}
+            <Box position="relative" w="100%" h="1px" bg="#E5E7EB" mb="7">
+              <Box
+                position="absolute"
+                left="50%"
+                top="50%"
+                transform="translate(-50%, -50%)"
+                w="16px"
+                h="2px"
+                bg="#00A9E0"
+              />
+            </Box>
+
+            {/* CTA Button */}
+            <Button
+              onClick={() => navigate("/onboarding/step-1")}
+              w="100%"
+              h="54px"
+              borderRadius="16px"
+              bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
+              color="#0B1120"
+              fontSize="17px"
+              fontWeight="650"
+              letterSpacing="0.01em"
+              _hover={{ bgGradient: "linear(to-r, #00A9E0, #6DD3EF)" }}
+              _active={{
+                transform: "scale(0.985)",
+                bgGradient: "linear(to-r, #0097CB, #5FC3E5)",
+              }}
+              transition="transform 120ms ease-out, background 120ms ease-out"
+              fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
+            >
+              Create your hushh profile
+            </Button>
+          </Box>
+        </Box>
+      </Container>
 
       {false && showNdaModal && session && (
         <NDARequestModal

@@ -24,16 +24,16 @@ export type LiquidityNeed = "low" | "medium" | "high";
 export type ExperienceLevel = "beginner" | "intermediate" | "advanced";
 
 export type TicketSize = 
-  | "micro_<1k" 
-  | "small_1k_10k" 
-  | "medium_10k_50k" 
-  | "large_>50k";
+  | "micro_<1m" 
+  | "small_1m_10m" 
+  | "medium_10m_50m" 
+  | "large_>50m";
 
 export type AnnualCapacity = 
-  | "<5k" 
-  | "5k_20k" 
-  | "20k_100k" 
-  | ">100k";
+  | "<5m" 
+  | "5m_20m" 
+  | "20m_100m" 
+  | ">100m";
 
 export type AssetClass = 
   | "public_equities" 
@@ -180,17 +180,17 @@ export const VALUE_LABELS: Record<string, string> = {
   intermediate: "Intermediate",
   advanced: "Advanced",
   
-  // Ticket Size
-  "micro_<1k": "Micro (< $1K)",
-  "small_1k_10k": "Small ($1K - $10K)",
-  "medium_10k_50k": "Medium ($10K - $50K)",
-  "large_>50k": "Large (> $50K)",
+  // Ticket Size (millions)
+  "micro_<1m": "Micro (< $1 million)",
+  "small_1m_10m": "Small ($1 million - $10 million)",
+  "medium_10m_50m": "Medium ($10 million - $50 million)",
+  "large_>50m": "Large (> $50 million)",
   
-  // Annual Capacity
-  "<5k": "< $5K",
-  "5k_20k": "$5K - $20K",
-  "20k_100k": "$20K - $100K",
-  ">100k": "> $100K",
+  // Annual Capacity (millions)
+  "<5m": "< $5 million",
+  "5m_20m": "$5 million - $20 million",
+  "20m_100m": "$20 million - $100 million",
+  ">100m": "> $100 million",
   
   // Asset Classes
   public_equities: "Public Equities",
@@ -224,5 +224,107 @@ export const VALUE_LABELS: Record<string, string> = {
   // Engagement Style
   very_passive_just_updates: "Very Passive (Just Updates)",
   collaborative_discuss_key_decisions: "Collaborative (Discuss Key Decisions)",
-  hands_on_active_trader: "Hands-on (Active Trader)"
+  hands_on_active_trader: "Hands-on (Active Trader)",
+  
+  // Account Types
+  general: "General Account",
+  retirement: "Retirement Account",
+  
+  // Account Structure
+  individual: "Individual",
+  
+  // Referral Sources
+  podcast: "Podcast",
+  social_media_influencer: "Social Media Influencer",
+  social_media_ad: "Social Media Ad",
+  yahoo_finance: "Yahoo Finance",
+  ai_tool: "AI Tool",
+  website_blog_article: "Website/Blog Article",
+  penny_hoarder: "Penny Hoarder",
+  family_friend: "Family/Friend",
+  tv_radio: "TV/Radio",
+  
+  // Recurring Frequencies
+  weekly: "Weekly",
+  biweekly: "Bi-weekly",
+  monthly: "Monthly",
+  bimonthly: "Bi-monthly"
+};
+
+// Privacy Settings Interface
+export interface PrivacySettings {
+  investor_profile: {
+    [K in keyof InvestorProfile]: boolean;
+  };
+  onboarding_data: {
+    account_type: boolean;
+    selected_fund: boolean;
+    referral_source: boolean;
+    referral_source_other: boolean;
+    citizenship_country: boolean;
+    residence_country: boolean;
+    account_structure: boolean;
+    phone_number: boolean;
+    phone_country_code: boolean;
+    legal_first_name: boolean;
+    legal_last_name: boolean;
+    address_line_1: boolean;
+    address_line_2: boolean;
+    city: boolean;
+    state: boolean;
+    zip_code: boolean;
+    address_phone_number: boolean;
+    address_phone_country_code: boolean;
+    address_country: boolean;
+    ssn_encrypted: boolean;
+    date_of_birth: boolean;
+    initial_investment_amount: boolean;
+    recurring_investment_enabled: boolean;
+    recurring_frequency: boolean;
+    recurring_amount: boolean;
+    recurring_day_of_month: boolean;
+  };
+}
+
+// Onboarding Data Field Labels for UI
+export const ONBOARDING_FIELD_LABELS: Record<string, string> = {
+  // Basic Information
+  account_type: "Account Type",
+  selected_fund: "Selected Fund",
+  referral_source: "How Did You Hear About Us?",
+  referral_source_other: "Referral Source (Other)",
+  
+  // Citizenship & Residence
+  citizenship_country: "Citizenship Country",
+  residence_country: "Residence Country",
+  account_structure: "Account Structure",
+  
+  // Contact Information
+  phone_number: "Phone Number",
+  phone_country_code: "Phone Country Code",
+  
+  // Legal Information
+  legal_first_name: "Legal First Name",
+  legal_last_name: "Legal Last Name",
+  
+  // Address
+  address_line_1: "Address Line 1",
+  address_line_2: "Address Line 2",
+  city: "City",
+  state: "State",
+  zip_code: "ZIP Code",
+  address_phone_number: "Address Phone Number",
+  address_phone_country_code: "Address Phone Country Code",
+  address_country: "Address Country",
+  
+  // Sensitive Information
+  ssn_encrypted: "Social Security Number",
+  date_of_birth: "Date of Birth",
+  
+  // Investment Details
+  initial_investment_amount: "Initial Investment Amount",
+  recurring_investment_enabled: "Recurring Investment Enabled",
+  recurring_frequency: "Recurring Frequency",
+  recurring_amount: "Recurring Amount",
+  recurring_day_of_month: "Recurring Day of Month"
 };

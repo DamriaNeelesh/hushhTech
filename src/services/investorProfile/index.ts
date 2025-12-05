@@ -256,15 +256,16 @@ export async function deleteInvestorProfile(): Promise<void> {
 /**
  * Fetch a public investor profile by slug (no authentication required)
  * Used for public profile pages
+ * Now includes onboarding_data
  */
-export async function fetchPublicInvestorProfileBySlug(slug: string): Promise<InvestorProfileRecord> {
+export async function fetchPublicInvestorProfileBySlug(slug: string): Promise<any> {
   const supabase = resources.config.supabaseClient;
   
   if (!supabase) {
     throw new Error("Supabase client not initialized");
   }
 
-  const { data, error } = await supabase
+  const { data: profile, error } = await supabase
     .from('investor_profiles')
     .select('*')
     .eq('slug', slug)
@@ -276,7 +277,21 @@ export async function fetchPublicInvestorProfileBySlug(slug: string): Promise<In
     throw new Error(`Public profile not found: ${error.message}`);
   }
 
-  return data as InvestorProfileRecord;
+  // Fetch onboarding_data for this user
+  const { data: onboardingData, error: onboardingError } = await supabase
+    .from('onboarding_data')
+    .select('*')
+    .eq('user_id', profile.user_id)
+    .maybeSingle();
+
+  if (onboardingError && onboardingError.code !== 'PGRST116') {
+    console.error('Error fetching onboarding data:', onboardingError);
+  }
+
+  return {
+    ...profile,
+    onboarding_data: onboardingData || null
+  };
 }
 
 /**

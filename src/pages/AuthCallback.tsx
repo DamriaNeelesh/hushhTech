@@ -38,7 +38,13 @@ const AuthCallback: React.FC = () => {
           }
           
           // Set the session with Supabase
-          const { error } = await config.supabaseClient?.auth.setSession({
+          if (!config.supabaseClient) {
+            setVerificationStatus('error');
+            setErrorMessage('Configuration error');
+            return;
+          }
+          
+          const { error } = await config.supabaseClient.auth.setSession({
             access_token: accessToken,
             refresh_token: refreshToken
           });
@@ -49,19 +55,64 @@ const AuthCallback: React.FC = () => {
             return;
           }
           
+          // Get the current user
+          const { data: { user } } = await config.supabaseClient?.auth.getUser() || { data: { user: null } };
+          
+          if (!user) {
+            setVerificationStatus('error');
+            setErrorMessage('Could not retrieve user information');
+            return;
+          }
+          
+          // Check if user has completed onboarding
+          const { data: onboardingData, error: onboardingError } = await config.supabaseClient
+            ?.from('onboarding_data')
+            .select('is_completed, current_step')
+            .eq('user_id', user.id)
+            .single() || { data: null, error: null };
+          
           // Email verification successful
           setVerificationStatus('success');
           
-          // Redirect straight into the new profile enrichment flow
+          // Redirect based on onboarding status
           setTimeout(() => {
-            navigate('/hushh-user-profile');
+            // If no record exists or not completed, go to onboarding
+            if (!onboardingData || !onboardingData.is_completed) {
+              navigate('/onboarding/step-1');
+            } else {
+              // User has completed onboarding, go to profile
+              navigate('/hushh-user-profile');
+            }
           }, 1200);
         } else {
-          // Handle other auth types if needed
-          setVerificationStatus('success');
-          setTimeout(() => {
-            navigate('/hushh-user-profile');
-          }, 1200);
+          // Handle other auth types (OAuth, etc.)
+          // Get the current user
+          const { data: { user } } = await config.supabaseClient?.auth.getUser() || { data: { user: null } };
+          
+          if (user && config.supabaseClient) {
+            // Check if user has completed onboarding
+            const { data: onboardingData, error: onboardingError } = await config.supabaseClient
+              .from('onboarding_data')
+              .select('is_completed, current_step')
+              .eq('user_id', user.id)
+              .maybeSingle(); // Use maybeSingle() to handle cases where no record exists
+            
+            setVerificationStatus('success');
+            setTimeout(() => {
+              // If no record exists or not completed, go to onboarding
+              if (!onboardingData || !onboardingData.is_completed) {
+                navigate('/onboarding/step-1');
+              } else {
+                // User has completed onboarding, go to profile
+                navigate('/hushh-user-profile');
+              }
+            }, 1200);
+          } else {
+            setVerificationStatus('success');
+            setTimeout(() => {
+              navigate('/onboarding/step-1');
+            }, 1200);
+          }
         }
       } catch (err) {
         console.error('Verification error:', err);
@@ -71,7 +122,7 @@ const AuthCallback: React.FC = () => {
     };
     
     handleEmailVerification();
-  }, [searchParams]);
+  }, [searchParams, navigate]);
   
   const redirectToLogin = () => {
     navigate('/login');
@@ -156,4 +207,4 @@ const AuthCallback: React.FC = () => {
   );
 };
 
-export default AuthCallback; 
+export default AuthCallback;
