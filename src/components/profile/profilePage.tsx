@@ -358,7 +358,7 @@ const ProfilePage: React.FC = () => {
               mb="5"
               letterSpacing="-0.01em"
             >
-              Invest in a better alternative
+              Investing in the Future.
             </Text>
 
             {/* Subheading */}
@@ -373,7 +373,9 @@ const ProfilePage: React.FC = () => {
               fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
               mb="8"
             >
-              Build a portfolio of private assets like real estate, private credit, and venture capital.
+              The AI-Powered Berkshire Hathaway.
+
+We combine AI and human expertise to build exceptional businesses for long-term value creation.
             </Text>
 
             {/* Blue Divider Line */}

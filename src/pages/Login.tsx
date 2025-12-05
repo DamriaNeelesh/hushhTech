@@ -107,10 +107,12 @@ export default function Login() {
           </Link>
           <div className="space-y-3">
             <h1 className="text-[34px] font-[700] leading-[1.10] text-[#0B1120] text-center">
-              Invest in a better alternative
+              Investing in the Future.
             </h1>
             <p className="text-[18px] leading-[1.6] text-[#475569] text-center">
-              Build a portfolio of private assets like real estate, private credit, and venture capital.
+              The AI-Powered Berkshire Hathaway.
+
+We combine AI and human expertise to build exceptional businesses for long-term value creation.
             </p>
           </div>
           <div className="relative h-px w-full bg-[#E5E7EB]">

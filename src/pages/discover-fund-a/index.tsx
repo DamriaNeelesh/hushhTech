@@ -854,7 +854,7 @@ const FundA = () => {
             textAlign="center"
             color="#1D1D1F"
           >
-            Invest in a better alternative.
+            Investing in the Future..
           </Heading>
           
           <Text
@@ -867,7 +867,9 @@ const FundA = () => {
             mx="auto"
             mb={12}
           >
-            Build a portfolio of private assets like real estate, private credit, and venture capital.
+            The AI-Powered Berkshire Hathaway.
+
+We combine AI and human expertise to build exceptional businesses for long-term value creation.
           </Text>
           
           <Flex justify="center" mb={8}>
