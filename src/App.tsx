@@ -40,6 +40,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import YourProfilePage from './pages/your-profile';
 import HushhUserProfilePage from './pages/hushh-user-profile';
 import ViewPreferencesPage from './pages/hushh-user-profile/view';
+import PrivacyControlsPage from './pages/hushh-user-profile/privacy';
 import PublicHushhProfilePage from './pages/hushhid';
 import PublicInvestorProfilePage from './pages/investor/PublicInvestorProfile';
 import HushhIDHeroDemo from './pages/hushhid-hero-demo';
@@ -244,6 +245,11 @@ function App() {
               <Route path="/hushh-user-profile/view" element={
                 <ProtectedRoute>
                   <ViewPreferencesPage />
+                </ProtectedRoute>
+              } />
+              <Route path="/hushh-user-profile/privacy" element={
+                <ProtectedRoute>
+                  <PrivacyControlsPage />
                 </ProtectedRoute>
               } />
               <Route path="/profile/:id" element={<ViewPreferencesPage />} />

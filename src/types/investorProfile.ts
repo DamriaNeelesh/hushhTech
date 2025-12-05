@@ -116,6 +116,47 @@ export interface DerivedContext {
   org_type?: string;
 }
 
+// Privacy Settings for controlling field visibility
+export interface PrivacySettings {
+  investor_profile: {
+    [key in keyof InvestorProfile]: boolean;
+  };
+  onboarding_data: {
+    account_type: boolean;
+    selected_fund: boolean;
+    referral_source: boolean;
+    referral_source_other: boolean;
+    citizenship_country: boolean;
+    residence_country: boolean;
+    account_structure: boolean;
+    phone_number: boolean;
+    phone_country_code: boolean;
+    legal_first_name: boolean;
+    legal_last_name: boolean;
+    address_line_1: boolean;
+    address_line_2: boolean;
+    address_country: boolean;
+    city: boolean;
+    state: boolean;
+    zip_code: boolean;
+    address_phone_number: boolean;
+    address_phone_country_code: boolean;
+    date_of_birth: boolean;
+    ssn_encrypted: boolean;
+    initial_investment_amount: boolean;
+    recurring_investment_enabled: boolean;
+    recurring_frequency: boolean;
+    recurring_amount: boolean;
+    recurring_day_of_month: boolean;
+  };
+  basic_info: {
+    name: boolean;
+    email: boolean;
+    age: boolean;
+    organisation: boolean;
+  };
+}
+
 // Complete profile record from database
 export interface InvestorProfileRecord {
   id: string;
@@ -128,6 +169,7 @@ export interface InvestorProfileRecord {
   organisation?: string;
   slug?: string;
   is_public?: boolean;
+  privacy_settings?: PrivacySettings;
   derived_context: DerivedContext;
   investor_profile: InvestorProfile;
   is_ai_prefilled: boolean;
@@ -151,6 +193,36 @@ export const FIELD_LABELS: Record<keyof InvestorProfile, string> = {
   volatility_reaction: "Reaction to Market Volatility",
   sustainability_preference: "Sustainability/ESG Preference",
   engagement_style: "Engagement Style"
+};
+
+// Field labels for onboarding data
+export const ONBOARDING_FIELD_LABELS: Record<string, string> = {
+  account_type: "Account Type",
+  selected_fund: "Selected Fund",
+  referral_source: "How Did You Hear About Us",
+  referral_source_other: "Referral Details",
+  citizenship_country: "Citizenship Country",
+  residence_country: "Residence Country",
+  account_structure: "Account Structure",
+  phone_number: "Phone Number",
+  phone_country_code: "Phone Country Code",
+  legal_first_name: "Legal First Name",
+  legal_last_name: "Legal Last Name",
+  address_line_1: "Address Line 1",
+  address_line_2: "Address Line 2",
+  address_country: "Country",
+  city: "City",
+  state: "State",
+  zip_code: "ZIP Code",
+  address_phone_number: "Address Phone",
+  address_phone_country_code: "Address Phone Country Code",
+  date_of_birth: "Date of Birth",
+  ssn_encrypted: "SSN",
+  initial_investment_amount: "Initial Investment",
+  recurring_investment_enabled: "Recurring Investment",
+  recurring_frequency: "Recurring Frequency",
+  recurring_amount: "Recurring Amount",
+  recurring_day_of_month: "Recurring Day"
 };
 
 // Human-readable labels for enum values
