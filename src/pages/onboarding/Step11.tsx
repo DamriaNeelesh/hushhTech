@@ -118,6 +118,55 @@ function OnboardingStep11() {
     navigate('/onboarding/step-12');
   };
 
+  const handleSkip = async () => {
+    if (!dob.trim()) {
+      setError('Please enter your date of birth before skipping');
+      return;
+    }
+
+    if (dob.length !== 10) {
+      setError('Please enter a complete date of birth');
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    if (!config.supabaseClient) {
+      setError('Configuration error');
+      setLoading(false);
+      return;
+    }
+
+    const { data: { user } } = await config.supabaseClient.auth.getUser();
+    if (!user) {
+      setError('Not authenticated');
+      setLoading(false);
+      return;
+    }
+
+    // Save with placeholder SSN for users who don't have one
+    const { error: upsertError } = await config.supabaseClient
+      .from('onboarding_data')
+      .upsert({
+        user_id: user.id,
+        ssn_encrypted: '999-99-9999', // Placeholder for users without SSN
+        date_of_birth: dob,
+        current_step: 11,
+        updated_at: new Date().toISOString(),
+      }, {
+        onConflict: 'user_id'
+      });
+
+    if (upsertError) {
+      setError('Failed to save data');
+      setLoading(false);
+      return;
+    }
+
+    navigate('/onboarding/step-12');
+  };
+
   const handleBack = () => {
     navigate('/onboarding/step-10');
   };
@@ -205,6 +254,15 @@ function OnboardingStep11() {
           }}
         >
           {loading ? 'Saving...' : 'Continue'}
+        </button>
+
+        <button
+          onClick={handleSkip}
+          disabled={loading || dob.length !== 10}
+          className="w-full py-4 rounded-lg text-lg font-semibold mb-6 border-2 border-gray-300 bg-white hover:border-gray-400 transition-all disabled:opacity-50"
+          style={{ color: '#0B1120' }}
+        >
+          Skip (Don't have SSN)
         </button>
 
         <button
