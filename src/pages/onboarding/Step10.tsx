@@ -1,7 +1,25 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Country, State, City } from 'country-state-city';
 import config from '../../resources/config/config';
+
+// Types for location data from our Edge Function
+interface Country {
+  isoCode: string;
+  name: string;
+}
+
+interface State {
+  isoCode: string;
+  name: string;
+}
+
+interface City {
+  name: string;
+}
+
+// Supabase Edge Function URL
+// Using hardcoded URL - will work in production via env vars
+const LOCATIONS_API = 'https://ibsisfnjxeowvdtvgzff.supabase.co/functions/v1/get-locations';
 
 function OnboardingStep10() {
   const navigate = useNavigate();
@@ -14,10 +32,81 @@ function OnboardingStep10() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Get countries, states, and cities - memoized to prevent iOS stack overflow
-  const countries = useMemo(() => Country.getAllCountries(), []);
-  const states = useMemo(() => State.getStatesOfCountry(country), [country]);
-  const cities = useMemo(() => City.getCitiesOfState(country, state), [country, state]);
+  // Location data from Edge Function (replaces heavy country-state-city library)
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [states, setStates] = useState<State[]>([]);
+  const [cities, setCities] = useState<City[]>([]);
+  const [loadingLocations, setLoadingLocations] = useState(false);
+
+  // Fetch countries on mount
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        setLoadingLocations(true);
+        const response = await fetch(`${LOCATIONS_API}?type=countries`);
+        const result = await response.json();
+        if (result.data) {
+          setCountries(result.data);
+        }
+      } catch (err) {
+        console.error('Error fetching countries:', err);
+      } finally {
+        setLoadingLocations(false);
+      }
+    };
+
+    fetchCountries();
+  }, []);
+
+  // Fetch states when country changes
+  useEffect(() => {
+    if (!country) {
+      setStates([]);
+      return;
+    }
+
+    const fetchStates = async () => {
+      try {
+        setLoadingLocations(true);
+        const response = await fetch(`${LOCATIONS_API}?type=states&country=${country}`);
+        const result = await response.json();
+        if (result.data) {
+          setStates(result.data);
+        }
+      } catch (err) {
+        console.error('Error fetching states:', err);
+      } finally {
+        setLoadingLocations(false);
+      }
+    };
+
+    fetchStates();
+  }, [country]);
+
+  // Fetch cities when state changes
+  useEffect(() => {
+    if (!country || !state) {
+      setCities([]);
+      return;
+    }
+
+    const fetchCities = async () => {
+      try {
+        setLoadingLocations(true);
+        const response = await fetch(`${LOCATIONS_API}?type=cities&country=${country}&state=${state}`);
+        const result = await response.json();
+        if (result.data) {
+          setCities(result.data);
+        }
+      } catch (err) {
+        console.error('Error fetching cities:', err);
+      } finally {
+        setLoadingLocations(false);
+      }
+    };
+
+    fetchCities();
+  }, [country, state]);
 
   // Load existing data
   useEffect(() => {
