@@ -22,7 +22,7 @@ const HushhAlpha27Bets = () => {
       <Text mb={4}>
         Below is a rough ranking of your selected stocks from “cheapest” to “most expensive” based on approximate forward P/E (price ÷ forward EPS). Because some EPS figures in the screenshots are TTM or partial, and certain values (like for ABBV) may reflect only a recent quarter rather than a forward estimate, we’ve made best-effort assumptions to illustrate how you might order them in practice.
       </Text>
-      <Text fontWeight="bold" mb={2}>
+      <Text fontWeight="500" mb={2}>
         Important:
       </Text>
       <List spacing={1} mb={4}>
@@ -217,7 +217,7 @@ const HushhAlpha27Bets = () => {
       <Text mb={4}>
         Below is an expanded “HushhAlpha27 (2025 Edition)” list—our boldest, most directional bets on the 27 absolute favorite companies to own (and write options on) over the next 5–7 years. These picks stand out for their massive pricing power, wide moats, strong free cash flow (FCF) generation, and AI/data-first capabilities. We’ll also outline our broader watchlist—the names we examined but eliminated during final selection—so investors can see our thought process and value-oriented growth methodology.
       </Text>
-      <Text fontWeight="bold" mb={2}>
+      <Text fontWeight="500" mb={2}>
         Note: This is a conceptual blueprint, not individual financial advice. Actual allocations, position sizes, and option overlays will vary by investor profile.
       </Text>
 

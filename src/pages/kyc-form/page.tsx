@@ -592,7 +592,7 @@ const KYCFormPage = () => {
               display="flex" 
               alignItems="center" 
               justifyContent="center" 
-              fontWeight="bold"
+              fontWeight="500"
             >
               {index + 1}
             </Box>

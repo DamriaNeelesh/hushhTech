@@ -158,7 +158,7 @@ const Dmu21apr = () => {
         Our investments touch billions every single day, with trusted brands, robust cash flows, and exceptional capital efficiency.
         Invest smart, invest evergreen. 🌲📈
       </Text>
-      <Text mt={4} fontWeight="bold">
+      <Text mt={4} fontWeight="500">
         #AlphaWithAloha #EvergreenWealth #InvestWisely #🤫Fund
       </Text>
       <Text mt={4}>
@@ -254,7 +254,7 @@ const Dmu21apr = () => {
         Our investments touch billions every single day, with trusted brands, robust cash flows, and exceptional capital efficiency.
         Invest smart, invest evergreen. 🌲📈
       </Text>
-      <Text mt={4} fontWeight="bold">
+      <Text mt={4} fontWeight="500">
         #AlphaWithAloha #EvergreenWealth #InvestWisely #🤫Fund
       </Text>
       <Text mt={4}>

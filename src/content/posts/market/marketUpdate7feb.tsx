@@ -28,14 +28,14 @@ const AlphaAlohaFundUpdate = () => {
       <Divider my={4} borderColor="black" />
 
       <Heading as="h3" fontSize="lg" color="black" mb={4}>Performance Overview</Heading>
-      <Text fontSize="md" fontWeight="bold">Daily Performance (Feb 7, 2025):</Text>
+      <Text fontSize="md" fontWeight="500">Daily Performance (Feb 7, 2025):</Text>
       <List spacing={2} pl={4}>
         <ListItem>Net Income (Day): $56,043.91 (0.73% of NAV)</ListItem>
         <ListItem>Proceeds: $567,828.30 | Cost Basis: $511,787.42</ListItem>
         <ListItem>Gain/Loss Ratio: 99.60% | Win Rate: 97.37%</ListItem>
       </List>
 
-      <Text fontSize="md" fontWeight="bold" mt={4}>Month-to-Date Performance (Feb 2025):</Text>
+      <Text fontSize="md" fontWeight="500" mt={4}>Month-to-Date Performance (Feb 2025):</Text>
       <List spacing={2} pl={4}>
         <ListItem>Net Income: $190,753.56 (2.47% of NAV)</ListItem>
         <ListItem>Proceeds: $2,555,853.42 | Cost Basis: $2,446,868.71</ListItem>
@@ -54,13 +54,13 @@ const AlphaAlohaFundUpdate = () => {
       <Divider my={4} borderColor="black" />
 
       <Heading as="h3" fontSize="lg" color="black" mb={4}>Market Commentary</Heading>
-      <Text fontSize="md" fontWeight="bold">Tech Sector Observations:</Text>
+      <Text fontSize="md" fontWeight="500">Tech Sector Observations:</Text>
       <List spacing={2} pl={4}>
         <ListItem>Amazon (AMZN) reported strong Q4 earnings but mixed market reaction.</ListItem>
         <ListItem>Alphabet (GOOGL) investing heavily in AI CapEx, causing temporary declines.</ListItem>
       </List>
       
-      <Text fontSize="md" fontWeight="bold" mt={4}>Macro Trends:</Text>
+      <Text fontSize="md" fontWeight="500" mt={4}>Macro Trends:</Text>
       <List spacing={2} pl={4}>
         <ListItem>Major indices faced downward pressure: Dow -0.99%, Nasdaq -1.30%, S&P 500 -0.95%</ListItem>
       </List>
@@ -77,7 +77,7 @@ const AlphaAlohaFundUpdate = () => {
         <ListItem><strong>Cash Hoard:</strong> $5.096 million</ListItem>
       </List>
 
-      <Text fontSize="lg" mt={4} fontWeight="bold">Let’s keep building! Onward! 🙌</Text>
+      <Text fontSize="lg" mt={4} fontWeight="500">Let’s keep building! Onward! 🙌</Text>
     </Box>
   );
 };

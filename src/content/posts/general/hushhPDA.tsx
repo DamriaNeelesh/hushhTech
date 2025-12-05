@@ -56,7 +56,7 @@ const hushhPDA = () => {
         In a world that vacillates between aspiration and desperation, Hushh.ai is the calm in the storm, the certainty in the unknown. We are the craftsmen of a future where technology serves humanity with the subtlety of a whisper and the impact of a revolution.
       </Text>
       
-      <Text fontWeight="bold" mt={4}>
+      <Text fontWeight="500" mt={4}>
         With respect and anticipation for the journey ahead,
       </Text>
       <Text mb={4}>

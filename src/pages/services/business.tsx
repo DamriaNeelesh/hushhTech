@@ -219,7 +219,7 @@ const Business = () => {
                 <Box
                   as="span"
                   flex="1"
-                  fontWeight="bold"
+                  fontWeight="500"
                   fontSize={{ md: "1.5rem", base: "1rem" }}
                   alignSelf="flex-start"
                 >
@@ -281,7 +281,7 @@ const Business = () => {
                 <Box
                   as="span"
                   flex="1"
-                  fontWeight="bold"
+                  fontWeight="500"
                   fontSize={{ md: "1.5rem", base: "1rem" }}
                   alignItems={"center"}
                   justifyContent={"center"}
@@ -336,7 +336,7 @@ const Business = () => {
                 <Box
                   as="span"
                   flex="1"
-                  fontWeight="bold"
+                  fontWeight="500"
                   fontSize={{ md: "1.5rem", base: "1rem" }}
                   textAlign="center"
                   alignItems={"center"}
@@ -561,7 +561,7 @@ VIBE Search API
                 <Box
                   as="span"
                   flex="1"
-                  fontWeight="bold"
+                  fontWeight="500"
                   fontSize={{ md: "1.5rem", base: "1rem" }}
                   alignSelf="flex-start"
                 >
@@ -617,7 +617,7 @@ VIBE Search API
                 <Box
                   as="span"
                   flex="1"
-                  fontWeight="bold"
+                  fontWeight="500"
                   fontSize={{ md: "1.5rem", base: "1rem" }}
                   alignSelf="flex-start"
                 >
@@ -673,7 +673,7 @@ VIBE Search API
                 <Box
                   as="span"
                   flex="1"
-                  fontWeight="bold"
+                  fontWeight="500"
                   fontSize={{ md: "1.5rem", base: "1rem" }}
                   alignSelf="flex-start"
                 >

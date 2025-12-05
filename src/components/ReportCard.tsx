@@ -22,7 +22,7 @@ const ReportCard: React.FC<ReportCardProps> = ({ report }) => {
       {/* Date in red, bold */}
       <Text
         color="red.600"
-        fontWeight="bold"
+        fontWeight="500"
         fontSize={{ base: "sm", md: "md" }}
         mb={1}
       >

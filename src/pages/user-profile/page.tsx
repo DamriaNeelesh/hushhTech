@@ -30,7 +30,7 @@ const UserProfilePage = () => {
       <VStack spacing={4} align="center" mb={{ base: 8, md: 10 }}>
         <Heading as="h1" size="2xl" fontWeight="light" color={headingColor}>
           Your{" "}
-          <Text as="span" fontWeight="semibold" className="blue-gradient-text" bgClip="text">
+          <Text as="span" fontWeight="500" className="blue-gradient-text" bgClip="text">
             Profile
           </Text>
         </Heading>

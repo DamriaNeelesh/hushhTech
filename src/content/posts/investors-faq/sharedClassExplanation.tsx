@@ -51,7 +51,7 @@ const HushhAlphaFund = () => {
         {["What is the Hushh Alpha & Aloha Fund Strategy?", "What does 'Sell the Wall' mean?", "How do you measure Alpha & Aloha?", "What is the fund’s maximum drawdown target?"]
           .map((q, i) => (
             <Box key={i}>
-              <Text fontWeight="bold">❓ {q}</Text>
+              <Text fontWeight="500">❓ {q}</Text>
               <Text>✔ Sample answer to {q.toLowerCase()}.</Text>
             </Box>
           ))}

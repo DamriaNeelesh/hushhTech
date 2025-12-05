@@ -5,14 +5,14 @@ import MarketUpdateGallery from '../../../components/MarketUpdateGallery';
 const dmu3mar = () => {
   return (
     <Box p={4} color={'black'}>
-      <Text fontSize="xl" fontWeight="bold" color={'black'} mb={2}>
+      <Text fontSize="xl" fontWeight="500" color={'black'} mb={2}>
         Market Wrap: Tariff Turbulence Trips Stocks, Europe Defies the Drop
       </Text>
       <Text mb={4}>
         Monday, March 3, 2025 – U.S. markets stumbled into March with their worst day of the year, as trade war jitters and soft economic data spooked investors. Major Wall Street indices sank deep into the red by the close, even as European and Asian markets showed surprising resilience. We break down the action across indices, sectors, and assets in today’s global market recap – a brisk evening read to keep you in the loop.
       </Text>
 
-      <Text fontSize="lg" fontWeight="bold" mb={2}>
+      <Text fontSize="lg" fontWeight="500" mb={2}>
         Major Index Performance
       </Text>
       <Text mb={4}>
@@ -22,42 +22,42 @@ const dmu3mar = () => {
         Global Divergence: European markets shrugged off the U.S. gloom, with Germany’s DAX soaring 2.7% to top the 23,000 mark for the first time, and France’s CAC 40 up 1.3%. London’s FTSE 100 added 0.7%, buoyed by a rally in defense stocks (more on that later). In Asia, Japan’s Nikkei jumped 1.7%, recovering some of last week’s losses, while Hong Kong’s Hang Seng inched up 0.3% ahead of China’s National People’s Congress meetings. In contrast, Canada’s TSX fell about 1.5%, caught in the crossfire of the U.S. tariff salvo.
       </Text>
 
-      <Text fontSize="lg" fontWeight="bold" mb={2}>
+      <Text fontSize="lg" fontWeight="500" mb={2}>
         Sector Performance
       </Text>
       <Text mb={4}>
         Sector Shake-Up: Losses hit almost every corner of the market, but tech and energy were the hardest hit. Technology stocks led the decline with a 3.5% plunge as chipmakers slumped and high-valuation growth names struggled. The energy sector also dropped about 3.5%, hurt by a slide in oil prices and new 10% duties on energy imports tied to the tariffs. Cyclical sectors like industrials and materials fell sharply on trade worries, while defensive groups held firmer. In fact, real estate and consumer staples managed to rise roughly 0.7% as investors shifted toward safety plays (helped by a dip in interest rates that boosts yield-sensitive stocks).
       </Text>
 
-      <Text fontSize="lg" fontWeight="bold" mb={2}>
+      <Text fontSize="lg" fontWeight="500" mb={2}>
         Top Stock Movers
       </Text>
       <Text mb={4}>
         Notable Movers: A number of big names saw outsized moves amid the turmoil. On the downside, some high-flyers came crashing back to earth – AI server maker Super Micro Computer plunged 13% to lead the S&P 500 losers after a cautious analyst report on its outlook, and chip giant Nvidia sank 8.7% as investors questioned the sustainability of the AI boom (and fretted over potential chip export curbs). Rival Broadcom slid about 6%, while Tesla and other Big Tech names also fell sharply. Oil producer APA Corp dropped 8.7% after disappointing earnings, mirroring the broader energy slump. On the upside, a few defensive and earnings-driven winners stood out: insurer Erie Indemnity jumped 5.1% after beating profit forecasts, timber REIT Weyerhaeuser rallied 4.3% after a presidential order promoting lumber production, and chocolate-maker Hershey gained 3.4% as consumer staples caught a bid. Even burrito chain Chipotle managed to end slightly higher (+0.7%) after receiving a bullish analyst upgrade that bucked the day’s downtrend.
       </Text>
 
-      <Text fontSize="lg" fontWeight="bold" mb={2}>
+      <Text fontSize="lg" fontWeight="500" mb={2}>
         Macroeconomic & Policy Updates
       </Text>
       <Text mb={4}>
         Macro Winds: Fresh economic and policy news fueled the market’s jitters. President Trump confirmed that 25% tariffs on imports from Canada and Mexico will indeed take effect Tuesday, dashing hopes for a last-minute reprieve and raising the specter of retaliatory trade measures. Adding to nerves, the latest U.S. manufacturing report showed a slowing factory sector – the ISM manufacturing index slipped to 50.3 in February (below forecasts), just barely in expansion territory, while its prices-paid gauge jumped to the highest since mid-2022 (hinting at rising inflationary pressure). There were no major Federal Reserve statements today, but bond markets reacted (yields fell) as investors bet the Fed may have to consider growth risks. All eyes are now turning to Friday’s jobs report for clues on the economy’s strength and the Fed’s next move. On the trade front, Canada vowed to retaliate in kind to the U.S. tariffs, underscoring how policy uncertainty is stretching across borders.
       </Text>
 
-      <Text fontSize="lg" fontWeight="bold" mb={2}>
+      <Text fontSize="lg" fontWeight="500" mb={2}>
         Geopolitical & Global Events
       </Text>
       <Text mb={4}>
         Geopolitics in Focus: Developments on the world stage added another layer of complexity. Washington’s trade offensive is straining relations with key allies – Canada is preparing counter-tariffs and even U.S. companies are bracing for disrupted supply chains and higher costs. Meanwhile, tensions flared in Europe: a very public spat between President Trump and Ukraine’s President Zelensky in the Oval Office late last week escalated uncertainty around the ongoing conflict. In response, European leaders scrambled to contain the fallout – pledging higher defense spending and even floating proposals for a ceasefire in Ukraine. That resolve gave a boost to Europe’s defense contractors (shares of France’s Thales and Britain’s BAE Systems jumped over 14% in a day), and contributed to Europe’s market rally. From trade tiffs to war worries, geopolitical cross-currents kept investors on edge globally.
       </Text>
 
-      <Text fontSize="lg" fontWeight="bold" mb={2}>
+      <Text fontSize="lg" fontWeight="500" mb={2}>
         Market Sentiment & Trends
       </Text>
       <Text mb={4}>
         Market Sentiment: Fear gauges flashed higher as investors sought protection. The Cboe Volatility Index (VIX), Wall Street’s “fear index,” spiked about 10% to north of 21 in afternoon trading – its highest level in months – before settling around 20.5. Traders are clearly pricing in choppier waters ahead. “Until all of this uncertainty is resolved, the markets are just going to behave this way,” one portfolio manager commented, warning that day-to-day volatility will likely stay elevated. In fact, one research firm downgraded its outlook on U.S. equities to underweight, arguing that investors have been too optimistic and that Trump’s unpredictable policies have begun to sap the “animal spirits” that once fueled risk-taking. Reflecting the cautious mood, safe-haven assets like Treasury bonds and gold attracted strong inflows (more on that below), even as many investors sat on the sidelines awaiting clarity.
       </Text>
 
-      <Text fontSize="lg" fontWeight="bold" mb={2}>
+      <Text fontSize="lg" fontWeight="500" mb={2}>
         Crypto & Commodities
       </Text>
       <Text mb={4}>
@@ -67,14 +67,14 @@ const dmu3mar = () => {
         Ethereum Jumps: Ethereum, the second-largest crypto, followed Bitcoin’s lead – it saw a double-digit percentage jump intraday, hitting its highest levels in nearly three months, before paring back in late trading (though it still closed well in the green). Meanwhile, traditional commodities sent mixed signals. Gold glittered as a classic safe haven – futures for the yellow metal climbed roughly 2% to about $2,905 per ounce (near all-time highs) amid the rush to safety. In contrast, oil extended its decline: U.S. WTI crude fell nearly 2% to around $68.45 a barrel, the lowest in two months, as traders fretted that slower growth and trade tensions will undercut fuel demand. Industrial metals also softened on growth concerns, while agricultural commodities were mixed, leaving investors with plenty to digest across the complex.
       </Text>
 
-      <Text fontSize="lg" fontWeight="bold" mb={2}>
+      <Text fontSize="lg" fontWeight="500" mb={2}>
         Bond Market & Interest Rates
       </Text>
       <Text mb={4}>
         Bond Market & Rates: Amid the equity turmoil, investors flocked to the safety of government bonds. U.S. Treasury yields plunged – the benchmark 10-year yield dropped to about 4.16% by late Monday, its lowest level since early December, as bond prices jumped. This reflects expectations that an economic slowdown (exacerbated by tariffs and softer data) could eventually lead the Fed to reconsider its rate hikes or even cut rates if needed. The yield curve remains inverted (short-term rates still higher than long-term rates), often a harbinger of recession, though the depth of the inversion narrowed slightly as long-term yields fell. Rate-sensitive sectors like real estate caught a lift from the decline in yields, and mortgage rates eased a touch. Overseas, a similar pattern played out – bond yields in many European markets and in Asia ticked down as global investors sought refuge in fixed income. In short, the bond market is signaling caution, even as policymakers tread carefully in the face of conflicting economic currents.
       </Text>
 
-      <Text fontSize="lg" fontWeight="bold" mb={2}>
+      <Text fontSize="lg" fontWeight="500" mb={2}>
         Special edition update focusing on IRR
       </Text>
       <Text mb={4}>

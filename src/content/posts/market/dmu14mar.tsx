@@ -21,7 +21,7 @@ const Dmu14Mar = () => {
         Aloha Alpha Club – Weekly Market Update
       </Heading>
       <Text mb={4}>Date: March 14, 2025</Text>
-      <Text fontWeight="bold" mb={2}>
+      <Text fontWeight="500" mb={2}>
         Net Asset Value (NAV): $4,939,526.02 (+5.38% daily gain)
       </Text>
 
@@ -121,7 +121,7 @@ const Dmu14Mar = () => {
       <Text mb={4}>
         We remain committed to the disciplined principles of great investors—holding only businesses with strong free cash flow, competitive moats, and compelling long-term value creation stories. With market volatility always a potential risk, we will remain diligent and selective in managing our positions.
       </Text>
-      <Text fontWeight="bold" mb={4}>
+      <Text fontWeight="500" mb={4}>
         Thank you for your continued trust, and have a wonderful weekend.
       </Text>
       <Text fontSize="sm" color="gray.500">

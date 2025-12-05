@@ -6,21 +6,21 @@ import { FiCheckSquare } from 'react-icons/fi';
 const dmu30may = () => {
   return (
     <Box fontFamily="'Inter', sans-serif" color={'black'} maxW="4xl" mx="auto" p={5}>
-      <Heading as="h1" fontSize={{md:"2xl",base:'xl'}} fontWeight="bold" mb={6} textAlign="center">
+      <Heading as="h1" fontSize={{md:"2xl",base:'xl'}} fontWeight="500" mb={6} textAlign="center">
         HUSSH Renaissance AI First Fund A
       </Heading>
-      <Text fontWeight="bold" fontSize={{md:"xl",base:'lg'}} textAlign="center" mb={2}>
+      <Text fontWeight="500" fontSize={{md:"xl",base:'lg'}} textAlign="center" mb={2}>
         Daily Market & Execution Memo
       </Text>
       <Text textAlign="center" mb={2}>Date: May 30, 2025</Text>
-      <Text textAlign="center" fontWeight="bold" fontSize={{md:"lg",base:'md'}} mb={6}>
+      <Text textAlign="center" fontWeight="500" fontSize={{md:"lg",base:'md'}} mb={6}>
         "From GOOG to Great: How One Position Became the Foundation of a Machine for Alpha, 
         Aloha, and Ownership."
       </Text>
 
       <Divider my={6} borderColor="black" />
 
-      <Heading as="h2" fontSize={{md:"xl",base:'lg'}} fontWeight="bold" mb={4}>
+      <Heading as="h2" fontSize={{md:"xl",base:'lg'}} fontWeight="500" mb={4}>
         Origin Story: 32,727 Shares of GOOG → Multi-Strategy Platform
       </Heading>
       <Text mb={4} fontSize={{md:'md',base:'sm'}}>
@@ -46,7 +46,7 @@ const dmu30may = () => {
 
       <Divider my={6} borderColor="black" />
 
-      <Heading as="h2" fontSize={{md:"xl",base:'lg'}} fontWeight="bold" mb={4}>
+      <Heading as="h2" fontSize={{md:"xl",base:'lg'}} fontWeight="500" mb={4}>
         Daily Highlights
       </Heading>
       <VStack align="start" spacing={2} pl={5} mb={6} fontSize={{md:'md',base:'sm'}}>
@@ -65,7 +65,7 @@ const dmu30may = () => {
 
       <Divider my={6} borderColor="black" />
 
-      <Heading as="h2" fontSize={{md:"xl",base:'lg'}} fontWeight="bold" mb={4}>
+      <Heading as="h2" fontSize={{md:"xl",base:'lg'}} fontWeight="500" mb={4}>
         Strategy Execution Notes
       </Heading>
       
@@ -73,7 +73,7 @@ const dmu30may = () => {
         <Box w="full">
           <HStack align="start" mb={2}>
             <Icon as={FiCheckSquare} color="green.500" boxSize={6} mt={1} />
-            <Text fontWeight="bold" fontSize={{md:'md',base:'sm'}}>Aloha 27 – Daily Premium Engine</Text>
+            <Text fontWeight="500" fontSize={{md:'md',base:'sm'}}>Aloha 27 – Daily Premium Engine</Text>
           </HStack>
           <VStack align="start" spacing={2} pl={10} fontSize={{md:'md',base:'sm'}}>
             <Text>● "Sell the Wall" hit again today across AAPL, BRK.B, TSLA.</Text>
@@ -85,7 +85,7 @@ const dmu30may = () => {
         <Box w="full">
           <HStack align="start" mb={2}>
             <Icon as={FiCheckSquare} color="green.500" boxSize={6} mt={1} />
-            <Text fontWeight="bold" fontSize={{md:'md',base:'sm'}}>Alpha 27 – Core Compounding</Text>
+            <Text fontWeight="500" fontSize={{md:'md',base:'sm'}}>Alpha 27 – Core Compounding</Text>
           </HStack>
           <VStack align="start" spacing={2} pl={10} fontSize={{md:'md',base:'sm'}}>
             <Text>● AAPL, AMZN, GOOGL, BRK.B: still compounding intrinsic value.</Text>
@@ -97,7 +97,7 @@ const dmu30may = () => {
         <Box w="full">
           <HStack align="start" mb={2}>
             <Icon as={FiCheckSquare} color="green.500" boxSize={6} mt={1} />
-            <Text fontWeight="bold" fontSize={{md:'md',base:'sm'}}>Ultra 27 – Asymmetric Alpha</Text>
+            <Text fontWeight="500" fontSize={{md:'md',base:'sm'}}>Ultra 27 – Asymmetric Alpha</Text>
           </HStack>
           <VStack align="start" spacing={2} pl={10} fontSize={{md:'md',base:'sm'}}>
             <Text>● Initiated new AI infrastructure trades via calls/synthetics.</Text>
@@ -109,7 +109,7 @@ const dmu30may = () => {
 
       <Divider my={6} borderColor="black" />
 
-      <Heading as="h2" fontSize={{md:"xl",base:'lg'}} fontWeight="bold" mb={4}>
+      <Heading as="h2" fontSize={{md:"xl",base:'lg'}} fontWeight="500" mb={4}>
         Portfolio Philosophy
       </Heading>
       <Text mb={2} fontSize={{md:'md',base:'sm'}}>We don't run a strategy. We run a system.</Text>
@@ -120,18 +120,18 @@ const dmu30may = () => {
 
       <Divider my={6} borderColor="black" />
 
-      <Heading as="h2" fontSize={{md:"xl",base:'lg'}} fontWeight="bold" mb={4}>
+      <Heading as="h2" fontSize={{md:"xl",base:'lg'}} fontWeight="500" mb={4}>
         Asset Book Snapshot (Select Positions)
       </Heading>
       <TableContainer mb={6}>
         <Table variant="simple" size="sm">
           <Tbody>
             <Tr>
-              <Td fontWeight="bold">Ticker</Td>
-              <Td fontWeight="bold">Position Value</Td>
-              <Td fontWeight="bold">Day P/L</Td>
-              <Td fontWeight="bold">Delta</Td>
-              <Td fontWeight="bold">Note</Td>
+              <Td fontWeight="500">Ticker</Td>
+              <Td fontWeight="500">Position Value</Td>
+              <Td fontWeight="500">Day P/L</Td>
+              <Td fontWeight="500">Delta</Td>
+              <Td fontWeight="500">Note</Td>
             </Tr>
             <Tr>
               <Td>AAPL</Td>
@@ -184,7 +184,7 @@ const dmu30may = () => {
 
       <Divider my={6} borderColor="black" />
 
-      <Heading as="h2" fontSize={{md:"xl",base:'lg'}} fontWeight="bold" mb={4}>
+      <Heading as="h2" fontSize={{md:"xl",base:'lg'}} fontWeight="500" mb={4}>
         Real Performance (Reference)
       </Heading>
       <Text mb={4} fontSize={{md:'md',base:'sm'}}>Verified realized gain data (audited where applicable):</Text>
@@ -200,7 +200,7 @@ const dmu30may = () => {
 
       <Divider my={6} borderColor="black" />
 
-      <Heading as="h2" fontSize={{md:"xl",base:'lg'}} fontWeight="bold" mb={4}>
+      <Heading as="h2" fontSize={{md:"xl",base:'lg'}} fontWeight="500" mb={4}>
         Risk Management
       </Heading>
       <VStack align="start" spacing={2} pl={5} mb={4} fontSize={{md:'md',base:'sm'}}>
@@ -216,7 +216,7 @@ const dmu30may = () => {
 
       <Divider my={6} borderColor="black" />
 
-      <Heading as="h2" fontSize={{md:"xl",base:'lg'}} fontWeight="bold" mb={4}>
+      <Heading as="h2" fontSize={{md:"xl",base:'lg'}} fontWeight="500" mb={4}>
         LP Takeaways
       </Heading>
       <VStack align="start" spacing={2} pl={5} mb={6} fontSize={{md:'md',base:'sm'}}>
@@ -228,7 +228,7 @@ const dmu30may = () => {
 
       <Divider my={6} borderColor="black" />
 
-      <Heading as="h2" fontSize={{md:"xl",base:'lg'}}    fontWeight="bold" mb={4}>
+      <Heading as="h2" fontSize={{md:"xl",base:'lg'}}    fontWeight="500" mb={4}>
         Final Thought
       </Heading>
       <Text mb={4} fontSize={{md:'md',base:'sm'}}>We turned a single GOOG position into a precision-built platform that:</Text>
@@ -242,10 +242,10 @@ const dmu30may = () => {
       <Text mb={6} fontSize={{md:'md',base:'sm'}}>We'll keep doing that—with your trust and our conviction.</Text>
 
       <Text mb={2} fontSize={{md:'md',base:'sm'}}>With gratitude and clarity,</Text>
-      <Text fontWeight="bold" mb={1} fontSize={{md:'md',base:'sm'}}>Manish</Text>
+      <Text fontWeight="500" mb={1} fontSize={{md:'md',base:'sm'}}>Manish</Text>
       <Text mb={6} fontSize={{md:'md',base:'sm'}}>Managing Partner</Text>
       
-      <Text fontWeight="bold" mb={2} fontSize={{md:'md',base:'sm'}}>HUSSH Fund A | Renaissance AI First Fund</Text>
+      <Text fontWeight="500" mb={2} fontSize={{md:'md',base:'sm'}}>HUSSH Fund A | Renaissance AI First Fund</Text>
       
       <Text fontStyle="italic" textAlign="center" mt={8} mb={4} fontSize={{md:'md',base:'sm'}}  >Confidential</Text>
 

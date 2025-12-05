@@ -15,10 +15,10 @@ const KYCVerificationPage = () => {
         {/* Header */}
         <Box textAlign="center" mb={8}>
           <Heading as="h1" size="xl" mb={4}>
-            <Text as="span" className='blue-gradient-text' fontWeight="bold">ANTI-MONEY LAUNDERING (AML)</Text>
-            <Text as="span" color={secondaryColor} fontWeight="bold"> & KNOW YOUR CUSTOMER</Text>
+            <Text as="span" className='blue-gradient-text' fontWeight="500">ANTI-MONEY LAUNDERING (AML)</Text>
+            <Text as="span" color={secondaryColor} fontWeight="500"> & KNOW YOUR CUSTOMER</Text>
           </Heading>
-          <Heading as="h2" size="lg" color={secondaryColor} fontWeight="bold">(KYC) DOCUMENTATION</Heading>
+          <Heading as="h2" size="lg" color={secondaryColor} fontWeight="500">(KYC) DOCUMENTATION</Heading>
           <Text mt={4} fontSize="md" color="gray.600">Hushh Renaissance Alpha & Alpha Fund, LP</Text>
         </Box>
 
@@ -45,9 +45,9 @@ const KYCVerificationPage = () => {
                 background={'linear-gradient(to right, #00A9E0, #6DD3EF)'}
                 mr={4}
               >
-                <Text fontWeight="bold" fontSize="lg" color="white">1</Text>
+                <Text fontWeight="500" fontSize="lg" color="white">1</Text>
               </Box>
-              <Heading as="h3" size="md" fontWeight="bold">Identity Verification</Heading>
+              <Heading as="h3" size="md" fontWeight="500">Identity Verification</Heading>
             </Stack>
             <VStack align="start" pl={14} spacing={3}>
               <HStack align="center">
@@ -84,9 +84,9 @@ const KYCVerificationPage = () => {
                 background={'linear-gradient(to right, #00A9E0, #6DD3EF)'}
                 mr={4}
               >
-                <Text fontWeight="bold" fontSize="lg" color="white">2</Text>
+                <Text fontWeight="500" fontSize="lg" color="white">2</Text>
               </Box>
-              <Heading as="h3" size="md" fontWeight="bold">Financial Background Verification</Heading>
+              <Heading as="h3" size="md" fontWeight="500">Financial Background Verification</Heading>
             </Stack>
             <VStack align="start" pl={14} spacing={3}>
               <HStack align="center">
@@ -129,9 +129,9 @@ const KYCVerificationPage = () => {
                 background={'linear-gradient(to right, #00A9E0, #6DD3EF)'}
                 mr={4}
               >
-                <Text fontWeight="bold" fontSize="lg" color="white">3</Text>
+                <Text fontWeight="500" fontSize="lg" color="white">3</Text>
               </Box>
-              <Heading as="h3" size="md" fontWeight="bold">Investment Experience Documentation</Heading>
+              <Heading as="h3" size="md" fontWeight="500">Investment Experience Documentation</Heading>
             </Stack>
             <VStack align="start" pl={14} spacing={3}>
               <HStack align="center">
@@ -168,9 +168,9 @@ const KYCVerificationPage = () => {
                 background={'linear-gradient(to right, #00A9E0, #6DD3EF)'}
                 mr={4}
               >
-                <Text fontWeight="bold" fontSize="lg" color="white">4</Text>
+                <Text fontWeight="500" fontSize="lg" color="white">4</Text>
               </Box>
-              <Heading as="h3" size="md" fontWeight="bold">Enhanced Due Diligence (High-Risk Categories)</Heading>
+              <Heading as="h3" size="md" fontWeight="500">Enhanced Due Diligence (High-Risk Categories)</Heading>
             </Stack>
             <VStack align="start" pl={14} spacing={3}>
               <HStack align="center">
@@ -207,9 +207,9 @@ const KYCVerificationPage = () => {
                 background={'linear-gradient(to right, #00A9E0, #6DD3EF)'}
                 mr={4}
               >
-                <Text fontWeight="bold" fontSize="lg" color="white">5</Text>
+                <Text fontWeight="500" fontSize="lg" color="white">5</Text>
               </Box>
-              <Heading as="h3" size="md" fontWeight="bold">Corporate Entity Verification (For Institutional Investors)</Heading>
+              <Heading as="h3" size="md" fontWeight="500">Corporate Entity Verification (For Institutional Investors)</Heading>
             </Stack>
             <VStack align="start" pl={14} spacing={3}>
               <HStack align="center">
@@ -252,9 +252,9 @@ const KYCVerificationPage = () => {
                 background={'linear-gradient(to right, #00A9E0, #6DD3EF)'}
                 mr={4}
               >
-                <Text fontWeight="bold" fontSize="lg" color="white">6</Text>
+                <Text fontWeight="500" fontSize="lg" color="white">6</Text>
               </Box>
-              <Heading as="h3" size="md" fontWeight="bold">Ongoing Monitoring Requirements</Heading>
+              <Heading as="h3" size="md" fontWeight="500">Ongoing Monitoring Requirements</Heading>
             </Stack>
             <VStack align="start" pl={14} spacing={3}>
               <HStack align="center">
@@ -291,9 +291,9 @@ const KYCVerificationPage = () => {
                 background={'linear-gradient(to right, #00A9E0, #6DD3EF)'}
                 mr={4}
               >
-                <Text fontWeight="bold" fontSize="lg" color="white">7</Text>
+                <Text fontWeight="500" fontSize="lg" color="white">7</Text>
               </Box>
-              <Heading as="h3" size="md" fontWeight="bold">Prohibited Activities & Red Flags</Heading>
+              <Heading as="h3" size="md" fontWeight="500">Prohibited Activities & Red Flags</Heading>
             </Stack>
             <VStack align="start" pl={14} spacing={3}>
               <HStack align="center">
@@ -336,9 +336,9 @@ const KYCVerificationPage = () => {
                 background={'linear-gradient(to right, #00A9E0, #6DD3EF)'}
                 mr={4}
               >
-                <Text fontWeight="bold" fontSize="lg" color="white">8</Text>
+                <Text fontWeight="500" fontSize="lg" color="white">8</Text>
               </Box>
-              <Heading as="h3" size="md" fontWeight="bold">Documentation Timeline & Process</Heading>
+              <Heading as="h3" size="md" fontWeight="500">Documentation Timeline & Process</Heading>
             </Stack>
             <VStack align="start" pl={14} spacing={3}>
               <HStack align="center">
@@ -379,7 +379,7 @@ const KYCVerificationPage = () => {
           p={6}
         >
           <VStack spacing={4} align="stretch">
-            <Heading as="h3" size="md" fontWeight="bold">Important Notice</Heading>
+            <Heading as="h3" size="md" fontWeight="500">Important Notice</Heading>
             <Text>
               All documentation must be provided in English or accompanied by certified translations. Digital copies are acceptable for initial review, but original or 
               certified copies may be required for final verification. Hushh Technology LLC reserves the right to request additional documentation as deemed necessary 
@@ -398,7 +398,7 @@ const KYCVerificationPage = () => {
           p={6}
         >
           <VStack spacing={4} align="stretch">
-            <Heading as="h3" size="md" fontWeight="bold">Data Protection & Privacy</Heading>
+            <Heading as="h3" size="md" fontWeight="500">Data Protection & Privacy</Heading>
             <Text>
               All personal and financial information provided during the KYC process is handled in strict accordance with applicable privacy laws and regulations. Your 
               data is encrypted, secured, stored, and will only be shared with authorized third parties as required by law and/or compliance verification purposes.

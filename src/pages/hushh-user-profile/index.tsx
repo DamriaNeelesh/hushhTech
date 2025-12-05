@@ -116,7 +116,7 @@ const defaultFormState: FormState = {
 
 const primaryCtaStyles = {
   borderRadius: "full",
-  fontWeight: "bold",
+  fontWeight: "500",
   bgGradient: "linear(to-r, rgb(0, 169, 224), rgb(109, 211, 239))",
   color: "white",
   boxShadow: "0 10px 25px rgba(0, 169, 224, 0.35)",

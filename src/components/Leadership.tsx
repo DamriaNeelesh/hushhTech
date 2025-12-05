@@ -83,7 +83,7 @@ export default function Leadership() {
           </Heading>
           
           <Text fontSize={{ base: "md", md: "lg" }} mb={8} className="text-[#1D1D1F] leading-relaxed font-light">
-            At <Text as="span" fontWeight="semibold">Hushh Technologies</Text>, we combine the art of investment with the science of technology:
+            At <Text as="span" fontWeight="500">Hushh Technologies</Text>, we combine the art of investment with the science of technology:
           </Text>
           
           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8} mb={16}>

@@ -12,7 +12,7 @@ export const frontmatter = {
 const FundAHushh: React.FC = () => {
   return (
     <Box p={0} maxW="900px" mx="auto" textAlign="left" bg="white" color="black">
-      <Heading as="h1" fontSize="2xl" fontWeight="bold" mt={2} mb={4}>
+      <Heading as="h1" fontSize="2xl" fontWeight="500" mt={2} mb={4}>
         Fund A Hushh
       </Heading>
 
@@ -23,18 +23,18 @@ const FundAHushh: React.FC = () => {
       <Divider my={4} borderColor="gray.300" />
 
       <VStack align="start" spacing={4} mt={6}>
-        <Heading as="h3" fontSize="md" fontWeight="bold">
+        <Heading as="h3" fontSize="md" fontWeight="500">
           Core Principles
         </Heading>
         <Box p={4} borderWidth="1px" borderRadius="lg" shadow="md" bg="gray.100">
-          <Heading as="h4" fontSize="md" fontWeight="bold" mb={2}>Mission</Heading>
+          <Heading as="h4" fontSize="md" fontWeight="500" mb={2}>Mission</Heading>
           <Text color="gray.700">
             Deploy $7.5M NAV in the world’s smartest, AI-driven, risk-managed hedge fund strategies.
           </Text>
         </Box>
 
         <Box p={4} borderWidth="1px" borderRadius="lg" shadow="md" bg="gray.100">
-          <Heading as="h4" fontSize="md" fontWeight="bold" mb={2}>Goal</Heading>
+          <Heading as="h4" fontSize="md" fontWeight="500" mb={2}>Goal</Heading>
           <Text color="gray.700">
             Maximize free cash flow alpha while ensuring absolute capital protection and scalability.
           </Text>
@@ -43,7 +43,7 @@ const FundAHushh: React.FC = () => {
 
       <Divider my={4} borderColor="gray.300" />
 
-      <Heading as="h3" fontSize="md" fontWeight="bold">
+      <Heading as="h3" fontSize="md" fontWeight="500">
         Investment Strategies
       </Heading>
       <List spacing={2} pl={4} color="gray.700">
@@ -55,14 +55,14 @@ const FundAHushh: React.FC = () => {
 
       <Divider my={4} borderColor="gray.300" />
 
-      <Heading as="h3" fontSize="md" fontWeight="bold">
+      <Heading as="h3" fontSize="md" fontWeight="500">
         Performance Highlights
       </Heading>
       <Text mb={4} color="gray.700">
         Achieved a strong growth trajectory through disciplined execution and strategic diversification, with a focus on maximizing returns while minimizing risk.
       </Text>
 
-      <Heading as="h4" fontSize="md" fontWeight="bold" mt={4}>
+      <Heading as="h4" fontSize="md" fontWeight="500" mt={4}>
         Final Thought
       </Heading>
       <Text color="gray.700">

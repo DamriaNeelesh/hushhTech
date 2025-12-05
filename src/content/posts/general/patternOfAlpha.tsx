@@ -36,7 +36,7 @@ const PatternOfAlpha = () => {
         
         <Text>It was born to bet.</Text>
         
-        <Heading as="h4" fontSize="md" fontWeight="bold" mt={2}>1. Why Holding Companies Work</Heading>
+        <Heading as="h4" fontSize="md" fontWeight="500" mt={2}>1. Why Holding Companies Work</Heading>
         <Text>
           Holding companies are like compound interest in corporate form. If you think about it, they're 
           just concentrated patience. You buy durable cash machines—companies that throw off more 
@@ -62,7 +62,7 @@ const PatternOfAlpha = () => {
           No churn. No hype.
         </Text>
         
-        <Heading as="h4" fontSize="md" fontWeight="bold" mt={2}>2. Your Data, Your Business</Heading>
+        <Heading as="h4" fontSize="md" fontWeight="500" mt={2}>2. Your Data, Your Business</Heading>
         <Text>
           If the holding company was the body, then hushh.ai became the brain.
         </Text>
@@ -101,7 +101,7 @@ const PatternOfAlpha = () => {
           now.
         </Text>
         
-        <Heading as="h4" fontSize="md" fontWeight="bold" mt={2}>3. Being Right Slowly</Heading>
+        <Heading as="h4" fontSize="md" fontWeight="500" mt={2}>3. Being Right Slowly</Heading>
         <Text>
           If you've ever built anything that compounds, you know the pain of being right slowly.
         </Text>
@@ -127,7 +127,7 @@ const PatternOfAlpha = () => {
           The actual secret is discipline. Hushh doesn't trade like a startup. It trades like a cathedral.
         </Text>
         
-        <Heading as="h4" fontSize="md" fontWeight="bold" mt={2}>4. Why It Worked</Heading>
+        <Heading as="h4" fontSize="md" fontWeight="500" mt={2}>4. Why It Worked</Heading>
         <Text>
           So why did Hushh Technologies—this obscure, under-the-radar, almost monastic 
           company—end up becoming one of the best holding companies of the 2020s?
@@ -149,7 +149,7 @@ const PatternOfAlpha = () => {
         
         <Text>And that's the last lesson.</Text>
         
-        <Heading as="h4" fontSize="md" fontWeight="bold" mt={2}>5. The Final Alpha</Heading>
+        <Heading as="h4" fontSize="md" fontWeight="500" mt={2}>5. The Final Alpha</Heading>
         <Text>
           In a world obsessed with velocity, Hushh bet on vibration. The slow, steady hum of machines 
           doing what humans can't: compounding consistently. But it also bet on human trust, human 

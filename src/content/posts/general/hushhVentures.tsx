@@ -8,7 +8,7 @@ const HushhVentures = () => {
         
         {/* Header Section */}
         <Box textAlign="center">
-          <Heading as="h1" size="2xl" mb={4} fontWeight="bold" color="gray.800">
+          <Heading as="h1" size="2xl" mb={4} fontWeight="500" color="gray.800">
             🤫 Ventures
           </Heading>
           <Text fontSize="xl" color="gray.600" mb={2}>
@@ -37,7 +37,7 @@ const HushhVentures = () => {
             🤫 Ventures goes beyond venture capital.
           </Text>
           
-          <Text fontSize="lg" color="gray.700" lineHeight="tall" textAlign="center" fontWeight="semibold">
+          <Text fontSize="lg" color="gray.700" lineHeight="tall" textAlign="center" fontWeight="500">
             We build, back, and bring alpha home.
           </Text>
         </VStack>
@@ -52,11 +52,11 @@ const HushhVentures = () => {
           
           <VStack spacing={4}>
             <HStack spacing={2} justify="center">
-              <Text fontSize="lg" fontWeight="semibold" color={'black'}>📍 San Francisco.</Text>
+              <Text fontSize="lg" fontWeight="500" color={'black'}>📍 San Francisco.</Text>
               <Text fontSize="lg" color="gray.600" >The engine of frontier innovation.</Text>
             </HStack>
             <HStack spacing={2} justify="center">
-              <Text fontSize="lg" fontWeight="semibold" color={'black'}>📍 Abu Dhabi.</Text>
+              <Text fontSize="lg" fontWeight="500" color={'black'}>📍 Abu Dhabi.</Text>
               <Text fontSize="lg" color="gray.600">The bridge to emerging global capital.</Text>
             </HStack>
           </VStack>
@@ -93,7 +93,7 @@ const HushhVentures = () => {
             A New Standard in Venture Investing
           </Heading>
           
-          <Text fontSize="lg" color="gray.700" lineHeight="tall" textAlign="center" fontWeight="semibold">
+          <Text fontSize="lg" color="gray.700" lineHeight="tall" textAlign="center" fontWeight="500">
             Alpha. Aloha. Asymmetric upside.
           </Text>
           
@@ -101,7 +101,7 @@ const HushhVentures = () => {
             <Text fontSize="lg" color="gray.700" lineHeight="tall" textAlign="center">
               We're not chasing unicorns.
             </Text>
-            <Text fontSize="lg" color="gray.700" lineHeight="tall" textAlign="center" fontWeight="semibold">
+            <Text fontSize="lg" color="gray.700" lineHeight="tall" textAlign="center" fontWeight="500">
               We're owning the next Berkshire before the world sees it.
             </Text>
           </VStack>
@@ -121,7 +121,7 @@ const HushhVentures = () => {
             </Box>
           </SimpleGrid>
           
-          <Text fontSize="lg" color="gray.700" lineHeight="tall" textAlign="center" fontWeight="semibold">
+          <Text fontSize="lg" color="gray.700" lineHeight="tall" textAlign="center" fontWeight="500">
             🤫 Ventures isn't spray and pray. It's search and steward.
           </Text>
         </VStack>
@@ -203,7 +203,7 @@ const HushhVentures = () => {
           <Heading as="h2" size="xl" color="gray.800">
             🤫 Ventures
           </Heading>
-          <Text fontSize="lg" color="gray.600" fontWeight="semibold">
+          <Text fontSize="lg" color="gray.600" fontWeight="500">
             Built Quietly. Backed Boldly.
           </Text>
           <Text fontSize="md" color="gray.500">

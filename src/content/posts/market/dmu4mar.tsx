@@ -12,7 +12,7 @@ const Dmu4mar = () => {
       <Divider my={4} borderColor="black" />
 
       <VStack align="start" spacing={4}>
-        <Text fontWeight="bold">
+        <Text fontWeight="500">
           Aloha, Alphas! 🌊🚀
         </Text>
 

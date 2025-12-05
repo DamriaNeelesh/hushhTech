@@ -25,7 +25,7 @@ const FundPerformance: React.FC = () => {
       <Divider my={4} borderColor="gray.300" />
       
       <VStack align="start" spacing={2} mt={6}>
-        <Heading as="h3" fontSize="md" fontWeight="bold">
+        <Heading as="h3" fontSize="md" fontWeight="500">
           📊 Fund Overview
         </Heading>
         <Text fontSize="md" color="gray.700"><strong>Net Liquidation Value:</strong> $6,000,654.31</Text>
@@ -35,7 +35,7 @@ const FundPerformance: React.FC = () => {
       
       <Divider my={4} borderColor="gray.300" />
       
-      <Heading as="h3" fontSize="md" fontWeight="bold">
+      <Heading as="h3" fontSize="md" fontWeight="500">
         Transaction Statistics
       </Heading>
       <List spacing={2}>
@@ -48,7 +48,7 @@ const FundPerformance: React.FC = () => {
       
       <Divider my={4} borderColor="gray.300" />
       
-      <Heading as="h3" fontSize="md" fontWeight="bold">
+      <Heading as="h3" fontSize="md" fontWeight="500">
         Strategic Commentary
       </Heading>
       <List spacing={2}>
@@ -59,7 +59,7 @@ const FundPerformance: React.FC = () => {
       
       <Divider my={4} borderColor="gray.300" />
       
-      <Heading as="h3" fontSize="md" fontWeight="bold">
+      <Heading as="h3" fontSize="md" fontWeight="500">
         Outlook
       </Heading>
       <List spacing={2}>

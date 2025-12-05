@@ -242,7 +242,7 @@ const InvestorProfilePage: React.FC<NDARequestModalProps> = ({
           display="flex" 
           alignItems="center" 
           justifyContent="center" 
-          fontWeight="bold"
+          fontWeight="500"
         >
           1
         </Box>
@@ -256,7 +256,7 @@ const InvestorProfilePage: React.FC<NDARequestModalProps> = ({
           display="flex" 
           alignItems="center" 
           justifyContent="center" 
-          fontWeight="bold"
+          fontWeight="500"
         >
           2
         </Box>
@@ -407,7 +407,7 @@ const InvestorProfilePage: React.FC<NDARequestModalProps> = ({
           bg="white"
           className="whitespace-pre-wrap text-sm text-[#1D1D1F] font-mono leading-relaxed"
         >
-          <Text fontWeight="bold" mb={2}>MUTUAL NON-DISCLOSURE AGREEMENT</Text>
+          <Text fontWeight="500" mb={2}>MUTUAL NON-DISCLOSURE AGREEMENT</Text>
           <Text fontSize="sm">
             Hushh Technologies and {investorType} desire to engage in discussions regarding a potential agreement or other transaction between the parties (the "Purpose"). In connection with such discussions, the parties may disclose to each other certain confidential information or materials.
           </Text>
@@ -415,17 +415,17 @@ const InvestorProfilePage: React.FC<NDARequestModalProps> = ({
             In consideration of the foregoing, the parties agree as follows:
           </Text>
           
-          <Text fontSize="sm" fontWeight="bold" mt={4}>1. CONFIDENTIAL INFORMATION</Text>
+          <Text fontSize="sm" fontWeight="500" mt={4}>1. CONFIDENTIAL INFORMATION</Text>
           <Text fontSize="sm" mt={2}>
             For purposes of this Agreement, "Confidential Information" of a party means any information or materials disclosed by or on behalf of that party to the other party that: (a) if disclosed in writing or in the form of tangible materials, is marked "confidential" or "proprietary" or with a similar designation at the time of such disclosure; (b) if disclosed orally or presented visually, is identified as "confidential" or "proprietary" at the time of such disclosure, and is summarized in a writing sent by the disclosing party to the receiving party within thirty (30) days after any such disclosure; or (c) due to its nature or the circumstances of its disclosure, a person exercising reasonable business judgment would understand to be confidential or proprietary. The existence of this Agreement, the Purpose, and the fact that the parties are engaged in discussions with respect thereto will be deemed Confidential Information of each party.
           </Text>
 
-          <Text fontSize="sm" fontWeight="bold" mt={4}>2. OBLIGATIONS AND RESTRICTIONS</Text>
+          <Text fontSize="sm" fontWeight="500" mt={4}>2. OBLIGATIONS AND RESTRICTIONS</Text>
           <Text fontSize="sm" mt={2}>
             Each party agrees: (a) to maintain the other party's Confidential Information in strict confidence, and protect and safeguard it using at least the same degree of care as it uses to protect the confidentiality of its own confidential information of similar importance, but no less than a commercially reasonable degree of care; (b) not to disclose such Confidential Information to any third party; and (c) not to use such Confidential Information for any purpose other than the Purpose. Each party may disclose the other party's Confidential Information to its employees and consultants who have a bona fide need to know such Confidential Information solely for, and only to the extent necessary to pursue, the Purpose; provided that each such employee and consultant is bound by a written agreement that contains non-use and confidentiality obligations at least as protective of the other party's Confidential Information as those set forth in this Agreement.
           </Text>
 
-          <Text fontSize="sm" fontWeight="bold" mt={4}>3. EXCEPTIONS</Text>
+          <Text fontSize="sm" fontWeight="500" mt={4}>3. EXCEPTIONS</Text>
           <Text fontSize="sm" mt={2}>
             The obligations and restrictions in Section 2 will not apply to any information or materials to the extent that the receiving party can demonstrate through written evidence that such information or materials:
           </Text>
@@ -436,54 +436,54 @@ const InvestorProfilePage: React.FC<NDARequestModalProps> = ({
             <Text fontSize="sm">(d) are independently developed by the receiving party without access to any Confidential Information of the disclosing party.</Text>
           </VStack>
 
-          <Text fontSize="sm" fontWeight="bold" mt={4}>4. COMPELLED DISCLOSURE</Text>
+          <Text fontSize="sm" fontWeight="500" mt={4}>4. COMPELLED DISCLOSURE</Text>
           <Text fontSize="sm" mt={2}>
             Nothing in this Agreement will be deemed to restrict a party from disclosing the other party's Confidential Information to the extent required by any order, subpoena, law, statute or regulation, provided that the party required to make such a disclosure uses reasonable efforts to give the other party sufficient advance notice to enable the other party to prevent or limit such disclosure. The receiving party shall disclose no more than that portion of the Confidential Information which such order, subpoena, law, statute or regulation specifically requires the receiving party to disclose.
           </Text>
 
-          <Text fontSize="sm" fontWeight="bold" mt={4}>5. RETURN OF CONFIDENTIAL INFORMATION</Text>
+          <Text fontSize="sm" fontWeight="500" mt={4}>5. RETURN OF CONFIDENTIAL INFORMATION</Text>
           <Text fontSize="sm" mt={2}>
             Upon the completion or abandonment of the Purpose, or earlier upon the disclosing party's written request, the receiving party will promptly return to the disclosing party or, at the disclosing party's option, destroy (as confirmed by written certification of destruction), all tangible items and embodiments containing or consisting of the disclosing party's Confidential Information and all copies thereof (including electronic copies), and any notes, analyses, compilations, studies, interpretations, memoranda or other documents (regardless of the form thereof) prepared by or on behalf of the receiving party that contain or are based upon the disclosing party's Confidential Information.
           </Text>
 
-          <Text fontSize="sm" fontWeight="bold" mt={4}>6. NO OBLIGATIONS</Text>
+          <Text fontSize="sm" fontWeight="500" mt={4}>6. NO OBLIGATIONS</Text>
           <Text fontSize="sm" mt={2}>
             Each party retains the right, in its sole discretion, to determine whether to disclose any Confidential Information to the other party. This agreement imposes no obligation on either party to negotiate or enter into any other agreements or arrangements with the other party, whether or not related to the Purpose.
           </Text>
 
-          <Text fontSize="sm" fontWeight="bold" mt={4}>7. NO LICENSE</Text>
+          <Text fontSize="sm" fontWeight="500" mt={4}>7. NO LICENSE</Text>
           <Text fontSize="sm" mt={2}>
             All Confidential Information remains the sole and exclusive property of the disclosing party. Each party acknowledges and agrees that nothing in this Agreement will be construed as granting any rights to the receiving party, by license or otherwise, in or to any Confidential Information of the disclosing party, or any patent, copyright or other intellectual property or proprietary rights of the disclosing party, except for the limited right of use solely for the Purpose as specified in this Agreement.
           </Text>
 
-          <Text fontSize="sm" fontWeight="bold" mt={4}>8. NO WARRANTY</Text>
+          <Text fontSize="sm" fontWeight="500" mt={4}>8. NO WARRANTY</Text>
           <Text fontSize="sm" mt={2}>
             ALL CONFIDENTIAL INFORMATION IS PROVIDED BY THE DISCLOSING PARTY "AS IS" WITHOUT EXPRESS OR IMPLIED WARRANTIES OF ANY KIND. Neither party shall have any liability to the other party resulting from the Confidential Information disclosed to the other party or for its use or any errors or omissions in it.
           </Text>
 
-          <Text fontSize="sm" fontWeight="bold" mt={4}>9. TERM</Text>
+          <Text fontSize="sm" fontWeight="500" mt={4}>9. TERM</Text>
           <Text fontSize="sm" mt={2}>
             The term of this Agreement will commence on the Effective Date and expire five (5) years thereafter, provided that either party may terminate this Agreement prior to expiration upon thirty (30) days' written notice to the other party. Notwithstanding anything to the contrary herein, each party's rights and obligations under this Agreement shall survive any expiration or termination of this Agreement for a period of five (5) years thereafter except that, as to any Confidential Information that the disclosing party maintains as a trade secret, the receiving party's obligations under Section 2 will remain in effect for as long such Confidential Information remains a trade secret.
           </Text>
 
-          <Text fontSize="sm" fontWeight="bold" mt={4}>10. EQUITABLE RELIEF</Text>
+          <Text fontSize="sm" fontWeight="500" mt={4}>10. EQUITABLE RELIEF</Text>
           <Text fontSize="sm" mt={2}>
             Each party hereby agrees that the unauthorized use or disclosure of the disclosing party's Confidential Information may cause the disclosing party to incur irreparable harm and significant damages for which there may be no adequate remedy at law. Accordingly, each party agrees that the disclosing party will have the right to seek immediate equitable relief to enjoin any unauthorized use or disclosure of its Confidential Information, in addition to any other rights and remedies that it may have at law or otherwise.
           </Text>
 
-          <Text fontSize="sm" fontWeight="bold" mt={4}>11. MISCELLANEOUS</Text>
+          <Text fontSize="sm" fontWeight="500" mt={4}>11. MISCELLANEOUS</Text>
           <Text fontSize="sm" mt={2}>
             This Agreement will be governed and construed in accordance with the laws of the State of Delaware, without giving effect to any principles of conflict of laws that would lead to the application of the laws of another jurisdiction. This Agreement is the complete and exclusive agreement between the parties with respect to its subject matter and supersedes all prior or contemporaneous agreements, communications and understandings, both oral and written, between the parties with respect to its subject matter. This Agreement may be amended or modified only by a written document executed by duly authorized representatives of both parties. If any provision of this Agreement is held invalid, illegal or unenforceable, that provision will be enforced to the maximum extent permitted by law, given the fundamental intentions of the parties, and the remaining provisions of this Agreement will remain in full force and effect. Neither party may assign or transfer any rights or obligations under this Agreement, by operation of law or otherwise, without the other party's prior written consent, and any attempted assignment without such consent will be void. Subject to the foregoing, this Agreement is binding upon and will inure to the benefit of each of the parties and their respective successors and permitted assigns. This Agreement may be executed in counterparts, each of which will be deemed an original, and all of which together will constitute one and the same instrument.
           </Text>
 
-          <Text fontSize="sm" fontWeight="bold" mt={4}>IN WITNESS WHEREOF</Text>
+          <Text fontSize="sm" fontWeight="500" mt={4}>IN WITNESS WHEREOF</Text>
           <Text fontSize="sm" mt={2}>
             The parties hereto have executed this Mutual Non-Disclosure Agreement by their duly authorized officers or representatives.
           </Text>
         </Box>
  {/* Digital Signature Section */}
  <Box mt={6} pt={4} borderTop="1px solid" borderColor="gray.200">
-            <Text fontSize="sm" fontWeight="bold" mb={4}>Digital Signature</Text>
+            <Text fontSize="sm" fontWeight="500" mb={4}>Digital Signature</Text>
             
             <Flex direction={{ base: 'column', md: 'row' }} justifyContent="space-between" mb={4}>
               <Box width={{ base: '100%', md: '48%' }} mb={{ base: 4, md: 0 }}>
@@ -590,7 +590,7 @@ const InvestorProfilePage: React.FC<NDARequestModalProps> = ({
   return (
     <Container maxW="container.md" py={8}>
       <Box textAlign="center" mb={4} minH="60vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-        <Heading as="h1" size="lg" fontWeight="bold">
+        <Heading as="h1" size="lg" fontWeight="500">
           <Text as="span" fontSize={{md:'6xl', base:'2xl'}} className="font-light text-[#1D1D1F] mb-8 leading-tight tracking-tight">Confidentiality Agreement & </Text> <br/>
           <Text as="span" fontSize={{md:'6xl', base:'2xl'}} className="font-medium text-[#1D1D1F] mb-8 leading-tight tracking-tight blue-gradient-text">Investor Profile</Text>
         </Heading>

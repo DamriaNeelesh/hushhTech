@@ -178,7 +178,7 @@ function InvestorProfilePage() {
           <VStack spacing={6} w="full">
             <CheckCircleIcon boxSize={16} color="green.500" />
             
-            <Text fontSize="2xl" fontWeight="bold" color="green.500" textAlign="center">
+            <Text fontSize="2xl" fontWeight="500" color="green.500" textAlign="center">
               ✓ Profile Created Successfully!
             </Text>
             
@@ -263,7 +263,7 @@ function InvestorProfilePage() {
       <Container maxW="container.xl" py={20}>
         <Center>
           <VStack spacing={4}>
-            <Text fontSize="xl" fontWeight="bold" color="red.500">
+            <Text fontSize="xl" fontWeight="500" color="red.500">
               Error
             </Text>
             <Text color="gray.600">{error}</Text>

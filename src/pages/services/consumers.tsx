@@ -317,7 +317,7 @@ const Consumers = () => {
               <Box
                 as="span"
                 flex="1"
-                fontWeight="bold"
+                fontWeight="500"
                 fontSize={{ md: "1.5rem", base: "1rem" }}
                 alignSelf="flex-start"
               >
@@ -360,7 +360,7 @@ const Consumers = () => {
               <Box
                 as="span"
                 flex="1"
-                fontWeight="bold"
+                fontWeight="500"
                 fontSize={{ md: "1.5rem", base: "1rem" }}
                 alignSelf="flex-start"
               >
@@ -402,7 +402,7 @@ const Consumers = () => {
               <Box
                 as="span"
                 flex="1"
-                fontWeight="bold"
+                fontWeight="500"
                 fontSize={{ md: "1.5rem", base: "1rem" }}
                 alignSelf="flex-start"
               >
@@ -444,7 +444,7 @@ const Consumers = () => {
               <Box
                 as="span"
                 flex="1"
-                fontWeight="bold"
+                fontWeight="500"
                 fontSize={{ md: "1.5rem", base: "1rem" }}
                 alignSelf="flex-start"
               >
@@ -486,7 +486,7 @@ const Consumers = () => {
               <Box
                 as="span"
                 flex="1"
-                fontWeight="bold"
+                fontWeight="500"
                 fontSize={{ md: "1.5rem", base: "1rem" }}
                 alignSelf="flex-start"
               >
@@ -639,7 +639,7 @@ const Consumers = () => {
                 <Box
                   as="span"
                   flex="1"
-                  fontWeight="bold"
+                  fontWeight="500"
                   fontSize={{ md: "1.5rem", base: "1rem" }}
                   alignSelf="flex-start"
                 >
@@ -695,7 +695,7 @@ const Consumers = () => {
                 <Box
                   as="span"
                   flex="1"
-                  fontWeight="bold"
+                  fontWeight="500"
                   fontSize={{ md: "1.5rem", base: "1rem" }}
                   alignSelf="flex-start"
                 >
@@ -751,7 +751,7 @@ const Consumers = () => {
                 <Box
                   as="span"
                   flex="1"
-                  fontWeight="bold"
+                  fontWeight="500"
                   fontSize={{ md: "1.5rem", base: "1rem" }}
                   alignSelf="flex-start"
                 >
