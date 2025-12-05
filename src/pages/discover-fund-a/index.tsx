@@ -64,7 +64,7 @@ const FundA = () => {
             <Heading
               as="h3"
               fontSize="7xl"
-              fontWeight="600"
+              fontWeight="500"
               mb={2}
             >
               69%
@@ -122,7 +122,7 @@ const FundA = () => {
                   <Heading 
                     as="h3" 
                     fontSize={{ base: "xl", md: "2xl" }}
-                    fontWeight="600"
+                    fontWeight="500"
                     color="#1D1D1F"
                     mb={4}
                   >
@@ -156,7 +156,7 @@ const FundA = () => {
                   <Heading 
                     as="h3" 
                     fontSize={{ base: "xl", md: "2xl" }}
-                    fontWeight="600"
+                    fontWeight="500"
                     color="#1D1D1F"
                     mb={4}
                   >
@@ -190,7 +190,7 @@ const FundA = () => {
                   <Heading 
                     as="h3" 
                     fontSize={{ base: "xl", md: "2xl" }}
-                    fontWeight="600"
+                    fontWeight="500"
                     color="#1D1D1F"
                     mb={4}
                   >
@@ -243,7 +243,7 @@ const FundA = () => {
                 <Heading 
                   as="h3" 
                   fontSize={{ base: "xl", md: "2xl" }}
-                  fontWeight="600"
+                  fontWeight="500"
                   color="#1D1D1F"
                   mb={4}
                 >
@@ -277,7 +277,7 @@ const FundA = () => {
                 <Heading 
                   as="h3" 
                   fontSize={{ base: "xl", md: "2xl" }}
-                  fontWeight="600"
+                  fontWeight="500"
                   color="#1D1D1F"
                   mb={4}
                 >
@@ -311,7 +311,7 @@ const FundA = () => {
                 <Heading 
                   as="h3" 
                   fontSize={{ base: "xl", md: "2xl" }}
-                  fontWeight="600"
+                  fontWeight="500"
                   color="#1D1D1F"
                   mb={4}
                 >
@@ -346,7 +346,7 @@ const FundA = () => {
                 <Heading 
                   as="h3" 
                   fontSize={{ base: "xl", md: "2xl" }}
-                  fontWeight="600"
+                  fontWeight="500"
                   color="#1D1D1F"
                   mb={4}
                 >
@@ -413,7 +413,7 @@ const FundA = () => {
                 <Heading 
                   as="h3" 
                   fontSize={{ base: "xl", md: "2xl" }}
-                  fontWeight="600"
+                  fontWeight="500"
                   color="#1D1D1F"
                   mb={4}
                   textAlign="center"
@@ -448,7 +448,7 @@ const FundA = () => {
                 <Heading 
                   as="h3" 
                   fontSize={{ base: "xl", md: "2xl" }}
-                  fontWeight="600"
+                  fontWeight="500"
                   color="#1D1D1F"
                   mb={4}
                   textAlign="center"
@@ -483,7 +483,7 @@ const FundA = () => {
                 <Heading 
                   as="h3" 
                   fontSize={{ base: "xl", md: "2xl" }}
-                  fontWeight="600"
+                  fontWeight="500"
                   color="#1D1D1F"
                   mb={4}
                   textAlign="center"
@@ -545,7 +545,7 @@ const FundA = () => {
                   <Td fontSize={{ base: "md", md: "lg" }} fontWeight="500" color="#1D1D1F" py={6}>
                     Options Premium (Sell the Wall - Theta/Vega)
                   </Td>
-                  <Td fontSize={{ base: "md", md: "lg" }} fontWeight="600" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
+                  <Td fontSize={{ base: "md", md: "lg" }} fontWeight="500" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
                     30-45%
                   </Td>
                 </Tr>
@@ -553,7 +553,7 @@ const FundA = () => {
                   <Td fontSize={{ base: "md", md: "lg" }} fontWeight="500" color="#1D1D1F" py={6}>
                     Equity Appreciation (Core Holdings CAGR)
                   </Td>
-                  <Td fontSize={{ base: "md", md: "lg" }} fontWeight="600" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
+                  <Td fontSize={{ base: "md", md: "lg" }} fontWeight="500" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
                     20-30%
                   </Td>
                 </Tr>
@@ -561,7 +561,7 @@ const FundA = () => {
                   <Td fontSize={{ base: "md", md: "lg" }} fontWeight="500" color="#1D1D1F" py={6}>
                     AI / Execution Efficiency Alpha
                   </Td>
-                  <Td fontSize={{ base: "md", md: "lg" }} fontWeight="600" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
+                  <Td fontSize={{ base: "md", md: "lg" }} fontWeight="500" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
                     5-10%
                   </Td>
                 </Tr>
@@ -569,7 +569,7 @@ const FundA = () => {
                   <Td fontSize={{ base: "md", md: "lg" }} fontWeight="500" color="#1D1D1F" py={6}>
                     Total Expected Gross Return
                   </Td>
-                  <Td fontSize={{ base: "md", md: "lg" }} fontWeight="600" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
+                  <Td fontSize={{ base: "md", md: "lg" }} fontWeight="500" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
                     55-85%
                   </Td>
                 </Tr>
@@ -577,7 +577,7 @@ const FundA = () => {
                   <Td fontSize={{ base: "xl", md: "2xl" }} fontWeight="500" color="#1D1D1F" py={6}>
                     Target Net IRR (Post-Fees & Expenses)
                   </Td>
-                  <Td fontSize={{ base: "xl", md: "2xl" }} fontWeight="700" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
+                  <Td fontSize={{ base: "xl", md: "2xl" }} fontWeight="500" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
                     69%
                   </Td>
                 </Tr>
@@ -619,7 +619,7 @@ const FundA = () => {
                 <Heading 
                   as="h3" 
                   fontSize={{ base: "xl", md: "2xl" }}
-                  fontWeight="600"
+                  fontWeight="500"
                   color="#1D1D1F"
                   mb={4}
                 >
@@ -652,7 +652,7 @@ const FundA = () => {
                 <Heading 
                   as="h3" 
                   fontSize={{ base: "xl", md: "2xl" }}
-                  fontWeight="600"
+                  fontWeight="500"
                   color="#1D1D1F"
                   mb={4}
                 >
@@ -711,7 +711,7 @@ const FundA = () => {
                 <Heading 
                   as="h3" 
                   fontSize={{ base: "lg", md: "xl" }}
-                  fontWeight="600"
+                  fontWeight="500"
                   color="#1D1D1F"
                   mb={2}
                 >
@@ -730,7 +730,7 @@ const FundA = () => {
                 <Heading 
                   as="h3" 
                   fontSize={{ base: "lg", md: "xl" }}
-                  fontWeight="600"
+                  fontWeight="500"
                   color="#1D1D1F"
                   mb={2}
                 >
@@ -749,7 +749,7 @@ const FundA = () => {
                 <Heading 
                   as="h3" 
                   fontSize={{ base: "lg", md: "xl" }}
-                  fontWeight="600"
+                  fontWeight="500"
                   color="#1D1D1F"
                   mb={4}
                 >
@@ -804,7 +804,7 @@ const FundA = () => {
                 <Heading 
                   as="h3" 
                   fontSize={{ base: "lg", md: "xl" }}
-                  fontWeight="600"
+                  fontWeight="500"
                   color="#1D1D1F"
                   mb={2}
                 >
@@ -823,7 +823,7 @@ const FundA = () => {
                 <Heading 
                   as="h3" 
                   fontSize={{ base: "lg", md: "xl" }}
-                  fontWeight="600"
+                  fontWeight="500"
                   color="#1D1D1F"
                   mb={2}
                 >
