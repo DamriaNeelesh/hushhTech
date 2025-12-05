@@ -15,6 +15,12 @@ function OnboardingStep14() {
 
   // Load existing data
   useEffect(() => {
+    // Scroll to top on component mount
+    window.scrollTo(0, 0);
+  }, []);
+
+  
+  useEffect(() => {
     const loadData = async () => {
       if (!config.supabaseClient) return;
 
@@ -79,8 +85,12 @@ function OnboardingStep14() {
     const finalAmount = getFinalAmount();
     
     // Convert day string to integer
-    const convertDayToInt = (day: string): number => {
+    const convertDayToInt = (day: string | number): number => {
+      // If already a number, return it
+      if (typeof day === 'number') return day;
+      // If string "Last", return 31
       if (day === 'Last') return 31;
+      // Extract number from string like "1st", "2nd", etc.
       return parseInt(day.replace(/\D/g, ''));
     };
     
@@ -147,7 +157,7 @@ function OnboardingStep14() {
       <div className="w-full max-w-2xl">
         <div className="mb-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#0B1120' }}>
+            <h1 className="text-4xl md:text-5xl mb-4" style={{ color: '#0B1120', fontWeight: 500 }}>
               Make a recurring investment
             </h1>
             <p className="text-lg text-gray-700 mb-8">
@@ -163,7 +173,7 @@ function OnboardingStep14() {
 
           {/* Frequency */}
           <div className="mb-6">
-            <label className="block text-base font-semibold mb-3" style={{ color: '#0B1120' }}>
+            <label className="block text-base mb-3" style={{ color: '#0B1120', fontWeight: 500 }}>
               Frequency
             </label>
             <div className="flex flex-wrap gap-3">
@@ -191,7 +201,7 @@ function OnboardingStep14() {
 
           {/* Investment days */}
           <div className="mb-6">
-            <label className="block text-base font-semibold mb-3" style={{ color: '#0B1120' }}>
+            <label className="block text-base mb-3" style={{ color: '#0B1120', fontWeight: 500 }}>
               Investment days
             </label>
             <div className="relative">
@@ -220,7 +230,7 @@ function OnboardingStep14() {
 
           {/* Amount */}
           <div className="mb-8">
-            <label className="block text-base font-semibold mb-3" style={{ color: '#0B1120' }}>
+            <label className="block text-base mb-3" style={{ color: '#0B1120', fontWeight: 500 }}>
               Amount
             </label>
             <div className="flex flex-wrap gap-3 mb-3">
@@ -265,7 +275,7 @@ function OnboardingStep14() {
           style={{
             background: 'linear-gradient(to right, #00A9E0, #6DD3EF)',
             color: '#0B1120',
-            fontWeight: 650,
+            fontWeight: 500,
           }}
         >
           {loading ? 'Saving...' : 'Continue'}

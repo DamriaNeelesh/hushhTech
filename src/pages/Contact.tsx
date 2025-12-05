@@ -122,7 +122,7 @@ export default function Contact() {
           size={{ base: "2xl", md: "3xl" }} 
           mb={4}
           letterSpacing="tight"
-          fontWeight="bold"
+          fontWeight="500"
         >
           <Text as="span" color="black">Get in </Text>
           <Text 

@@ -115,7 +115,7 @@ const ViewPreferencesPage: React.FC = () => {
             h="54px"
             borderRadius="16px"
             fontSize="17px"
-            fontWeight="650"
+            fontWeight="500"
             color="#0B1120"
             bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
             transition="transform 120ms ease-out, filter 120ms ease-out"
@@ -147,7 +147,7 @@ const ViewPreferencesPage: React.FC = () => {
             bg="#FFFFFF"
             color="#00A9E0"
             fontSize="12px"
-            fontWeight="700"
+            fontWeight="500"
             letterSpacing="0.14em"
             textTransform="uppercase"
             display="inline-flex"
@@ -188,7 +188,7 @@ const ViewPreferencesPage: React.FC = () => {
 
         {/* Identity */}
         <VStack align="stretch" spacing={3}>
-          <Heading fontSize="34px" fontWeight="700" lineHeight="1.1" color="#0B1120">
+          <Heading fontSize="34px" fontWeight="500" lineHeight="1.1" color="#0B1120">
             {profileData.name}
           </Heading>
           <HStack spacing={2.5} flexWrap="wrap">
@@ -205,7 +205,7 @@ const ViewPreferencesPage: React.FC = () => {
                 border="1px solid #E5E7EB"
                 bg="#F9FAFB"
                 fontSize="14px"
-                fontWeight="600"
+                fontWeight="500"
                 color="#475569"
                 display="inline-flex"
                 alignItems="center"
@@ -232,7 +232,7 @@ const ViewPreferencesPage: React.FC = () => {
 
         {/* Investment Profile */}
         <Box>
-          <Text fontSize="20px" fontWeight="700" color="#0B1120" mb={3}>
+          <Text fontSize="20px" fontWeight="500" color="#0B1120" mb={3}>
             Investment Profile
           </Text>
           <Box border="1px solid #E5E7EB" borderRadius="18px" bg="#FFFFFF" overflow="hidden">
@@ -273,7 +273,7 @@ const ViewPreferencesPage: React.FC = () => {
                           )}
                           <HStack w="full" align="flex-start" spacing={3} justify="space-between">
                             <VStack align="start" spacing={1} flex="1" pr={3}>
-                              <Text fontSize="18px" fontWeight="650" color="#0B1120" lineHeight="1.25">
+                              <Text fontSize="18px" fontWeight="500" color="#0B1120" lineHeight="1.25">
                                 {label}
                               </Text>
                               <Text fontSize="16px" fontWeight="500" color="#6B7280" noOfLines={2}>
@@ -289,7 +289,7 @@ const ViewPreferencesPage: React.FC = () => {
                                 textTransform="uppercase"
                                 letterSpacing="0.12em"
                                 fontSize="12px"
-                                fontWeight="800"
+                                fontWeight="500"
                                 color={pill.color}
                                 bg={pill.bg}
                                 border={`1px solid ${pill.border}`}
@@ -302,7 +302,7 @@ const ViewPreferencesPage: React.FC = () => {
                         </AccordionButton>
                         <AccordionPanel px={4} pt={0} pb={4} bg="#FAFAFB">
                           <VStack align="stretch" spacing={3}>
-                            <Text fontSize="14px" fontWeight="650" color="#0B1120">
+                            <Text fontSize="14px" fontWeight="500" color="#0B1120">
                               AI Rationale:
                             </Text>
                             <Text fontSize="15px" color="#475569" lineHeight="1.6">
@@ -325,7 +325,7 @@ const ViewPreferencesPage: React.FC = () => {
           h="54px"
           borderRadius="16px"
           fontSize="17px"
-          fontWeight="650"
+          fontWeight="500"
           color="#0B1120"
           bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
           transition="transform 120ms ease-out, filter 120ms ease-out"

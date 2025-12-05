@@ -35,7 +35,7 @@ const CareerList = () => {
         <Heading 
           as="h1" 
           lineHeight="1.1"
-          fontWeight="semibold"
+          fontWeight="500"
           mb={{base: 8, md: 0}}
           display={'flex'}
           flexDirection={'column'}
@@ -114,7 +114,7 @@ const CareerList = () => {
                 >
                   <Flex justify="space-between" align="center">
                     <Box>
-                      <Heading as="h3" fontSize="xl" fontWeight="semibold" color="gray.800" mb={3}>
+                      <Heading as="h3" fontSize="xl" fontWeight="500" color="gray.800" mb={3}>
                         {job.title}
                       </Heading>
                       <HStack gap={0} p={0}  alignItems={{base: "flex-start", md: "center"}} textAlign={{base: "left"}} spacing={8} mt={1} display={{base: "flex", md: "none"}} flexDirection={{base: "column", md: "row"}}> 
@@ -145,7 +145,7 @@ const CareerList = () => {
           color="gray.800" 
           mb={16} 
           textAlign="center"
-          fontWeight="semibold"
+          fontWeight="500"
           letterSpacing="-0.01em"
         >
           Why Work at Hushh Technologies?
@@ -166,7 +166,7 @@ const CareerList = () => {
               fontSize="xl"
               color="gray.800" 
               mb={3}
-              fontWeight="semibold"
+              fontWeight="500"
             >
               Cutting-Edge Technology
             </Heading>
@@ -193,7 +193,7 @@ const CareerList = () => {
               fontSize="xl"
               color="gray.800" 
               mb={3}
-              fontWeight="semibold"
+              fontWeight="500"
             >
               Competitive Compensation
             </Heading>
@@ -220,7 +220,7 @@ const CareerList = () => {
               fontSize="xl"
               color="gray.800" 
               mb={3}
-              fontWeight="semibold"
+              fontWeight="500"
             >
               Growth Opportunities
             </Heading>
@@ -245,7 +245,7 @@ const CareerList = () => {
           px={8}
           py={5}
           fontSize="md"
-          fontWeight="700"
+          fontWeight="500"
           borderRadius="full"
           _hover={{ bgGradient: "linear-gradient(to right, #0098cc, #5BC0DC)" }}
           boxShadow="md"

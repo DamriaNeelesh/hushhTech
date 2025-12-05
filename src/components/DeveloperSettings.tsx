@@ -49,12 +49,12 @@ const EndpointCard: React.FC<EndpointCardProps> = ({ title, description, endpoin
                 color={method === "POST" ? "#92400E" : "#1E40AF"}
                 borderRadius="6px"
                 fontSize="11px"
-                fontWeight="700"
+                fontWeight="500"
                 letterSpacing="0.05em"
               >
                 {method}
               </Box>
-              <Text fontSize="15px" fontWeight="700" color="#0B1120">
+              <Text fontSize="15px" fontWeight="500" color="#0B1120">
                 {title}
               </Text>
             </HStack>
@@ -164,7 +164,7 @@ const DeveloperSettings: React.FC<DeveloperSettingsProps> = ({ investorSlug }) =
             <Icon as={Terminal} color="white" boxSize={5} />
           </Box>
           <VStack align="flex-start" spacing={0.5}>
-            <Text fontSize="16px" fontWeight="700" color="#0B1120">
+            <Text fontSize="16px" fontWeight="500" color="#0B1120">
               Developer Settings
             </Text>
             <Text fontSize="13px" color="#64748B" fontWeight="500">
@@ -193,7 +193,7 @@ const DeveloperSettings: React.FC<DeveloperSettingsProps> = ({ investorSlug }) =
             >
               <HStack spacing={2} mb={2}>
                 <Icon as={CodeIcon} color="#0369A1" boxSize={4} />
-                <Text fontSize="14px" fontWeight="700" color="#0369A1">
+                <Text fontSize="14px" fontWeight="500" color="#0369A1">
                   About MCP (Model Context Protocol)
                 </Text>
               </HStack>
@@ -215,7 +215,7 @@ const DeveloperSettings: React.FC<DeveloperSettingsProps> = ({ investorSlug }) =
               p={4}
               mt={2}
             >
-              <Text fontSize="12px" fontWeight="600" color="#92400E" mb={2}>
+              <Text fontSize="12px" fontWeight="500" color="#92400E" mb={2}>
                 📝 Note:
               </Text>
               <Text fontSize="12px" color="#92400E" lineHeight="1.6">

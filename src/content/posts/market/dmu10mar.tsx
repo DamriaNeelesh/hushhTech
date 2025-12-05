@@ -113,7 +113,7 @@ const Dmu10Mar = () => {
       <Text mb={4}>
         Thank you for your continued trust and partnership as we navigate these complex market environments together.
       </Text>
-      <Text fontWeight="bold" mb={4}>
+      <Text fontWeight="500" mb={4}>
         Remember Warren’s advice - Buy blood 🩸 or be ready to buy blood when you see it. We all perhaps 🤔 have started that journey last week.
       </Text>
 

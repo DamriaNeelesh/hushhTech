@@ -197,7 +197,7 @@ const PrivacyControlsPage: React.FC = () => {
             Back to Profile
           </Button>
 
-          <Heading as="h1" fontSize={{ base: "24px", md: "28px" }} fontWeight="700" color={tokens.label}>
+          <Heading as="h1" fontSize={{ base: "24px", md: "28px" }} fontWeight="500" color={tokens.label}>
             Privacy Settings
           </Heading>
 
@@ -209,7 +209,7 @@ const PrivacyControlsPage: React.FC = () => {
         {/* Basic Info Section */}
         <Box mb={8}>
           <HStack justify="space-between" mb={3}>
-            <Text fontSize="17px" fontWeight="600" color={tokens.label}>Basic Information</Text>
+            <Text fontSize="17px" fontWeight="500" color={tokens.label}>Basic Information</Text>
             <Text fontSize="13px" color={tokens.secondary}>
               {Object.values(privacySettings.basic_info).filter(Boolean).length} / {Object.keys(privacySettings.basic_info).length} visible
             </Text>
@@ -230,7 +230,7 @@ const PrivacyControlsPage: React.FC = () => {
                 bg={isVisible ? "white" : "rgba(120,120,128,0.06)"}
               >
                 <VStack align="start" spacing={0}>
-                  <Text fontSize="15px" fontWeight="600" color={tokens.label}>
+                  <Text fontSize="15px" fontWeight="500" color={tokens.label}>
                     {field.charAt(0).toUpperCase() + field.slice(1)}
                   </Text>
                   <Text fontSize="13px" color={isVisible ? tokens.green : tokens.secondary}>
@@ -251,7 +251,7 @@ const PrivacyControlsPage: React.FC = () => {
         {/* Investment Profile Section */}
         <Box mb={8}>
           <HStack justify="space-between" mb={3}>
-            <Text fontSize="17px" fontWeight="600" color={tokens.label}>Investment Profile (AI-Generated)</Text>
+            <Text fontSize="17px" fontWeight="500" color={tokens.label}>Investment Profile (AI-Generated)</Text>
             <Text fontSize="13px" color={tokens.secondary}>
               {Object.values(privacySettings.investor_profile).filter(Boolean).length} / {Object.keys(privacySettings.investor_profile).length} visible
             </Text>
@@ -272,7 +272,7 @@ const PrivacyControlsPage: React.FC = () => {
                 bg={isVisible ? "white" : "rgba(120,120,128,0.06)"}
               >
                 <VStack align="start" spacing={0}>
-                  <Text fontSize="15px" fontWeight="600" color={tokens.label}>
+                  <Text fontSize="15px" fontWeight="500" color={tokens.label}>
                     {FIELD_LABELS[field as keyof typeof FIELD_LABELS]}
                   </Text>
                   <Text fontSize="13px" color={isVisible ? tokens.green : tokens.secondary}>
@@ -293,7 +293,7 @@ const PrivacyControlsPage: React.FC = () => {
         {/* Onboarding Data Section */}
         <Box mb={8}>
           <HStack justify="space-between" mb={3}>
-            <Text fontSize="17px" fontWeight="600" color={tokens.label}>Personal Information (Onboarding Data)</Text>
+            <Text fontSize="17px" fontWeight="500" color={tokens.label}>Personal Information (Onboarding Data)</Text>
             <Text fontSize="13px" color={tokens.secondary}>
               {Object.values(privacySettings.onboarding_data).filter(Boolean).length} / {Object.keys(privacySettings.onboarding_data).length} visible
             </Text>
@@ -301,7 +301,7 @@ const PrivacyControlsPage: React.FC = () => {
 
           {/* Account Details */}
           <Box mb={4}>
-            <Text fontSize="13px" fontWeight="600" color={tokens.secondary} px={4} py={2} bg="rgba(120,120,128,0.06)" borderRadius="8px 8px 0 0">
+            <Text fontSize="13px" fontWeight="500" color={tokens.secondary} px={4} py={2} bg="rgba(120,120,128,0.06)" borderRadius="8px 8px 0 0">
               ACCOUNT DETAILS
             </Text>
             <Box border={`1px solid ${tokens.separator}`} borderRadius="0 0 8px 8px" overflow="hidden">
@@ -315,7 +315,7 @@ const PrivacyControlsPage: React.FC = () => {
                   bg={privacySettings.onboarding_data[field as keyof typeof privacySettings.onboarding_data] ? "white" : "rgba(120,120,128,0.06)"}
                 >
                   <VStack align="start" spacing={0}>
-                    <Text fontSize="15px" fontWeight="600" color={tokens.label}>
+                    <Text fontSize="15px" fontWeight="500" color={tokens.label}>
                       {ONBOARDING_FIELD_LABELS[field]}
                     </Text>
                     <Text fontSize="13px" color={privacySettings.onboarding_data[field as keyof typeof privacySettings.onboarding_data] ? tokens.green : tokens.secondary}>
@@ -335,7 +335,7 @@ const PrivacyControlsPage: React.FC = () => {
 
           {/* Identity */}
           <Box mb={4}>
-            <Text fontSize="13px" fontWeight="600" color={tokens.secondary} px={4} py={2} bg="rgba(120,120,128,0.06)" borderRadius="8px 8px 0 0">
+            <Text fontSize="13px" fontWeight="500" color={tokens.secondary} px={4} py={2} bg="rgba(120,120,128,0.06)" borderRadius="8px 8px 0 0">
               IDENTITY
             </Text>
             <Box border={`1px solid ${tokens.separator}`} borderRadius="0 0 8px 8px" overflow="hidden">
@@ -349,10 +349,10 @@ const PrivacyControlsPage: React.FC = () => {
                   bg={privacySettings.onboarding_data[field as keyof typeof privacySettings.onboarding_data] ? "white" : "rgba(120,120,128,0.06)"}
                 >
                   <VStack align="start" spacing={0}>
-                    <Text fontSize="15px" fontWeight="600" color={tokens.label}>
+                    <Text fontSize="15px" fontWeight="500" color={tokens.label}>
                       {ONBOARDING_FIELD_LABELS[field]}
                       {field === 'ssn_encrypted' && (
-                        <Text as="span" fontSize="11px" color={tokens.red} ml={2} fontWeight="700">
+                        <Text as="span" fontSize="11px" color={tokens.red} ml={2} fontWeight="500">
                           ⚠️ SENSITIVE
                         </Text>
                       )}
@@ -374,7 +374,7 @@ const PrivacyControlsPage: React.FC = () => {
 
           {/* Contact & Address */}
           <Box mb={4}>
-            <Text fontSize="13px" fontWeight="600" color={tokens.secondary} px={4} py={2} bg="rgba(120,120,128,0.06)" borderRadius="8px 8px 0 0">
+            <Text fontSize="13px" fontWeight="500" color={tokens.secondary} px={4} py={2} bg="rgba(120,120,128,0.06)" borderRadius="8px 8px 0 0">
               CONTACT & ADDRESS
             </Text>
             <Box border={`1px solid ${tokens.separator}`} borderRadius="0 0 8px 8px" overflow="hidden">
@@ -388,7 +388,7 @@ const PrivacyControlsPage: React.FC = () => {
                   bg={privacySettings.onboarding_data[field as keyof typeof privacySettings.onboarding_data] ? "white" : "rgba(120,120,128,0.06)"}
                 >
                   <VStack align="start" spacing={0}>
-                    <Text fontSize="15px" fontWeight="600" color={tokens.label}>
+                    <Text fontSize="15px" fontWeight="500" color={tokens.label}>
                       {ONBOARDING_FIELD_LABELS[field]}
                     </Text>
                     <Text fontSize="13px" color={privacySettings.onboarding_data[field as keyof typeof privacySettings.onboarding_data] ? tokens.green : tokens.secondary}>
@@ -408,7 +408,7 @@ const PrivacyControlsPage: React.FC = () => {
 
           {/* Investment Details */}
           <Box mb={4}>
-            <Text fontSize="13px" fontWeight="600" color={tokens.secondary} px={4} py={2} bg="rgba(120,120,128,0.06)" borderRadius="8px 8px 0 0">
+            <Text fontSize="13px" fontWeight="500" color={tokens.secondary} px={4} py={2} bg="rgba(120,120,128,0.06)" borderRadius="8px 8px 0 0">
               INVESTMENT DETAILS
             </Text>
             <Box border={`1px solid ${tokens.separator}`} borderRadius="0 0 8px 8px" overflow="hidden">
@@ -422,7 +422,7 @@ const PrivacyControlsPage: React.FC = () => {
                   bg={privacySettings.onboarding_data[field as keyof typeof privacySettings.onboarding_data] ? "white" : "rgba(120,120,128,0.06)"}
                 >
                   <VStack align="start" spacing={0}>
-                    <Text fontSize="15px" fontWeight="600" color={tokens.label}>
+                    <Text fontSize="15px" fontWeight="500" color={tokens.label}>
                       {ONBOARDING_FIELD_LABELS[field]}
                     </Text>
                     <Text fontSize="13px" color={privacySettings.onboarding_data[field as keyof typeof privacySettings.onboarding_data] ? tokens.green : tokens.secondary}>

@@ -36,7 +36,7 @@ export const HushhIDHero: React.FC<HushhIDHeroProps> = ({
           >
             Investor Profile
           </p>
-          <h1 className="text-[36px] font-[700] leading-[1.10] text-[#0B1120] mb-5">
+          <h1 className="text-[36px] font-[500] leading-[1.10] text-[#0B1120] mb-5">
             Hello {userName},
           </h1>
           <p className="text-[18px] leading-[1.65] text-[#475569] max-w-[90%] mb-8">
@@ -72,7 +72,7 @@ export const HushhIDHero: React.FC<HushhIDHeroProps> = ({
             className="w-full h-[54px] rounded-[16px] text-[#0B1120] text-[17px] font-semibold tracking-[0.01em] transition-[transform,filter] duration-150 active:scale-[0.985] active:brightness-[0.94] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0B1120] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             style={{
               background: 'linear-gradient(to right, #00A9E0, #6DD3EF)',
-              fontWeight: 650,
+              fontWeight: 500,
             }}
           >
             Create Your Hushh ID →

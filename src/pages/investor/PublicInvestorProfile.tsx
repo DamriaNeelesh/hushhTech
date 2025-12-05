@@ -102,7 +102,7 @@ const PublicInvestorProfilePage: React.FC = () => {
         bg={surface}
         color={tone}
         fontSize="11px"
-        fontWeight="700"
+        fontWeight="500"
         letterSpacing="0.08em"
         minH="26px"
         display="inline-flex"
@@ -260,7 +260,7 @@ const PublicInvestorProfilePage: React.FC = () => {
                 color={tokens.blue}
                 fontSize="11px"
                 letterSpacing="0.08em"
-                fontWeight="700"
+                fontWeight="500"
                 display="inline-flex"
                 alignItems="center"
                 gap={1.5}
@@ -293,7 +293,7 @@ const PublicInvestorProfilePage: React.FC = () => {
               </HStack>
             </HStack>
 
-            <Heading as="h1" fontSize={{ base: "24px", md: "28px" }} fontWeight="700" color={tokens.label}>
+            <Heading as="h1" fontSize={{ base: "24px", md: "28px" }} fontWeight="500" color={tokens.label}>
               {maskedData.name}
             </Heading>
 
@@ -306,7 +306,7 @@ const PublicInvestorProfilePage: React.FC = () => {
                 bg="rgba(118,118,128,0.12)"
                 color={tokens.secondary}
                 fontSize="13px"
-                fontWeight="600"
+                fontWeight="500"
               >
                 {maskedData.email}
               </Box>
@@ -318,7 +318,7 @@ const PublicInvestorProfilePage: React.FC = () => {
                 bg="rgba(118,118,128,0.12)"
                 color={tokens.secondary}
                 fontSize="13px"
-                fontWeight="600"
+                fontWeight="500"
               >
                 Age {maskedData.age}
               </Box>
@@ -330,7 +330,7 @@ const PublicInvestorProfilePage: React.FC = () => {
                 bg="rgba(118,118,128,0.12)"
                 color={tokens.secondary}
                 fontSize="13px"
-                fontWeight="600"
+                fontWeight="500"
               >
                 {maskedData.phone}
               </Box>
@@ -343,7 +343,7 @@ const PublicInvestorProfilePage: React.FC = () => {
                   bg="rgba(118,118,128,0.12)"
                   color={tokens.secondary}
                   fontSize="13px"
-                  fontWeight="600"
+                  fontWeight="500"
                 >
                   {maskedData.organisation}
                 </Box>
@@ -363,7 +363,7 @@ const PublicInvestorProfilePage: React.FC = () => {
           {/* Investment Profile Details */}
           <Box mb={8}>
             <HStack spacing={2} align="center" mb={3}>
-              <Text fontSize="15px" fontWeight="700" color={tokens.label}>Investment Profile</Text>
+              <Text fontSize="15px" fontWeight="500" color={tokens.label}>Investment Profile</Text>
             </HStack>
 
             <Accordion allowToggle>
@@ -383,7 +383,7 @@ const PublicInvestorProfilePage: React.FC = () => {
                   >
                     <HStack justify="space-between" w="full" align="center" spacing={3}>
                       <VStack align="start" spacing={0}>
-                        <Text fontWeight="600" fontSize="15px" color={tokens.label}>
+                        <Text fontWeight="500" fontSize="15px" color={tokens.label}>
                           {FIELD_LABELS[fieldName as keyof typeof FIELD_LABELS] || fieldName}
                         </Text>
                         <Text fontSize="13px" color={tokens.secondary} noOfLines={1}>
@@ -402,7 +402,7 @@ const PublicInvestorProfilePage: React.FC = () => {
                   <AccordionPanel px={0} pb={4} pt={1}>
                     <Box pl={2} pr={1}>
                       <VStack align="stretch" spacing={2}>
-                        <Text fontSize="13px" fontWeight="600" color={tokens.label}>
+                        <Text fontSize="13px" fontWeight="500" color={tokens.label}>
                           AI Rationale:
                         </Text>
                         <Text fontSize="13px" color={tokens.secondary} lineHeight="1.6">
@@ -420,7 +420,7 @@ const PublicInvestorProfilePage: React.FC = () => {
           {visibleOnboardingFields.length > 0 && (
             <Box mb={8}>
               <HStack spacing={2} align="center" mb={3}>
-                <Text fontSize="15px" fontWeight="700" color={tokens.label}>Personal Information</Text>
+                <Text fontSize="15px" fontWeight="500" color={tokens.label}>Personal Information</Text>
               </HStack>
 
               <Accordion allowToggle>
@@ -428,7 +428,7 @@ const PublicInvestorProfilePage: React.FC = () => {
                   <React.Fragment key={category}>
                     {/* Category Header */}
                     <Box py={2} px={0}>
-                      <Text fontSize="13px" fontWeight="600" color={tokens.tertiary} textTransform="uppercase" letterSpacing="0.05em">
+                      <Text fontSize="13px" fontWeight="500" color={tokens.tertiary} textTransform="uppercase" letterSpacing="0.05em">
                         {category}
                       </Text>
                     </Box>
@@ -448,7 +448,7 @@ const PublicInvestorProfilePage: React.FC = () => {
                         >
                           <HStack justify="space-between" w="full" align="center" spacing={3}>
                             <VStack align="start" spacing={0} flex={1}>
-                              <Text fontWeight="600" fontSize="15px" color={tokens.label}>
+                              <Text fontWeight="500" fontSize="15px" color={tokens.label}>
                                 {field.label}
                               </Text>
                               <Text fontSize="13px" color={tokens.secondary} noOfLines={1}>
@@ -479,7 +479,7 @@ const PublicInvestorProfilePage: React.FC = () => {
             bg="rgba(120,120,128,0.06)"
           >
             <VStack spacing={3} textAlign="center">
-              <Heading as="h3" fontSize="18px" color={tokens.label} fontWeight="700">
+              <Heading as="h3" fontSize="18px" color={tokens.label} fontWeight="500">
                 Want your own investor profile?
               </Heading>
               <Text fontSize="14px" color={tokens.secondary}>

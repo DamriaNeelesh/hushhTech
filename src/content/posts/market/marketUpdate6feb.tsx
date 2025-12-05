@@ -27,14 +27,14 @@ const MarketUpdate6feb = () => {
       <Divider my={4} borderColor="black" />
 
       <Heading as="h3" fontSize="lg" color="black" mb={4}>Performance Overview</Heading>
-      <Text fontSize="md" fontWeight="bold">Daily Performance (Feb 6, 2025):</Text>
+      <Text fontSize="md" fontWeight="500">Daily Performance (Feb 6, 2025):</Text>
       <List spacing={2} pl={4}>
         <ListItem>Net Income (Day): $16,928.45 (0.22% of NAV)</ListItem>
         <ListItem>Proceeds: $1,514,209.76 | Cost Basis: $1,522,770.83</ListItem>
         <ListItem>Gain/Loss Ratio: 100% | Win Rate: 100%</ListItem>
       </List>
 
-      <Text fontSize="md" fontWeight="bold" mt={4}>Month-to-Date Performance (Feb 2025):</Text>
+      <Text fontSize="md" fontWeight="500" mt={4}>Month-to-Date Performance (Feb 2025):</Text>
       <List spacing={2} pl={4}>
         <ListItem>Net Income: $134,366.45 (1.75% of NAV)</ListItem>
         <ListItem>Proceeds: $3,028,419.52 | Cost Basis: $3,045,541.66</ListItem>
@@ -51,13 +51,13 @@ const MarketUpdate6feb = () => {
       <Divider my={4} borderColor="black" />
 
       <Heading as="h3" fontSize="lg" color="black" mb={4}>Market Commentary</Heading>
-      <Text fontSize="md" fontWeight="bold">Tech Sector Resilience:</Text>
+      <Text fontSize="md" fontWeight="500">Tech Sector Resilience:</Text>
       <List spacing={2} pl={4}>
         <ListItem>Amazon (AMZN) reported strong earnings but provided lighter Q1 guidance.</ListItem>
         <ListItem>Alphabet (GOOGL) shares dipped due to increased CapEx plans.</ListItem>
       </List>
       
-      <Text fontSize="md" fontWeight="bold" mt={4}>Macro Insights:</Text>
+      <Text fontSize="md" fontWeight="500" mt={4}>Macro Insights:</Text>
       <List spacing={2} pl={4}>
         <ListItem>Dow +0.71%, Nasdaq +1.64%, signaling investor optimism.</ListItem>
       </List>
@@ -70,7 +70,7 @@ const MarketUpdate6feb = () => {
         With a NAV of $7.678 million and a strong cash position of $5.653 million, we continue leveraging opportunities for alpha generation.
       </Text>
 
-      <Text fontSize="lg" mt={4} fontWeight="bold">Onward to new heights! 🙌</Text>
+      <Text fontSize="lg" mt={4} fontWeight="500">Onward to new heights! 🙌</Text>
     </Box>
   );
 };

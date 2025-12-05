@@ -1,9 +1,15 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import config from '../../resources/config/config';
 
 function OnboardingStep12() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Scroll to top on component mount
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleContinue = async () => {
     // Update current step in database
@@ -39,7 +45,7 @@ function OnboardingStep12() {
         </div>
 
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#0B1120' }}>
+          <h1 className="text-4xl md:text-5xl mb-4" style={{ color: '#0B1120', fontWeight: 500 }}>
             Finish up and invest
           </h1>
           <p className="text-lg text-gray-700">
@@ -53,7 +59,7 @@ function OnboardingStep12() {
           style={{
             background: 'linear-gradient(to right, #00A9E0, #6DD3EF)',
             color: '#0B1120',
-            fontWeight: 650,
+            fontWeight: 500,
           }}
         >
           Continue

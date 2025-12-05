@@ -17,11 +17,13 @@ export default function Signup() {
         <div className="flex flex-col items-center gap-4 mb-6">
           <Image src={HushhLogo} alt="Hushh Logo" className="h-11 w-11" />
           <div className="space-y-3">
-            <h1 className="text-[36px] font-[700] leading-[1.10] text-[#0B1120] text-center">
-              Invest in a better alternative
+            <h1 className="text-[36px] font-[500] leading-[1.10] text-[#0B1120] text-center">
+              Investing in the Future.
             </h1>
             <p className="text-[18px] leading-[1.65] text-[#475569] text-center mx-auto">
-              Build a portfolio of private assets like real estate, private credit, and venture capital.
+              The AI-Powered Berkshire Hathaway.
+
+We combine AI and human expertise to build exceptional businesses for long-term value creation.
             </p>
           </div>
           <div className="relative h-px w-full bg-[#E5E7EB]">

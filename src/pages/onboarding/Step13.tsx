@@ -10,6 +10,12 @@ function OnboardingStep13() {
 
   // Load existing data
   useEffect(() => {
+    // Scroll to top on component mount
+    window.scrollTo(0, 0);
+  }, []);
+
+  
+  useEffect(() => {
     const loadData = async () => {
       if (!config.supabaseClient) return;
 
@@ -96,7 +102,7 @@ function OnboardingStep13() {
       <div className="w-full max-w-2xl">
         <div className="mb-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: '#0B1120' }}>
+            <h1 className="text-4xl md:text-5xl mb-6" style={{ color: '#0B1120', fontWeight: 500 }}>
               Initial investment amount
             </h1>
           </div>
@@ -147,7 +153,7 @@ function OnboardingStep13() {
           style={{
             background: 'linear-gradient(to right, #00A9E0, #6DD3EF)',
             color: '#0B1120',
-            fontWeight: 650,
+            fontWeight: 500,
           }}
         >
           {loading ? 'Saving...' : 'Continue'}

@@ -133,9 +133,9 @@ const Business = () => {
             fontSize={{ md: "1rem", base: "0.5rem" }}
           >
             Hushh empowers you to create{" "}
-            <span style={{ fontWeight: "700" }}>meaningful connections </span>{" "}
-            built on <span style={{ fontWeight: "700" }}>trust </span> and{" "}
-            <span style={{ fontWeight: "700" }}>tailored</span> interactions.
+            <span style={{ fontWeight: "500" }}>meaningful connections </span>{" "}
+            built on <span style={{ fontWeight: "500" }}>trust </span> and{" "}
+            <span style={{ fontWeight: "500" }}>tailored</span> interactions.
           </Text>
         </VStack>
       </HStack>
@@ -175,12 +175,12 @@ const Business = () => {
           fontSize={{ md: "1.16rem", base: "0.5rem" }}
         >
           Unlock the{" "}
-          <span style={{ fontWeight: "700" }}>
+          <span style={{ fontWeight: "500" }}>
             {" "}
             power of consent-driven data{" "}
           </span>{" "}
           to deliver personalized experiences by <br></br>{" "}
-          <span style={{ fontWeight: "700" }}>
+          <span style={{ fontWeight: "500" }}>
             integrating our APIs seamlessly with your CRM and applications,
           </span>
           leading to <br></br> increased engagement, customer loyalty, and
@@ -219,7 +219,7 @@ const Business = () => {
                 <Box
                   as="span"
                   flex="1"
-                  fontWeight="bold"
+                  fontWeight="500"
                   fontSize={{ md: "1.5rem", base: "1rem" }}
                   alignSelf="flex-start"
                 >
@@ -281,7 +281,7 @@ const Business = () => {
                 <Box
                   as="span"
                   flex="1"
-                  fontWeight="bold"
+                  fontWeight="500"
                   fontSize={{ md: "1.5rem", base: "1rem" }}
                   alignItems={"center"}
                   justifyContent={"center"}
@@ -336,7 +336,7 @@ const Business = () => {
                 <Box
                   as="span"
                   flex="1"
-                  fontWeight="bold"
+                  fontWeight="500"
                   fontSize={{ md: "1.5rem", base: "1rem" }}
                   textAlign="center"
                   alignItems={"center"}
@@ -528,7 +528,7 @@ VIBE Search API
           lineHeight={"1.2"}
           fontSize={{ md: "1.17rem", base: "0.65rem" }}
         >
-          Delivers <span style={{fontWeight:'700'}}>highly personalized search results</span>  using <span style={{fontWeight:'700'}}>semantic analysis</span> , image search, <br></br> and  <span style={{fontWeight:'700'}}>implicit behavior understanding</span>. Boosts   <span style={{fontWeight:'700'}}>customer satisfaction, <br></br> engagement, and revenue.</span>
+          Delivers <span style={{fontWeight:'500'}}>highly personalized search results</span>  using <span style={{fontWeight:'500'}}>semantic analysis</span> , image search, <br></br> and  <span style={{fontWeight:'500'}}>implicit behavior understanding</span>. Boosts   <span style={{fontWeight:'500'}}>customer satisfaction, <br></br> engagement, and revenue.</span>
 
 
         </Text>
@@ -561,7 +561,7 @@ VIBE Search API
                 <Box
                   as="span"
                   flex="1"
-                  fontWeight="bold"
+                  fontWeight="500"
                   fontSize={{ md: "1.5rem", base: "1rem" }}
                   alignSelf="flex-start"
                 >
@@ -617,7 +617,7 @@ VIBE Search API
                 <Box
                   as="span"
                   flex="1"
-                  fontWeight="bold"
+                  fontWeight="500"
                   fontSize={{ md: "1.5rem", base: "1rem" }}
                   alignSelf="flex-start"
                 >
@@ -673,7 +673,7 @@ VIBE Search API
                 <Box
                   as="span"
                   flex="1"
-                  fontWeight="bold"
+                  fontWeight="500"
                   fontSize={{ md: "1.5rem", base: "1rem" }}
                   alignSelf="flex-start"
                 >

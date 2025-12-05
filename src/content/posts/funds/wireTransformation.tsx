@@ -62,8 +62,8 @@ const WireTransferInstructions = () => {
 
       <Divider my={4} borderColor="black" />
 
-      <Text fontSize="lg" fontWeight="bold">🔹 Your security. Your investment. Your future. </Text>
-      <Text fontSize="lg" fontWeight="bold">🔹 Welcome to Hushh Renaissance Aloha & Alpha Fund. 🔹</Text>
+      <Text fontSize="lg" fontWeight="500">🔹 Your security. Your investment. Your future. </Text>
+      <Text fontSize="lg" fontWeight="500">🔹 Welcome to Hushh Renaissance Aloha & Alpha Fund. 🔹</Text>
     </Box>
   );
 };

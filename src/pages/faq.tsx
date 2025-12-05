@@ -74,7 +74,7 @@ const FaqPage: React.FC = () => {
           size={{ base: "2xl", md: "3xl" }} 
           mb={4}
           letterSpacing="tight"
-          // fontWeight="bold"
+          // fontWeight="500"
         >
           <Text as="span" fontWeight="300" color="black">Frequently Asked </Text><br/>
           <Text as="span" fontWeight="500" className="blue-gradient-text">Questions</Text>
@@ -115,7 +115,7 @@ const FaqPage: React.FC = () => {
               <Heading 
                 as="h3" 
                 size={{ base: "sm", md: "md" }} 
-                fontWeight="semibold"
+                fontWeight="500"
                 color="gray.800"
               >
                 {faq.question}

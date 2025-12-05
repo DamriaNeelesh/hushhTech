@@ -40,6 +40,12 @@ function OnboardingStep10() {
 
   // Fetch countries on mount
   useEffect(() => {
+    // Scroll to top on component mount
+    window.scrollTo(0, 0);
+  }, []);
+
+  
+  useEffect(() => {
     const fetchCountries = async () => {
       try {
         setLoadingLocations(true);
@@ -186,7 +192,7 @@ function OnboardingStep10() {
     <div className="min-h-screen flex items-center justify-center p-4 pt-28 pb-12" style={{ backgroundColor: '#FFFFFF' }}>
       <div className="w-full max-w-2xl">
         <div className="mb-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#0B1120' }}>
+          <h1 className="text-4xl md:text-5xl mb-4" style={{ color: '#0B1120', fontWeight: 500 }}>
             Enter your address
           </h1>
           <p className="text-lg text-gray-700">
@@ -340,7 +346,7 @@ function OnboardingStep10() {
           style={{
             background: 'linear-gradient(to right, #00A9E0, #6DD3EF)',
             color: '#0B1120',
-            fontWeight: 650,
+            fontWeight: 500,
           }}
         >
           {loading ? 'Saving...' : 'Continue'}

@@ -122,7 +122,7 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
         <Box textAlign="left">
           <Heading
             fontSize={{ base: "36px", md: "38px" }}
-            fontWeight="700"
+            fontWeight="500"
             lineHeight="1.1"
             color="#0B1120"
             mb={3}
@@ -154,7 +154,7 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
         <form onSubmit={handleSubmit}>
           <VStack spacing={5} align="stretch">
             <FormControl isRequired isInvalid={!!errors.name}>
-              <FormLabel fontSize="14px" fontWeight="600" color="#111827" mb="8px">
+              <FormLabel fontSize="14px" fontWeight="500" color="#111827" mb="8px">
                 Full Name <Text as="span" color="#EF4444">*</Text>
               </FormLabel>
               <Input
@@ -184,7 +184,7 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
             </FormControl>
 
             <FormControl isRequired isInvalid={!!errors.email}>
-              <FormLabel fontSize="14px" fontWeight="600" color="#111827" mb="8px">
+              <FormLabel fontSize="14px" fontWeight="500" color="#111827" mb="8px">
                 Email Address <Text as="span" color="#EF4444">*</Text>
               </FormLabel>
               <Input
@@ -214,7 +214,7 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
             </FormControl>
 
             <FormControl isRequired isInvalid={!!errors.age}>
-              <FormLabel fontSize="14px" fontWeight="600" color="#111827" mb="8px">
+              <FormLabel fontSize="14px" fontWeight="500" color="#111827" mb="8px">
                 Age <Text as="span" color="#EF4444">*</Text>
               </FormLabel>
               <Input
@@ -252,7 +252,7 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
             </FormControl>
 
             <Box>
-              <FormLabel fontSize="14px" fontWeight="600" color="#111827" mb="8px">
+              <FormLabel fontSize="14px" fontWeight="500" color="#111827" mb="8px">
                 Phone Number <Text as="span" color="#EF4444">*</Text>
               </FormLabel>
               <Box display="flex" gap={3}>
@@ -314,7 +314,7 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
             </Box>
 
             <FormControl>
-              <FormLabel fontSize="14px" fontWeight="600" color="#111827" mb="8px">
+              <FormLabel fontSize="14px" fontWeight="500" color="#111827" mb="8px">
                 Organisation <Text as="span" color="#6B7280" fontSize="13px" fontWeight="500">(Optional)</Text>
               </FormLabel>
               <Input
@@ -345,7 +345,7 @@ export function InvestorProfileForm({ onSubmit, isLoading = false, initialData }
                 h="54px"
                 borderRadius="16px"
                 fontSize="17px"
-                fontWeight="650"
+                fontWeight="500"
                 color="#0B1120"
                 bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
                 transition="transform 120ms ease-out, filter 120ms ease-out"

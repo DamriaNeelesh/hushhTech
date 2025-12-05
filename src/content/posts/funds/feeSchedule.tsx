@@ -23,7 +23,7 @@ const FeeSchedule = () => {
       <Divider my={4} borderColor="gray.300" />
 
       <VStack align="start" spacing={2} mt={6}>
-        <Heading as="h3" fontSize="md" fontWeight="bold">
+        <Heading as="h3" fontSize="md" fontWeight="500">
           1. Management & Performance Fee Structure
         </Heading>
         <Text fontSize="md" color="gray.700">
@@ -31,7 +31,7 @@ const FeeSchedule = () => {
         </Text>
       </VStack>
 
-      <Heading as="h4" fontSize="md" fontWeight="bold" mt={4} mb={2}>
+      <Heading as="h4" fontSize="md" fontWeight="500" mt={4} mb={2}>
         1.1 Summary of Fees by Class
       </Heading>
       <List spacing={2} pl={4}>
@@ -42,7 +42,7 @@ const FeeSchedule = () => {
 
       <Divider my={4} borderColor="gray.300" />
 
-      <Heading as="h3" fontSize="md" fontWeight="bold">
+      <Heading as="h3" fontSize="md" fontWeight="500">
         2. Fee Breakdown & Calculation Methodology
       </Heading>
       <List spacing={2} pl={4}>
@@ -52,7 +52,7 @@ const FeeSchedule = () => {
 
       <Divider my={4} borderColor="gray.300" />
 
-      <Heading as="h3" fontSize="md" fontWeight="bold">
+      <Heading as="h3" fontSize="md" fontWeight="500">
         3. Additional Fees & Expense Allocations
       </Heading>
       <List spacing={2} pl={4}>
@@ -63,7 +63,7 @@ const FeeSchedule = () => {
 
       <Divider my={4} borderColor="gray.300" />
 
-      <Heading as="h3" fontSize="md" fontWeight="bold">
+      <Heading as="h3" fontSize="md" fontWeight="500">
         4. Redemption & Early Exit Fees
       </Heading>
       <List spacing={2} pl={4}>
@@ -80,7 +80,7 @@ const FeeSchedule = () => {
 
       <Divider my={4} borderColor="gray.300" />
 
-      <Heading as="h3" fontSize="md" fontWeight="bold">
+      <Heading as="h3" fontSize="md" fontWeight="500">
         5. Summary
       </Heading>
       <Text fontSize="md" color="gray.700">

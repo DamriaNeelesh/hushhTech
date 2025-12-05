@@ -54,7 +54,7 @@ export function InvestorChatWidget({ slug, investorName }: { slug: string; inves
     <Box border="1px" borderColor="gray.200" borderRadius="lg" p={4} bg="white" shadow="sm">
       <VStack spacing={4} align="stretch">
         <HStack>
-          <Text fontWeight="bold" fontSize="lg">💬 Chat with {investorName} Investor Assistant</Text>
+          <Text fontWeight="500" fontSize="lg">💬 Chat with {investorName} Investor Assistant</Text>
         </HStack>
         
         <Box 
@@ -100,7 +100,7 @@ export function InvestorChatWidget({ slug, investorName }: { slug: string; inves
                         marginBottom: '0',
                       },
                       '& strong': {
-                        fontWeight: '700',
+                        fontWeight: '500',
                         color: 'black',
                       },
                       '& em': {

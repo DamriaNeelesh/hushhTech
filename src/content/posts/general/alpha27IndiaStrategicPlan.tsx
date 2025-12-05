@@ -7,7 +7,7 @@ const Alpha27IndiaStrategicPlan: React.FC = () => (
     <Heading as="h2" fontSize="2xl" mb={4} color="black" textAlign="center">
       Strategic Investment Plan: Top 27 Alpha Bets in India’s AI-Driven Future
     </Heading>
-    <Text fontWeight="bold" fontSize={{ md: 'lg', base: 'md' }} mb={2} textAlign="center">
+    <Text fontWeight="500" fontSize={{ md: 'lg', base: 'md' }} mb={2} textAlign="center">
       Executive Summary
     </Text>
     <Text mb={4}>
@@ -23,7 +23,7 @@ const Alpha27IndiaStrategicPlan: React.FC = () => (
     </UnorderedList>
     <Text mb={4}>The result is a differentiated portfolio that offers higher risk-adjusted returns than broad indices (NSE/BSE), by concentrating capital in the best Indian opportunities at the nexus of high FCF and high AI-driven growth. Below we detail the top 27 investments by theme:</Text>
     <Divider my={4} borderColor="black" />
-    <Text mb={4} fontWeight="bold">International tech and Indian industry executives discuss AI collaboration in India's emerging data center and AI infrastructure boom (symbolic of the partnerships driving India's AI revolution)</Text>
+    <Text mb={4} fontWeight="500">International tech and Indian industry executives discuss AI collaboration in India's emerging data center and AI infrastructure boom (symbolic of the partnerships driving India's AI revolution)</Text>
     
     <Heading as="h3" fontSize="lg" mb={3} color="black">1. AI & Digital Infrastructure Leaders</Heading>
     <Text mb={2}>These companies provide the backbone infrastructure for the AI economy – from data centers and cloud capacity to high-speed networks. They are capital-intensive businesses with large free cash flows that are being redeployed into AI growth projects.</Text>
@@ -146,7 +146,7 @@ const Alpha27IndiaStrategicPlan: React.FC = () => (
     <Divider my={4} borderColor="black" />
     
     {/* Blueprint Section */}
-    <Text fontWeight="bold" fontSize={{ md: 'lg', base: 'md' }} mb={4} textAlign="center">
+    <Text fontWeight="500" fontSize={{ md: 'lg', base: 'md' }} mb={4} textAlign="center">
       Blueprint — "Aloha & Alpha: India Free‑Cash‑Flow Delta‑Neutral Master Fund"
     </Text>
     <Text fontSize="sm" mb={2} textAlign="center">(Draft 2025‑02‑16 | v0.9 for IC/LP review)</Text>
@@ -260,7 +260,7 @@ const Alpha27IndiaStrategicPlan: React.FC = () => (
     </UnorderedList>
     
     <Heading as="h4" fontSize="md" mb={2} color="black">5 | Strategy Stack</Heading>
-    <Text fontWeight="bold" mb={2}>5.1 "Aloha‑Income" Engine (35‑45% NAV)</Text>
+    <Text fontWeight="500" mb={2}>5.1 "Aloha‑Income" Engine (35‑45% NAV)</Text>
     <Table variant="simple" size="sm" mb={4}>
       <Thead>
         <Tr>
@@ -288,7 +288,7 @@ const Alpha27IndiaStrategicPlan: React.FC = () => (
       </Tbody>
     </Table>
     
-    <Text fontWeight="bold" mb={2}>5.2 "Alpha‑Compounding" Sleeve (25‑35% NAV)</Text>
+    <Text fontWeight="500" mb={2}>5.2 "Alpha‑Compounding" Sleeve (25‑35% NAV)</Text>
     <Table variant="simple" size="sm" mb={4}>
       <Thead>
         <Tr>
@@ -317,7 +317,7 @@ const Alpha27IndiaStrategicPlan: React.FC = () => (
     </Table>
     <Text mb={4}>Target: 15‑18% alpha over hedged benchmark.</Text>
     
-    <Text fontWeight="bold" mb={2}>5.3 Treasury & Liquidity (20% NAV)</Text>
+    <Text fontWeight="500" mb={2}>5.3 Treasury & Liquidity (20% NAV)</Text>
     <UnorderedList spacing={1} mb={4}>
       <ListItem>Laddered 91‑/182‑day GoI T‑bills (current gross YTM ≈ 6.8%) held as margin collateral.</ListItem>
       <ListItem>Overnight sweep into RBI‑approved TRI REPO.</ListItem>
@@ -510,7 +510,7 @@ const Alpha27IndiaStrategicPlan: React.FC = () => (
       <ListItem>Green‑light tech budget – ₹38 m capex for colocation & risk stack.</ListItem>
     </OrderedList>
     
-    <Text fontWeight="bold" mb={2}>Closing Thought</Text>
+    <Text fontWeight="500" mb={2}>Closing Thought</Text>
     <Text mb={4}>
       Free‑cash‑flow is truth serum. By harvesting it without taking market direction risk, we give our LPs a compounding engine that echoes Buffett's love for durable cash, Simons' love for math, and Dalio's love for balance. Let's set the fly‑wheel spinning.
     </Text>
@@ -525,7 +525,7 @@ const Alpha27IndiaStrategicPlan: React.FC = () => (
     </Text>
     
     <Divider my={4} borderColor="black" />
-    <Text fontWeight="bold" fontSize={{ md: 'md', base: 'sm' }} textAlign="center" mt={8} mb={4}>
+    <Text fontWeight="500" fontSize={{ md: 'md', base: 'sm' }} textAlign="center" mt={8} mb={4}>
       🤫 Confidential
     </Text>
   </Box>

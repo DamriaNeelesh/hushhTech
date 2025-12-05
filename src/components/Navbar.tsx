@@ -117,7 +117,7 @@ export default function Navbar() {
                 to={path}
                 className={`px-3 py-2 rounded ${
                   isActive(path)
-                    ? " font-[700] text-[#0AADBC]"
+                    ? " font-[500] text-[#0AADBC]"
                     : "text-black-700 hover:text-gray-900"
                 }`}
               >
@@ -134,7 +134,7 @@ export default function Navbar() {
               <button 
                 className={`px-3 py-2 rounded flex items-center ${
                   isActive("/career") || isActive("/benefits")
-                    ? "font-[700] text-[#0AADBC]"
+                    ? "font-[500] text-[#0AADBC]"
                     : "text-black-700 hover:text-gray-900"
                 }`}
               >
@@ -151,7 +151,7 @@ export default function Navbar() {
                   <Link
                     to="/career"
                     className={`block px-4 py-2 text-sm ${
-                      isActive("/career") ? "font-[700] text-[#0AADBC]" : "text-gray-700 hover:bg-gray-100"
+                      isActive("/career") ? "font-[500] text-[#0AADBC]" : "text-gray-700 hover:bg-gray-100"
                     }`}
                   >
                     Careers
@@ -159,7 +159,7 @@ export default function Navbar() {
                   <Link
                     to="/benefits"
                     className={`block px-4 py-2 text-sm ${
-                      isActive("/benefits") ? "font-[700] text-[#0AADBC]" : "text-gray-700 hover:bg-gray-100"
+                      isActive("/benefits") ? "font-[500] text-[#0AADBC]" : "text-gray-700 hover:bg-gray-100"
                     }`}
                   >
                     Benefits
@@ -262,7 +262,7 @@ export default function Navbar() {
                           {active && (
                             <span className="absolute left-[-12px] h-[18px] w-[2px] bg-[#00A9E0] rounded-full top-1/2 -translate-y-1/2" />
                           )}
-                          <span className={active ? "font-[650]" : ""}>{label}</span>
+                          <span className={active ? "font-[500]" : ""}>{label}</span>
                         </div>
                       </button>
                     );
@@ -285,7 +285,7 @@ export default function Navbar() {
                           {active && (
                             <span className="absolute left-[-12px] h-[18px] w-[2px] bg-[#00A9E0] rounded-full top-1/2 -translate-y-1/2" />
                           )}
-                          <span className={active ? "font-[650]" : ""}>{label}</span>
+                          <span className={active ? "font-[500]" : ""}>{label}</span>
                         </div>
                       </button>
                     );
@@ -296,7 +296,7 @@ export default function Navbar() {
                       onClick={() => setMobileCareerDropdownOpen(!mobileCareerDropdownOpen)}
                       className="flex items-center h-14 text-[22px] leading-[1.2] text-[#0B1120] font-[500] active:bg-[rgba(0,169,224,0.06)] transition-colors duration-150 w-full text-left"
                     >
-                      <span className={(isActive("/career") || isActive("/benefits")) ? "font-[650]" : ""}>
+                      <span className={(isActive("/career") || isActive("/benefits")) ? "font-[500]" : ""}>
                         Join Us
                       </span>
                       <FiChevronDown
@@ -324,7 +324,7 @@ export default function Navbar() {
                               className="w-full text-left"
                             >
                               <div className="flex items-center h-12 text-[18px] text-[#475569] font-[500] active:bg-[rgba(0,169,224,0.06)] rounded-md px-1">
-                                <span className={active ? "font-[650] text-[#0B1120]" : ""}>{label}</span>
+                                <span className={active ? "font-[500] text-[#0B1120]" : ""}>{label}</span>
                               </div>
                             </button>
                           );
@@ -358,7 +358,7 @@ export default function Navbar() {
                   <button
                     onClick={() => handleLinkClick("/Login")}
                     className="w-full h-[54px] rounded-[16px] text-[17px] font-semibold tracking-[0.01em] text-[#0B1120] transition-[transform,filter] duration-150 active:scale-[0.985] active:brightness-[0.94] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00A9E0] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-                    style={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)", fontWeight: 650 }}
+                    style={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)", fontWeight: 500 }}
                   >
                     Log In
                   </button>

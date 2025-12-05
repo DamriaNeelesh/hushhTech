@@ -10,6 +10,11 @@ export default function OnboardingStep1() {
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
+    // Scroll to top on component mount
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     // Get current user
     const getCurrentUser = async () => {
       if (!config.supabaseClient) return;
@@ -76,7 +81,7 @@ export default function OnboardingStep1() {
       <div className="max-w-[640px] w-full">
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-[40px] font-[700] leading-[1.2] text-[#0B1120] mb-4">
+          <h1 className="text-[40px] font-[500] leading-[1.2] text-[#0B1120] mb-4">
             What account would you like to open?
           </h1>
           <p className="text-[18px] leading-[1.6] text-[#64748B]">
@@ -98,7 +103,7 @@ export default function OnboardingStep1() {
             <div className="flex items-start justify-between">
               <div className="flex-1 pr-4">
                 <div className="text-[14px] text-[#64748B] mb-2">$1 million minimum</div>
-                <h3 className="text-[20px] font-[600] text-[#0B1120] mb-2">
+                <h3 className="text-[20px] font-[500] text-[#0B1120] mb-2">
                   General investing account
                 </h3>
                 <p className="text-[16px] leading-[1.5] text-[#64748B]">
@@ -133,7 +138,7 @@ export default function OnboardingStep1() {
             <div className="flex items-start justify-between">
               <div className="flex-1 pr-4">
                 <div className="text-[14px] text-[#64748B] mb-2">$5 million minimum</div>
-                <h3 className="text-[20px] font-[600] text-[#0B1120] mb-2">
+                <h3 className="text-[20px] font-[500] text-[#0B1120] mb-2">
                   Retirement account
                 </h3>
                 <p className="text-[16px] leading-[1.5] text-[#64748B]">
@@ -161,7 +166,7 @@ export default function OnboardingStep1() {
         <button
           onClick={handleContinue}
           disabled={!selectedAccount || isLoading}
-          className={`w-full h-[56px] rounded-[16px] text-[17px] font-[650] tracking-[0.01em] transition-all duration-200 ${
+          className={`w-full h-[56px] rounded-[16px] text-[17px] font-[500] tracking-[0.01em] transition-all duration-200 ${
             selectedAccount && !isLoading
               ? 'text-[#0B1120] cursor-pointer hover:scale-[1.01] active:scale-[0.99]'
               : 'text-[#94A3B8] cursor-not-allowed'

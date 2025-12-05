@@ -209,7 +209,7 @@ const Consumers = () => {
         >
           <Text
             fontSize={{ md: "2rem", base: "1.2rem" }}
-            fontWeight="700"
+            fontWeight="500"
             lineHeight="1.2"
             color="#434343"
           >
@@ -264,7 +264,7 @@ const Consumers = () => {
           lineHeight={"1.2"}
         >
           We live in a{" "}
-          <span style={{ fontWeight: "700" }}>data-driven world.</span>
+          <span style={{ fontWeight: "500" }}>data-driven world.</span>
         </Text>
         <Text
           color={"#434343"}
@@ -282,9 +282,9 @@ const Consumers = () => {
           lineHeight={"1.2"}
         >
           Hushh Wallet empowers you to{" "}
-          <span style={{ fontWeight: "700" }}>take control</span> of that data
+          <span style={{ fontWeight: "500" }}>take control</span> of that data
           and{" "}
-          <span style={{ fontWeight: "700" }}>use it to your advantage.</span>
+          <span style={{ fontWeight: "500" }}>use it to your advantage.</span>
         </Text>
       </VStack>
 
@@ -317,7 +317,7 @@ const Consumers = () => {
               <Box
                 as="span"
                 flex="1"
-                fontWeight="bold"
+                fontWeight="500"
                 fontSize={{ md: "1.5rem", base: "1rem" }}
                 alignSelf="flex-start"
               >
@@ -360,7 +360,7 @@ const Consumers = () => {
               <Box
                 as="span"
                 flex="1"
-                fontWeight="bold"
+                fontWeight="500"
                 fontSize={{ md: "1.5rem", base: "1rem" }}
                 alignSelf="flex-start"
               >
@@ -402,7 +402,7 @@ const Consumers = () => {
               <Box
                 as="span"
                 flex="1"
-                fontWeight="bold"
+                fontWeight="500"
                 fontSize={{ md: "1.5rem", base: "1rem" }}
                 alignSelf="flex-start"
               >
@@ -444,7 +444,7 @@ const Consumers = () => {
               <Box
                 as="span"
                 flex="1"
-                fontWeight="bold"
+                fontWeight="500"
                 fontSize={{ md: "1.5rem", base: "1rem" }}
                 alignSelf="flex-start"
               >
@@ -486,7 +486,7 @@ const Consumers = () => {
               <Box
                 as="span"
                 flex="1"
-                fontWeight="bold"
+                fontWeight="500"
                 fontSize={{ md: "1.5rem", base: "1rem" }}
                 alignSelf="flex-start"
               >
@@ -639,7 +639,7 @@ const Consumers = () => {
                 <Box
                   as="span"
                   flex="1"
-                  fontWeight="bold"
+                  fontWeight="500"
                   fontSize={{ md: "1.5rem", base: "1rem" }}
                   alignSelf="flex-start"
                 >
@@ -695,7 +695,7 @@ const Consumers = () => {
                 <Box
                   as="span"
                   flex="1"
-                  fontWeight="bold"
+                  fontWeight="500"
                   fontSize={{ md: "1.5rem", base: "1rem" }}
                   alignSelf="flex-start"
                 >
@@ -751,7 +751,7 @@ const Consumers = () => {
                 <Box
                   as="span"
                   flex="1"
-                  fontWeight="bold"
+                  fontWeight="500"
                   fontSize={{ md: "1.5rem", base: "1rem" }}
                   alignSelf="flex-start"
                 >
@@ -988,7 +988,7 @@ const Consumers = () => {
               color={"rgba(28,28,28,1)"}
               fontSize={{ md: "1rem", base: "0.5rem" }}
             >
-              <span style={{fontWeight:'700'}}>Your Style, Your Feed:</span> Vibe Search learns what you love. The more you interact, the more tailored your results become.
+              <span style={{fontWeight:'500'}}>Your Style, Your Feed:</span> Vibe Search learns what you love. The more you interact, the more tailored your results become.
             </Text>
             <Text
               fontWeight={"400"}
@@ -996,7 +996,7 @@ const Consumers = () => {
               color={"rgba(28,28,28,1)"}
               fontSize={{ md: "1rem", base: "0.5rem" }}
             >
-              <span style={{fontWeight:'700'}}>Effortless Discovery:</span> Just browse and like products – Vibe Search personalizes your experience automatically.
+              <span style={{fontWeight:'500'}}>Effortless Discovery:</span> Just browse and like products – Vibe Search personalizes your experience automatically.
             </Text>
             <Text
               fontWeight={"400"}
@@ -1004,7 +1004,7 @@ const Consumers = () => {
               color={"rgba(28,28,28,1)"}
               fontSize={{ md: "1rem", base: "0.5rem" }}
             >
-              <span style={{fontWeight:'700'}}>Control Your Style Journey: </span>Soon you'll be able to fine-tune your preferences for ultimate control.
+              <span style={{fontWeight:'500'}}>Control Your Style Journey: </span>Soon you'll be able to fine-tune your preferences for ultimate control.
             </Text>
           </VStack>
         </HStack>

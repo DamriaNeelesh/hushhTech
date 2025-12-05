@@ -241,7 +241,7 @@ const JobDetails = () => {
           <VStack spacing={4} align="stretch" divider={<Divider />}>
             {Object.entries(job.salaryDetails).map(([role, details], index) => (
               <Box key={index}>
-                <Text fontWeight="bold" color="gray.800" mb={2}>
+                <Text fontWeight="500" color="gray.800" mb={2}>
                   {toTitleCase(role.replace(/([A-Z])/g, ' $1').trim())}
                 </Text>
                 <VStack spacing={1} align="start" pl={2}>

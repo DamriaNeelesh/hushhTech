@@ -182,7 +182,7 @@ export default function Hero() {
             <Text
               fontSize="12px"
               letterSpacing="0.18em"
-              fontWeight="600"
+              fontWeight="500"
               color="#6B7280"
               textTransform="uppercase"
               mb={4}
@@ -264,7 +264,7 @@ export default function Hero() {
                         textAlign="center"
                         bg="#FFFFFF"
                       >
-                        <Text fontSize="12px" letterSpacing="0.18em" fontWeight="600" color="#6B7280" textTransform="uppercase">
+                        <Text fontSize="12px" letterSpacing="0.18em" fontWeight="500" color="#6B7280" textTransform="uppercase">
                           {stat.label}
                         </Text>
                         <Text fontSize={stat.valueSize} fontWeight="500" color="#0B1120" mt={1}>

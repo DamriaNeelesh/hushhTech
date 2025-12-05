@@ -38,6 +38,12 @@ export default function OnboardingStep6() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    // Scroll to top on component mount
+    window.scrollTo(0, 0);
+  }, []);
+
+  
+  useEffect(() => {
     const getCurrentUser = async () => {
       if (!config.supabaseClient) return;
       
@@ -95,7 +101,7 @@ export default function OnboardingStep6() {
       <div className="max-w-[640px] w-full">
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-[40px] font-[700] leading-[1.2] text-[#0B1120] mb-4">
+          <h1 className="text-[40px] font-[500] leading-[1.2] text-[#0B1120] mb-4">
             Confirm your residence
           </h1>
           <p className="text-[18px] leading-[1.6] text-[#64748B]">
@@ -105,7 +111,7 @@ export default function OnboardingStep6() {
 
         {/* Country of Citizenship */}
         <div className="mb-6">
-          <label className="block text-[16px] font-[600] text-[#0B1120] mb-2">
+          <label className="block text-[16px] font-[500] text-[#0B1120] mb-2">
             Country of citizenship
           </label>
           <div className="relative">
@@ -128,7 +134,7 @@ export default function OnboardingStep6() {
 
         {/* Country of Residence */}
         <div className="mb-8">
-          <label className="block text-[16px] font-[600] text-[#0B1120] mb-2">
+          <label className="block text-[16px] font-[500] text-[#0B1120] mb-2">
             Country of residence
           </label>
           <div className="relative">
@@ -153,7 +159,7 @@ export default function OnboardingStep6() {
         <button
           onClick={handleContinue}
           disabled={isLoading}
-          className={`w-full h-[56px] rounded-[16px] text-[17px] font-[650] tracking-[0.01em] text-[#0B1120] transition-all duration-200 ${
+          className={`w-full h-[56px] rounded-[16px] text-[17px] font-[500] tracking-[0.01em] text-[#0B1120] transition-all duration-200 ${
             isLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:scale-[1.01] active:scale-[0.99]'
           }`}
           style={{

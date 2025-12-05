@@ -44,7 +44,7 @@ const Dmu22apr = () => {
           Daily P&L: +$380,164.23 (+9.51% P/L Day)
         </Text>
         
-        <Text mt={2} fontWeight="bold">
+        <Text mt={2} fontWeight="500">
           Top Position Movers (April 22, 2025)
         </Text>
         <List spacing={1}>
@@ -62,7 +62,7 @@ const Dmu22apr = () => {
         3. Strategy Execution Highlights
       </Heading>
       <VStack align="start" spacing={2}>
-        <Text fontWeight="bold">
+        <Text fontWeight="500">
           Sell The Wall Strategy:
         </Text>
         <List spacing={1}>
@@ -71,7 +71,7 @@ const Dmu22apr = () => {
           <ListItem>• The fund remains delta-long, reinvesting rental income from weekly premiums to compound ownership in free cash flow compounding businesses.</ListItem>
         </List>
         
-        <Text mt={2} fontWeight="bold">
+        <Text mt={2} fontWeight="500">
           Concern Over Brokerage-Initiated Trades:
         </Text>
         <Text>
@@ -85,7 +85,7 @@ const Dmu22apr = () => {
         4. Market & Macro Commentary
       </Heading>
       <VStack align="start" spacing={2}>
-        <Text fontWeight="bold">
+        <Text fontWeight="500">
           Markets EOD:
         </Text>
         <List spacing={1}>
@@ -94,7 +94,7 @@ const Dmu22apr = () => {
           <ListItem>• SPX: +2.51%</ListItem>
         </List>
         
-        <Text mt={2} fontWeight="bold">
+        <Text mt={2} fontWeight="500">
           Key Risks Ahead:
         </Text>
         <List spacing={1}>
@@ -151,7 +151,7 @@ const Dmu22apr = () => {
         KPI Summary from the April 22, 2025 Daily Performance Snapshot for the 🤫 Aloha Alpha Fund:
       </Heading>
       <VStack align="start" spacing={2}>
-        <Text fontWeight="bold">Core KPIs</Text>
+        <Text fontWeight="500">Core KPIs</Text>
         <List spacing={1}>
           <ListItem>• Net Realized Gain: +$1,974,289.03 (+3.42%)</ListItem>
           <ListItem>• Total Proceeds: $55,211,712.56</ListItem>
@@ -159,7 +159,7 @@ const Dmu22apr = () => {
           <ListItem>• Disallowed Losses: ($2,828,653.43)</ListItem>
         </List>
         
-        <Text mt={2} fontWeight="bold">Efficiency Metrics</Text>
+        <Text mt={2} fontWeight="500">Efficiency Metrics</Text>
         <List spacing={1}>
           <ListItem>• Gain/Loss Ratio: 68.51%</ListItem>
           <ListItem>• Win Rate: 91.43%</ListItem>
@@ -167,7 +167,7 @@ const Dmu22apr = () => {
           <ListItem>• Average Loss: -8.17%</ListItem>
         </List>
         
-        <Text mt={2} fontWeight="bold">Daily Account Snapshot</Text>
+        <Text mt={2} fontWeight="500">Daily Account Snapshot</Text>
         <List spacing={1}>
           <ListItem>• Net Liquidating Value: $4,003,758.71</ListItem>
           <ListItem>• Daily P/L: +$380,164.23</ListItem>
@@ -180,7 +180,7 @@ const Dmu22apr = () => {
           <ListItem>• TSLA: +$20,136.68</ListItem>
         </List>
         
-        <Text mt={2} fontWeight="bold">Execution Note</Text>
+        <Text mt={2} fontWeight="500">Execution Note</Text>
         <Text>
           • Trades around 11:57am PT on April 22 are under internal review with Schwab—potential unauthorized activity flagged.
         </Text>

@@ -336,10 +336,10 @@ const CommunityList: React.FC = () => {
       >
         <CardBody p={6}>
           <VStack align="flex-start" spacing={3}>
-            <Text color="#0AADBC" fontSize="sm" fontWeight="bold">
+            <Text color="#0AADBC" fontSize="sm" fontWeight="500">
               {dateLabel} Post
             </Text>
-            <Heading as="h3" size="md" fontWeight="bold">
+            <Heading as="h3" size="md" fontWeight="500">
               {p.title}
             </Heading>
             <Text 

@@ -267,7 +267,7 @@ const HushhAlphaFundNavUpdate = () => {
         </ListItem>
       </List>
 
-      <Text mt={4} fontWeight="bold">
+      <Text mt={4} fontWeight="500">
         🎤 Closing Thoughts: The Future of Systematic Income
       </Text>
       <List mb={4} fontSize={"md"}>
@@ -296,7 +296,7 @@ const HushhAlphaFundNavUpdate = () => {
         another level."
       </Text>
 
-      <Text fontSize="lg" fontWeight="bold">
+      <Text fontSize="lg" fontWeight="500">
         🛠 Next Report: February 2025 Earnings Recap & Fund Performance Update 🚀
       </Text>
     </Box>
