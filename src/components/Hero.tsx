@@ -192,7 +192,7 @@ export default function Hero() {
             <Text
               as="h2"
               fontSize={{ base: "38px", md: "40px" }}
-              fontWeight="700"
+              fontWeight="500"
               color="#0B1120"
               lineHeight="1.1"
               maxW="640px"
@@ -238,8 +238,8 @@ export default function Hero() {
             >
               <VStack align="stretch" spacing={5}>
                 <VStack align="stretch" spacing={4}>
-                  <Text fontSize="20px" fontWeight="650" color="#0B1120" lineHeight="1.35">
-                    Targeting <Text as="span" fontWeight="700">15-20% net IRR</Text>* with our "Sell the Wall" approach.
+                  <Text fontSize="20px" fontWeight="450" color="#0B1120" lineHeight="1.35">
+                    Targeting <Text as="span" fontWeight="500">15-20% net IRR</Text>* with our "Sell the Wall" approach.
                   </Text>
                   <Text fontSize="17px" color="#111827" lineHeight="1.6">
                     AI-first, systematic income investing.
@@ -267,7 +267,7 @@ export default function Hero() {
                         <Text fontSize="12px" letterSpacing="0.18em" fontWeight="600" color="#6B7280" textTransform="uppercase">
                           {stat.label}
                         </Text>
-                        <Text fontSize={stat.valueSize} fontWeight="750" color="#0B1120" mt={1}>
+                        <Text fontSize={stat.valueSize} fontWeight="500" color="#0B1120" mt={1}>
                           {stat.value}
                         </Text>
                       </Box>
@@ -297,7 +297,7 @@ export default function Hero() {
               bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
               color="#0B1120"
               fontSize="17px"
-              fontWeight="650"
+              fontWeight="500"
               letterSpacing="0.01em"
               mt={6}
               _hover={{ bgGradient: "linear(to-r, #00A9E0, #6DD3EF)" }}
@@ -326,7 +326,7 @@ export default function Hero() {
             <Text
               as="h2"
               fontSize={{ base: "36px", md: "42px" }}
-              fontWeight="700"
+              fontWeight="500"
               mb={4}
               color="#0B1120"
               fontFamily="Inter, -apple-system, system-ui, 'SF Pro Display', sans-serif"
@@ -370,7 +370,7 @@ export default function Hero() {
                 bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
                 color="#0B1120"
                 fontSize="17px"
-                fontWeight="650"
+                fontWeight="500"
                 letterSpacing="0.01em"
                 _hover={{ bgGradient: "linear(to-r, #00A9E0, #6DD3EF)" }}
                 _active={{
@@ -393,7 +393,7 @@ export default function Hero() {
                 borderWidth="1.5px"
                 color="#0B1120"
                 fontSize="17px"
-                fontWeight="650"
+                fontWeight="500"
                 fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
                 _hover={{ bg: "#FFFFFF" }}
                 _active={{ bg: "#F9FAFB", borderColor: "#0B1120" }}
