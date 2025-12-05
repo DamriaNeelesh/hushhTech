@@ -6,6 +6,7 @@ import Philosophy from './components/Philosophy';
 import Footer from './components/Footer';
 import Login from './pages/Login'
 import Contact from './pages/Contact';
+import ScrollToTop from './components/ScrollToTop';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from './theme';
 import Consumers from './pages/services/consumers';
@@ -129,6 +130,7 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <Router>
+        <ScrollToTop />
         <div className="min-h-screen flex flex-col">
           <Navbar />
           {/* {session && <NDAPopup />} */}
