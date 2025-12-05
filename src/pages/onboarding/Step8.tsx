@@ -56,8 +56,15 @@ export default function OnboardingStep8() {
       return; // Don't update state if exceeds limit
     }
     
-    setPhoneNumber(value);
-    setCountryCode(`+${country.dialCode}`);
+    // Remove country code from phone number to avoid duplication
+    // The library includes country code in the value, but we store it separately
+    const dialCode = country.dialCode;
+    const phoneWithoutCountryCode = value.startsWith(dialCode) 
+      ? value.slice(dialCode.length) 
+      : value;
+    
+    setPhoneNumber(phoneWithoutCountryCode);
+    setCountryCode(`+${dialCode}`);
   };
 
   const handleContinue = async () => {
@@ -95,7 +102,7 @@ export default function OnboardingStep8() {
       <div className="max-w-[640px] w-full">
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-[40px] font-[500] leading-[1.2] text-[#0B1120] mb-4">
+          <h1 className="text-[28px] md:text-[36px] font-[500] leading-[1.2] text-[#0B1120] mb-4">
             Enter your phone number
           </h1>
           <p className="text-[18px] leading-[1.6] text-[#64748B]">

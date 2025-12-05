@@ -3,9 +3,15 @@
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.0';
-import { corsHeaders } from '../_shared/cors.ts';
 import { tools, executeTool } from './tools.ts';
 import { callLLM } from './llm.ts';
+
+// Public chat endpoint - no authentication required
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+};
 
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
@@ -193,6 +199,46 @@ async function handleChat(req: Request, url: URL) {
     );
   }
 
+  // Fetch onboarding_data for this user
+  const { data: onboardingData } = await supabase
+    .from('onboarding_data')
+    .select('*')
+    .eq('user_id', profile.user_id)
+    .maybeSingle();
+
+  // Filter onboarding data based on privacy settings
+  const privacySettings = profile.privacy_settings || {};
+  const privacyData = privacySettings?.onboarding_data || {};
+  const visibleOnboardingData: any = {};
+
+  if (onboardingData) {
+    console.log('MCP DEBUG: Onboarding data exists for user:', profile.user_id);
+    
+    Object.keys(onboardingData).forEach(fieldName => {
+      if (['id', 'user_id', 'created_at', 'updated_at', 'is_completed', 'current_step', 'completed_steps'].includes(fieldName)) {
+        return;
+      }
+      
+      if (onboardingData[fieldName] == null) {
+        return;
+      }
+      
+      const isVisible = privacyData[fieldName] === true;
+      
+      if (isVisible) {
+        if (fieldName === 'ssn_encrypted') {
+          visibleOnboardingData[fieldName] = '***-**-****';
+        } else if (fieldName === 'date_of_birth') {
+          visibleOnboardingData[fieldName] = new Date(onboardingData[fieldName]).toLocaleDateString();
+        } else {
+          visibleOnboardingData[fieldName] = onboardingData[fieldName];
+        }
+      }
+    });
+    
+    console.log('MCP DEBUG: Visible onboarding fields:', Object.keys(visibleOnboardingData));
+  }
+
   // Build system prompt
   let systemPrompt = '';
   if (isPrivate) {
@@ -218,6 +264,12 @@ async function handleChat(req: Request, url: URL) {
   
   if (profile.investor_profile) {
     systemPrompt += `\nInvestment Preferences:\n${JSON.stringify(profile.investor_profile, null, 2)}`;
+  }
+
+  // Add onboarding data if available
+  if (Object.keys(visibleOnboardingData).length > 0) {
+    systemPrompt += `\n\nOnboarding & Personal Information:\n${JSON.stringify(visibleOnboardingData, null, 2)}`;
+    console.log('MCP DEBUG: Onboarding data added to system prompt');
   }
 
   // Call LLM
@@ -376,6 +428,46 @@ async function handleSendMessage(slug: string, params: any) {
     throw new Error('Profile not found');
   }
 
+  // Fetch onboarding_data for this user
+  const { data: onboardingData } = await supabase
+    .from('onboarding_data')
+    .select('*')
+    .eq('user_id', profile.user_id)
+    .maybeSingle();
+
+  // Filter onboarding data based on privacy settings
+  const privacySettings = profile.privacy_settings || {};
+  const privacyData = privacySettings?.onboarding_data || {};
+  const visibleOnboardingData: any = {};
+
+  if (onboardingData) {
+    console.log('A2A DEBUG: Onboarding data exists for user:', profile.user_id);
+    
+    Object.keys(onboardingData).forEach(fieldName => {
+      if (['id', 'user_id', 'created_at', 'updated_at', 'is_completed', 'current_step', 'completed_steps'].includes(fieldName)) {
+        return;
+      }
+      
+      if (onboardingData[fieldName] == null) {
+        return;
+      }
+      
+      const isVisible = privacyData[fieldName] === true;
+      
+      if (isVisible) {
+        if (fieldName === 'ssn_encrypted') {
+          visibleOnboardingData[fieldName] = '***-**-****';
+        } else if (fieldName === 'date_of_birth') {
+          visibleOnboardingData[fieldName] = new Date(onboardingData[fieldName]).toLocaleDateString();
+        } else {
+          visibleOnboardingData[fieldName] = onboardingData[fieldName];
+        }
+      }
+    });
+    
+    console.log('A2A DEBUG: Visible onboarding fields:', Object.keys(visibleOnboardingData));
+  }
+
   // Get agent settings
   const { data: agent } = await supabase
     .from('investor_agents')
@@ -383,11 +475,22 @@ async function handleSendMessage(slug: string, params: any) {
     .eq('slug', slug)
     .single();
 
-  const systemPrompt = agent?.public_prompt || 'You are a helpful assistant.';
+  let systemPrompt = agent?.public_prompt || 'You are a helpful assistant.';
+  systemPrompt += `\n\nInvestor: ${profile.name}`;
+  
+  if (profile.investor_profile) {
+    systemPrompt += `\n\nInvestment Profile:\n${JSON.stringify(profile.investor_profile, null, 2)}`;
+  }
+
+  // Add onboarding data if available
+  if (Object.keys(visibleOnboardingData).length > 0) {
+    systemPrompt += `\n\nOnboarding & Personal Information:\n${JSON.stringify(visibleOnboardingData, null, 2)}`;
+    console.log('A2A DEBUG: Onboarding data added to system prompt');
+  }
 
   // Call LLM
   const response = await callLLM({
-    systemPrompt: `${systemPrompt}\n\nInvestor: ${profile.name}`,
+    systemPrompt,
     userMessage: message,
     history: context.history || []
   });

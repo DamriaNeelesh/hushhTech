@@ -296,13 +296,21 @@ const HushhUserProfilePage: React.FC = () => {
         if (existingProfile && existingProfile.investor_profile) {
           setInvestorProfile(existingProfile.investor_profile);
           setProfileSlug(existingProfile.slug || null);
+          
+          // Clean phone number to remove country code if it's already included
+          const countryCode = existingProfile.phone_country_code || "+1";
+          const cleanedPhoneNumber = cleanPhoneNumber(
+            existingProfile.phone_number || "",
+            countryCode
+          );
+          
           setForm((prev) => ({
             ...prev,
             name: existingProfile.name || fullName,
             email: existingProfile.email || user.email || "",
             age: existingProfile.age || "",
-            phoneCountryCode: existingProfile.phone_country_code || "+1",
-            phoneNumber: existingProfile.phone_number || "",
+            phoneCountryCode: countryCode,
+            phoneNumber: cleanedPhoneNumber,
             organisation: existingProfile.organisation || "",
           }));
         }
@@ -320,11 +328,19 @@ const HushhUserProfilePage: React.FC = () => {
             ? new Date().getFullYear() - new Date(onboardingData.date_of_birth).getFullYear()
             : "";
 
-          setForm((prev) => ({
-            ...prev,
-            age: calculatedAge || prev.age,
-            phoneCountryCode: onboardingData.phone_country_code || prev.phoneCountryCode,
-            phoneNumber: onboardingData.phone_number || prev.phoneNumber,
+          setForm((prev) => {
+            // Clean phone number from onboarding data too
+            const onboardingCountryCode = onboardingData.phone_country_code || prev.phoneCountryCode;
+            const onboardingPhoneNumber = cleanPhoneNumber(
+              onboardingData.phone_number || prev.phoneNumber,
+              onboardingCountryCode
+            );
+
+            return {
+              ...prev,
+              age: calculatedAge || prev.age,
+              phoneCountryCode: onboardingCountryCode,
+              phoneNumber: onboardingPhoneNumber,
             accountType: onboardingData.account_type || "",
             selectedFund: onboardingData.selected_fund || "",
             referralSource: onboardingData.referral_source || "",
@@ -342,10 +358,11 @@ const HushhUserProfilePage: React.FC = () => {
             dateOfBirth: onboardingData.date_of_birth || "",
             initialInvestmentAmount: onboardingData.initial_investment_amount || "",
             recurringInvestmentEnabled: onboardingData.recurring_investment_enabled || false,
-            recurringFrequency: onboardingData.recurring_frequency || "",
-            recurringAmount: onboardingData.recurring_amount || "",
-            recurringDayOfMonth: onboardingData.recurring_day_of_month || "",
-          }));
+              recurringFrequency: onboardingData.recurring_frequency || "",
+              recurringAmount: onboardingData.recurring_amount || "",
+              recurringDayOfMonth: onboardingData.recurring_day_of_month || "",
+            };
+          });
         }
       } catch (error) {
         console.error("Authentication check failed:", error);
@@ -388,6 +405,21 @@ const HushhUserProfilePage: React.FC = () => {
     const timer = setTimeout(() => setNameShimmer(false), 900);
     return () => clearTimeout(timer);
   }, []);
+
+  // Helper function to clean phone number by removing country code if present
+  const cleanPhoneNumber = (phoneNumber: string, countryCode: string): string => {
+    if (!phoneNumber || !countryCode) return phoneNumber;
+    
+    // Remove the + from country code to get just the digits
+    const dialCode = countryCode.replace('+', '');
+    
+    // If phone number starts with the country code, remove it
+    if (phoneNumber.startsWith(dialCode)) {
+      return phoneNumber.slice(dialCode.length);
+    }
+    
+    return phoneNumber;
+  };
 
   const handleChange = (key: keyof FormState, value: string) => {
     // Validate phone number length (E.164 standard: max 15 digits)

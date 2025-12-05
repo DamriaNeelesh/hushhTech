@@ -157,7 +157,7 @@ function OnboardingStep14() {
       <div className="w-full max-w-2xl">
         <div className="mb-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl mb-4" style={{ color: '#0B1120', fontWeight: 500 }}>
+            <h1 className="text-[28px] md:text-[36px] mb-4" style={{ color: '#0B1120', fontWeight: 500 }}>
               Make a recurring investment
             </h1>
             <p className="text-lg text-gray-700 mb-8">
