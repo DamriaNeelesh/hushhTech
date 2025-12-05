@@ -83,7 +83,7 @@ export default function Hero() {
                   {/* Main Heading */}
                   <Text
                     fontSize={{ base: "36px", md: "44px" }}
-                    fontWeight="700"
+                    fontWeight="500"
                     color="#0B1120"
                     lineHeight="1.1"
                     textAlign="center"
