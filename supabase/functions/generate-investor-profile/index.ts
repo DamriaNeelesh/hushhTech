@@ -19,7 +19,7 @@ You are given:
 - derived_context: country, region, currency, email_type, company_industry, life_stage, org_type
 
 GOALS:
-1. For each of 12 profile fields, GUESS a reasonable default value based on general demographic and behavioral patterns of investors.
+1. For each of 12 profile fields, GUESS a reasonable default value based on general demographic and behavioral patterns of high-net-worth investors.
 2. For each field, return:
    - value: the selected option (must match exactly from allowed values)
    - confidence: 0.0–1.0 (how confident you are in this guess)
@@ -31,7 +31,9 @@ GOALS:
    - Younger investors (20s-30s) often have longer time horizons (>10 years)
    - Tech/finance roles often correlate with higher risk tolerance (moderate to high)
    - Life stage influences liquidity needs and investment capacity
-   - Early career = lower capacity, mid/late career = higher capacity
+   - Investment sizes are in MILLIONS: micro_<1m means under $1 million, small_1m_10m means $1-10 million, etc.
+   - Annual capacity is in MILLIONS: <5m means under $5 million per year, 5m_20m means $5-20 million per year, etc.
+   - These are high-net-worth investor profiles with institutional-scale investment capacity
 
 4. If you have no clear signal, choose the SAFEST neutral option and set confidence <= 0.3.
 
@@ -39,7 +41,7 @@ GOALS:
 
 OUTPUT REQUIREMENTS:
 - Must be valid JSON only, no comments, no extra text
-- Use option values EXACTLY as specified in the schema
+- Use option values EXACTLY as specified in the schema (with million-scale values like micro_<1m, small_1m_10m, etc.)
 - All 12 fields must be present
 - Each field must have: value, confidence, rationale
 - Confidence must be between 0.0 and 1.0
@@ -68,10 +70,10 @@ const PROFILE_SCHEMA = {
     options: ["beginner", "intermediate", "advanced"],
   },
   typical_ticket_size: {
-    options: ["micro_<1k", "small_1k_10k", "medium_10k_50k", "large_>50k"],
+    options: ["micro_<1m", "small_1m_10m", "medium_10m_50m", "large_>50m"],
   },
   annual_investing_capacity: {
-    options: ["<5k", "5k_20k", "20k_100k", ">100k"],
+    options: ["<5m", "5m_20m", "20m_100m", ">100m"],
   },
   asset_class_preference: {
     options: [

@@ -39,13 +39,11 @@ export async function generateInvestorProfile(
     // 2. Enrich the context from the input
     const context = await enrichContext(input);
 
-    // 3. Determine Edge Function URL (dev vs production)
+    // 3. Determine Edge Function URL (always use production for now)
     const supabaseUrl = (import.meta as any).env.VITE_SUPABASE_URL;
-    const isDev = (import.meta as any).env.DEV;
     
-    const edgeFunctionUrl = isDev
-      ? 'http://localhost:54321/functions/v1/generate-investor-profile'
-      : `${supabaseUrl}/functions/v1/generate-investor-profile`;
+    // Force production Edge Function (local Supabase not running)
+    const edgeFunctionUrl = `${supabaseUrl}/functions/v1/generate-investor-profile`;
 
     // 4. Call the Supabase Edge Function
     const response = await fetch(edgeFunctionUrl, {

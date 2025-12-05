@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Button, Flex, Text, Box, Container, VStack, HStack, usePrefersReducedMotion, Divider } from "@chakra-ui/react";
+import { Button, Flex, Text, Box, Container, VStack, HStack, usePrefersReducedMotion, Divider, Image } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
 import config from "../resources/config/config";
 import ProfilePage from "./profile/profilePage";
 import WhyChooseSection from "./WhyChooseSection";
 import { Session } from "@supabase/supabase-js";
 import HushhIDHero from "./HushhIDHero";
+import HushhLogo from './images/Hushhogo.png';
 
 export default function Hero() {
   const navigate = useNavigate();
@@ -58,125 +59,92 @@ export default function Hero() {
           <Box
             bg="#FFFFFF"
             px={{ base: 6, sm: 8 }}
-            pt={{ base: "72px", md: "88px" }}
-            pb={{ base: "72px", md: "96px" }}
+            pt={{ base: "56px", md: "88px" }}
+            pb={{ base: "48px", md: "96px" }}
+            minH={{ base: "100vh", md: "auto" }}
+            display={{ base: "flex", md: "block" }}
+            alignItems={{ base: "center", md: "initial" }}
           >
             <Container maxW="640px">
               <Box>
                 <Box maxW="520px" mx="auto">
-                  <Box mb={{ base: "0px", md: "8px" }}>
-                    <Text
-                      fontSize={{ base: "26px", md: "30px" }}
-                      fontWeight="400"
-                      color="#111827"
-                      lineHeight="1.2"
-                      mb="2"
-                      textAlign="left"
-                      fontFamily="Inter, -apple-system, system-ui, 'SF Pro Display', sans-serif"
-                    >
-                      Investing in the Future.
-                    </Text>
-                    <Text
-                      fontSize={{ base: "38px", md: "44px" }}
-                      fontWeight="700"
-                      color="#0B1120"
-                      lineHeight="1.08"
-                      textAlign="left"
-                      fontFamily="Inter, -apple-system, system-ui, 'SF Pro Display', sans-serif"
-                      mb="5"
-                    >
-                      The AI-Powered Berkshire Hathaway.
-                    </Text>
+                  {/* Hushh Logo */}
+                  <Box display="flex" justifyContent="center" mb={{ base: "32px", md: "40px" }}>
+                    <Image 
+                      src={HushhLogo} 
+                      alt="Hushh Logo" 
+                      h={{ base: "50px", md: "60px" }}
+                      objectFit="contain"
+                    />
                   </Box>
 
+                  {/* Main Heading */}
+                  <Text
+                    fontSize={{ base: "36px", md: "44px" }}
+                    fontWeight="700"
+                    color="#0B1120"
+                    lineHeight="1.1"
+                    textAlign="center"
+                    fontFamily="Inter, -apple-system, system-ui, 'SF Pro Display', sans-serif"
+                    mb="5"
+                    letterSpacing="-0.01em"
+                  >
+                    Invest in a better alternative
+                  </Text>
+
+                  {/* Subheading */}
                   <Text
                     fontSize={{ base: "18px", md: "19px" }}
                     color="#475569"
                     fontWeight="400"
                     lineHeight="1.65"
-                    maxW="342px"
-                    textAlign="left"
+                    maxW="520px"
+                    mx="auto"
+                    textAlign="center"
                     fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
                     mb="8"
                   >
-                    We combine AI and human expertise to build exceptional businesses for long-term value creation.
+                    Build a portfolio of private assets like real estate, private credit, and venture capital.
                   </Text>
 
-                  <Box position="relative" w="100%" h="1px" bg="#E5E7EB">
+                  {/* Blue Divider Line */}
+                  <Box position="relative" w="100%" h="1px" bg="#E5E7EB" mb="7">
                     <Box
                       position="absolute"
-                      left="0"
+                      left="50%"
                       top="50%"
-                      transform="translateY(-50%)"
+                      transform="translate(-50%, -50%)"
                       w="16px"
                       h="2px"
                       bg="#00A9E0"
                     />
                   </Box>
 
-                  <VStack align="stretch" spacing="3.5" mt="7">
-                    <Button
-                      onClick={() => navigate("/discover-fund-a")}
-                      w="100%"
-                      h="54px"
-                      borderRadius="16px"
-                      role="group"
-                      bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
-                      color="#0B1120"
-                      fontSize="17px"
-                      fontWeight="650"
-                      letterSpacing="0.01em"
-                      position="relative"
-                      _hover={{ bgGradient: "linear(to-r, #00A9E0, #6DD3EF)" }}
-                      _active={{
-                        transform: "scale(0.985)",
-                        bgGradient: "linear(to-r, #0097CB, #5FC3E5)",
-                      }}
-                      transition="transform 120ms ease-out, background 120ms ease-out"
-                      fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
-                    >
-                      <Text as="span">Discover Fund A</Text>
-                      <Box
-                        position="absolute"
-                        right="16px"
-                        top="50%"
-                        transform="translateY(-50%)"
-                        color="#0B1120"
-                        fontSize="16px"
-                        transition="transform 120ms ease-out"
-                        _groupHover={{ transform: "translate(2px, -50%)" }}
-                        _groupActive={{ transform: "translate(4px, -50%)" }}
-                        pointerEvents="none"
-                      >
-                        →
-                      </Box>
-                    </Button>
-
-                    <Button
-                      onClick={() => navigate("/Signup")}
-                      w="100%"
-                      h="54px"
-                      borderRadius="16px"
-                      bg="#FFFFFF"
-                      borderColor="#0B1120"
-                      borderWidth="1.5px"
-                      color="#0B1120"
-                      fontSize="17px"
-                      fontWeight="650"
-                      fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
-                      _hover={{ bg: "#FFFFFF" }}
-                      _active={{ bg: "#F9FAFB", borderColor: "#0B1120" }}
-                      transition="transform 120ms ease-out, background 120ms ease-out, border-color 120ms ease-out"
-                    >
-                      Become an Investor
-                    </Button>
-                  </VStack>
+                  {/* CTA Button */}
+                  <Button
+                    onClick={() => navigate("/onboarding/step-1")}
+                    w="100%"
+                    h="54px"
+                    borderRadius="16px"
+                    bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
+                    color="#0B1120"
+                    fontSize="17px"
+                    fontWeight="650"
+                    letterSpacing="0.01em"
+                    _hover={{ bgGradient: "linear(to-r, #00A9E0, #6DD3EF)" }}
+                    _active={{
+                      transform: "scale(0.985)",
+                      bgGradient: "linear(to-r, #0097CB, #5FC3E5)",
+                    }}
+                    transition="transform 120ms ease-out, background 120ms ease-out"
+                    fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
+                  >
+                    Create your hushh profile
+                  </Button>
                 </Box>
               </Box>
             </Container>
           </Box>
-
-          <HushhIDHero userName={displayName} onCreateClick={handleCreateHushhID} />
         </>
       ) : (
         <ProfilePage />
@@ -185,9 +153,9 @@ export default function Hero() {
       <WhyChooseSection />
       
       {/* Fund A Section */}
-      <Box bg="#FFFFFF" pt={{ base: 16, md: 16 }} pb={{ base: 18, md: 20 }} px={{ base: 6, sm: 8 }}>
+      <Box bg="#FFFFFF" pt={{ base: 16, md: 16 }} pb={{ base: 16, md: 16 }} px={{ base: 6, sm: 8 }}>
         <Container maxW="760px">
-          <Box textAlign="left" mb={{ base: 8, md: 10 }} animation={prefersReducedMotion ? undefined : `${textEntry} 0.24s ease-out`}>
+          <Box textAlign="center" mb={{ base: 8, md: 10 }} animation={prefersReducedMotion ? undefined : `${textEntry} 0.24s ease-out`}>
             <Text
               fontSize="12px"
               letterSpacing="0.18em"
@@ -205,6 +173,7 @@ export default function Hero() {
               color="#0B1120"
               lineHeight="1.1"
               maxW="640px"
+              mx="auto"
               letterSpacing="-0.01em"
               fontFamily="Inter, -apple-system, system-ui, 'SF Pro Display', sans-serif"
               mb={4}
@@ -215,6 +184,7 @@ export default function Hero() {
               fontSize={{ base: "18px", md: "19px" }}
               color="#475569"
               maxW="680px"
+              mx="auto"
               lineHeight="1.65"
               fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
               mb={8}
@@ -224,9 +194,9 @@ export default function Hero() {
             <Box position="relative" w="100%" h="1px" bg="#E5E7EB" mb={6}>
               <Box
                 position="absolute"
-                left="0"
+                left="50%"
                 top="50%"
-                transform="translateY(-50%)"
+                transform="translate(-50%, -50%)"
                 w="16px"
                 h="2px"
                 bg="#00A9E0"
@@ -246,7 +216,7 @@ export default function Hero() {
               <VStack align="stretch" spacing={5}>
                 <VStack align="stretch" spacing={4}>
                   <Text fontSize="20px" fontWeight="650" color="#0B1120" lineHeight="1.35">
-                    Targeting <Text as="span" fontWeight="700">69% net IRR</Text>* with our “Sell the Wall” approach.
+                    Targeting <Text as="span" fontWeight="700">15-20% net IRR</Text>* with our "Sell the Wall" approach.
                   </Text>
                   <Text fontSize="17px" color="#111827" lineHeight="1.6">
                     AI-first, systematic income investing.
@@ -259,7 +229,7 @@ export default function Hero() {
                 <Box borderTop="1px solid #E5E7EB" pt={4}>
                   <VStack align="stretch" spacing={3}>
                     {[
-                      { label: "Target net IRR", value: "69%", valueSize: "46px" },
+                      { label: "Target net IRR", value: "15-20%", valueSize: "46px" },
                       { label: "Inception", value: "2024", valueSize: "42px" },
                     ].map((stat) => (
                       <Box
@@ -324,12 +294,12 @@ export default function Hero() {
       {/* Ready to Transform Section */}
       <Box
         bg="#FFFFFF"
-        pt={{ base: 18, md: 20 }}
-        pb={{ base: 18, md: 20 }}
+        pt={{ base: 16, md: 16 }}
+        pb={{ base: 16, md: 16 }}
         px={{ base: 6, sm: 8 }}
       >
         <Container maxW="760px">
-          <Box textAlign="left">
+          <Box textAlign="center">
             <Text
               as="h2"
               fontSize={{ base: "36px", md: "42px" }}
@@ -347,6 +317,7 @@ export default function Hero() {
               fontSize={{ base: "18px", md: "19px" }}
               color="#475569"
               maxW="640px"
+              mx="auto"
               lineHeight="1.65"
               fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
               fontWeight="400"
@@ -358,9 +329,9 @@ export default function Hero() {
             <Box position="relative" w="100%" h="1px" bg="#E5E7EB" mb={6}>
               <Box
                 position="absolute"
-                left="0"
+                left="50%"
                 top="50%"
-                transform="translateY(-50%)"
+                transform="translate(-50%, -50%)"
                 w="16px"
                 h="2px"
                 bg="#00A9E0"

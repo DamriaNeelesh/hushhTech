@@ -69,7 +69,7 @@ const WhyChooseSection = () => {
             fontWeight="700"
             color={tokens.label}
             lineHeight="1.10"
-            textAlign="left"
+            textAlign="center"
             letterSpacing="-0.01em"
             fontFamily="Inter, -apple-system, system-ui, 'SF Pro Display', sans-serif"
           >
@@ -80,10 +80,11 @@ const WhyChooseSection = () => {
             color={tokens.secondary}
             lineHeight="1.65"
             fontWeight="400"
-            textAlign="left"
+            textAlign="center"
             mt={3}
             mb={7}
             maxW="640px"
+            mx="auto"
             fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
           >
             What you reliably get with every Hushh investor profile.
@@ -91,9 +92,9 @@ const WhyChooseSection = () => {
           <Box position="relative" w="100%" h="1px" bg={tokens.separator}>
             <Box
               position="absolute"
-              left="0"
+              left="50%"
               top="50%"
-              transform="translateY(-50%)"
+              transform="translate(-50%, -50%)"
               w="16px"
               h="2px"
               bg={tokens.gradientStart}
