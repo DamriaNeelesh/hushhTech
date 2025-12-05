@@ -10,6 +10,11 @@ export default function OnboardingStep1() {
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
+    // Scroll to top on component mount
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     // Get current user
     const getCurrentUser = async () => {
       if (!config.supabaseClient) return;

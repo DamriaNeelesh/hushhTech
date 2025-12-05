@@ -38,6 +38,12 @@ export default function OnboardingStep6() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    // Scroll to top on component mount
+    window.scrollTo(0, 0);
+  }, []);
+
+  
+  useEffect(() => {
     const getCurrentUser = async () => {
       if (!config.supabaseClient) return;
       

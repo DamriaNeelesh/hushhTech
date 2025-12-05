@@ -40,6 +40,12 @@ function OnboardingStep10() {
 
   // Fetch countries on mount
   useEffect(() => {
+    // Scroll to top on component mount
+    window.scrollTo(0, 0);
+  }, []);
+
+  
+  useEffect(() => {
     const fetchCountries = async () => {
       try {
         setLoadingLocations(true);

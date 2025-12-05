@@ -11,6 +11,12 @@ function OnboardingStep9() {
 
   // Load existing data
   useEffect(() => {
+    // Scroll to top on component mount
+    window.scrollTo(0, 0);
+  }, []);
+
+  
+  useEffect(() => {
     const loadData = async () => {
       if (!config.supabaseClient) return;
 

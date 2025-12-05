@@ -1,9 +1,15 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import config from '../../resources/config/config';
 
 function OnboardingStep12() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Scroll to top on component mount
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleContinue = async () => {
     // Update current step in database
