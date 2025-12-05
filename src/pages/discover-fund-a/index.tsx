@@ -884,7 +884,7 @@ We combine AI and human expertise to build exceptional businesses for long-term 
               fontWeight="500"
               onClick={() => window.location.href = "/investor-profile"}
             >
-              Create your hushh profile
+              Complete your hushh profile
             </Button>
           </Flex>
         </Container>

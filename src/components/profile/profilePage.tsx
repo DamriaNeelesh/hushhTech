@@ -410,7 +410,7 @@ We combine AI and human expertise to build exceptional businesses for long-term 
               transition="transform 120ms ease-out, background 120ms ease-out"
               fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
             >
-              Create your hushh profile
+              Complete your hushh profile
             </Button>
           </Box>
         </Box>

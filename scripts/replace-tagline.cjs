@@ -166,3 +166,8 @@ if (filesChanged.length > 0) {
   console.log('Files changed:');
   filesChanged.forEach(file => console.log(`  - ${file}`));
 }
+
+{/* <h1 class="text-[34px] font-[700] leading-[1.10] text-[#0B1120] text-center">Investing in the Future.</h1>
+
+<h1 class="text-[36px] font-[700] leading-[1.10] text-[#0B1120] text-center">Investing in the Future.</h1>
+ */}
