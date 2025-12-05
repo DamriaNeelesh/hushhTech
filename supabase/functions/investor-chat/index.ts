@@ -53,14 +53,34 @@ serve(async (req) => {
       .eq('user_id', profile.user_id)
       .maybeSingle();
     
-    // Filter onboarding data based on privacy settings
+    if (onboardingError && onboardingError.code !== 'PGRST116') {
+      console.error('Error fetching onboarding data:', onboardingError);
+    }
+    
+    // Filter onboarding data based on privacy settings (more defensive)
     const privacySettings = profile.privacy_settings || {};
+    const privacyData = privacySettings?.onboarding_data || {};
     const visibleOnboardingData: any = {};
     
-    if (onboardingData && privacySettings.onboarding_data) {
-      // Only include fields that are marked as visible (true) in privacy settings
-      Object.keys(privacySettings.onboarding_data).forEach(fieldName => {
-        if (privacySettings.onboarding_data[fieldName] === true && onboardingData[fieldName]) {
+    if (onboardingData) {
+      console.log('DEBUG: Onboarding data exists for user:', profile.user_id);
+      
+      // Iterate through all onboarding data fields
+      Object.keys(onboardingData).forEach(fieldName => {
+        // Skip internal/system fields
+        if (['id', 'user_id', 'created_at', 'updated_at', 'is_completed', 'current_step', 'completed_steps'].includes(fieldName)) {
+          return;
+        }
+        
+        // Check if field value exists (not null/undefined)
+        if (onboardingData[fieldName] == null) {
+          return;
+        }
+        
+        // Check privacy (default to false if not specified, only show if explicitly true)
+        const isVisible = privacyData[fieldName] === true;
+        
+        if (isVisible) {
           // Mask SSN even if visible
           if (fieldName === 'ssn_encrypted') {
             visibleOnboardingData[fieldName] = '***-**-****';
@@ -71,6 +91,11 @@ serve(async (req) => {
           }
         }
       });
+      
+      console.log('DEBUG: Visible onboarding fields:', Object.keys(visibleOnboardingData));
+      console.log('DEBUG: Visible onboarding data:', JSON.stringify(visibleOnboardingData, null, 2));
+    } else {
+      console.log('DEBUG: No onboarding data found for user:', profile.user_id);
     }
 
     // Build comprehensive system prompt with ALL data
@@ -97,6 +122,10 @@ ${JSON.stringify(profile.derived_context, null, 2)}`;
 
 Onboarding & Personal Information:
 ${JSON.stringify(visibleOnboardingData, null, 2)}`;
+      
+      console.log('DEBUG: Onboarding data added to system prompt');
+    } else {
+      console.log('DEBUG: No visible onboarding data to add to prompt');
     }
 
     systemPrompt += `
@@ -107,7 +136,9 @@ Guidelines:
 - If asked about topics not in the available data, politely say you don't have that information
 - Don't make up information
 - Don't provide financial advice or investment recommendations
-- When asked about onboarding details, use the information provided above`;
+- When asked about onboarding details (like address, city, state, zip code, legal name, etc.), use the information provided in the "Onboarding & Personal Information" section above`;
+
+    console.log('DEBUG: System prompt length:', systemPrompt.length, 'characters');
 
     // Build messages for OpenAI
     const messages = [
