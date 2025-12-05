@@ -66,7 +66,7 @@ const WhyChooseSection = () => {
           <Heading
             as="h2"
             fontSize={{ base: "34px", md: "36px" }}
-            fontWeight="700"
+            fontWeight="500"
             color={tokens.label}
             lineHeight="1.10"
             textAlign="center"
@@ -147,7 +147,7 @@ const WhyChooseSection = () => {
                 <VStack align="start" spacing={1.5} flex="1">
                   <Text
                     fontSize="18px"
-                    fontWeight="650"
+                    fontWeight="450"
                     color={tokens.label}
                     lineHeight="1.25"
                     fontFamily="Inter, -apple-system, system-ui, 'SF Pro Display', sans-serif"
