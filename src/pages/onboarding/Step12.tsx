@@ -45,7 +45,7 @@ function OnboardingStep12() {
         </div>
 
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl mb-4" style={{ color: '#0B1120', fontWeight: 500 }}>
+          <h1 className="text-[28px] md:text-[36px] mb-4" style={{ color: '#0B1120', fontWeight: 500 }}>
             Finish up and invest
           </h1>
           <p className="text-lg text-gray-700">

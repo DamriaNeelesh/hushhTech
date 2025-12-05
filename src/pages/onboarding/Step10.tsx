@@ -192,7 +192,7 @@ function OnboardingStep10() {
     <div className="min-h-screen flex items-center justify-center p-4 pt-28 pb-12" style={{ backgroundColor: '#FFFFFF' }}>
       <div className="w-full max-w-2xl">
         <div className="mb-8 text-center">
-          <h1 className="text-4xl md:text-5xl mb-4" style={{ color: '#0B1120', fontWeight: 500 }}>
+          <h1 className="text-[28px] md:text-[36px] mb-4" style={{ color: '#0B1120', fontWeight: 500 }}>
             Enter your address
           </h1>
           <p className="text-lg text-gray-700">
