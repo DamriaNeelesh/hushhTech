@@ -847,18 +847,18 @@ const FundA = () => {
         <Container maxW="container.xl">
           <Heading 
             as="h2" 
-            fontSize={{ base: "2xl", md: "5xl" }} 
-            fontWeight="300" 
-            mb={8}
+            fontSize={{ base: "3xl", md: "5xl" }} 
+            fontWeight="400" 
+            mb={6}
             lineHeight="1.2"
             textAlign="center"
             color="#1D1D1F"
           >
-            Join Us: Co-Creating the Future of Investing
+            Invest in a better alternative.
           </Heading>
           
           <Text
-            fontSize={{ base: "md", md: "xl" }}
+            fontSize={{ base: "lg", md: "2xl" }}
             color="#6E6E73"
             fontWeight="light"
             lineHeight="tall"
@@ -867,7 +867,7 @@ const FundA = () => {
             mx="auto"
             mb={12}
           >
-            Hushh Fund A invites values-aligned LPs to partner in building an enduring portfolio that intelligently blends AI-driven strategies with human insight and long-term capitalism. Together, we aim to maximize both "aloha" (sustainable, purposeful income) and alpha.
+            Build a portfolio of private assets like real estate, private credit, and venture capital.
           </Text>
           
           <Flex justify="center" mb={8}>
@@ -880,9 +880,9 @@ const FundA = () => {
               color="white"
               _hover={{ background: "linear-gradient(to right, #00A9E0, #4BC0C8)" }}
               fontWeight="500"
-              onClick={() => window.location.href = "/contact"}
+              onClick={() => window.location.href = "/investor-profile"}
             >
-              Connect With Us
+              Create your hushh profile
             </Button>
           </Flex>
         </Container>
