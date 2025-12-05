@@ -66,7 +66,7 @@ export default function OnboardingStep2() {
         </div>
 
         {/* Heading */}
-        <h1 className="text-[40px] font-[500] leading-[1.2] text-[#0B1120] mb-4">
+        <h1 className="text-[28px] md:text-[36px] font-[500] leading-[1.2] text-[#0B1120] mb-4">
           Let's find the best portfolio for you
         </h1>
 

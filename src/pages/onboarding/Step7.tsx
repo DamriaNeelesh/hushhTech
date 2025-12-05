@@ -71,7 +71,7 @@ export default function OnboardingStep7() {
       <div className="max-w-[640px] w-full">
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-[40px] font-[500] leading-[1.2] text-[#0B1120]">
+          <h1 className="text-[28px] md:text-[36px] font-[500] leading-[1.2] text-[#0B1120]">
             What type of general account would you like to open?
           </h1>
         </div>
