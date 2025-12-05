@@ -17,6 +17,9 @@ const patterns = [
   { regex: /font-weight:\s*(\d{3,4})/g, name: 'CSS font-weight' },
   { regex: /fw:\s*["']?(\d{3,4})["']?/g, name: 'fw shorthand' },
   
+  // Tailwind bracket notation - font-[XXX]
+  { regex: /font-\[(\d{3,4})\]/g, name: 'Tailwind font-[XXX]' },
+  
   // Text-based font weights
   { regex: /fontWeight=["'](bold|bolder|semibold)["']/g, name: 'fontWeight text', textReplace: true },
   { regex: /fontWeight:\s*["'](bold|bolder|semibold)["']/g, name: 'fontWeight object text', textReplace: true },

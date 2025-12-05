@@ -106,7 +106,7 @@ export default function Login() {
             <Image src={HushhLogo} alt="Hushh Logo" className="h-12 w-12" />
           </Link>
           <div className="space-y-3">
-            <h1 className="text-[34px] font-[700] leading-[1.10] text-[#0B1120] text-center">
+            <h1 className="text-[34px] font-[500] leading-[1.10] text-[#0B1120] text-center">
               Investing in the Future.
             </h1>
             <p className="text-[18px] leading-[1.6] text-[#475569] text-center">

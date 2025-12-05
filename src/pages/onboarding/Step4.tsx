@@ -86,7 +86,7 @@ export default function OnboardingStep4() {
       <div className="max-w-[640px] w-full">
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-[40px] font-[700] leading-[1.2] text-[#0B1120]">
+          <h1 className="text-[40px] font-[500] leading-[1.2] text-[#0B1120]">
             How did you hear about Hushh Fund A?
           </h1>
         </div>
@@ -121,7 +121,7 @@ export default function OnboardingStep4() {
         <button
           onClick={handleContinue}
           disabled={!selectedSource || isLoading}
-          className={`w-full h-[56px] rounded-[16px] text-[17px] font-[650] tracking-[0.01em] mb-4 transition-all duration-200 ${
+          className={`w-full h-[56px] rounded-[16px] text-[17px] font-[500] tracking-[0.01em] mb-4 transition-all duration-200 ${
             selectedSource && !isLoading
               ? 'text-[#0B1120] cursor-pointer hover:scale-[1.01] active:scale-[0.99]'
               : 'text-[#94A3B8] cursor-not-allowed'
@@ -138,7 +138,7 @@ export default function OnboardingStep4() {
         {/* Skip Button */}
         <button
           onClick={handleSkip}
-          className="w-full h-[56px] rounded-[16px] text-[17px] font-[600] text-[#0B1120] border-2 border-[#E2E8F0] bg-white hover:border-[#CBD5E1] transition-all duration-200 mb-6"
+          className="w-full h-[56px] rounded-[16px] text-[17px] font-[500] text-[#0B1120] border-2 border-[#E2E8F0] bg-white hover:border-[#CBD5E1] transition-all duration-200 mb-6"
         >
           Skip
         </button>

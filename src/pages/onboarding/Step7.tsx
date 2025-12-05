@@ -65,7 +65,7 @@ export default function OnboardingStep7() {
       <div className="max-w-[640px] w-full">
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-[40px] font-[700] leading-[1.2] text-[#0B1120]">
+          <h1 className="text-[40px] font-[500] leading-[1.2] text-[#0B1120]">
             What type of general account would you like to open?
           </h1>
         </div>
@@ -113,7 +113,7 @@ export default function OnboardingStep7() {
         <button
           onClick={handleContinue}
           disabled={!selectedStructure || isLoading}
-          className={`w-full h-[56px] rounded-[16px] text-[17px] font-[650] tracking-[0.01em] transition-all duration-200 ${
+          className={`w-full h-[56px] rounded-[16px] text-[17px] font-[500] tracking-[0.01em] transition-all duration-200 ${
             selectedStructure && !isLoading
               ? 'text-[#0B1120] cursor-pointer hover:scale-[1.01] active:scale-[0.99]'
               : 'text-[#94A3B8] cursor-not-allowed'

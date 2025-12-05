@@ -61,7 +61,7 @@ export default function OnboardingStep2() {
         </div>
 
         {/* Heading */}
-        <h1 className="text-[40px] font-[700] leading-[1.2] text-[#0B1120] mb-4">
+        <h1 className="text-[40px] font-[500] leading-[1.2] text-[#0B1120] mb-4">
           Let's find the best portfolio for you
         </h1>
 
@@ -73,7 +73,7 @@ export default function OnboardingStep2() {
         {/* Get Started Button */}
         <button
           onClick={handleGetStarted}
-          className="w-full h-[56px] rounded-[16px] text-[17px] font-[650] tracking-[0.01em] text-[#0B1120] cursor-pointer hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
+          className="w-full h-[56px] rounded-[16px] text-[17px] font-[500] tracking-[0.01em] text-[#0B1120] cursor-pointer hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
           style={{
             background: 'linear-gradient(to right, #00A9E0, #6DD3EF)'
           }}

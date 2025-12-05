@@ -36,7 +36,7 @@ export const HushhIDHero: React.FC<HushhIDHeroProps> = ({
           >
             Investor Profile
           </p>
-          <h1 className="text-[36px] font-[700] leading-[1.10] text-[#0B1120] mb-5">
+          <h1 className="text-[36px] font-[500] leading-[1.10] text-[#0B1120] mb-5">
             Hello {userName},
           </h1>
           <p className="text-[18px] leading-[1.65] text-[#475569] max-w-[90%] mb-8">

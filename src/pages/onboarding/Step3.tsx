@@ -54,7 +54,7 @@ export default function OnboardingStep3() {
       <div className="max-w-[640px] w-full">
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-[40px] font-[700] leading-[1.2] text-[#0B1120] mb-4">
+          <h1 className="text-[40px] font-[500] leading-[1.2] text-[#0B1120] mb-4">
             Please make your selection
           </h1>
           <p className="text-[18px] leading-[1.6] text-[#64748B]">
@@ -69,7 +69,7 @@ export default function OnboardingStep3() {
         >
           <div className="flex items-start justify-between">
             <div className="flex-1 pr-4">
-              <h3 className="text-[20px] font-[600] text-[#0B1120] mb-2">
+              <h3 className="text-[20px] font-[500] text-[#0B1120] mb-2">
                 Hushh Fund A: AI-Powered Multi-Strategy Alpha.
               </h3>
               <p className="text-[16px] leading-[1.5] text-[#64748B]">
