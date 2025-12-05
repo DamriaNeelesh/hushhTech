@@ -296,5 +296,29 @@ export const VALUE_LABELS: Record<string, string> = {
   // Engagement Style
   very_passive_just_updates: "Very Passive (Just Updates)",
   collaborative_discuss_key_decisions: "Collaborative (Discuss Key Decisions)",
-  hands_on_active_trader: "Hands-on (Active Trader)"
+  hands_on_active_trader: "Hands-on (Active Trader)",
+  
+  // Account Types
+  general: "General Account",
+  retirement: "Retirement Account",
+  
+  // Account Structure
+  individual: "Individual",
+  
+  // Referral Sources
+  podcast: "Podcast",
+  social_media_influencer: "Social Media Influencer",
+  social_media_ad: "Social Media Ad",
+  yahoo_finance: "Yahoo Finance",
+  ai_tool: "AI Tool",
+  website_blog_article: "Website/Blog Article",
+  penny_hoarder: "Penny Hoarder",
+  family_friend: "Family/Friend",
+  tv_radio: "TV/Radio",
+  
+  // Recurring Frequencies
+  weekly: "Weekly",
+  biweekly: "Bi-weekly",
+  monthly: "Monthly",
+  bimonthly: "Bi-monthly"
 };

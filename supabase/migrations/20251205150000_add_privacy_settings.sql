@@ -1,5 +1,5 @@
--- Add privacy_settings column to investor_profiles table
--- This allows users to control which fields are visible on their public profile
+-- Add privacy_settings column to investor_profiles for granular field-level visibility control
+-- All fields are public by default, except SSN which is private by default
 
 ALTER TABLE public.investor_profiles 
 ADD COLUMN IF NOT EXISTS privacy_settings JSONB DEFAULT '{
@@ -31,31 +31,29 @@ ADD COLUMN IF NOT EXISTS privacy_settings JSONB DEFAULT '{
     "legal_last_name": true,
     "address_line_1": true,
     "address_line_2": true,
-    "address_country": true,
     "city": true,
     "state": true,
     "zip_code": true,
     "address_phone_number": true,
     "address_phone_country_code": true,
-    "date_of_birth": true,
+    "address_country": true,
     "ssn_encrypted": false,
+    "date_of_birth": true,
     "initial_investment_amount": true,
     "recurring_investment_enabled": true,
     "recurring_frequency": true,
     "recurring_amount": true,
     "recurring_day_of_month": true
-  },
-  "basic_info": {
-    "name": true,
-    "email": true,
-    "age": true,
-    "organisation": true
   }
-}'::JSONB;
+}'::jsonb;
+
+-- Add index for faster queries on privacy settings
+CREATE INDEX IF NOT EXISTS idx_investor_profiles_privacy_settings 
+ON public.investor_profiles USING gin (privacy_settings);
 
 -- Add comment for documentation
 COMMENT ON COLUMN public.investor_profiles.privacy_settings IS 
-'Controls which fields are visible on public profile. Default: all fields visible except SSN.';
+'Granular field-level privacy controls. Each field can be toggled ON (public) or OFF (private). All fields are public by default except ssn_encrypted which is private by default.';
 
 -- Update existing rows to have the default privacy settings
 UPDATE public.investor_profiles 
@@ -88,25 +86,19 @@ SET privacy_settings = '{
     "legal_last_name": true,
     "address_line_1": true,
     "address_line_2": true,
-    "address_country": true,
     "city": true,
     "state": true,
     "zip_code": true,
     "address_phone_number": true,
     "address_phone_country_code": true,
-    "date_of_birth": true,
+    "address_country": true,
     "ssn_encrypted": false,
+    "date_of_birth": true,
     "initial_investment_amount": true,
     "recurring_investment_enabled": true,
     "recurring_frequency": true,
     "recurring_amount": true,
     "recurring_day_of_month": true
-  },
-  "basic_info": {
-    "name": true,
-    "email": true,
-    "age": true,
-    "organisation": true
   }
-}'::JSONB
+}'::jsonb
 WHERE privacy_settings IS NULL;

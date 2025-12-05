@@ -14,6 +14,7 @@ import DeveloperSettings from "../../components/DeveloperSettings";
 import { fetchPublicInvestorProfileBySlug } from "../../services/investorProfile";
 import { maskProfileData } from "../../utils/maskSensitiveData";
 import { InvestorProfile, FIELD_LABELS, VALUE_LABELS, ONBOARDING_FIELD_LABELS } from "../../types/investorProfile";
+import { OnboardingData } from "../../types/onboarding";
 
 const PublicInvestorProfilePage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -132,6 +133,98 @@ const PublicInvestorProfilePage: React.FC = () => {
 
   const maskedData = maskProfileData(profileData);
   const investorProfile: InvestorProfile = profileData.investor_profile;
+  const onboardingData: OnboardingData | null = profileData.onboarding_data;
+  const privacySettings = profileData.privacy_settings || {};
+
+  // Helper function to check if a field should be displayed
+  const isFieldVisible = (section: 'investor_profile' | 'onboarding_data', fieldName: string): boolean => {
+    if (!privacySettings[section]) return true; // Default to visible if no privacy settings
+    return privacySettings[section][fieldName] !== false; // Show unless explicitly false
+  };
+
+  // Filter and format onboarding data for display
+  const getVisibleOnboardingFields = () => {
+    if (!onboardingData) return [];
+    
+    const fields: Array<{key: string, label: string, value: any, category: string}> = [];
+    
+    // Basic Information
+    if (onboardingData.account_type && isFieldVisible('onboarding_data', 'account_type')) {
+      fields.push({ key: 'account_type', label: ONBOARDING_FIELD_LABELS.account_type, value: VALUE_LABELS[onboardingData.account_type] || onboardingData.account_type, category: 'Basic Information' });
+    }
+    if (onboardingData.selected_fund && isFieldVisible('onboarding_data', 'selected_fund')) {
+      fields.push({ key: 'selected_fund', label: ONBOARDING_FIELD_LABELS.selected_fund, value: onboardingData.selected_fund, category: 'Basic Information' });
+    }
+    if (onboardingData.referral_source && isFieldVisible('onboarding_data', 'referral_source')) {
+      fields.push({ key: 'referral_source', label: ONBOARDING_FIELD_LABELS.referral_source, value: VALUE_LABELS[onboardingData.referral_source] || onboardingData.referral_source, category: 'Basic Information' });
+    }
+    
+    // Citizenship & Residence
+    if (onboardingData.citizenship_country && isFieldVisible('onboarding_data', 'citizenship_country')) {
+      fields.push({ key: 'citizenship_country', label: ONBOARDING_FIELD_LABELS.citizenship_country, value: onboardingData.citizenship_country, category: 'Citizenship & Residence' });
+    }
+    if (onboardingData.residence_country && isFieldVisible('onboarding_data', 'residence_country')) {
+      fields.push({ key: 'residence_country', label: ONBOARDING_FIELD_LABELS.residence_country, value: onboardingData.residence_country, category: 'Citizenship & Residence' });
+    }
+    if (onboardingData.account_structure && isFieldVisible('onboarding_data', 'account_structure')) {
+      fields.push({ key: 'account_structure', label: ONBOARDING_FIELD_LABELS.account_structure, value: VALUE_LABELS[onboardingData.account_structure] || onboardingData.account_structure, category: 'Citizenship & Residence' });
+    }
+    
+    // Legal Information
+    if (onboardingData.legal_first_name && isFieldVisible('onboarding_data', 'legal_first_name')) {
+      fields.push({ key: 'legal_first_name', label: ONBOARDING_FIELD_LABELS.legal_first_name, value: onboardingData.legal_first_name, category: 'Legal Information' });
+    }
+    if (onboardingData.legal_last_name && isFieldVisible('onboarding_data', 'legal_last_name')) {
+      fields.push({ key: 'legal_last_name', label: ONBOARDING_FIELD_LABELS.legal_last_name, value: onboardingData.legal_last_name, category: 'Legal Information' });
+    }
+    if (onboardingData.date_of_birth && isFieldVisible('onboarding_data', 'date_of_birth')) {
+      fields.push({ key: 'date_of_birth', label: ONBOARDING_FIELD_LABELS.date_of_birth, value: new Date(onboardingData.date_of_birth).toLocaleDateString(), category: 'Legal Information' });
+    }
+    if (onboardingData.ssn_encrypted && isFieldVisible('onboarding_data', 'ssn_encrypted')) {
+      fields.push({ key: 'ssn_encrypted', label: ONBOARDING_FIELD_LABELS.ssn_encrypted, value: '***-**-****', category: 'Legal Information' });
+    }
+    
+    // Address
+    if (onboardingData.address_line_1 && isFieldVisible('onboarding_data', 'address_line_1')) {
+      fields.push({ key: 'address_line_1', label: ONBOARDING_FIELD_LABELS.address_line_1, value: onboardingData.address_line_1, category: 'Address' });
+    }
+    if (onboardingData.city && isFieldVisible('onboarding_data', 'city')) {
+      fields.push({ key: 'city', label: ONBOARDING_FIELD_LABELS.city, value: onboardingData.city, category: 'Address' });
+    }
+    if (onboardingData.state && isFieldVisible('onboarding_data', 'state')) {
+      fields.push({ key: 'state', label: ONBOARDING_FIELD_LABELS.state, value: onboardingData.state, category: 'Address' });
+    }
+    if (onboardingData.zip_code && isFieldVisible('onboarding_data', 'zip_code')) {
+      fields.push({ key: 'zip_code', label: ONBOARDING_FIELD_LABELS.zip_code, value: onboardingData.zip_code, category: 'Address' });
+    }
+    
+    // Investment Details
+    if (onboardingData.initial_investment_amount && isFieldVisible('onboarding_data', 'initial_investment_amount')) {
+      fields.push({ key: 'initial_investment_amount', label: ONBOARDING_FIELD_LABELS.initial_investment_amount, value: `$${Number(onboardingData.initial_investment_amount).toLocaleString()}`, category: 'Investment Details' });
+    }
+    if (onboardingData.recurring_investment_enabled && isFieldVisible('onboarding_data', 'recurring_investment_enabled')) {
+      fields.push({ key: 'recurring_investment_enabled', label: ONBOARDING_FIELD_LABELS.recurring_investment_enabled, value: onboardingData.recurring_investment_enabled ? 'Yes' : 'No', category: 'Investment Details' });
+    }
+    if (onboardingData.recurring_frequency && isFieldVisible('onboarding_data', 'recurring_frequency')) {
+      fields.push({ key: 'recurring_frequency', label: ONBOARDING_FIELD_LABELS.recurring_frequency, value: VALUE_LABELS[onboardingData.recurring_frequency] || onboardingData.recurring_frequency, category: 'Investment Details' });
+    }
+    if (onboardingData.recurring_amount && isFieldVisible('onboarding_data', 'recurring_amount')) {
+      fields.push({ key: 'recurring_amount', label: ONBOARDING_FIELD_LABELS.recurring_amount, value: `$${Number(onboardingData.recurring_amount).toLocaleString()}`, category: 'Investment Details' });
+    }
+    
+    return fields;
+  };
+
+  const visibleOnboardingFields = getVisibleOnboardingFields();
+  
+  // Group fields by category
+  const groupedFields = visibleOnboardingFields.reduce((acc, field) => {
+    if (!acc[field.category]) {
+      acc[field.category] = [];
+    }
+    acc[field.category].push(field);
+    return acc;
+  }, {} as Record<string, typeof visibleOnboardingFields>);
 
   return (
     <>
@@ -268,7 +361,7 @@ const PublicInvestorProfilePage: React.FC = () => {
           </Box>
 
           {/* Investment Profile Details */}
-          <Box>
+          <Box mb={8}>
             <HStack spacing={2} align="center" mb={3}>
               <Text fontSize="15px" fontWeight="700" color={tokens.label}>Investment Profile</Text>
             </HStack>
@@ -324,164 +417,51 @@ const PublicInvestorProfilePage: React.FC = () => {
           </Box>
 
           {/* Personal Information (Onboarding Data) */}
-          {profileData.onboarding_data && (
-            <Box mt={8}>
+          {visibleOnboardingFields.length > 0 && (
+            <Box mb={8}>
               <HStack spacing={2} align="center" mb={3}>
                 <Text fontSize="15px" fontWeight="700" color={tokens.label}>Personal Information</Text>
               </HStack>
 
-              <Box 
-                border={`1px solid ${tokens.separator}`}
-                borderRadius="12px"
-                overflow="hidden"
-              >
-                {/* Basic Info Group */}
-                <Box bg="rgba(120,120,128,0.06)" px={4} py={2} borderBottom={`1px solid ${tokens.separator}`}>
-                  <Text fontSize="13px" fontWeight="600" color={tokens.secondary}>ACCOUNT DETAILS</Text>
-                </Box>
-                <VStack align="stretch" spacing={0} divider={<Box borderBottom={`1px solid ${tokens.separator}`} />}>
-                  {profileData.onboarding_data.account_type && profileData.privacy_settings?.onboarding_data?.account_type !== false && (
-                    <HStack justify="space-between" px={4} py={3}>
-                      <Text fontSize="14px" color={tokens.secondary}>{ONBOARDING_FIELD_LABELS.account_type}</Text>
-                      <Text fontSize="14px" fontWeight="600" color={tokens.label} textTransform="capitalize">
-                        {profileData.onboarding_data.account_type.replace('_', ' ')}
+              <Accordion allowToggle>
+                {Object.entries(groupedFields).map(([category, fields]) => (
+                  <React.Fragment key={category}>
+                    {/* Category Header */}
+                    <Box py={2} px={0}>
+                      <Text fontSize="13px" fontWeight="600" color={tokens.tertiary} textTransform="uppercase" letterSpacing="0.05em">
+                        {category}
                       </Text>
-                    </HStack>
-                  )}
-                  {profileData.onboarding_data.selected_fund && profileData.privacy_settings?.onboarding_data?.selected_fund !== false && (
-                    <HStack justify="space-between" px={4} py={3}>
-                      <Text fontSize="14px" color={tokens.secondary}>{ONBOARDING_FIELD_LABELS.selected_fund}</Text>
-                      <Text fontSize="14px" fontWeight="600" color={tokens.label}>
-                        {profileData.onboarding_data.selected_fund.replace(/_/g, ' ').toUpperCase()}
-                      </Text>
-                    </HStack>
-                  )}
-                  {profileData.onboarding_data.account_structure && profileData.privacy_settings?.onboarding_data?.account_structure !== false && (
-                    <HStack justify="space-between" px={4} py={3}>
-                      <Text fontSize="14px" color={tokens.secondary}>{ONBOARDING_FIELD_LABELS.account_structure}</Text>
-                      <Text fontSize="14px" fontWeight="600" color={tokens.label} textTransform="capitalize">
-                        {profileData.onboarding_data.account_structure}
-                      </Text>
-                    </HStack>
-                  )}
-                </VStack>
-
-                {/* Identity Group */}
-                <Box bg="rgba(120,120,128,0.06)" px={4} py={2} borderBottom={`1px solid ${tokens.separator}`} mt={2}>
-                  <Text fontSize="13px" fontWeight="600" color={tokens.secondary}>IDENTITY</Text>
-                </Box>
-                <VStack align="stretch" spacing={0} divider={<Box borderBottom={`1px solid ${tokens.separator}`} />}>
-                  {profileData.onboarding_data.legal_first_name && profileData.onboarding_data.legal_last_name && 
-                   profileData.privacy_settings?.onboarding_data?.legal_first_name !== false && (
-                    <HStack justify="space-between" px={4} py={3}>
-                      <Text fontSize="14px" color={tokens.secondary}>Legal Name</Text>
-                      <Text fontSize="14px" fontWeight="600" color={tokens.label}>
-                        {profileData.onboarding_data.legal_first_name} {profileData.onboarding_data.legal_last_name}
-                      </Text>
-                    </HStack>
-                  )}
-                  {profileData.onboarding_data.date_of_birth && profileData.privacy_settings?.onboarding_data?.date_of_birth !== false && (
-                    <HStack justify="space-between" px={4} py={3}>
-                      <Text fontSize="14px" color={tokens.secondary}>{ONBOARDING_FIELD_LABELS.date_of_birth}</Text>
-                      <Text fontSize="14px" fontWeight="600" color={tokens.label}>
-                        {new Date(profileData.onboarding_data.date_of_birth).toLocaleDateString()}
-                      </Text>
-                    </HStack>
-                  )}
-                  {profileData.onboarding_data.citizenship_country && profileData.privacy_settings?.onboarding_data?.citizenship_country !== false && (
-                    <HStack justify="space-between" px={4} py={3}>
-                      <Text fontSize="14px" color={tokens.secondary}>{ONBOARDING_FIELD_LABELS.citizenship_country}</Text>
-                      <Text fontSize="14px" fontWeight="600" color={tokens.label}>
-                        {profileData.onboarding_data.citizenship_country.replace(/_/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
-                      </Text>
-                    </HStack>
-                  )}
-                  {profileData.onboarding_data.residence_country && profileData.privacy_settings?.onboarding_data?.residence_country !== false && (
-                    <HStack justify="space-between" px={4} py={3}>
-                      <Text fontSize="14px" color={tokens.secondary}>{ONBOARDING_FIELD_LABELS.residence_country}</Text>
-                      <Text fontSize="14px" fontWeight="600" color={tokens.label}>
-                        {profileData.onboarding_data.residence_country.replace(/_/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
-                      </Text>
-                    </HStack>
-                  )}
-                </VStack>
-
-                {/* Contact Group */}
-                <Box bg="rgba(120,120,128,0.06)" px={4} py={2} borderBottom={`1px solid ${tokens.separator}`} mt={2}>
-                  <Text fontSize="13px" fontWeight="600" color={tokens.secondary}>CONTACT & ADDRESS</Text>
-                </Box>
-                <VStack align="stretch" spacing={0} divider={<Box borderBottom={`1px solid ${tokens.separator}`} />}>
-                  {profileData.onboarding_data.address_line_1 && profileData.privacy_settings?.onboarding_data?.address_line_1 !== false && (
-                    <HStack justify="space-between" px={4} py={3}>
-                      <Text fontSize="14px" color={tokens.secondary}>Address</Text>
-                      <Text fontSize="14px" fontWeight="600" color={tokens.label} textAlign="right">
-                        {profileData.onboarding_data.address_line_1}
-                        {profileData.onboarding_data.address_line_2 && `, ${profileData.onboarding_data.address_line_2}`}
-                      </Text>
-                    </HStack>
-                  )}
-                  {profileData.onboarding_data.city && profileData.onboarding_data.state && 
-                   profileData.privacy_settings?.onboarding_data?.city !== false && (
-                    <HStack justify="space-between" px={4} py={3}>
-                      <Text fontSize="14px" color={tokens.secondary}>City & State</Text>
-                      <Text fontSize="14px" fontWeight="600" color={tokens.label}>
-                        {profileData.onboarding_data.city}, {profileData.onboarding_data.state}
-                      </Text>
-                    </HStack>
-                  )}
-                  {profileData.onboarding_data.zip_code && profileData.privacy_settings?.onboarding_data?.zip_code !== false && (
-                    <HStack justify="space-between" px={4} py={3}>
-                      <Text fontSize="14px" color={tokens.secondary}>{ONBOARDING_FIELD_LABELS.zip_code}</Text>
-                      <Text fontSize="14px" fontWeight="600" color={tokens.label}>
-                        {profileData.onboarding_data.zip_code}
-                      </Text>
-                    </HStack>
-                  )}
-                </VStack>
-
-                {/* Investment Details Group */}
-                <Box bg="rgba(120,120,128,0.06)" px={4} py={2} borderBottom={`1px solid ${tokens.separator}`} mt={2}>
-                  <Text fontSize="13px" fontWeight="600" color={tokens.secondary}>INVESTMENT DETAILS</Text>
-                </Box>
-                <VStack align="stretch" spacing={0} divider={<Box borderBottom={`1px solid ${tokens.separator}`} />}>
-                  {profileData.onboarding_data.initial_investment_amount && 
-                   profileData.privacy_settings?.onboarding_data?.initial_investment_amount !== false && (
-                    <HStack justify="space-between" px={4} py={3}>
-                      <Text fontSize="14px" color={tokens.secondary}>{ONBOARDING_FIELD_LABELS.initial_investment_amount}</Text>
-                      <Text fontSize="14px" fontWeight="600" color={tokens.label}>
-                        ${Number(profileData.onboarding_data.initial_investment_amount).toLocaleString()}
-                      </Text>
-                    </HStack>
-                  )}
-                  {profileData.onboarding_data.recurring_investment_enabled && 
-                   profileData.privacy_settings?.onboarding_data?.recurring_investment_enabled !== false && (
-                    <>
-                      <HStack justify="space-between" px={4} py={3}>
-                        <Text fontSize="14px" color={tokens.secondary}>{ONBOARDING_FIELD_LABELS.recurring_investment_enabled}</Text>
-                        <Text fontSize="14px" fontWeight="600" color={tokens.green}>
-                          Enabled
-                        </Text>
-                      </HStack>
-                      {profileData.onboarding_data.recurring_amount && profileData.privacy_settings?.onboarding_data?.recurring_amount !== false && (
-                        <HStack justify="space-between" px={4} py={3}>
-                          <Text fontSize="14px" color={tokens.secondary}>{ONBOARDING_FIELD_LABELS.recurring_amount}</Text>
-                          <Text fontSize="14px" fontWeight="600" color={tokens.label}>
-                            ${Number(profileData.onboarding_data.recurring_amount).toLocaleString()}
-                          </Text>
-                        </HStack>
-                      )}
-                      {profileData.onboarding_data.recurring_frequency && profileData.privacy_settings?.onboarding_data?.recurring_frequency !== false && (
-                        <HStack justify="space-between" px={4} py={3}>
-                          <Text fontSize="14px" color={tokens.secondary}>{ONBOARDING_FIELD_LABELS.recurring_frequency}</Text>
-                          <Text fontSize="14px" fontWeight="600" color={tokens.label} textTransform="capitalize">
-                            {profileData.onboarding_data.recurring_frequency.replace(/_/g, ' ')}
-                          </Text>
-                        </HStack>
-                      )}
-                    </>
-                  )}
-                </VStack>
-              </Box>
+                    </Box>
+                    
+                    {/* Fields in this category */}
+                    {fields.map((field) => (
+                      <AccordionItem
+                        key={field.key}
+                        border="none"
+                        borderBottom={`1px solid ${tokens.separator}`}
+                      >
+                        <AccordionButton
+                          px={0}
+                          py={3}
+                          _hover={{ bg: "rgba(120,120,128,0.06)" }}
+                          transition="background-color 0.16s ease"
+                        >
+                          <HStack justify="space-between" w="full" align="center" spacing={3}>
+                            <VStack align="start" spacing={0} flex={1}>
+                              <Text fontWeight="600" fontSize="15px" color={tokens.label}>
+                                {field.label}
+                              </Text>
+                              <Text fontSize="13px" color={tokens.secondary} noOfLines={1}>
+                                {field.value}
+                              </Text>
+                            </VStack>
+                          </HStack>
+                        </AccordionButton>
+                      </AccordionItem>
+                    ))}
+                  </React.Fragment>
+                ))}
+              </Accordion>
             </Box>
           )}
 
