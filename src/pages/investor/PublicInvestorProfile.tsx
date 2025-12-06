@@ -112,19 +112,19 @@ const PublicInvestorProfilePage: React.FC = () => {
       title: "Send 3 FREE messages",
       description: "Break the ice, share context, and gauge fit without paying.",
       badge: "Free",
-      accent: "#7C4DFF",
+      accent: tokens.blue,
     },
     {
       title: "Unlock chat for $1",
       description: "Get 30 minutes of unlimited chat and fast follow-ups.",
       badge: "Instant",
-      accent: tokens.green,
+      accent: tokens.blue,
     },
     {
       title: "Access everything",
       description: "Reveal contact details & MCP endpoints once you’re ready to move.",
       badge: "Full access",
-      accent: tokens.tertiary,
+      accent: tokens.blue,
     },
   ];
 
@@ -404,7 +404,7 @@ const PublicInvestorProfilePage: React.FC = () => {
             overflow="hidden"
             borderRadius="20px"
             border={`1px solid ${tokens.separator}`}
-            bg="linear-gradient(145deg, rgba(10,132,255,0.08), rgba(255,214,10,0.09))"
+            bg="linear-gradient(145deg, rgba(10,132,255,0.08), rgba(10,132,255,0.02))"
             p={{ base: 5, md: 6 }}
             boxShadow="0 12px 32px rgba(0,0,0,0.06)"
           >
@@ -414,7 +414,7 @@ const PublicInvestorProfilePage: React.FC = () => {
               left={0}
               width="3px"
               borderRadius="full"
-              bg="linear-gradient(180deg, rgba(10,132,255,0.6), rgba(52,199,89,0.6))"
+              bg="linear-gradient(180deg, rgba(10,132,255,0.7), rgba(10,132,255,0.25))"
             />
             <Box
               position="absolute"
@@ -432,7 +432,7 @@ const PublicInvestorProfilePage: React.FC = () => {
               left="-140px"
               w="280px"
               h="280px"
-              bg="radial-gradient(circle at center, rgba(52,199,89,0.12), transparent 58%)"
+              bg="radial-gradient(circle at center, rgba(10,132,255,0.12), transparent 58%)"
               pointerEvents="none"
               filter="blur(12px)"
             />
