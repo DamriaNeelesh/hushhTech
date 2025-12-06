@@ -370,6 +370,37 @@ const PublicInvestorProfilePage: React.FC = () => {
             </Text>
           </VStack>
 
+          {/* How It Works Banner */}
+          <Box
+            mb={8}
+            bg="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+            borderRadius="16px"
+            p={6}
+            color="white"
+          >
+            <Heading as="h3" size="md" mb={3}>
+              💡 How It Works
+            </Heading>
+            <VStack align="stretch" spacing={2}>
+              <HStack>
+                <Text fontWeight="bold">Step 1:</Text>
+                <Text>Open this profile (you are here!)</Text>
+              </HStack>
+              <HStack>
+                <Text fontWeight="bold">Step 2:</Text>
+                <Text>Send 3 FREE messages to explore</Text>
+              </HStack>
+              <HStack>
+                <Text fontWeight="bold">Step 3:</Text>
+                <Text>Pay $1 for 30 minutes unlimited chat access</Text>
+              </HStack>
+              <HStack>
+                <Text fontWeight="bold">Step 4:</Text>
+                <Text>Get full contact details & MCP endpoints unlocked</Text>
+              </HStack>
+            </VStack>
+          </Box>
+
           {/* Chat Widget - Moved to Top for Better Visibility */}
           <Box mb={8}>
             <InvestorChatWidget slug={slug!} investorName={maskedData.name} />
@@ -480,7 +511,8 @@ const PublicInvestorProfilePage: React.FC = () => {
             </Box>
           )}
 
-          {/* Developer Settings */}
+          {/* Developer Settings - Only visible after payment */}
+          {/* For now showing to everyone - will be hidden until payment in future update */}
           <Box mt={8}>
             <DeveloperSettings investorSlug={slug!} />
           </Box>
