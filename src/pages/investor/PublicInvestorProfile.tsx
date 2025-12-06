@@ -404,7 +404,7 @@ const PublicInvestorProfilePage: React.FC = () => {
             overflow="hidden"
             borderRadius="20px"
             border={`1px solid ${tokens.separator}`}
-            bg="linear-gradient(145deg, rgba(10,132,255,0.08), rgba(10,132,255,0.02))"
+            bg="linear-gradient(170deg, rgba(10,132,255,0.12), rgba(10,132,255,0.03))"
             p={{ base: 5, md: 6 }}
             boxShadow="0 12px 32px rgba(0,0,0,0.06)"
           >
@@ -418,23 +418,13 @@ const PublicInvestorProfilePage: React.FC = () => {
             />
             <Box
               position="absolute"
-              top="-120px"
-              right="-120px"
-              w="240px"
-              h="240px"
-              bg="radial-gradient(circle at center, rgba(10,132,255,0.18), transparent 60%)"
+              top="-110px"
+              right="-110px"
+              w="220px"
+              h="220px"
+              bg="radial-gradient(circle at center, rgba(10,132,255,0.16), transparent 60%)"
               pointerEvents="none"
               filter="blur(10px)"
-            />
-            <Box
-              position="absolute"
-              bottom="-140px"
-              left="-140px"
-              w="280px"
-              h="280px"
-              bg="radial-gradient(circle at center, rgba(10,132,255,0.12), transparent 58%)"
-              pointerEvents="none"
-              filter="blur(12px)"
             />
 
             <VStack align="stretch" spacing={5} position="relative">
@@ -483,16 +473,16 @@ const PublicInvestorProfilePage: React.FC = () => {
                     align="flex-start"
                     spacing={4}
                     p={{ base: 4, md: 4.5 }}
-                    bg="rgba(255,255,255,0.95)"
+                    bg="white"
                     borderRadius="14px"
                     border={`1px solid ${tokens.separator}`}
-                    boxShadow="0 10px 24px rgba(0,0,0,0.05)"
+                    boxShadow="0 8px 18px rgba(10,132,255,0.08)"
                   >
                     <Box
                       minW="38px"
                       h="38px"
                       borderRadius="12px"
-                      bg={`linear-gradient(135deg, ${step.accent}1A, ${step.accent}33)`}
+                      bg={`linear-gradient(135deg, ${step.accent}14, ${step.accent}26)`}
                       border={`1px solid ${step.accent}33`}
                       display="flex"
                       alignItems="center"
@@ -512,11 +502,11 @@ const PublicInvestorProfilePage: React.FC = () => {
                           px={2.5}
                           py={1}
                           borderRadius="full"
-                          bg={`${step.accent}14`}
+                          bg={`${step.accent}12`}
                           color={step.accent}
                           fontSize="12px"
                           fontWeight="700"
-                          border={`1px solid ${step.accent}2E`}
+                          border={`1px solid ${step.accent}26`}
                           letterSpacing="0.02em"
                           whiteSpace="nowrap"
                         >
