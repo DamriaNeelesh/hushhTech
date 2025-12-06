@@ -73,6 +73,19 @@ serve(async (req) => {
       throw new Error(`Failed to update access: ${updateError.message}`);
     }
 
+    // Send payment notification email (async, don't wait)
+    fetch(`${Deno.env.get('SUPABASE_URL')}/functions/v1/send-email-notification`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': Deno.env.get('SUPABASE_ANON_KEY') || ''
+      },
+      body: JSON.stringify({
+        type: 'payment_received',
+        slug
+      })
+    }).catch(err => console.log('Email notification failed:', err));
+
     return new Response(
       JSON.stringify({
         success: true,

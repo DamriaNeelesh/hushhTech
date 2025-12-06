@@ -36,6 +36,20 @@ const PublicInvestorProfilePage: React.FC = () => {
       try {
         const data = await fetchPublicInvestorProfileBySlug(slug);
         setProfileData(data);
+        
+        // Send profile view notification email (async, don't wait)
+        fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-email-notification`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY || ''
+          },
+          body: JSON.stringify({
+            type: 'profile_view',
+            slug
+          })
+        }).catch(err => console.log('Email notification failed:', err));
+        
       } catch (error: any) {
         console.error("Error fetching profile:", error);
         toast({
