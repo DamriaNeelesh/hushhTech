@@ -67,11 +67,11 @@ export default function Footer() {
               <div className="space-y-2">
                 <a href="/community" className="block text-gray-300 hover:text-white transition">Community</a>
                 <a href="/faq" className="block text-gray-300 hover:text-white transition">FAQ</a>
-                <a href="/contact" className="block text-gray-300 hover:text-white transition">Contact</a>
+                <a href="/about/leadership" className="block text-gray-300 hover:text-white transition">Contact</a>
                 <a href="/kyc-verification" className="block text-gray-300 hover:text-white transition">KYC Verification</a>
               </div>
             </div>
-          </div>
+          </div>  
           
           {/* Column 3: Legal */}
           <div>
