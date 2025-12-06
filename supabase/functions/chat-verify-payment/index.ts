@@ -73,18 +73,28 @@ serve(async (req) => {
       throw new Error(`Failed to update access: ${updateError.message}`);
     }
 
-    // Send payment notification email (async, don't wait)
-    fetch(`${Deno.env.get('SUPABASE_URL')}/functions/v1/send-email-notification`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': Deno.env.get('SUPABASE_ANON_KEY') || ''
-      },
-      body: JSON.stringify({
-        type: 'payment_received',
-        slug
-      })
-    }).catch(err => console.log('Email notification failed:', err));
+    // Fetch profile to get owner's email for notification
+    const { data: profile } = await supabase
+      .from('investor_profiles')
+      .select('email, name')
+      .eq('slug', slug)
+      .single();
+
+    // Send payment notification email via Vercel API (async, don't wait)
+    if (profile) {
+      fetch('https://hushhtech.com/api/send-email-notification', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          type: 'payment_received',
+          slug,
+          profileOwnerEmail: profile.email,
+          profileName: profile.name
+        })
+      }).catch(err => console.log('Email notification failed:', err));
+    }
 
     return new Response(
       JSON.stringify({

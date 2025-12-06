@@ -33,6 +33,7 @@
     "gray-matter": "^4.0.3",
     "libphonenumber-js": "^1.12.31",
     "lucide-react": "^0.454.0",
+    "nodemailer": "^6.9.7",
     "openai": "^6.9.1",
     "path": "^0.12.7",
     "react": "^18.2.0",
