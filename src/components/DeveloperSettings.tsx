@@ -115,7 +115,9 @@ const DeveloperSettings: React.FC<DeveloperSettingsProps> = ({ investorSlug }) =
     {
       title: "MCP Discovery Endpoint",
       description: "Get available MCP tools and resources for agent-to-agent communication",
-      endpoint: `${supabaseUrl}/functions/v1/investor-agent-mcp`,
+      endpoint: investorSlug
+        ? `${supabaseUrl}/functions/v1/investor-agent-mcp/mcp?slug=${investorSlug}`
+        : `${supabaseUrl}/functions/v1/investor-agent-mcp/mcp?slug={investor-slug}`,
       method: "GET",
     },
     {
@@ -127,11 +129,11 @@ const DeveloperSettings: React.FC<DeveloperSettingsProps> = ({ investorSlug }) =
       method: "POST",
     },
     {
-      title: "AgentCard Endpoint",
-      description: "Get structured agent card data for LLM-to-LLM discovery",
+      title: "AgentCard Endpoint (A2A)",
+      description: "Get structured agent card data for agent-to-agent discovery",
       endpoint: investorSlug
-        ? `${supabaseUrl}/functions/v1/investor-agent-mcp/agentcard?slug=${investorSlug}`
-        : `${supabaseUrl}/functions/v1/investor-agent-mcp/agentcard?slug={investor-slug}`,
+        ? `${supabaseUrl}/functions/v1/investor-agent-mcp/a2a/agent-card.json?slug=${investorSlug}`
+        : `${supabaseUrl}/functions/v1/investor-agent-mcp/a2a/agent-card.json?slug={investor-slug}`,
       method: "GET",
     },
   ];
