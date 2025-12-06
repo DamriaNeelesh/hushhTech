@@ -239,7 +239,25 @@ export default function Hero() {
               <VStack align="stretch" spacing={5}>
                 <VStack align="stretch" spacing={4}>
                   <Text fontSize="20px" fontWeight="450" color="#0B1120" lineHeight="1.35">
-                    Targeting <Text as="span" fontWeight="500">18-23% net IRR</Text>* with our "Sell the Wall" approach.
+                    Targeting <Text as="span" fontWeight="500">18-23% net IRR</Text>* with our{" "}
+                    <Text 
+                      as="a"
+                      href="/sell-the-wall"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      display="inline"
+                      color="#00A9E0"
+                      textDecoration="underline"
+                      cursor="pointer"
+                      transition="all 0.2s"
+                      _hover={{
+                        color: "#4BC0C8",
+                        textDecoration: "none"
+                      }}
+                    >
+                      "Sell the Wall"
+                    </Text>
+                    {" "}approach.
                   </Text>
                   <Text fontSize="17px" color="#111827" lineHeight="1.6">
                     AI-first, systematic income investing.
