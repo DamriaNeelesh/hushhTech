@@ -373,30 +373,33 @@ const PublicInvestorProfilePage: React.FC = () => {
           {/* How It Works Banner */}
           <Box
             mb={8}
-            bg="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+            bg="white"
+            border={`1px solid ${tokens.separator}`}
             borderRadius="16px"
             p={6}
-            color="white"
+            boxShadow="0 1px 3px rgba(0,0,0,0.04)"
           >
-            <Heading as="h3" size="md" mb={3}>
-              💡 How It Works
-            </Heading>
-            <VStack align="stretch" spacing={2}>
-              <HStack>
-                <Text fontWeight="bold">Step 1:</Text>
-                <Text>Open this profile (you are here!)</Text>
+            <HStack spacing={2} mb={4}>
+              <Text fontSize="20px" fontWeight="500" color={tokens.label}>
+                💡 How It Works
+              </Text>
+            </HStack>
+            <VStack align="stretch" spacing={3}>
+              <HStack align="start">
+                <Text fontWeight="500" color={tokens.blue} minW="60px">Step 1:</Text>
+                <Text fontSize="15px" color={tokens.secondary}>Open this profile (you are here!)</Text>
               </HStack>
-              <HStack>
-                <Text fontWeight="bold">Step 2:</Text>
-                <Text>Send 3 FREE messages to explore</Text>
+              <HStack align="start">
+                <Text fontWeight="500" color={tokens.blue} minW="60px">Step 2:</Text>
+                <Text fontSize="15px" color={tokens.secondary}>Send 3 FREE messages to explore</Text>
               </HStack>
-              <HStack>
-                <Text fontWeight="bold">Step 3:</Text>
-                <Text>Pay $1 for 30 minutes unlimited chat access</Text>
+              <HStack align="start">
+                <Text fontWeight="500" color={tokens.blue} minW="60px">Step 3:</Text>
+                <Text fontSize="15px" color={tokens.secondary}>Pay $1 for 30 minutes unlimited chat access</Text>
               </HStack>
-              <HStack>
-                <Text fontWeight="bold">Step 4:</Text>
-                <Text>Get full contact details & MCP endpoints unlocked</Text>
+              <HStack align="start">
+                <Text fontWeight="500" color={tokens.blue} minW="60px">Step 4:</Text>
+                <Text fontSize="15px" color={tokens.secondary}>Get full contact details & MCP endpoints unlocked</Text>
               </HStack>
             </VStack>
           </Box>
