@@ -103,7 +103,7 @@ export default function Login() {
         {/* Logo and Header */}
         <div className="flex flex-col items-center gap-4 mb-6">
           <Link to="/">
-            <Image src={HushhLogo} alt="Hushh Logo" className="h-12 w-12" />
+            <Image src={HushhLogo} alt="Hushh Logo" className="h-[70px] w-[70px]" />
           </Link>
           <div className="space-y-3">
             <h1 className="text-[34px] font-[500] leading-[1.10] text-[#0B1120] text-center">
