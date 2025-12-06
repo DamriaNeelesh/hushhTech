@@ -15,11 +15,11 @@ serve(async (req) => {
   }
 
   try {
-    const { slug, message, history = [] } = await req.json();
+    const { slug, message, visitorId, history = [] } = await req.json();
     
-    if (!slug || !message) {
+    if (!slug || !message || !visitorId) {
       return new Response(
-        JSON.stringify({ error: 'Missing slug or message' }),
+        JSON.stringify({ error: 'Missing slug, message, or visitorId' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -27,8 +27,79 @@ serve(async (req) => {
     // Get Supabase client
     const supabase = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? ''
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
+
+    // ===== PAYMENT GATE: Verify Access =====
+    const { data: token, error: tokenError } = await supabase
+      .from('chat_access_tokens')
+      .select('*')
+      .eq('visitor_id', visitorId)
+      .eq('profile_slug', slug)
+      .single();
+
+    if (tokenError || !token) {
+      return new Response(
+        JSON.stringify({ error: 'Access token not found. Please refresh the page.' }),
+        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Check if paid access expired
+    if (token.access_type === 'paid' && token.expires_at) {
+      const now = new Date();
+      const expiresAt = new Date(token.expires_at);
+      
+      if (now > expiresAt) {
+        return new Response(
+          JSON.stringify({ 
+            error: 'PAYMENT_REQUIRED',
+            message: 'Your 30-minute access has expired. Please pay again.',
+            needsPayment: true
+          }),
+          { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+    }
+
+    // Check free tier message limit
+    if (token.access_type === 'free') {
+      if (token.messages_sent_count >= token.messages_limit) {
+        return new Response(
+          JSON.stringify({ 
+            error: 'PAYMENT_REQUIRED',
+            message: 'You have used all 3 free messages. Pay $1 for 30 minutes unlimited access.',
+            needsPayment: true
+          }),
+          { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+    }
+
+    // Check hourly rate limit for paid users (50 messages/hour)
+    if (token.access_type === 'paid') {
+      const now = new Date();
+      const hourlyReset = new Date(token.hourly_reset_at || now);
+      
+      if (now > hourlyReset) {
+        // Reset counter
+        await supabase
+          .from('chat_access_tokens')
+          .update({
+            hourly_message_count: 0,
+            hourly_reset_at: new Date(now.getTime() + 60 * 60 * 1000)
+          })
+          .eq('id', token.id);
+      } else if (token.hourly_message_count >= 50) {
+        return new Response(
+          JSON.stringify({ 
+            error: 'Rate limit reached (50 messages/hour). Please wait before sending more messages.' 
+          }),
+          { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+    }
+    // ===== END PAYMENT GATE =====
     
     // Fetch public investor profile with ALL fields including privacy_settings and user_id
     const { data: profile, error: profileError } = await supabase
@@ -169,14 +240,40 @@ Guidelines:
     const data = await openaiResponse.json();
     const reply = data.choices[0].message.content;
 
+    // Increment message counter and update rate limit
+    const updates: any = {
+      messages_sent_count: token.messages_sent_count + 1,
+      last_message_at: new Date().toISOString()
+    };
+
+    if (token.access_type === 'paid') {
+      updates.hourly_message_count = (token.hourly_message_count || 0) + 1;
+    }
+
+    await supabase
+      .from('chat_access_tokens')
+      .update(updates)
+      .eq('id', token.id);
+
     // Optional: Log message (async, don't wait)
     supabase.from('public_chat_messages').insert([
       { slug, role: 'user', content: message },
       { slug, role: 'assistant', content: reply }
     ]).then(() => {}).catch(console.error);
 
+    // Calculate remaining messages/time
+    let accessInfo: any = {};
+    if (token.access_type === 'free') {
+      accessInfo.messagesRemaining = token.messages_limit - (token.messages_sent_count + 1);
+      accessInfo.accessType = 'free';
+    } else if (token.access_type === 'paid') {
+      const timeRemaining = Math.max(0, Math.floor((new Date(token.expires_at).getTime() - Date.now()) / 1000 / 60));
+      accessInfo.timeRemaining = `${timeRemaining} minutes`;
+      accessInfo.accessType = 'paid';
+    }
+
     return new Response(
-      JSON.stringify({ reply }),
+      JSON.stringify({ reply, accessInfo }),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
     
