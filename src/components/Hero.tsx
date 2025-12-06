@@ -106,7 +106,7 @@ export default function Hero() {
                     fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
                     mb="8"
                   >
-                    We combine AI and human expertise to build exceptional businesses for long-term value creation.
+                    We combine AI and human expertise to invest in exceptional businesses for long-term value creation.
                   </Text>
 
                   {/* Blue Divider Line */}
