@@ -392,10 +392,10 @@ const ProfilePage: React.FC = () => {
           <Box maxW="520px" mx="auto">
             {/* Hushh Logo */}
             <Box display="flex" justifyContent="center" mb={{ base: "32px", md: "40px" }}>
-              <Image 
-                src={HushhLogo} 
-                alt="Hushh Logo" 
-                h={{ base: "50px", md: "60px" }}
+              <Image
+                src={HushhLogo}
+                alt="Hushh Logo"
+                h={{ base: "70px", md: "80px" }}
                 objectFit="contain"
               />
             </Box>
