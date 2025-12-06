@@ -151,7 +151,7 @@ export default function OnboardingStep8() {
                 value={phoneNumber}
                 onChange={(e) => {
                   const value = e.target.value.replace(/\D/g, ''); // Only digits
-                  if (value.length <= 15) {
+                  if (value.length <= 10) {
                     setPhoneNumber(value);
                   }
                 }}
