@@ -112,7 +112,7 @@ export default function Login() {
             <p className="text-[18px] leading-[1.6] text-[#475569] text-center">
               The AI-Powered Berkshire Hathaway.
 
-We combine AI and human expertise to build exceptional businesses for long-term value creation.
+We combine AI and human expertise to invest in exceptional businesses for long-term value creation.
             </p>
           </div>
           <div className="relative h-px w-full bg-[#E5E7EB]">
