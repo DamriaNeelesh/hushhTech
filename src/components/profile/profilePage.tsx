@@ -395,7 +395,7 @@ const ProfilePage: React.FC = () => {
               <Image
                 src={HushhLogo}
                 alt="Hushh Logo"
-                h={{ base: "70px", md: "80px" }}
+                h={{ base: "180px", md: "360px" }}
                 objectFit="contain"
               />
             </Box>
@@ -444,49 +444,70 @@ We combine AI and human expertise to invest in exceptional businesses for long-t
               />
             </Box>
 
-            {/* CTA Button */}
-            <Button
-              onClick={() => {
-                // Smart navigation logic
-                if (onboardingStatus.hasProfile) {
-                  // Profile exists - go to profile page
-                  navigate("/hushh-user-profile");
-                } else if (onboardingStatus.isCompleted) {
-                  // Onboarding completed but no profile - go to profile page
-                  navigate("/hushh-user-profile");
-                } else {
-                  // Resume onboarding at current step
-                  const step = onboardingStatus.currentStep;
-                  navigate(`/onboarding/step-${step}`);
+            {/* CTA Buttons */}
+            <VStack spacing={3.5} w="100%">
+              <Button
+                onClick={() => {
+                  // Smart navigation logic
+                  if (onboardingStatus.hasProfile) {
+                    // Profile exists - go to profile page
+                    navigate("/hushh-user-profile");
+                  } else if (onboardingStatus.isCompleted) {
+                    // Onboarding completed but no profile - go to profile page
+                    navigate("/hushh-user-profile");
+                  } else {
+                    // Resume onboarding at current step
+                    const step = onboardingStatus.currentStep;
+                    navigate(`/onboarding/step-${step}`);
+                  }
+                }}
+                w="100%"
+                h="54px"
+                borderRadius="16px"
+                bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
+                color="white"
+                fontSize="17px"
+                fontWeight="500"
+                letterSpacing="0.01em"
+                isLoading={onboardingStatus.loading}
+                loadingText="Loading..."
+                _hover={{ bgGradient: "linear(to-r, #00A9E0, #6DD3EF)" }}
+                _active={{
+                  transform: "scale(0.985)",
+                  bgGradient: "linear(to-r, #0097CB, #5FC3E5)",
+                }}
+                transition="transform 120ms ease-out, background 120ms ease-out"
+                fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
+              >
+                {onboardingStatus.loading 
+                  ? "Loading..." 
+                  : onboardingStatus.hasProfile || onboardingStatus.isCompleted
+                    ? "View Your Profile"
+                    : onboardingStatus.currentStep > 1
+                      ? `Continue Onboarding (Step ${onboardingStatus.currentStep})`
+                      : "Complete your hushh profile"
                 }
-              }}
-              w="100%"
-              h="54px"
-              borderRadius="16px"
-              bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
-              color="white"
-              fontSize="17px"
-              fontWeight="500"
-              letterSpacing="0.01em"
-              isLoading={onboardingStatus.loading}
-              loadingText="Loading..."
-              _hover={{ bgGradient: "linear(to-r, #00A9E0, #6DD3EF)" }}
-              _active={{
-                transform: "scale(0.985)",
-                bgGradient: "linear(to-r, #0097CB, #5FC3E5)",
-              }}
-              transition="transform 120ms ease-out, background 120ms ease-out"
-              fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
-            >
-              {onboardingStatus.loading 
-                ? "Loading..." 
-                : onboardingStatus.hasProfile || onboardingStatus.isCompleted
-                  ? "View Your Profile"
-                  : onboardingStatus.currentStep > 1
-                    ? `Continue Onboarding (Step ${onboardingStatus.currentStep})`
-                    : "Complete your hushh profile"
-              }
-            </Button>
+              </Button>
+
+              <Button
+                onClick={() => navigate("/discover-fund-a")}
+                w="100%"
+                h="54px"
+                borderRadius="16px"
+                bg="#FFFFFF"
+                borderColor="#0B1120"
+                borderWidth="1.5px"
+                color="#0B1120"
+                fontSize="17px"
+                fontWeight="500"
+                fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
+                _hover={{ bg: "#FFFFFF" }}
+                _active={{ bg: "#F9FAFB", borderColor: "#0B1120" }}
+                transition="transform 120ms ease-out, background 120ms ease-out, border-color 120ms ease-out"
+              >
+                Discover Fund A
+              </Button>
+            </VStack>
           </Box>
         </Box>
       </Container>

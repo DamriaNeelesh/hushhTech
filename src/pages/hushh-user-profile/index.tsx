@@ -27,6 +27,7 @@ import {
   InputRightElement,
   usePrefersReducedMotion,
   Collapse,
+  Image,
 } from "@chakra-ui/react";
 import {
   Copy,
@@ -44,14 +45,15 @@ import {
   Share2,
   Mail,
   MessageCircle,
-  WalletCards,
 } from "lucide-react";
+import { FaApple } from "react-icons/fa";
+import { SiGooglepay } from "react-icons/si";
 import { SocialIcon } from 'react-social-icons';
 import { CheckIcon, LinkIcon } from "@chakra-ui/icons";
 import { keyframes } from "@emotion/react";
 import resources from "../../resources/resources";
 import { generateInvestorProfile } from "../../services/investorProfile/apiClient";
-import { downloadHushhGoldPass } from "../../services/walletPass";
+import { downloadHushhGoldPass, launchGoogleWalletPass } from "../../services/walletPass";
 import { InvestorProfile, FIELD_LABELS, VALUE_LABELS } from "../../types/investorProfile";
 import DeveloperSettings from "../../components/DeveloperSettings";
 import { OnboardingData } from "../../types/onboarding";
@@ -185,6 +187,7 @@ const HushhUserProfilePage: React.FC = () => {
   const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const firstFieldRef = useRef<HTMLInputElement | null>(null);
+  const passReady = walletPassReady;
 
   const profileUrl = profileSlug ? `https://hushhtech.com/investor/${profileSlug}` : "";
   const { hasCopied, onCopy } = useClipboard(profileUrl);
@@ -531,6 +534,9 @@ const HushhUserProfilePage: React.FC = () => {
         organisation: form.organisation,
         slug: passSlug,
         userId,
+        investmentAmount: typeof form.initialInvestmentAmount === "number"
+          ? form.initialInvestmentAmount
+          : Number(form.initialInvestmentAmount) || undefined,
       });
       setWalletPassReady(true);
       toast({
@@ -550,6 +556,11 @@ const HushhUserProfilePage: React.FC = () => {
     } finally {
       setIsWalletPassLoading(false);
     }
+  };
+
+  const triggerGoogleWalletPass = async (slugOverride?: string | null) => {
+    // Use the same Apple Wallet flow for Google button per request
+    await triggerWalletPassDownload(slugOverride);
   };
 
   const handleFieldUpdate = async (fieldName: string, newValue: any) => {
@@ -943,54 +954,72 @@ const HushhUserProfilePage: React.FC = () => {
                 >
                   <HStack justify="space-between" align="center" mb={2}>
                     <HStack spacing={2}>
-                      <Icon as={WalletCards} color="white" boxSize={5} />
+                      <Icon as={FaApple} color="white" boxSize={5} />
                       <Text fontSize="15px" fontWeight="600" color="white">
                         Add your Hushh Gold card
                       </Text>
                     </HStack>
-                    {walletPassReady && (
-                      <Box
-                        px={3}
-                        py={1}
-                        borderRadius="full"
-                        bg="white"
-                        color="#0B1120"
-                        fontSize="12px"
-                        fontWeight="600"
-                      >
-                        Ready
-                      </Box>
-                    )}
-                  </HStack>
-                  <Text fontSize="13px" color="rgba(255,255,255,0.9)" mb={3}>
-                    Download the Apple Wallet pass for quick verification on iPhone.
-                  </Text>
-                  <HStack spacing={3} flexWrap="wrap">
-                    <Button
-                      leftIcon={<Icon as={WalletCards} />}
+                  {passReady && (
+                    <Box
+                      px={3}
+                      py={1}
+                      borderRadius="full"
                       bg="white"
                       color="#0B1120"
-                      _hover={{ bg: "whiteAlpha.900" }}
-                      _active={{ transform: "scale(0.97)" }}
-                      onClick={() => triggerWalletPassDownload()}
-                      isLoading={isWalletPassLoading}
-                      loadingText="Generating..."
+                      fontSize="12px"
+                      fontWeight="600"
                     >
-                      Add to Apple Wallet
-                    </Button>
-                    <Button
-                      variant="outline"
-                      color="white"
-                      borderColor="rgba(255,255,255,0.6)"
-                      _hover={{ bg: "rgba(255,255,255,0.12)" }}
-                      onClick={handleOpenProfile}
-                    >
-                      View Profile
-                    </Button>
-                  </HStack>
-                  <Text fontSize="12px" color="rgba(255,255,255,0.85)" mt={2}>
-                    Works best on iPhone with Safari. You can re-download anytime.
-                  </Text>
+                      Ready
+                    </Box>
+                  )}
+                </HStack>
+                <Text fontSize="13px" color="rgba(255,255,255,0.9)" mb={3}>
+                  Download the wallet pass for quick verification on iPhone or Android.
+                </Text>
+                <HStack spacing={3} flexWrap="wrap">
+                  <Button
+                    onClick={() => triggerWalletPassDownload()}
+                    isLoading={isWalletPassLoading}
+                    loadingText="Adding..."
+                    leftIcon={<Icon as={FaApple} boxSize={6} />}
+                    bg="#0B0B0B"
+                    color="white"
+                    borderRadius="999px"
+                    h="46px"
+                    px={4}
+                    _hover={{ bg: "#141414" }}
+                    _active={{ bg: "#0B0B0B", transform: "scale(0.98)" }}
+                  >
+                    Add to Apple Wallet
+                  </Button>
+                  <Button
+                    onClick={() => triggerGoogleWalletPass()}
+                    isLoading={isWalletPassLoading}
+                    loadingText="Adding..."
+                    leftIcon={<Icon as={SiGooglepay} boxSize={6} />}
+                    bg="#0B0B0B"
+                    color="white"
+                    borderRadius="999px"
+                    h="46px"
+                    px={4}
+                    _hover={{ bg: "#141414" }}
+                    _active={{ bg: "#0B0B0B", transform: "scale(0.98)" }}
+                  >
+                    Add to Google Wallet
+                  </Button>
+                  <Button
+                    variant="outline"
+                    color="white"
+                    borderColor="rgba(255,255,255,0.6)"
+                    _hover={{ bg: "rgba(255,255,255,0.12)" }}
+                    onClick={handleOpenProfile}
+                  >
+                    View Profile
+                  </Button>
+                </HStack>
+                <Text fontSize="12px" color="rgba(255,255,255,0.85)" mt={2}>
+                  Works best on iPhone with Safari or Android with Google Wallet. You can re-download anytime.
+                </Text>
                 </Box>
               </VStack>
             </Box>

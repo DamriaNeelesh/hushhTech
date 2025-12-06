@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import { Box, Container, Spinner, Center, Text, VStack, HStack, IconButton, useToast, Button, Icon, Badge } from "@chakra-ui/react";
+import { Box, Container, Spinner, Center, Text, VStack, HStack, IconButton, useToast, Button, Icon, Badge, Image } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { CheckCircleIcon, CopyIcon } from "@chakra-ui/icons";
-import { Share2, WalletCards } from "lucide-react";
+import { Share2 } from "lucide-react";
+import { FaApple } from "react-icons/fa";
+import { SiGooglepay } from "react-icons/si";
 import { InvestorProfileForm } from "../../components/investorProfile/InvestorProfileForm";
 import { InvestorProfileReview } from "../../components/investorProfile/InvestorProfileReview";
 import { 
@@ -16,7 +18,7 @@ import {
   InvestorProfile 
 } from "../../types/investorProfile";
 import resources from "../../resources/resources";
-import { downloadHushhGoldPass } from "../../services/walletPass";
+import { downloadHushhGoldPass, launchGoogleWalletPass } from "../../services/walletPass";
 
 type FlowStep = "loading" | "form" | "review" | "complete";
 
@@ -30,6 +32,7 @@ function InvestorProfilePage() {
   const [walletPassReady, setWalletPassReady] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
+  const passReady = walletPassReady;
 
   // Check if user is authenticated and if profile already exists
   useEffect(() => {
@@ -290,37 +293,58 @@ function InvestorProfilePage() {
             >
               <HStack justify="space-between" align="center" mb={3}>
                 <HStack spacing={3}>
-                  <Icon as={WalletCards} boxSize={6} color="#0B1120" />
+                  <Icon as={FaApple} boxSize={6} color="#0B1120" />
                   <VStack align="start" spacing={0}>
                     <Text fontSize="md" fontWeight="600" color="#0B1120">
                       Add your Hushh Gold card
                     </Text>
                     <Text fontSize="sm" color="#475569">
-                      Download the Apple Wallet pass to keep your investor status handy.
+                      Download the Apple/Google Wallet pass to keep your investor status handy.
                     </Text>
                   </VStack>
                 </HStack>
-                <Badge colorScheme={walletPassReady ? "green" : "yellow"} borderRadius="full">
-                  {walletPassReady ? "Ready" : "New"}
+                <Badge colorScheme={passReady ? "green" : "yellow"} borderRadius="full">
+                  {passReady ? "Ready" : "New"}
                 </Badge>
               </HStack>
 
               <HStack spacing={3} flexWrap="wrap">
                 <Button
-                  leftIcon={<Icon as={WalletCards} />}
-                  colorScheme="blue"
                   onClick={triggerWalletPassDownload}
                   isLoading={isWalletPassLoading}
-                  loadingText="Generating..."
+                  loadingText="Adding..."
+                  leftIcon={<Icon as={FaApple} boxSize={6} />}
+                  bg="#0B0B0B"
+                  color="white"
+                  borderRadius="999px"
+                  h="46px"
+                  px={4}
+                  _hover={{ bg: "#141414" }}
+                  _active={{ bg: "#0B0B0B", transform: "scale(0.98)" }}
                 >
                   Add to Apple Wallet
+                </Button>
+                <Button
+                  onClick={triggerWalletPassDownload}
+                  isLoading={isWalletPassLoading}
+                  loadingText="Adding..."
+                  leftIcon={<Icon as={SiGooglepay} boxSize={6} />}
+                  bg="#0B0B0B"
+                  color="white"
+                  borderRadius="999px"
+                  h="46px"
+                  px={4}
+                  _hover={{ bg: "#141414" }}
+                  _active={{ bg: "#0B0B0B", transform: "scale(0.98)" }}
+                >
+                  Add to Google Wallet
                 </Button>
                 <Button variant="outline" onClick={() => navigate("/hushh-user-profile")}>
                   Go to your dashboard
                 </Button>
               </HStack>
               <Text fontSize="sm" color="#6B7280" mt={3}>
-                Works best on iPhone with Safari. You can re-download this pass any time from your profile.
+                Works best on iPhone with Safari or Android with Google Wallet. You can re-download this pass any time from your profile.
               </Text>
             </Box>
           </VStack>

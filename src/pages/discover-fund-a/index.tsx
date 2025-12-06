@@ -565,7 +565,7 @@ const FundA = () => {
                     Options Premium (Sell the Wall - Theta/Vega)
                   </Td>
                   <Td fontSize={{ base: "md", md: "lg" }} fontWeight="500" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
-                    30-45%
+                    4-6%
                   </Td>
                 </Tr>
                 <Tr borderBottom="1px solid" borderColor="gray.100">
@@ -573,7 +573,7 @@ const FundA = () => {
                     Equity Appreciation (Core Holdings CAGR)
                   </Td>
                   <Td fontSize={{ base: "md", md: "lg" }} fontWeight="500" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
-                    20-30%
+                    10-12%
                   </Td>
                 </Tr>
                 <Tr borderBottom="1px solid" borderColor="gray.100">
@@ -581,7 +581,7 @@ const FundA = () => {
                     AI / Execution Efficiency Alpha
                   </Td>
                   <Td fontSize={{ base: "md", md: "lg" }} fontWeight="500" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
-                    5-10%
+                    4-6%
                   </Td>
                 </Tr>
                 <Tr borderBottom="1px solid" borderColor="gray.100">
@@ -589,7 +589,7 @@ const FundA = () => {
                     Total Expected Gross Return
                   </Td>
                   <Td fontSize={{ base: "md", md: "lg" }} fontWeight="500" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
-                    55-85%
+                    18-24%
                   </Td>
                 </Tr>
                 <Tr>
