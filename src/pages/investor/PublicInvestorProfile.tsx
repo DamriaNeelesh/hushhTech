@@ -101,6 +101,33 @@ const PublicInvestorProfilePage: React.FC = () => {
     gray: "#8E8E93",
   };
 
+  const howItWorksSteps = [
+    {
+      title: "Open this profile",
+      description: "You are here — preview the verified investor snapshot.",
+      badge: "Live",
+      accent: tokens.blue,
+    },
+    {
+      title: "Send 3 FREE messages",
+      description: "Break the ice, share context, and gauge fit without paying.",
+      badge: "Free",
+      accent: "#7C4DFF",
+    },
+    {
+      title: "Unlock chat for $1",
+      description: "Get 30 minutes of unlimited chat and fast follow-ups.",
+      badge: "Instant",
+      accent: tokens.green,
+    },
+    {
+      title: "Access everything",
+      description: "Reveal contact details & MCP endpoints once you’re ready to move.",
+      badge: "Full access",
+      accent: tokens.tertiary,
+    },
+  ];
+
   const getConfidenceChip = (confidence: number) => {
     const label = confidence >= 0.7 ? "HIGH" : confidence >= 0.4 ? "MEDIUM" : "LOW";
     const tone = label === "HIGH" ? tokens.green : label === "MEDIUM" ? tokens.yellow : tokens.gray;
@@ -373,34 +400,136 @@ const PublicInvestorProfilePage: React.FC = () => {
           {/* How It Works Banner */}
           <Box
             mb={8}
-            bg="white"
+            position="relative"
+            overflow="hidden"
+            borderRadius="20px"
             border={`1px solid ${tokens.separator}`}
-            borderRadius="16px"
-            p={6}
-            boxShadow="0 1px 3px rgba(0,0,0,0.04)"
+            bg="linear-gradient(145deg, rgba(10,132,255,0.08), rgba(255,214,10,0.09))"
+            p={{ base: 5, md: 6 }}
+            boxShadow="0 12px 32px rgba(0,0,0,0.06)"
           >
-            <HStack spacing={2} mb={4}>
-              <Text fontSize="20px" fontWeight="500" color={tokens.label}>
-                💡 How It Works
-              </Text>
-            </HStack>
-            <VStack align="stretch" spacing={3}>
-              <HStack align="start">
-                <Text fontWeight="500" color={tokens.blue} minW="60px">Step 1:</Text>
-                <Text fontSize="15px" color={tokens.secondary}>Open this profile (you are here!)</Text>
+            <Box
+              position="absolute"
+              insetY={{ base: 6, md: 8 }}
+              left={0}
+              width="3px"
+              borderRadius="full"
+              bg="linear-gradient(180deg, rgba(10,132,255,0.6), rgba(52,199,89,0.6))"
+            />
+            <Box
+              position="absolute"
+              top="-120px"
+              right="-120px"
+              w="240px"
+              h="240px"
+              bg="radial-gradient(circle at center, rgba(10,132,255,0.18), transparent 60%)"
+              pointerEvents="none"
+              filter="blur(10px)"
+            />
+            <Box
+              position="absolute"
+              bottom="-140px"
+              left="-140px"
+              w="280px"
+              h="280px"
+              bg="radial-gradient(circle at center, rgba(52,199,89,0.12), transparent 58%)"
+              pointerEvents="none"
+              filter="blur(12px)"
+            />
+
+            <VStack align="stretch" spacing={5} position="relative">
+              <HStack justify="space-between" align="center" spacing={3}>
+                <HStack spacing={3}>
+                  <Box
+                    w="40px"
+                    h="40px"
+                    borderRadius="14px"
+                    bg="white"
+                    border={`1px solid ${tokens.separator}`}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    boxShadow="0 6px 18px rgba(0,0,0,0.06)"
+                  >
+                    <span role="img" aria-label="lightbulb">💡</span>
+                  </Box>
+                  <VStack align="start" spacing={0}>
+                    <Text fontSize="18px" fontWeight="600" color={tokens.label}>
+                      How it works
+                    </Text>
+                    <Text fontSize="13px" color={tokens.secondary}>
+                      Move from hello → full access in a few quick steps.
+                    </Text>
+                  </VStack>
+                </HStack>
+                <Box
+                  px={3}
+                  py={1.5}
+                  borderRadius="full"
+                  bg="rgba(10,132,255,0.12)"
+                  color={tokens.blue}
+                  fontSize="12px"
+                  fontWeight="600"
+                  letterSpacing="0.02em"
+                >
+                  3 free messages included
+                </Box>
               </HStack>
-              <HStack align="start">
-                <Text fontWeight="500" color={tokens.blue} minW="60px">Step 2:</Text>
-                <Text fontSize="15px" color={tokens.secondary}>Send 3 FREE messages to explore</Text>
-              </HStack>
-              <HStack align="start">
-                <Text fontWeight="500" color={tokens.blue} minW="60px">Step 3:</Text>
-                <Text fontSize="15px" color={tokens.secondary}>Pay $1 for 30 minutes unlimited chat access</Text>
-              </HStack>
-              <HStack align="start">
-                <Text fontWeight="500" color={tokens.blue} minW="60px">Step 4:</Text>
-                <Text fontSize="15px" color={tokens.secondary}>Get full contact details & MCP endpoints unlocked</Text>
-              </HStack>
+
+              <VStack align="stretch" spacing={3}>
+                {howItWorksSteps.map((step, index) => (
+                  <HStack
+                    key={step.title}
+                    align="flex-start"
+                    spacing={4}
+                    p={{ base: 4, md: 4.5 }}
+                    bg="rgba(255,255,255,0.95)"
+                    borderRadius="14px"
+                    border={`1px solid ${tokens.separator}`}
+                    boxShadow="0 10px 24px rgba(0,0,0,0.05)"
+                  >
+                    <Box
+                      minW="38px"
+                      h="38px"
+                      borderRadius="12px"
+                      bg={`linear-gradient(135deg, ${step.accent}1A, ${step.accent}33)`}
+                      border={`1px solid ${step.accent}33`}
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      color={step.accent}
+                      fontWeight="700"
+                      fontSize="13px"
+                    >
+                      0{index + 1}
+                    </Box>
+                    <VStack align="stretch" spacing={1} flex={1}>
+                      <HStack justify="space-between" align="center" spacing={3}>
+                        <Text fontSize="15px" fontWeight="600" color={tokens.label}>
+                          {step.title}
+                        </Text>
+                        <Box
+                          px={2.5}
+                          py={1}
+                          borderRadius="full"
+                          bg={`${step.accent}14`}
+                          color={step.accent}
+                          fontSize="12px"
+                          fontWeight="700"
+                          border={`1px solid ${step.accent}2E`}
+                          letterSpacing="0.02em"
+                          whiteSpace="nowrap"
+                        >
+                          {step.badge}
+                        </Box>
+                      </HStack>
+                      <Text fontSize="14px" color={tokens.secondary} lineHeight="1.55">
+                        {step.description}
+                      </Text>
+                    </VStack>
+                  </HStack>
+                ))}
+              </VStack>
             </VStack>
           </Box>
 
