@@ -53,7 +53,7 @@ import { CheckIcon, LinkIcon } from "@chakra-ui/icons";
 import { keyframes } from "@emotion/react";
 import resources from "../../resources/resources";
 import { generateInvestorProfile } from "../../services/investorProfile/apiClient";
-import { downloadHushhGoldPass, launchGoogleWalletPass } from "../../services/walletPass";
+import { downloadHushhGoldPass } from "../../services/walletPass";
 import { InvestorProfile, FIELD_LABELS, VALUE_LABELS } from "../../types/investorProfile";
 import DeveloperSettings from "../../components/DeveloperSettings";
 import { OnboardingData } from "../../types/onboarding";
@@ -175,7 +175,8 @@ const HushhUserProfilePage: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const [investorProfile, setInvestorProfile] = useState<InvestorProfile | null>(null);
   const [profileSlug, setProfileSlug] = useState<string | null>(null);
-  const [isWalletPassLoading, setIsWalletPassLoading] = useState(false);
+  const [isApplePassLoading, setIsApplePassLoading] = useState(false);
+  const [isGooglePassLoading, setIsGooglePassLoading] = useState(false);
   const [walletPassReady, setWalletPassReady] = useState(false);
   const [loading, setLoading] = useState(false);
   const [editingField, setEditingField] = useState<string | null>(null);
@@ -498,7 +499,7 @@ const HushhUserProfilePage: React.FC = () => {
           } else if (savedProfile) {
             // Update slug state so share section appears immediately
             setProfileSlug(savedProfile.slug || null);
-            await triggerWalletPassDownload(savedProfile.slug || profileSlug);
+            await triggerWalletPassDownload("apple", setIsApplePassLoading, savedProfile.slug || profileSlug);
           }
         }
       }
@@ -522,11 +523,13 @@ const HushhUserProfilePage: React.FC = () => {
     }
   };
 
-  const triggerWalletPassDownload = async (slugOverride?: string | null) => {
-    if (isWalletPassLoading) return;
-
+  const triggerWalletPassDownload = async (
+    wallet: "apple" | "google",
+    setLoading: (value: boolean) => void,
+    slugOverride?: string | null
+  ) => {
     const passSlug = slugOverride ?? profileSlug;
-    setIsWalletPassLoading(true);
+    setLoading(true);
     try {
       await downloadHushhGoldPass({
         name: form.name || "Hushh Investor",
@@ -540,27 +543,28 @@ const HushhUserProfilePage: React.FC = () => {
       });
       setWalletPassReady(true);
       toast({
-        title: "Hushh Gold card ready",
-        description: "Open the downloaded pass to add it to Apple Wallet.",
+        title: `Hushh Gold card ready for ${wallet === "apple" ? "Apple Wallet" : "Google Wallet"}`,
+        description:
+          wallet === "apple"
+            ? "Open the downloaded pass to add it to Apple Wallet."
+            : "Open the downloaded pass to add it to Google Wallet.",
         status: "success",
         duration: 4000,
       });
     } catch (error) {
       toast({
-        title: "Apple Wallet card failed",
-        description:
-          error instanceof Error ? error.message : "Could not generate your Hushh Gold pass.",
+        title: `${wallet === "apple" ? "Apple" : "Google"} Wallet card failed`,
+        description: error instanceof Error ? error.message : "Could not generate your Hushh Gold pass.",
         status: "error",
         duration: 5000,
       });
     } finally {
-      setIsWalletPassLoading(false);
+      setLoading(false);
     }
   };
 
   const triggerGoogleWalletPass = async (slugOverride?: string | null) => {
-    // Use the same Apple Wallet flow for Google button per request
-    await triggerWalletPassDownload(slugOverride);
+    await triggerWalletPassDownload("google", setIsGooglePassLoading, slugOverride);
   };
 
   const handleFieldUpdate = async (fieldName: string, newValue: any) => {
@@ -978,32 +982,34 @@ const HushhUserProfilePage: React.FC = () => {
                 </Text>
                 <HStack spacing={3} flexWrap="wrap">
                   <Button
-                    onClick={() => triggerWalletPassDownload()}
-                    isLoading={isWalletPassLoading}
+                    onClick={() => triggerWalletPassDownload("apple", setIsApplePassLoading)}
+                    isLoading={isApplePassLoading}
                     loadingText="Adding..."
                     leftIcon={<Icon as={FaApple} boxSize={6} />}
-                    bg="#0B0B0B"
-                    color="white"
+                    bg="white"
+                    color="#0B1120"
                     borderRadius="999px"
+                    border="1px solid #0B1120"
                     h="46px"
                     px={4}
-                    _hover={{ bg: "#141414" }}
-                    _active={{ bg: "#0B0B0B", transform: "scale(0.98)" }}
+                    _hover={{ bg: "#FFFFFF" }}
+                    _active={{ bg: "#F5F5F5", transform: "scale(0.98)" }}
                   >
                     Add to Apple Wallet
                   </Button>
                   <Button
                     onClick={() => triggerGoogleWalletPass()}
-                    isLoading={isWalletPassLoading}
+                    isLoading={isGooglePassLoading}
                     loadingText="Adding..."
                     leftIcon={<Icon as={SiGooglepay} boxSize={6} />}
-                    bg="#0B0B0B"
-                    color="white"
+                    bg="white"
+                    color="#0B1120"
                     borderRadius="999px"
+                    border="1px solid #0B1120"
                     h="46px"
                     px={4}
-                    _hover={{ bg: "#141414" }}
-                    _active={{ bg: "#0B0B0B", transform: "scale(0.98)" }}
+                    _hover={{ bg: "#FFFFFF" }}
+                    _active={{ bg: "#F5F5F5", transform: "scale(0.98)" }}
                   >
                     Add to Google Wallet
                   </Button>

@@ -18,7 +18,7 @@ import {
   InvestorProfile 
 } from "../../types/investorProfile";
 import resources from "../../resources/resources";
-import { downloadHushhGoldPass, launchGoogleWalletPass } from "../../services/walletPass";
+import { downloadHushhGoldPass } from "../../services/walletPass";
 
 type FlowStep = "loading" | "form" | "review" | "complete";
 
@@ -28,7 +28,8 @@ function InvestorProfilePage() {
   const [profile, setProfile] = useState<InvestorProfileRecord | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [userData, setUserData] = useState<{ name: string; email: string } | null>(null);
-  const [isWalletPassLoading, setIsWalletPassLoading] = useState(false);
+  const [isApplePassLoading, setIsApplePassLoading] = useState(false);
+  const [isGooglePassLoading, setIsGooglePassLoading] = useState(false);
   const [walletPassReady, setWalletPassReady] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
@@ -105,10 +106,13 @@ function InvestorProfilePage() {
     }
   };
 
-  const triggerWalletPassDownload = async () => {
-    if (!profile || isWalletPassLoading) return;
+  const triggerWalletPassDownload = async (
+    wallet: "apple" | "google",
+    setLoading: (value: boolean) => void
+  ) => {
+    if (!profile) return;
 
-    setIsWalletPassLoading(true);
+    setLoading(true);
     try {
       await downloadHushhGoldPass({
         name: profile.name,
@@ -120,21 +124,23 @@ function InvestorProfilePage() {
 
       setWalletPassReady(true);
       toast({
-        title: "Hushh Gold card ready",
-        description: "Open the downloaded pass to add it to Apple Wallet.",
+        title: `Hushh Gold card ready for ${wallet === "apple" ? "Apple Wallet" : "Google Wallet"}`,
+        description:
+          wallet === "apple"
+            ? "Open the downloaded pass to add it to Apple Wallet."
+            : "Open the downloaded pass to add it to Google Wallet.",
         status: "success",
         duration: 4000,
       });
     } catch (err) {
       toast({
-        title: "Apple Wallet card failed",
-        description:
-          err instanceof Error ? err.message : "Could not generate your Hushh Gold pass.",
+        title: `${wallet === "apple" ? "Apple" : "Google"} Wallet card failed`,
+        description: err instanceof Error ? err.message : "Could not generate your Hushh Gold pass.",
         status: "error",
         duration: 5000,
       });
     } finally {
-      setIsWalletPassLoading(false);
+      setLoading(false);
     }
   };
 
@@ -152,7 +158,7 @@ function InvestorProfilePage() {
       });
 
       setStep("complete");
-      await triggerWalletPassDownload();
+      await triggerWalletPassDownload("apple", setIsApplePassLoading);
     } catch (err) {
       console.error("Error confirming profile:", err);
       setError(err instanceof Error ? err.message : "Failed to confirm profile");
@@ -310,32 +316,34 @@ function InvestorProfilePage() {
 
               <HStack spacing={3} flexWrap="wrap">
                 <Button
-                  onClick={triggerWalletPassDownload}
-                  isLoading={isWalletPassLoading}
+                  onClick={() => triggerWalletPassDownload("apple", setIsApplePassLoading)}
+                  isLoading={isApplePassLoading}
                   loadingText="Adding..."
                   leftIcon={<Icon as={FaApple} boxSize={6} />}
-                  bg="#0B0B0B"
-                  color="white"
+                  bg="white"
+                  color="#0B1120"
                   borderRadius="999px"
+                  border="1px solid #0B1120"
                   h="46px"
                   px={4}
-                  _hover={{ bg: "#141414" }}
-                  _active={{ bg: "#0B0B0B", transform: "scale(0.98)" }}
+                  _hover={{ bg: "#FFFFFF" }}
+                  _active={{ bg: "#F5F5F5", transform: "scale(0.98)" }}
                 >
                   Add to Apple Wallet
                 </Button>
                 <Button
-                  onClick={triggerWalletPassDownload}
-                  isLoading={isWalletPassLoading}
+                  onClick={() => triggerWalletPassDownload("google", setIsGooglePassLoading)}
+                  isLoading={isGooglePassLoading}
                   loadingText="Adding..."
                   leftIcon={<Icon as={SiGooglepay} boxSize={6} />}
-                  bg="#0B0B0B"
-                  color="white"
+                  bg="white"
+                  color="#0B1120"
                   borderRadius="999px"
+                  border="1px solid #0B1120"
                   h="46px"
                   px={4}
-                  _hover={{ bg: "#141414" }}
-                  _active={{ bg: "#0B0B0B", transform: "scale(0.98)" }}
+                  _hover={{ bg: "#FFFFFF" }}
+                  _active={{ bg: "#F5F5F5", transform: "scale(0.98)" }}
                 >
                   Add to Google Wallet
                 </Button>
