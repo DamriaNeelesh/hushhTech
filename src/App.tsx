@@ -36,6 +36,7 @@ import InvestorProfilePage from './pages/investor-profile';
 import KYCFormPage from './pages/kyc-form/page';
 import { Session } from '@supabase/supabase-js';
 import DiscoverFundA from './pages/discover-fund-a';
+import SellTheWallPage from './pages/sell-the-wall';
 import UserRegistration from './pages/UserRegistration';
 import ProtectedRoute from './components/ProtectedRoute';
 import YourProfilePage from './pages/your-profile';
@@ -271,6 +272,11 @@ function App() {
               <Route path='/discover-fund-a' element={
                 
                   <DiscoverFundA/>
+                
+              }/>
+              <Route path='/sell-the-wall' element={
+                
+                  <SellTheWallPage/>
                 
               }/>
               <Route path='/user-registration' element={

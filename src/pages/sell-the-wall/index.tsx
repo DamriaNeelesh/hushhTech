@@ -21,22 +21,18 @@ const SellTheWallPage = () => {
         overflow="hidden"
         margin="0"
         padding="0"
+        zIndex="999"
+        bg="white"
       >
-        <iframe 
-          src="https://gamma.app/embed/ya0impa0panawof" 
+        <embed
+          src="https://gsqmwxqgqrgzhlhmbscg.supabase.co/storage/v1/object/public/costco-products-scrapped/Sell-the-Wall.pdf"
+          type="application/pdf"
+          width="100%"
+          height="100%"
           style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
             border: 'none',
-            margin: 0,
-            padding: 0,
             display: 'block',
           }}
-          allow="fullscreen" 
-          title="Sell the Wall Options Framework Presentation"
         />
       </Box>
     </>
