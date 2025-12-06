@@ -17,7 +17,44 @@ serve(async (req) => {
   }
 
   try {
-    const { type, slug, details = {} } = await req.json();
+    const { type, slug, details = {}, testEmail } = await req.json();
+    
+    // Test mode: Send email directly without profile lookup
+    if (testEmail) {
+      const client = new SMTPClient({
+        connection: {
+          hostname: "smtp.gmail.com",
+          port: 587,
+          tls: true,
+          auth: {
+            username: Deno.env.get('GMAIL_USER') ?? '',
+            password: Deno.env.get('GMAIL_APP_PASSWORD') ?? '',
+          },
+        },
+      });
+
+      await client.send({
+        from: `Hushh Notifications <${Deno.env.get('GMAIL_USER')}>`,
+        to: testEmail,
+        subject: '🧪 Test Email from Hushh',
+        html: `
+          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2>✅ Email System Working!</h2>
+            <p>This is a test email from your Hushh notification system.</p>
+            <p><strong>Gmail:</strong> ${Deno.env.get('GMAIL_USER')}</p>
+            <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
+            <p>If you receive this, your email notifications are configured correctly! 🎉</p>
+          </div>
+        `,
+      });
+
+      await client.close();
+
+      return new Response(
+        JSON.stringify({ success: true, message: 'Test email sent!' }),
+        { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
     
     if (!type || !slug) {
       return new Response(
