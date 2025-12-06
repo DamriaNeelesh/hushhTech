@@ -464,7 +464,7 @@ We combine AI and human expertise to invest in exceptional businesses for long-t
               h="54px"
               borderRadius="16px"
               bgGradient="linear(to-r, #00A9E0, #6DD3EF)"
-              color="#0B1120"
+              color="white"
               fontSize="17px"
               fontWeight="500"
               letterSpacing="0.01em"
