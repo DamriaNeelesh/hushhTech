@@ -21,22 +21,18 @@ const SellTheWallPage = () => {
         overflow="hidden"
         margin="0"
         padding="0"
+        zIndex="999"
+        bg="white"
       >
-        <iframe 
-          src="https://gamma.app/embed/ya0impa0panawof" 
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            border: 'none',
-            margin: 0,
-            padding: 0,
-            display: 'block',
-          }}
-          allow="fullscreen" 
-          title="Sell the Wall Options Framework Presentation"
+        <Box
+          as="iframe"
+          src="https://gamma.app/embed/ya0impa0panawof"
+          title="Sell the Wall Options Framework"
+          allowFullScreen
+          width="100%"
+          height="100%"
+          border="0"
+          display="block"
         />
       </Box>
     </>

@@ -77,8 +77,8 @@ serve(async (req) => {
           return;
         }
         
-        // Check privacy (default to false if not specified, only show if explicitly true)
-        const isVisible = privacyData[fieldName] === true;
+        // Check privacy (default to true if not specified, hide only if explicitly false)
+        const isVisible = privacyData[fieldName] !== false;
         
         if (isVisible) {
           // Mask SSN even if visible
