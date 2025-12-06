@@ -21,7 +21,7 @@ const oldSubtitle = "Build a portfolio of private assets like real estate, priva
 const newContent = {
   title: "Investing in the Future.",
   subtitle1: "The AI-Powered Berkshire Hathaway.",
-  subtitle2: "We combine AI and human expertise to build exceptional businesses for long-term value creation."
+  subtitle2: "We combine AI and human expertise to invest in exceptional businesses for long-term value creation."
 };
 
 // Directories to scan
@@ -52,7 +52,7 @@ function replaceInFile(filePath) {
       if (pattern1.test(content)) {
         newContent = newContent.replace(
           pattern1,
-          `Investing in the Future.\n\nThe AI-Powered Berkshire Hathaway.\n\nWe combine AI and human expertise to build exceptional businesses for long-term value creation.`
+          `Investing in the Future.\n\nThe AI-Powered Berkshire Hathaway.\n\nWe combine AI and human expertise to invest in exceptional businesses for long-term value creation.`
         );
         fileChanged = true;
         replacements++;
@@ -71,7 +71,7 @@ function replaceInFile(filePath) {
         
         newContent = newContent.replace(
           /Build a portfolio of private assets like real estate, private credit, and venture capital\./g,
-          'The AI-Powered Berkshire Hathaway.\n\nWe combine AI and human expertise to build exceptional businesses for long-term value creation.'
+          'The AI-Powered Berkshire Hathaway.\n\nWe combine AI and human expertise to invest in exceptional businesses for long-term value creation.'
         );
         
         fileChanged = true;
@@ -95,7 +95,7 @@ function replaceInFile(filePath) {
       const subtitlePattern = /Build a portfolio of private assets like real estate, private credit, and venture capital\./g;
       newContent = newContent.replace(
         subtitlePattern,
-        'The AI-Powered Berkshire Hathaway.\n\nWe combine AI and human expertise to build exceptional businesses for long-term value creation.'
+        'The AI-Powered Berkshire Hathaway.\n\nWe combine AI and human expertise to invest in exceptional businesses for long-term value creation.'
       );
       if (!fileChanged) {
         fileChanged = true;
@@ -147,7 +147,7 @@ console.log('  "Build a portfolio of private assets like real estate, private cr
 console.log('New Content:');
 console.log('  "Investing in the Future."');
 console.log('  "The AI-Powered Berkshire Hathaway."');
-console.log('  "We combine AI and human expertise to build exceptional businesses for long-term value creation."\n');
+console.log('  "We combine AI and human expertise to invest in exceptional businesses for long-term value creation."\n');
 console.log('═'.repeat(80));
 
 // Scan all directories

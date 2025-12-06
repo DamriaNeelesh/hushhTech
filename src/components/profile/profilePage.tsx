@@ -428,7 +428,7 @@ const ProfilePage: React.FC = () => {
             >
               The AI-Powered Berkshire Hathaway.
 
-We combine AI and human expertise to build exceptional businesses for long-term value creation.
+We combine AI and human expertise to invest in exceptional businesses for long-term value creation.
             </Text>
 
             {/* Blue Divider Line */}
