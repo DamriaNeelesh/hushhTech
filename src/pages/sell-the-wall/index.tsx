@@ -1,8 +1,33 @@
-import React from 'react';
-import { Box } from "@chakra-ui/react";
+import React, { useState, useEffect } from 'react';
+import { Box, Spinner, Center, Text } from "@chakra-ui/react";
 import { Helmet } from "react-helmet";
 
 const SellTheWallPage = () => {
+  const [useFallback, setUseFallback] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Set timeout to fallback to PDF if Gamma doesn't load within 8 seconds
+    const timeoutId = setTimeout(() => {
+      console.log('Gamma iframe timeout - falling back to PDF');
+      setUseFallback(true);
+      setIsLoading(false);
+    }, 8000);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  const handleIframeLoad = () => {
+    console.log('Gamma iframe loaded successfully');
+    setIsLoading(false);
+  };
+
+  const handleIframeError = () => {
+    console.log('Gamma iframe error - falling back to PDF');
+    setUseFallback(true);
+    setIsLoading(false);
+  };
+
   return (
     <>
       <Helmet>
@@ -24,16 +49,44 @@ const SellTheWallPage = () => {
         zIndex="999"
         bg="white"
       >
-        <embed
-          src="https://gsqmwxqgqrgzhlhmbscg.supabase.co/storage/v1/object/public/costco-products-scrapped/Sell-the-Wall.pdf"
-          type="application/pdf"
-          width="100%"
-          height="100%"
-          style={{
-            border: 'none',
-            display: 'block',
-          }}
-        />
+        {/* Loading Spinner */}
+        {isLoading && !useFallback && (
+          <Center height="100%" position="absolute" width="100%" zIndex="1000" bg="white">
+            <Box textAlign="center">
+              <Spinner size="xl" color="blue.500" thickness="4px" mb={4} />
+              <Text fontSize="sm" color="gray.600">Loading Sell the Wall presentation...</Text>
+            </Box>
+          </Center>
+        )}
+
+        {/* Try Gamma iframe first */}
+        {!useFallback ? (
+          <iframe
+            src="https://gamma.app/docs/Sell-the-Wall-ya0impa0panawof"
+            width="100%"
+            height="100%"
+            style={{
+              border: 'none',
+              display: 'block',
+            }}
+            onLoad={handleIframeLoad}
+            onError={handleIframeError}
+            title="Sell the Wall Options Framework"
+            allow="fullscreen"
+          />
+        ) : (
+          // Fallback to PDF embed
+          <embed
+            src="https://gsqmwxqgqrgzhlhmbscg.supabase.co/storage/v1/object/public/costco-products-scrapped/Sell-the-Wall.pdf"
+            type="application/pdf"
+            width="100%"
+            height="100%"
+            style={{
+              border: 'none',
+              display: 'block',
+            }}
+          />
+        )}
       </Box>
     </>
   );
