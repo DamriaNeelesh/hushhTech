@@ -9,6 +9,45 @@ function OnboardingStep11() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showInfo, setShowInfo] = useState(false);
+  const formatIsoToDisplay = (iso?: string | null) => {
+    if (!iso) return '';
+    const parts = iso.split('-');
+    if (parts.length === 3) {
+      const [yyyy, mm, dd] = parts;
+      return `${mm}/${dd}/${yyyy}`;
+    }
+    return iso;
+  };
+
+  const parseDobToIso = (value: string) => {
+    if (!value) return null;
+
+    // Support both MM/DD/YYYY and DD/MM/YYYY (auto-detect if first segment > 12)
+    const parts = value.split('/');
+    if (parts.length === 3) {
+      let [p1, p2, year] = parts.map((p) => p.trim());
+      let month = p1;
+      let day = p2;
+
+      if (parseInt(p1, 10) > 12) {
+        // Treat as DD/MM/YYYY
+        day = p1;
+        month = p2;
+      }
+
+      const iso = `${year.padStart(4, '0')}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+      if (!Number.isNaN(Date.parse(iso))) {
+        return iso;
+      }
+    }
+
+    // Already ISO
+    if (/^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value))) {
+      return value;
+    }
+
+    return null;
+  };
 
   // Load existing data
   useEffect(() => {
@@ -32,7 +71,7 @@ function OnboardingStep11() {
 
       if (data) {
         // Don't pre-fill SSN for security
-        setDob(data.date_of_birth || '');
+        setDob(formatIsoToDisplay(data.date_of_birth) || '');
       }
     };
 
@@ -97,12 +136,19 @@ function OnboardingStep11() {
       return;
     }
 
+    const isoDob = parseDobToIso(dob);
+    if (!isoDob) {
+      setError('Please enter a valid date in MM/DD/YYYY or DD/MM/YYYY format');
+      setLoading(false);
+      return;
+    }
+
     const { error: upsertError } = await config.supabaseClient
       .from('onboarding_data')
       .upsert({
         user_id: user.id,
         ssn_encrypted: ssn, // In production, encrypt this before storing
-        date_of_birth: dob,
+        date_of_birth: isoDob,
         current_step: 11,
         updated_at: new Date().toISOString(),
       }, {
@@ -145,13 +191,20 @@ function OnboardingStep11() {
       return;
     }
 
+    const isoDob = parseDobToIso(dob);
+    if (!isoDob) {
+      setError('Please enter a valid date in MM/DD/YYYY or DD/MM/YYYY format');
+      setLoading(false);
+      return;
+    }
+
     // Save with placeholder SSN for users who don't have one
     const { error: upsertError } = await config.supabaseClient
       .from('onboarding_data')
       .upsert({
         user_id: user.id,
         ssn_encrypted: '999-99-9999', // Placeholder for users without SSN
-        date_of_birth: dob,
+        date_of_birth: isoDob,
         current_step: 11,
         updated_at: new Date().toISOString(),
       }, {

@@ -44,12 +44,14 @@ import {
   Share2,
   Mail,
   MessageCircle,
+  WalletCards,
 } from "lucide-react";
 import { SocialIcon } from 'react-social-icons';
 import { CheckIcon, LinkIcon } from "@chakra-ui/icons";
 import { keyframes } from "@emotion/react";
 import resources from "../../resources/resources";
 import { generateInvestorProfile } from "../../services/investorProfile/apiClient";
+import { downloadHushhGoldPass } from "../../services/walletPass";
 import { InvestorProfile, FIELD_LABELS, VALUE_LABELS } from "../../types/investorProfile";
 import DeveloperSettings from "../../components/DeveloperSettings";
 import { OnboardingData } from "../../types/onboarding";
@@ -171,6 +173,8 @@ const HushhUserProfilePage: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const [investorProfile, setInvestorProfile] = useState<InvestorProfile | null>(null);
   const [profileSlug, setProfileSlug] = useState<string | null>(null);
+  const [isWalletPassLoading, setIsWalletPassLoading] = useState(false);
+  const [walletPassReady, setWalletPassReady] = useState(false);
   const [loading, setLoading] = useState(false);
   const [editingField, setEditingField] = useState<string | null>(null);
   const [showPreview, setShowPreview] = useState(false);
@@ -491,6 +495,7 @@ const HushhUserProfilePage: React.FC = () => {
           } else if (savedProfile) {
             // Update slug state so share section appears immediately
             setProfileSlug(savedProfile.slug || null);
+            await triggerWalletPassDownload(savedProfile.slug || profileSlug);
           }
         }
       }
@@ -511,6 +516,39 @@ const HushhUserProfilePage: React.FC = () => {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const triggerWalletPassDownload = async (slugOverride?: string | null) => {
+    if (isWalletPassLoading) return;
+
+    const passSlug = slugOverride ?? profileSlug;
+    setIsWalletPassLoading(true);
+    try {
+      await downloadHushhGoldPass({
+        name: form.name || "Hushh Investor",
+        email: form.email,
+        organisation: form.organisation,
+        slug: passSlug,
+        userId,
+      });
+      setWalletPassReady(true);
+      toast({
+        title: "Hushh Gold card ready",
+        description: "Open the downloaded pass to add it to Apple Wallet.",
+        status: "success",
+        duration: 4000,
+      });
+    } catch (error) {
+      toast({
+        title: "Apple Wallet card failed",
+        description:
+          error instanceof Error ? error.message : "Could not generate your Hushh Gold pass.",
+        status: "error",
+        duration: 5000,
+      });
+    } finally {
+      setIsWalletPassLoading(false);
     }
   };
 
@@ -896,6 +934,64 @@ const HushhUserProfilePage: React.FC = () => {
                     </Box>
                   </HStack>
                 </VStack>
+
+                <Box
+                  bg="rgba(255,255,255,0.1)"
+                  border="1px solid rgba(255,255,255,0.25)"
+                  borderRadius="14px"
+                  p={4}
+                >
+                  <HStack justify="space-between" align="center" mb={2}>
+                    <HStack spacing={2}>
+                      <Icon as={WalletCards} color="white" boxSize={5} />
+                      <Text fontSize="15px" fontWeight="600" color="white">
+                        Add your Hushh Gold card
+                      </Text>
+                    </HStack>
+                    {walletPassReady && (
+                      <Box
+                        px={3}
+                        py={1}
+                        borderRadius="full"
+                        bg="white"
+                        color="#0B1120"
+                        fontSize="12px"
+                        fontWeight="600"
+                      >
+                        Ready
+                      </Box>
+                    )}
+                  </HStack>
+                  <Text fontSize="13px" color="rgba(255,255,255,0.9)" mb={3}>
+                    Download the Apple Wallet pass for quick verification on iPhone.
+                  </Text>
+                  <HStack spacing={3} flexWrap="wrap">
+                    <Button
+                      leftIcon={<Icon as={WalletCards} />}
+                      bg="white"
+                      color="#0B1120"
+                      _hover={{ bg: "whiteAlpha.900" }}
+                      _active={{ transform: "scale(0.97)" }}
+                      onClick={() => triggerWalletPassDownload()}
+                      isLoading={isWalletPassLoading}
+                      loadingText="Generating..."
+                    >
+                      Add to Apple Wallet
+                    </Button>
+                    <Button
+                      variant="outline"
+                      color="white"
+                      borderColor="rgba(255,255,255,0.6)"
+                      _hover={{ bg: "rgba(255,255,255,0.12)" }}
+                      onClick={handleOpenProfile}
+                    >
+                      View Profile
+                    </Button>
+                  </HStack>
+                  <Text fontSize="12px" color="rgba(255,255,255,0.85)" mt={2}>
+                    Works best on iPhone with Safari. You can re-download anytime.
+                  </Text>
+                </Box>
               </VStack>
             </Box>
           </Box>

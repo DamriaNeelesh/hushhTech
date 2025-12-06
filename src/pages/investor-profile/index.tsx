@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Box, Container, Spinner, Center, Text, VStack, HStack, IconButton, useToast, Button, Icon } from "@chakra-ui/react";
+import { Box, Container, Spinner, Center, Text, VStack, HStack, IconButton, useToast, Button, Icon, Badge } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { CheckCircleIcon, CopyIcon } from "@chakra-ui/icons";
-import { Share2 } from "lucide-react";
+import { Share2, WalletCards } from "lucide-react";
 import { InvestorProfileForm } from "../../components/investorProfile/InvestorProfileForm";
 import { InvestorProfileReview } from "../../components/investorProfile/InvestorProfileReview";
 import { 
@@ -16,6 +16,7 @@ import {
   InvestorProfile 
 } from "../../types/investorProfile";
 import resources from "../../resources/resources";
+import { downloadHushhGoldPass } from "../../services/walletPass";
 
 type FlowStep = "loading" | "form" | "review" | "complete";
 
@@ -25,6 +26,8 @@ function InvestorProfilePage() {
   const [profile, setProfile] = useState<InvestorProfileRecord | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [userData, setUserData] = useState<{ name: string; email: string } | null>(null);
+  const [isWalletPassLoading, setIsWalletPassLoading] = useState(false);
+  const [walletPassReady, setWalletPassReady] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -99,6 +102,39 @@ function InvestorProfilePage() {
     }
   };
 
+  const triggerWalletPassDownload = async () => {
+    if (!profile || isWalletPassLoading) return;
+
+    setIsWalletPassLoading(true);
+    try {
+      await downloadHushhGoldPass({
+        name: profile.name,
+        email: profile.email,
+        organisation: profile.organisation,
+        slug: profile.slug,
+        userId: profile.user_id,
+      });
+
+      setWalletPassReady(true);
+      toast({
+        title: "Hushh Gold card ready",
+        description: "Open the downloaded pass to add it to Apple Wallet.",
+        status: "success",
+        duration: 4000,
+      });
+    } catch (err) {
+      toast({
+        title: "Apple Wallet card failed",
+        description:
+          err instanceof Error ? err.message : "Could not generate your Hushh Gold pass.",
+        status: "error",
+        duration: 5000,
+      });
+    } finally {
+      setIsWalletPassLoading(false);
+    }
+  };
+
   const handleProfileConfirm = async (updates: Partial<InvestorProfile>) => {
     if (!profile) return;
 
@@ -113,11 +149,7 @@ function InvestorProfilePage() {
       });
 
       setStep("complete");
-      
-      // Redirect to profile page after a short delay
-      setTimeout(() => {
-        navigate("/hushh-user-profile");
-      }, 2000);
+      await triggerWalletPassDownload();
     } catch (err) {
       console.error("Error confirming profile:", err);
       setError(err instanceof Error ? err.message : "Failed to confirm profile");
@@ -247,10 +279,50 @@ function InvestorProfilePage() {
               </HStack>
             </Box>
 
-            <HStack spacing={2} color="gray.500">
-              <Spinner size="sm" />
-              <Text fontSize="sm">Redirecting to your dashboard...</Text>
-            </HStack>
+            <Box
+              w="full"
+              bg="white"
+              border="1px solid"
+              borderColor="gray.200"
+              borderRadius="lg"
+              p={6}
+              boxShadow="0 10px 30px rgba(15, 23, 42, 0.06)"
+            >
+              <HStack justify="space-between" align="center" mb={3}>
+                <HStack spacing={3}>
+                  <Icon as={WalletCards} boxSize={6} color="#0B1120" />
+                  <VStack align="start" spacing={0}>
+                    <Text fontSize="md" fontWeight="600" color="#0B1120">
+                      Add your Hushh Gold card
+                    </Text>
+                    <Text fontSize="sm" color="#475569">
+                      Download the Apple Wallet pass to keep your investor status handy.
+                    </Text>
+                  </VStack>
+                </HStack>
+                <Badge colorScheme={walletPassReady ? "green" : "yellow"} borderRadius="full">
+                  {walletPassReady ? "Ready" : "New"}
+                </Badge>
+              </HStack>
+
+              <HStack spacing={3} flexWrap="wrap">
+                <Button
+                  leftIcon={<Icon as={WalletCards} />}
+                  colorScheme="blue"
+                  onClick={triggerWalletPassDownload}
+                  isLoading={isWalletPassLoading}
+                  loadingText="Generating..."
+                >
+                  Add to Apple Wallet
+                </Button>
+                <Button variant="outline" onClick={() => navigate("/hushh-user-profile")}>
+                  Go to your dashboard
+                </Button>
+              </HStack>
+              <Text fontSize="sm" color="#6B7280" mt={3}>
+                Works best on iPhone with Safari. You can re-download this pass any time from your profile.
+              </Text>
+            </Box>
           </VStack>
         </Center>
       </Container>
