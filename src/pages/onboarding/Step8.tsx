@@ -46,25 +46,9 @@ export default function OnboardingStep8() {
     getCurrentUser();
   }, [navigate]);
 
-  const handlePhoneChange = (value: string, country: any) => {
-    // E.164 standard: max 15 digits for phone numbers
-    // Remove all non-digit characters to count actual digits
-    const digitsOnly = value.replace(/\D/g, '');
-    
-    // Block input if it exceeds 15 digits
-    if (digitsOnly.length > 15) {
-      return; // Don't update state if exceeds limit
-    }
-    
-    // Remove country code from phone number to avoid duplication
-    // The library includes country code in the value, but we store it separately
-    const dialCode = country.dialCode;
-    const phoneWithoutCountryCode = value.startsWith(dialCode) 
-      ? value.slice(dialCode.length) 
-      : value;
-    
-    setPhoneNumber(phoneWithoutCountryCode);
-    setCountryCode(`+${dialCode}`);
+  const handleCountryChange = (value: string, country: any) => {
+    // Only update the country code when country changes
+    setCountryCode(`+${country.dialCode}`);
   };
 
   const handleContinue = async () => {
@@ -110,45 +94,75 @@ export default function OnboardingStep8() {
           </p>
         </div>
 
-        {/* Phone Number Input */}
+        {/* Phone Number Input - Separated Layout */}
         <div className="mb-4">
           <label className="block text-[16px] font-[500] text-[#0B1120] mb-2">
             Phone number
           </label>
-          <PhoneInput
-            country={'us'}
-            value={phoneNumber}
-            onChange={handlePhoneChange}
-            enableSearch={true}
-            placeholder="Enter phone number"
-            inputStyle={{
-              width: '100%',
-              height: '56px',
-              fontSize: '17px',
-              borderRadius: '12px',
-              border: '2px solid #E2E8F0',
-              color: '#0B1120',
-              paddingLeft: '58px',
-              fontFamily: 'Inter, -apple-system, system-ui, "SF Pro Text", sans-serif',
-            }}
-            buttonStyle={{
-              borderRadius: '12px 0 0 12px',
-              border: '2px solid #E2E8F0',
-              borderRight: 'none',
-              backgroundColor: 'white',
-            }}
-            containerStyle={{
-              width: '100%',
-            }}
-            searchStyle={{
-              width: '90%',
-              margin: '10px auto',
-            }}
-            dropdownStyle={{
-              borderRadius: '12px',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            }}
-          />
+          <div className="flex gap-3">
+            {/* Country Code Dropdown */}
+            <div style={{ width: '140px', flexShrink: 0 }}>
+              <PhoneInput
+                country={'us'}
+                value={countryCode.replace('+', '')}
+                onChange={handleCountryChange}
+                enableSearch={true}
+                disableCountryCode={false}
+                disableDropdown={false}
+                inputStyle={{
+                  width: '100%',
+                  height: '56px',
+                  fontSize: '17px',
+                  borderRadius: '12px',
+                  border: '2px solid #E2E8F0',
+                  color: '#0B1120',
+                  paddingLeft: '58px',
+                  fontFamily: 'Inter, -apple-system, system-ui, "SF Pro Text", sans-serif',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  backgroundColor: 'white',
+                }}
+                buttonStyle={{
+                  borderRadius: '12px 0 0 12px',
+                  border: '2px solid #E2E8F0',
+                  borderRight: 'none',
+                  backgroundColor: 'white',
+                  width: '50px',
+                }}
+                containerStyle={{
+                  width: '100%',
+                }}
+                searchStyle={{
+                  width: '90%',
+                  margin: '10px auto',
+                }}
+                dropdownStyle={{
+                  borderRadius: '12px',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                  width: '300px',
+                }}
+              />
+            </div>
+            
+            {/* Phone Number Input */}
+            <div style={{ flex: 1 }}>
+              <input
+                type="tel"
+                value={phoneNumber}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, ''); // Only digits
+                  if (value.length <= 15) {
+                    setPhoneNumber(value);
+                  }
+                }}
+                placeholder="(999) 999-9999"
+                className="w-full h-[56px] rounded-[12px] border-2 border-[#E2E8F0] px-4 text-[17px] text-[#0B1120] placeholder:text-[#94A3B8] focus:outline-none focus:border-[#00A9E0] focus:ring-2 focus:ring-[rgba(0,169,224,0.12)] transition-all"
+                style={{
+                  fontFamily: 'Inter, -apple-system, system-ui, "SF Pro Text", sans-serif',
+                }}
+              />
+            </div>
+          </div>
         </div>
 
         {/* Disclaimer Text */}
