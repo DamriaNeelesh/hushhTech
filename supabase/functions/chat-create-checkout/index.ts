@@ -55,7 +55,7 @@ serve(async (req) => {
 
     // Get current URL for success/cancel redirects
     const origin = req.headers.get('origin') || 'https://hushhtech.com';
-    const successUrl = `${origin}/investor/${slug}?payment=success`;
+    const successUrl = `${origin}/investor/${slug}?payment=success&session_id={CHECKOUT_SESSION_ID}`;
     const cancelUrl = `${origin}/investor/${slug}?payment=cancel`;
 
     // Create Stripe Checkout Session
