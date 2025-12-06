@@ -43,7 +43,7 @@ const SellTheWallPage = () => {
         bottom="0"
         width="100vw"
         height="calc(100vh - 64px)"
-        overflow="hidden"
+        overflow="auto"
         margin="0"
         padding="0"
         zIndex="999"
@@ -59,21 +59,43 @@ const SellTheWallPage = () => {
           </Center>
         )}
 
-        {/* Try Gamma iframe first */}
+        {/* Try Gamma embed first */}
         {!useFallback ? (
-          <iframe
-            src="https://gamma.app/docs/Sell-the-Wall-ya0impa0panawof"
+          <Box
             width="100%"
+            maxWidth="100%"
+            margin="0 auto"
+            padding={{ base: "16px", md: "24px" }}
             height="100%"
-            style={{
-              border: 'none',
-              display: 'block',
-            }}
-            onLoad={handleIframeLoad}
-            onError={handleIframeError}
-            title="Sell the Wall Options Framework"
-            allow="fullscreen"
-          />
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Box
+              position="relative"
+              width="100%"
+              maxWidth="1200px"
+              paddingTop={{ base: "70%", md: "56.25%" }} // 16:9 aspect ratio on desktop, taller on mobile
+              borderRadius="12px"
+              overflow="hidden"
+            >
+              <Box
+                as="iframe"
+                src="https://gamma.app/embed/ya0impa0panawof"
+                title="Sell the Wall Options Framework"
+                loading="lazy"
+                allowFullScreen
+                onLoad={handleIframeLoad}
+                onError={handleIframeError}
+                position="absolute"
+                top="0"
+                left="0"
+                width="100%"
+                height="100%"
+                border="0"
+              />
+            </Box>
+          </Box>
         ) : (
           // Fallback to PDF embed
           <embed
