@@ -12,7 +12,7 @@ import { PrimaryCtaButton } from "../../components/PrimaryCtaButton";
 import { InvestorChatWidget } from "../../components/InvestorChatWidget";
 import DeveloperSettings from "../../components/DeveloperSettings";
 import { fetchPublicInvestorProfileBySlug } from "../../services/investorProfile";
-import { maskProfileData } from "../../utils/maskSensitiveData";
+import { maskProfileData, maskOnboardingField } from "../../utils/maskSensitiveData";
 import { InvestorProfile, FIELD_LABELS, VALUE_LABELS, ONBOARDING_FIELD_LABELS } from "../../types/investorProfile";
 import { OnboardingData } from "../../types/onboarding";
 
@@ -150,66 +150,66 @@ const PublicInvestorProfilePage: React.FC = () => {
     
     // Basic Information
     if (onboardingData.account_type && isFieldVisible('onboarding_data', 'account_type')) {
-      fields.push({ key: 'account_type', label: ONBOARDING_FIELD_LABELS.account_type, value: VALUE_LABELS[onboardingData.account_type] || onboardingData.account_type, category: 'Basic Information' });
+      fields.push({ key: 'account_type', label: ONBOARDING_FIELD_LABELS.account_type, value: maskOnboardingField('account_type', VALUE_LABELS[onboardingData.account_type] || onboardingData.account_type), category: 'Basic Information' });
     }
     if (onboardingData.selected_fund && isFieldVisible('onboarding_data', 'selected_fund')) {
-      fields.push({ key: 'selected_fund', label: ONBOARDING_FIELD_LABELS.selected_fund, value: onboardingData.selected_fund, category: 'Basic Information' });
+      fields.push({ key: 'selected_fund', label: ONBOARDING_FIELD_LABELS.selected_fund, value: maskOnboardingField('selected_fund', onboardingData.selected_fund), category: 'Basic Information' });
     }
     if (onboardingData.referral_source && isFieldVisible('onboarding_data', 'referral_source')) {
-      fields.push({ key: 'referral_source', label: ONBOARDING_FIELD_LABELS.referral_source, value: VALUE_LABELS[onboardingData.referral_source] || onboardingData.referral_source, category: 'Basic Information' });
+      fields.push({ key: 'referral_source', label: ONBOARDING_FIELD_LABELS.referral_source, value: maskOnboardingField('referral_source', VALUE_LABELS[onboardingData.referral_source] || onboardingData.referral_source), category: 'Basic Information' });
     }
     
     // Citizenship & Residence
     if (onboardingData.citizenship_country && isFieldVisible('onboarding_data', 'citizenship_country')) {
-      fields.push({ key: 'citizenship_country', label: ONBOARDING_FIELD_LABELS.citizenship_country, value: onboardingData.citizenship_country, category: 'Citizenship & Residence' });
+      fields.push({ key: 'citizenship_country', label: ONBOARDING_FIELD_LABELS.citizenship_country, value: maskOnboardingField('citizenship_country', onboardingData.citizenship_country), category: 'Citizenship & Residence' });
     }
     if (onboardingData.residence_country && isFieldVisible('onboarding_data', 'residence_country')) {
-      fields.push({ key: 'residence_country', label: ONBOARDING_FIELD_LABELS.residence_country, value: onboardingData.residence_country, category: 'Citizenship & Residence' });
+      fields.push({ key: 'residence_country', label: ONBOARDING_FIELD_LABELS.residence_country, value: maskOnboardingField('residence_country', onboardingData.residence_country), category: 'Citizenship & Residence' });
     }
     if (onboardingData.account_structure && isFieldVisible('onboarding_data', 'account_structure')) {
-      fields.push({ key: 'account_structure', label: ONBOARDING_FIELD_LABELS.account_structure, value: VALUE_LABELS[onboardingData.account_structure] || onboardingData.account_structure, category: 'Citizenship & Residence' });
+      fields.push({ key: 'account_structure', label: ONBOARDING_FIELD_LABELS.account_structure, value: maskOnboardingField('account_structure', VALUE_LABELS[onboardingData.account_structure] || onboardingData.account_structure), category: 'Citizenship & Residence' });
     }
     
-    // Legal Information
+    // Legal Information (MASKED)
     if (onboardingData.legal_first_name && isFieldVisible('onboarding_data', 'legal_first_name')) {
-      fields.push({ key: 'legal_first_name', label: ONBOARDING_FIELD_LABELS.legal_first_name, value: onboardingData.legal_first_name, category: 'Legal Information' });
+      fields.push({ key: 'legal_first_name', label: ONBOARDING_FIELD_LABELS.legal_first_name, value: maskOnboardingField('legal_first_name', onboardingData.legal_first_name), category: 'Legal Information' });
     }
     if (onboardingData.legal_last_name && isFieldVisible('onboarding_data', 'legal_last_name')) {
-      fields.push({ key: 'legal_last_name', label: ONBOARDING_FIELD_LABELS.legal_last_name, value: onboardingData.legal_last_name, category: 'Legal Information' });
+      fields.push({ key: 'legal_last_name', label: ONBOARDING_FIELD_LABELS.legal_last_name, value: maskOnboardingField('legal_last_name', onboardingData.legal_last_name), category: 'Legal Information' });
     }
     if (onboardingData.date_of_birth && isFieldVisible('onboarding_data', 'date_of_birth')) {
-      fields.push({ key: 'date_of_birth', label: ONBOARDING_FIELD_LABELS.date_of_birth, value: new Date(onboardingData.date_of_birth).toLocaleDateString(), category: 'Legal Information' });
+      fields.push({ key: 'date_of_birth', label: ONBOARDING_FIELD_LABELS.date_of_birth, value: maskOnboardingField('date_of_birth', onboardingData.date_of_birth), category: 'Legal Information' });
     }
     if (onboardingData.ssn_encrypted && isFieldVisible('onboarding_data', 'ssn_encrypted')) {
-      fields.push({ key: 'ssn_encrypted', label: ONBOARDING_FIELD_LABELS.ssn_encrypted, value: '***-**-****', category: 'Legal Information' });
+      fields.push({ key: 'ssn_encrypted', label: ONBOARDING_FIELD_LABELS.ssn_encrypted, value: maskOnboardingField('ssn_encrypted', onboardingData.ssn_encrypted), category: 'Legal Information' });
     }
     
-    // Address
+    // Address (MASKED)
     if (onboardingData.address_line_1 && isFieldVisible('onboarding_data', 'address_line_1')) {
-      fields.push({ key: 'address_line_1', label: ONBOARDING_FIELD_LABELS.address_line_1, value: onboardingData.address_line_1, category: 'Address' });
+      fields.push({ key: 'address_line_1', label: ONBOARDING_FIELD_LABELS.address_line_1, value: maskOnboardingField('address_line_1', onboardingData.address_line_1), category: 'Address' });
     }
     if (onboardingData.city && isFieldVisible('onboarding_data', 'city')) {
-      fields.push({ key: 'city', label: ONBOARDING_FIELD_LABELS.city, value: onboardingData.city, category: 'Address' });
+      fields.push({ key: 'city', label: ONBOARDING_FIELD_LABELS.city, value: maskOnboardingField('city', onboardingData.city), category: 'Address' });
     }
     if (onboardingData.state && isFieldVisible('onboarding_data', 'state')) {
-      fields.push({ key: 'state', label: ONBOARDING_FIELD_LABELS.state, value: onboardingData.state, category: 'Address' });
+      fields.push({ key: 'state', label: ONBOARDING_FIELD_LABELS.state, value: maskOnboardingField('state', onboardingData.state), category: 'Address' });
     }
     if (onboardingData.zip_code && isFieldVisible('onboarding_data', 'zip_code')) {
-      fields.push({ key: 'zip_code', label: ONBOARDING_FIELD_LABELS.zip_code, value: onboardingData.zip_code, category: 'Address' });
+      fields.push({ key: 'zip_code', label: ONBOARDING_FIELD_LABELS.zip_code, value: maskOnboardingField('zip_code', onboardingData.zip_code), category: 'Address' });
     }
     
-    // Investment Details
+    // Investment Details (MASKED)
     if (onboardingData.initial_investment_amount && isFieldVisible('onboarding_data', 'initial_investment_amount')) {
-      fields.push({ key: 'initial_investment_amount', label: ONBOARDING_FIELD_LABELS.initial_investment_amount, value: `$${Number(onboardingData.initial_investment_amount).toLocaleString()}`, category: 'Investment Details' });
+      fields.push({ key: 'initial_investment_amount', label: ONBOARDING_FIELD_LABELS.initial_investment_amount, value: maskOnboardingField('initial_investment_amount', onboardingData.initial_investment_amount), category: 'Investment Details' });
     }
     if (onboardingData.recurring_investment_enabled && isFieldVisible('onboarding_data', 'recurring_investment_enabled')) {
-      fields.push({ key: 'recurring_investment_enabled', label: ONBOARDING_FIELD_LABELS.recurring_investment_enabled, value: onboardingData.recurring_investment_enabled ? 'Yes' : 'No', category: 'Investment Details' });
+      fields.push({ key: 'recurring_investment_enabled', label: ONBOARDING_FIELD_LABELS.recurring_investment_enabled, value: maskOnboardingField('recurring_investment_enabled', onboardingData.recurring_investment_enabled ? 'Yes' : 'No'), category: 'Investment Details' });
     }
     if (onboardingData.recurring_frequency && isFieldVisible('onboarding_data', 'recurring_frequency')) {
-      fields.push({ key: 'recurring_frequency', label: ONBOARDING_FIELD_LABELS.recurring_frequency, value: VALUE_LABELS[onboardingData.recurring_frequency] || onboardingData.recurring_frequency, category: 'Investment Details' });
+      fields.push({ key: 'recurring_frequency', label: ONBOARDING_FIELD_LABELS.recurring_frequency, value: maskOnboardingField('recurring_frequency', VALUE_LABELS[onboardingData.recurring_frequency] || onboardingData.recurring_frequency), category: 'Investment Details' });
     }
     if (onboardingData.recurring_amount && isFieldVisible('onboarding_data', 'recurring_amount')) {
-      fields.push({ key: 'recurring_amount', label: ONBOARDING_FIELD_LABELS.recurring_amount, value: `$${Number(onboardingData.recurring_amount).toLocaleString()}`, category: 'Investment Details' });
+      fields.push({ key: 'recurring_amount', label: ONBOARDING_FIELD_LABELS.recurring_amount, value: maskOnboardingField('recurring_amount', onboardingData.recurring_amount), category: 'Investment Details' });
     }
     
     return fields;
