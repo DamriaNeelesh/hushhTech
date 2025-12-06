@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Container, Heading, Text, Flex, SimpleGrid, Stack, Grid, GridItem, Table, Tbody, Tr, Td, VStack, HStack, Button } from "@chakra-ui/react"
+import { Link as RouterLink } from 'react-router-dom'
 
 const FundA = () => {
   return (
@@ -67,7 +68,7 @@ const FundA = () => {
               fontWeight="500"
               mb={2}
             >
-              69%
+              18-23%
             </Heading>
             
             <Text
@@ -223,7 +224,25 @@ const FundA = () => {
             textAlign="center"
             color="#1D1D1F"
           >
-            Our Edge: The "Sell the Wall" Options Framework
+            Our Edge: The{" "}
+            <Text 
+              as="a"
+              href="/sell-the-wall"
+              target="_blank"
+              rel="noopener noreferrer"
+              display="inline"
+              color="#00A9E0"
+              textDecoration="underline"
+              cursor="pointer"
+              transition="all 0.2s"
+              _hover={{
+                color: "#4BC0C8",
+                textDecoration: "none"
+              }}
+            >
+              "Sell the Wall"
+            </Text>
+            {" "}Options Framework
           </Heading>
           
           <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={8}>
@@ -578,7 +597,7 @@ const FundA = () => {
                     Target Net IRR (Post-Fees & Expenses)
                   </Td>
                   <Td fontSize={{ base: "xl", md: "2xl" }} fontWeight="500" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
-                    69%
+                    18-23%
                   </Td>
                 </Tr>
               </Tbody>
