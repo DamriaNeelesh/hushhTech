@@ -58,7 +58,7 @@ export default function Footer() {
             <h3 className="text-xl font-semibold mb-6">Quick Links</h3>
             <div className="grid grid-cols-2 gap-2">
               <div className="space-y-2">
-                <a href="/about" className="block text-gray-300 hover:text-white transition">About Us</a>
+                <a href="/about/leadership" className="block text-gray-300 hover:text-white transition">About Us</a>
                 <a href="/discover-fund-a" className="block text-gray-300 hover:text-white transition">Fund A</a>
                 <a href="https://www.hushh.ai/solutions" target="_blank" rel="noopener noreferrer" className="block text-gray-300 hover:text-white transition">Solutions</a>
                 <a href="/benefits" className="block text-gray-300 hover:text-white transition">Benefits</a>
@@ -67,7 +67,7 @@ export default function Footer() {
               <div className="space-y-2">
                 <a href="/community" className="block text-gray-300 hover:text-white transition">Community</a>
                 <a href="/faq" className="block text-gray-300 hover:text-white transition">FAQ</a>
-                <a href="/about/leadership" className="block text-gray-300 hover:text-white transition">Contact</a>
+                <a href="/contact" className="block text-gray-300 hover:text-white transition">Contact</a>
                 <a href="/kyc-verification" className="block text-gray-300 hover:text-white transition">KYC Verification</a>
               </div>
             </div>
