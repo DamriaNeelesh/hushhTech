@@ -68,7 +68,7 @@ const FundA = () => {
               fontWeight="500"
               mb={2}
             >
-              18-23%
+              18-24%
             </Heading>
             
             <Text
@@ -597,7 +597,7 @@ const FundA = () => {
                     Target Net IRR (Post-Fees & Expenses)
                   </Td>
                   <Td fontSize={{ base: "xl", md: "2xl" }} fontWeight="500" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
-                    18-23%
+                    18-24%
                   </Td>
                 </Tr>
               </Tbody>
