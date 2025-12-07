@@ -2,8 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap");
+
 :root {
-  --font-main: "Red Hat Text", sans-serif;
+  --font-main: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 html, body {
@@ -17,49 +19,49 @@ html, body {
 /* Enhanced typography for headings */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-main);
-  font-weight: 300;
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
-/* Apply Red Hat Text Light to all elements */
+/* Apply DM Sans to all elements */
 * {
   font-family: var(--font-main) !important;
   font-weight: 300;
 }
 
-/* Red Hat Text utility classes - variable weight from 300 to 700 */
+/* DM Sans utility classes - variable weight from 300 to 700 */
 .red-hat-text-light {
-  font-family: "Red Hat Text", sans-serif;
+  font-family: "DM Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 300;
   font-style: normal;
 }
 
 .red-hat-text-regular {
-  font-family: "Red Hat Text", sans-serif;
+  font-family: "DM Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
 }
 
 .red-hat-text-medium {
-  font-family: "Red Hat Text", sans-serif;
+  font-family: "DM Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
 }
 
 .red-hat-text-semibold {
-  font-family: "Red Hat Text", sans-serif;
+  font-family: "DM Sans", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 500;
+  font-weight: 600;
   font-style: normal;
 }
 
 .red-hat-text-bold {
-  font-family: "Red Hat Text", sans-serif;
+  font-family: "DM Sans", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 500;
+  font-weight: 700;
   font-style: normal;
 }
 
