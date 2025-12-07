@@ -117,20 +117,21 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 2000;
   width: 100%;
   overflow: hidden;
-  background: #ffffff;
-  color: #0b1120;
+  background: #f8fafc;
+  color: #0f172a;
   font-family: var(--font-main), sans-serif;
   font-size: 14px;
   line-height: 1.6;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
 }
 
 .marquee-track {
   display: inline-flex;
   min-width: 200%;
   white-space: nowrap;
-  padding: 10px 0;
-  animation: marquee-slide 20s linear infinite;
+  padding: 12px 32px;
+  animation: marquee-slide 24s linear infinite;
 }
 
 .marquee-track .marquee-chunk {
@@ -148,11 +149,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .marquee-body {
-  color: #0b1120;
+  color: #0f172a;
+  letter-spacing: 0.02em;
+  word-spacing: 6px;
 }
 
 .marquee-spacer {
-  height: 38px;
+  height: 44px;
   width: 100%;
 }
 
