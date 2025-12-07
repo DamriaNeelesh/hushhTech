@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -104,9 +105,50 @@ const initializeGoogleAnalytics = () => {
 
 function App() {
   const [session, setSession] = useState<Session | null>(null);
-  const marqueeText =
-    "Saudi Aramco, GOOG, AAPL, MSFT, NVDA, AMZN, BRK.B, META, JPM, ICBC, China Construction Bank, XOM, Agricultural Bank of China, TSM, Bank of China, TM, PetroChina, WMT, TCEHY, BAC, EQNR, JNJ, DTE.DE, CMCSA, UNH, HSBC, SHEL";
+  const marqueeTickers = [
+    "Saudi Aramco",
+    "GOOG",
+    "AAPL",
+    "MSFT",
+    "NVDA",
+    "AMZN",
+    "BRK.B",
+    "META",
+    "JPM",
+    "ICBC",
+    "China Construction Bank",
+    "XOM",
+    "Agricultural Bank of China",
+    "TSM",
+    "Bank of China",
+    "TM",
+    "PetroChina",
+    "WMT",
+    "TCEHY",
+    "BAC",
+    "EQNR",
+    "JNJ",
+    "DTE.DE",
+    "CMCSA",
+    "UNH",
+    "HSBC",
+    "SHEL"
+  ];
   const marqueePrefix = "Introducing the hushh 27 alpha bets —";
+
+  const renderMarqueeChunk = (key: string) => (
+    <span className="marquee-chunk" key={key}>
+      <span className="marquee-prefix">{marqueePrefix}</span>
+      <span className="marquee-body">
+        {marqueeTickers.map((ticker, idx) => (
+          <React.Fragment key={`${key}-${ticker}-${idx}`}>
+            <span className="ticker">{ticker}</span>
+            {idx !== marqueeTickers.length - 1 && <span className="ticker-sep">,</span>}
+          </React.Fragment>
+        ))}
+      </span>
+    </span>
+  );
 
   // Initialize Google Analytics
   useEffect(() => {
@@ -138,14 +180,8 @@ function App() {
         <div className="min-h-screen flex flex-col">
           <div className="marquee-container">
             <div className="marquee-track">
-              <span className="marquee-chunk">
-                <span className="marquee-prefix">{marqueePrefix}</span>
-                <span className="marquee-body"> {marqueeText}</span>
-              </span>
-              <span className="marquee-chunk" aria-hidden="true">
-                <span className="marquee-prefix">{marqueePrefix}</span>
-                <span className="marquee-body"> {marqueeText}</span>
-              </span>
+              {renderMarqueeChunk("first")}
+              {renderMarqueeChunk("second")}
             </div>
           </div>
           <div className="marquee-spacer" />
