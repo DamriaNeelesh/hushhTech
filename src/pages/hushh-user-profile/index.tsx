@@ -28,6 +28,7 @@ import {
   usePrefersReducedMotion,
   Collapse,
   Image,
+  VisuallyHidden,
 } from "@chakra-ui/react";
 import {
   Copy,
@@ -46,8 +47,7 @@ import {
   Mail,
   MessageCircle,
 } from "lucide-react";
-import { FaApple } from "react-icons/fa";
-import { SiGooglepay } from "react-icons/si";
+import { FaApple, FaGoogle } from "react-icons/fa";
 import { SocialIcon } from 'react-social-icons';
 import { CheckIcon, LinkIcon } from "@chakra-ui/icons";
 import { keyframes } from "@emotion/react";
@@ -980,7 +980,7 @@ const HushhUserProfilePage: React.FC = () => {
                 <Text fontSize="13px" color="rgba(255,255,255,0.9)" mb={3}>
                   Download the wallet pass for quick verification on iPhone or Android.
                 </Text>
-                <HStack spacing={3} flexWrap="wrap">
+                <HStack spacing={4} flexWrap="wrap" justify="center">
                   <Button
                     onClick={() => triggerWalletPassDownload("apple", setIsApplePassLoading)}
                     isLoading={isApplePassLoading}
@@ -988,30 +988,42 @@ const HushhUserProfilePage: React.FC = () => {
                     leftIcon={<Icon as={FaApple} boxSize={6} />}
                     bg="white"
                     color="#0B1120"
-                    borderRadius="999px"
+                    borderRadius="12px"
                     border="1px solid #0B1120"
-                    h="46px"
+                    h="44px"
+                    minW="120px"
                     px={4}
-                    _hover={{ bg: "#FFFFFF" }}
-                    _active={{ bg: "#F5F5F5", transform: "scale(0.98)" }}
+                    display="inline-flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    gap={2}
+                    _hover={{ bg: "#F8FAFC" }}
+                    _active={{ bg: "#F1F5F9", transform: "scale(0.98)" }}
                   >
-                    Add to Apple Wallet
+                    {/* <Icon as={FaApple} boxSize={6} /> */}
+                    {/* <VisuallyHidden>Add to Apple Wallet</VisuallyHidden> */}
                   </Button>
                   <Button
                     onClick={() => triggerGoogleWalletPass()}
                     isLoading={isGooglePassLoading}
                     loadingText="Adding..."
-                    leftIcon={<Icon as={SiGooglepay} boxSize={6} />}
+                    leftIcon={<Icon as={FaGoogle} boxSize={6} />}
                     bg="white"
                     color="#0B1120"
-                    borderRadius="999px"
+                    borderRadius="12px"
                     border="1px solid #0B1120"
-                    h="46px"
+                    h="44px"
+                    minW="120px"
                     px={4}
-                    _hover={{ bg: "#FFFFFF" }}
-                    _active={{ bg: "#F5F5F5", transform: "scale(0.98)" }}
+                    display="inline-flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    gap={2}
+                    _hover={{ bg: "#F8FAFC" }}
+                    _active={{ bg: "#F1F5F9", transform: "scale(0.98)" }}
                   >
-                    Add to Google Wallet
+                    {/* <Icon as={FaGoogle} boxSize={6} /> */}
+                    {/* <VisuallyHidden>Add to Google Wallet</VisuallyHidden> */}
                   </Button>
                   <Button
                     variant="outline"
