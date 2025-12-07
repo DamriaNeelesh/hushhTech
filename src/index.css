@@ -8,7 +8,8 @@
   --font-main: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   font-family: var(--font-main) !important;
@@ -17,7 +18,12 @@ html, body {
 }
 
 /* Enhanced typography for headings */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-main);
   font-weight: 400;
   letter-spacing: -0.01em;
@@ -116,8 +122,10 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   z-index: 2000;
   width: 100%;
-  height: 40px; /* <-- explicit bar height */
-  display: flex; /* center contents vertically */
+  height: 40px;
+  /* <-- explicit bar height */
+  display: flex;
+  /* center contents vertically */
   align-items: center;
   overflow: hidden;
   background: linear-gradient(180deg, #f9fbff 0%, #f5f7fb 100%);
@@ -131,9 +139,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .marquee-track {
   display: inline-flex;
-  min-width: 200%;
+  min-width: max-content;
   white-space: nowrap;
-  padding: 0 48px; /* only horizontal padding now */
+  padding: 12px 48px;
+  /* only horizontal padding now */
   animation: marquee-slide 24s linear infinite;
 }
 
@@ -141,7 +150,9 @@ h1, h2, h3, h4, h5, h6 {
 .marquee-track .marquee-chunk {
   display: inline-flex;
   gap: 8px;
-  padding-right: 500px;
+  padding-left: 48px;
+  padding-right: 140px;
+  /* ⬅️ extra gap between end and next "Introducing..." */
 }
 
 .marquee-prefix {
@@ -167,7 +178,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .marquee-spacer {
-  height: 56px; /* match .marquee-container height */
   width: 100%;
 }
 
@@ -197,6 +207,7 @@ h1, h2, h3, h4, h5, h6 {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
