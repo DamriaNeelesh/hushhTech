@@ -235,7 +235,7 @@ We combine AI and human expertise to invest in exceptional businesses for long-t
               </button>
             </div>
 
-            {/* <div className="grid gap-3 pt-4">
+            <div className="grid gap-3 pt-4">
               <button
                 type="button"
                 className="w-full h-[52px] flex justify-center items-center gap-3 px-4 border border-[#E5E7EB] rounded-[16px] text-[16px] font-semibold text-[#0B1120] bg-white transition-colors duration-150 active:bg-[#F9FAFB]"
@@ -248,7 +248,7 @@ We combine AI and human expertise to invest in exceptional businesses for long-t
               </svg>
                 Apple Sign In
               </button>
-            </div> */}
+            </div>
 
             <div className="text-left mt-5">
               <p className="text-[14px] text-[#111827]">
