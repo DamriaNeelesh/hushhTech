@@ -116,6 +116,9 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   z-index: 2000;
   width: 100%;
+  height: 56px; /* <-- explicit bar height */
+  display: flex; /* center contents vertically */
+  align-items: center;
   overflow: hidden;
   background: linear-gradient(180deg, #f9fbff 0%, #f5f7fb 100%);
   color: #0f172a;
@@ -130,14 +133,15 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-flex;
   min-width: 200%;
   white-space: nowrap;
-  padding: 12px 48px;
+  padding: 0 48px; /* only horizontal padding now */
   animation: marquee-slide 24s linear infinite;
 }
+
 
 .marquee-track .marquee-chunk {
   display: inline-flex;
   gap: 8px;
-  padding-right: 48px;
+  padding-right: 500px;
 }
 
 .marquee-prefix {
@@ -163,9 +167,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .marquee-spacer {
-  height: 44px;
+  height: 56px; /* match .marquee-container height */
   width: 100%;
 }
+
 
 .marquee-container::before,
 .marquee-container::after {
