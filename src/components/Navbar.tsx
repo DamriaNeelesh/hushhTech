@@ -89,7 +89,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white shadow-lg fixed w-full z-[999]">
+    <nav className="bg-white shadow-lg fixed w-full z-[999]" style={{ top: "38px" }}>
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="text-xl flex flex-row items-center font-bold">

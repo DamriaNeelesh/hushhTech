@@ -108,3 +108,59 @@ h1, h2, h3, h4, h5, h6 {
 .blue-gradient-bg {
   background: linear-gradient(to right, #00A9E0, #6DD3EF);
 }
+
+/* Top marquee banner */
+.marquee-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  width: 100%;
+  overflow: hidden;
+  background: #ffffff;
+  color: #0b1120;
+  font-family: var(--font-main), sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.marquee-track {
+  display: inline-flex;
+  min-width: 200%;
+  white-space: nowrap;
+  padding: 10px 0;
+  animation: marquee-slide 20s linear infinite;
+}
+
+.marquee-track .marquee-chunk {
+  display: inline-flex;
+  gap: 8px;
+  padding-right: 48px;
+}
+
+.marquee-prefix {
+  background-image: linear-gradient(to right, #00A9E0, #4BC0C8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 600;
+}
+
+.marquee-body {
+  color: #0b1120;
+}
+
+.marquee-spacer {
+  height: 38px;
+  width: 100%;
+}
+
+@keyframes marquee-slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

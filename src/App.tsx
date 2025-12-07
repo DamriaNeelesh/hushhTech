@@ -104,6 +104,9 @@ const initializeGoogleAnalytics = () => {
 
 function App() {
   const [session, setSession] = useState<Session | null>(null);
+  const marqueeText =
+    "Saudi Aramco, GOOG, AAPL, MSFT, NVDA, AMZN, BRK.B, META, JPM, ICBC, China Construction Bank, XOM, Agricultural Bank of China, TSM, Bank of China, TM, PetroChina, WMT, TCEHY, BAC, EQNR, JNJ, DTE.DE, CMCSA, UNH, HSBC, SHEL";
+  const marqueePrefix = "Introducing the hushh 27 alpha bets —";
 
   // Initialize Google Analytics
   useEffect(() => {
@@ -133,6 +136,19 @@ function App() {
       <Router>
         <ScrollToTop />
         <div className="min-h-screen flex flex-col">
+          <div className="marquee-container">
+            <div className="marquee-track">
+              <span className="marquee-chunk">
+                <span className="marquee-prefix">{marqueePrefix}</span>
+                <span className="marquee-body"> {marqueeText}</span>
+              </span>
+              <span className="marquee-chunk" aria-hidden="true">
+                <span className="marquee-prefix">{marqueePrefix}</span>
+                <span className="marquee-body"> {marqueeText}</span>
+              </span>
+            </div>
+          </div>
+          <div className="marquee-spacer" />
           <Navbar />
           {/* {session && <NDAPopup />} */}
           <ContentWrapper>
