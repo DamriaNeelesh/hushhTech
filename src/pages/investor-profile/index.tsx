@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { Box, Container, Spinner, Center, Text, VStack, HStack, IconButton, useToast, Button, Icon, Badge, Image } from "@chakra-ui/react";
+import { Box, Container, Spinner, Center, Text, VStack, HStack, IconButton, useToast, Button, Icon, Badge, Image, VisuallyHidden } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { CheckCircleIcon, CopyIcon } from "@chakra-ui/icons";
 import { Share2 } from "lucide-react";
-import { FaApple } from "react-icons/fa";
-import { SiGooglepay } from "react-icons/si";
+import { FaApple, FaGoogle } from "react-icons/fa";
 import { InvestorProfileForm } from "../../components/investorProfile/InvestorProfileForm";
 import { InvestorProfileReview } from "../../components/investorProfile/InvestorProfileReview";
 import { 
@@ -297,38 +296,52 @@ function InvestorProfilePage() {
               p={6}
               boxShadow="0 10px 30px rgba(15, 23, 42, 0.06)"
             >
-              <HStack spacing={3} justify="center">
+              <HStack spacing={4} justify="center">
                 <Button
+                  aria-label="Add to Apple Wallet"
                   onClick={() => triggerWalletPassDownload("apple", setIsApplePassLoading)}
                   isLoading={isApplePassLoading}
-                  loadingText="Adding..."
-                  leftIcon={<Icon as={FaApple} boxSize={6} />}
+                  loadingText=""
+                  spinner={<Spinner size="sm" color="#0B1120" />}
                   bg="white"
                   color="#0B1120"
-                  borderRadius="999px"
+                  borderRadius="12px"
                   border="1px solid #0B1120"
-                  h="46px"
+                  h="44px"
+                  minW="120px"
                   px={4}
-                  _hover={{ bg: "#FFFFFF" }}
-                  _active={{ bg: "#F5F5F5", transform: "scale(0.98)" }}
+                  display="inline-flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  gap={2}
+                  _hover={{ bg: "#F8FAFC" }}
+                  _active={{ bg: "#F1F5F9", transform: "scale(0.98)" }}
                 >
-                  Add to Apple Wallet
+                  {/* <Icon as={FaApple} boxSize={6} /> */}
+                  {/* <VisuallyHidden>Add to Apple Wallet</VisuallyHidden> */}
                 </Button>
                 <Button
+                  aria-label="Add to Google Wallet"
                   onClick={() => triggerWalletPassDownload("google", setIsGooglePassLoading)}
                   isLoading={isGooglePassLoading}
-                  loadingText="Adding..."
-                  leftIcon={<Icon as={SiGooglepay} boxSize={6} />}
+                  loadingText=""
+                  spinner={<Spinner size="sm" color="#0B1120" />}
                   bg="white"
                   color="#0B1120"
-                  borderRadius="999px"
+                  borderRadius="12px"
                   border="1px solid #0B1120"
-                  h="46px"
+                  h="44px"
+                  minW="120px"
                   px={4}
-                  _hover={{ bg: "#FFFFFF" }}
-                  _active={{ bg: "#F5F5F5", transform: "scale(0.98)" }}
+                  display="inline-flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  gap={2}
+                  _hover={{ bg: "#F8FAFC" }}
+                  _active={{ bg: "#F1F5F9", transform: "scale(0.98)" }}
                 >
-                  Add to Google Wallet
+                  {/* <Icon as={FaGoogle} boxSize={6} /> */}
+                  {/* <VisuallyHidden>Add to Google Wallet</VisuallyHidden> */}
                 </Button>
               </HStack>
             </Box>
