@@ -116,7 +116,7 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   z-index: 2000;
   width: 100%;
-  height: 56px; /* <-- explicit bar height */
+  height: 40px; /* <-- explicit bar height */
   display: flex; /* center contents vertically */
   align-items: center;
   overflow: hidden;
