@@ -72,7 +72,7 @@ const ContentWrapper = ({ children }: { children: ReactNode }) => {
   const isAuthCallback = location.pathname.startsWith('/auth/callback');
   const isUserRegistration = location.pathname === '/user-registration';
   const isOnboarding = location.pathname.startsWith('/onboarding');
-  
+
   return (
     <div className={`${isHomePage || isAuthCallback || isUserRegistration || isOnboarding ? '' : 'mt-20'}`}>
       {children}
@@ -106,34 +106,116 @@ const initializeGoogleAnalytics = () => {
 function App() {
   const [session, setSession] = useState<Session | null>(null);
   const marqueeTickers = [
-    "Saudi Aramco",
-    "GOOG",
-    "AAPL",
-    "MSFT",
-    "NVDA",
-    "AMZN",
-    "BRK.B",
-    "META",
-    "JPM",
-    "ICBC",
-    "China Construction Bank",
-    "XOM",
-    "Agricultural Bank of China",
-    "TSM",
-    "Bank of China",
-    "TM",
-    "PetroChina",
-    "WMT",
-    "TCEHY",
-    "BAC",
-    "EQNR",
-    "JNJ",
-    "DTE.DE",
-    "CMCSA",
-    "UNH",
-    "HSBC",
-    "SHEL"
+    {
+      label: "Saudi Aramco",
+      logo: "https://www.nicepng.com/png/full/274-2744280_saudi-aramco-logo-saudi-aramco-logo-vector.png",
+    },
+    {
+      label: "GOOG",
+      logo: "https://thumbs.dreamstime.com/b/google-logo-vector-format-white-background-illustration-407571048.jpg",
+    },
+    {
+      label: "AAPL",
+      logo: "https://fabrikbrands.com/wp-content/uploads/Apple-Logo-History-1-1155x770.png",
+    },
+    {
+      label: "MSFT",
+      logo: "https://static.vecteezy.com/system/resources/previews/027/127/473/non_2x/microsoft-logo-microsoft-icon-transparent-free-png.png",
+    },
+    {
+      label: "NVDA",
+      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVEu8tfOJpA-vMjPqyI2gEyaDjTaI7tSJFzQ&s",
+    },
+    {
+      label: "AMZN",
+      logo: "https://static.vecteezy.com/system/resources/previews/014/018/561/non_2x/amazon-logo-on-transparent-background-free-vector.jpg",
+    },
+    {
+      label: "BRK.B",
+      logo: "https://www.shutterstock.com/shutterstock/photos/2378735305/display_1500/stock-vector-brk-letter-logo-design-on-a-white-background-or-monogram-logo-design-for-entrepreneur-and-business-2378735305.jpg",
+    },
+    {
+      label: "META",
+      logo: "https://img.freepik.com/premium-vector/meta-company-logo_265339-667.jpg?semt=ais_hybrid&w=740&q=80",
+    },
+    {
+      label: "JPM",
+      logo: "https://e7.pngegg.com/pngimages/225/668/png-clipart-jpmorgan-chase-logo-bank-business-morgan-stanley-bank-text-logo.png",
+    },
+    {
+      label: "ICBC",
+      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkYKU2DFnDgpOtiG7XP3N9Am69IFfZj5hLTg&s",
+    },
+    {
+      label: "China Construction Bank",
+      logo: "https://www.nfcw.com/wp-content/uploads/2021/06/china-construction-bank-logo-400W.jpg",
+    },
+    {
+      label: "XOM",
+      logo: "https://static.vecteezy.com/system/resources/previews/009/116/598/non_2x/com-logo-com-letter-com-letter-logo-design-initials-com-logo-linked-with-circle-and-uppercase-monogram-logo-com-typography-for-technology-business-and-real-estate-brand-vector.jpg",
+    },
+    {
+      label: "Agricultural Bank of China",
+      logo: "https://static.wikia.nocookie.net/logopedia/images/d/d6/ABC_china_symbol.svg/revision/latest/scale-to-width-down/1200?cb=20240204071833",
+    },
+    {
+      label: "TSM",
+      logo: "https://upload.wikimedia.org/wikipedia/en/thumb/6/63/Tsmc.svg/1200px-Tsmc.svg.png",
+    },
+    {
+      label: "Bank of China",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Bank_of_China_symbol.svg/2048px-Bank_of_China_symbol.svg.png",
+    },
+    {
+      label: "TM",
+      logo: "https://global.toyota/pages/global_toyota/mobility/toyota-brand/emblem_001.jpg",
+    },
+    {
+      label: "PetroChina",
+      logo: "https://upload.wikimedia.org/wikipedia/en/thumb/2/2b/Petrochina_logo.svg/250px-Petrochina_logo.svg.png",
+    },
+    {
+      label: "WMT",
+      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxwPUD4NGc7WTQVqDstT5ZPRQXm6ka0KTsmTsKfiY&usqp=CAE&s",
+    },
+    {
+      label: "TCEHY",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/2/22/Tencent_Logo.svg",
+    },
+    {
+      label: "BAC",
+      logo: "https://www.bankofamerica.com/content/images/ContextualSiteGraphics/Logos/en_US/logos/bac-logo-v2.png",
+    },
+    {
+      label: "EQNR",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Equinor.svg/1200px-Equinor.svg.png",
+    },
+    {
+      label: "JNJ",
+      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwR-mYiIkkCIY28ur2ZykKmYqL3FoOsBAmhg&s",
+    },
+    {
+      label: "DTE.DE",
+      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT93q9uHQOWwfKPM_cy8AMa1cUWLTTxGCu0FA&s",
+    },
+    {
+      label: "CMCSA",
+      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj16S81rTASlKjG6D8at0GhqtCoyTuJJYEsQ&s",
+    },
+    {
+      label: "UNH",
+      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8eLWlU5eLw8UwmHHHdCn8oXiGv4aSHPPbiQ&s",
+    },
+    {
+      label: "HSBC",
+      logo: "https://i.pinimg.com/736x/4c/4a/d8/4c4ad867b77c17f313c5343fa95154c3.jpg",
+    },
+    {
+      label: "SHEL",
+      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRm4vpK8XAVnLNzAxkomte0d1QEeb4aQ7_Whw&s",
+    },
   ];
+
   const marqueePrefix = "Introducing the hushh 27 alpha bets —";
 
   const renderMarqueeChunk = (key: string) => (
@@ -141,14 +223,24 @@ function App() {
       <span className="marquee-prefix">{marqueePrefix}</span>
       <span className="marquee-body">
         {marqueeTickers.map((ticker, idx) => (
-          <React.Fragment key={`${key}-${ticker}-${idx}`}>
-            <span className="ticker">{ticker}</span>
-            {idx !== marqueeTickers.length - 1 && <span className="ticker-sep">,</span>}
+          <React.Fragment key={`${key}-${ticker.label}-${idx}`}>
+            <span className="ticker inline-flex items-center gap-1">
+              <img
+                src={ticker.logo}
+                alt={`${ticker.label} logo`}
+                className="ticker-logo w-4 h-4 object-contain"
+              />
+              <span>{ticker.label}</span>
+            </span>
+            {idx !== marqueeTickers.length - 1 && (
+              <span className="ticker-sep">,</span>
+            )}
           </React.Fragment>
         ))}
       </span>
     </span>
   );
+
 
   // Initialize Google Analytics
   useEffect(() => {
@@ -172,20 +264,23 @@ function App() {
       return () => subscription?.unsubscribe();
     }
   }, []);
-  
+
   return (
     <ChakraProvider theme={theme}>
       <Router>
         <ScrollToTop />
         <div className="min-h-screen flex flex-col">
-          <div className="marquee-container">
+          {/* Marquee Strip */}
+          <div className="marquee-container h-12 flex items-center overflow-hidden border-b border-gray-200">
             <div className="marquee-track">
               {renderMarqueeChunk("first")}
               {renderMarqueeChunk("second")}
             </div>
           </div>
-          <div className="marquee-spacer" />
+          {/* Spacer so Navbar sits BELOW the marquee strip */}
+          <div className="marquee-spacer h-12" />
           <Navbar />
+
           {/* {session && <NDAPopup />} */}
           <ContentWrapper>
             <Routes>
@@ -195,31 +290,31 @@ function App() {
               <Route path="/Login" element={<Login />} />
               <Route path="/Contact" element={<Contact />} />
               <Route path="/benefits" element={<BenefitsPage />} />
-              <Route path='/services/consumers' element={<Consumers/>} />
-              <Route path='/services/business' element={<Business/>}/>
-              <Route path='/Signup' element={<Signup/>}/>
-              <Route path='/faq' element={<Faq/>}/>
+              <Route path='/services/consumers' element={<Consumers />} />
+              <Route path='/services/business' element={<Business />} />
+              <Route path='/Signup' element={<Signup />} />
+              <Route path='/faq' element={<Faq />} />
               <Route path='/profile' element={
-                  <Profile/>                
+                <Profile />
               } />
-              <Route path="/career" element={<Career/>} />
+              <Route path="/career" element={<Career />} />
               <Route path="/career/*" element={<Career />} />
-              <Route path='/privacy-policy' element={<PrivacyPolicy/>}/>
-              <Route path='/carrer-privacy-policy' element={<CareersPrivacyPolicy/>}/>
+              <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+              <Route path='/carrer-privacy-policy' element={<CareersPrivacyPolicy />} />
               <Route path="/community" element={
-                  <CommunityList/>
+                <CommunityList />
               } />
-              <Route path='/california-privacy-policy' element={<CaliforniaPrivacyPolicy/>}/>
-              <Route path='/eu-uk-jobs-privacy-policy' element={<EUUKPrivacyPolicy/>}/>
+              <Route path='/california-privacy-policy' element={<CaliforniaPrivacyPolicy />} />
+              <Route path='/eu-uk-jobs-privacy-policy' element={<EUUKPrivacyPolicy />} />
               <Route path="/community/*" element={
-              
-                  <CommunityPost />
-                
+
+                <CommunityPost />
+
               } />
               <Route path="/reports/:id" element={
-                
-                  <ReportDetailPage />
-                
+
+                <ReportDetailPage />
+
               } />
               <Route path="/auth/callback" element={<AuthCallback />} />
               <Route path="/onboarding/step-1" element={
@@ -312,44 +407,44 @@ function App() {
               <Route path="/hushhid-hero-demo" element={<HushhIDHeroDemo />} />
               {/* <Route path="/solutions" element={<SolutionsPage />} /> */}
               <Route path='/kyc-verification' element={
-                
-                  <KYCVerificationPage/>
-                
-              }/>
+
+                <KYCVerificationPage />
+
+              } />
               <Route path='/kyc-form' element={
-                
-                  <KYCFormPage/>
-                
-              }/>
+
+                <KYCFormPage />
+
+              } />
               <Route path='/discover-fund-a' element={
-                
-                  <DiscoverFundA/>
-                
-              }/>
+
+                <DiscoverFundA />
+
+              } />
               <Route path='/sell-the-wall' element={
-                
-                  <SellTheWallPage/>
-                
-              }/>
+
+                <SellTheWallPage />
+
+              } />
               <Route path='/user-registration' element={
                 <ProtectedRoute>
                   <UserRegistration />
                 </ProtectedRoute>
-              }/>
+              } />
               <Route path='/nda-form' element={
-                
-                  <NDARequestModalComponent 
-                    session={session} 
-                    onSubmit={(result: string) => {
-                      console.log("NDA submission result:", result);
-                      // Handle post-submission actions here
-                      if (result === "Approved" || result === "Pending" || result === "Requested permission") {
-                        // Redirect to appropriate page on success
-                        window.location.href = "/";
-                      }
-                    }} 
-                  />
-                
+
+                <NDARequestModalComponent
+                  session={session}
+                  onSubmit={(result: string) => {
+                    console.log("NDA submission result:", result);
+                    // Handle post-submission actions here
+                    if (result === "Approved" || result === "Pending" || result === "Requested permission") {
+                      // Redirect to appropriate page on success
+                      window.location.href = "/";
+                    }
+                  }}
+                />
+
               } />
               <Route path='/investor-profile' element={
                 <ProtectedRoute>
@@ -358,15 +453,15 @@ function App() {
               } />
               <Route path='/investor/:slug' element={<PublicInvestorProfilePage />} />
               <Route path='/user-profile' element={
-                  
-                  <UserProfilePage/>
-                
-              }/>
+
+                <UserProfilePage />
+
+              } />
               <Route path='/your-profile' element={
-                
-                  <YourProfilePage/>
-                
-              }/>
+
+                <YourProfilePage />
+
+              } />
             </Routes>
           </ContentWrapper>
           <Footer />
