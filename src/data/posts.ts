@@ -21,6 +21,15 @@ import LimitedPartnershipAgreement from '../content/posts/investors-faq/limitedP
 import FeeSchedule from '../content/posts/funds/feeSchedule'
 import Dmu22apr from '../content/posts/market/dmu22apr';
 import aiInfrastructure from '../content/posts/general/aiInfrastructure';
+import HolyGrailPortfolio from '../content/posts/general/holyGrailPortfolio';
+import Alpha27CashFlowMonarchy from '../content/posts/general/alpha27CashFlowMonarchy';
+import RenaissanceAIFirstFund from '../content/posts/general/renaissanceAIFirstFund';
+import AIDrivenPersonalAgents from '../content/posts/general/aiDrivenPersonalAgents';
+import AlphaAgentsPortfolio from '../content/posts/general/alphaAgentsPortfolio';
+import AIPoweredBerkshire from '../content/posts/general/aiPoweredBerkshire';
+import PerpetualAlphaEngine from '../content/posts/general/perpetualAlphaEngine';
+import MedallionModelIndia from '../content/posts/general/medallionModelIndia';
+import HushhRenaissanceAINative from '../content/posts/general/hushhRenaissanceAINative';
 
 // Images
 import FundsUpdateImg1 from '../components/images/0_Fund Performance.jpg';
@@ -162,6 +171,106 @@ export interface PostData {
 }
 
 export const posts: PostData[] = [
+  // New December 2025 posts - Gamma presentations
+  {
+    count: 180,
+    slug: 'general/the-perpetual-alpha-engine',
+    title: 'The Perpetual Alpha Engine',
+    publishedAt: '2025-12-06',
+    description: 'A Technical Blueprint for Next-Generation Quantitative Investment Systems',
+    category: 'investment & financial strategies',
+    Component: PerpetualAlphaEngine,
+    image: HushhAiLogoImg,
+    accessLevel: 'Public',
+  },
+  {
+    count: 179,
+    slug: 'general/ai-powered-berkshire-hathaway',
+    title: 'The AI-Powered Berkshire Hathaway',
+    publishedAt: '2025-12-04',
+    description: 'Hushh Technologies Fund A Strategy – Investing in the Future of Free Cash Flow',
+    category: 'investment & financial strategies',
+    Component: AIPoweredBerkshire,
+    image: HushhAiLogoImg,
+    accessLevel: 'Public',
+  },
+  {
+    count: 178,
+    slug: 'general/alpha-agents-portfolio-construction',
+    title: 'AlphaAgents: Revolutionizing Portfolio Construction Through AI-Powered Intelligence',
+    publishedAt: '2025-12-02',
+    description: 'A groundbreaking multi-agent system that combines the precision of quantitative analysis with the adaptability of Large Language Models to identify elite investment opportunities in the world\'s fastest-growing markets.',
+    category: 'investment & financial strategies',
+    Component: AlphaAgentsPortfolio,
+    image: HushhAiLogoImg,
+    accessLevel: 'Public',
+  },
+  {
+    count: 177,
+    slug: 'general/holy-grail-portfolio',
+    title: 'The Holy Grail Portfolio',
+    publishedAt: '2025-12-01',
+    description: 'A Complete Implementation Playbook for the World\'s Most Sophisticated Capital Allocators',
+    category: 'investment & financial strategies',
+    Component: HolyGrailPortfolio,
+    image: HushhAiLogoImg,
+    accessLevel: 'Public',
+  },
+  {
+    count: 176,
+    slug: 'general/renaissance-ai-first-fund',
+    title: 'Renaissance AI First Fund',
+    publishedAt: '2025-11-28',
+    description: 'Aloha compounding in an AI decade. Finding the fastest absolute free cash flow growing businesses in the fastest growing markets — the King of Kings strategy for elite capital allocators.',
+    category: 'fund updates',
+    Component: RenaissanceAIFirstFund,
+    image: HushhAiLogoImg,
+    accessLevel: 'Public',
+  },
+  {
+    count: 175,
+    slug: 'general/alpha-27-cash-flow-monarchy',
+    title: 'Alpha 27: The Absolute Cash Flow Monarchy',
+    publishedAt: '2025-11-27',
+    description: 'For institutional allocators managing billions across sovereign wealth mandates, endowment perpetuity obligations, or multi-generational family office preservation goals, Alpha 27 offers something increasingly rare: a strategy you can explain in one sentence and defend with one formula.',
+    category: 'investment & financial strategies',
+    Component: Alpha27CashFlowMonarchy,
+    image: HushhAiLogoImg,
+    accessLevel: 'Public',
+  },
+  {
+    count: 174,
+    slug: 'general/ai-driven-personal-agents',
+    title: 'AI-Driven Personal Agents',
+    publishedAt: '2025-11-26',
+    description: 'Improving Financial Habits Through Everyday Wellness',
+    category: 'general',
+    Component: AIDrivenPersonalAgents,
+    image: HushhAiLogoImg,
+    accessLevel: 'Public',
+  },
+  {
+    count: 173,
+    slug: 'general/medallion-model-comes-to-india',
+    title: 'The Medallion Model Comes to India',
+    publishedAt: '2025-11-24',
+    description: 'A Letter to the World\'s Greatest Capital Allocators. Where Jim Simons\' legendary playbook meets India\'s elite AI talent—and creates the most asymmetric opportunity in systematic investing today.',
+    category: 'investment & financial strategies',
+    Component: MedallionModelIndia,
+    image: HushhAiLogoImg,
+    accessLevel: 'Public',
+  },
+  {
+    count: 172,
+    slug: 'general/hushh-renaissance-ai-native-medallion',
+    title: 'Hushh Renaissance: The AI-Native Medallion Fund',
+    publishedAt: '2025-11-22',
+    description: 'Building India\'s first AI-native quantitative hedge fund targeting 60-69% annual returns through 1,000 autonomous AI agents discovering patterns in global markets.',
+    category: 'fund updates',
+    Component: HushhRenaissanceAINative,
+    image: HushhAiLogoImg,
+    accessLevel: 'Public',
+  },
   // Add the new market updates at the top of the array for newest first
   {
     count: 167,
