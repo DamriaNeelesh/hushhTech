@@ -12,7 +12,7 @@ import { PrimaryCtaButton } from "../../components/PrimaryCtaButton";
 import { InvestorChatWidget } from "../../components/InvestorChatWidget";
 import DeveloperSettings from "../../components/DeveloperSettings";
 import { fetchPublicInvestorProfileBySlug } from "../../services/investorProfile";
-import { maskProfileData } from "../../utils/maskSensitiveData";
+import { maskProfileData, maskOnboardingField } from "../../utils/maskSensitiveData";
 import { InvestorProfile, FIELD_LABELS, VALUE_LABELS, ONBOARDING_FIELD_LABELS } from "../../types/investorProfile";
 import { OnboardingData } from "../../types/onboarding";
 
@@ -36,6 +36,21 @@ const PublicInvestorProfilePage: React.FC = () => {
       try {
         const data = await fetchPublicInvestorProfileBySlug(slug);
         setProfileData(data);
+        
+        // Send profile view notification email via Vercel API (async, don't wait)
+        fetch('/api/send-email-notification', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            type: 'profile_view',
+            slug,
+            profileOwnerEmail: data.email,
+            profileName: data.name
+          })
+        }).catch(err => console.log('Email notification failed:', err));
+        
       } catch (error: any) {
         console.error("Error fetching profile:", error);
         toast({
@@ -85,6 +100,33 @@ const PublicInvestorProfilePage: React.FC = () => {
     yellow: "#FFD60A",
     gray: "#8E8E93",
   };
+
+  const howItWorksSteps = [
+    {
+      title: "Open this profile",
+      description: "You are here — preview the verified investor snapshot.",
+      badge: "Live",
+      accent: tokens.blue,
+    },
+    {
+      title: "Send 3 FREE messages",
+      description: "Break the ice, share context, and gauge fit without paying.",
+      badge: "Free",
+      accent: "#7C4DFF",
+    },
+    {
+      title: "Unlock chat for $1",
+      description: "Get 30 minutes of unlimited chat and fast follow-ups.",
+      badge: "Instant",
+      accent: tokens.green,
+    },
+    {
+      title: "Access everything",
+      description: "Reveal contact details & MCP endpoints once you’re ready to move.",
+      badge: "Full access",
+      accent: tokens.tertiary,
+    },
+  ];
 
   const getConfidenceChip = (confidence: number) => {
     const label = confidence >= 0.7 ? "HIGH" : confidence >= 0.4 ? "MEDIUM" : "LOW";
@@ -150,66 +192,66 @@ const PublicInvestorProfilePage: React.FC = () => {
     
     // Basic Information
     if (onboardingData.account_type && isFieldVisible('onboarding_data', 'account_type')) {
-      fields.push({ key: 'account_type', label: ONBOARDING_FIELD_LABELS.account_type, value: VALUE_LABELS[onboardingData.account_type] || onboardingData.account_type, category: 'Basic Information' });
+      fields.push({ key: 'account_type', label: ONBOARDING_FIELD_LABELS.account_type, value: maskOnboardingField('account_type', VALUE_LABELS[onboardingData.account_type] || onboardingData.account_type), category: 'Basic Information' });
     }
     if (onboardingData.selected_fund && isFieldVisible('onboarding_data', 'selected_fund')) {
-      fields.push({ key: 'selected_fund', label: ONBOARDING_FIELD_LABELS.selected_fund, value: onboardingData.selected_fund, category: 'Basic Information' });
+      fields.push({ key: 'selected_fund', label: ONBOARDING_FIELD_LABELS.selected_fund, value: maskOnboardingField('selected_fund', onboardingData.selected_fund), category: 'Basic Information' });
     }
     if (onboardingData.referral_source && isFieldVisible('onboarding_data', 'referral_source')) {
-      fields.push({ key: 'referral_source', label: ONBOARDING_FIELD_LABELS.referral_source, value: VALUE_LABELS[onboardingData.referral_source] || onboardingData.referral_source, category: 'Basic Information' });
+      fields.push({ key: 'referral_source', label: ONBOARDING_FIELD_LABELS.referral_source, value: maskOnboardingField('referral_source', VALUE_LABELS[onboardingData.referral_source] || onboardingData.referral_source), category: 'Basic Information' });
     }
     
     // Citizenship & Residence
     if (onboardingData.citizenship_country && isFieldVisible('onboarding_data', 'citizenship_country')) {
-      fields.push({ key: 'citizenship_country', label: ONBOARDING_FIELD_LABELS.citizenship_country, value: onboardingData.citizenship_country, category: 'Citizenship & Residence' });
+      fields.push({ key: 'citizenship_country', label: ONBOARDING_FIELD_LABELS.citizenship_country, value: maskOnboardingField('citizenship_country', onboardingData.citizenship_country), category: 'Citizenship & Residence' });
     }
     if (onboardingData.residence_country && isFieldVisible('onboarding_data', 'residence_country')) {
-      fields.push({ key: 'residence_country', label: ONBOARDING_FIELD_LABELS.residence_country, value: onboardingData.residence_country, category: 'Citizenship & Residence' });
+      fields.push({ key: 'residence_country', label: ONBOARDING_FIELD_LABELS.residence_country, value: maskOnboardingField('residence_country', onboardingData.residence_country), category: 'Citizenship & Residence' });
     }
     if (onboardingData.account_structure && isFieldVisible('onboarding_data', 'account_structure')) {
-      fields.push({ key: 'account_structure', label: ONBOARDING_FIELD_LABELS.account_structure, value: VALUE_LABELS[onboardingData.account_structure] || onboardingData.account_structure, category: 'Citizenship & Residence' });
+      fields.push({ key: 'account_structure', label: ONBOARDING_FIELD_LABELS.account_structure, value: maskOnboardingField('account_structure', VALUE_LABELS[onboardingData.account_structure] || onboardingData.account_structure), category: 'Citizenship & Residence' });
     }
     
-    // Legal Information
+    // Legal Information (MASKED)
     if (onboardingData.legal_first_name && isFieldVisible('onboarding_data', 'legal_first_name')) {
-      fields.push({ key: 'legal_first_name', label: ONBOARDING_FIELD_LABELS.legal_first_name, value: onboardingData.legal_first_name, category: 'Legal Information' });
+      fields.push({ key: 'legal_first_name', label: ONBOARDING_FIELD_LABELS.legal_first_name, value: maskOnboardingField('legal_first_name', onboardingData.legal_first_name), category: 'Legal Information' });
     }
     if (onboardingData.legal_last_name && isFieldVisible('onboarding_data', 'legal_last_name')) {
-      fields.push({ key: 'legal_last_name', label: ONBOARDING_FIELD_LABELS.legal_last_name, value: onboardingData.legal_last_name, category: 'Legal Information' });
+      fields.push({ key: 'legal_last_name', label: ONBOARDING_FIELD_LABELS.legal_last_name, value: maskOnboardingField('legal_last_name', onboardingData.legal_last_name), category: 'Legal Information' });
     }
     if (onboardingData.date_of_birth && isFieldVisible('onboarding_data', 'date_of_birth')) {
-      fields.push({ key: 'date_of_birth', label: ONBOARDING_FIELD_LABELS.date_of_birth, value: new Date(onboardingData.date_of_birth).toLocaleDateString(), category: 'Legal Information' });
+      fields.push({ key: 'date_of_birth', label: ONBOARDING_FIELD_LABELS.date_of_birth, value: maskOnboardingField('date_of_birth', onboardingData.date_of_birth), category: 'Legal Information' });
     }
     if (onboardingData.ssn_encrypted && isFieldVisible('onboarding_data', 'ssn_encrypted')) {
-      fields.push({ key: 'ssn_encrypted', label: ONBOARDING_FIELD_LABELS.ssn_encrypted, value: '***-**-****', category: 'Legal Information' });
+      fields.push({ key: 'ssn_encrypted', label: ONBOARDING_FIELD_LABELS.ssn_encrypted, value: maskOnboardingField('ssn_encrypted', onboardingData.ssn_encrypted), category: 'Legal Information' });
     }
     
-    // Address
+    // Address (MASKED)
     if (onboardingData.address_line_1 && isFieldVisible('onboarding_data', 'address_line_1')) {
-      fields.push({ key: 'address_line_1', label: ONBOARDING_FIELD_LABELS.address_line_1, value: onboardingData.address_line_1, category: 'Address' });
+      fields.push({ key: 'address_line_1', label: ONBOARDING_FIELD_LABELS.address_line_1, value: maskOnboardingField('address_line_1', onboardingData.address_line_1), category: 'Address' });
     }
     if (onboardingData.city && isFieldVisible('onboarding_data', 'city')) {
-      fields.push({ key: 'city', label: ONBOARDING_FIELD_LABELS.city, value: onboardingData.city, category: 'Address' });
+      fields.push({ key: 'city', label: ONBOARDING_FIELD_LABELS.city, value: maskOnboardingField('city', onboardingData.city), category: 'Address' });
     }
     if (onboardingData.state && isFieldVisible('onboarding_data', 'state')) {
-      fields.push({ key: 'state', label: ONBOARDING_FIELD_LABELS.state, value: onboardingData.state, category: 'Address' });
+      fields.push({ key: 'state', label: ONBOARDING_FIELD_LABELS.state, value: maskOnboardingField('state', onboardingData.state), category: 'Address' });
     }
     if (onboardingData.zip_code && isFieldVisible('onboarding_data', 'zip_code')) {
-      fields.push({ key: 'zip_code', label: ONBOARDING_FIELD_LABELS.zip_code, value: onboardingData.zip_code, category: 'Address' });
+      fields.push({ key: 'zip_code', label: ONBOARDING_FIELD_LABELS.zip_code, value: maskOnboardingField('zip_code', onboardingData.zip_code), category: 'Address' });
     }
     
-    // Investment Details
+    // Investment Details (MASKED)
     if (onboardingData.initial_investment_amount && isFieldVisible('onboarding_data', 'initial_investment_amount')) {
-      fields.push({ key: 'initial_investment_amount', label: ONBOARDING_FIELD_LABELS.initial_investment_amount, value: `$${Number(onboardingData.initial_investment_amount).toLocaleString()}`, category: 'Investment Details' });
+      fields.push({ key: 'initial_investment_amount', label: ONBOARDING_FIELD_LABELS.initial_investment_amount, value: maskOnboardingField('initial_investment_amount', onboardingData.initial_investment_amount), category: 'Investment Details' });
     }
     if (onboardingData.recurring_investment_enabled && isFieldVisible('onboarding_data', 'recurring_investment_enabled')) {
-      fields.push({ key: 'recurring_investment_enabled', label: ONBOARDING_FIELD_LABELS.recurring_investment_enabled, value: onboardingData.recurring_investment_enabled ? 'Yes' : 'No', category: 'Investment Details' });
+      fields.push({ key: 'recurring_investment_enabled', label: ONBOARDING_FIELD_LABELS.recurring_investment_enabled, value: maskOnboardingField('recurring_investment_enabled', onboardingData.recurring_investment_enabled ? 'Yes' : 'No'), category: 'Investment Details' });
     }
     if (onboardingData.recurring_frequency && isFieldVisible('onboarding_data', 'recurring_frequency')) {
-      fields.push({ key: 'recurring_frequency', label: ONBOARDING_FIELD_LABELS.recurring_frequency, value: VALUE_LABELS[onboardingData.recurring_frequency] || onboardingData.recurring_frequency, category: 'Investment Details' });
+      fields.push({ key: 'recurring_frequency', label: ONBOARDING_FIELD_LABELS.recurring_frequency, value: maskOnboardingField('recurring_frequency', VALUE_LABELS[onboardingData.recurring_frequency] || onboardingData.recurring_frequency), category: 'Investment Details' });
     }
     if (onboardingData.recurring_amount && isFieldVisible('onboarding_data', 'recurring_amount')) {
-      fields.push({ key: 'recurring_amount', label: ONBOARDING_FIELD_LABELS.recurring_amount, value: `$${Number(onboardingData.recurring_amount).toLocaleString()}`, category: 'Investment Details' });
+      fields.push({ key: 'recurring_amount', label: ONBOARDING_FIELD_LABELS.recurring_amount, value: maskOnboardingField('recurring_amount', onboardingData.recurring_amount), category: 'Investment Details' });
     }
     
     return fields;
@@ -355,6 +397,142 @@ const PublicInvestorProfilePage: React.FC = () => {
             </Text>
           </VStack>
 
+          {/* How It Works Banner */}
+          <Box
+            mb={8}
+            position="relative"
+            overflow="hidden"
+            borderRadius="20px"
+            border={`1px solid ${tokens.separator}`}
+            bg="linear-gradient(145deg, rgba(10,132,255,0.08), rgba(255,214,10,0.09))"
+            p={{ base: 5, md: 6 }}
+            boxShadow="0 12px 32px rgba(0,0,0,0.06)"
+          >
+            <Box
+              position="absolute"
+              insetY={{ base: 6, md: 8 }}
+              left={0}
+              width="3px"
+              borderRadius="full"
+              bg="linear-gradient(180deg, rgba(10,132,255,0.6), rgba(52,199,89,0.6))"
+            />
+            <Box
+              position="absolute"
+              top="-120px"
+              right="-120px"
+              w="240px"
+              h="240px"
+              bg="radial-gradient(circle at center, rgba(10,132,255,0.18), transparent 60%)"
+              pointerEvents="none"
+              filter="blur(10px)"
+            />
+            <Box
+              position="absolute"
+              bottom="-140px"
+              left="-140px"
+              w="280px"
+              h="280px"
+              bg="radial-gradient(circle at center, rgba(52,199,89,0.12), transparent 58%)"
+              pointerEvents="none"
+              filter="blur(12px)"
+            />
+
+            <VStack align="stretch" spacing={5} position="relative">
+              <HStack justify="space-between" align="center" spacing={3}>
+                <HStack spacing={3}>
+                  <Box
+                    w="40px"
+                    h="40px"
+                    borderRadius="14px"
+                    bg="white"
+                    border={`1px solid ${tokens.separator}`}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    boxShadow="0 6px 18px rgba(0,0,0,0.06)"
+                  >
+                    <span role="img" aria-label="lightbulb">💡</span>
+                  </Box>
+                  <VStack align="start" spacing={0}>
+                    <Text fontSize="18px" fontWeight="600" color={tokens.label}>
+                      How it works
+                    </Text>
+                    <Text fontSize="13px" color={tokens.secondary}>
+                      Move from hello → full access in a few quick steps.
+                    </Text>
+                  </VStack>
+                </HStack>
+                <Box
+                  px={3}
+                  py={1.5}
+                  borderRadius="full"
+                  bg="rgba(10,132,255,0.12)"
+                  color={tokens.blue}
+                  fontSize="12px"
+                  fontWeight="600"
+                  letterSpacing="0.02em"
+                >
+                  3 free messages included
+                </Box>
+              </HStack>
+
+              <VStack align="stretch" spacing={3}>
+                {howItWorksSteps.map((step, index) => (
+                  <HStack
+                    key={step.title}
+                    align="flex-start"
+                    spacing={4}
+                    p={{ base: 4, md: 4.5 }}
+                    bg="rgba(255,255,255,0.95)"
+                    borderRadius="14px"
+                    border={`1px solid ${tokens.separator}`}
+                    boxShadow="0 10px 24px rgba(0,0,0,0.05)"
+                  >
+                    <Box
+                      minW="38px"
+                      h="38px"
+                      borderRadius="12px"
+                      bg={`linear-gradient(135deg, ${step.accent}1A, ${step.accent}33)`}
+                      border={`1px solid ${step.accent}33`}
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      color={step.accent}
+                      fontWeight="700"
+                      fontSize="13px"
+                    >
+                      0{index + 1}
+                    </Box>
+                    <VStack align="stretch" spacing={1} flex={1}>
+                      <HStack justify="space-between" align="center" spacing={3}>
+                        <Text fontSize="15px" fontWeight="600" color={tokens.label}>
+                          {step.title}
+                        </Text>
+                        <Box
+                          px={2.5}
+                          py={1}
+                          borderRadius="full"
+                          bg={`${step.accent}14`}
+                          color={step.accent}
+                          fontSize="12px"
+                          fontWeight="700"
+                          border={`1px solid ${step.accent}2E`}
+                          letterSpacing="0.02em"
+                          whiteSpace="nowrap"
+                        >
+                          {step.badge}
+                        </Box>
+                      </HStack>
+                      <Text fontSize="14px" color={tokens.secondary} lineHeight="1.55">
+                        {step.description}
+                      </Text>
+                    </VStack>
+                  </HStack>
+                ))}
+              </VStack>
+            </VStack>
+          </Box>
+
           {/* Chat Widget - Moved to Top for Better Visibility */}
           <Box mb={8}>
             <InvestorChatWidget slug={slug!} investorName={maskedData.name} />
@@ -465,7 +643,8 @@ const PublicInvestorProfilePage: React.FC = () => {
             </Box>
           )}
 
-          {/* Developer Settings */}
+          {/* Developer Settings - Only visible after payment */}
+          {/* For now showing to everyone - will be hidden until payment in future update */}
           <Box mt={8}>
             <DeveloperSettings investorSlug={slug!} />
           </Box>

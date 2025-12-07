@@ -297,24 +297,7 @@ function InvestorProfilePage() {
               p={6}
               boxShadow="0 10px 30px rgba(15, 23, 42, 0.06)"
             >
-              <HStack justify="space-between" align="center" mb={3}>
-                <HStack spacing={3}>
-                  <Icon as={FaApple} boxSize={6} color="#0B1120" />
-                  <VStack align="start" spacing={0}>
-                    <Text fontSize="md" fontWeight="600" color="#0B1120">
-                      Add your Hushh Gold card
-                    </Text>
-                    <Text fontSize="sm" color="#475569">
-                      Download the Apple/Google Wallet pass to keep your investor status handy.
-                    </Text>
-                  </VStack>
-                </HStack>
-                <Badge colorScheme={passReady ? "green" : "yellow"} borderRadius="full">
-                  {passReady ? "Ready" : "New"}
-                </Badge>
-              </HStack>
-
-              <HStack spacing={3} flexWrap="wrap">
+              <HStack spacing={3} justify="center">
                 <Button
                   onClick={() => triggerWalletPassDownload("apple", setIsApplePassLoading)}
                   isLoading={isApplePassLoading}
@@ -347,13 +330,7 @@ function InvestorProfilePage() {
                 >
                   Add to Google Wallet
                 </Button>
-                <Button variant="outline" onClick={() => navigate("/hushh-user-profile")}>
-                  Go to your dashboard
-                </Button>
               </HStack>
-              <Text fontSize="sm" color="#6B7280" mt={3}>
-                Works best on iPhone with Safari or Android with Google Wallet. You can re-download this pass any time from your profile.
-              </Text>
             </Box>
           </VStack>
         </Center>
