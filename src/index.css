@@ -117,20 +117,20 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 2000;
   width: 100%;
   overflow: hidden;
-  background: #f8fafc;
+  background: linear-gradient(180deg, #f9fbff 0%, #f5f7fb 100%);
   color: #0f172a;
   font-family: var(--font-main), sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 13.5px;
+  line-height: 1.65;
   border-bottom: 1px solid rgba(15, 23, 42, 0.06);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.08);
 }
 
 .marquee-track {
   display: inline-flex;
   min-width: 200%;
   white-space: nowrap;
-  padding: 12px 32px;
+  padding: 12px 48px;
   animation: marquee-slide 24s linear infinite;
 }
 
@@ -151,12 +151,33 @@ h1, h2, h3, h4, h5, h6 {
 .marquee-body {
   color: #0f172a;
   letter-spacing: 0.02em;
-  word-spacing: 6px;
+  word-spacing: 8px;
 }
 
 .marquee-spacer {
   height: 44px;
   width: 100%;
+}
+
+.marquee-container::before,
+.marquee-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 40px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, #f9fbff 0%, rgba(249, 251, 255, 0) 100%);
+}
+
+.marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, #f9fbff 0%, rgba(249, 251, 255, 0) 100%);
 }
 
 @keyframes marquee-slide {
