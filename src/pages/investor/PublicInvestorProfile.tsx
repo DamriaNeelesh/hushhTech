@@ -7,7 +7,7 @@ import {
   AccordionPanel, AccordionIcon, useToast,
   Icon, IconButton, useClipboard, Spinner,
 } from "@chakra-ui/react";
-import { Share2, Copy, Check } from "lucide-react";
+import { Share2, Copy, Check, Mail } from "lucide-react";
 import { PrimaryCtaButton } from "../../components/PrimaryCtaButton";
 import { InvestorChatWidget } from "../../components/InvestorChatWidget";
 import DeveloperSettings from "../../components/DeveloperSettings";
@@ -127,6 +127,11 @@ const PublicInvestorProfilePage: React.FC = () => {
       accent: tokens.tertiary,
     },
   ];
+
+  const handleContact = () => {
+    const mailtoLink = "mailto:manish@hushh.ai";
+    window.open(mailtoLink, "_blank");
+  };
 
   const getConfidenceChip = (confidence: number) => {
     const label = confidence >= 0.7 ? "HIGH" : confidence >= 0.4 ? "MEDIUM" : "LOW";
@@ -670,6 +675,38 @@ const PublicInvestorProfilePage: React.FC = () => {
             </VStack>
           </Box>
         </Box>
+      </Box>
+
+      {/* Contact floating bubble */}
+      <Box
+        position="fixed"
+        bottom={{ base: 6, md: 8 }}
+        right={{ base: 4, md: 6 }}
+        zIndex={1300}
+        role="button"
+        onClick={handleContact}
+        aria-label="Contact us"
+        cursor="pointer"
+        borderRadius="full"
+        boxShadow="0 12px 30px rgba(0,0,0,0.18)"
+        transition="transform 0.15s ease, box-shadow 0.15s ease"
+        _hover={{ transform: "translateY(-2px)", boxShadow: "0 16px 36px rgba(0,0,0,0.22)" }}
+        _active={{ transform: "translateY(0)", boxShadow: "0 10px 28px rgba(0,0,0,0.18)" }}
+        bg="white"
+        p={2}
+      >
+        <IconButton
+          aria-label="Email us"
+          icon={<Icon as={Mail} boxSize={6} color="black" />}
+          onClick={handleContact}
+          bg="white"
+          borderRadius="full"
+          w="56px"
+          h="56px"
+          _hover={{ bg: "white" }}
+          _active={{ bg: "white" }}
+          boxShadow="inset 0 0 0 1px rgba(0,0,0,0.06)"
+        />
       </Box>
     </>
   );
