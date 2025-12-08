@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Login from './pages/Login'
 import Contact from './pages/Contact';
 import ScrollToTop from './components/ScrollToTop';
+import FloatingContactBubble from './components/FloatingContactBubble';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from './theme';
 import Consumers from './pages/services/consumers';
@@ -280,7 +281,7 @@ function App() {
           {/* Spacer so Navbar sits BELOW the marquee strip */}
           <div className="marquee-spacer h-12" />
           <Navbar />
-
+          <FloatingContactBubble />
           {/* {session && <NDAPopup />} */}
           <ContentWrapper>
             <Routes>
