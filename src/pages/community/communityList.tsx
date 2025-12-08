@@ -35,10 +35,17 @@ import { formatShortDate, parseDate } from "../../utils/dateFormatter";
 // Dropdown labels
 const NDA_OPTION = "Sensitive Documents (NDA approval Req.)";
 const MARKET_UPDATES_OPTION = "Market Updates";
+const PINNED_SLUGS = [
+  "general/ai-powered-berkshire-hathaway",
+  "general/sell-the-wall-featured",
+];
 
-// Supabase REST API settings
-const ALOHA_FUNDS_API_BASE = "https://spmxyqxjqxcyywkapong.supabase.co";
+// Supabase REST API settings (prefer env, fall back to legacy defaults)
+const ALOHA_FUNDS_API_BASE =
+  (import.meta as any).env?.VITE_MARKET_SUPABASE_URL ||
+  "https://spmxyqxjqxcyywkapong.supabase.co";
 const ALOHA_FUNDS_API_KEY =
+  (import.meta as any).env?.VITE_MARKET_SUPABASE_KEY ||
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNwbXh5cXhqcXhjeXl3a2Fwb25nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3MTYwNDIsImV4cCI6MjA2MDI5MjA0Mn0._C6lZcTubk2VuwDKC2uDOsiFFPaKRiEJSqBjtGpm99E";
 
 interface UnifiedPost {
@@ -214,6 +221,25 @@ const CommunityList: React.FC = () => {
       return db - da;
     });
   }, [publicPosts, combinedMarketUpdates]);
+
+  const pinnedAllContent = useMemo<UnifiedPost[]>(() => {
+    const orderMap = new Map(PINNED_SLUGS.map((slug, idx) => [slug, idx]));
+    const pinned: UnifiedPost[] = [];
+    const rest: UnifiedPost[] = [];
+
+    allContentSorted.forEach((post) => {
+      const order = orderMap.get(post.slug || post.id);
+      if (order !== undefined) {
+        pinned[order] = post;
+      } else {
+        rest.push(post);
+      }
+    });
+
+    // Filter out any undefined in pinned, keep order
+    const compactPinned = pinned.filter(Boolean);
+    return [...compactPinned, ...rest];
+  }, [allContentSorted]);
 
   // 7) NDA / session setup (as you had it)
   useEffect(() => {
@@ -447,9 +473,9 @@ const CommunityList: React.FC = () => {
                   <Text textAlign="center">No market updates available.</Text>
                 )
               ) : selectedCategory === "All" ? (
-                allContentSorted.length ? (
+                pinnedAllContent.length ? (
                   <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
-                    {allContentSorted.map((p, index) => renderMarketItem(p, index))}
+                    {pinnedAllContent.map((p, index) => renderMarketItem(p, index))}
                   </SimpleGrid>
                 ) : (
                   <Text textAlign="center">No content available.</Text>
