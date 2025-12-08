@@ -30,6 +30,7 @@ import AIPoweredBerkshire from '../content/posts/general/aiPoweredBerkshire';
 import PerpetualAlphaEngine from '../content/posts/general/perpetualAlphaEngine';
 import MedallionModelIndia from '../content/posts/general/medallionModelIndia';
 import HushhRenaissanceAINative from '../content/posts/general/hushhRenaissanceAINative';
+import SellTheWallFeatured from '../content/posts/general/sellTheWallFeatured';
 
 // Images
 import FundsUpdateImg1 from '../components/images/0_Fund Performance.jpg';
@@ -171,6 +172,18 @@ export interface PostData {
 }
 
 export const posts: PostData[] = [
+  // Featured Post - Sell the Wall (Nov 30, 2025)
+  {
+    count: 181,
+    slug: 'general/sell-the-wall-featured',
+    title: 'Sell the Wall',
+    publishedAt: '2025-11-30',
+    description: 'A systematic approach to capturing alpha through intelligent options selling on the world\'s most exceptional businesses—those rare monopolies printing cash while AI optimizes every trade.',
+    category: 'investment & financial strategies',
+    Component: SellTheWallFeatured,
+    image: HushhAiLogoImg,
+    accessLevel: 'Public',
+  },
   // New December 2025 posts - Gamma presentations
   {
     count: 180,
