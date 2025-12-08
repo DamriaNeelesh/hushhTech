@@ -10,19 +10,12 @@ const SellTheWallFeatured = () => {
         <meta name="description" content="A systematic approach to capturing alpha through intelligent options selling on the world's most exceptional businesses—those rare monopolies printing cash while AI optimizes every trade." />
       </Helmet>
 
-      <Box 
-        position="fixed"
-        top="64px"
-        left="0"
-        right="0"
-        bottom="0"
-        width="100vw"
-        height="calc(100vh - 64px)"
-        overflow="hidden"
-        margin="0"
-        padding="0"
-        zIndex="999"
-        bg="white"
+      <Box
+        bg="#fdf7f1"
+        minH="100vh"
+        // px={{ base: 4, md: 8 }}
+        // pt={{ base: 20, md: 34 }}
+        // pb={{ base: 12, md: 16 }}
       >
         <Box
           as="iframe"
@@ -30,9 +23,12 @@ const SellTheWallFeatured = () => {
           title="Sell the Wall"
           allowFullScreen
           width="100%"
-          height="100%"
+          minHeight={{ base: "70vh", md: "80vh" }}
           border="0"
           display="block"
+          borderRadius="18px"
+          boxShadow="0 16px 48px rgba(15, 23, 42, 0.12)"
+          bg="white"
         />
       </Box>
     </>

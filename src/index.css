@@ -8,7 +8,8 @@
   --font-main: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   font-family: var(--font-main) !important;
@@ -17,7 +18,12 @@ html, body {
 }
 
 /* Enhanced typography for headings */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-main);
   font-weight: 400;
   letter-spacing: -0.01em;
@@ -107,4 +113,102 @@ h1, h2, h3, h4, h5, h6 {
 
 .blue-gradient-bg {
   background: linear-gradient(to right, #00A9E0, #6DD3EF);
+}
+
+/* Top marquee banner */
+.marquee-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  width: 100%;
+  height: 40px;
+  /* <-- explicit bar height */
+  display: flex;
+  /* center contents vertically */
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(180deg, #f9fbff 0%, #f5f7fb 100%);
+  color: #0f172a;
+  font-family: var(--font-main), sans-serif;
+  font-size: 13.5px;
+  line-height: 1.65;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.08);
+}
+
+.marquee-track {
+  display: inline-flex;
+  min-width: max-content;
+  white-space: nowrap;
+  padding: 12px 48px;
+  /* only horizontal padding now */
+  animation: marquee-slide 24s linear infinite;
+}
+
+
+.marquee-track .marquee-chunk {
+  display: inline-flex;
+  gap: 8px;
+  padding-left: 48px;
+  padding-right: 140px;
+  /* ⬅️ extra gap between end and next "Introducing..." */
+}
+
+.marquee-prefix {
+  background-image: linear-gradient(to right, #00A9E0, #4BC0C8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 600;
+}
+
+.marquee-body {
+  color: #0f172a;
+  letter-spacing: 0.01em;
+  word-spacing: 0;
+}
+
+.ticker {
+  white-space: nowrap;
+}
+
+.ticker-sep {
+  padding: 0 10px 0 4px;
+}
+
+.marquee-spacer {
+  width: 100%;
+}
+
+
+.marquee-container::before,
+.marquee-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 40px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, #f9fbff 0%, rgba(249, 251, 255, 0) 100%);
+}
+
+.marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, #f9fbff 0%, rgba(249, 251, 255, 0) 100%);
+}
+
+@keyframes marquee-slide {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }

@@ -68,7 +68,7 @@ const FundA = () => {
               fontWeight="500"
               mb={2}
             >
-              18-24%
+              18-23%
             </Heading>
             
             <Text
@@ -565,7 +565,7 @@ const FundA = () => {
                     Options Premium (Sell the Wall - Theta/Vega)
                   </Td>
                   <Td fontSize={{ base: "md", md: "lg" }} fontWeight="500" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
-                    4-6%
+                    4-5%
                   </Td>
                 </Tr>
                 <Tr borderBottom="1px solid" borderColor="gray.100">
@@ -589,7 +589,7 @@ const FundA = () => {
                     Total Expected Gross Return
                   </Td>
                   <Td fontSize={{ base: "md", md: "lg" }} fontWeight="500" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
-                    18-24%
+                    18-23%
                   </Td>
                 </Tr>
                 <Tr>
@@ -597,7 +597,7 @@ const FundA = () => {
                     Target Net IRR (Post-Fees & Expenses)
                   </Td>
                   <Td fontSize={{ base: "xl", md: "2xl" }} fontWeight="500" color="#00A9E0" textAlign="right" py={6} whiteSpace="nowrap">
-                    18-24%
+                    18-23%
                   </Td>
                 </Tr>
               </Tbody>
