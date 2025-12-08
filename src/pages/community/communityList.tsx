@@ -22,10 +22,15 @@ import {
   VStack,
   HStack,
   Icon,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  IconButton,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { ChevronRightIcon } from "@chakra-ui/icons";
+import { ChevronRightIcon, SearchIcon, CloseIcon } from "@chakra-ui/icons";
 import NDARequestModal from "../../components/NDARequestModal";
 import NDADocumentModal from "../../components/NDADocumentModal";
 import config from "../../resources/config/config";
@@ -177,6 +182,7 @@ const CommunityList: React.FC = () => {
 
   // 5) UI state
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
   const [ndaApproved, setNdaApproved] = useState(false);
   const [session, setSession] = useState<any>(null);
   const [showNdaModal, setShowNdaModal] = useState(false);
@@ -240,6 +246,93 @@ const CommunityList: React.FC = () => {
     const compactPinned = pinned.filter(Boolean);
     return [...compactPinned, ...rest];
   }, [allContentSorted]);
+
+  // Helper function to get sample description based on title
+  const getPostDescription = (post: UnifiedPost) => {
+    if (post.description) return post.description;
+    
+    if (post.title.toLowerCase().includes("ai") || post.title.toLowerCase().includes("artificial intelligence")) {
+      return "Exploring how artificial intelligence is revolutionizing portfolio management and risk assessment.";
+    } else if (post.title.toLowerCase().includes("market")) {
+      return "Our latest analysis of market trends and investment opportunities in the current economic climate.";
+    } else if (post.title.toLowerCase().includes("review") || post.title.toLowerCase().includes("performance")) {
+      return "Comprehensive review of our first quarter performance and strategic adjustments for Q2.";
+    } else {
+      return "Stay informed with our latest market insights, research findings, and company updates.";
+    }
+  };
+
+  // 6.5) Apply search filter on top of category filter
+  const searchFilteredContent = useMemo(() => {
+    if (!searchQuery.trim()) {
+      // No search query, return based on category selection
+      if (selectedCategory === MARKET_UPDATES_OPTION) {
+        return combinedMarketUpdates;
+      } else if (selectedCategory === "All") {
+        return pinnedAllContent;
+      } else if (selectedCategory === NDA_OPTION) {
+        return ndaApproved 
+          ? ndaPosts.map((p) => ({
+              id: p.slug,
+              title: p.title,
+              date: p.publishedAt,
+              slug: p.slug,
+              isApiReport: false,
+              description: p.description || getPostDescription({id: p.slug, title: p.title, date: p.publishedAt})
+            }))
+          : [];
+      } else {
+        return filteredPosts.map((p) => ({
+          id: p.slug,
+          title: p.title,
+          date: p.publishedAt,
+          slug: p.slug,
+          isApiReport: false,
+          description: p.description || getPostDescription({id: p.slug, title: p.title, date: p.publishedAt})
+        }));
+      }
+    }
+
+    // Apply search filter
+    const query = searchQuery.toLowerCase();
+    let dataToSearch: UnifiedPost[] = [];
+
+    if (selectedCategory === MARKET_UPDATES_OPTION) {
+      dataToSearch = combinedMarketUpdates;
+    } else if (selectedCategory === "All") {
+      dataToSearch = pinnedAllContent;
+    } else if (selectedCategory === NDA_OPTION) {
+      dataToSearch = ndaApproved 
+        ? ndaPosts.map((p) => ({
+            id: p.slug,
+            title: p.title,
+            date: p.publishedAt,
+            slug: p.slug,
+            isApiReport: false,
+            description: p.description || getPostDescription({id: p.slug, title: p.title, date: p.publishedAt})
+          }))
+        : [];
+    } else {
+      dataToSearch = filteredPosts.map((p) => ({
+        id: p.slug,
+        title: p.title,
+        date: p.publishedAt,
+        slug: p.slug,
+        isApiReport: false,
+        description: p.description || getPostDescription({id: p.slug, title: p.title, date: p.publishedAt})
+      }));
+    }
+
+    return dataToSearch.filter((item) => {
+      const titleMatch = item.title.toLowerCase().includes(query);
+      const descMatch = (item.description || "").toLowerCase().includes(query);
+      // For local posts, also search by category
+      const post = localPosts.find(p => p.slug === item.slug);
+      const categoryMatch = post ? post.category.toLowerCase().includes(query) : false;
+      
+      return titleMatch || descMatch || categoryMatch;
+    });
+  }, [searchQuery, selectedCategory, combinedMarketUpdates, pinnedAllContent, filteredPosts, ndaPosts, ndaApproved, localPosts]);
 
   // 7) NDA / session setup (as you had it)
   useEffect(() => {
@@ -330,21 +423,6 @@ const CommunityList: React.FC = () => {
     </Alert>
   );
 
-  // Helper function to get sample description based on title
-  const getPostDescription = (post: UnifiedPost) => {
-    if (post.description) return post.description;
-    
-    if (post.title.toLowerCase().includes("ai") || post.title.toLowerCase().includes("artificial intelligence")) {
-      return "Exploring how artificial intelligence is revolutionizing portfolio management and risk assessment.";
-    } else if (post.title.toLowerCase().includes("market")) {
-      return "Our latest analysis of market trends and investment opportunities in the current economic climate.";
-    } else if (post.title.toLowerCase().includes("review") || post.title.toLowerCase().includes("performance")) {
-      return "Comprehensive review of our first quarter performance and strategic adjustments for Q2.";
-    } else {
-      return "Stay informed with our latest market insights, research findings, and company updates.";
-    }
-  };
-
   const renderMarketItem = useCallback((p: UnifiedPost, index: number) => {
     const dateFmt = formatShortDate(p.date);
     const dateLabel = dateFmt.split(' ').join(' ');
@@ -409,10 +487,43 @@ const CommunityList: React.FC = () => {
         color="gray.600" 
         maxW="container.md" 
         mx="auto" 
-        mb={10}
+        mb={8}
       >
         Stay informed with our latest market insights, research findings, and company updates.
       </Text>
+
+      {/* Search Input */}
+      <Box mb={8} maxW="600px" mx="auto">
+        <InputGroup size="lg">
+          <InputLeftElement pointerEvents="none">
+            <SearchIcon color="gray.400" />
+          </InputLeftElement>
+          <Input
+            placeholder="Search posts, articles, and updates..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            bg="white"
+            borderColor="gray.300"
+            _placeholder={{ color: "gray.400" }}
+            _focus={{
+              borderColor: "#0AADBC",
+              boxShadow: "0 0 0 1px #0AADBC"
+            }}
+          />
+          {searchQuery && (
+            <InputRightElement>
+              <IconButton
+                aria-label="Clear search"
+                icon={<CloseIcon />}
+                size="sm"
+                variant="ghost"
+                onClick={() => setSearchQuery("")}
+                _hover={{ bg: "gray.100" }}
+              />
+            </InputRightElement>
+          )}
+        </InputGroup>
+      </Box>
 
       <Box mb={8} display={{ md: "none" }}>
         <Select
@@ -464,33 +575,25 @@ const CommunityList: React.FC = () => {
         ? renderError(apiError)
         : (
             <Box>
-              {selectedCategory === MARKET_UPDATES_OPTION ? (
-                combinedMarketUpdates.length ? (
-                  <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
-                    {combinedMarketUpdates.map((p, index) => renderMarketItem(p, index))}
-                  </SimpleGrid>
-                ) : (
-                  <Text textAlign="center">No market updates available.</Text>
-                )
-              ) : selectedCategory === "All" ? (
-                pinnedAllContent.length ? (
-                  <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
-                    {pinnedAllContent.map((p, index) => renderMarketItem(p, index))}
-                  </SimpleGrid>
-                ) : (
-                  <Text textAlign="center">No content available.</Text>
-                )
-              ) : (
+              {searchFilteredContent.length > 0 ? (
                 <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
-                  {filteredPosts.map((p, index) => renderMarketItem({
-                    id: p.slug,
-                    title: p.title,
-                    date: p.publishedAt,
-                    slug: p.slug,
-                    isApiReport: false,
-                    description: p.description || getPostDescription({id: p.slug, title: p.title, date: p.publishedAt})
-                  }, index))}
+                  {searchFilteredContent.map((p, index) => renderMarketItem(p, index))}
                 </SimpleGrid>
+              ) : (
+                <Box textAlign="center" py={12}>
+                  <Text fontSize="lg" color="gray.500" mb={2}>
+                    {searchQuery 
+                      ? `No results found for "${searchQuery}"`
+                      : selectedCategory === NDA_OPTION && !ndaApproved
+                      ? "Please complete NDA approval to view sensitive documents"
+                      : "No content available"}
+                  </Text>
+                  {searchQuery && (
+                    <Text fontSize="sm" color="gray.400">
+                      Try adjusting your search terms or browse by category
+                    </Text>
+                  )}
+                </Box>
               )}
             </Box>
           )}
