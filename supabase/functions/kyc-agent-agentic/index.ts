@@ -12,10 +12,17 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.0';
 import { 
+  HUSHH_KYC_AGENT_SYSTEM_PROMPT,
   HUSHH_IDENTITY_ORACLE_SYSTEM_PROMPT, 
   buildOracleContext, 
   parseOracleResponse,
-  type OracleResponse
+  parseKycAgentResponse,
+  calculateTrustScore,
+  createInitialKycState,
+  type OracleResponse,
+  type KycAgentResponse,
+  type KycConversationState,
+  type EvidenceItem,
 } from '../kyc-agent-a2a-protocol/prompts.ts';
 
 // CORS Headers

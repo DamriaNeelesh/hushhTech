@@ -138,7 +138,7 @@ export const MissionControlLayout: React.FC<MissionControlLayoutProps> = ({
                 thoughts={thoughts}
                 decisionSummary={decisionSummary}
                 isActive={isProcessing}
-                agentName="HUSHH_IDENTITY_ORACLE"
+                agentName="HUSHH_KYC_AGENT"
               />
             </VStack>
           </GridItem>
@@ -338,10 +338,10 @@ const AgentNetworkVisualization: React.FC<{
         </VStack>
       </motion.div>
 
-      {/* Oracle Agent */}
+      {/* Hushh KYC Agent */}
       <AgentNode
         name={agents.oracle.name}
-        role="IDENTITY ORACLE"
+        role="HUSHH KYC AGENT"
         color={getStatusColor(agents.oracle.status)}
         status={agents.oracle.status}
       />
@@ -417,7 +417,7 @@ const TerminalMessage: React.FC<{ message: ConversationMessage }> = ({ message }
         <HStack justify="space-between" mb={1}>
           <HStack spacing={2}>
             <Text fontSize="xs" color="gray.400" fontFamily="mono">
-              {isHushh ? '🛡️ ORACLE' : '🏦 VERIFIER'}
+              {isHushh ? '🛡️ KYC AGENT' : '🏦 VERIFIER'}
             </Text>
             <Badge
               colorScheme={message.stage === 'ERROR' ? 'red' : message.stage === 'EXPORT_COMPLETE' ? 'green' : 'blue'}
