@@ -92,6 +92,11 @@ export interface ConversationMessage {
 // =====================================================
 
 /**
+ * A2A Risk Band (including CRITICAL for rejected users)
+ */
+export type A2ARiskBand = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+
+/**
  * KYC decision from the A2A flow
  */
 export interface A2AKycDecision {
@@ -100,7 +105,8 @@ export interface A2AKycDecision {
     providerName: string;
     providerType: 'INTERNAL' | 'BANK' | 'KYC_VENDOR';
     lastVerifiedAt: string;
-    riskBand: 'LOW' | 'MEDIUM' | 'HIGH';
+    riskBand: A2ARiskBand;
+    trustScore?: number;
   };
   verifiedAttributes: string[];
 }
@@ -133,6 +139,7 @@ export interface ExportedKycProfile {
     providerName: string;
     riskBand: string;
     lastVerifiedAt: string;
+    trustScore?: number;  // A2A Protocol trust score (0-1)
   };
 }
 
@@ -142,10 +149,12 @@ export interface ExportedKycProfile {
 export interface A2AExportResult {
   exportedTo: string;           // Bank name
   targetUserUid: string;        // UID in bank's system
-  profileSchema: string;        // e.g. "standard_v1"
+  profileSchema: string;        // e.g. "standard_v1", "a2a_protocol_v1"
   includedFields: string[];
   excludedFields: string[];
   profile: ExportedKycProfile;
+  migrationLink?: string;       // A2A Protocol migration link
+  migrationToken?: string;      // A2A Protocol migration token
 }
 
 /**
@@ -169,6 +178,11 @@ export interface A2AScenarioResult {
   exportResult?: A2AExportResult;
   audit: A2AAuditEntry;
   totalDurationMs: number;
+  // A2A Protocol fields
+  trustScore?: number;          // 0-1 trust score from A2A agent
+  riskBand?: A2ARiskBand;       // Risk band from A2A agent
+  migrationLink?: string;       // Link to migrate KYC data
+  taskId?: string;              // A2A task ID for tracking
 }
 
 // =====================================================
