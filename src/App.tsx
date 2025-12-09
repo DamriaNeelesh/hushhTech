@@ -62,6 +62,9 @@ import OnboardingStep11 from './pages/onboarding/Step11';
 import OnboardingStep12 from './pages/onboarding/Step12';
 import OnboardingStep13 from './pages/onboarding/Step13';
 import OnboardingStep14 from './pages/onboarding/Step14';
+import KYCDemoPage from './pages/kyc-demo';
+import KycFlowPage from './pages/kyc-flow';
+import A2APlaygroundPage from './pages/a2a-playground';
 
 // Google Analytics configuration
 const GA_TRACKING_ID = 'G-R58S9WWPM0';
@@ -73,9 +76,11 @@ const ContentWrapper = ({ children }: { children: ReactNode }) => {
   const isAuthCallback = location.pathname.startsWith('/auth/callback');
   const isUserRegistration = location.pathname === '/user-registration';
   const isOnboarding = location.pathname.startsWith('/onboarding');
+  const isKycFlow = location.pathname.startsWith('/kyc-flow');
+  const isA2APlayground = location.pathname.startsWith('/a2a-playground');
 
   return (
-    <div className={`${isHomePage || isAuthCallback || isUserRegistration || isOnboarding ? '' : 'mt-20'}`}>
+    <div className={`${isHomePage || isAuthCallback || isUserRegistration || isOnboarding || isKycFlow || isA2APlayground ? '' : 'mt-20'}`}>
       {children}
     </div>
   );
@@ -463,6 +468,9 @@ function App() {
                 <YourProfilePage />
 
               } />
+              <Route path='/kyc-demo' element={<KYCDemoPage />} />
+              <Route path='/kyc-flow' element={<KycFlowPage />} />
+              <Route path='/a2a-playground' element={<A2APlaygroundPage />} />
             </Routes>
           </ContentWrapper>
           <Footer />

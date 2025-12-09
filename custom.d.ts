@@ -28,8 +28,17 @@ declare module "*.webp" {
 interface ImportMetaEnv {
   readonly VITE_SUPABASE_URL: string;
   readonly VITE_SUPABASE_ANON_KEY: string;
+  readonly VITE_SUPABASE_REDIRECT_URL?: string;
   readonly VITE_OPENAI_API_KEY?: string;
-  // add more env variables as needed
+  
+  // KYC A2A Network Configuration
+  readonly VITE_KYC_ENV?: 'development' | 'staging' | 'production';
+  readonly VITE_KYC_API_BASE?: string;
+  readonly VITE_KYC_DEMO_MODE?: string;
+  readonly VITE_KYC_TEST_BANK_IDS?: string;
+  
+  // Development flag
+  readonly DEV: boolean;
 }
 
 interface ImportMeta {
