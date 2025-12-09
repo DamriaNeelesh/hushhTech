@@ -123,7 +123,7 @@ const A2AResultSummaryScreen: React.FC<A2AResultSummaryProps> = ({
   return (
     <Box
       minH="100vh"
-      bg="linear-gradient(180deg, #0a0a0a 0%, #111111 100%)"
+      bg="white"
       py={8}
       px={{ base: 4, md: 8 }}
     >
@@ -132,12 +132,12 @@ const A2AResultSummaryScreen: React.FC<A2AResultSummaryProps> = ({
         <VStack spacing={2} textAlign="center" animation={`${fadeIn} 0.5s ease-out`}>
           <Text
             fontSize={{ base: '2xl', md: '3xl' }}
-            fontWeight="500"
-            color="white"
+            fontWeight="600"
+            color="black"
           >
             A2A KYC Result Summary
           </Text>
-          <Text fontSize="md" color="whiteAlpha.600">
+          <Text fontSize="md" color="gray.600">
             Privacy-preserving verification complete in {totalDurationMs}ms
           </Text>
         </VStack>
@@ -145,12 +145,13 @@ const A2AResultSummaryScreen: React.FC<A2AResultSummaryProps> = ({
         {/* Main Status Card */}
         <Box
           w="full"
-          bg="whiteAlpha.50"
+          bg="gray.50"
           borderRadius="2xl"
           border="1px solid"
-          borderColor="whiteAlpha.100"
+          borderColor="gray.200"
           overflow="hidden"
           animation={`${fadeIn} 0.6s ease-out`}
+          boxShadow="sm"
         >
           {/* Status Banner */}
           <Box
@@ -175,29 +176,29 @@ const A2AResultSummaryScreen: React.FC<A2AResultSummaryProps> = ({
           {/* Status Details */}
           <SimpleGrid columns={{ base: 1, md: 3 }} gap={0}>
             {/* Verified Via */}
-            <Box p={6} borderRight={{ md: '1px solid' }} borderColor="whiteAlpha.100">
+            <Box p={6} borderRight={{ md: '1px solid' }} borderColor="gray.200">
               <VStack spacing={3} align="flex-start">
                 <HStack spacing={2}>
-                  <Icon as={FiShield} color="purple.400" />
-                  <Text fontSize="sm" color="whiteAlpha.500" textTransform="uppercase">
+                  <Icon as={FiShield} color="purple.500" />
+                  <Text fontSize="sm" color="gray.600" textTransform="uppercase">
                     Verified Via
                   </Text>
                 </HStack>
-                <Text fontSize="lg" color="white" fontWeight="500">
+                <Text fontSize="lg" color="black" fontWeight="500">
                   {kycDecision.verifiedVia.providerName}
                 </Text>
-                <Text fontSize="xs" color="whiteAlpha.500">
+                <Text fontSize="xs" color="gray.600">
                   {kycDecision.verifiedVia.providerType} • No raw PII shared
                 </Text>
               </VStack>
             </Box>
 
             {/* Risk Band */}
-            <Box p={6} borderRight={{ md: '1px solid' }} borderColor="whiteAlpha.100">
+            <Box p={6} borderRight={{ md: '1px solid' }} borderColor="gray.200">
               <VStack spacing={3} align="flex-start">
                 <HStack spacing={2}>
-                  <Icon as={FiAlertTriangle} color="yellow.400" />
-                  <Text fontSize="sm" color="whiteAlpha.500" textTransform="uppercase">
+                  <Icon as={FiAlertTriangle} color="yellow.500" />
+                  <Text fontSize="sm" color="gray.600" textTransform="uppercase">
                     Risk Assessment
                   </Text>
                 </HStack>
@@ -218,12 +219,12 @@ const A2AResultSummaryScreen: React.FC<A2AResultSummaryProps> = ({
             <Box p={6}>
               <VStack spacing={3} align="flex-start">
                 <HStack spacing={2}>
-                  <Icon as={FiCheckCircle} color="green.400" />
-                  <Text fontSize="sm" color="whiteAlpha.500" textTransform="uppercase">
+                  <Icon as={FiCheckCircle} color="green.500" />
+                  <Text fontSize="sm" color="gray.600" textTransform="uppercase">
                     Verified Attributes
                   </Text>
                 </HStack>
-                <Text fontSize="2xl" color="white" fontWeight="600">
+                <Text fontSize="2xl" color="black" fontWeight="600">
                   {kycDecision.verifiedAttributes.length}
                 </Text>
                 <Flex wrap="wrap" gap={1}>
@@ -247,12 +248,13 @@ const A2AResultSummaryScreen: React.FC<A2AResultSummaryProps> = ({
         <SimpleGrid columns={{ base: 1, lg: 2 }} gap={6} w="full">
           {/* Data Export Card */}
           <Box
-            bg="whiteAlpha.50"
+            bg="gray.50"
             borderRadius="2xl"
             border="1px solid"
-            borderColor="whiteAlpha.100"
+            borderColor="gray.200"
             p={6}
             animation={`${fadeIn} 0.7s ease-out`}
+            boxShadow="sm"
           >
             <VStack spacing={5} align="stretch">
               <HStack spacing={3}>
@@ -268,35 +270,35 @@ const A2AResultSummaryScreen: React.FC<A2AResultSummaryProps> = ({
                   <Icon as={FiDatabase} boxSize={5} color="white" />
                 </Box>
                 <VStack spacing={0} align="flex-start">
-                  <Text fontSize="lg" fontWeight="500" color="white">
+                  <Text fontSize="lg" fontWeight="500" color="black">
                     Data Export
                   </Text>
-                  <Text fontSize="xs" color="whiteAlpha.500">
+                  <Text fontSize="xs" color="gray.600">
                     Normalized JSON profile
                   </Text>
                 </VStack>
               </HStack>
 
-              <Divider borderColor="whiteAlpha.100" />
+              <Divider borderColor="gray.200" />
 
               {exportResult ? (
                 <>
                   <HStack justify="space-between">
-                    <Text fontSize="sm" color="whiteAlpha.600">Exported To</Text>
+                    <Text fontSize="sm" color="gray.600">Exported To</Text>
                     <Badge colorScheme="purple" borderRadius="full" px={3}>
                       {exportResult.exportedTo}
                     </Badge>
                   </HStack>
 
                   <HStack justify="space-between">
-                    <Text fontSize="sm" color="whiteAlpha.600">Schema</Text>
-                    <Text fontSize="sm" color="white" fontFamily="mono">
+                    <Text fontSize="sm" color="gray.600">Schema</Text>
+                    <Text fontSize="sm" color="black" fontFamily="mono">
                       {exportResult.profileSchema}
                     </Text>
                   </HStack>
 
                   <Box>
-                    <Text fontSize="sm" color="whiteAlpha.600" mb={2}>
+                    <Text fontSize="sm" color="gray.600" mb={2}>
                       Fields Included ({exportResult.includedFields.length})
                     </Text>
                     <Flex wrap="wrap" gap={2}>
@@ -321,7 +323,7 @@ const A2AResultSummaryScreen: React.FC<A2AResultSummaryProps> = ({
 
                   {exportResult.excludedFields.length > 0 && (
                     <Box>
-                      <Text fontSize="sm" color="whiteAlpha.600" mb={2}>
+                      <Text fontSize="sm" color="gray.600" mb={2}>
                         Fields Excluded (Privacy Protected)
                       </Text>
                       <Flex wrap="wrap" gap={2}>
@@ -346,19 +348,19 @@ const A2AResultSummaryScreen: React.FC<A2AResultSummaryProps> = ({
                   )}
 
                   <Box
-                    bg="blackAlpha.400"
+                    bg="purple.50"
                     borderRadius="lg"
                     p={4}
                     border="1px solid"
-                    borderColor="whiteAlpha.100"
+                    borderColor="purple.200"
                   >
                     <HStack spacing={2} mb={2}>
-                      <Icon as={FiLock} color="purple.400" boxSize={4} />
-                      <Text fontSize="xs" color="purple.400" fontWeight="500">
+                      <Icon as={FiLock} color="purple.600" boxSize={4} />
+                      <Text fontSize="xs" color="purple.600" fontWeight="500">
                         Privacy Guarantee
                       </Text>
                     </HStack>
-                    <Text fontSize="xs" color="whiteAlpha.600" lineHeight="tall">
+                    <Text fontSize="xs" color="gray.700" lineHeight="tall">
                       Raw SSN was never shared. Only attestation-based verification 
                       (yes/no match) was used. Bank receives normalized profile, 
                       not raw secrets.
@@ -366,7 +368,7 @@ const A2AResultSummaryScreen: React.FC<A2AResultSummaryProps> = ({
                   </Box>
                 </>
               ) : (
-                <Text fontSize="sm" color="whiteAlpha.500" textAlign="center" py={4}>
+                <Text fontSize="sm" color="gray.600" textAlign="center" py={4}>
                   Export not requested for this scenario
                 </Text>
               )}
@@ -375,12 +377,13 @@ const A2AResultSummaryScreen: React.FC<A2AResultSummaryProps> = ({
 
           {/* Audit Trail Card */}
           <Box
-            bg="whiteAlpha.50"
+            bg="gray.50"
             borderRadius="2xl"
             border="1px solid"
-            borderColor="whiteAlpha.100"
+            borderColor="gray.200"
             p={6}
             animation={`${fadeIn} 0.8s ease-out`}
+            boxShadow="sm"
           >
             <VStack spacing={5} align="stretch">
               <HStack spacing={3}>
@@ -396,29 +399,29 @@ const A2AResultSummaryScreen: React.FC<A2AResultSummaryProps> = ({
                   <Icon as={FiClock} boxSize={5} color="white" />
                 </Box>
                 <VStack spacing={0} align="flex-start">
-                  <Text fontSize="lg" fontWeight="500" color="white">
+                  <Text fontSize="lg" fontWeight="500" color="black">
                     Audit Trail
                   </Text>
-                  <Text fontSize="xs" color="whiteAlpha.500">
+                  <Text fontSize="xs" color="gray.600">
                     Verification record
                   </Text>
                 </VStack>
               </HStack>
 
-              <Divider borderColor="whiteAlpha.100" />
+              <Divider borderColor="gray.200" />
 
               <HStack justify="space-between">
-                <Text fontSize="sm" color="whiteAlpha.600">Check ID</Text>
+                <Text fontSize="sm" color="gray.600">Check ID</Text>
                 <HStack spacing={2}>
-                  <Text fontSize="sm" color="white" fontFamily="mono">
+                  <Text fontSize="sm" color="black" fontFamily="mono">
                     {checkId.slice(0, 8)}...{checkId.slice(-4)}
                   </Text>
                   <Tooltip label={hasCopied ? 'Copied!' : 'Copy full ID'}>
                     <Box
                       as="button"
                       onClick={onCopy}
-                      color="purple.400"
-                      _hover={{ color: 'purple.300' }}
+                      color="purple.500"
+                      _hover={{ color: 'purple.600' }}
                     >
                       <Icon as={FiCopy} boxSize={4} />
                     </Box>
@@ -427,37 +430,37 @@ const A2AResultSummaryScreen: React.FC<A2AResultSummaryProps> = ({
               </HStack>
 
               <HStack justify="space-between">
-                <Text fontSize="sm" color="whiteAlpha.600">Timestamp</Text>
-                <Text fontSize="sm" color="white">
+                <Text fontSize="sm" color="gray.600">Timestamp</Text>
+                <Text fontSize="sm" color="black">
                   {new Date(audit.loggedAt).toLocaleString()}
                 </Text>
               </HStack>
 
               <HStack justify="space-between">
-                <Text fontSize="sm" color="whiteAlpha.600">Relying Party</Text>
-                <Text fontSize="sm" color="white">
+                <Text fontSize="sm" color="gray.600">Relying Party</Text>
+                <Text fontSize="sm" color="black">
                   {config.relyingParty.name}
                 </Text>
               </HStack>
 
               <HStack justify="space-between">
-                <Text fontSize="sm" color="whiteAlpha.600">User</Text>
+                <Text fontSize="sm" color="gray.600">User</Text>
                 <HStack spacing={2}>
-                  <Icon as={FiUser} color="whiteAlpha.600" boxSize={4} />
-                  <Text fontSize="sm" color="white">
+                  <Icon as={FiUser} color="gray.600" boxSize={4} />
+                  <Text fontSize="sm" color="black">
                     {config.user.fullName}
                   </Text>
                 </HStack>
               </HStack>
 
               <Box
-                bg="blackAlpha.400"
+                bg="purple.50"
                 borderRadius="lg"
                 p={4}
                 border="1px solid"
-                borderColor="whiteAlpha.100"
+                borderColor="purple.200"
               >
-                <Text fontSize="xs" color="whiteAlpha.600" mb={2}>
+                <Text fontSize="xs" color="gray.600" mb={2}>
                   Operations Performed
                 </Text>
                 <Flex wrap="wrap" gap={2}>
@@ -496,9 +499,9 @@ const A2AResultSummaryScreen: React.FC<A2AResultSummaryProps> = ({
             size="lg"
             leftIcon={<FiMessageSquare />}
             variant="outline"
-            borderColor="whiteAlpha.300"
-            color="white"
-            _hover={{ bg: 'whiteAlpha.100' }}
+            borderColor="gray.300"
+            color="black"
+            _hover={{ bg: 'gray.50' }}
             borderRadius="xl"
             px={8}
             onClick={onViewConversation}
@@ -510,9 +513,9 @@ const A2AResultSummaryScreen: React.FC<A2AResultSummaryProps> = ({
               size="lg"
               leftIcon={<FiDownload />}
               variant="outline"
-              borderColor="whiteAlpha.300"
-              color="white"
-              _hover={{ bg: 'whiteAlpha.100' }}
+              borderColor="gray.300"
+              color="black"
+              _hover={{ bg: 'gray.50' }}
               borderRadius="xl"
               px={8}
               onClick={() => {
@@ -536,14 +539,16 @@ const A2AResultSummaryScreen: React.FC<A2AResultSummaryProps> = ({
 
         {/* Footer Note */}
         <Box
-          bg="whiteAlpha.50"
+          bg="gray.50"
           borderRadius="xl"
           p={4}
           w="full"
           textAlign="center"
           animation={`${fadeIn} 1s ease-out`}
+          border="1px solid"
+          borderColor="gray.200"
         >
-          <Text fontSize="sm" color="whiteAlpha.600">
+          <Text fontSize="sm" color="gray.600">
             🔒 This demo showcases privacy-preserving A2A verification. 
             In production, attestations are cryptographically signed and 
             verifiable on-chain.

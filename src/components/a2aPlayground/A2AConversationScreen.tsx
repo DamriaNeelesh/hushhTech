@@ -62,11 +62,11 @@ const AgentCard: React.FC<AgentCardProps> = ({ type, name, subtitle, isActive })
   
   return (
     <Box
-      bg={isBank ? 'rgba(66, 153, 225, 0.1)' : 'rgba(159, 122, 234, 0.1)'}
+      bg={isBank ? 'rgba(66, 153, 225, 0.05)' : 'rgba(159, 122, 234, 0.05)'}
       border="2px solid"
       borderColor={isActive 
-        ? (isBank ? 'blue.400' : 'purple.400') 
-        : 'whiteAlpha.200'
+        ? (isBank ? 'blue.500' : 'purple.500') 
+        : 'gray.200'
       }
       borderRadius="xl"
       p={4}
@@ -75,17 +75,17 @@ const AgentCard: React.FC<AgentCardProps> = ({ type, name, subtitle, isActive })
       transition="all 0.3s"
       transform={isActive ? 'scale(1.05)' : 'scale(1)'}
       boxShadow={isActive 
-        ? `0 0 20px ${isBank ? 'rgba(66, 153, 225, 0.4)' : 'rgba(159, 122, 234, 0.4)'}`
-        : 'none'
+        ? `0 4px 12px ${isBank ? 'rgba(66, 153, 225, 0.2)' : 'rgba(159, 122, 234, 0.2)'}`
+        : 'sm'
       }
     >
       <Text fontSize="2xl" mb={1}>
         {isBank ? '🏦' : '🔐'}
       </Text>
-      <Text color="white" fontSize="sm" fontWeight="600">
+      <Text color="black" fontSize="sm" fontWeight="600">
         {name}
       </Text>
-      <Text color="gray.500" fontSize="xs">
+      <Text color="gray.600" fontSize="xs">
         {subtitle}
       </Text>
       {isActive && (
@@ -120,10 +120,10 @@ const AgentStrip: React.FC<AgentStripProps> = ({ bankName, activeAgent, isRunnin
       gap={4}
       py={4}
       px={6}
-      bg="whiteAlpha.50"
+      bg="gray.50"
       borderRadius="2xl"
       border="1px solid"
-      borderColor="whiteAlpha.100"
+      borderColor="gray.200"
     >
       {/* Bank Agent */}
       <AgentCard
@@ -138,7 +138,7 @@ const AgentStrip: React.FC<AgentStripProps> = ({ bankName, activeAgent, isRunnin
         position="relative" 
         w="100px" 
         h="4px" 
-        bg="whiteAlpha.200"
+        bg="gray.200"
         borderRadius="full"
         overflow="hidden"
       >
@@ -208,16 +208,16 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, bankName }) => {
       
       {/* Message bubble */}
       <Box
-        bg={isBank ? 'rgba(66, 153, 225, 0.15)' : 'rgba(159, 122, 234, 0.15)'}
+        bg={isBank ? 'rgba(66, 153, 225, 0.08)' : 'rgba(159, 122, 234, 0.08)'}
         border="1px solid"
-        borderColor={isBank ? 'blue.800' : 'purple.800'}
+        borderColor={isBank ? 'blue.200' : 'purple.200'}
         borderRadius="xl"
         borderTopLeftRadius={isBank ? '4px' : 'xl'}
         borderTopRightRadius={isBank ? 'xl' : '4px'}
         px={4}
         py={3}
       >
-        <Text color="gray.100" fontSize="sm" lineHeight="1.6">
+        <Text color="black" fontSize="sm" lineHeight="1.6">
           {message.message}
         </Text>
         
@@ -229,9 +229,9 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, bankName }) => {
               size="xs"
               colorScheme={isBank ? 'blue' : 'purple'}
               borderRadius="full"
-              bg="whiteAlpha.100"
+              bg="gray.200"
             />
-            <Text fontSize="xs" color="gray.500" mt={1}>
+            <Text fontSize="xs" color="gray.600" mt={1}>
               {message.progressPercent}% complete
             </Text>
           </Box>
@@ -241,7 +241,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, bankName }) => {
       {/* Timestamp */}
       <Text 
         fontSize="xs" 
-        color="gray.600" 
+        color="gray.500" 
         mt={1}
         textAlign={isBank ? 'left' : 'right'}
       >
@@ -264,46 +264,46 @@ interface StatusPanelProps {
 const StatusPanel: React.FC<StatusPanelProps> = ({ isRunning, messageCount, result }) => {
   return (
     <Box
-      bg="whiteAlpha.50"
+      bg="gray.50"
       border="1px solid"
-      borderColor="whiteAlpha.100"
+      borderColor="gray.200"
       borderRadius="xl"
       p={4}
     >
-      <Text fontSize="xs" color="gray.500" fontWeight="600" mb={3} textTransform="uppercase">
+      <Text fontSize="xs" color="gray.600" fontWeight="600" mb={3} textTransform="uppercase">
         Status
       </Text>
       
       <VStack align="stretch" spacing={2}>
         <HStack justify="space-between">
-          <Text fontSize="sm" color="gray.400">State</Text>
+          <Text fontSize="sm" color="gray.600">State</Text>
           <Badge colorScheme={isRunning ? 'yellow' : (result ? 'green' : 'gray')}>
             {isRunning ? 'Running...' : (result ? 'Complete' : 'Idle')}
           </Badge>
         </HStack>
         
         <HStack justify="space-between">
-          <Text fontSize="sm" color="gray.400">Messages</Text>
-          <Text fontSize="sm" color="white">{messageCount}</Text>
+          <Text fontSize="sm" color="gray.600">Messages</Text>
+          <Text fontSize="sm" color="black">{messageCount}</Text>
         </HStack>
         
         {result && (
           <>
             <HStack justify="space-between">
-              <Text fontSize="sm" color="gray.400">KYC Status</Text>
+              <Text fontSize="sm" color="gray.600">KYC Status</Text>
               <Badge colorScheme={result.kycDecision.status === 'PASS' ? 'green' : 'yellow'}>
                 {result.kycDecision.status}
               </Badge>
             </HStack>
             
             <HStack justify="space-between">
-              <Text fontSize="sm" color="gray.400">Risk</Text>
-              <Text fontSize="sm" color="white">{result.kycDecision.verifiedVia.riskBand}</Text>
+              <Text fontSize="sm" color="gray.600">Risk</Text>
+              <Text fontSize="sm" color="black">{result.kycDecision.verifiedVia.riskBand}</Text>
             </HStack>
             
             {result.keyMatchResult !== undefined && (
               <HStack justify="space-between">
-                <Text fontSize="sm" color="gray.400">Key Match</Text>
+                <Text fontSize="sm" color="gray.600">Key Match</Text>
                 <Badge colorScheme={result.keyMatchResult ? 'green' : 'red'}>
                   {result.keyMatchResult ? 'Match ✓' : 'No Match'}
                 </Badge>
@@ -311,8 +311,8 @@ const StatusPanel: React.FC<StatusPanelProps> = ({ isRunning, messageCount, resu
             )}
             
             <HStack justify="space-between">
-              <Text fontSize="sm" color="gray.400">Duration</Text>
-              <Text fontSize="sm" color="white">{(result.totalDurationMs / 1000).toFixed(1)}s</Text>
+              <Text fontSize="sm" color="gray.600">Duration</Text>
+              <Text fontSize="sm" color="black">{(result.totalDurationMs / 1000).toFixed(1)}s</Text>
             </HStack>
           </>
         )}
@@ -347,19 +347,19 @@ export const A2AConversationScreen: React.FC<A2AConversationProps> = ({
   return (
     <Box
       minH="100vh"
-      bg="linear-gradient(180deg, #0A0A0A 0%, #1A1A2E 100%)"
+      bg="white"
       py={6}
     >
       <Container maxW="6xl">
         {/* Header */}
         <VStack spacing={2} mb={6} textAlign="center">
-          <Text color="gray.400" fontSize="sm">
-            Verifying <Text as="span" color="white" fontWeight="600">{config.user.fullName}</Text> with two AI agents
+          <Text color="gray.600" fontSize="sm">
+            Verifying <Text as="span" color="black" fontWeight="600">{config.user.fullName}</Text> with two AI agents
           </Text>
           <Text
             fontSize={{ base: 'lg', md: 'xl' }}
             fontWeight="600"
-            color="white"
+            color="black"
           >
             {config.relyingParty.name} • KYC Copilot × Hushh • KYC Network Agent
           </Text>
@@ -379,9 +379,9 @@ export const A2AConversationScreen: React.FC<A2AConversationProps> = ({
           {/* Conversation Log */}
           <Box flex={1}>
             <Box
-              bg="whiteAlpha.50"
+              bg="gray.50"
               border="1px solid"
-              borderColor="whiteAlpha.100"
+              borderColor="gray.200"
               borderRadius="2xl"
               p={4}
               minH="400px"
@@ -393,7 +393,7 @@ export const A2AConversationScreen: React.FC<A2AConversationProps> = ({
                   <Skeleton height="40px" width="80%" borderRadius="xl" />
                   <Skeleton height="40px" width="60%" borderRadius="xl" alignSelf="flex-end" />
                   <Skeleton height="40px" width="70%" borderRadius="xl" />
-                  <Text color="gray.500" fontSize="sm">
+                  <Text color="gray.600" fontSize="sm">
                     Waiting for conversation to start...
                   </Text>
                 </VStack>
@@ -440,19 +440,19 @@ export const A2AConversationScreen: React.FC<A2AConversationProps> = ({
 
               {/* A2A Protocol Info */}
               <Box
-                bg="rgba(159, 122, 234, 0.05)"
+                bg="purple.50"
                 border="1px solid"
-                borderColor="purple.900"
+                borderColor="purple.200"
                 borderRadius="xl"
                 p={4}
               >
                 <HStack spacing={3}>
                   <Text fontSize="lg">🔗</Text>
                   <VStack align="start" spacing={0}>
-                    <Text fontSize="xs" color="purple.300" fontWeight="500">
+                    <Text fontSize="xs" color="purple.600" fontWeight="500">
                       A2A Protocol
                     </Text>
-                    <Text fontSize="xs" color="gray.500">
+                    <Text fontSize="xs" color="gray.600">
                       JSON-RPC 2.0 over HTTPS
                     </Text>
                   </VStack>
