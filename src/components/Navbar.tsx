@@ -250,6 +250,7 @@ export default function Navbar() {
                     { path: "/", label: "Home" },
                     { path: "/about/leadership", label: "Our Philosophy" },
                     { path: "/community", label: "Community" },
+                    { path: "/a2a-playground", label: "Alpha v01" },
                   ].map(({ path, label }) => {
                     const active = isActive(path);
                     return (
