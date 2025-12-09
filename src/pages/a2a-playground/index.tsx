@@ -3,6 +3,8 @@
 import React from 'react';
 import { Box } from '@chakra-ui/react';
 import { A2APlaygroundContainer } from '../../components/a2aPlayground';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 
 /**
  * A2A Playground Page
@@ -20,8 +22,12 @@ import { A2APlaygroundContainer } from '../../components/a2aPlayground';
  */
 const A2APlaygroundPage: React.FC = () => {
   return (
-    <Box minH="100vh" bg="#0a0a0a">
-      <A2APlaygroundContainer />
+    <Box minH="100vh" bg="white">
+      <Navbar />
+      <Box pt="120px" pb="40px">
+        <A2APlaygroundContainer />
+      </Box>
+      <Footer />
     </Box>
   );
 };
