@@ -20,7 +20,7 @@ export const AgentThoughtLog: React.FC<AgentThoughtLogProps> = ({
   thoughts,
   decisionSummary,
   isActive = false,
-  agentName = 'HUSHH_IDENTITY_ORACLE',
+  agentName = 'HUSHH_KYC_AGENT',
 }) => {
   const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: true });
 

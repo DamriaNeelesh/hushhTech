@@ -416,7 +416,7 @@ export const A2AConversationScreen: React.FC<A2AConversationProps> = ({
                   isRunning ? 'connected' : 'idle',
         },
         oracle: {
-          name: 'Hushh Identity Oracle',
+          name: 'Hushh KYC Agent',
           status: activeAgent === 'HUSHH_AGENT' ? 'processing' : 
                   isRunning ? 'connected' : 'idle',
         },
@@ -520,7 +520,7 @@ const SimplifiedLayout: React.FC<SimplifiedLayoutProps> = ({
             </Badge>
           </HStack>
           <Text color="gray.400" fontSize="xs">
-            {config.relyingParty.name} ↔ Hushh Identity Oracle
+            {config.relyingParty.name} ↔ Hushh KYC Agent
           </Text>
         </VStack>
 
@@ -578,7 +578,7 @@ const SimplifiedLayout: React.FC<SimplifiedLayoutProps> = ({
             borderColor={activeAgent === 'HUSHH_AGENT' ? 'green.400' : 'gray.600'}
           >
             <Text color="white" fontSize="xs" fontWeight="600">
-              🛡️ Hushh Oracle
+              🛡️ Hushh KYC Agent
             </Text>
           </Box>
         </Flex>
@@ -621,7 +621,7 @@ const SimplifiedLayout: React.FC<SimplifiedLayoutProps> = ({
           <AgentThoughtLog
             thoughts={thoughts}
             isActive={isRunning}
-            agentName="HUSHH_ORACLE"
+            agentName="HUSHH_KYC_AGENT"
           />
         )}
 
