@@ -6,10 +6,17 @@
  * - Hushh Agent: Queries real database, responds with verified data
  * 
  * Uses A2A protocol concepts for structured communication.
+ * Uses the Hushh Identity Oracle system prompt for AI reasoning.
  */
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.0';
+import { 
+  HUSHH_IDENTITY_ORACLE_SYSTEM_PROMPT, 
+  buildOracleContext, 
+  parseOracleResponse,
+  type OracleResponse
+} from '../kyc-agent-a2a-protocol/prompts.ts';
 
 // CORS Headers
 const corsHeaders = {
@@ -291,19 +298,12 @@ async function runAgentConversation(
   });
 
   // ========================
-  // HUSHH AGENT: Process with OpenAI + Tools
+  // HUSHH AGENT: Process with OpenAI + Tools (using Oracle System Prompt)
   // ========================
-  const hushhSystemPrompt = `You are the Hushh KYC Agent. You have access to the Hushh user database.
-Your job is to verify users for KYC by searching the database.
-You can use these tools: searchByName, searchByPhone, searchByEmail, getFullKycData.
-
-When a bank agent asks you to verify a user:
-1. First try to find the user using the data provided (name, phone, email)
-2. If found, respond with what data you have
-3. If not found, clearly state that no user was found
-
-Be conversational and friendly. Speak naturally like you're talking to another agent.
-Keep responses concise but informative.`;
+  // Use the production-ready Hushh Identity Oracle system prompt from prompts.ts
+  // The Oracle prompt includes: data minimization, consent policies, trust scoring,
+  // challenge protocol, and structured JSON output format
+  const hushhSystemPrompt = HUSHH_IDENTITY_ORACLE_SYSTEM_PROMPT;
 
   const hushhMessages: any[] = [
     { role: 'system', content: hushhSystemPrompt },
