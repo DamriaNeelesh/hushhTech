@@ -107,7 +107,7 @@ export const A2AScenarioSetupScreen: React.FC<A2AScenarioSetupProps> = ({
   return (
     <Box
       minH="100vh"
-      bg="linear-gradient(180deg, #0A0A0A 0%, #1A1A2E 100%)"
+      bg="white"
       py={8}
     >
       <Container maxW="lg">
@@ -124,12 +124,12 @@ export const A2AScenarioSetupScreen: React.FC<A2AScenarioSetupProps> = ({
           </Badge>
           <Text
             fontSize={{ base: '2xl', md: '3xl' }}
-            fontWeight="700"
-            color="white"
+            fontWeight="600"
+            color="black"
           >
             Agent-to-Agent KYC Playground
           </Text>
-          <Text color="gray.400" fontSize="sm" maxW="md">
+          <Text color="gray.600" fontSize="sm" maxW="md">
             Watch Bank KYC Copilot and Hushh KYC Agent collaborate 
             in real-time to verify identity and export KYC data.
           </Text>
@@ -137,12 +137,12 @@ export const A2AScenarioSetupScreen: React.FC<A2AScenarioSetupProps> = ({
 
         {/* Main Form Card */}
         <Box
-          bg="whiteAlpha.50"
+          bg="gray.50"
           border="1px solid"
-          borderColor="whiteAlpha.100"
+          borderColor="gray.200"
           borderRadius="2xl"
           p={6}
-          animation={`${pulseGlow} 3s ease-in-out infinite`}
+          boxShadow="sm"
         >
           <VStack spacing={6} align="stretch">
             {/* Section 1: Relying Party */}
@@ -150,7 +150,7 @@ export const A2AScenarioSetupScreen: React.FC<A2AScenarioSetupProps> = ({
               <Text
                 fontSize="sm"
                 fontWeight="600"
-                color="purple.300"
+                color="purple.600"
                 mb={3}
                 textTransform="uppercase"
                 letterSpacing="wide"
@@ -159,24 +159,23 @@ export const A2AScenarioSetupScreen: React.FC<A2AScenarioSetupProps> = ({
               </Text>
               
               <FormControl>
-                <FormLabel color="gray.300" fontSize="sm">
+                <FormLabel color="gray.700" fontSize="sm">
                   Bank or Financial Institution
                 </FormLabel>
                 <Select
                   value={selectedPartyId}
                   onChange={(e) => setSelectedPartyId(e.target.value)}
-                  bg="whiteAlpha.100"
+                  bg="white"
                   border="1px solid"
-                  borderColor="whiteAlpha.200"
-                  color="white"
-                  _hover={{ borderColor: 'purple.400' }}
-                  _focus={{ borderColor: 'purple.400', boxShadow: 'none' }}
+                  borderColor="gray.300"
+                  color="black"
+                  _hover={{ borderColor: 'purple.500' }}
+                  _focus={{ borderColor: 'purple.500', boxShadow: '0 0 0 1px #805AD5' }}
                 >
                   {DEMO_RELYING_PARTIES.map((party) => (
                     <option 
                       key={party.id} 
                       value={party.id}
-                      style={{ background: '#1A1A2E' }}
                     >
                       {party.name} {party.description ? `– ${party.description}` : ''}
                     </option>
@@ -185,14 +184,14 @@ export const A2AScenarioSetupScreen: React.FC<A2AScenarioSetupProps> = ({
               </FormControl>
             </Box>
 
-            <Divider borderColor="whiteAlpha.100" />
+            <Divider borderColor="gray.200" />
 
             {/* Section 2: User to Verify */}
             <Box>
               <Text
                 fontSize="sm"
                 fontWeight="600"
-                color="purple.300"
+                color="purple.600"
                 mb={3}
                 textTransform="uppercase"
                 letterSpacing="wide"
@@ -203,45 +202,44 @@ export const A2AScenarioSetupScreen: React.FC<A2AScenarioSetupProps> = ({
               <VStack spacing={4}>
                 {/* Full Name */}
                 <FormControl>
-                  <FormLabel color="gray.300" fontSize="sm">
+                  <FormLabel color="gray.700" fontSize="sm">
                     Full Name
                   </FormLabel>
                   <Input
                     value={user.fullName}
                     onChange={(e) => setUser({ ...user, fullName: e.target.value })}
                     placeholder="Enter full name"
-                    bg="whiteAlpha.100"
+                    bg="white"
                     border="1px solid"
-                    borderColor="whiteAlpha.200"
-                    color="white"
-                    _placeholder={{ color: 'gray.500' }}
-                    _hover={{ borderColor: 'purple.400' }}
-                    _focus={{ borderColor: 'purple.400', boxShadow: 'none' }}
+                    borderColor="gray.300"
+                    color="black"
+                    _placeholder={{ color: 'gray.400' }}
+                    _hover={{ borderColor: 'purple.500' }}
+                    _focus={{ borderColor: 'purple.500', boxShadow: '0 0 0 1px #805AD5' }}
                   />
                 </FormControl>
 
                 {/* Phone */}
                 <FormControl>
-                  <FormLabel color="gray.300" fontSize="sm">
+                  <FormLabel color="gray.700" fontSize="sm">
                     Phone Number
                   </FormLabel>
                   <HStack>
                     <Select
                       value={user.phoneCountryCode}
                       onChange={(e) => setUser({ ...user, phoneCountryCode: e.target.value })}
-                      bg="whiteAlpha.100"
+                      bg="white"
                       border="1px solid"
-                      borderColor="whiteAlpha.200"
-                      color="white"
+                      borderColor="gray.300"
+                      color="black"
                       w="140px"
-                      _hover={{ borderColor: 'purple.400' }}
-                      _focus={{ borderColor: 'purple.400', boxShadow: 'none' }}
+                      _hover={{ borderColor: 'purple.500' }}
+                      _focus={{ borderColor: 'purple.500', boxShadow: '0 0 0 1px #805AD5' }}
                     >
                       {PHONE_CODES.map((code) => (
                         <option 
                           key={code.value} 
                           value={code.value}
-                          style={{ background: '#1A1A2E' }}
                         >
                           {code.label}
                         </option>
@@ -251,37 +249,36 @@ export const A2AScenarioSetupScreen: React.FC<A2AScenarioSetupProps> = ({
                       value={user.phoneNumber}
                       onChange={(e) => setUser({ ...user, phoneNumber: e.target.value })}
                       placeholder="Phone number"
-                      bg="whiteAlpha.100"
+                      bg="white"
                       border="1px solid"
-                      borderColor="whiteAlpha.200"
-                      color="white"
-                      _placeholder={{ color: 'gray.500' }}
-                      _hover={{ borderColor: 'purple.400' }}
-                      _focus={{ borderColor: 'purple.400', boxShadow: 'none' }}
+                      borderColor="gray.300"
+                      color="black"
+                      _placeholder={{ color: 'gray.400' }}
+                      _hover={{ borderColor: 'purple.500' }}
+                      _focus={{ borderColor: 'purple.500', boxShadow: '0 0 0 1px #805AD5' }}
                     />
                   </HStack>
                 </FormControl>
 
                 {/* Country */}
                 <FormControl>
-                  <FormLabel color="gray.300" fontSize="sm">
+                  <FormLabel color="gray.700" fontSize="sm">
                     Country
                   </FormLabel>
                   <Select
                     value={user.country}
                     onChange={(e) => setUser({ ...user, country: e.target.value })}
-                    bg="whiteAlpha.100"
+                    bg="white"
                     border="1px solid"
-                    borderColor="whiteAlpha.200"
-                    color="white"
-                    _hover={{ borderColor: 'purple.400' }}
-                    _focus={{ borderColor: 'purple.400', boxShadow: 'none' }}
+                    borderColor="gray.300"
+                    color="black"
+                    _hover={{ borderColor: 'purple.500' }}
+                    _focus={{ borderColor: 'purple.500', boxShadow: '0 0 0 1px #805AD5' }}
                   >
                     {COUNTRY_OPTIONS.map((country) => (
                       <option 
                         key={country.value} 
                         value={country.value}
-                        style={{ background: '#1A1A2E' }}
                       >
                         {country.label}
                       </option>
@@ -291,7 +288,7 @@ export const A2AScenarioSetupScreen: React.FC<A2AScenarioSetupProps> = ({
 
                 {/* Email (Optional) */}
                 <FormControl>
-                  <FormLabel color="gray.300" fontSize="sm">
+                  <FormLabel color="gray.700" fontSize="sm">
                     Email (Optional)
                   </FormLabel>
                   <Input
@@ -299,20 +296,20 @@ export const A2AScenarioSetupScreen: React.FC<A2AScenarioSetupProps> = ({
                     onChange={(e) => setUser({ ...user, email: e.target.value })}
                     placeholder="email@example.com"
                     type="email"
-                    bg="whiteAlpha.100"
+                    bg="white"
                     border="1px solid"
-                    borderColor="whiteAlpha.200"
-                    color="white"
-                    _placeholder={{ color: 'gray.500' }}
-                    _hover={{ borderColor: 'purple.400' }}
-                    _focus={{ borderColor: 'purple.400', boxShadow: 'none' }}
+                    borderColor="gray.300"
+                    color="black"
+                    _placeholder={{ color: 'gray.400' }}
+                    _hover={{ borderColor: 'purple.500' }}
+                    _focus={{ borderColor: 'purple.500', boxShadow: '0 0 0 1px #805AD5' }}
                   />
                 </FormControl>
 
                 {/* SSN Last 4 (for key match demo) */}
                 {operations.confirmKeyMatch && (
                   <FormControl>
-                    <FormLabel color="gray.300" fontSize="sm">
+                    <FormLabel color="gray.700" fontSize="sm">
                       SSN Last 4 Digits (for key match demo)
                     </FormLabel>
                     <Input
@@ -320,15 +317,15 @@ export const A2AScenarioSetupScreen: React.FC<A2AScenarioSetupProps> = ({
                       onChange={(e) => setUser({ ...user, ssnLast4: e.target.value })}
                       placeholder="1234"
                       maxLength={4}
-                      bg="whiteAlpha.100"
+                      bg="white"
                       border="1px solid"
-                      borderColor="whiteAlpha.200"
-                      color="white"
-                      _placeholder={{ color: 'gray.500' }}
-                      _hover={{ borderColor: 'purple.400' }}
-                      _focus={{ borderColor: 'purple.400', boxShadow: 'none' }}
+                      borderColor="gray.300"
+                      color="black"
+                      _placeholder={{ color: 'gray.400' }}
+                      _hover={{ borderColor: 'purple.500' }}
+                      _focus={{ borderColor: 'purple.500', boxShadow: '0 0 0 1px #805AD5' }}
                     />
-                    <Text fontSize="xs" color="gray.500" mt={1}>
+                    <Text fontSize="xs" color="gray.600" mt={1}>
                       🔒 This is only used to demo VerifyFieldMatch – never shared in clear
                     </Text>
                   </FormControl>
@@ -336,14 +333,14 @@ export const A2AScenarioSetupScreen: React.FC<A2AScenarioSetupProps> = ({
               </VStack>
             </Box>
 
-            <Divider borderColor="whiteAlpha.100" />
+            <Divider borderColor="gray.200" />
 
             {/* Section 3: Operations */}
             <Box>
               <Text
                 fontSize="sm"
                 fontWeight="600"
-                color="purple.300"
+                color="purple.600"
                 mb={3}
                 textTransform="uppercase"
                 letterSpacing="wide"
@@ -362,10 +359,10 @@ export const A2AScenarioSetupScreen: React.FC<A2AScenarioSetupProps> = ({
                   size="lg"
                 >
                   <VStack align="start" spacing={0}>
-                    <Text color="white" fontSize="sm" fontWeight="500">
+                    <Text color="black" fontSize="sm" fontWeight="500">
                       Verify KYC Status
                     </Text>
-                    <Text color="gray.500" fontSize="xs">
+                    <Text color="gray.600" fontSize="xs">
                       CheckKYCStatus – Is this user verified?
                     </Text>
                   </VStack>
@@ -381,10 +378,10 @@ export const A2AScenarioSetupScreen: React.FC<A2AScenarioSetupProps> = ({
                   size="lg"
                 >
                   <VStack align="start" spacing={0}>
-                    <Text color="white" fontSize="sm" fontWeight="500">
+                    <Text color="black" fontSize="sm" fontWeight="500">
                       Confirm Key Match
                     </Text>
-                    <Text color="gray.500" fontSize="xs">
+                    <Text color="gray.600" fontSize="xs">
                       VerifyFieldMatch – Does SSN last4 match?
                     </Text>
                   </VStack>
@@ -400,10 +397,10 @@ export const A2AScenarioSetupScreen: React.FC<A2AScenarioSetupProps> = ({
                   size="lg"
                 >
                   <VStack align="start" spacing={0}>
-                    <Text color="white" fontSize="sm" fontWeight="500">
+                    <Text color="black" fontSize="sm" fontWeight="500">
                       Export KYC Profile
                     </Text>
-                    <Text color="gray.500" fontSize="xs">
+                    <Text color="gray.600" fontSize="xs">
                       ExportKYCProfile – Get normalized JSON profile
                     </Text>
                   </VStack>
@@ -411,7 +408,7 @@ export const A2AScenarioSetupScreen: React.FC<A2AScenarioSetupProps> = ({
               </VStack>
             </Box>
 
-            <Divider borderColor="whiteAlpha.100" />
+            <Divider borderColor="gray.200" />
 
             {/* Run Button */}
             <Button
@@ -435,7 +432,7 @@ export const A2AScenarioSetupScreen: React.FC<A2AScenarioSetupProps> = ({
             {/* Help Text */}
             <Text 
               fontSize="xs" 
-              color="gray.500" 
+              color="gray.600" 
               textAlign="center"
             >
               This will simulate a real A2A conversation between {selectedParty.name} 
@@ -447,7 +444,7 @@ export const A2AScenarioSetupScreen: React.FC<A2AScenarioSetupProps> = ({
         {/* Footer */}
         <Text 
           fontSize="xs" 
-          color="gray.600" 
+          color="gray.500" 
           textAlign="center" 
           mt={6}
         >
