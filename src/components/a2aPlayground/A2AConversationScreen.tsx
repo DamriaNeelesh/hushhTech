@@ -62,41 +62,46 @@ const AgentCard: React.FC<AgentCardProps> = ({ type, name, subtitle, isActive })
   
   return (
     <Box
-      bg={isBank ? 'rgba(66, 153, 225, 0.05)' : 'rgba(159, 122, 234, 0.05)'}
-      border="2px solid"
-      borderColor={isActive 
-        ? (isBank ? 'blue.500' : 'purple.500') 
-        : 'gray.200'
-      }
-      borderRadius="xl"
+      bg="white"
+      border="1px solid"
+      borderColor={isActive ? 'black' : 'gray.300'}
+      borderRadius="lg"
       p={{ base: 3, md: 4 }}
-      minW={{ base: '100px', md: '160px' }}
+      minW={{ base: '120px', md: '180px' }}
       textAlign="center"
-      transition="all 0.3s"
-      transform={isActive ? 'scale(1.05)' : 'scale(1)'}
-      boxShadow={isActive 
-        ? `0 4px 12px ${isBank ? 'rgba(66, 153, 225, 0.2)' : 'rgba(159, 122, 234, 0.2)'}`
-        : 'sm'
-      }
+      transition="all 0.2s"
+      boxShadow={isActive ? 'md' : 'sm'}
     >
-      <Text fontSize={{ base: 'xl', md: '2xl' }} mb={1}>
-        {isBank ? '🏦' : '🔐'}
-      </Text>
-      <Text color="black" fontSize={{ base: 'xs', md: 'sm' }} fontWeight="600">
-        {name}
-      </Text>
-      <Text color="gray.600" fontSize={{ base: '2xs', md: 'xs' }} display={{ base: 'none', sm: 'block' }}>
+      {/* Logo or Bank Name */}
+      {isBank ? (
+        <Text color="black" fontSize={{ base: 'sm', md: 'md' }} fontWeight="600" mb={1}>
+          {name}
+        </Text>
+      ) : (
+        <Box mb={2}>
+          <img 
+            src="/assets/Hushhogo-tDRfOnun.png" 
+            alt="Hushh Logo" 
+            style={{ 
+              height: '24px', 
+              width: 'auto', 
+              margin: '0 auto',
+              display: 'block'
+            }} 
+          />
+        </Box>
+      )}
+      
+      <Text color="gray.600" fontSize={{ base: '2xs', md: 'xs' }}>
         {subtitle}
       </Text>
+      
       {isActive && (
-        <Badge 
-          colorScheme={isBank ? 'blue' : 'purple'} 
-          mt={2} 
-          fontSize="xs"
-          animation={`${pulse} 1s infinite`}
-        >
-          Speaking...
-        </Badge>
+        <Box mt={2} pt={2} borderTop="1px solid" borderColor="gray.200">
+          <Text fontSize="2xs" color="gray.500" fontWeight="500">
+            Active
+          </Text>
+        </Box>
       )}
     </Box>
   );
@@ -193,28 +198,26 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, bankName }) => {
     <Box
       animation={`${fadeInUp} 0.4s ease-out`}
       alignSelf={isBank ? 'flex-start' : 'flex-end'}
-      maxW={{ base: '85%', md: '80%' }}
+      maxW={{ base: '85%', md: '75%' }}
       w="auto"
     >
       {/* Agent label */}
       <Text 
         fontSize={{ base: '2xs', md: 'xs' }}
-        color={isBank ? 'blue.500' : 'purple.500'}
-        fontWeight="600"
+        color="gray.600"
+        fontWeight="500"
         mb={1}
         textAlign={isBank ? 'left' : 'right'}
       >
-        {isBank ? `🏦 ${bankName}` : '🔐 Hushh KYC'}
+        {isBank ? bankName : 'Hushh'}
       </Text>
       
       {/* Message bubble */}
       <Box
-        bg={isBank ? 'rgba(66, 153, 225, 0.08)' : 'rgba(159, 122, 234, 0.08)'}
+        bg={isBank ? 'gray.100' : 'gray.50'}
         border="1px solid"
-        borderColor={isBank ? 'blue.200' : 'purple.200'}
-        borderRadius="xl"
-        borderTopLeftRadius={isBank ? '4px' : 'xl'}
-        borderTopRightRadius={isBank ? 'xl' : '4px'}
+        borderColor="gray.200"
+        borderRadius="lg"
         px={{ base: 3, md: 4 }}
         py={{ base: 2, md: 3 }}
       >
@@ -463,23 +466,20 @@ export const A2AConversationScreen: React.FC<A2AConversationProps> = ({
 
               {/* A2A Protocol Info */}
               <Box
-                bg="purple.50"
+                bg="gray.50"
                 border="1px solid"
-                borderColor="purple.200"
-                borderRadius="xl"
+                borderColor="gray.200"
+                borderRadius="lg"
                 p={4}
               >
-                <HStack spacing={3}>
-                  <Text fontSize="lg">🔗</Text>
-                  <VStack align="start" spacing={0}>
-                    <Text fontSize="xs" color="purple.600" fontWeight="500">
-                      A2A Protocol
-                    </Text>
-                    <Text fontSize="xs" color="gray.600">
-                      JSON-RPC 2.0 over HTTPS
-                    </Text>
-                  </VStack>
-                </HStack>
+                <VStack align="start" spacing={1}>
+                  <Text fontSize="xs" color="black" fontWeight="600">
+                    A2A Protocol
+                  </Text>
+                  <Text fontSize="2xs" color="gray.600">
+                    JSON-RPC 2.0
+                  </Text>
+                </VStack>
               </Box>
             </VStack>
           </Box>
