@@ -254,12 +254,12 @@ export const DEMO_RELYING_PARTIES: RelyingParty[] = [
 export const DEFAULT_SCENARIO_CONFIG: A2AScenarioConfig = {
   relyingParty: DEMO_RELYING_PARTIES[0],
   user: {
-    fullName: 'Ankit Sharma',
+    fullName: '',
     phoneCountryCode: '+1',
-    phoneNumber: '9999999999',
+    phoneNumber: '',
     country: 'US',
-    email: 'ankit@example.com',
-    ssnLast4: '1234',
+    email: '',
+    ssnLast4: '',
   },
   operations: {
     verifyKycStatus: true,
