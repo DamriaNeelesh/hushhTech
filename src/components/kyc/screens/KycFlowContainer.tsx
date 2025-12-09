@@ -80,80 +80,144 @@ const initialState: KycFlowState = {
 };
 
 // =====================================================
-// API Service
+// API Service - Real Supabase Integration
 // =====================================================
 
+/**
+ * Calls the Supabase KYC Agent A2A edge function using JSON-RPC 2.0 protocol
+ * NO MORE HARDCODED DATA - All results come from real database
+ */
 async function callKycCheckApi(request: KycCheckRequest): Promise<KycCheckResponse> {
-  // Demo mode - return mock responses based on name patterns
-  if (DEMO_MODE) {
-    await new Promise(resolve => setTimeout(resolve, 2500)); // Simulate network delay
-    
-    const fullName = request.identifiers.fullName.toLowerCase();
-    
-    // Demo patterns for testing different outcomes
-    if (fullName.includes('pass') || fullName.includes('john')) {
-      return {
-        status: 'PASS',
-        verifiedVia: {
-          providerName: 'ICICI Bank',
-          providerType: 'BANK',
-          lastVerifiedAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
-          riskBand: 'LOW',
-          riskScore: 15,
-          verificationLevel: 'standard',
+  const startTime = Date.now();
+  
+  try {
+    // Build JSON-RPC 2.0 request for CheckKYCStatus method
+    const rpcRequest = {
+      jsonrpc: '2.0',
+      method: 'CheckKYCStatus',
+      params: {
+        identifiers: {
+          fullName: request.identifiers.fullName,
+          dateOfBirth: request.identifiers.dob,
+          nationalId: request.identifiers.idNumber,
           country: request.identifiers.country,
+          idType: request.identifiers.idType,
+          email: request.identifiers.email,
+          phone: request.identifiers.phone,
         },
-        checkId: `demo-pass-${Date.now()}`,
-        timestamp: new Date().toISOString(),
-        latencyMs: 2500,
-      };
-    }
-    
-    if (fullName.includes('review') || fullName.includes('jane')) {
-      return {
-        status: 'REVIEW',
-        verifiedVia: {
-          providerName: 'HDFC Bank',
-          providerType: 'BANK',
-          lastVerifiedAt: new Date(Date.now() - 180 * 24 * 60 * 60 * 1000).toISOString(),
-          riskBand: 'MEDIUM',
-          riskScore: 45,
-          verificationLevel: 'basic',
-          country: request.identifiers.country,
-        },
-        additionalRequirements: ['recent_address_proof'],
-        checkId: `demo-review-${Date.now()}`,
-        timestamp: new Date().toISOString(),
-        latencyMs: 2500,
-      };
-    }
-    
-    // Default: NOT_FOUND
-    return {
-      status: 'NOT_FOUND',
-      reasonCode: 'NO_ATTESTATION',
-      message: 'No matching KYC attestation found in the network.',
-      checkId: `demo-notfound-${Date.now()}`,
-      timestamp: new Date().toISOString(),
-      latencyMs: 2500,
+        relyingPartyId: request.relyingPartyId,
+        consentToken: request.consentToken,
+      },
+      id: `kyc-check-${Date.now()}`,
     };
+
+    console.log('[KYC API] Calling Supabase edge function:', {
+      endpoint: `${KYC_API_BASE}/a2a/rpc`,
+      method: 'CheckKYCStatus',
+      relyingParty: request.relyingPartyId,
+    });
+
+    // Call the REAL Supabase edge function
+    const response = await fetch(`${KYC_API_BASE}/a2a/rpc`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(rpcRequest),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('[KYC API] HTTP error:', response.status, errorText);
+      throw new Error(`API error: ${response.status} - ${errorText}`);
+    }
+
+    const rpcResponse = await response.json();
+    const latencyMs = Date.now() - startTime;
+
+    console.log('[KYC API] Response received:', {
+      latency: `${latencyMs}ms`,
+      hasError: !!rpcResponse.error,
+      hasResult: !!rpcResponse.result,
+    });
+
+    // Handle JSON-RPC error
+    if (rpcResponse.error) {
+      console.error('[KYC API] RPC error:', rpcResponse.error);
+      throw new Error(rpcResponse.error.message || 'RPC error occurred');
+    }
+
+    // Extract result from JSON-RPC response
+    const result = rpcResponse.result;
+    
+    if (!result) {
+      throw new Error('Empty result from KYC agent');
+    }
+
+    // Map RPC result to KycCheckResponse format
+    const kycResponse: KycCheckResponse = {
+      status: result.status,
+      checkId: result.checkId || rpcRequest.id,
+      timestamp: result.timestamp || new Date().toISOString(),
+      latencyMs,
+    };
+
+    // Add provider info if verification passed
+    if (result.status === 'PASS' && result.verifiedVia) {
+      kycResponse.verifiedVia = {
+        providerName: result.verifiedVia.providerName,
+        providerType: result.verifiedVia.providerType,
+        lastVerifiedAt: result.verifiedVia.lastVerifiedAt,
+        riskBand: result.verifiedVia.riskBand,
+        riskScore: result.verifiedVia.riskScore,
+        verificationLevel: result.verifiedVia.verificationLevel,
+        country: result.verifiedVia.country || request.identifiers.country,
+      };
+    }
+
+    // Add review requirements if needed
+    if (result.status === 'REVIEW' && result.additionalRequirements) {
+      kycResponse.additionalRequirements = result.additionalRequirements;
+      if (result.verifiedVia) {
+        kycResponse.verifiedVia = {
+          providerName: result.verifiedVia.providerName,
+          providerType: result.verifiedVia.providerType,
+          lastVerifiedAt: result.verifiedVia.lastVerifiedAt,
+          riskBand: result.verifiedVia.riskBand,
+          riskScore: result.verifiedVia.riskScore,
+          verificationLevel: result.verifiedVia.verificationLevel,
+          country: result.verifiedVia.country || request.identifiers.country,
+        };
+      }
+    }
+
+    // Add failure/not found details
+    if (result.status === 'NOT_FOUND' || result.status === 'FAIL' || result.status === 'EXPIRED') {
+      kycResponse.reasonCode = result.reasonCode;
+      kycResponse.message = result.message;
+    }
+
+    // Add agent conversation steps if provided
+    if (result.steps) {
+      kycResponse.steps = result.steps;
+    }
+
+    console.log('[KYC API] Final response:', {
+      status: kycResponse.status,
+      hasProvider: !!kycResponse.verifiedVia,
+      provider: kycResponse.verifiedVia?.providerName,
+      riskBand: kycResponse.verifiedVia?.riskBand,
+    });
+
+    return kycResponse;
+
+  } catch (error: any) {
+    const latencyMs = Date.now() - startTime;
+    console.error('[KYC API] Error:', error);
+    
+    // Return honest error response - no fake data
+    throw new Error(error.message || 'Failed to verify KYC status. Please try again.');
   }
-  
-  // Production API call
-  const response = await fetch(`${KYC_API_BASE}/check`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(request),
-  });
-  
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
-    throw new Error(error.message || `API error: ${response.status}`);
-  }
-  
-  return response.json();
 }
 
 // =====================================================
