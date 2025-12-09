@@ -16,6 +16,12 @@ export { default as A2AResultSummaryScreen } from './A2AResultSummaryScreen';
 // Conversation generator
 export { generateA2AConversation, generateNotFoundConversation } from './conversationGenerator';
 
+// UI Components - Mission Control
+export { AgentThoughtLog, ThoughtIndicator } from './AgentThoughtLog';
+export { TrustGauge, TrustIndicator, ScoreCounter } from './TrustGauge';
+export { DataVaultCard, DataVaultProgress, EncryptionBadge } from './DataVaultCard';
+export { MissionControlLayout } from './MissionControlLayout';
+
 // Re-export types for convenience
 export type {
   A2AScenarioConfig,

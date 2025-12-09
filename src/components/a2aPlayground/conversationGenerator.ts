@@ -20,9 +20,17 @@ import type {
   A2ARiskBand,
 } from '../../types/a2aPlayground';
 
-// Supabase config
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || 'https://ibsisfnjxeowvdtvgzff.supabase.co';
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+// Supabase config - MUST be set via environment variables
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+// Validate required environment variables
+if (!SUPABASE_URL) {
+  console.error('[A2A Playground] VITE_SUPABASE_URL environment variable is required');
+}
+if (!SUPABASE_ANON_KEY) {
+  console.error('[A2A Playground] VITE_SUPABASE_ANON_KEY environment variable is required');
+}
 
 // A2A Protocol Message Type
 interface A2AProtocolMessage {

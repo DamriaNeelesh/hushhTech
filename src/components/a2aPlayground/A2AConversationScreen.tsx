@@ -3,10 +3,12 @@
  * 
  * The HERO screen showing Bank KYC Copilot and Hushh KYC Agent
  * talking to each other in real-time.
+ * 
+ * Now uses the Mission Control 3-pane layout for a "class product" feel.
  */
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import {
   Box,
   Container,
@@ -18,13 +20,19 @@ import {
   Skeleton,
   Progress,
   Flex,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { keyframes } from '@emotion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   A2AConversationProps,
   ConversationMessage,
   AgentActor,
 } from '../../types/a2aPlayground';
+import { MissionControlLayout } from './MissionControlLayout';
+import { AgentThoughtLog, ThoughtIndicator } from './AgentThoughtLog';
+import { TrustGauge, TrustIndicator } from './TrustGauge';
+import { DataVaultCard, DataVaultProgress } from './DataVaultCard';
 
 // =====================================================
 // Animations
@@ -47,7 +55,159 @@ const pulse = keyframes`
 `;
 
 // =====================================================
-// Agent Card Component
+// Risk Band Type
+// =====================================================
+type RiskBand = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+
+// =====================================================
+// Helper: Extract trust score from messages
+// =====================================================
+const extractTrustScore = (messages: ConversationMessage[], result: A2AConversationProps['result']): number => {
+  // First check result
+  if (result?.kycDecision?.verifiedVia?.trustScore !== undefined) {
+    return result.kycDecision.verifiedVia.trustScore;
+  }
+  
+  // Calculate based on message progress
+  const progressMessages = messages.filter(m => m.progressPercent !== undefined);
+  if (progressMessages.length > 0) {
+    const lastProgress = progressMessages[progressMessages.length - 1];
+    return (lastProgress.progressPercent || 0) / 100;
+  }
+  
+  // Calculate based on conversation progress
+  const totalExpectedMessages = 10;
+  return Math.min(messages.length / totalExpectedMessages, 1);
+};
+
+// =====================================================
+// Helper: Calculate risk band from trust score
+// =====================================================
+const calculateRiskBand = (trustScore: number): RiskBand => {
+  if (trustScore >= 0.75) return 'LOW';
+  if (trustScore >= 0.50) return 'MEDIUM';
+  if (trustScore >= 0.30) return 'HIGH';
+  return 'CRITICAL';
+};
+
+// =====================================================
+// Helper: Generate thought log from messages
+// =====================================================
+const generateThoughts = (messages: ConversationMessage[]): string[] => {
+  const thoughts: string[] = [];
+  
+  messages.forEach((msg) => {
+    if (msg.actor === 'HUSHH_AGENT') {
+      if (msg.stage === 'CHECKING') {
+        thoughts.push('🔍 Querying identity database...');
+      } else if (msg.stage === 'ATTESTATION_FOUND') {
+        thoughts.push('🤝 Attestation found - negotiating access...');
+      } else if (msg.stage === 'KEY_VERIFY_REQUEST' || msg.stage === 'KEY_VERIFY_RESULT') {
+        thoughts.push('🔐 Secure key verification in progress...');
+      } else if (msg.stage === 'EXPORT_REQUEST' || msg.stage === 'EXPORT_PROGRESS') {
+        thoughts.push('📤 Preparing secure data export...');
+      } else if (msg.stage === 'EXPORT_COMPLETE') {
+        thoughts.push('🎉 KYC verification complete!');
+      }
+    }
+  });
+  
+  // Add default thoughts if empty
+  if (thoughts.length === 0 && messages.length > 0) {
+    thoughts.push('🚀 Initializing A2A protocol...');
+    thoughts.push('📡 Establishing secure connection...');
+  }
+  
+  return thoughts.slice(-5); // Keep last 5 thoughts
+};
+
+// =====================================================
+// Data Field Status Type
+// =====================================================
+type DataFieldStatus = 'locked' | 'unlocking' | 'unlocked' | 'protected';
+
+interface DataField {
+  name: string;
+  label: string;
+  value: string | null;
+  status: DataFieldStatus;
+  isSensitive: boolean;
+}
+
+// =====================================================
+// Helper: Generate data fields from messages
+// =====================================================
+const generateDataFields = (messages: ConversationMessage[], result: A2AConversationProps['result']): DataField[] => {
+  const fields: DataField[] = [
+    { name: 'full_name', label: 'Full Name', value: null, status: 'locked', isSensitive: false },
+    { name: 'phone', label: 'Phone Number', value: null, status: 'locked', isSensitive: false },
+    { name: 'address', label: 'Address', value: null, status: 'locked', isSensitive: false },
+    { name: 'dob', label: 'Date of Birth', value: null, status: 'locked', isSensitive: true },
+    { name: 'ssn', label: 'SSN (Last 4)', value: null, status: 'protected', isSensitive: true },
+    { name: 'kyc_status', label: 'KYC Status', value: null, status: 'locked', isSensitive: false },
+  ];
+  
+  // Check if we have result data from exportResult
+  if (result?.exportResult?.profile) {
+    const profile = result.exportResult.profile;
+    if (profile.fullName) {
+      const idx = fields.findIndex(f => f.name === 'full_name');
+      if (idx >= 0) {
+        fields[idx].value = profile.fullName;
+        fields[idx].status = 'unlocked';
+      }
+    }
+    if (profile.phone) {
+      const idx = fields.findIndex(f => f.name === 'phone');
+      if (idx >= 0) {
+        fields[idx].value = `${profile.phone.countryCode} ${profile.phone.number}`;
+        fields[idx].status = 'unlocked';
+      }
+    }
+    if (profile.address) {
+      const idx = fields.findIndex(f => f.name === 'address');
+      if (idx >= 0) {
+        fields[idx].value = `${profile.address.city}, ${profile.address.country}`;
+        fields[idx].status = 'unlocked';
+      }
+    }
+  }
+  
+  // Update status based on conversation stage (using correct stage names)
+  const hasExportComplete = messages.some(m => m.stage === 'EXPORT_COMPLETE');
+  const hasAttestationFound = messages.some(m => m.stage === 'ATTESTATION_FOUND');
+  const hasKeyVerify = messages.some(m => m.stage === 'KEY_VERIFY_REQUEST' || m.stage === 'KEY_VERIFY_RESULT');
+  
+  if (hasExportComplete) {
+    fields.forEach(f => {
+      if (f.status === 'locked' && !f.isSensitive) {
+        f.status = 'unlocked';
+      }
+    });
+    const kycIdx = fields.findIndex(f => f.name === 'kyc_status');
+    if (kycIdx >= 0) {
+      fields[kycIdx].value = 'Verified';
+      fields[kycIdx].status = 'unlocked';
+    }
+  } else if (hasKeyVerify) {
+    fields.forEach(f => {
+      if (f.status === 'locked' && !f.isSensitive) {
+        f.status = 'unlocking';
+      }
+    });
+  } else if (hasAttestationFound) {
+    fields.forEach(f => {
+      if (f.status === 'locked' && !f.isSensitive) {
+        f.status = 'unlocking';
+      }
+    });
+  }
+  
+  return fields;
+};
+
+// =====================================================
+// Agent Card Component (for simplified mode)
 // =====================================================
 
 interface AgentCardProps {
@@ -104,81 +264,6 @@ const AgentCard: React.FC<AgentCardProps> = ({ type, name, subtitle, isActive })
         </Box>
       )}
     </Box>
-  );
-};
-
-// =====================================================
-// Agent Strip Component
-// =====================================================
-
-interface AgentStripProps {
-  bankName: string;
-  activeAgent: AgentActor | null;
-  isRunning: boolean;
-}
-
-const AgentStrip: React.FC<AgentStripProps> = ({ bankName, activeAgent, isRunning }) => {
-  return (
-    <Flex 
-      justify="center" 
-      align="center" 
-      gap={{ base: 2, md: 4 }}
-      py={{ base: 3, md: 4 }}
-      px={{ base: 3, md: 6 }}
-      bg="gray.50"
-      borderRadius="2xl"
-      border="1px solid"
-      borderColor="gray.200"
-    >
-      {/* Bank Agent */}
-      <AgentCard
-        type="BANK"
-        name={bankName}
-        subtitle="KYC Copilot"
-        isActive={activeAgent === 'BANK_AGENT'}
-      />
-
-      {/* Connection Line */}
-      <Box 
-        position="relative" 
-        w={{ base: '60px', md: '100px' }}
-        h="4px" 
-        bg="gray.200"
-        borderRadius="full"
-        overflow="hidden"
-      >
-        {isRunning && (
-          <>
-            <Box
-              position="absolute"
-              w="8px"
-              h="8px"
-              bg="purple.400"
-              borderRadius="full"
-              top="-2px"
-              animation={`${flowDots} 1.5s ease-in-out infinite`}
-            />
-            <Box
-              position="absolute"
-              w="8px"
-              h="8px"
-              bg="blue.400"
-              borderRadius="full"
-              top="-2px"
-              animation={`${flowDots} 1.5s ease-in-out infinite 0.5s`}
-            />
-          </>
-        )}
-      </Box>
-
-      {/* Hushh Agent */}
-      <AgentCard
-        type="HUSHH"
-        name="Hushh"
-        subtitle="KYC Network Agent"
-        isActive={activeAgent === 'HUSHH_AGENT'}
-      />
-    </Flex>
   );
 };
 
@@ -257,77 +342,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, bankName }) => {
 };
 
 // =====================================================
-// Status Panel Component
-// =====================================================
-
-interface StatusPanelProps {
-  isRunning: boolean;
-  messageCount: number;
-  result: A2AConversationProps['result'];
-}
-
-const StatusPanel: React.FC<StatusPanelProps> = ({ isRunning, messageCount, result }) => {
-  return (
-    <Box
-      bg="gray.50"
-      border="1px solid"
-      borderColor="gray.200"
-      borderRadius="xl"
-      p={4}
-    >
-      <Text fontSize="xs" color="gray.600" fontWeight="600" mb={3} textTransform="uppercase">
-        Status
-      </Text>
-      
-      <VStack align="stretch" spacing={2}>
-        <HStack justify="space-between">
-          <Text fontSize="sm" color="gray.600">State</Text>
-          <Badge colorScheme={isRunning ? 'yellow' : (result ? 'green' : 'gray')}>
-            {isRunning ? 'Running...' : (result ? 'Complete' : 'Idle')}
-          </Badge>
-        </HStack>
-        
-        <HStack justify="space-between">
-          <Text fontSize="sm" color="gray.600">Messages</Text>
-          <Text fontSize="sm" color="black">{messageCount}</Text>
-        </HStack>
-        
-        {result && (
-          <>
-            <HStack justify="space-between">
-              <Text fontSize="sm" color="gray.600">KYC Status</Text>
-              <Badge colorScheme={result.kycDecision.status === 'PASS' ? 'green' : 'yellow'}>
-                {result.kycDecision.status}
-              </Badge>
-            </HStack>
-            
-            <HStack justify="space-between">
-              <Text fontSize="sm" color="gray.600">Risk</Text>
-              <Text fontSize="sm" color="black">{result.kycDecision.verifiedVia.riskBand}</Text>
-            </HStack>
-            
-            {result.keyMatchResult !== undefined && (
-              <HStack justify="space-between">
-                <Text fontSize="sm" color="gray.600">Key Match</Text>
-                <Badge colorScheme={result.keyMatchResult ? 'green' : 'red'}>
-                  {result.keyMatchResult ? 'Match ✓' : 'No Match'}
-                </Badge>
-              </HStack>
-            )}
-            
-            <HStack justify="space-between">
-              <Text fontSize="sm" color="gray.600">Duration</Text>
-              <Text fontSize="sm" color="black">{(result.totalDurationMs / 1000).toFixed(1)}s</Text>
-            </HStack>
-          </>
-        )}
-      </VStack>
-    </Box>
-  );
-};
-
-// =====================================================
-// Main Component
+// Main Component - Mission Control Layout
 // =====================================================
 
 export const A2AConversationScreen: React.FC<A2AConversationProps> = ({
@@ -338,8 +353,32 @@ export const A2AConversationScreen: React.FC<A2AConversationProps> = ({
   onViewResult,
 }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const isMobile = useBreakpointValue({ base: true, lg: false });
   
-  // Auto-scroll to latest message (debounced to prevent aggressive scrolling)
+  // Calculate derived state
+  const trustScore = useMemo(() => extractTrustScore(messages, result), [messages, result]);
+  const riskBand = useMemo(() => calculateRiskBand(trustScore), [trustScore]);
+  const thoughts = useMemo(() => generateThoughts(messages), [messages]);
+  const dataFields = useMemo(() => generateDataFields(messages, result), [messages, result]);
+  
+  // Decision summary based on result
+  const decisionSummary = useMemo(() => {
+    if (!result) return undefined;
+    if (result.kycDecision.status === 'PASS') {
+      return `KYC Verified. Trust Score: ${(trustScore * 100).toFixed(0)}%. Data exported successfully.`;
+    } else if (result.kycDecision.status === 'REVIEW') {
+      return `Manual review required. Trust Score: ${(trustScore * 100).toFixed(0)}%.`;
+    } else {
+      return `Verification incomplete. Additional information needed.`;
+    }
+  }, [result, trustScore]);
+  
+  // Determine which agent is currently active
+  const activeAgent = isRunning && messages.length > 0 
+    ? messages[messages.length - 1].actor 
+    : null;
+  
+  // Auto-scroll to latest message
   useEffect(() => {
     if (messages.length > 0) {
       const timer = setTimeout(() => {
@@ -347,9 +386,113 @@ export const A2AConversationScreen: React.FC<A2AConversationProps> = ({
       }, 100);
       return () => clearTimeout(timer);
     }
-  }, [messages.length]); // Only trigger when message count changes
+  }, [messages.length]);
 
-  // Determine which agent is currently active
+  // Use simplified layout for mobile
+  if (isMobile) {
+    return (
+      <SimplifiedLayout
+        config={config}
+        messages={messages}
+        isRunning={isRunning}
+        result={result}
+        onViewResult={onViewResult}
+        trustScore={trustScore}
+        riskBand={riskBand}
+        thoughts={thoughts}
+      />
+    );
+  }
+
+  // ================================
+  // MISSION CONTROL 3-PANE LAYOUT
+  // ================================
+  return (
+    <MissionControlLayout
+      agents={{
+        requester: {
+          name: config.relyingParty.name,
+          status: activeAgent === 'BANK_AGENT' ? 'negotiating' : 
+                  isRunning ? 'connected' : 'idle',
+        },
+        oracle: {
+          name: 'Hushh Identity Oracle',
+          status: activeAgent === 'HUSHH_AGENT' ? 'processing' : 
+                  isRunning ? 'connected' : 'idle',
+        },
+      }}
+      messages={messages}
+      isProcessing={isRunning}
+      trustScore={trustScore}
+      riskBand={riskBand}
+      dataFields={dataFields}
+      thoughts={thoughts}
+      decisionSummary={decisionSummary}
+    >
+      {/* Input area at bottom of terminal */}
+      <Box
+        px={4}
+        py={3}
+        borderTop="1px solid"
+        borderColor="gray.700"
+        bg="blackAlpha.800"
+      >
+        {result && !isRunning ? (
+          <Button
+            colorScheme="green"
+            size="lg"
+            w="100%"
+            onClick={onViewResult}
+            leftIcon={<span>✨</span>}
+            _hover={{
+              transform: 'translateY(-2px)',
+              boxShadow: '0 8px 25px rgba(72, 187, 120, 0.4)',
+            }}
+          >
+            View Full Result →
+          </Button>
+        ) : (
+          <HStack justify="space-between">
+            <HStack spacing={2}>
+              <ThoughtIndicator 
+                text={isRunning ? 'Processing...' : 'Ready'} 
+                isActive={isRunning} 
+              />
+              <Text color="gray.400" fontSize="sm">
+                {isRunning ? 'Agents communicating...' : 'Waiting for task...'}
+              </Text>
+            </HStack>
+            <Badge colorScheme={isRunning ? 'green' : 'gray'} variant="subtle">
+              {messages.length} messages
+            </Badge>
+          </HStack>
+        )}
+      </Box>
+    </MissionControlLayout>
+  );
+};
+
+// =====================================================
+// Simplified Layout for Mobile
+// =====================================================
+
+interface SimplifiedLayoutProps extends A2AConversationProps {
+  trustScore: number;
+  riskBand: RiskBand;
+  thoughts: string[];
+}
+
+const SimplifiedLayout: React.FC<SimplifiedLayoutProps> = ({
+  config,
+  messages,
+  isRunning,
+  result,
+  onViewResult,
+  trustScore,
+  riskBand,
+  thoughts,
+}) => {
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   const activeAgent = isRunning && messages.length > 0 
     ? messages[messages.length - 1].actor 
     : null;
@@ -357,133 +500,147 @@ export const A2AConversationScreen: React.FC<A2AConversationProps> = ({
   return (
     <Box
       minH="100vh"
-      bg="white"
-      py={6}
+      bg="gray.900"
+      py={4}
     >
       <Container maxW="6xl">
         {/* Header */}
-        <VStack spacing={2} mb={6} textAlign="center">
-          <Text color="gray.600" fontSize="sm">
-            Verifying <Text as="span" color="black" fontWeight="600">{config.user.fullName}</Text> with two AI agents
-          </Text>
-          <Text
-            fontSize={{ base: 'lg', md: 'xl' }}
-            fontWeight="600"
-            color="black"
-          >
-            {config.relyingParty.name} • KYC Copilot × Hushh • KYC Network Agent
+        <VStack spacing={2} mb={4} textAlign="center">
+          <HStack>
+            <TrustIndicator score={trustScore} />
+            <Text color="white" fontSize="sm" fontWeight="600">
+              Trust: {(trustScore * 100).toFixed(0)}%
+            </Text>
+            <Badge colorScheme={
+              riskBand === 'LOW' ? 'green' : 
+              riskBand === 'MEDIUM' ? 'yellow' : 
+              riskBand === 'HIGH' ? 'orange' : 'red'
+            }>
+              {riskBand} RISK
+            </Badge>
+          </HStack>
+          <Text color="gray.400" fontSize="xs">
+            {config.relyingParty.name} ↔ Hushh Identity Oracle
           </Text>
         </VStack>
 
         {/* Agent Strip */}
-        <Box mb={6}>
-          <AgentStrip
-            bankName={config.relyingParty.name}
-            activeAgent={activeAgent}
-            isRunning={isRunning}
-          />
-        </Box>
-
-        {/* Main Content */}
-        <Flex gap={6} direction={{ base: 'column', lg: 'row' }}>
-          {/* Conversation Log */}
-          <Box flex={1}>
-            <Box
-              bg="gray.50"
-              border="1px solid"
-              borderColor="gray.200"
-              borderRadius="2xl"
-              p={{ base: 3, md: 4 }}
-              minH={{ base: '300px', md: '400px' }}
-              maxH={{ base: '50vh', md: '60vh' }}
-              overflowY="auto"
-              css={{
-                '&::-webkit-scrollbar': {
-                  width: '8px',
-                },
-                '&::-webkit-scrollbar-track': {
-                  background: '#f1f1f1',
-                  borderRadius: '10px',
-                },
-                '&::-webkit-scrollbar-thumb': {
-                  background: '#888',
-                  borderRadius: '10px',
-                },
-                '&::-webkit-scrollbar-thumb:hover': {
-                  background: '#555',
-                },
-              }}
-            >
-              {messages.length === 0 ? (
-                <VStack h="200px" justify="center" spacing={4}>
-                  <Skeleton height="40px" width="80%" borderRadius="xl" />
-                  <Skeleton height="40px" width="60%" borderRadius="xl" alignSelf="flex-end" />
-                  <Skeleton height="40px" width="70%" borderRadius="xl" />
-                  <Text color="gray.600" fontSize={{ base: 'xs', md: 'sm' }}>
-                    Waiting for conversation to start...
-                  </Text>
-                </VStack>
-              ) : (
-                <VStack spacing={{ base: 3, md: 4 }} align="stretch" pb={2}>
-                  {messages.map((msg) => (
-                    <MessageBubble
-                      key={msg.id}
-                      message={msg}
-                      bankName={config.relyingParty.name}
-                    />
-                  ))}
-                  <div ref={messagesEndRef} style={{ height: '1px' }} />
-                </VStack>
-              )}
-            </Box>
+        <Flex 
+          justify="center" 
+          align="center" 
+          gap={2}
+          py={3}
+          px={3}
+          mb={4}
+          bg="blackAlpha.600"
+          borderRadius="xl"
+          border="1px solid"
+          borderColor="gray.700"
+        >
+          <Box
+            px={3}
+            py={2}
+            bg={activeAgent === 'BANK_AGENT' ? 'blue.900' : 'blackAlpha.600'}
+            borderRadius="lg"
+            border="1px solid"
+            borderColor={activeAgent === 'BANK_AGENT' ? 'blue.400' : 'gray.600'}
+          >
+            <Text color="white" fontSize="xs" fontWeight="600">
+              {config.relyingParty.name}
+            </Text>
           </Box>
 
-          {/* Side Panel */}
-          <Box w={{ base: '100%', lg: '280px' }} display={{ base: 'none', lg: 'block' }}>
-            <VStack spacing={4}>
-              {/* Status Panel */}
-              <StatusPanel
-                isRunning={isRunning}
-                messageCount={messages.length}
-                result={result}
+          {/* Connection indicator */}
+          <Box w="40px" h="2px" bg="gray.600" position="relative">
+            {isRunning && (
+              <motion.div
+                style={{
+                  position: 'absolute',
+                  top: '-3px',
+                  left: 0,
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  backgroundColor: '#48BB78',
+                }}
+                animate={{ left: ['0%', '100%', '0%'] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
               />
+            )}
+          </Box>
 
-              {/* View Result Button */}
-              {result && !isRunning && (
-                <Button
-                  colorScheme="green"
-                  size="lg"
-                  w="100%"
-                  onClick={onViewResult}
-                  _hover={{
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 8px 25px rgba(72, 187, 120, 0.4)',
-                  }}
-                >
-                  View Full Result →
-                </Button>
-              )}
-
-              {/* A2A Protocol Info */}
-              <Box
-                bg="gray.50"
-                border="1px solid"
-                borderColor="gray.200"
-                borderRadius="lg"
-                p={4}
-              >
-                <VStack align="start" spacing={1}>
-                  <Text fontSize="xs" color="black" fontWeight="600">
-                    A2A Protocol
-                  </Text>
-                  <Text fontSize="2xs" color="gray.600">
-                    JSON-RPC 2.0
-                  </Text>
-                </VStack>
-              </Box>
-            </VStack>
+          <Box
+            px={3}
+            py={2}
+            bg={activeAgent === 'HUSHH_AGENT' ? 'green.900' : 'blackAlpha.600'}
+            borderRadius="lg"
+            border="1px solid"
+            borderColor={activeAgent === 'HUSHH_AGENT' ? 'green.400' : 'gray.600'}
+          >
+            <Text color="white" fontSize="xs" fontWeight="600">
+              🛡️ Hushh Oracle
+            </Text>
           </Box>
         </Flex>
+
+        {/* Messages */}
+        <Box
+          bg="black"
+          borderRadius="xl"
+          border="1px solid"
+          borderColor="gray.700"
+          p={3}
+          minH="300px"
+          maxH="50vh"
+          overflowY="auto"
+          mb={4}
+        >
+          {messages.length === 0 ? (
+            <VStack h="200px" justify="center" spacing={4}>
+              <Skeleton height="40px" width="80%" borderRadius="xl" startColor="gray.700" endColor="gray.600" />
+              <Text color="gray.500" fontSize="xs">
+                Waiting for agents to connect...
+              </Text>
+            </VStack>
+          ) : (
+            <VStack spacing={3} align="stretch">
+              {messages.map((msg) => (
+                <MessageBubble
+                  key={msg.id}
+                  message={msg}
+                  bankName={config.relyingParty.name}
+                />
+              ))}
+              <div ref={messagesEndRef} style={{ height: '1px' }} />
+            </VStack>
+          )}
+        </Box>
+
+        {/* Thought Log (collapsed on mobile) */}
+        {thoughts.length > 0 && (
+          <AgentThoughtLog
+            thoughts={thoughts}
+            isActive={isRunning}
+            agentName="HUSHH_ORACLE"
+          />
+        )}
+
+        {/* View Result Button */}
+        {result && !isRunning && (
+          <Button
+            colorScheme="green"
+            size="lg"
+            w="100%"
+            mt={4}
+            onClick={onViewResult}
+            _hover={{
+              transform: 'translateY(-2px)',
+              boxShadow: '0 8px 25px rgba(72, 187, 120, 0.4)',
+            }}
+          >
+            View Full Result →
+          </Button>
+        )}
       </Container>
     </Box>
   );
