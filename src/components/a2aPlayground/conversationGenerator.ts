@@ -174,6 +174,9 @@ export const generateA2AConversation = async (
 
   // Track operations performed
   const operationsPerformed: string[] = [];
+  
+  // Store API result data for use throughout the flow
+  let realApiData: any = null;
 
   // =====================================================
   // Phase 1: Initiation
@@ -258,6 +261,9 @@ export const generateA2AConversation = async (
     // ACTUALLY CALL THE REAL API
     const userIdentifier = config.user.email || `${config.user.phoneCountryCode}${config.user.phoneNumber}`;
     const apiResult = await callKycAgentApi(userIdentifier, config.relyingParty.id);
+
+    // Store API result for use in all subsequent operations
+    realApiData = apiResult;
 
     if (apiResult.status === 'PASS') {
       // Real attestation found!
@@ -349,7 +355,7 @@ export const generateA2AConversation = async (
   }
 
   // =====================================================
-  // Phase 3: Verify Field Match (if enabled and attestation found)
+  // Phase 3: Verify Field Match - DEMO ONLY (not implemented in real API yet)
   // =====================================================
   
   if (config.operations.confirmKeyMatch && config.user.ssnLast4) {
@@ -367,48 +373,15 @@ export const generateA2AConversation = async (
     await addMessage(
       createHushhMessage(
         'KEY_VERIFY_REQUEST',
-        `🛡️ Processing VerifyFieldMatch request. Note: Raw SSN is NEVER shared.`,
-        { privacyMode: 'attestation_only' }
-      ),
-      600
-    );
-
-    await addMessage(
-      createHushhMessage(
-        'KEY_VERIFY_RESULT',
-        `🔒 Comparing hashed SSN last-4 from attestation with bank's claim...`,
-        { comparing: true },
-        true,
-        50
-      ),
-      800
-    );
-
-    await addMessage(
-      createHushhMessage(
-        'KEY_VERIFY_RESULT',
-        `✅ MATCH CONFIRMED! SSN last-4 matches attestation record. No raw SSN exposed.`,
-        { 
-          match: true,
-          fieldVerified: 'ssn_last4',
-          rawDataShared: false 
-        }
-      ),
-      900
-    );
-
-    await addMessage(
-      createBankMessage(
-        'KEY_VERIFY_RESULT',
-        `📥 Key match verified successfully. SSN last-4: ✓ (without seeing actual digits)`,
-        { verified: true }
+        `⚠️ VerifyFieldMatch not yet implemented in API. This is a demo simulation only.`,
+        { privacyMode: 'attestation_only', demo: true }
       ),
       600
     );
   }
 
   // =====================================================
-  // Phase 4: Export KYC Profile (if enabled)
+  // Phase 4: Export KYC Profile (if enabled) - USE REAL API DATA
   // =====================================================
   
   let exportResult: A2AExportResult | undefined;
@@ -456,7 +429,7 @@ export const generateA2AConversation = async (
       600
     );
 
-    // Build export result
+    // Build export result using REAL API DATA
     const profile: ExportedKycProfile = {
       fullName: config.user.fullName,
       phone: {
@@ -470,9 +443,9 @@ export const generateA2AConversation = async (
         last4: '****', // Never expose actual digits
       } : undefined,
       kycMeta: {
-        providerName: 'Verified Provider',
-        riskBand: 'LOW',
-        lastVerifiedAt: new Date().toISOString(),
+        providerName: realApiData.providerName || 'Unknown',
+        riskBand: realApiData.riskBand || 'UNKNOWN',
+        lastVerifiedAt: realApiData.lastVerifiedAt || new Date().toISOString(),
       },
     };
 
@@ -533,18 +506,18 @@ export const generateA2AConversation = async (
   );
 
   // =====================================================
-  // Build Final Result
+  // Build Final Result - USE ONLY REAL API DATA
   // =====================================================
 
   const kycDecision: A2AKycDecision = {
-    status: 'PASS',
+    status: realApiData.status,
     verifiedVia: {
-      providerName: 'Verified Provider',
-      providerType: 'BANK',
-      lastVerifiedAt: new Date().toISOString(),
-      riskBand: 'LOW',
+      providerName: realApiData.providerName || 'Unknown',
+      providerType: realApiData.providerType || 'UNKNOWN',
+      lastVerifiedAt: realApiData.lastVerifiedAt || new Date().toISOString(),
+      riskBand: realApiData.riskBand || 'UNKNOWN',
     },
-    verifiedAttributes: ['fullName', 'phone', 'email', 'ssn_last4'],
+    verifiedAttributes: realApiData.verifiedAttributes || [],
   };
 
   const audit: A2AAuditEntry = {
