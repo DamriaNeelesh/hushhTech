@@ -22,6 +22,8 @@ import { Box, Center, Spinner, Text, VStack } from '@chakra-ui/react';
 import { Helmet } from 'react-helmet';
 import KycFlowContainer from '../../components/kyc/screens/KycFlowContainer';
 import { KycCheckResponse } from '../../types/kyc';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 
 // =====================================================
 // Page Configuration
@@ -37,17 +39,17 @@ const DEFAULT_BANK_NAME = 'Demo Bank';
 const LoadingScreen: React.FC = () => (
   <Box
     minH="100vh"
-    bg="linear-gradient(180deg, #0A0A0A 0%, #1A1A2E 100%)"
+    bg="white"
   >
     <Center h="100vh">
       <VStack spacing={4}>
         <Spinner
           size="xl"
-          color="purple.400"
+          color="gray.600"
           thickness="3px"
           speed="0.8s"
         />
-        <Text color="gray.400" fontSize="sm">
+        <Text color="gray.500" fontSize="sm">
           Initializing KYC verification...
         </Text>
       </VStack>
@@ -131,13 +133,20 @@ const KycFlowPage: React.FC = () => {
         />
       </Helmet>
       
-      {/* KYC Flow Container */}
-      <KycFlowContainer
-        relyingPartyId={bankId}
-        bankName={bankName}
-        onComplete={handleComplete}
-        onStartFullKyc={handleStartFullKyc}
-      />
+      {/* Page Layout */}
+      <Box minH="100vh" bg="white">
+        <Navbar />
+        <Box pt="120px" pb="40px">
+          {/* KYC Flow Container */}
+          <KycFlowContainer
+            relyingPartyId={bankId}
+            bankName={bankName}
+            onComplete={handleComplete}
+            onStartFullKyc={handleStartFullKyc}
+          />
+        </Box>
+        <Footer />
+      </Box>
     </>
   );
 };

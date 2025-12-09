@@ -175,7 +175,7 @@ const A2APlaygroundContainer: React.FC<A2APlaygroundContainerProps> = ({
   };
 
   return (
-    <Box minH="100vh" bg="#0a0a0a">
+    <Box minH="100vh" bg="white">
       {renderScreen()}
     </Box>
   );
