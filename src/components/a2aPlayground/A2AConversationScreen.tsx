@@ -378,6 +378,11 @@ export const A2AConversationScreen: React.FC<A2AConversationProps> = ({
     ? messages[messages.length - 1].actor 
     : null;
   
+  // Scroll to top when component first mounts (screen transition)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // Auto-scroll to latest message
   useEffect(() => {
     if (messages.length > 0) {
