@@ -32,14 +32,14 @@ if (!SUPABASE_ANON_KEY) {
   console.error('[A2A Playground] VITE_SUPABASE_ANON_KEY environment variable is required');
 }
 
-// A2A Protocol Message Type
+// A2A Protocol Message Type - Extended for Agentic Negotiation
 interface A2AProtocolMessage {
   sequence: number;
   timestamp: string;
   sender: string;
   receiver: string;
   protocol: 'A2A/1.0';
-  type: 'TASK_INIT' | 'TASK_NEGOTIATION' | 'TASK_UPDATE' | 'TASK_STATUS' | 'TASK_RESULT' | 'KEY_EXCHANGE' | 'TASK_COMPLETE' | 'TASK_ERROR';
+  type: 'TASK_INIT' | 'TASK_NEGOTIATION' | 'TASK_UPDATE' | 'TASK_STATUS' | 'TASK_RESULT' | 'TASK_CHALLENGE' | 'KEY_EXCHANGE' | 'TASK_COMPLETE' | 'TASK_ERROR';
   task_id?: string;
   payload: {
     status?: string;
@@ -91,6 +91,7 @@ const a2aToConversation = (msg: A2AProtocolMessage): ConversationMessage => {
   if (msg.type === 'TASK_UPDATE') stage = 'CHECKING';
   if (msg.type === 'TASK_STATUS') stage = 'CHECKING';
   if (msg.type === 'TASK_RESULT') stage = 'ATTESTATION_FOUND';
+  if (msg.type === 'TASK_CHALLENGE') stage = 'ATTESTATION_FOUND'; // Agentic negotiation
   if (msg.type === 'KEY_EXCHANGE') stage = 'ATTESTATION_FOUND';
   if (msg.type === 'TASK_COMPLETE') stage = 'BANK_CONFIRM';
   if (msg.type === 'TASK_ERROR') stage = 'ERROR';
@@ -135,6 +136,40 @@ const a2aToConversation = (msg: A2AProtocolMessage): ConversationMessage => {
     content += `Trust Score: ${trustScore}%\n`;
     content += `Risk Band: ${msg.payload.risk_band || 'N/A'}\n`;
     if (msg.payload.message) content += msg.payload.message;
+  }
+  
+  // NEW: Agentic Negotiation - TASK_CHALLENGE for partial matches
+  if (msg.type === 'TASK_CHALLENGE') {
+    content = `⚠️ [A2A TASK_CHALLENGE] PARTIAL MATCH DETECTED\n\n`;
+    content += `${msg.payload.message || 'Identifier mismatch detected.'}\n\n`;
+    
+    if (msg.payload.data) {
+      const data = msg.payload.data;
+      content += `📋 Match Details:\n`;
+      if (data.confirmed_name) {
+        content += `• Confirmed Name: ${data.confirmed_name}\n`;
+      }
+      if (data.name_confidence) {
+        content += `• Name Confidence: ${data.name_confidence}\n`;
+      }
+      if (data.matched_fields && data.matched_fields.length > 0) {
+        content += `• ✅ Matched: ${data.matched_fields.join(', ')}\n`;
+      }
+      if (data.mismatched_fields && data.mismatched_fields.length > 0) {
+        content += `• ❌ Mismatched: ${data.mismatched_fields.join(', ')}\n`;
+      }
+      if (data.required_to_proceed && data.required_to_proceed.length > 0) {
+        content += `\n📝 To Proceed, provide:\n`;
+        data.required_to_proceed.forEach((item: string) => {
+          content += `  • ${item}\n`;
+        });
+      }
+    }
+    
+    // Show agent thoughts if available
+    if (msg.payload.log) {
+      content += `\n🤖 Agent Analysis:\n${msg.payload.log}`;
+    }
   }
   
   if (msg.type === 'KEY_EXCHANGE') {
@@ -318,6 +353,7 @@ export const generateA2AConversation = async (
     let msgDelay = 600;
     if (a2aMsg.type === 'TASK_STATUS') msgDelay = 800;
     if (a2aMsg.type === 'TASK_RESULT') msgDelay = 1000;
+    if (a2aMsg.type === 'TASK_CHALLENGE') msgDelay = 1500; // Extra time for agentic challenge
     if (a2aMsg.type === 'TASK_COMPLETE') msgDelay = 1200;
     if (a2aMsg.type === 'KEY_EXCHANGE') msgDelay = 700;
     
@@ -329,10 +365,13 @@ export const generateA2AConversation = async (
   const trustScore = lastMessage?.payload?.trust_score || 0;
   const riskBand = lastMessage?.payload?.risk_band || 'HIGH';
   const verifiedData = lastMessage?.payload?.data || {};
+  
+  // Check if this was a PARTIAL_MATCH (agentic challenge scenario)
+  const isPartialMatch = apiResult.status === 'PARTIAL_MATCH';
 
-  // Build Final Result
+  // Build Final Result - Handle PARTIAL_MATCH as a special case
   const kycDecision: A2AKycDecision = {
-    status: apiResult.success ? 'PASS' : 'NOT_FOUND',
+    status: apiResult.success ? 'PASS' : (isPartialMatch ? 'REVIEW' : 'NOT_FOUND'),
     verifiedVia: {
       providerName: 'Hushh A2A Protocol Agent v2.0',
       providerType: 'INTERNAL',

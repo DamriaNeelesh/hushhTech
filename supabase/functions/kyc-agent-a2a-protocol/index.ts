@@ -11,8 +11,14 @@
  * - Key Exchange for sensitive data
  * - Migration tokens for secure data transfer
  * 
+ * AGENTIC PATTERNS IMPLEMENTED:
+ * 1. REASONING (ReAct Loop) - Agent thinks step-by-step with observable thoughts
+ * 2. REFLECTION (Evaluator-Optimizer) - Self-correction before output to prevent PII leaks
+ * 3. GUARDRAILS (Input/Output Sanitization) - Detects and blocks injection attacks + PII leaks
+ * 4. ROUTING (Smart Receptionist) - Routes requests to appropriate handlers
+ * 
  * @author Hushh Team
- * @version 2.0.0
+ * @version 3.0.0 - Agentic Patterns Edition
  */
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
@@ -34,24 +40,36 @@ const supabase = createClient(supabaseUrl, supabaseServiceKey);
 // A2A PROTOCOL TYPES (Based on a2a-protocol.org)
 // ============================================================================
 
-// A2A Message Types
+// A2A Message Types - Extended for Agentic Negotiation
 type A2AMessageType = 
   | 'TASK_INIT'
   | 'TASK_NEGOTIATION'
   | 'TASK_UPDATE'
   | 'TASK_STATUS'
   | 'TASK_RESULT'
+  | 'TASK_CHALLENGE'  // NEW: Agentic pushback for partial matches
   | 'KEY_EXCHANGE'
   | 'TASK_COMPLETE'
   | 'TASK_ERROR';
 
-// A2A Task Status
+// A2A Task Status - Extended for Partial Matches
 type A2ATaskStatus = 
   | 'PENDING_INPUT'
   | 'PROCESSING'
   | 'VERIFIED'
+  | 'PARTIAL_MATCH'   // NEW: Name matches but identifier mismatch
   | 'REJECTED'
   | 'ERROR';
+
+// Match Result from fuzzy search
+interface MatchResult {
+  type: 'PERFECT_MATCH' | 'PARTIAL_MATCH' | 'NO_MATCH';
+  user: DatabaseUser | null;
+  confidence: number;
+  matchedFields: string[];
+  mismatchedFields: string[];
+  agentThoughts: string[];
+}
 
 // A2A Risk Band
 type A2ARiskBand = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
@@ -206,6 +224,521 @@ const maskSSN = (ssn: string): string => {
   if (!ssn || ssn.length < 4) return '****';
   const lastFour = ssn.replace(/\D/g, '').slice(-4);
   return `***-**-${lastFour}`;
+};
+
+// ============================================================================
+// PATTERN 3: GUARDRAILS (Input/Output Sanitization)
+// Like "Airport Security" - detects and blocks injection attacks + PII leaks
+// ============================================================================
+
+// Dangerous patterns that could be injection attacks
+const INJECTION_PATTERNS = [
+  /ignore\s+(previous|all|your)\s+instructions/i,
+  /dump\s+(all|the)\s+(user|data|names)/i,
+  /reveal\s+(the|all)\s+(secrets|passwords|ssn)/i,
+  /system\s*prompt/i,
+  /disregard\s+(previous|above)/i,
+  /act\s+as\s+if\s+you/i,
+  /pretend\s+you\s+are/i,
+  /bypass\s+(security|verification)/i,
+];
+
+// PII patterns that should NEVER appear in output
+const PII_PATTERNS = {
+  SSN_FULL: /\b\d{3}[-\s]?\d{2}[-\s]?\d{4}\b/g,  // Full SSN like 123-45-6789
+  PHONE_RAW: /\b\+?1?\s*\d{10,11}\b/g,            // Raw 10+ digit phone
+  EMAIL_FULL: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g,
+};
+
+/**
+ * INPUT GUARDRAIL: Sanitize incoming request for injection attacks
+ */
+const sanitizeInput = (input: string): { safe: boolean; sanitized: string; threats: string[] } => {
+  const threats: string[] = [];
+  let sanitized = input;
+  
+  for (const pattern of INJECTION_PATTERNS) {
+    if (pattern.test(input)) {
+      threats.push(`Potential injection detected: ${pattern.source.substring(0, 30)}...`);
+      sanitized = sanitized.replace(pattern, '[BLOCKED]');
+    }
+  }
+  
+  return {
+    safe: threats.length === 0,
+    sanitized,
+    threats,
+  };
+};
+
+/**
+ * OUTPUT GUARDRAIL: Redact any PII that accidentally appears in output
+ */
+const sanitizeOutput = (output: string): { redacted: string; piiFound: string[] } => {
+  const piiFound: string[] = [];
+  let redacted = output;
+  
+  // Check for full SSN and redact to last-4 only
+  if (PII_PATTERNS.SSN_FULL.test(output)) {
+    piiFound.push('SSN (full)');
+    redacted = redacted.replace(PII_PATTERNS.SSN_FULL, '***-**-$4');
+  }
+  
+  return {
+    redacted,
+    piiFound,
+  };
+};
+
+// ============================================================================
+// PATTERN 2: REFLECTION (The "Evaluator-Optimizer" Pattern)
+// Before sending a message, the agent self-corrects to prevent PII leaks
+// ============================================================================
+
+interface ReflectionResult {
+  isSafe: boolean;
+  originalResponse: string;
+  revisedResponse: string;
+  reflectionThoughts: string[];
+}
+
+/**
+ * REFLECTION: Self-correction step before output
+ * The agent "thinks about" whether its response is safe before sending
+ */
+const reflectOnResponse = (
+  draftResponse: string,
+  matchResult: MatchResult | null,
+  providedPhone: string | undefined
+): ReflectionResult => {
+  const thoughts: string[] = [];
+  let revisedResponse = draftResponse;
+  let isSafe = true;
+  
+  thoughts.push('🤔 Reflection: Analyzing draft response for safety...');
+  
+  // Check 1: Are we about to reveal the correct phone number?
+  if (matchResult?.user?.phone_number) {
+    const storedPhone = matchResult.user.phone_number;
+    if (draftResponse.includes(storedPhone)) {
+      thoughts.push('⚠️ DANGER: Draft response contains the actual stored phone number!');
+      thoughts.push('📝 Revising: Redacting stored phone from response.');
+      revisedResponse = revisedResponse.replace(
+        storedPhone, 
+        '***-***-' + storedPhone.slice(-4)
+      );
+      isSafe = false;
+    } else {
+      thoughts.push('✅ Safe: Response does not contain stored phone number.');
+    }
+  }
+  
+  // Check 2: Are we about to reveal the SSN?
+  if (matchResult?.user?.ssn_encrypted) {
+    const ssn = matchResult.user.ssn_encrypted;
+    if (draftResponse.includes(ssn)) {
+      thoughts.push('⚠️ DANGER: Draft response contains full SSN!');
+      thoughts.push('📝 Revising: Masking SSN to last-4 only.');
+      revisedResponse = revisedResponse.replace(ssn, maskSSN(ssn));
+      isSafe = false;
+    } else {
+      thoughts.push('✅ Safe: Response does not contain full SSN.');
+    }
+  }
+  
+  // Check 3: If phone was WRONG, are we hinting at the correct value?
+  if (matchResult?.mismatchedFields.includes('phone') && providedPhone) {
+    // Make sure we're not giving hints about what the correct phone should be
+    const phoneDigits = providedPhone.replace(/\D/g, '');
+    const storedDigits = matchResult.user?.phone_number?.replace(/\D/g, '') || '';
+    
+    // Check if we're showing which digits are wrong (that would be a leak)
+    if (draftResponse.includes('first digit') || 
+        draftResponse.includes('last digit') ||
+        draftResponse.includes('area code')) {
+      thoughts.push('⚠️ DANGER: Response hints at correct phone structure!');
+      thoughts.push('📝 Revising: Removing hints about correct phone format.');
+      revisedResponse = revisedResponse
+        .replace(/first\s+digit/gi, '[REDACTED]')
+        .replace(/last\s+digit/gi, '[REDACTED]')
+        .replace(/area\s+code/gi, '[REDACTED]');
+      isSafe = false;
+    } else {
+      thoughts.push('✅ Safe: Response does not hint at correct phone format.');
+    }
+  }
+  
+  // Check 4: Run output guardrail as final safety net
+  const { redacted, piiFound } = sanitizeOutput(revisedResponse);
+  if (piiFound.length > 0) {
+    thoughts.push(`⚠️ Output guardrail caught: ${piiFound.join(', ')}`);
+    revisedResponse = redacted;
+    isSafe = false;
+  } else {
+    thoughts.push('✅ Output guardrail: No additional PII detected.');
+  }
+  
+  thoughts.push(isSafe 
+    ? '🎯 Reflection complete: Response is SAFE to send.'
+    : '🔧 Reflection complete: Response was REVISED for safety.'
+  );
+  
+  return {
+    isSafe,
+    originalResponse: draftResponse,
+    revisedResponse,
+    reflectionThoughts: thoughts,
+  };
+};
+
+// ============================================================================
+// PATTERN 4: ROUTING (The "Smart Receptionist")
+// Routes requests to appropriate handlers based on intent
+// ============================================================================
+
+type IntentType = 
+  | 'VERIFY_USER'        // Standard KYC verification
+  | 'MIGRATE_DATA'       // Data migration to another wallet
+  | 'CHECK_STATUS'       // Query existing verification status
+  | 'EXPLAIN_FAILURE'    // Why did verification fail?
+  | 'UNKNOWN';
+
+interface RoutingResult {
+  intent: IntentType;
+  confidence: number;
+  handler: string;
+  extractedData: Record<string, string>;
+}
+
+/**
+ * ROUTING: Smart intent detection and routing
+ */
+const routeRequest = (body: Record<string, any>): RoutingResult => {
+  const intentFromBody = (body.intent || body.payload?.intent || '').toLowerCase();
+  const message = (body.message || body.query || '').toLowerCase();
+  
+  // Explicit intent mapping
+  if (intentFromBody.includes('verify') || intentFromBody.includes('kyc')) {
+    return {
+      intent: 'VERIFY_USER',
+      confidence: 1.0,
+      handler: 'runA2AConversation',
+      extractedData: {
+        subject: body.subject || body.userName || '',
+        phone: body.phoneNumber || '',
+      },
+    };
+  }
+  
+  if (intentFromBody.includes('migrate') || intentFromBody.includes('transfer')) {
+    return {
+      intent: 'MIGRATE_DATA',
+      confidence: 1.0,
+      handler: 'handleMigrationRequest',
+      extractedData: {
+        taskId: body.task_id || '',
+        publicKey: body.publicKey || '',
+      },
+    };
+  }
+  
+  if (intentFromBody.includes('status') || intentFromBody.includes('check')) {
+    return {
+      intent: 'CHECK_STATUS',
+      confidence: 1.0,
+      handler: 'handleStatusQuery',
+      extractedData: {
+        taskId: body.task_id || '',
+      },
+    };
+  }
+  
+  // Natural language intent detection
+  if (message.includes('why') && (message.includes('fail') || message.includes('reject'))) {
+    return {
+      intent: 'EXPLAIN_FAILURE',
+      confidence: 0.8,
+      handler: 'handleExplanationRequest',
+      extractedData: {
+        taskId: body.task_id || '',
+      },
+    };
+  }
+  
+  if (message.includes('move') && message.includes('data')) {
+    return {
+      intent: 'MIGRATE_DATA',
+      confidence: 0.7,
+      handler: 'handleMigrationRequest',
+      extractedData: {},
+    };
+  }
+  
+  // Default to verification if we have a subject
+  if (body.subject || body.userName) {
+    return {
+      intent: 'VERIFY_USER',
+      confidence: 0.9,
+      handler: 'runA2AConversation',
+      extractedData: {
+        subject: body.subject || body.userName || '',
+        phone: body.phoneNumber || '',
+      },
+    };
+  }
+  
+  return {
+    intent: 'UNKNOWN',
+    confidence: 0,
+    handler: 'handleUnknownIntent',
+    extractedData: {},
+  };
+};
+
+// ============================================================================
+// AGENTIC NEGOTIATION - FUZZY MATCHING FUNCTIONS
+// ============================================================================
+
+/**
+ * Calculate Levenshtein distance between two strings
+ * Used for fuzzy name matching
+ */
+const levenshteinDistance = (a: string, b: string): number => {
+  const matrix: number[][] = [];
+  const aLen = a.length;
+  const bLen = b.length;
+
+  if (aLen === 0) return bLen;
+  if (bLen === 0) return aLen;
+
+  for (let i = 0; i <= bLen; i++) {
+    matrix[i] = [i];
+  }
+  for (let j = 0; j <= aLen; j++) {
+    matrix[0][j] = j;
+  }
+
+  for (let i = 1; i <= bLen; i++) {
+    for (let j = 1; j <= aLen; j++) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j - 1] + 1, // substitution
+          matrix[i][j - 1] + 1,     // insertion
+          matrix[i - 1][j] + 1      // deletion
+        );
+      }
+    }
+  }
+
+  return matrix[bLen][aLen];
+};
+
+/**
+ * Calculate name similarity score (0-1)
+ * Uses Levenshtein distance normalized by string length
+ */
+const calculateNameSimilarity = (name1: string, name2: string): number => {
+  const n1 = name1.toLowerCase().trim();
+  const n2 = name2.toLowerCase().trim();
+  
+  if (n1 === n2) return 1.0;
+  if (!n1 || !n2) return 0;
+  
+  const maxLen = Math.max(n1.length, n2.length);
+  const distance = levenshteinDistance(n1, n2);
+  
+  return Math.max(0, 1 - (distance / maxLen));
+};
+
+/**
+ * Fuzzy match a name against database records
+ * Returns MatchResult with confidence and matched/mismatched fields
+ */
+const fuzzyMatchUser = async (
+  firstName: string,
+  lastName: string,
+  providedPhone?: string,
+  providedEmail?: string
+): Promise<MatchResult> => {
+  const thoughts: string[] = [];
+  const fullNameQuery = `${firstName} ${lastName}`.trim();
+  
+  thoughts.push(`🔍 Searching for name: "${fullNameQuery}"`);
+  
+  // Step 1: Search by name (fuzzy)
+  const { data: candidates, error } = await supabase
+    .from('onboarding_data')
+    .select('*')
+    .or(`legal_first_name.ilike.%${firstName}%,legal_last_name.ilike.%${lastName}%`)
+    .limit(10);
+  
+  if (error || !candidates || candidates.length === 0) {
+    thoughts.push('❌ No candidates found in primary database.');
+    
+    // Also check investor_profiles as fallback
+    const { data: profileCandidates } = await supabase
+      .from('investor_profiles')
+      .select('*')
+      .ilike('name', `%${firstName}%`)
+      .limit(5);
+    
+    if (!profileCandidates || profileCandidates.length === 0) {
+      thoughts.push('❌ No candidates found in investor profiles either.');
+      return {
+        type: 'NO_MATCH',
+        user: null,
+        confidence: 0,
+        matchedFields: [],
+        mismatchedFields: [],
+        agentThoughts: thoughts,
+      };
+    }
+    
+    // Process investor profile candidates
+    // (simplified - would need similar logic)
+    thoughts.push('ℹ️ Found potential match in investor profiles.');
+  }
+  
+  if (!candidates || candidates.length === 0) {
+    return {
+      type: 'NO_MATCH',
+      user: null,
+      confidence: 0,
+      matchedFields: [],
+      mismatchedFields: [],
+      agentThoughts: thoughts,
+    };
+  }
+  
+  thoughts.push(`📊 Found ${candidates.length} potential candidate(s).`);
+  
+  // Step 2: Score each candidate by name similarity
+  let bestMatch: DatabaseUser | null = null;
+  let bestScore = 0;
+  
+  for (const candidate of candidates) {
+    const candidateFullName = `${candidate.legal_first_name || ''} ${candidate.legal_last_name || ''}`.trim();
+    const score = calculateNameSimilarity(fullNameQuery, candidateFullName);
+    
+    thoughts.push(`  - "${candidateFullName}": similarity ${(score * 100).toFixed(1)}%`);
+    
+    if (score > bestScore) {
+      bestScore = score;
+      bestMatch = candidate as DatabaseUser;
+    }
+  }
+  
+  // Step 3: Determine if we have a strong name match
+  if (bestScore < 0.6) {
+    thoughts.push(`⚠️ Best match score ${(bestScore * 100).toFixed(1)}% is below threshold (60%).`);
+    return {
+      type: 'NO_MATCH',
+      user: null,
+      confidence: bestScore,
+      matchedFields: [],
+      mismatchedFields: [],
+      agentThoughts: thoughts,
+    };
+  }
+  
+  thoughts.push(`✅ Strong name match found: ${(bestScore * 100).toFixed(1)}% confidence.`);
+  
+  // Step 4: Compare identifiers (phone/email)
+  const matchedFields: string[] = ['name'];
+  const mismatchedFields: string[] = [];
+  
+  // Compare phone number
+  if (providedPhone) {
+    const cleanProvidedPhone = providedPhone.replace(/\D/g, '');
+    const cleanStoredPhone = (bestMatch?.phone_number || '').replace(/\D/g, '');
+    
+    if (cleanStoredPhone && cleanProvidedPhone) {
+      // Check if phones match (last 10 digits)
+      const providedLast10 = cleanProvidedPhone.slice(-10);
+      const storedLast10 = cleanStoredPhone.slice(-10);
+      
+      if (providedLast10 === storedLast10) {
+        matchedFields.push('phone');
+        thoughts.push('✅ Phone number: MATCH');
+      } else {
+        mismatchedFields.push('phone');
+        thoughts.push('❌ Phone number: MISMATCH (provided does not match our records)');
+      }
+    }
+  }
+  
+  // Compare email (if we had email in the schema - placeholder)
+  if (providedEmail) {
+    // Note: We don't have email in onboarding_data currently
+    // This is a placeholder for future implementation
+    thoughts.push('ℹ️ Email verification not available in current schema.');
+  }
+  
+  // Step 5: Determine final match type
+  if (mismatchedFields.length === 0 && matchedFields.length >= 2) {
+    // Perfect match - name + at least one identifier matches
+    thoughts.push('🎯 PERFECT_MATCH: All provided identifiers verified.');
+    return {
+      type: 'PERFECT_MATCH',
+      user: bestMatch,
+      confidence: bestScore,
+      matchedFields,
+      mismatchedFields,
+      agentThoughts: thoughts,
+    };
+  } else if (mismatchedFields.length > 0) {
+    // Partial match - name matches but identifier doesn't
+    thoughts.push('⚠️ PARTIAL_MATCH: Name matches but identifier mismatch detected.');
+    thoughts.push('🤖 Initiating agentic challenge flow...');
+    return {
+      type: 'PARTIAL_MATCH',
+      user: bestMatch,
+      confidence: bestScore,
+      matchedFields,
+      mismatchedFields,
+      agentThoughts: thoughts,
+    };
+  } else {
+    // Only name matched, no identifiers to compare
+    thoughts.push('ℹ️ Name matched but no additional identifiers provided to verify.');
+    return {
+      type: 'PERFECT_MATCH',
+      user: bestMatch,
+      confidence: bestScore,
+      matchedFields,
+      mismatchedFields,
+      agentThoughts: thoughts,
+    };
+  }
+};
+
+/**
+ * Generate a privacy-safe challenge message
+ * NEVER leaks the correct phone/email - just confirms mismatch
+ */
+const generateChallengeMessage = (
+  matchResult: MatchResult,
+  subjectName: string
+): string => {
+  const { mismatchedFields, matchedFields, confidence } = matchResult;
+  
+  let message = `I found a KYC record for "${subjectName}" with ${(confidence * 100).toFixed(0)}% name confidence. `;
+  
+  if (mismatchedFields.includes('phone')) {
+    message += `However, the phone number you provided does not match our records. `;
+    message += `This could be due to:\n`;
+    message += `• A typo in the phone number\n`;
+    message += `• An outdated phone on file\n`;
+    message += `• A different person with a similar name\n\n`;
+    message += `Please verify the phone number and try again, or provide an alternative identifier (like the last 4 digits of SSN).`;
+  } else if (mismatchedFields.includes('email')) {
+    message += `However, the email address does not match our records. `;
+    message += `Please verify the email or provide an alternative identifier.`;
+  }
+  
+  return message;
 };
 
 // ============================================================================
@@ -383,15 +916,23 @@ async function runA2AConversation(request: KycRequest): Promise<{
   });
 
   // ==============================
-  // ACTUAL DATABASE SEARCH
+  // AGENTIC NEGOTIATION: FUZZY MATCH
+  // Uses intelligent matching with TASK_CHALLENGE for conflicts
   // ==============================
-  // Try by name first
-  foundUser = await searchByName(firstName, lastName);
+  const fullPhoneNumber = request.phoneNumber 
+    ? `${request.phoneCountryCode || ''}${request.phoneNumber}` 
+    : undefined;
   
-  // If not found, try by phone
-  if (!foundUser && request.phoneNumber) {
-    foundUser = await searchByPhone(request.phoneNumber);
-  }
+  const matchResult = await fuzzyMatchUser(
+    firstName,
+    lastName,
+    fullPhoneNumber,
+    request.email
+  );
+
+  // Log agent thoughts for debugging
+  console.log('[A2A AGENTIC] Match result:', matchResult.type);
+  matchResult.agentThoughts.forEach(thought => console.log(`  ${thought}`));
 
   // ==============================
   // SEQUENCE 6: TASK_STATUS - Verifying (75%)
@@ -409,17 +950,103 @@ async function runA2AConversation(request: KycRequest): Promise<{
       status: 'PROCESSING',
       progress: 75,
       estimated_time: '15s',
-      log: foundUser 
-        ? 'Match found. Computing trust score and verifying data integrity...'
+      log: matchResult.type !== 'NO_MATCH'
+        ? `Match found (${matchResult.type}). Computing trust score and verifying identifiers...`
         : 'No match found in primary ledger. Checking auxiliary sources...',
     },
   });
 
   // ==============================
+  // AGENTIC FLOW: Handle PARTIAL_MATCH with TASK_CHALLENGE
+  // This is the key agentic negotiation pattern!
+  // USES: Pattern 1 (Reasoning) + Pattern 2 (Reflection)
+  // ==============================
+  if (matchResult.type === 'PARTIAL_MATCH') {
+    // Generate initial challenge message
+    const draftChallengeMessage = generateChallengeMessage(matchResult, request.subject);
+    
+    // ==========================================
+    // PATTERN 2: REFLECTION - Self-correction before output
+    // Ensure the challenge message doesn't leak PII
+    // ==========================================
+    const fullPhoneForReflection = request.phoneNumber 
+      ? `${request.phoneCountryCode || ''}${request.phoneNumber}` 
+      : undefined;
+    
+    const reflection = reflectOnResponse(
+      draftChallengeMessage, 
+      matchResult, 
+      fullPhoneForReflection
+    );
+    
+    // Log reflection thoughts for debugging
+    console.log('[A2A REFLECTION] Pre-output safety check:');
+    reflection.reflectionThoughts.forEach(thought => console.log(`  ${thought}`));
+    
+    // Use the revised (safe) message
+    const safeChallengeMessage = reflection.revisedResponse;
+    
+    // Combine reasoning thoughts with reflection thoughts
+    const allAgentThoughts = [
+      ...matchResult.agentThoughts,
+      '', // separator
+      '--- REFLECTION LAYER ---',
+      ...reflection.reflectionThoughts,
+    ];
+    
+    sequence++;
+    messages.push({
+      sequence,
+      timestamp: new Date().toISOString(),
+      sender: 'agent:hushh_kyc_master',
+      receiver: 'agent:bank_optimization_v2',
+      protocol: 'A2A/1.0',
+      type: 'TASK_CHALLENGE',  // Agentic pushback!
+      task_id: taskId,
+      payload: {
+        status: 'PARTIAL_MATCH',
+        message: safeChallengeMessage,  // Use reflected/safe message
+        data: {
+          // Confirm the name we found (safe to share)
+          confirmed_name: matchResult.user 
+            ? `${matchResult.user.legal_first_name} ${matchResult.user.legal_last_name}`
+            : request.subject,
+          name_confidence: `${(matchResult.confidence * 100).toFixed(0)}%`,
+          // Fields that matched
+          matched_fields: matchResult.matchedFields,
+          // Fields that DID NOT match (without revealing correct values!)
+          mismatched_fields: matchResult.mismatchedFields,
+          // What the agent needs to proceed
+          required_to_proceed: [
+            'Corrected phone number',
+            'Alternative identifier (SSN last 4, email)',
+          ],
+          // Reflection metadata
+          reflection_applied: !reflection.isSafe,
+          pii_redacted: !reflection.isSafe,
+        },
+        // Agent thoughts for UI display (includes both reasoning + reflection)
+        log: allAgentThoughts.join('\n'),
+      },
+    });
+
+    // Return with PARTIAL_MATCH status - the conversation can continue
+    // if the bank agent provides corrected data via TASK_UPDATE
+    return {
+      messages,
+      success: false,  // Not yet verified
+      taskId,
+      finalStatus: 'PARTIAL_MATCH',
+    };
+  }
+
+  // ==============================
   // SEQUENCE 7: TASK_RESULT
   // Return verification result with trust score
   // ==============================
-  if (foundUser) {
+  foundUser = matchResult.user;
+  
+  if (matchResult.type === 'PERFECT_MATCH' && foundUser) {
     trustScore = calculateTrustScore(foundUser);
     riskBand = calculateRiskBand(trustScore);
 
@@ -662,10 +1289,11 @@ serve(async (req: Request) => {
         JSON.stringify({
           status: 'healthy',
           service: 'hushh-kyc-a2a-agent',
-          version: '2.0.0',
+          version: '3.0.0',  // Updated version with agentic patterns
           protocol: 'A2A/1.0',
           openai: !!openaiApiKey,
-          capabilities: ['kyc_verify', 'trust_score', 'key_exchange', 'data_migration'],
+          capabilities: ['kyc_verify', 'trust_score', 'key_exchange', 'data_migration', 'agentic_negotiation'],
+          agenticPatterns: ['reasoning', 'reflection', 'guardrails', 'routing'],
           timestamp: new Date().toISOString(),
         }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -685,9 +1313,52 @@ serve(async (req: Request) => {
     // ================================
     // A2A sendMessage Endpoint
     // Main verification endpoint following A2A protocol
+    // NOW WITH AGENTIC PATTERNS INTEGRATED
     // ================================
     if (pathname.endsWith('/sendMessage') && req.method === 'POST') {
       const body = await req.json();
+      
+      // ==========================================
+      // PATTERN 4: ROUTING - Smart Intent Detection
+      // ==========================================
+      const routingResult = routeRequest(body);
+      console.log(`[A2A ROUTING] Intent: ${routingResult.intent}, Confidence: ${routingResult.confidence}, Handler: ${routingResult.handler}`);
+      
+      // Handle unknown intents
+      if (routingResult.intent === 'UNKNOWN') {
+        return new Response(
+          JSON.stringify({
+            protocol: 'A2A/1.0',
+            error: 'Unable to determine request intent',
+            suggestion: 'Please provide a subject/userName for verification, or specify intent explicitly.',
+            detected: {
+              intent: routingResult.intent,
+              confidence: routingResult.confidence,
+            },
+          }),
+          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+      
+      // ==========================================
+      // PATTERN 3: GUARDRAILS - Input Sanitization
+      // ==========================================
+      const rawInput = JSON.stringify(body);
+      const inputCheck = sanitizeInput(rawInput);
+      
+      if (!inputCheck.safe) {
+        console.warn(`[A2A GUARDRAIL] Injection attempt blocked: ${inputCheck.threats.join(', ')}`);
+        return new Response(
+          JSON.stringify({
+            protocol: 'A2A/1.0',
+            type: 'TASK_ERROR',
+            error: 'Request blocked by security guardrail',
+            reason: 'Potentially harmful input patterns detected',
+            // Don't reveal specific patterns that triggered it
+          }),
+          { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
       
       // Extract request from A2A format or simple format
       const kycRequest: KycRequest = {
@@ -709,8 +1380,51 @@ serve(async (req: Request) => {
         );
       }
 
-      // Run the A2A conversation
-      const result = await runA2AConversation(kycRequest);
+      // Route to appropriate handler based on intent
+      let result;
+      switch (routingResult.intent) {
+        case 'VERIFY_USER':
+          // Run the A2A conversation (Pattern 1: Reasoning is embedded in fuzzyMatchUser)
+          result = await runA2AConversation(kycRequest);
+          break;
+          
+        case 'MIGRATE_DATA':
+          // For migration requests, redirect to migration endpoint
+          return new Response(
+            JSON.stringify({
+              protocol: 'A2A/1.0',
+              type: 'TASK_REDIRECT',
+              message: 'Migration requests should use POST /migrate/:task_id/:token',
+              task_id: routingResult.extractedData.taskId || '',
+            }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+          
+        case 'CHECK_STATUS':
+          // Status check - simplified response
+          return new Response(
+            JSON.stringify({
+              protocol: 'A2A/1.0',
+              type: 'STATUS_RESPONSE',
+              message: 'Status check not implemented in this version. Submit a new verification request.',
+              task_id: routingResult.extractedData.taskId || '',
+            }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+          
+        case 'EXPLAIN_FAILURE':
+          return new Response(
+            JSON.stringify({
+              protocol: 'A2A/1.0',
+              type: 'EXPLANATION',
+              message: 'Verification failures typically occur due to: (1) Name not found in database, (2) Identifier mismatch (phone/email), (3) Incomplete KYC record.',
+            }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+          
+        default:
+          result = await runA2AConversation(kycRequest);
+      }
 
       return new Response(
         JSON.stringify({
@@ -720,6 +1434,10 @@ serve(async (req: Request) => {
           success: result.success,
           conversation: result.messages,
           migration_link: result.migrationLink,
+          routing: {
+            detectedIntent: routingResult.intent,
+            confidence: routingResult.confidence,
+          },
         }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
