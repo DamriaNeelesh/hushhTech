@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "ourPhilosophy": "Our Philosophy",
+    "fundA": "Fund A",
+    "community": "Community",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "joinUs": "Join Us",
+    "careers": "Careers",
+    "benefits": "Benefits",
+    "login": "Log In",
+    "logout": "Log Out",
+    "viewProfile": "View Profile",
+    "home": "Home",
+    "kycStudio": "KYC Studio Alpha"
+  },
+  "hero": {
+    "title": "Your Data, Your Control, Your Value",
+    "subtitle": "Hushh empowers you to take control of your personal data and unlock its true value",
+    "tagline": "Privacy-First Technology",
+    "cta": "Get Started",
+    "learnMore": "Learn More"
+  },
+  "common": {
+    "welcome": "Welcome to Hushh Technologies",
+    "signInMessage": "Thank you for signing in.",
+    "loading": "Loading...",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "back": "Back",
+    "next": "Next",
+    "continue": "Continue",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "error": "Error",
+    "success": "Success"
+  },
+  "footer": {
+    "company": "Company",
+    "about": "About Us",
+    "philosophy": "Philosophy",
+    "leadership": "Leadership",
+    "careers": "Careers",
+    "legal": "Legal",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "contact": "Contact",
+    "email": "Email",
+    "followUs": "Follow Us",
+    "copyright": "© 2024 Hushh Technologies. All rights reserved."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We'd love to hear from you",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Message",
+    "success": "Message sent successfully!",
+    "error": "Failed to send message. Please try again."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions"
+  },
+  "career": {
+    "title": "Join Our Team",
+    "subtitle": "Build the future of data privacy with us",
+    "openPositions": "Open Positions",
+    "apply": "Apply Now"
+  },
+  "language": {
+    "select": "Select Language",
+    "english": "English",
+    "arabic": "العربية",
+    "french": "Français",
+    "chinese": "中文"
+  },
+  "fundA": {
+    "title": "Discover Fund A",
+    "subtitle": "Alpha 27 Cash Flow Monarchy",
+    "description": "A revolutionary investment approach combining AI-driven analysis with fundamental value investing"
+  },
+  "marquee": {
+    "prefix": "Introducing the hushh 27 alpha bets —"
+  }
+}

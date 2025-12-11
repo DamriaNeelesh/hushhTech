@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "ourPhilosophy": "我们的理念",
+    "fundA": "基金A",
+    "community": "社区",
+    "faq": "常见问题",
+    "contact": "联系我们",
+    "joinUs": "加入我们",
+    "careers": "职业机会",
+    "benefits": "福利待遇",
+    "login": "登录",
+    "logout": "退出登录",
+    "viewProfile": "查看个人资料",
+    "home": "首页",
+    "kycStudio": "KYC工作室 Alpha"
+  },
+  "hero": {
+    "title": "您的数据，您的掌控，您的价值",
+    "subtitle": "Hushh赋予您掌控个人数据并释放其真正价值的能力",
+    "tagline": "隐私优先技术",
+    "cta": "立即开始",
+    "learnMore": "了解更多"
+  },
+  "common": {
+    "welcome": "欢迎来到 Hushh Technologies",
+    "signInMessage": "感谢您的登录。",
+    "loading": "加载中...",
+    "submit": "提交",
+    "cancel": "取消",
+    "save": "保存",
+    "edit": "编辑",
+    "delete": "删除",
+    "back": "返回",
+    "next": "下一步",
+    "continue": "继续",
+    "close": "关闭",
+    "yes": "是",
+    "no": "否",
+    "error": "错误",
+    "success": "成功"
+  },
+  "footer": {
+    "company": "公司",
+    "about": "关于我们",
+    "philosophy": "理念",
+    "leadership": "领导团队",
+    "careers": "职业机会",
+    "legal": "法律声明",
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款",
+    "contact": "联系方式",
+    "email": "电子邮件",
+    "followUs": "关注我们",
+    "copyright": "© 2024 Hushh Technologies. 保留所有权利。"
+  },
+  "contact": {
+    "title": "联系我们",
+    "subtitle": "我们期待您的来信",
+    "name": "姓名",
+    "email": "电子邮件",
+    "message": "留言",
+    "send": "发送消息",
+    "success": "消息发送成功！",
+    "error": "消息发送失败。请重试。"
+  },
+  "faq": {
+    "title": "常见问题",
+    "subtitle": "查找常见问题的答案"
+  },
+  "career": {
+    "title": "加入我们的团队",
+    "subtitle": "与我们一起构建数据隐私的未来",
+    "openPositions": "开放职位",
+    "apply": "立即申请"
+  },
+  "language": {
+    "select": "选择语言",
+    "english": "English",
+    "arabic": "العربية",
+    "french": "Français",
+    "chinese": "中文"
+  },
+  "fundA": {
+    "title": "探索基金A",
+    "subtitle": "Alpha 27 现金流王朝",
+    "description": "一种革命性的投资方法，结合人工智能驱动的分析与基本价值投资"
+  },
+  "marquee": {
+    "prefix": "介绍 hushh 27 alpha 投注 —"
+  }
+}
