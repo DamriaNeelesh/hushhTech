@@ -1,9 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FiMenu, FiX, FiChevronDown, FiUser } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 import config from "../resources/config/config";
 import { Image, useToast, Avatar, useBreakpointValue } from "@chakra-ui/react";
 import hushhLogo from "../components/images/Hushhogo.png";
+import LanguageSwitcher from "./LanguageSwitcher";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [session, setSession] = useState<any>(null);
@@ -97,12 +99,16 @@ export default function Navbar() {
             <p className="text-xl font-[500] blue-gradient-text">Hushh Technologies</p>
           </Link>
 
-          <button
-            onClick={toggleDrawer}
-            className="lg:hidden text-gray-700 hover:text-gray-900 focus:outline-none"
-          >
-            <FiMenu size={24} />
-          </button>
+          {/* Mobile: Language Switcher + Hamburger Menu */}
+          <div className="lg:hidden flex items-center gap-3">
+            <LanguageSwitcher />
+            <button
+              onClick={toggleDrawer}
+              className="text-gray-700 hover:text-gray-900 focus:outline-none"
+            >
+              <FiMenu size={24} />
+            </button>
+          </div>
 {/* For Desktop View */}
           <div className="hidden lg:flex items-center space-x-6">
             {[
@@ -167,6 +173,9 @@ export default function Navbar() {
                 </div>
               </div>
             </div>
+
+            {/* Language Switcher */}
+            <LanguageSwitcher />
 
             {!isAuthenticated ? (
               <button

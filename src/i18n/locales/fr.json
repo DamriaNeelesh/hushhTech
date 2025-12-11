@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "ourPhilosophy": "Notre Philosophie",
+    "fundA": "Fonds A",
+    "community": "Communauté",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "joinUs": "Rejoignez-nous",
+    "careers": "Carrières",
+    "benefits": "Avantages",
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "viewProfile": "Voir le Profil",
+    "home": "Accueil",
+    "kycStudio": "KYC Studio Alpha"
+  },
+  "hero": {
+    "title": "Vos Données, Votre Contrôle, Votre Valeur",
+    "subtitle": "Hushh vous permet de prendre le contrôle de vos données personnelles et d'en libérer la vraie valeur",
+    "tagline": "Technologie Axée sur la Confidentialité",
+    "cta": "Commencer",
+    "learnMore": "En Savoir Plus"
+  },
+  "common": {
+    "welcome": "Bienvenue chez Hushh Technologies",
+    "signInMessage": "Merci de vous être connecté.",
+    "loading": "Chargement...",
+    "submit": "Soumettre",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "back": "Retour",
+    "next": "Suivant",
+    "continue": "Continuer",
+    "close": "Fermer",
+    "yes": "Oui",
+    "no": "Non",
+    "error": "Erreur",
+    "success": "Succès"
+  },
+  "footer": {
+    "company": "Entreprise",
+    "about": "À Propos",
+    "philosophy": "Philosophie",
+    "leadership": "Direction",
+    "careers": "Carrières",
+    "legal": "Mentions Légales",
+    "privacyPolicy": "Politique de Confidentialité",
+    "termsOfService": "Conditions d'Utilisation",
+    "contact": "Contact",
+    "email": "Email",
+    "followUs": "Suivez-nous",
+    "copyright": "© 2024 Hushh Technologies. Tous droits réservés."
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "subtitle": "Nous serions ravis de vous entendre",
+    "name": "Nom",
+    "email": "Email",
+    "message": "Message",
+    "send": "Envoyer le Message",
+    "success": "Message envoyé avec succès !",
+    "error": "Échec de l'envoi du message. Veuillez réessayer."
+  },
+  "faq": {
+    "title": "Questions Fréquemment Posées",
+    "subtitle": "Trouvez des réponses aux questions courantes"
+  },
+  "career": {
+    "title": "Rejoignez Notre Équipe",
+    "subtitle": "Construisez l'avenir de la confidentialité des données avec nous",
+    "openPositions": "Postes Ouverts",
+    "apply": "Postuler Maintenant"
+  },
+  "language": {
+    "select": "Choisir la Langue",
+    "english": "English",
+    "arabic": "العربية",
+    "french": "Français",
+    "chinese": "中文"
+  },
+  "fundA": {
+    "title": "Découvrez le Fonds A",
+    "subtitle": "Alpha 27 Monarchie des Flux de Trésorerie",
+    "description": "Une approche d'investissement révolutionnaire combinant l'analyse pilotée par l'IA avec l'investissement de valeur fondamentale"
+  },
+  "marquee": {
+    "prefix": "Présentation des 27 paris alpha hushh —"
+  }
+}
