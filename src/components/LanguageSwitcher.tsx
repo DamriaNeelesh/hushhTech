@@ -67,7 +67,7 @@ export default function LanguageSwitcher() {
   }, []);
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div dir="ltr" className="relative" ref={dropdownRef}>
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
