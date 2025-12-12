@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button, Flex, Text, Box, Container, VStack, HStack, usePrefersReducedMotion, Divider } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
+import { useTranslation } from "react-i18next";
 import config from "../resources/config/config";
 import ProfilePage from "./profile/profilePage";
 import WhyChooseSection from "./WhyChooseSection";
@@ -10,6 +11,7 @@ import HushhIDHero from "./HushhIDHero";
 
 export default function Hero() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [session, setSession] = useState<Session | null>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
   const cardEntry = keyframes`
@@ -77,7 +79,7 @@ export default function Hero() {
                     fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
                     mb="3"
                   >
-                    Investing in the Future.
+                    {t('hero.eyebrow')}
                   </Text>
 
                   {/* Main Heading */}
@@ -91,7 +93,7 @@ export default function Hero() {
                     mb="5"
                     letterSpacing="-0.01em"
                   >
-                    The AI-Powered Berkshire Hathaway.
+                    {t('hero.mainTitle')}
                   </Text>
 
                   {/* Subheading */}
@@ -106,7 +108,7 @@ export default function Hero() {
                     fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
                     mb="8"
                   >
-                    We combine AI and human expertise to invest in exceptional businesses for long-term value creation.
+                    {t('hero.mainSubtitle')}
                   </Text>
 
                   {/* Blue Divider Line */}
@@ -142,7 +144,7 @@ export default function Hero() {
                       transition="transform 120ms ease-out, background 120ms ease-out"
                       fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
                     >
-                      Discover Fund A
+                      {t('hero.discoverFundA')}
                     </Button>
 
                     <Button
@@ -161,7 +163,7 @@ export default function Hero() {
                       _active={{ bg: "#F9FAFB", borderColor: "#0B1120" }}
                       transition="transform 120ms ease-out, background 120ms ease-out, border-color 120ms ease-out"
                     >
-                      Become an Investor
+                      {t('hero.becomeInvestor')}
                     </Button>
                   </VStack>
                 </Box>
@@ -187,7 +189,7 @@ export default function Hero() {
               textTransform="uppercase"
               mb={4}
             >
-              Investor Profile
+              {t('hero.investorProfileLabel')}
             </Text>
             <Text
               as="h2"
@@ -201,7 +203,7 @@ export default function Hero() {
               fontFamily="Inter, -apple-system, system-ui, 'SF Pro Display', sans-serif"
               mb={4}
             >
-              Fund A: The Genesis of Our Vision.
+              {t('hero.fundATitle')}
             </Text>
             <Text
               fontSize={{ base: "18px", md: "19px" }}
@@ -212,7 +214,7 @@ export default function Hero() {
               fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
               mb={8}
             >
-              Launched in 2024, Fund A is our AI-first income vehicle—systematic, disciplined, and engineered for durable value creation.
+              {t('hero.fundADescription')}
             </Text>
             <Box position="relative" w="100%" h="1px" bg="#E5E7EB" mb={6}>
               <Box
@@ -239,7 +241,7 @@ export default function Hero() {
               <VStack align="stretch" spacing={5}>
                 <VStack align="stretch" spacing={4}>
                   <Text fontSize="20px" fontWeight="450" color="#0B1120" lineHeight="1.35">
-                    Targeting <Text as="span" fontWeight="500">18-23% net IRR</Text>* with our{" "}
+                    {t('hero.targetingIRR')} <Text as="span" fontWeight="500">{t('hero.netIRR')}</Text>* {t('hero.withOur')}{" "}
                     <Text 
                       as="a"
                       href="/sell-the-wall"
@@ -255,26 +257,26 @@ export default function Hero() {
                         textDecoration: "none"
                       }}
                     >
-                      "Sell the Wall"
+                      "{t('hero.sellTheWall')}"
                     </Text>
-                    {" "}approach.
+                    {" "}{t('hero.approach')}
                   </Text>
                   <Text fontSize="17px" color="#111827" lineHeight="1.6">
-                    AI-first, systematic income investing.
+                    {t('hero.aiFirstInvesting')}
                   </Text>
                   <Text fontSize="17px" color="#111827" lineHeight="1.6">
-                    Proven risk framework, built for long-term value creation.
+                    {t('hero.provenRiskFramework')}
                   </Text>
                 </VStack>
 
                 <Box borderTop="1px solid #E5E7EB" pt={4}>
                   <VStack align="stretch" spacing={3}>
                     {[
-                      { label: "Target net IRR", value: "18-23%", valueSize: "46px" },
-                      { label: "Inception", value: "2024", valueSize: "42px" },
-                    ].map((stat) => (
+                      { label: t('hero.targetNetIRR'), value: "18-23%", valueSize: "46px" },
+                      { label: t('hero.inception'), value: "2024", valueSize: "42px" },
+                    ].map((stat, index) => (
                       <Box
-                        key={stat.label}
+                        key={index}
                         border="1px solid #E5E7EB"
                         borderRadius="16px"
                         px={4}
@@ -304,7 +306,7 @@ export default function Hero() {
               lineHeight="1.45"
               maxW="620px"
             >
-              *Inspired by natural equilibrium and proven quantitative strategies.
+              {t('hero.disclaimer')}
             </Text>
 
             <Button
@@ -326,7 +328,7 @@ export default function Hero() {
               transition="transform 120ms ease-out, background 120ms ease-out"
               fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
             >
-              Learn More About Fund A
+              {t('hero.learnMoreFundA')}
             </Button>
           </Box>
         </Container>
@@ -351,7 +353,7 @@ export default function Hero() {
               lineHeight="1.1"
               letterSpacing="-0.01em"
             >
-              Ready to Transform Your Investment Strategy?
+              {t('hero.readyToTransform')}
             </Text>
 
             <Text
@@ -364,7 +366,7 @@ export default function Hero() {
               fontWeight="400"
               mb={8}
             >
-              Join forward-thinking investors building wealth with our AI-powered approach.
+              {t('hero.joinInvestors')}
             </Text>
 
             <Box position="relative" w="100%" h="1px" bg="#E5E7EB" mb={6}>
@@ -398,7 +400,7 @@ export default function Hero() {
                 transition="transform 120ms ease-out, background 120ms ease-out"
                 fontFamily="Inter, -apple-system, system-ui, 'SF Pro Text', sans-serif"
               >
-                Learn About Our Mission
+                {t('hero.learnAboutMission')}
               </Button>
 
               <Button
@@ -417,7 +419,7 @@ export default function Hero() {
                 _active={{ bg: "#F9FAFB", borderColor: "#0B1120" }}
                 transition="transform 120ms ease-out, background 120ms ease-out, border-color 120ms ease-out"
               >
-                Contact Us Today
+                {t('hero.contactUsToday')}
               </Button>
             </VStack>
           </Box>
