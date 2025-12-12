@@ -15,11 +15,29 @@
     "kycStudio": "KYC Studio Alpha"
   },
   "hero": {
-    "title": "Vos Données, Votre Contrôle, Votre Valeur",
-    "subtitle": "Hushh vous permet de prendre le contrôle de vos données personnelles et d'en libérer la vraie valeur",
-    "tagline": "Technologie Axée sur la Confidentialité",
-    "cta": "Commencer",
-    "learnMore": "En Savoir Plus"
+    "eyebrow": "Investir dans l'Avenir.",
+    "mainTitle": "Le Berkshire Hathaway Propulsé par l'IA.",
+    "mainSubtitle": "Nous combinons l'IA et l'expertise humaine pour investir dans des entreprises exceptionnelles pour une création de valeur à long terme.",
+    "discoverFundA": "Découvrir le Fonds A",
+    "becomeInvestor": "Devenir Investisseur",
+    "investorProfileLabel": "Profil Investisseur",
+    "fundATitle": "Fonds A : La Genèse de Notre Vision.",
+    "fundADescription": "Lancé en 2024, le Fonds A est notre véhicule de revenus axé sur l'IA — systématique, discipliné et conçu pour une création de valeur durable.",
+    "targetingIRR": "Visant",
+    "netIRR": "18-23% TRI net",
+    "withOur": "avec notre approche",
+    "sellTheWall": "Sell the Wall",
+    "approach": ".",
+    "aiFirstInvesting": "Investissement systématique axé sur l'IA.",
+    "provenRiskFramework": "Cadre de risque éprouvé, conçu pour la création de valeur à long terme.",
+    "targetNetIRR": "TRI net cible",
+    "inception": "Création",
+    "disclaimer": "*Inspiré par l'équilibre naturel et des stratégies quantitatives éprouvées.",
+    "learnMoreFundA": "En Savoir Plus sur le Fonds A",
+    "readyToTransform": "Prêt à Transformer Votre Stratégie d'Investissement ?",
+    "joinInvestors": "Rejoignez les investisseurs visionnaires qui construisent leur patrimoine avec notre approche propulsée par l'IA.",
+    "learnAboutMission": "Découvrir Notre Mission",
+    "contactUsToday": "Nous Contacter"
   },
   "common": {
     "welcome": "Bienvenue chez Hushh Technologies",
@@ -37,7 +55,9 @@
     "yes": "Oui",
     "no": "Non",
     "error": "Erreur",
-    "success": "Succès"
+    "success": "Succès",
+    "learnMore": "En Savoir Plus",
+    "getStarted": "Commencer"
   },
   "footer": {
     "company": "Entreprise",

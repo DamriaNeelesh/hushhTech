@@ -15,11 +15,29 @@
     "kycStudio": "KYC Studio Alpha"
   },
   "hero": {
-    "title": "Your Data, Your Control, Your Value",
-    "subtitle": "Hushh empowers you to take control of your personal data and unlock its true value",
-    "tagline": "Privacy-First Technology",
-    "cta": "Get Started",
-    "learnMore": "Learn More"
+    "eyebrow": "Investing in the Future.",
+    "mainTitle": "The AI-Powered Berkshire Hathaway.",
+    "mainSubtitle": "We combine AI and human expertise to invest in exceptional businesses for long-term value creation.",
+    "discoverFundA": "Discover Fund A",
+    "becomeInvestor": "Become an Investor",
+    "investorProfileLabel": "Investor Profile",
+    "fundATitle": "Fund A: The Genesis of Our Vision.",
+    "fundADescription": "Launched in 2024, Fund A is our AI-first income vehicle—systematic, disciplined, and engineered for durable value creation.",
+    "targetingIRR": "Targeting",
+    "netIRR": "18-23% net IRR",
+    "withOur": "with our",
+    "sellTheWall": "Sell the Wall",
+    "approach": "approach.",
+    "aiFirstInvesting": "AI-first, systematic income investing.",
+    "provenRiskFramework": "Proven risk framework, built for long-term value creation.",
+    "targetNetIRR": "Target net IRR",
+    "inception": "Inception",
+    "disclaimer": "*Inspired by natural equilibrium and proven quantitative strategies.",
+    "learnMoreFundA": "Learn More About Fund A",
+    "readyToTransform": "Ready to Transform Your Investment Strategy?",
+    "joinInvestors": "Join forward-thinking investors building wealth with our AI-powered approach.",
+    "learnAboutMission": "Learn About Our Mission",
+    "contactUsToday": "Contact Us Today"
   },
   "common": {
     "welcome": "Welcome to Hushh Technologies",
@@ -37,7 +55,9 @@
     "yes": "Yes",
     "no": "No",
     "error": "Error",
-    "success": "Success"
+    "success": "Success",
+    "learnMore": "Learn More",
+    "getStarted": "Get Started"
   },
   "footer": {
     "company": "Company",

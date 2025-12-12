@@ -6,7 +6,9 @@ import config from "../resources/config/config";
 import { Image, useToast, Avatar, useBreakpointValue } from "@chakra-ui/react";
 import hushhLogo from "../components/images/Hushhogo.png";
 import LanguageSwitcher from "./LanguageSwitcher";
+
 export default function Navbar() {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [session, setSession] = useState<any>(null);
   const [toastShown, setToastShown] = useState(false);
@@ -15,13 +17,15 @@ export default function Navbar() {
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const drawerRef = useRef(null);
-  const careerDropdownRef = useRef(null);
-  const profileDropdownRef = useRef(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const careerDropdownRef = useRef<HTMLDivElement>(null);
+  const profileDropdownRef = useRef<HTMLDivElement>(null);
   const toast = useToast();
   const isMobile = useBreakpointValue({ base: true, lg: false });
 
   useEffect(() => {
+    if (!config.supabaseClient) return;
+    
     // Fetch the current session
     config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
@@ -39,6 +43,8 @@ export default function Navbar() {
 
 
   const handleLogout = async () => {
+    if (!config.supabaseClient) return;
+    
     try {
       await config.supabaseClient.auth.signOut();
       setSession(null); // Ensure session is set to null after logout
@@ -52,30 +58,30 @@ export default function Navbar() {
   useEffect(() => {
     if (session && !toastShown) {
       toast({
-        title: "Welcome to Hushh Technologies",
-        description: "Thank you for signing in.",
+        title: t('common.welcome'),
+        description: t('common.signInMessage'),
         status: "success",
         duration: 5000,
         isClosable: true,
       });
       setToastShown(true);
     }
-  }, [session, toastShown, toast]);
+  }, [session, toastShown, toast, t]);
 
   const isAuthenticated = !!session;
 
   const toggleDrawer = () => setIsOpen((prev) => !prev);
-  const handleLinkClick = (path) => {
+  const handleLinkClick = (path: string) => {
     navigate(path);
     setIsOpen(false);
   };
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path: string) => location.pathname === path;
 
   useEffect(() => {
     // Handle click outside to close profile dropdown
-    const handleClickOutside = (event) => {
-      if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target as Node)) {
         setProfileDropdownOpen(false);
       }
     };
@@ -112,11 +118,11 @@ export default function Navbar() {
 {/* For Desktop View */}
           <div className="hidden lg:flex items-center space-x-6">
             {[
-              { path: "/about/leadership", label: "Our Philosophy" },
-              { path: "/discover-fund-a", label: "Fund A" },
-              { path: "/community", label: "Community" },
-              { path: "/faq", label: "FAQ" },
-              { path: "/contact", label: "Contact" },
+              { path: "/about/leadership", label: t('nav.ourPhilosophy') },
+              { path: "/discover-fund-a", label: t('nav.fundA') },
+              { path: "/community", label: t('nav.community') },
+              { path: "/faq", label: t('nav.faq') },
+              { path: "/contact", label: t('nav.contact') },
             ].map(({ path, label }) => (
               <Link
                 key={path}
@@ -144,7 +150,7 @@ export default function Navbar() {
                     : "text-black-700 hover:text-gray-900"
                 }`}
               >
-                Join Us <FiChevronDown className="ml-1" />
+                {t('nav.joinUs')} <FiChevronDown className="ml-1" />
               </button>
               
               <div 
@@ -160,7 +166,7 @@ export default function Navbar() {
                       isActive("/career") ? "font-[500] text-[#0AADBC]" : "text-gray-700 hover:bg-gray-100"
                     }`}
                   >
-                    Careers
+                    {t('nav.careers')}
                   </Link>
                   <Link
                     to="/benefits"
@@ -168,7 +174,7 @@ export default function Navbar() {
                       isActive("/benefits") ? "font-[500] text-[#0AADBC]" : "text-gray-700 hover:bg-gray-100"
                     }`}
                   >
-                    Benefits
+                    {t('nav.benefits')}
                   </Link>
                 </div>
               </div>
@@ -182,7 +188,7 @@ export default function Navbar() {
                 onClick={() => navigate("/Login")}
                 className="bg-black text-white px-4 py-2 rounded"
               >
-                Log In
+                {t('nav.login')}
               </button>
             ) : (
               <>
@@ -190,7 +196,7 @@ export default function Navbar() {
                   onClick={handleLogout}
                   className="bg-black text-white px-4 py-2 rounded"
                 >
-                  Log Out
+                  {t('nav.logout')}
                 </button>
                 {/* User Profile Dropdown */}
                 <div 
@@ -220,7 +226,7 @@ export default function Navbar() {
                     >
                       <div className="flex items-center">
                         <FiUser className="mr-2" />
-                        View Profile
+                        {t('nav.viewProfile')}
                       </div>
                     </Link>
                   </div>
@@ -256,10 +262,10 @@ export default function Navbar() {
               <div className="flex-1 overflow-y-auto">
                 <div className="space-y-3">
                   {[
-                    { path: "/", label: "Home" },
-                    { path: "/about/leadership", label: "Our Philosophy" },
-                    { path: "/community", label: "Community" },
-                    { path: "/a2a-playground", label: "KYC Studio Alpha" },
+                    { path: "/", label: t('nav.home') },
+                    { path: "/about/leadership", label: t('nav.ourPhilosophy') },
+                    { path: "/community", label: t('nav.community') },
+                    { path: "/a2a-playground", label: t('nav.kycStudio') },
                   ].map(({ path, label }) => {
                     const active = isActive(path);
                     return (
@@ -281,8 +287,8 @@ export default function Navbar() {
                   <div className="my-4 h-px bg-[#E5E7EB]" />
 
                   {[
-                    { path: "/contact", label: "Contact" },
-                    { path: "/faq", label: "FAQ" },
+                    { path: "/contact", label: t('nav.contact') },
+                    { path: "/faq", label: t('nav.faq') },
                   ].map(({ path, label }) => {
                     const active = isActive(path);
                     return (
@@ -307,7 +313,7 @@ export default function Navbar() {
                       className="flex items-center h-14 text-[22px] leading-[1.2] text-[#0B1120] font-[500] active:bg-[rgba(0,169,224,0.06)] transition-colors duration-150 w-full text-left"
                     >
                       <span className={(isActive("/career") || isActive("/benefits")) ? "font-[500]" : ""}>
-                        Join Us
+                        {t('nav.joinUs')}
                       </span>
                       <FiChevronDown
                         className={`ml-2 text-[#6B7280] transition-transform duration-200 ${
@@ -323,8 +329,8 @@ export default function Navbar() {
                     >
                       <div className="border-t border-[#E5E7EB] pt-3 space-y-2">
                         {[
-                          { path: "/career", label: "Careers" },
-                          { path: "/benefits", label: "Benefits" },
+                          { path: "/career", label: t('nav.careers') },
+                          { path: "/benefits", label: t('nav.benefits') },
                         ].map(({ path, label }) => {
                           const active = isActive(path);
                           return (
@@ -370,14 +376,14 @@ export default function Navbar() {
                     className="w-full h-[54px] rounded-[16px] text-[17px] font-semibold tracking-[0.01em] text-[#0B1120] transition-[transform,filter] duration-150 active:scale-[0.985] active:brightness-[0.94] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00A9E0] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                     style={{ background: "linear-gradient(to right, #00A9E0, #6DD3EF)", fontWeight: 500 }}
                   >
-                    Log In
+                    {t('nav.login')}
                   </button>
                 ) : (
                   <button
                     onClick={handleLogout}
                     className="w-full h-[54px] rounded-[16px] text-[17px] font-semibold tracking-[0.01em] text-[#0B1120] border border-[#E5E7EB] bg-white transition-colors duration-150 active:bg-[#F9FAFB]"
                   >
-                    Log Out
+                    {t('nav.logout')}
                   </button>
                 )}
               </div>

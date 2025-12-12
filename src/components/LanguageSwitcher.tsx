@@ -67,7 +67,7 @@ export default function LanguageSwitcher() {
   }, []);
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div dir="ltr" className="relative" ref={dropdownRef} style={{ isolation: 'isolate' }}>
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
@@ -84,10 +84,15 @@ export default function LanguageSwitcher() {
         />
       </button>
 
-      {/* Dropdown Menu */}
+      {/* Dropdown Menu - positioned to stay within viewport */}
       {isOpen && (
         <div 
-          className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-[1000] animate-in fade-in slide-in-from-top-1 duration-200"
+          className="absolute mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-[1000]"
+          style={{
+            right: 'auto',
+            left: '50%',
+            transform: 'translateX(calc(-100% + 20px))',
+          }}
           role="listbox"
           aria-label="Language options"
         >

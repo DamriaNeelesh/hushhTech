@@ -15,11 +15,29 @@
     "kycStudio": "KYC工作室 Alpha"
   },
   "hero": {
-    "title": "您的数据，您的掌控，您的价值",
-    "subtitle": "Hushh赋予您掌控个人数据并释放其真正价值的能力",
-    "tagline": "隐私优先技术",
-    "cta": "立即开始",
-    "learnMore": "了解更多"
+    "eyebrow": "投资未来。",
+    "mainTitle": "人工智能驱动的伯克希尔·哈撒韦。",
+    "mainSubtitle": "我们结合人工智能和人类专业知识，投资于卓越的企业，创造长期价值。",
+    "discoverFundA": "探索基金A",
+    "becomeInvestor": "成为投资者",
+    "investorProfileLabel": "投资者档案",
+    "fundATitle": "基金A：我们愿景的开端。",
+    "fundADescription": "基金A于2024年推出，是我们以人工智能为核心的收益工具——系统化、规范化，专为持久价值创造而设计。",
+    "targetingIRR": "目标",
+    "netIRR": "18-23%净内部收益率",
+    "withOur": "采用我们的",
+    "sellTheWall": "卖墙策略",
+    "approach": "方法。",
+    "aiFirstInvesting": "人工智能优先的系统化收益投资。",
+    "provenRiskFramework": "经过验证的风险框架，专为长期价值创造而设计。",
+    "targetNetIRR": "目标净内部收益率",
+    "inception": "成立时间",
+    "disclaimer": "*灵感来源于自然平衡和经过验证的量化策略。",
+    "learnMoreFundA": "了解更多关于基金A",
+    "readyToTransform": "准备好改变您的投资策略了吗？",
+    "joinInvestors": "加入有远见的投资者行列，通过我们的人工智能驱动方法积累财富。",
+    "learnAboutMission": "了解我们的使命",
+    "contactUsToday": "立即联系我们"
   },
   "common": {
     "welcome": "欢迎来到 Hushh Technologies",
@@ -37,7 +55,9 @@
     "yes": "是",
     "no": "否",
     "error": "错误",
-    "success": "成功"
+    "success": "成功",
+    "learnMore": "了解更多",
+    "getStarted": "立即开始"
   },
   "footer": {
     "company": "公司",
