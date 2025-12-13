@@ -16,6 +16,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
   useEffect(() => {
     const checkAuthAndOnboarding = async () => {
+      let timeout: ReturnType<typeof setTimeout> | null = null;
+      let subscription: { unsubscribe: () => void } | null = null;
       try {
         if (!config.supabaseClient) {
           console.error("Supabase client is not initialized");
@@ -24,26 +26,56 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
           return;
         }
 
-        // Check if user is authenticated
-        const { data: { user }, error: userError } = await config.supabaseClient.auth.getUser();
-        if (userError) {
-          console.error("[Hushh][ProtectedRoute] getUser error", userError);
+        const supabase = config.supabaseClient;
+
+        // First try to read the current session
+        let { data: { session }, error: sessionError } = await supabase.auth.getSession();
+        if (sessionError) {
+          console.error("[Hushh][ProtectedRoute] getSession error", sessionError);
         }
-        
-        if (!user || !user.email) {
+
+        // If no session/user yet (common on iOS Safari right after redirect), wait briefly for auth state change
+        if (!session?.user) {
+          console.info("[Hushh][ProtectedRoute] No session on initial check, waiting for restore...");
+          await new Promise<void>((resolve) => {
+            const { data } = supabase.auth.onAuthStateChange((_event, newSession) => {
+              if (newSession?.user) {
+                session = newSession;
+                resolve();
+              }
+            });
+            subscription = data.subscription;
+            timeout = setTimeout(() => resolve(), 1500);
+          });
+          if (timeout) {
+            clearTimeout(timeout);
+            timeout = null;
+          }
+          subscription?.unsubscribe();
+          subscription = null;
+
+          if (!session?.user) {
+            console.error("[Hushh][ProtectedRoute] Session still missing after wait");
+            navigate("/login");
+            return;
+          }
+        }
+
+        const user = session?.user;
+        if (!user) {
           // User is not authenticated, redirect to login
-          console.info("[Hushh][ProtectedRoute] No user/email found after auth check");
+          console.info("[Hushh][ProtectedRoute] No user found after auth check");
           navigate("/login");
           return;
         }
 
         // Check if user has completed onboarding
-        const { data: onboardingData } = await config.supabaseClient
+        const { data: onboardingData } = await supabase
           .from('onboarding_data')
           .select('is_completed, current_step')
           .eq('user_id', user.id)
           .maybeSingle();
-        console.info("[Hushh][ProtectedRoute] Session ok", { userId: user.id, email: user.email, onboardingFound: !!onboardingData });
+        console.info("[Hushh][ProtectedRoute] Session ok", { userId: user.id, email: user.email || "(empty from Apple)", onboardingFound: !!onboardingData });
 
         // If user hasn't completed onboarding and is NOT on an onboarding page, redirect to onboarding
         const isOnOnboardingPage = location.pathname.startsWith('/onboarding/');
@@ -64,6 +96,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
         navigate("/login");
       } finally {
         setIsLoading(false);
+        if (timeout) {
+          clearTimeout(timeout);
+        }
+        subscription?.unsubscribe();
       }
     };
 

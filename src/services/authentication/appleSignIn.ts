@@ -11,11 +11,15 @@ export default async function appleSignIn() {
 
     const redirectTo =
       resources.config.redirect_url || `${window.location.origin}/auth/callback`;
+    console.info("[Hushh][AppleSignIn] Starting Apple OAuth", { redirectTo });
 
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "apple",
       options: {
         redirectTo,
+        // PKCE helps on Safari/Face ID flows to ensure we can exchange the code for a session
+        flowType: "pkce",
+        scopes: "name email",
       },
     });
 
