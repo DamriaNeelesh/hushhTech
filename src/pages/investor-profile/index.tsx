@@ -317,7 +317,7 @@ function InvestorProfilePage() {
                   _hover={{ bg: "#F8FAFC" }}
                   _active={{ bg: "#F1F5F9", transform: "scale(0.98)" }}
                 >
-                  {/* <Icon as={FaApple} boxSize={6} /> */}
+                  <Icon as={FaApple} boxSize={6} />
                   {/* <VisuallyHidden>Add to Apple Wallet</VisuallyHidden> */}
                 </Button>
                 <Button
@@ -340,7 +340,7 @@ function InvestorProfilePage() {
                   _hover={{ bg: "#F8FAFC" }}
                   _active={{ bg: "#F1F5F9", transform: "scale(0.98)" }}
                 >
-                  {/* <Icon as={FaGoogle} boxSize={6} /> */}
+                  <Icon as={FaGoogle} boxSize={6} />
                   {/* <VisuallyHidden>Add to Google Wallet</VisuallyHidden> */}
                 </Button>
               </HStack>
