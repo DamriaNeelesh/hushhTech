@@ -13,16 +13,41 @@ const AuthCallback: React.FC = () => {
   useEffect(() => {
     const handleEmailVerification = async () => {
       try {
+        const supabase = config.supabaseClient;
+        if (!supabase) {
+          setVerificationStatus('error');
+          setErrorMessage('Configuration error');
+          return;
+        }
+
         // Check for any type and error from the URL
         const type = searchParams.get('type');
         const error = searchParams.get('error');
         const errorDescription = searchParams.get('error_description');
+        const code = searchParams.get('code');
         
         // If there's an error, display it
         if (error) {
           setVerificationStatus('error');
           setErrorMessage(errorDescription || 'An error occurred during verification');
           return;
+        }
+
+        // Handle OAuth code exchange (Apple/PKCE) so we actually get a session/JWT on Safari/iOS
+        if (code) {
+          const { data: existingSession } = await supabase.auth.getSession();
+          if (!existingSession.session) {
+            const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+            if (exchangeError) {
+              setVerificationStatus('error');
+              setErrorMessage(exchangeError.message);
+              return;
+            }
+          }
+
+          // Clean the URL to avoid re-exchanging the same code on refresh
+          const cleanUrl = window.location.origin + window.location.pathname;
+          window.history.replaceState({}, document.title, cleanUrl);
         }
         
         // If it's a signup confirmation
@@ -38,13 +63,7 @@ const AuthCallback: React.FC = () => {
           }
           
           // Set the session with Supabase
-          if (!config.supabaseClient) {
-            setVerificationStatus('error');
-            setErrorMessage('Configuration error');
-            return;
-          }
-          
-          const { error } = await config.supabaseClient.auth.setSession({
+          const { error } = await supabase.auth.setSession({
             access_token: accessToken,
             refresh_token: refreshToken
           });
@@ -56,7 +75,7 @@ const AuthCallback: React.FC = () => {
           }
           
           // Get the current user
-          const { data: { user } } = await config.supabaseClient?.auth.getUser() || { data: { user: null } };
+          const { data: { user } } = await supabase.auth.getUser() || { data: { user: null } };
           
           if (!user) {
             setVerificationStatus('error');
@@ -65,7 +84,7 @@ const AuthCallback: React.FC = () => {
           }
           
           // Check if user has completed onboarding
-          const { data: onboardingData, error: onboardingError } = await config.supabaseClient
+          const { data: onboardingData, error: onboardingError } = await supabase
             ?.from('onboarding_data')
             .select('is_completed, current_step')
             .eq('user_id', user.id)
@@ -86,12 +105,27 @@ const AuthCallback: React.FC = () => {
           }, 1200);
         } else {
           // Handle other auth types (OAuth, etc.)
-          // Get the current user
-          const { data: { user } } = await config.supabaseClient?.auth.getUser() || { data: { user: null } };
+          // If a session is already present (e.g., implicit flow), this will return it
+          const { data: { session }, error: sessionError } = await supabase.auth.getSession();
           
-          if (user && config.supabaseClient) {
+          if (sessionError) {
+            setVerificationStatus('error');
+            setErrorMessage(sessionError.message);
+            return;
+          }
+
+          if (!session) {
+            setVerificationStatus('error');
+            setErrorMessage('No active session found. Please try signing in again.');
+            return;
+          }
+
+          // Get the current user
+          const { data: { user } } = await supabase.auth.getUser() || { data: { user: null } };
+          
+          if (user) {
             // Check if user has completed onboarding
-            const { data: onboardingData, error: onboardingError } = await config.supabaseClient
+            const { data: onboardingData, error: onboardingError } = await supabase
               .from('onboarding_data')
               .select('is_completed, current_step')
               .eq('user_id', user.id)
