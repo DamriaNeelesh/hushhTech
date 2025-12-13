@@ -72,8 +72,8 @@ serve(async (req) => {
     const successUrl = `${origin}/onboarding/meet-ceo?payment=success&session_id={CHECKOUT_SESSION_ID}`;
     const cancelUrl = `${origin}/onboarding/meet-ceo?payment=cancel`;
 
-    // Create Stripe Checkout Session
-    const session = await stripe.checkout.sessions.create({
+    // Create Stripe Checkout Session - email is optional (handle edge case where user has no email)
+    const checkoutConfig: any = {
       payment_method_types: ['card'],
       line_items: [
         {
@@ -91,13 +91,19 @@ serve(async (req) => {
       mode: 'payment',
       success_url: successUrl,
       cancel_url: cancelUrl,
-      customer_email: user.email,
       metadata: {
         user_id: user.id,
         purpose: 'ceo_meeting',
         hushh_coins: '100',
       },
-    });
+    };
+
+    // Only prepopulate email if user has one (handle edge case where user has no email)
+    if (user.email) {
+      checkoutConfig.customer_email = user.email;
+    }
+
+    const session = await stripe.checkout.sessions.create(checkoutConfig);
 
     // Upsert payment record with pending status
     const { error: upsertError } = await supabase

@@ -4,6 +4,42 @@ import config from '../../resources/config/config';
 
 type PaymentState = 'loading' | 'not_paid' | 'verifying' | 'paid' | 'booked';
 
+// Shimmer loading component
+const ShimmerLoader = ({ message }: { message: string }) => (
+  <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: '#FAFAFA' }}>
+    <div className="w-full max-w-md">
+      {/* Shimmer avatar */}
+      <div className="flex justify-center mb-8">
+        <div className="w-24 h-24 rounded-full bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-pulse" />
+      </div>
+      
+      {/* Shimmer title */}
+      <div className="space-y-3 mb-8">
+        <div className="h-8 w-3/4 mx-auto bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 rounded-lg animate-pulse" />
+        <div className="h-4 w-1/2 mx-auto bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 rounded animate-pulse" />
+      </div>
+
+      {/* Spinning loader */}
+      <div className="flex flex-col items-center gap-4">
+        <div className="relative w-16 h-16">
+          <div className="absolute inset-0 rounded-full border-4 border-gray-200" />
+          <div 
+            className="absolute inset-0 rounded-full border-4 border-t-gray-800 animate-spin"
+            style={{ animationDuration: '1s' }}
+          />
+        </div>
+        <p className="text-lg text-gray-600 font-medium">{message}</p>
+      </div>
+
+      {/* Shimmer content blocks */}
+      <div className="mt-8 space-y-4">
+        <div className="h-20 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 rounded-xl animate-pulse" />
+        <div className="h-14 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 rounded-full animate-pulse" />
+      </div>
+    </div>
+  </div>
+);
+
 function MeetCeoPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -12,9 +48,13 @@ function MeetCeoPage() {
   const [error, setError] = useState<string | null>(null);
   const [hushhCoins, setHushhCoins] = useState(0);
 
-  // Check for payment success callback
+  // Scroll to top on mount
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  // Check payment status on mount
+  useEffect(() => {
     checkPaymentStatus();
   }, []);
 
@@ -169,38 +209,51 @@ function MeetCeoPage() {
     navigate('/onboarding/step-14');
   };
 
-  // Loading state
+  // Loading/Verifying state with shimmer
   if (paymentState === 'loading' || paymentState === 'verifying') {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: '#FFFFFF' }}>
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-lg text-gray-600">
-            {paymentState === 'verifying' ? 'Verifying your payment...' : 'Loading...'}
-          </p>
-        </div>
-      </div>
+      <ShimmerLoader 
+        message={paymentState === 'verifying' ? 'Verifying your payment...' : 'Loading...'} 
+      />
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 pt-28 pb-12" style={{ backgroundColor: '#FFFFFF' }}>
+    <div className="min-h-screen flex items-center justify-center p-4 pt-28 pb-12" style={{ backgroundColor: '#FAFAFA' }}>
       <div className="w-full max-w-2xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-24 h-24 bg-gradient-to-r from-cyan-500 to-cyan-400 rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg">
-            <span className="text-4xl">👤</span>
+          <div 
+            className="w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center"
+            style={{ backgroundColor: '#E5E5E5' }}
+          >
+            <svg 
+              width="48" 
+              height="48" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="#1A1A1A" 
+              strokeWidth="1.5"
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
           </div>
-          <h1 className="text-[28px] md:text-[36px] mb-3" style={{ color: '#0B1120', fontWeight: 500 }}>
+          <h1 className="text-[28px] md:text-[36px] mb-3" style={{ color: '#1A1A1A', fontWeight: 500 }}>
             Meet Manish Sainani
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg" style={{ color: '#666666' }}>
             CEO & Co-Founder of Hushh Technologies
           </p>
         </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-center">
+          <div 
+            className="mb-6 p-4 rounded-xl text-center"
+            style={{ backgroundColor: '#FEE2E2', border: '1px solid #FECACA', color: '#991B1B' }}
+          >
             {error}
           </div>
         )}
@@ -209,36 +262,58 @@ function MeetCeoPage() {
         {paymentState === 'not_paid' && (
           <>
             {/* Why Pay $1 */}
-            <div className="bg-gray-50 rounded-2xl p-6 mb-8">
-              <h2 className="text-xl mb-4" style={{ color: '#0B1120', fontWeight: 500 }}>
+            <div 
+              className="rounded-2xl p-6 mb-8"
+              style={{ backgroundColor: '#F5F5F5', border: '1px solid #E5E5E5' }}
+            >
+              <h2 className="text-xl mb-4" style={{ color: '#1A1A1A', fontWeight: 500 }}>
                 Why pay $1?
               </h2>
               <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-green-600">🛡️</span>
+                <div className="flex items-start gap-4">
+                  <div 
+                    className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ backgroundColor: '#E5E5E5' }}
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" strokeWidth="2">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Bot Protection</p>
-                    <p className="text-sm text-gray-600">Ensures only real users can book meetings with our CEO</p>
+                    <p className="font-medium" style={{ color: '#1A1A1A' }}>Bot Protection</p>
+                    <p className="text-sm" style={{ color: '#666666' }}>Ensures only real users can book meetings with our CEO</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-yellow-600">🪙</span>
+                <div className="flex items-start gap-4">
+                  <div 
+                    className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ backgroundColor: '#E5E5E5' }}
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M12 6v6l4 2" />
+                    </svg>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Earn 100 Hushh Coins</p>
-                    <p className="text-sm text-gray-600">Get 100 Hushh Coins credited to your account upon payment</p>
+                    <p className="font-medium" style={{ color: '#1A1A1A' }}>Earn 100 Hushh Coins</p>
+                    <p className="text-sm" style={{ color: '#666666' }}>Get 100 Hushh Coins credited to your account upon payment</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-blue-600">📅</span>
+                <div className="flex items-start gap-4">
+                  <div 
+                    className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ backgroundColor: '#E5E5E5' }}
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" strokeWidth="2">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                      <line x1="16" y1="2" x2="16" y2="6" />
+                      <line x1="8" y1="2" x2="8" y2="6" />
+                      <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Direct Access</p>
-                    <p className="text-sm text-gray-600">Book a personal meeting with CEO Manish Sainani</p>
+                    <p className="font-medium" style={{ color: '#1A1A1A' }}>Direct Access</p>
+                    <p className="text-sm" style={{ color: '#666666' }}>Book a personal meeting with CEO Manish Sainani</p>
                   </div>
                 </div>
               </div>
@@ -248,21 +323,31 @@ function MeetCeoPage() {
             <button
               onClick={handlePayment}
               disabled={loading}
-              className="w-full py-4 rounded-full text-lg font-semibold mb-4 transition-all disabled:opacity-50 shadow-lg hover:shadow-xl"
+              className="w-full py-4 rounded-full text-lg font-semibold mb-4 transition-all disabled:opacity-50"
               style={{
                 background: 'linear-gradient(to right, #00A9E0, #6DD3EF)',
                 color: '#0B1120',
               }}
             >
-              {loading ? 'Redirecting to payment...' : 'Pay $1 to Schedule Meeting'}
+              {loading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                  Redirecting to payment...
+                </span>
+              ) : (
+                'Pay $1 to Schedule Meeting'
+              )}
             </button>
 
             {/* Back Button */}
             <button
               onClick={handleBack}
               disabled={loading}
-              className="w-full py-3 text-lg font-medium"
-              style={{ color: '#8B4513' }}
+              className="w-full py-3 text-lg font-medium transition-colors"
+              style={{ color: '#666666' }}
             >
               Back
             </button>
@@ -273,28 +358,44 @@ function MeetCeoPage() {
         {paymentState === 'paid' && (
           <>
             {/* Success Message */}
-            <div className="bg-green-50 rounded-2xl p-6 mb-6 text-center">
-              <div className="text-4xl mb-3">🎉</div>
-              <h2 className="text-xl mb-2" style={{ color: '#0B1120', fontWeight: 500 }}>
+            <div 
+              className="rounded-2xl p-6 mb-6 text-center"
+              style={{ backgroundColor: '#F5F5F5', border: '1px solid #E5E5E5' }}
+            >
+              <div 
+                className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center"
+                style={{ backgroundColor: '#E5E5E5' }}
+              >
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" strokeWidth="2">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+              <h2 className="text-xl mb-2" style={{ color: '#1A1A1A', fontWeight: 500 }}>
                 Payment Successful!
               </h2>
-              <p className="text-gray-600">
-                You've earned <span className="font-bold text-yellow-600">{hushhCoins} Hushh Coins</span>
+              <p style={{ color: '#666666' }}>
+                You've earned <span className="font-bold" style={{ color: '#1A1A1A' }}>{hushhCoins} Hushh Coins</span>
               </p>
             </div>
 
             {/* Calendly Instructions */}
-            <div className="bg-blue-50 rounded-2xl p-6 mb-6 text-center">
-              <h2 className="text-xl mb-3" style={{ color: '#0B1120', fontWeight: 500 }}>
+            <div 
+              className="rounded-2xl p-6 mb-6 text-center"
+              style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E5E5' }}
+            >
+              <h2 className="text-xl mb-3" style={{ color: '#1A1A1A', fontWeight: 500 }}>
                 Book Your Meeting
               </h2>
-              <p className="text-gray-600 mb-4">
+              <p style={{ color: '#666666' }}>
                 Choose a convenient time to meet with Manish Sainani
               </p>
             </div>
 
             {/* Calendly Embed */}
-            <div className="rounded-2xl overflow-hidden shadow-lg mb-6" style={{ height: '700px' }}>
+            <div 
+              className="rounded-2xl overflow-hidden mb-6" 
+              style={{ height: '700px', border: '1px solid #E5E5E5' }}
+            >
               <iframe
                 src="https://calendly.com/hushh"
                 width="100%"
@@ -307,7 +408,7 @@ function MeetCeoPage() {
             {/* After Booking Button */}
             <button
               onClick={handleCalendlyBooked}
-              className="w-full py-4 rounded-full text-lg font-semibold mb-4 transition-all shadow-lg hover:shadow-xl"
+              className="w-full py-4 rounded-full text-lg font-semibold mb-4 transition-all"
               style={{
                 background: 'linear-gradient(to right, #00A9E0, #6DD3EF)',
                 color: '#0B1120',
@@ -318,7 +419,8 @@ function MeetCeoPage() {
 
             <button
               onClick={handleContinueToProfile}
-              className="w-full py-3 text-lg font-medium text-gray-500 hover:text-gray-700"
+              className="w-full py-3 text-lg font-medium transition-colors hover:opacity-80"
+              style={{ color: '#666666' }}
             >
               Skip - I'll book later
             </button>
@@ -328,22 +430,32 @@ function MeetCeoPage() {
         {/* Booked State */}
         {paymentState === 'booked' && (
           <>
-            <div className="bg-green-50 rounded-2xl p-8 mb-8 text-center">
-              <div className="text-5xl mb-4">✅</div>
-              <h2 className="text-2xl mb-3" style={{ color: '#0B1120', fontWeight: 500 }}>
+            <div 
+              className="rounded-2xl p-8 mb-8 text-center"
+              style={{ backgroundColor: '#F5F5F5', border: '1px solid #E5E5E5' }}
+            >
+              <div 
+                className="w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center"
+                style={{ backgroundColor: '#E5E5E5' }}
+              >
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" strokeWidth="2">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+              <h2 className="text-2xl mb-3" style={{ color: '#1A1A1A', fontWeight: 500 }}>
                 All Set!
               </h2>
-              <p className="text-gray-600 mb-2">
+              <p className="mb-2" style={{ color: '#666666' }}>
                 Your meeting is scheduled with Manish Sainani.
               </p>
-              <p className="text-gray-600">
-                You've earned <span className="font-bold text-yellow-600">{hushhCoins} Hushh Coins</span>!
+              <p style={{ color: '#666666' }}>
+                You've earned <span className="font-bold" style={{ color: '#1A1A1A' }}>{hushhCoins} Hushh Coins</span>!
               </p>
             </div>
 
             <button
               onClick={handleContinueToProfile}
-              className="w-full py-4 rounded-full text-lg font-semibold transition-all shadow-lg hover:shadow-xl"
+              className="w-full py-4 rounded-full text-lg font-semibold transition-all"
               style={{
                 background: 'linear-gradient(to right, #00A9E0, #6DD3EF)',
                 color: '#0B1120',
