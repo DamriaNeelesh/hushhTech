@@ -16,6 +16,9 @@ export default async function appleSignIn() {
       provider: "apple",
       options: {
         redirectTo,
+        // PKCE is more reliable across Safari/iOS and ensures we get a code to exchange for a session
+        flowType: "pkce",
+        scopes: "name email",
       },
     });
 
