@@ -19,15 +19,20 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
       try {
         if (!config.supabaseClient) {
           console.error("Supabase client is not initialized");
+          console.info("[Hushh][ProtectedRoute] Missing Supabase client, cannot verify session");
           navigate("/login");
           return;
         }
 
         // Check if user is authenticated
-        const { data: { user } } = await config.supabaseClient.auth.getUser();
+        const { data: { user }, error: userError } = await config.supabaseClient.auth.getUser();
+        if (userError) {
+          console.error("[Hushh][ProtectedRoute] getUser error", userError);
+        }
         
         if (!user || !user.email) {
           // User is not authenticated, redirect to login
+          console.info("[Hushh][ProtectedRoute] No user/email found after auth check");
           navigate("/login");
           return;
         }
@@ -38,6 +43,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
           .select('is_completed, current_step')
           .eq('user_id', user.id)
           .maybeSingle();
+        console.info("[Hushh][ProtectedRoute] Session ok", { userId: user.id, email: user.email, onboardingFound: !!onboardingData });
 
         // If user hasn't completed onboarding and is NOT on an onboarding page, redirect to onboarding
         const isOnOnboardingPage = location.pathname.startsWith('/onboarding/');

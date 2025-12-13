@@ -31,6 +31,22 @@
       gtag('config', 'G-R58S9WWPM0');
     </script>
 
+    <!-- vConsole for mobile debugging (shows console/logs/errors on iPhone Safari) -->
+    <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
+    <script>
+      window.vConsole = new VConsole();
+      // Pinpoint message: tap the vConsole icon -> Log tab -> look for this INFO entry.
+      console.info("[Hushh] Debug info: If Apple sign-in loops, capture the Log/Network tabs and share the first error or failed request.");
+      console.info("[Hushh] JWT check: After Apple/Face ID sign-in, check for a Supabase session and user email in AuthCallback and ProtectedRoute logs.");
+      // Surface runtime errors into the console so they appear in vConsole.
+      window.addEventListener("error", (event) => {
+        console.error("[Hushh] Uncaught error", { message: event.message, source: event.filename, line: event.lineno, col: event.colno, error: event.error });
+      });
+      window.addEventListener("unhandledrejection", (event) => {
+        console.error("[Hushh] Unhandled promise rejection", event.reason);
+      });
+    </script>
+
     <title>Hushh Technologies</title>
   </head>
   <body>

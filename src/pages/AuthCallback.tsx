@@ -17,6 +17,7 @@ const AuthCallback: React.FC = () => {
         if (!supabase) {
           setVerificationStatus('error');
           setErrorMessage('Configuration error');
+          console.error('[Hushh][AuthCallback] Supabase client missing - cannot restore session');
           return;
         }
 
@@ -25,11 +26,13 @@ const AuthCallback: React.FC = () => {
         const error = searchParams.get('error');
         const errorDescription = searchParams.get('error_description');
         const code = searchParams.get('code');
+        console.info('[Hushh][AuthCallback] Callback hit', { type, hasCode: !!code, hasError: !!error });
         
         // If there's an error, display it
         if (error) {
           setVerificationStatus('error');
           setErrorMessage(errorDescription || 'An error occurred during verification');
+          console.error('[Hushh][AuthCallback] OAuth error', { error, errorDescription });
           return;
         }
 
@@ -41,8 +44,10 @@ const AuthCallback: React.FC = () => {
             if (exchangeError) {
               setVerificationStatus('error');
               setErrorMessage(exchangeError.message);
+              console.error('[Hushh][AuthCallback] Code exchange failed', exchangeError);
               return;
             }
+            console.info('[Hushh][AuthCallback] Code exchange succeeded, session created');
           }
 
           // Clean the URL to avoid re-exchanging the same code on refresh
@@ -59,6 +64,7 @@ const AuthCallback: React.FC = () => {
           if (!accessToken || !refreshToken) {
             setVerificationStatus('error');
             setErrorMessage('Missing authentication tokens');
+            console.error('[Hushh][AuthCallback] Missing tokens in signup callback');
             return;
           }
           
@@ -71,6 +77,7 @@ const AuthCallback: React.FC = () => {
           if (error) {
             setVerificationStatus('error');
             setErrorMessage(error.message);
+            console.error('[Hushh][AuthCallback] setSession failed', error);
             return;
           }
           
@@ -80,6 +87,7 @@ const AuthCallback: React.FC = () => {
           if (!user) {
             setVerificationStatus('error');
             setErrorMessage('Could not retrieve user information');
+            console.error('[Hushh][AuthCallback] No user after setSession');
             return;
           }
           
@@ -111,12 +119,14 @@ const AuthCallback: React.FC = () => {
           if (sessionError) {
             setVerificationStatus('error');
             setErrorMessage(sessionError.message);
+            console.error('[Hushh][AuthCallback] getSession error', sessionError);
             return;
           }
 
           if (!session) {
             setVerificationStatus('error');
             setErrorMessage('No active session found. Please try signing in again.');
+            console.error('[Hushh][AuthCallback] No active session after callback');
             return;
           }
 
@@ -130,6 +140,7 @@ const AuthCallback: React.FC = () => {
               .select('is_completed, current_step')
               .eq('user_id', user.id)
               .maybeSingle(); // Use maybeSingle() to handle cases where no record exists
+            console.info('[Hushh][AuthCallback] Session restored', { userId: user.id, email: user.email, onboardingFound: !!onboardingData });
             
             setVerificationStatus('success');
             setTimeout(() => {
