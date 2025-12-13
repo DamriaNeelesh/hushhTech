@@ -132,7 +132,8 @@ function OnboardingStep14() {
     }
 
     // Redirect to identity verification
-    navigate('/onboarding/verify');
+    // Redirect to Meet CEO page (payment layer)
+    navigate('/onboarding/meet-ceo');
   };
 
   const handleContinue = () => {

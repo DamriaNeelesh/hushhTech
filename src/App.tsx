@@ -64,6 +64,7 @@ import OnboardingStep13 from './pages/onboarding/Step13';
 import OnboardingStep14 from './pages/onboarding/Step14';
 import VerifyIdentityPage from './pages/onboarding/VerifyIdentity';
 import VerifyCompletePage from './pages/onboarding/VerifyComplete';
+import MeetCeoPage from './pages/onboarding/MeetCeo';
 import KYCDemoPage from './pages/kyc-demo';
 import KycFlowPage from './pages/kyc-flow';
 import A2APlaygroundPage from './pages/a2a-playground';
@@ -403,6 +404,11 @@ function App() {
               <Route path="/onboarding/verify-complete" element={
                 <ProtectedRoute>
                   <VerifyCompletePage />
+                </ProtectedRoute>
+              } />
+              <Route path="/onboarding/meet-ceo" element={
+                <ProtectedRoute>
+                  <MeetCeoPage />
                 </ProtectedRoute>
               } />
               <Route path="/hushh-user-profile" element={
