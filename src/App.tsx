@@ -404,6 +404,8 @@ function App() {
               <Route path="/onboarding/verify-complete" element={
                 <ProtectedRoute>
                   <VerifyCompletePage />
+                </ProtectedRoute>
+              } />
               <Route path="/onboarding/meet-ceo" element={
                 <ProtectedRoute>
                   <MeetCeoPage />
