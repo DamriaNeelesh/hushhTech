@@ -16,6 +16,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
   useEffect(() => {
     const checkAuthAndOnboarding = async () => {
+      let authTimeout: ReturnType<typeof setTimeout> | null = null;
       try {
         if (!config.supabaseClient) {
           console.error("Supabase client is not initialized");
@@ -23,17 +24,38 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
           return;
         }
 
-        // Check if user is authenticated
-        const { data: { user } } = await config.supabaseClient.auth.getUser();
-        
+        const supabase = config.supabaseClient;
+        const waitForAuthRestore = () =>
+          new Promise<null>((resolve) => {
+            const {
+              data: { subscription },
+            } = supabase.auth.onAuthStateChange((_event, session) => {
+              if (session?.user) {
+                subscription?.unsubscribe();
+                resolve(null);
+              }
+            });
+            authTimeout = setTimeout(() => {
+              subscription?.unsubscribe();
+              resolve(null);
+            }, 1200);
+          });
+
+        // Check if user is authenticated (give Safari/iOS a brief window to restore session)
+        let { data: { session } } = await supabase.auth.getSession();
+        if (!session?.user) {
+          await waitForAuthRestore();
+          ({ data: { session } } = await supabase.auth.getSession());
+        }
+
+        const user = session?.user;
         if (!user || !user.email) {
-          // User is not authenticated, redirect to login
           navigate("/login");
           return;
         }
 
         // Check if user has completed onboarding
-        const { data: onboardingData } = await config.supabaseClient
+        const { data: onboardingData } = await supabase
           .from('onboarding_data')
           .select('is_completed, current_step')
           .eq('user_id', user.id)
@@ -58,6 +80,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
         navigate("/login");
       } finally {
         setIsLoading(false);
+        if (authTimeout) {
+          clearTimeout(authTimeout);
+        }
       }
     };
 
