@@ -62,6 +62,8 @@ import OnboardingStep11 from './pages/onboarding/Step11';
 import OnboardingStep12 from './pages/onboarding/Step12';
 import OnboardingStep13 from './pages/onboarding/Step13';
 import OnboardingStep14 from './pages/onboarding/Step14';
+import VerifyIdentityPage from './pages/onboarding/VerifyIdentity';
+import VerifyCompletePage from './pages/onboarding/VerifyComplete';
 import KYCDemoPage from './pages/kyc-demo';
 import KycFlowPage from './pages/kyc-flow';
 import A2APlaygroundPage from './pages/a2a-playground';
@@ -391,6 +393,16 @@ function App() {
               <Route path="/onboarding/step-14" element={
                 <ProtectedRoute>
                   <OnboardingStep14 />
+                </ProtectedRoute>
+              } />
+              <Route path="/onboarding/verify" element={
+                <ProtectedRoute>
+                  <VerifyIdentityPage />
+                </ProtectedRoute>
+              } />
+              <Route path="/onboarding/verify-complete" element={
+                <ProtectedRoute>
+                  <VerifyCompletePage />
                 </ProtectedRoute>
               } />
               <Route path="/hushh-user-profile" element={

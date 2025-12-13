@@ -131,8 +131,8 @@ function OnboardingStep14() {
       return;
     }
 
-    // Redirect to profile
-    navigate('/hushh-user-profile');
+    // Redirect to identity verification
+    navigate('/onboarding/verify');
   };
 
   const handleContinue = () => {
